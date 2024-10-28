@@ -1,0 +1,48 @@
+/vendor/
+/.lh/
+node_modules/
+npm-debug.log
+yarn-error.log
+composer.lock
+
+# Laravel 4 specific
+/bootstrap/compiled.php
+app/storage/
+
+# Laravel 5 & Lumen specific
+/public/storage
+/public/hot
+/public/robots.txt
+/public/googlee9596fed57333b94.html
+
+# Laravel 5 & Lumen specific with changed public path
+public_html/storage
+public_html/hot
+
+storage/*.key
+.env
+Homestead.yaml
+Homestead.json
+/.vagrant
+.phpunit.result.cache
+
+#recordings
+/public/video_chat/server/recordings
+/public/video_chat/
+
+#socket configurations
+/config/broadcasting.php
+/config/websockets.php
+/resources/js/bootstrap.js
+/resources/js/app.js
+/public/js/app.js
+
+#public uploads
+/public/uploads
+/public/asset_admin/images/user_profile
+/public/css/app.css
+/public/js/app.js
+
+
+
+/public/blog

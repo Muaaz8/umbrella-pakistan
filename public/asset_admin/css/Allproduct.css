@@ -1,0 +1,23 @@
+
+.product-input{
+    border:2px solid #d2d2d2 !important;
+    padding-left: 20px !important;
+}
+.select{
+    background-color: rgb(235, 231, 231) !important;
+}
+label{
+    font-weight: 400 !important;
+    font-size: 14px !important;
+}
+.save-btn{
+    background-color: rgb(29, 134, 29) !important;
+    color:#fff !important;
+}
+.close-btn{
+    background-color: rgb(233, 233, 233) !important;
+    color:rgb(7, 7, 7) !important;
+}
+.btn-primary{
+    color: #fff !important;
+}

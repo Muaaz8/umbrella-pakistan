@@ -1,0 +1,78 @@
+----------------------------------------------------------------
+Version 1.5.3 - 15 Apr 2018
+----------------------------------------------------------------
+- Fixed: Post views codes improved.
+
+
+----------------------------------------------------------------
+Version 1.5.2 - 20 Dec 2017
+----------------------------------------------------------------
+- Fixed: Incorrect url for AMP Pixel fixed.
+
+
+----------------------------------------------------------------
+Version 1.5.1 - 12 Dec 2017
+----------------------------------------------------------------
+- Fixed: counter "Guests or Subscribers" not works properly.
+
+
+----------------------------------------------------------------
+Version 1.5.0 - 10 Nov 2017
+----------------------------------------------------------------
+ - Improved: AMP support Better Post Views plugin improved. Uses AMP Pixel to track 100% of all AMP visits. (needs HTTPS)
+
+
+----------------------------------------------------------------
+Version 1.4.3 - 23 Aug 2017
+----------------------------------------------------------------
+ - Fixed: Bugs fixed.
+
+
+----------------------------------------------------------------
+Version 1.4.1 - 17 May 2017
+----------------------------------------------------------------
+- Improved: Admin smart notice to warn compatibility steps of "WP Fastest Cache" plugin.
+
+
+----------------------------------------------------------------
+Version 1.4.0 - 1 May 2017
+----------------------------------------------------------------
+- Added: Option to change post views to fake number ;)
+- Added: BetterAMP support added to Better Post Views
+- Added: New filter for counting post views added (Guests + Subscriber Users)
+
+
+----------------------------------------------------------------
+Version 1.3.2 - 20 Apr 2017
+----------------------------------------------------------------
+- Added: The_Better_Views_Count function added.
+- Fixed: W3 Total Cache minifier issue fixed.
+
+
+----------------------------------------------------------------
+Version 1.3.1 - 26 Nov 2017
+----------------------------------------------------------------
+- Fixed: Javascript error fixed.
+
+----------------------------------------------------------------
+Version 1.3.0 - 23 Nov 2017
+----------------------------------------------------------------
+- Improved: Views counter performance improved.
+- Improved: Post views count will be updated even when cache plugin is active. Visitors will see last and updated views count. 
+
+----------------------------------------------------------------
+Version 1.2.1 - 18 Nov 2017
+----------------------------------------------------------------
+- Fixed: Post views is not working.
+
+
+----------------------------------------------------------------
+Version 1.2.0 - 15 Nov 2016
+----------------------------------------------------------------
+- Performance improved.
+
+
+----------------------------------------------------------------
+Version 1.1.0 - 10 Sep 2016
+----------------------------------------------------------------
+- Public release in Publisher.

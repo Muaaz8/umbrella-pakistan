@@ -1,0 +1,64 @@
+---------------------------------
+Version 3.2.2 - 28 Feb 2017      —-— Exclusive version for Publisher
+---------------------------------
+- Fixed: Minor script printing.
+
+
+---------------------------------
+Version 3.2.1 - 20 Feb 2017      —-— Exclusive version for Publisher
+---------------------------------
+- Improved: Files optmized.
+
+
+---------------------------------
+Version 3.2.0 - 15 Nov 2016      —-— Exclusive version for Publisher
+---------------------------------
+- Performance improved.
+- Panel improved.
+
+
+
+---------------------------------
+Version 3.1.1 - 6 Oct 2016      —-— Exclusive version for Publisher
+---------------------------------
+- codes improved.
+
+
+---------------------------------
+Version 3.0.2 - 10 Sep 2016      
+---------------------------------
+- 3 new data source added
+- half of codes rewriten from scratch
+- Translation panel improved
+- Speed improved
+
+
+
+---------------------------------
+Version 2.0.3 - Jun 30th, 2015   --- Current Public Version
+---------------------------------
+- prettyPhoto XSS fix.
+
+
+
+---------------------------------
+Version 2.0 - April 18th, 2015
+---------------------------------
+- NEW: Options to change all background image and background color of all forecasts added.
+- NEW: Options to change each forecast background image and background color added.
+
+- Improved: Style fixed and improved.
+
+- Note: Documentation will be updated in next version ( version 2.1 ).
+
+
+
+---------------------------------
+Version 1.6 - April 14th, 2015
+---------------------------------
+
+- NEW: Fully WPML support added.
+- NEW: New translation texts added to admin panel.
+- NEW: Admin panel redesigned to simple and better usage.
+
+- IMPROVE: Style fix & improvement.

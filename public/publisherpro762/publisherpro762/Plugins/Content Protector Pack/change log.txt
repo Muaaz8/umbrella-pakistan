@@ -1,0 +1,39 @@
+----------------------------------------------------------------
+Version 1.1.1 - 4 May 2018
+----------------------------------------------------------------
+- Fixed: Content protector panel not save.
+
+
+----------------------------------------------------------------
+Version 1.1.0 - 23 Nov 2018
+----------------------------------------------------------------
+- Improved: site link and post link usage in the content protector custom text copy field.
+- Improved: Content protector codes improved.
+
+
+
+----------------------------------------------------------------
+Version 1.0.0 - 11 Sep 2018
+----------------------------------------------------------------
+- Added: Images right click and drag drop protection.
+- Added: Remove images links larger version protection.
+- Added: Option to disable loading your site images in another domain name.
+- Added: Option to set watermark on images.
+- Added: Option to deactivate text selection and copy.
+- Added: Option to disable right click on texts.
+- Added: Option to append a text to copied text on your site.
+- Added: Option to disable CTRL+C and all other Windows shortcuts.
+- Added: Option to disable Command+C and all other Mac shortcuts.
+- Added: Viewsource protection.
+- Added: Custom message and custom URL redirection for viewsource.
+- Added: Empty custom lines to the start of viewsource.
+- Added: Protection for your site when the javascript is disabled. (redirect or custom message)
+- Added: Feed (RSS) Protection. (redirect or custom message)
+- Added: Print button protection (redirect or custom message)
+- Added: Option to protect your site to load in a iFrame in another site.
+- Added: Emails obfuscation.
+- Added: Option to filter and activate protections based on users roles.
+- Added: Options to deactivate protections in specific pages.
+- Added: Import/Export added to Content Protector Pack
+- Added: Redirect Feed page to Normal page added.
+- Added: Option to limit the copied text to x length of characters.

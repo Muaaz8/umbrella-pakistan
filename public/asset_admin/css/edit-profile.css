@@ -1,0 +1,147 @@
+.btn-flat {
+    cursor: pointer;
+}
+option { 
+    /* Whatever color  you want */
+    background-color: #08295a;
+}
+.edit-profile .custom-file-upload {
+    color: white;
+    /* border: 1px solid #ccc; */
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    background:#000000;
+    border-radius: 100%;
+    position: absolute;
+    right: 40%;
+    top: 70%;
+}
+.edit-profile .shadow-lg {
+    background: #4676be;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #3498db, #2c3e50);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #3498db, #2c3e50);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+    z-index: 1;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px !important;
+}
+
+.edit-profile input,
+.edit-profile select,
+.edit-profile textarea {
+    border: none !important;
+    border-bottom: 1px solid #fff !important;
+    color: #fff !important;
+    text-align: left !important;
+}
+
+.edit-profile input:focus {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px !important;
+    color:white!important;
+}
+
+.edit-profile select:focus {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px !important;
+    color:white!important;
+
+}
+
+.edit-profile textarea:focus {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px !important;
+    color:white!important;
+
+}
+
+.edit-profile label {
+    color: #fff !important;
+    text-align: left !important;
+    font-weight: 700 !important;
+}
+
+.edit-profile #img {
+    position: relative;
+}
+
+.edit-profile .update-btn {
+
+    background: #4676be;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #3498db, #2c3e50);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #3498db, #2c3e50);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px !important;
+    padding: 20px 40px !important;
+    border-radius: 20px !important;
+    color: #fff !important;
+    border: none !important;
+    margin: 10px !important;
+}
+
+.edit-profile .btn-primary {
+    background: #4676be;
+    /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #3498db, #2c3e50);
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #3498db, #2c3e50);
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px !important;
+    padding: 20px 40px !important;
+    border-radius: 20px !important;
+    color: #fff !important;
+    border: none !important;
+    margin: 10px !important;
+}
+
+.edit-profile .fa-plus {
+    font-size: 30px !important;
+
+}
+
+.edit-profile .img-div {
+    display: flex;
+    justify-content: space-around;
+}
+
+@media (max-width: 576px){
+    .container {
+        width:700px !important;
+        margin-left: 1%;
+        margin-right: 1%;
+    }
+    }
+@media only screen and (min-device-width:768px) and (max-device-width:1024px) and (orientation:portrait) {
+    .edit-profile .custom-file-upload {
+        right: 35%;
+
+    }
+}
+
+@media only screen and (max-width:767px) {
+    .edit-profile .custom-file-upload {
+        right: 35% !important;
+        top: 80% !important;
+    }
+
+    .btn-flat {
+        cursor: pointer;
+    }
+    .btn-default {
+        padding: 10px 20px !important;
+        border-radius: 10px !important;
+        margin: 10px !important;
+    }
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}

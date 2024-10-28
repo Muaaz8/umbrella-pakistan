@@ -1,0 +1,351 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    background: url(http://subtlepatterns2015.subtlepatterns.netdna-cdn.com/patterns/dark_embroidery.png);
+    color: #fff;
+}
+
+body {
+    font-family: 'Ubuntu', sans-serif !important;
+}
+
+#msform {
+    width: 80%;
+    margin: 0px auto 50px auto;
+    text-align: center;
+    position: relative;
+}
+
+#msform fieldset {
+    background: white;
+    border: 0 none;
+    border-radius: 3px;
+    box-shadow: 0 0 15px 1px rgba(0, 0, 0, 0.4);
+    padding: 20px 30px;
+    box-sizing: border-box;
+    width: 80%;
+    margin: 0 10%;
+    position: relative;
+}
+
+#msform fieldset:not(:first-of-type) {
+    display: none;
+}
+
+
+/* #msform input, */
+
+#msform span.select2.select2-container.select2-container--default {
+    width: 75% !important;
+    text-align: left;
+}
+
+#msform textarea {
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: 'Ubuntu', sans-serif !important;
+    color: #2C3E50;
+    font-size: 13px;
+}
+
+#msform .action-button {
+    width: 100px;
+    background: #27AE60;
+    font-weight: 400;
+    color: white;
+    border: 0 none;
+    border-radius: 1px;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px;
+}
+
+#msform .action-button:hover,
+#msform .action-button:focus {
+    box-shadow: 0 0 0 2px white, 0 0 0 3px #27AE60;
+}
+
+.fs-title {
+    font-size: 15px;
+    text-transform: uppercase;
+    color: #2C3E50;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.fs-subtitle {
+    font-weight: normal;
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+#progressbar {
+    margin-bottom: 30px;
+    overflow: hidden;
+    counter-reset: step;
+}
+
+#progressbar li {
+    list-style-type: none;
+    color: #D2D2D2;
+    text-transform: capitalize;
+    font-size: 16px;
+    width: 25%;
+    float: left;
+    position: relative;
+}
+
+#progressbar li.active {
+    /* color: #27AE60; */
+    color: #08295a;
+}
+
+#progressbar li:before {
+    content: '';
+    /*counter(step)*/
+    counter-increment: step;
+    width: 50px;
+    line-height: 50px;
+    display: block;
+    font-size: 18px;
+    color: #fff;
+    background: transparent;
+    border-radius: 100%;
+    margin: 0 auto 5px auto;
+    border: 2px solid #ECECEC;
+}
+
+#progressbar li:nth-child(1):before {
+    content: "\f007";
+    font-family: 'Font Awesome 5 Free';
+}
+
+#progressbar li:nth-child(2):before {
+    content: "\f022";
+    font-family: 'Font Awesome 5 Free';
+}
+
+#progressbar li:nth-child(3):before {
+    content: "\f21e";
+    font-family: 'Font Awesome 5 Free';
+}
+#progressbar li:nth-child(4):before {
+    content: "\f007";
+    font-family: 'Font Awesome 5 Free';
+}
+
+#progressbar li:after {
+    content: '';
+    width: 73%;
+    height: 2px;
+    background: #ECECEC;
+    position: absolute;
+    left: -35%;
+    top: 25px;
+    z-index: -1;
+}
+
+#progressbar li:first-child:after {
+    content: none;
+}
+
+#progressbar li.active:before {
+    border: 2px solid #08295a;
+    color: #08295a;
+    /* content: "\f164";*/
+}
+
+#progressbar li.active:after {
+    background: #27AE60;
+    color: white;
+}
+
+.form_holder {
+    text-align: center;
+    margin: 30px 0 0;
+}
+
+label {
+    margin-bottom: 0 !important;
+    text-align: initial;
+    font-weight: bold;
+    /* text-align:right; */
+}
+
+.error {
+    text-align: center;
+}
+input{
+    margin-bottom: 7px;
+
+}
+select{
+    margin-bottom: 12px;
+}
+.form-check-label {
+    width: 400px !important;
+}
+
+
+/* #msform input, */
+
+#msform textarea {
+    width: 20% !important;
+}
+
+.hr-with-heading {
+    width: 100%;
+    height: 20px;
+    border-bottom: 1px solid black;
+    text-align: center;
+    margin-bottom: 2%;
+}
+
+.hr-heading {
+    font-size: 22px;
+    background-color: #fff;
+    padding: 0 10px;
+}
+
+.xdsoft_month {
+    width: 100px;
+    text-align: left !important;
+}
+
+.xdsoft_calendar th {
+    text-align: left !important;
+}
+.pass-input{
+    margin-left: 130px;
+    margin-top: 3px;
+    margin-bottom: 10px;
+}
+.pass-text{
+    /* margin-top: 7px; */
+    position: absolute;
+    top: -15px;
+    left: 140px;
+}
+.canvas{
+    position:relative;
+}
+.redo-icon{
+    background: #08295a;
+    border: 1px solid #08295a;
+    color: white;
+    position: absolute;
+    right: 20px;
+    top: 5px;
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+}
+.show-psd{
+    padding-left: 8px;
+    margin-top: -2px;
+}
+.show-check{
+padding-top: 1px;
+}
+.pass{
+    position: relative;
+}
+.arrow{
+    color: white !important;
+    margin-top: 6px;
+    margin-left:-5px;
+
+}
+.select2-selection{
+    border: 2px solid #eeeeee !important;
+  
+}
+.canvasborder{
+    border: 2px solid #eeeeee;
+    border-radius: 15px;
+}
+.agree-border{
+    border: 2px solid #eeeeee;
+    width: 50%;
+}
+#sig-canvas {
+    cursor: pointer;
+}
+.terms{
+    border: 2px solid #eeeeee;
+    border-radius: 15px;
+    text-align: justify;
+
+}
+.term_of_use{
+    padding: 20px;
+    height: 300px;
+    overflow-y: scroll;
+}
+.terms li strong{
+ font-weight: 400;
+}
+.button_ui {
+    background-color: #08295a !important;
+    color: #fff !important;
+    font-weight: bold !important;
+    border: 1px solid #08295a !important;
+    padding: 10px !important;
+    border-radius: 8px !important;
+}
+.register_btn {
+    background-color: #838c99 !important;
+    color: #fff !important;
+    font-weight: bold !important;
+    border: 1px solid #838c99 !important;
+    padding: 10px !important;
+    border-radius: 8px !important;
+}
+.agree{
+    padding: 0.14rem !important;
+}
+.document{
+    font-size: 12px;
+    color:red;
+}
+.docborder{
+    border: 2px solid #eeeeee;
+    border-radius: 15px;
+    height:100% !important;
+}
+/* .network-head{
+    text-align: center !important;
+    text-decoration: underline !important;
+    font-weight: 500 !important;
+    font-size: 20px !important;
+}
+
+.agree-li{
+    text-decoration: underline !important;
+    font-weight: 600 !important;
+    font-size: 17px !important;
+}
+.agree ul li{
+    padding: 20px !important;
+} */
+@media only screen and (max-width:767px) {
+    #msform fieldset {
+        margin: 0% !important;
+        width: 100% !important;
+    }
+    #msform input,
+    #msform textarea {
+        width: 100% !important;
+    }
+    .redo-icon{
+        top: 45px;
+}
+}

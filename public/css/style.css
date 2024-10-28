@@ -1,0 +1,259 @@
+h6,h5{
+    margin: 0;
+}
+.banner {
+    padding: 0;
+    background-color: #52575c;
+    color: white;
+}
+
+.banner-text {
+    padding: 8px 20px;
+    margin: 0;
+}
+
+
+#join-form {
+    margin-top: 10px;
+}
+
+.tips {
+    font-size: 12px;
+    margin-bottom: 2px;
+    color: gray;
+}
+
+.join-info-text {
+    margin-bottom: 2px;
+}
+
+input {
+    width: 100%;
+    margin-bottom: 2px;
+}
+
+.player {
+    width: 480px;
+    height: 320px;
+}
+
+.player-name {
+    margin: 8px 0;
+}
+
+#success-alert,
+#success-alert-with-token {
+    display: none;
+}
+
+@media (max-width: 640px) {
+    .player {
+        width: 320px;
+        height: 240px;
+    }
+}
+
+.ahmer{
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(400px,1fr));
+    height: 522px;
+/* background-color: red; */
+gap: 5px;
+    padding: 6px;
+
+}
+.doc_user{
+    background-image: url(../assets/images/user-camera.png);
+    background-repeat: no-repeat;
+    background-color: #000;
+    background-position: center;
+    border-radius: 15px !important;
+
+}
+.doc_user div{
+    border-radius: 15px !important;
+}
+.doc_user video{
+    border-radius: 15px !important;
+}
+.doc_user img{
+    /* width: 100%; */
+    object-fit: cover;
+    height: 200px;
+}
+.video-iconss{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+.video-iconss i{
+    font-size: 20px;
+    color: #08295a;
+    background-color: #8080801a;
+    padding: 10px 17px;
+    border-radius: 100%;
+    box-shadow: 1px 3px 4px 1px #1400ff4a;
+    cursor: pointer;
+    transition: 0.3s;
+
+}
+.video-iconss i:hover{
+    background-color:#08295a ;
+    color: #fff;
+    /* transform: rotateY(151deg);  */
+}
+.multiple__options i{
+    font-size: 20px;
+    color: #08295a;
+    cursor: pointer;
+}
+.multiple__options i:hover{
+    /* background-color: #c5c5c5; */
+    border-radius: 100%;
+    text-shadow: 2px 4px 4px #08295a;
+    color: rgb(255, 0, 0);
+    transition: 0.3s; 
+}
+/* --sidebar----- */
+ /* The side navigation menu */
+ .sidenav {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Stay on top */
+    top: 0; /* Stay at the top */
+    right: 0;
+    background-color: #08295a;
+    overflow-x: hidden; /* Disable horizontal scroll */
+      /* padding-top: 20px;  */
+    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+color: #fff;
+border-radius: 10px 0 0 10px;
+    }
+    /* .timer__{
+        background-color: #08295a;
+    color: #fff;
+    padding: 2px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    } */
+    .sidenav li{
+     line-height: 2;
+    }
+    
+    /* The navigation menu links */
+    .sidenav a {
+      /* padding: 8px 8px 8px 32px; */
+      text-decoration: none;
+      font-size: 25px;
+      color: #818181;
+      /* display: block; */
+      transition: 0.3s;
+    }
+    
+    /* When you mouse over the navigation links, change their color */
+    .sidenav a:hover {
+    color: #08295a;
+    }
+    
+    /* Position and style the close button (top right corner) */
+    .sidenav .closebtn {
+      position: absolute;
+      top: 0;
+      right: 25px;
+      font-size: 36px;
+      margin-left: 50px;
+    }
+    
+    /* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+    #main {
+      transition: margin-left .5s;
+      padding: 20px;
+    }
+    
+    /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+    @media screen and (max-height: 450px) {
+      .sidenav {padding-top: 15px;}
+      .sidenav a {font-size: 18px;}
+    } 
+    .user_Name{
+        position: absolute;
+        bottom: 8px;
+        left: 8px;
+        font-weight: 600;
+        z-index: 9;
+        color: #fff;
+    }
+    .users__headi{
+      background-color: #fff;
+padding: 18px 16px;
+color: #000;
+    }
+    .confe__top{
+      background-color: #08295a;
+      height: 50px;
+      display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 0px 0px 20px 20px;
+    }
+    .confe__top span{
+      background-color: red;
+    text-align: center;
+    border-radius: 6px;
+    color: #fff;
+    font-weight: 600;
+    padding: 1px 28px;
+    margin-right: 25px;
+    }
+    .confe__top p{
+      color: #fff;
+    margin-left: 15px;
+    font-weight: 600;
+    }
+
+    .wave {
+      animation-name: wave-animation;  /* Refers to the name of your @keyframes element below */
+      animation-duration: 2.5s;        /* Change to speed up or slow down */
+      animation-iteration-count: infinite;  /* Never stop waving  */
+      font-size: 25px;
+      color: #ff9b00;
+      margin-left: 8px;
+    }
+    
+    @keyframes wave-animation {
+        0% { transform: rotate( 0.0deg) }
+       10% { transform: rotate(14.0deg) }  /* The following five values can be played with to make the waving more or less extreme */
+       20% { transform: rotate(-8.0deg) }
+       30% { transform: rotate(14.0deg) }
+       40% { transform: rotate(-4.0deg) }
+       50% { transform: rotate(10.0deg) }
+       60% { transform: rotate( 0.0deg) }  /* Reset for the last half to pause */
+      100% { transform: rotate( 0.0deg) }
+    }
+.hand_color{
+    background-color: #08295a !important;
+    color: #fff !important;
+}
+.call-screen-header {
+    background: linear-gradient(to top, #08295a, #165dc8);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    padding: 5px 20px;
+    border-radius: 10px;
+    margin-top: 5px;
+  }
+  .call-screen-header i {
+    font-size: 35px;
+  }
+  .call-time {
+    background-color: red;
+    padding: 5px 15px;
+    border-radius: 7px;
+    margin-left: auto;
+  }
+  .agora_video_player{
+    object-fit: revert !important;
+  }

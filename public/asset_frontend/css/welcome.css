@@ -1,0 +1,188 @@
+/* lab description icon */
+.cursor{
+    cursor:pointer !important;
+}
+.info-icon {
+    border: solid black 1.5px;
+    border-radius: 45px;
+    padding: 3px;
+    box-sizing: border-box;
+    width: 23px;
+    text-align: center;
+    color: #111 !important;
+}
+/* contract css */
+.sticky {
+    width:70%;
+    position: -webkit-sticky;
+    position: fixed;
+    bottom: 0;
+    background-color:#f9f9f9;
+    border:2px solid #dfd5d5;
+    padding: 10px;
+    font-size: 20px;
+}
+/* pharmacy scroll  */
+.scrollable-element::-webkit-scrollbar-thumb {
+    background: #fff !important; 
+    border-radius: 10px;
+    border:1px solid black;
+  }
+/* pharmacy scroll end    */
+.help_call {
+    color: red;
+    font-size: 20.5px;
+    font-weight: bold;
+}
+.desciption{
+    font-size: 20px;
+    text-align: justify;
+    visibility: visible;
+    animation-name: fadeInUp;
+    font-weight: 500;
+
+}
+.desc-title{
+    margin:20px 0px 20px 0px;width:100%;color:#004861 !important
+}
+.points{
+    font-size: 1rem;
+}
+.logo-spacing {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+}
+.doc-img{
+    height: 100px; 
+    width: 100px;
+}
+.section-bg {
+    background-color: #f8f9fb !important;
+    margin-top: 40px !important;
+}
+
+.statistic-img {
+    margin-top: 150px !important;
+}
+
+.page-item {
+    margin: 5px !important;
+    border-radius: 5px !important
+}
+
+.page-link {
+    color: #111 !important;
+}
+.paginateCounter .page-item.active .page-link,
+.paginateCounter .page-item .page-link:hover {
+    background: #0c3b81 !important;
+    color: #fff !important;
+}
+
+.footer-link {
+    color: #004861 !important;
+}
+
+.footer-ul {
+    padding-inline-start: 0px !important;
+    list-style: none !important;
+}
+
+.callbtn {
+    background-color: #08295a !important;
+    color: #fff !important;
+    font-weight: bold !important;
+    border: 1px solid #08295a !important;
+    padding: 10px !important;
+    border-radius: 8px !important;
+}
+.pass-margin{
+    margin-top: 90px;
+    margin-bottom: 130px;
+}
+#scrollUp {
+    background-color: #08295a !important;
+    color: #fff !important;
+    font-weight: bold !important;
+}
+
+.aboutContent {
+    background-color: #08295a !important;
+}
+
+.aboutContentCard {
+    background-color: #08295a !important;
+}
+
+.aboutContentCard p {
+    line-height: 1.5em !important;
+    font-size: 19.2px;
+}
+.wel-img{
+    height: 180px !important;
+    width: 150px !important;
+}
+
+/************************* Faq *****************************/
+
+.accordion-button:not(.collapsed) {
+    color: #fff !important;
+    background-color: #08295a !important;
+}
+
+.accordion-button:not(.collapsed)::after {
+    background-image: none;
+    color: #fff !important;
+}
+
+@media only screen and (min-device-width:768px) and (max-device-width:1024px) and (orientation:portrait) {
+    .aboutContentCardText {
+        font-size: 18.5px;
+    }
+    .footer-div1 {
+        display: flex !important;
+        justify-content: space-around !important;
+        align-items: center !important;
+        padding-left: 40px !important;
+    }
+}
+
+@media only screen and (max-width:767px) {
+    #footerLogo {
+        height: 120px !important;
+    }
+    /* .footer-div{
+        display: flex !important; 
+        justify-content: space-around !important;
+        align-items: center !important;
+   }
+   .footer-div1{
+    display: flex !important; 
+    justify-content: space-around !important;
+    align-items: center !important;
+    padding-left: 40px  !important;
+} */
+    .emergency-div {
+        padding-left: 90px !important;
+        margin-bottom: 50px !important;
+        display: flex !important;
+        justify-content: space-around !important;
+        align-items: center !important;
+    }
+    .search-flydown--product-title {
+        line-height: 1.5rem;
+        font-size: 14px;
+    }
+    .ui.items>.item>.image+[class*="middle aligned"].content {
+        align-self: unset;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .top-cart {
+        margin-left: -65px !important;
+        margin-top: 7px !important;
+        margin-right: 0px !important;
+    }
+}

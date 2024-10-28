@@ -1,0 +1,166 @@
+.btn-login,
+.btn-register,
+.btn-login:hover,
+.btn-register:hover {
+    background: #08295a;
+    text-transform: uppercase;
+}
+
+.ui-timepicker-container.ui-timepicker-standard {
+    z-index: 9 !important;
+}
+
+.locations_panel {
+    margin-left: 0px;
+    margin-top: 20px;
+    background: #08295a;
+    color: white;
+    padding: 5px 20px;
+    font-size: 16px;
+}
+
+
+/* span.select2 {
+    width: 100% !important;
+} */
+
+.ui.toggle.checkbox.pharmacy_toggle input:checked~label:before,
+.ui.toggle.checkbox.shipping_box_toggle input:checked~label:before {
+    background-color: #00d64c !important;
+}
+
+.ui.toggle.checkbox.pharmacy_toggle label:before,
+.ui.toggle.checkbox.shipping_box_toggle label:before {
+    background-color: red !important;
+}
+
+.card-border {
+    border: 1px solid #08295a !important;
+}
+
+.billing {
+    background-color: #08295a !important;
+    color: white !important;
+    font-size: 16px !important;
+    text-transform: uppercase !important;
+}
+
+.partners-logo {
+    width: 35px !important;
+    height: 35px !important;
+}
+
+.checkout-pharmacy {
+    text-transform: uppercase !important;
+    font-size: 15px;
+    letter-spacing: 1px !important;
+}
+
+.med-del {
+    color: white !important;
+    margin: 0px 10px 0px 0px;
+    font-size: 16px;
+}
+
+.shipping-add {
+    font-size: 15px;
+    text-transform: uppercase !important;
+    background: #eee !important;
+    color: #08295a !important;
+    font-weight: bold;
+}
+
+.billing-add {
+    color: #08295a !important;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.Zipcodepharmacy {
+    height: 40px;
+}
+
+.zipcodebtn {
+    margin-top: 15px;
+    font-size: 12px;
+    border-radius: 0px;
+}
+
+.pharmacy-location {
+    width: 100%;
+    padding-right: 10px;
+}
+
+.pharmacymapbox {
+    height: 200px;
+    width: 98%;
+    display: none;
+    margin: 15px auto;
+}
+
+.checkout {
+    padding: 0px !important;
+    margin: 0px !important;
+}
+
+.checkout-btn {
+    background-color: #08295a;
+    color: white;
+    letter-spacing: 1px;
+    text-transform: uppercase !important;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 50px;
+}
+
+.checkfont {
+    font-size: 14px;
+}
+
+.check-order {
+    position: relative;
+    top: 5px;
+}
+
+.check-items {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+
+.prescribedcount {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 0px;
+}
+
+.item-font {
+    font-size: 18px;
+}
+
+.partner-row {
+    position: absolute;
+    right: 33px;
+}
+
+.logo-stripe {
+    width: 35px;
+    height: 30px;
+}
+
+.display {
+    display: none;
+}
+
+.cart-name {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    width: 250px !important;
+}
+.shipping-width{
+    width: 170px;
+}
+.ui-datepicker-calendar {
+    display: none;
+}

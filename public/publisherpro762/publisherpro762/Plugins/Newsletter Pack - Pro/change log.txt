@@ -1,0 +1,63 @@
+----------------------------------------------------------------
+Version 1.2.1 - 5 May 2019
+----------------------------------------------------------------
+- Improved: Admin performance improved.
+- Fixed: Mailerlite not working properly.
+- Fixed: Newsletter plugin does not work in standalone usage.
+
+----------------------------------------------------------------
+Version 1.2.0 - 23 Nov 2018
+----------------------------------------------------------------
+- Added: Gutenberg support added to Newsletter Pack.
+- Improved: Newsletter Pack codes improved.
+
+
+
+----------------------------------------------------------------
+Version 1.1.2 - 11 Sep 2018
+----------------------------------------------------------------
+Fixed: Code warning on newsletter widget fixed.
+
+
+----------------------------------------------------------------
+Version 1.1.1 - 29 Apr 2018
+----------------------------------------------------------------
+- Improved: Newsletter pack codes improved.
+
+
+----------------------------------------------------------------
+Version 1.1.0 - 17 Apr 2018
+----------------------------------------------------------------
+- Added: Advanced heading options support added to Newsletter Pack widget.
+
+- Improved: Newsletter pack codes improved.
+
+
+----------------------------------------------------------------
+Version 1.0.3 - 21 Nov 2016
+----------------------------------------------------------------
+- Fix: Code warning fixed.
+
+
+----------------------------------------------------------------
+Version 1.0.2 - 21 Nov 2016
+----------------------------------------------------------------
+- Fixed: Newsletters responsive style fixed.
+- Fixed: Code warning in Newsletters.
+
+
+----------------------------------------------------------------
+Version 1.0.1 - 13 Nov 2016
+----------------------------------------------------------------
+- Fixed: Error in newsletter form page. Thanks @Mehrzad
+
+----------------------------------------------------------------
+Version 1.0.0 - 12 Nov 2016
+----------------------------------------------------------------
+- Public release in Publisher.
+
+- Added: 11 newsletter style added.
+- Added: 10 Newsletter widget location added.
+- Added: Advanced newsletter shortcode and widget added (live shortcode)
+- Added: aWeber newsletter support added.
+- Added: Mailer Lite newsletter support added.

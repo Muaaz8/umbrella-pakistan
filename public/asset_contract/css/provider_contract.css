@@ -1,0 +1,16 @@
+/* contract css */
+
+.contractWindow{
+height: 370px;
+overflow-y: scroll;
+}
+.contractOverflow{
+    overflow: hidden;
+}
+@media print
+{
+.contractWindow  { 
+    height:100%;
+  }
+
+}

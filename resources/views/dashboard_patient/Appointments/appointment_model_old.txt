@@ -1,0 +1,126 @@
+
+ onclick="bookAppointmentModal({{ $doc->id }},{{ $user }})"
+
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        Appointment Form
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                        <!-- <span aria-hidden="true"><i class="fa fa-close"></i></span> -->
+                    </button>
+                </div>
+                <form action="/create_appointment" method="POST">
+                    @csrf
+                    <input type="hidden" id="loc_id" name="loc_id" value="{{ $loc_id }}">
+                    <div class="modal-body doc-book-modal" id="load_bookappointment">
+                        <div class="row g-0">
+                            <div class="col-md-8 border-right">
+                                <div class="row m-auto">
+                                    <div class="col-md-6 p-3">
+                                        <h6>Patient Information</h6>
+                                        <div class="d-flex flex-column mb-3">
+                                            <span class="heading d-block">First Name</span>
+                                            <span id="pat_name" class="subheadings">haris</span>
+                                        </div>
+
+                                        <div class="d-flex flex-column mb-3">
+                                            <span class="heading d-block">Last Name</span>
+                                            <span id="pat_lastname" class="subheadings">umar</span>
+                                        </div>
+                                        <div class="d-flex flex-column mb-3">
+                                            <span class="heading d-block">Email</span>
+                                            <span class="subheadings">haris@gmail.com</span>
+                                        </div>
+
+                                        <div class="d-flex flex-column mb-3">
+                                            <span class="heading d-block">Phone</span>
+                                            <span class="subheadings">09876543111</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 p-3">
+                                        <h6>Appointment Information</h6>
+                                        <div class="d-flex flex-column mb-3">
+                                            <span class="heading d-block">Service Provider</span>
+                                            <span class="subheadings"><select class="form-select"
+                                                    aria-label="Default select example">
+                                                    <option selected>Open this select menu</option>
+                                                    <option value="1">One</option>
+                                                    <option value="2">Two</option>
+                                                    <option value="3">Three</option>
+                                                </select></span>
+                                        </div>
+
+
+                                        <div class="d-flex flex-column mb-3">
+                                            <span class="heading d-block">Symptoms</span>
+                                            <span class="subheadings"><select class="js-select2"
+                                                    aria-label="Default select example">
+                                                    <option selected>Open this select menu</option>
+                                                    <option value="1">One</option>
+                                                    <option value="2">Two</option>
+                                                    <option value="3">Three</option>
+                                                </select></span>
+                                        </div>
+
+                                        <div class="d-flex flex-column mb-3">
+                                            <span class="heading d-block">Choose Appointment Date</span>
+                                            <span class="subheadings"><input type="date" name="" id=""></span>
+                                        </div>
+
+                                        <div class="d-flex flex-column mb-3">
+                                            <span class="heading d-block">Choose Appointment Time</span>
+                                            <span class="subheadings"><select class="form-select"
+                                                    aria-label="Default select example">
+                                                    <option selected>Open this select menu</option>
+                                                    <option value="1">One</option>
+                                                    <option value="2">Two</option>
+                                                    <option value="3">Three</option>
+                                                </select></span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="p-2 text-center">
+                                    <div class="profile">
+                                        <img src="https://sehatghar-doctor-images.s3.amazonaws.com/image-1650700380419"
+                                            width="100" class="rounded-circle img-thumbnail" />
+
+                                        <span class="d-block mt-3 font-weight-bold">DR. ABDUL HADII</span>
+                                    </div>
+
+                                    <div class="about-doctor">
+                                        <div class="d-flex flex-column mb-2">
+                                            <span class="heading d-block">Primary Care</span>
+                                        </div>
+
+                                        <div class="d-flex flex-column mb-2">
+                                            <span class="heading d-block">
+                                                3.93<i class="fa-solid fa-star" style="color:orange ;"></i>
+                                                <sub>Rating</sub>
+                                            </span>
+                                        </div>
+                                        <div class="d-flex flex-column mb-2">
+                                            <span class="heading d-block">Status</span>
+                                            <span class="subheadings"><i class="dots"></i> Online</span>
+                                        </div>
+
+                                        <div class="d-flex flex-column modal-doc-book">
+                                            <button>BOOK</button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+    </form>

@@ -1,0 +1,43 @@
+----------------------------------------------------------------
+Version 1.2.3 - 25 Dec 2018
+----------------------------------------------------------------
+- Improved: Google Custom Search performance improved.
+- Fixed: Google Custom Search updated to latest API Changes.
+
+
+----------------------------------------------------------------
+Version 1.2.2 - 11 Apr 2018
+----------------------------------------------------------------
+- Improved: Google Custom Search codes improved.
+- Fixed: Google CSE style improved and fixed.
+
+----------------------------------------------------------------
+Version 1.2.0 - 14 Dec 2017
+----------------------------------------------------------------
+- Fixed: Google Custom Search plugin created from scratch to updated to Google API update.
+         "Custom Search Element Control API v2"
+
+
+----------------------------------------------------------------
+Version 1.1.2 - 20 Feb 2017
+----------------------------------------------------------------
+- Improved: Files optimised and style improved.
+
+
+----------------------------------------------------------------
+Version 1.1.1 - 12 Jan 2017
+----------------------------------------------------------------
+- Improved: Google custom search result page design improved.
+
+
+----------------------------------------------------------------
+Version 1.1.0 - 15 Nov 2016
+----------------------------------------------------------------
+- Added: Option to show/hide Google Adsense ads inside search page.
+- Improved: Codes improved.
+
+
+----------------------------------------------------------------
+Version 1.0.1 - 10 Sep 2016
+----------------------------------------------------------------
+- Public release in Publisher.

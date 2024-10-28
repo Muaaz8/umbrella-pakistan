@@ -1,0 +1,394 @@
+----------------------------------------------------------------
+Version 1.19.0 - 15 May 2018
+----------------------------------------------------------------
+- Fixed: Post content Ads are not working on some posts.
+- Fixed: Custom ID for ads not working properly.
+
+
+
+----------------------------------------------------------------
+Version 1.19.0 - 4 May 2018
+----------------------------------------------------------------
+- Added: Lazy loading for AdSense ads added.
+
+- Added: Option to disable all ads in custom post types. (posts, pages, products etc...)
+- Added: Option to disable all ads in taxonomies (categories)
+
+- Added: Options to override search ads.
+- Added: Option to disable all search page ads.
+
+- Added: Option to override date archive page ads.
+- Added: Option to disable date archive page ads.
+
+- Added: Option to override 404 page ads.
+- Added: Option to disable 404 page ads.
+
+
+- Added: FIA support added to BAM
+- Added: 'better-ads/blocked-ads/fallback' filter added for developers.
+- Added: Matched content responsive style customize attributes.
+
+
+- Improved: Ads inside the the_content at the wp_head removed. Performance improvement.
+- Improved: Ads Mnager performance improved.
+- Improved: Google Adsense code detector improved to support more ad types.
+- Improved: the caption feature improved.
+- Improved: BetterAds admin performance improved.
+
+- Fixed: Ads not showing in AMP.
+- Fixed: Fallback ad not showing sometimes. Thanks @saznajnovo
+- Fixed: BAM style issue in some special situations.
+- Fixed: Empty ads extra space removed.
+- Fixed: WooCommerce shop page ad disablation not works.
+- Fixed: Slow admin while using Better Ads Manager.
+- Fixed: Ad override does not work for static homepage.
+
+
+
+----------------------------------------------------------------
+Version 1.18.4 - 25 Dec 2018
+----------------------------------------------------------------
+- Improved: Minor code improvement.
+
+
+----------------------------------------------------------------
+Version 1.18.3 - 6 Dec 2018
+----------------------------------------------------------------
+- Fixed: Extra ajax call for fallback ads when does not needed!
+
+
+----------------------------------------------------------------
+Version 1.18.2 - 1 Dec 2018
+----------------------------------------------------------------
+- Fixed: Ads with full-width-responsive not showing properly.
+
+
+----------------------------------------------------------------
+Version 1.18.1 - 28 Nov 2018
+----------------------------------------------------------------
+- Fixed: AdBlocker fallback issue when 1 banner is shown multiple times on page.
+- Fixed: AdBlocker fallback not works with the new no-brand version!
+- Fixed: AdBlockers can detect the BetterAds widget by WordPress widget wrapper code.
+
+
+----------------------------------------------------------------
+Version 1.18.0 - 23 Nov 2018
+----------------------------------------------------------------
+- Added: Gutenberg support added to Better Ads Manager.
+- Added: The codes changed completely to a dynamic codes to prevent the AdBlockers to detect the Better Ads Manager.
+- Added: PHP 7.2.7 compatibility added to Better Ads Manager
+- Added: New AdSense "full-width-responsive" support added.
+- Added: Multiple campaign support added to banners.
+- Added: Campaign column added to banners archive in admin.
+
+- Fixed: Campaign shows all banners when it was override in any ad locations.
+- Fixed: Full-width Responsive AdSense Ads not working.
+- Fixed: AdSense adBlocker fallback not works properly.
+- Fixed: The fallback ad code is not undetectable by adBlockers.
+- Fixed: Full-width responsive ad in desktop fixed. Thanks @Issa
+- Fixed: Full-width responsive ad in AMP fixed. Thanks @Issa
+
+
+----------------------------------------------------------------
+Version 1.17.3 - 12 Sep 2018
+----------------------------------------------------------------
+- Fixed: Caption not works for custom code ad types.
+
+
+----------------------------------------------------------------
+Version 1.17.2 - 11 Sep 2018
+----------------------------------------------------------------
+- Added: Use Category ad override in the posts of that category options.
+       All custom taxonomies supported too.
+
+- Added: Multiple DFP dimensions ads support added. Thanks @Andrea Ciofani
+
+- Improved: Ads style improved.
+
+- Fixed: Taxonomy metabox saves wrong default value of ad override fields.
+- Fixed: Above/Below caption location not works properly.
+- Fixed: Ads style is not appropriate in AMP.
+
+
+----------------------------------------------------------------
+Version 1.17.1 - 18 Jun 2018
+----------------------------------------------------------------
+- Improved: Codes improved.
+
+
+----------------------------------------------------------------
+Version 1.17.0 - 28 Apr 2018
+----------------------------------------------------------------
+- Added: Option to change ad captions to below or above ads.
+- Improved: don't print duplicate js file for Google AdSense.
+
+
+----------------------------------------------------------------
+Version 1.16.6 - 14 Apr 2018
+----------------------------------------------------------------
+- Improved: Codes improved.
+
+
+----------------------------------------------------------------
+Version 1.16.5 - 27 Jan 2018
+----------------------------------------------------------------
+- Improved: Image ads can be without links.
+- Fixed: Ad format warning for AMP Adsense ads.
+
+
+----------------------------------------------------------------
+Version 1.16.4 - 22 Dec 2017
+----------------------------------------------------------------
+- Improved: Ads inside WP Editor will be floated align was selected.
+
+
+----------------------------------------------------------------
+Version 1.16.3 - 10 Dec 2017
+----------------------------------------------------------------
+- Fixed: small issue in ad campaigns.
+
+
+----------------------------------------------------------------
+Version 1.16.2 - 22 Nov 2017
+----------------------------------------------------------------
+- Fixed: Responsive Google Ads have a problem in display.
+
+
+----------------------------------------------------------------
+Version 1.16.1 - 13 Nov 2017
+----------------------------------------------------------------
+- Fixed: Custom Ads not showing problem.
+- Devs. 'better-ads/shortcode/live-preview' added to disable ad shortcode live preview.
+
+
+----------------------------------------------------------------
+Version 1.16.0 - 12 Nov 2017
+----------------------------------------------------------------
+- Added: Google "In Feed" ads support added.
+- Added: Google "Matched Content" ads support added.
+- Added: Google "In Article" ads support added.
+- Added: Caption support added to all banner types. (Adsense, DFP and custom)
+- Added: Shortcode text added to banners archive page.
+- Added: Better Ads shortcode for editor added. (Live Shortcode)
+
+- Improved: Ad Blocker scripts will be printed only on pages that have ad. Thanks @Issa
+- Improved: Ads manager banners archive page columns improved.
+- Improved: Ads override panels are smarter now.
+- Fixed: Post ads does not appear in second posts in ajax related posts.
+- Fixed: Extra empty space for ads that are hidden in mobile. @jornalprime
+
+
+----------------------------------------------------------------
+Version 1.15.0 - 31 Aug 2017
+----------------------------------------------------------------
+- Fixed: Ads notices fixed.
+
+
+----------------------------------------------------------------
+Version 1.14.0 - 27 Aug 2017
+----------------------------------------------------------------
+- Improved: Ad locations can define AdSense ad size to make them more smart. Used in Skyscraper and will be used in future advanced ad locations.
+- Improved: BetterAds will detects AdSense ad size from style.
+
+- Fixed: 3 Column ads issue in mobile.
+
+
+----------------------------------------------------------------
+Version 1.13.0 - 23 Aug 2017 (1.12.0 was private release)
+----------------------------------------------------------------
+- Fixed: Post ads are not showing in [Pages].
+- Fixed: Redundant ads in Infinity post loading fixed.
+
+- Improved: codes improved.
+
+
+----------------------------------------------------------------
+Version 1.11.0 - 10 Jul 2017
+----------------------------------------------------------------
+- Fixed: DFP ads wrong alignment fixed.
+- Fixed: Ads Admin Labels changed to bypass adblockers!
+- Fixed: DFP ads wrong dimension fixed.
+
+
+----------------------------------------------------------------
+Version 1.10.0 - 17 May 2017
+----------------------------------------------------------------
+- Added: Advanced option to define paragraph tags for inline related ads.
+- Fixed: AdBlockers are detecting BetterAds.
+- Fixed: Ads are not showing in ajax related posts.
+- Improved: Ads smart admin label improved.
+
+
+----------------------------------------------------------------
+Version 1.9.4 - 1 May 2017
+----------------------------------------------------------------
+- Fixed: minor issue about using shortcode in BetterAds banners.
+- Fixed: Issues in printing ads.
+
+
+----------------------------------------------------------------
+Version 1.9.3 - 1 May 2017
+----------------------------------------------------------------
+- Fixed: Issue in printing ads.
+
+
+----------------------------------------------------------------
+Version 1.9.2 - 1 May 2017
+----------------------------------------------------------------
+- Added: Option to disable ads in Posts, pages, cats, tags and all other post types and taxonomies.
+- Added: Override options for cats, tags, posts, pages and all other post types and taxonomies.
+- Devs: "better-ads/universal-ad-sizes" filter added to change BetterAds universal ad size list. Thanks @interk
+
+- Fixed: Ads are showing in RSS. Thanks @Issa
+
+
+----------------------------------------------------------------
+Version 1.9.1 - 25 Apr 2017
+----------------------------------------------------------------
+- Added: External banner image link input added.
+- Improved: Ads smart label texts changed to be translatable.
+- Fixed: Blank page in banner creating page.
+- Fixed: Ads smart label RTL style fixed.
+
+
+----------------------------------------------------------------
+Version 1.9.0 - 20 Apr 2017
+----------------------------------------------------------------
+- Added: Ads Override section added.
+         You can override ads for all post types (default and custom CPT) and category, tag and all custom taxonomies from panel.
+         BetterAds = Ads manager from future! 
+
+- Added: Google DFP ads support added.
+- Added: Google DFP ads in AMP support added.
+- Added: Smart labels to ads manager. Shows ad location state. Ads Manager is very easy to use now!
+- Added: Ad Location: Middle of post content ad location.
+
+- Improved: Ads metabox improved to be more easy to use.
+- Improved: BetterAds codes improved. 30% of codes rewrite from scratch to make it easy for coming updates = Quicker updates.
+- Improved: Aligned post ads will be center in small screens.
+
+- Fixed: BetterAds inline add injector rewrited from scratch for better paragraph detection.
+		 It will detects tables, uls and all other big part of contents.  
+
+- Fixed: "Google Adsense" problem in "WP Speed of Light" plugin fixed.
+- Fixed: BetterAds RTL style fixed.
+
+
+----------------------------------------------------------------
+Version 1.8.4 - 27 Feb 2017
+----------------------------------------------------------------
+- Fixed: Ads widget title is not showin in special case
+
+
+----------------------------------------------------------------
+Version 1.8.3 - 27 Feb 2017
+----------------------------------------------------------------
+- Fixed: Ads widget and shortcode title is not showing.
+
+
+----------------------------------------------------------------
+Version 1.8.2 - 20 Feb 2017
+----------------------------------------------------------------
+- Improved: Files optimized.
+
+
+----------------------------------------------------------------
+Version 1.8.0 - 11 Feb 2017
+----------------------------------------------------------------
+- Added: AMP ads format added to BetterAds
+- Improved: Banners admin chnaged to be more easy to use.
+- Improved: Banners archive page in admin will shows banner format and type.
+- Improved: BetterAds widget and shortcodes will shows ad format and type to make it easy to select.
+- Improved: Empty ad select box redesigned.
+- Improved: Minor performance improvement in "Better Ads".
+
+
+----------------------------------------------------------------
+Version 1.7.1 - 3 Feb 2017
+----------------------------------------------------------------
+Fixed: Google adsense ads witout ad-format are not showing.
+
+----------------------------------------------------------------
+Version 1.7.0 - 31 Jan 2017
+----------------------------------------------------------------
+- Added: Google Adsense ad-format support added.
+- Added: Google Adsense Horizontal, Vertical and Rectangle ads support added.
+
+- Fixed: Ads in ajax related posts fixed.
+
+
+----------------------------------------------------------------
+Version 1.6.5 - 30 Jan 2017
+----------------------------------------------------------------
+Fixed: Ads are not showing in content of posts in ajax requests.
+
+
+----------------------------------------------------------------
+Version 1.6.4 - 12 Jan 2017
+----------------------------------------------------------------
+- Improved: Ads manager will shows appropriate message when yo didn't selected any ad or campaign.
+- Improved: Ads Manager will shows a link to select banner or campaign when you view pages.
+
+
+----------------------------------------------------------------
+Version 1.6.3 - 10 Dec 2016
+----------------------------------------------------------------
+- Fixed: Google Adsense not works in IE.
+
+
+----------------------------------------------------------------
+Version 1.6.2 - 23 Nov 2016
+----------------------------------------------------------------
+- Improved: VC Add-on icon redesigned.
+- Improved: Ads code improved.
+
+
+
+----------------------------------------------------------------
+Version 1.6.1 - 15 Nov 2016
+----------------------------------------------------------------
+- Added: Shortcode support added to "Custom Code" Ads.
+
+
+
+----------------------------------------------------------------
+Version 1.6.0 - 15 Nov 2016
+----------------------------------------------------------------
+- Improved: Performance improved.
+- Improved: Banners metabox improved.
+- Improved: Google Adsense code improved.
+
+
+
+----------------------------------------------------------------
+Version 1.5.1 - 2 Nov 2016
+----------------------------------------------------------------
+- Fixed: Google Adsense fix for third party plugins integration like Social Locker added in post inline.
+
+
+
+----------------------------------------------------------------
+Version 1.5.0 - 2 Nov 2016
+----------------------------------------------------------------
+- Added: Options for changing Google Adsense size on responsive added (rewritten from scratch).
+
+- Fixed: Inline ads improved to work better, quicker and safer.
+- Fixed: Google Adsense HTTPS ads fixed.
+- Fixed: Post inline ads now works inside infinity related posts.
+- Fixed: Ads style late loading issue fixed.
+- Fixed: The "Custom Code" Ads type not showing bug fixed.
+
+
+
+----------------------------------------------------------------
+Version 1.4.0 - 27 Oct 2016
+----------------------------------------------------------------
+- Added: Smart responsive google absences added.
+- Fixed: Some errors fixed.
+
+
+
+----------------------------------------------------------------
+Version 1.3.3 - 20 Oct 2016
+----------------------------------------------------------------
+- Public release in Publisher.

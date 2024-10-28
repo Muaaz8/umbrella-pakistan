@@ -1,0 +1,284 @@
+@media print { 
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 500;
+    /* padding: 100px; */
+    overflow-x: hidden;
+
+}
+html{ -webkit-print-color-adjust: exact; }
+
+/* html,body{
+    width: 100vw;
+    height: 10a0vh;
+} */
+.d-flex{
+    display: flex !important;
+}
+
+h4{
+    font-size: 1rem;
+    font-weight: 700;
+    padding-top: 3px;
+}
+table{
+    /* border: 1px solidblack; */
+    border-collapse: collapse;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+th{
+    border: 4px solid rgb(33, 32, 32);
+    border-collapse: collapse;
+
+}
+td{
+    border: 1px solidblack;
+    padding: 8px;
+    border-collapse: collapse;
+
+}
+h1{
+    font-size:30px ;
+}
+.main-head{
+    font-weight: 700;
+    display: flex;
+    justify-content: flex-start;
+}
+.align{
+width: 250px;
+}
+.text-border{
+    /* margin-left: 70px; */
+    border-bottom: 2px solid black;
+}
+
+.text-border1{
+    border-bottom: 2px solid black;
+    width: 280px;
+}
+.text-border2{
+    border-bottom: 2px solid black;
+    width: 90px;
+}
+.bottom{
+     margin-bottom: 30px;
+}
+.square{
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 3px;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    transform: translateX(-13px);
+}
+/* .square {
+    width: 0;
+    height: 0;
+    border: 50px solid transparent;
+    border-bottom-color: black;
+    position: relative;
+    color: #fff;
+    top: -50px;
+  }
+  .square:after {
+    content: '';
+    position: absolute;
+    left: -50px;
+    top: 50px;
+    width: 0;
+    height: 0;
+    border: 50px solid transparent;
+    border-top-color: black;
+  } */
+.width{
+    width: 50% ;
+}
+.width-40{
+    width: 40% ;
+}
+.width-10{
+    width: 10% ;
+}
+.width-90{
+width: 90%;
+}
+.width-80{
+    width: 80% ;
+}
+.width-20{
+    width: 20% ;
+}
+.width-30{
+    width: 30% ;
+}
+.width-60{
+    width: 60% ;
+}
+.height{
+    height: 100vh;
+}
+.height-13{
+    height: 13vh;
+
+}
+.para{
+    font-size: 15px;
+    text-align: justify;
+}
+label{
+    font-size: 13px;
+}
+.head{
+    font-weight: 700;
+    font-size: 18px;
+}
+.style-right{
+    height: 50px;
+    width: 50px ;
+    border-bottom: 5px solid black;
+    border-left: 5px solid black;
+}
+.style-left{
+    height: 50px;
+    width: 50px ;
+    border-top: 5px solid black;
+    border-right: 5px solid black;
+    display: flex;
+    justify-content: flex-end;
+
+}
+.section-refill{
+    margin-top: -200px;
+}
+.forms-heading{
+    font-weight: 600;
+    border: 3px solid rgb(33, 32, 32);
+    /* border-bottom: 2px solid rgb(33, 32, 32); */
+
+}
+
+.div-border {
+    border: 1px solid black;
+    border-top: 0px solid black;
+    padding-left: 5px;
+}
+.div-border1 {
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    padding-left: 5px;
+}
+.border-left{
+    border-left: 0px solid black;
+
+}
+input{
+    border: none;
+    /* padding-left: 20px; */
+    margin-left: 10px;
+    margin-right: 5px;
+    margin-top: 3px;
+    margin-bottom: 3px;
+    font-size: 13px;
+    padding: 30px;
+
+}
+input:focus{
+    outline: none !important;
+    /* padding-left: 20px; */
+}
+/* input[type=number]{
+    border: none;
+    padding-left: 20px;
+}
+input[type=number]:focus{
+    outline: none !important;
+    padding-left: 20px;
+} */
+
+
+.main-cont{
+    
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+.left-cont, .right-cont {
+    /* border-top: 1px solid black;
+    border-bottom: 1px solid black; */
+    width: 50%;
+    /* height: 100%; */
+
+}
+.left-cont{
+    border-left: 1px solid black;
+    display: flex;
+    flex-direction: column;
+
+}
+.left-cont div{
+    border-bottom: 1px solid black;
+
+}
+.left-last-cont{
+height: 50% !important;
+border-bottom:none !important ;
+text-align: justify !important;
+font-size: 11px;
+padding: 3px;
+}
+.left-second-last{
+    display: flex;
+
+}
+.left-second-last div{
+height: 100%;
+width: 50%;
+}
+.left-second-last .one{
+    
+    border-right:2px solid black ;
+}
+.right-cont{
+    border-left: 3px solid black;
+    border-right: 1px solid black;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+
+}
+.line{
+    line-height: 0.5;
+}
+.sub-btn{
+    background-color:#08295a;
+    color:white;
+    letter-spacing:1px;
+    text-transform: uppercase !important;
+    font-size: 18px;
+    font-weight: bold;
+
+}
+.mg{
+    margin-top: 150px;
+}
+textarea{
+    height: 30px;
+    width: 100%;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    margin-bottom: 5px;
+}
+.notes{
+    position: relative;
+    top: -10px;
+}
+.refill{
+    margin-left: 16px;
+}
+}

@@ -1,0 +1,5 @@
+----------------------------------------------------------------
+Version 1.0.0 - 11 Sep 2017
+----------------------------------------------------------------
+Added: Option to select the focus point of featured image to generate the thumbnails
+       based of that point.

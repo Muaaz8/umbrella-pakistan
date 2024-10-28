@@ -1,0 +1,36 @@
+
+.fa-eye,
+.fa-edit,
+.fa-trash {
+    color: #fff !important;
+}
+
+.icon_eye {
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    border-radius: 100px;
+    background-color: rgb(11, 11, 11) !important;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px !important;
+    margin: 2px;
+}
+
+.icon_edit {
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    border-radius: 100px;
+    background-color: green !important;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px !important;
+    margin: 2px;
+}
+
+.icon_trash {
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    border-radius: 100px;
+    background-color: red !important;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px !important;
+    margin: 2px;
+}

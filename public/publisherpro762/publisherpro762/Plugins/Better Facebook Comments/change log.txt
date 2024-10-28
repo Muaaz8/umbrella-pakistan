@@ -1,0 +1,65 @@
+----------------------------------------------------------------
+Version 1.5.3 - 12 Nov 2017
+----------------------------------------------------------------
+- Improved: FB comments .js will be printed only in pages that needed (smarter)
+
+
+----------------------------------------------------------------
+Version 1.5.1 - 1 May 2017
+----------------------------------------------------------------
+- Fixed: Automattic AMP compatibility added.
+- Fixed: Publisher multiple comments compatibility improved.
+- Fixed: Facebook comments not works in ajax related posts. Thanks @Antonio
+
+
+----------------------------------------------------------------
+Version 1.5.0 - 20 Apr 2017
+----------------------------------------------------------------
+- Improved: Counts count will be aggregated with FB + WP comments in multiple comments.
+- Improved: Publisher multiple comments compatibility added.
+- Improved: Facebook comments template file can be override in child theme.
+
+- Fixed: Extra "Facebook Comments" js file removed.
+- Fixed: FB comments codes was shown in AMP
+
+----------------------------------------------------------------
+Version 1.4.2 - 20 Feb 2017
+----------------------------------------------------------------
+- Improved: Files optimized.
+
+
+----------------------------------------------------------------
+Version 1.4.1 - 12 Jan 2017
+----------------------------------------------------------------
+- Improved: Facebook comments will shown even when comments are no open!
+
+
+
+----------------------------------------------------------------
+Version 1.4 - 26 Nov 2016
+----------------------------------------------------------------
+Improved: Facebook comments count in all listings will shown quicker now.
+
+
+----------------------------------------------------------------
+Version 1.3.0 - 14 Nov 2016
+----------------------------------------------------------------
+- Fixed: Facebook comments numbers not changes in listings.
+
+
+----------------------------------------------------------------
+Version 1.2.0 - 27 Oct 2016
+----------------------------------------------------------------
+- Fatal error fixed.
+
+
+----------------------------------------------------------------
+Version 1.1.0 - 20 Oct 2016
+----------------------------------------------------------------
+- Codes improved.
+
+
+----------------------------------------------------------------
+Version 1.0.0 - 10 Sep 2016
+----------------------------------------------------------------
+- Public release in Publisher.

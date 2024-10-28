@@ -1,0 +1,44 @@
+----------------------------------------------------------------
+Version 1.3.0 - 15 Apr 2018
+----------------------------------------------------------------
+- Fixed: Loading disqus comments in ajax loaded pages (infinity related posts)
+
+
+
+----------------------------------------------------------------
+Version 1.2.2 - 23 Aug 2017
+----------------------------------------------------------------
+- Fixed: Disqus JS in all pages issue fixed.
+
+
+----------------------------------------------------------------
+Version 1.2.1 - 1 May 2017
+----------------------------------------------------------------
+- Fixed: Disqus multiple comments compatibility.
+- Fixed: Disqus comments breaks AMP pages.
+
+
+----------------------------------------------------------------
+Version 1.2.0 - 20 Apr 2017
+----------------------------------------------------------------
+- Improved: Codes improved for make future updates quicker.
+- Improved: Publisher multiple comments compatibility added.
+- Improved: Disqus comments file can be overrided in child theme.
+
+
+----------------------------------------------------------------
+Version 1.1 - 14 Nov 2016
+----------------------------------------------------------------
+- Fixed: Disqus comments numbers not changes in listings.
+
+
+----------------------------------------------------------------
+Version 1.0.1 - 27 Oct 2016
+----------------------------------------------------------------
+- fatal error fixed.
+
+
+----------------------------------------------------------------
+Version 1.0.0 - 10 Sep 2016
+----------------------------------------------------------------
+- Public release in Publisher.

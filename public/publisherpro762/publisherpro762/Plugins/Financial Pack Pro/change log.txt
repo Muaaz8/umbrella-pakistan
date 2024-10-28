@@ -1,0 +1,55 @@
+----------------------------------------------------------------
+Version 1.3.0 - 5 May 2019
+----------------------------------------------------------------
+- Added: Gutenberg support added.
+
+- Fixed: The cryptocurrencies API updated.
+- Fixed: Cryptocurrency Events widget
+- Fixed: Cryptocurrency Converter widget.
+- Fixed: Financial Pack not works stand alone.
+
+
+
+----------------------------------------------------------------
+Version 1.2.1 - 10 Nov 2018
+----------------------------------------------------------------
+- Added: PHP 7.2 compatibility added to Financial Pack.
+
+
+
+----------------------------------------------------------------
+Version 1.2.0 - 18 Jun 2018
+----------------------------------------------------------------
+- Added: Option to enable/disable smart numbers format.
+- Improved: Codes and styles improved.
+
+
+----------------------------------------------------------------
+Version 1.1.0 - 29 Apr 2018
+----------------------------------------------------------------
+- Added: RTL Support added.
+
+- Improved: Codes improved.
+
+
+----------------------------------------------------------------
+Version 1.0.0 - 15 Apr 2018
+----------------------------------------------------------------
+- Public release in Publisher.
+
+- Added: Cryptocurrency Widgets.
+- Added: Stock-market Widgets.
+- Added: Currency (money) Widgets.
+- Added: 110+ new widget for financial pack!
+- Added: 27 Cryptocurrency widgets.
+- Added: 2 Cryptocurrency Events table widgets.
+- Added: 5 Cryptocurrency table widgets.
+- Added: 6 Cryptocurrency Converter widgets.
+- Added: 27 Stock-market widgets.
+- Added: 5 Stock-market table widgets.
+- Added: 6 Stock-market Converter widgets.
+- Added: 27 Currency widgets.
+- Added: 5 Currency table widgets.
+- Added: 6 Currency Converter widgets.
+- Added: Columned and Marquee style for all widgets.
+- Added: Translation panel for Financial Pack.

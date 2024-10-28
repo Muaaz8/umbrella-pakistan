@@ -1,0 +1,13 @@
+@font-face {
+    font-family: 'Courier Std';
+    src: url('CourierStd-Bold.eot');
+    src: url('CourierStd-Bold.eot?#iefix') format('embedded-opentype'),
+        url('CourierStd-Bold.woff2') format('woff2'),
+        url('CourierStd-Bold.woff') format('woff'),
+        url('CourierStd-Bold.ttf') format('truetype'),
+        url('CourierStd-Bold.svg#CourierStd-Bold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+

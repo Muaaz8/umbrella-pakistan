@@ -1,0 +1,37 @@
+table{
+    border:5px ridge #606263 !important;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px !important;
+}
+thead{
+    background-color: #4676be !important;
+    color:#fff !important;
+    padding-left:30px !important;
+
+}
+td{
+    font-size:13px !important;
+}
+.fa-trash{
+    color:red !important;
+}
+.fa-edit{
+    color:green !important;
+}
+.fa-pen{
+    color:green !important;
+}
+.btns-group a {
+margin-right: 10px;
+color: black;
+/* padding: 5px 10px; */
+border-radius: 5px;
+}
+
+.btns-group button {
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+.table-responsive{
+    display: table !important;
+}

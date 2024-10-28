@@ -1,0 +1,41 @@
+.shadow-lg{
+    background: #4676be;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #3498db, #204cc7);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #3498db, #2c3e50); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px !important;
+    border-radius:20px !important;
+    }
+    .pharmacy input, .pharmacy select, .pharmacy textarea{
+    border:none !important;
+    color:#fff !important;
+    }
+
+    .pharmacy .testSelect2{
+    width:100% !important;
+    }
+    .parent_category_products{
+    width:100% !important;
+    }
+
+    .pharmacy input:focus{
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px !important;
+        color:#111 !important;
+    }
+    .pharmacy select:focus{
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px !important;
+        color:#111 !important;
+
+    }
+    .pharmacy textarea:focus{
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px !important;
+        color:#111 !important;
+    }
+    .pharmacy label{
+            color:#fff !important;
+            text-align:left !important;
+    }
+.paginateCounter .page-item.active .page-link,
+.paginateCounter .page-item .page-link:hover {
+    background: #0c3b81 !important;
+    color: #fff !important;
+}

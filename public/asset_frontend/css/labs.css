@@ -1,0 +1,65 @@
+.labsbutton {
+    /* background: #9baac2;
+                    color: #e7e7e7; */
+    color: #08295a;
+    background: #ffffff;
+    border-radius: 100%;
+    width: 80px;
+    height: 80px;
+    margin: 8px 12px;
+    border: none !important;
+    padding: 16px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+.doctorFee{
+    position: absolute;
+    color: red;
+    font-size: 16px;
+    right: 27px;
+    margin-top: 10px;
+}
+
+/* p {
+    line-height: 1 !important;
+} */
+
+.box {
+    width: 100%;
+    height: 100%;
+}
+
+.labsbutton img {
+    height: 40px;
+    width: 40px;
+}
+
+.labs-service {
+    color: #08295a !important;
+    font-weight: bold !important;
+    font-size: 13px !important;
+}
+
+.button-div {
+    display: flex;
+    justify-content: space-around;
+}
+
+.link-paginate ul {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+}
+
+@media only screen and (max-width:767px) {
+    .labsbutton img {
+        height: 20px;
+        width: 20px;
+    }
+    .labsbutton {
+        width: 50px;
+        height: 50px;
+    }
+    .labs-service {
+        font-weight: 500 !important;
+        font-size: 10px !important;
+    }
+}

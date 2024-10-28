@@ -1,0 +1,33 @@
+.prod-label{
+    color :#111 !important;
+    font-weight: 700 !important; 
+    padding:8px !important;
+}
+.prod-input{
+        border: 1px solid #aaaaaa !important;
+        background: #fff !important; 
+        padding-left: 16px !important;
+}
+.button-card {
+    background: #fff;
+    min-height: 50px;
+    box-shadow: none;
+    position: relative;
+    margin-bottom: 30px;
+    transition: .5s;
+    border: none;
+    border-radius: 0;
+    width: 100%;
+}
+.med-variation {
+    background-color: #08295a !important;
+    color: #fff !important;
+    font-weight: bold !important;
+    border: 1px solid #08295a !important;
+    padding: 10px !important;
+    border-radius: 8px !important;
+    width: 200px;
+}
+.medicine-select .select2-container {
+    margin-bottom: 20px;
+}

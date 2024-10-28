@@ -1,0 +1,59 @@
+/************************************ Login css start  *********************************/
+
+#login .login_back {
+    background-image: url("../images/login/login_form.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    height: 100vh;
+    width: 100%;
+    align-items: center;
+    padding:50px 80px
+
+}
+#login .doctor-img {
+    background-image: url("../images/login/login.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    height: 100vh;
+    width: 100%;
+}
+#login .logo {
+    width: 25%;
+    height: 25%;
+}
+#login .login-input{
+    border-radius:50px;
+    border:2px solid #082550;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+#login .login-btn{
+    background-color: #082550 ;
+    color:#fff;
+    border-radius:50px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    margin-top: 30px;
+}
+#login .account {
+    color: #111;
+    text-decoration: none;
+    font-weight: 600;
+}
+#login .reg a{
+    text-decoration: none;
+}
+#login .regBtn{
+        background-color: #082550;
+        color: #fff;
+        padding: 10px;
+}
+#login .forgetPsd{
+    text-decoration: none;
+}
+#login .back .bckbtn{
+    color:#111;
+    text-decoration: none;
+}
+
+/****************************** Login css end  ********************************/

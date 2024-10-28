@@ -1,0 +1,29 @@
+----------------------------------------------------------------
+Version 1.1.1 - 20 Mar 2019
+----------------------------------------------------------------
+- Fixed: some bugs fixed.
+
+
+----------------------------------------------------------------
+Version 1.1.0 - 15 Apr 2017
+----------------------------------------------------------------
+Added: 30+ new Theme & Plugin support added.
+
+Improved: Migrator admin UI improved.
+Improved: Migrator codes improved.
+Improved: Migrator support of taxonomy meta improved.
+
+
+----------------------------------------------------------------
+Version 1.0.1 - 13 Nov 2016
+----------------------------------------------------------------
+- Fixed: Issue on Migrator notice about switching to Publisher.
+
+
+----------------------------------------------------------------
+Version 1.0.0 - 12 Nov 2016
+----------------------------------------------------------------
+- Public release in Publisher.
+
+- Added: 40+ Theme support added.
+- Added: 10+ Plugin support added.

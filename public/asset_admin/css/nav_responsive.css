@@ -1,0 +1,116 @@
+@media only screen and (min-device-width: 1025px) and (max-device-width: 1169px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {}
+
+/* .navbar-header img {
+    height: 60px !important;
+    width: 60px !important;
+    left: -230px !important;
+} */
+.navbar .navbar-nav {
+        margin-right: 100px !important;
+    }
+    .admin-image {
+    margin-right: 40px !important;
+}
+.bars {
+    left: -160px !important;
+    top: 10px !important;
+}
+
+
+
+@media only screen and (min-device-width:768px) and (max-device-width:1024px) and (orientation:portrait) {
+    .navbar-header img {
+        height: 60px !important;
+        width: 60px !important;
+        left: -230px !important;
+    }
+
+    .bars {
+        left: -160px !important;
+        top: 10px !important;
+    }
+
+    .navbar .navbar-nav li i {
+        font-size: 25px !important;
+        margin-top: 5px !important;
+    }
+    
+    .n-top{
+        display: none;
+    }
+    .m-top{
+        display: none;
+    }
+}
+
+/* @media only screen and (min-width:1170px) {
+    .navbar-header img {
+        height: 90px !important;
+        width: 90px !important;
+        left: -100px !important;
+    }
+} */
+
+@media only screen and (max-width:767px) {
+    .navbar-header img {
+        height: 50px !important;
+        width: 50px !important;
+        left: -260px !important;
+        top: -10px !important;
+    }
+        .sidebar{
+        top:22px !important;
+    }
+
+    .cart{
+        right: 80px !important;
+    }
+    .bars {
+        top: -5px !important;
+        left: -60px !important;
+        font-size: 30px !important; 
+
+    }
+    .cur-med img{
+        width:50px !important;
+        height: 50px !important;
+    }
+    .med-name{
+        font-size:12px !important;
+    }
+    .clearHeader .navbar-header {
+        position: absolute !important;
+        top: 10px !important;
+    }
+    .navbar .navbar-nav li i {
+        margin-right: 8px !important;
+    }
+    .admin-image {
+    margin-right: 10px !important;
+    cursor: pointer;
+}
+    .navbar-header .bars {
+        height: 30px !important;
+    }
+    
+    .overlay-open .sidebar .user-info .quick-stats{
+        display: block !important;
+    }
+    
+    .n-top{
+        display: none;
+    }
+    .m-top{
+        display: none;
+    }
+    .navbar{
+        background: none !important;
+    }
+    .cart_counter{
+        right:88px !important;
+    }
+    .ls-closed .bars:after, .ls-closed .bars:before{
+        font-size: 30px !important; 
+}
+
+}

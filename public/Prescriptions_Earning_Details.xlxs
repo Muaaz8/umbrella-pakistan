@@ -1,0 +1,7 @@
+"Order ID","Session ID","Product ID","Product Name","Product Type","Dosage Days",Price,"Selling Price",Date,Time
+22151328,343303,431,"US PROSTATE",imaging,,975,1218.75,10-31-2022,"04:38 PM"
+22151328,343303,432,"US PELVIS TA / TV",imaging,,975,1218.75,10-31-2022,"04:38 PM"
+22151328,343303,17075,"FORMALDEHYDE/FORMALIN (K80) IGE**",lab-test,,7,21,10-31-2022,"04:38 PM"
+22151328,343303,17170,"HSV 2 IGG, W/REFL HSV 2 INHIBITION",lab-test,,6,19,10-31-2022,"04:38 PM"
+22151328,343303,791,"Pramipexole tablet",medicine," Every 12 for 180 days",25,25,10-31-2022,"04:38 PM"
+22151328,343303,521,"Haloperidol Tablet",medicine," Every 8 for 30 days",12,12,10-31-2022,"04:38 PM"

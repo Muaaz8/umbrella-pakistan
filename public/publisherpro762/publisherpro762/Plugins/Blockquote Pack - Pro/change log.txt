@@ -1,0 +1,69 @@
+----------------------------------------------------------------
+Version 1.3.1 - 25 Dec 2018
+----------------------------------------------------------------
+- Fixed: the author avatar, name and job not removing.
+
+
+----------------------------------------------------------------
+Version 1.3.0 - 23 Nov 2018
+----------------------------------------------------------------
+- Added: Gutenberg support added to Blockquote Pack.
+- Added: PHP 7.2 support added to Blockquote Pack.
+- Improved: Codes improved.
+
+
+----------------------------------------------------------------
+Version 1.2.0 - 15 Apr 2018
+----------------------------------------------------------------
+Added: 5 New Blockquote style added.
+Added: Blockquote style 19 added.
+Added: Blockquote style 20 added.
+Added: Blockquote style 21 added.
+Added: Blockquote style 22 added.
+Added: Blockquote style 23 added.
+
+Improved: Blockquote styles improved.
+Improved: Blockquote styles improved.
+Improved: Blockquote codes improved.
+
+
+----------------------------------------------------------------
+Version 1.1.0 -
+----------------------------------------------------------------
+Private release
+
+
+----------------------------------------------------------------
+Version 1.0.4 - 27 Jan 2018
+----------------------------------------------------------------
+Improved: RTL style improved.
+
+
+----------------------------------------------------------------
+Version 1.0.3 - 21 Nov 2016
+----------------------------------------------------------------
+Fixed: Code warning fixed.
+
+
+----------------------------------------------------------------
+Version 1.0.2 - 21 Nov 2016
+----------------------------------------------------------------
+Fixed: Blockquotes responsive style fixed.
+
+
+----------------------------------------------------------------
+Version 1.0.1 - 13 Nov 2016
+----------------------------------------------------------------
+- Improved: Floated blockquotes style.
+
+
+
+----------------------------------------------------------------
+Version 1.0.0 - 12 Nov 2016
+----------------------------------------------------------------
+- Public release in Publisher.
+
+- Added: 17 advanced blockquote style added.
+- Added: Blockquote shortcode with options author avatar, author name, job title and link (live shortcode).
+- Added: AMP support added for all blockquote styles.
+- Added: Option to set default quote style in site.

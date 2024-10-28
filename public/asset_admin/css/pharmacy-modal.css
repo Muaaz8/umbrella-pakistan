@@ -1,0 +1,114 @@
+body{
+    font-family: "Roboto", sans-serif !important;
+}
+.modal-dailog{
+  border-radius: 80px !important;
+  padding: 50px 150px !important;
+}
+.modal-body{
+  letter-spacing: 1px;
+  font-size: 20px;
+  padding: 30px 30px !important;
+  overflow-y: scroll !important;
+    height: 450px !important;
+}
+.modal button{
+  background-color: #04152d;
+  color: #fff;
+  text-align: center;
+  outline: none;
+  font-weight: 500;
+  border-radius: 10px !important;
+}
+.modal button:hover{
+  background-color: #04152d;
+  color: #fff;
+  text-align: center;
+  outline: none;
+}
+.modal-header{
+background-color: #04152d;
+text-align: center !important;
+padding: 15px;
+border-bottom: 1px solid #e5e5e5;
+min-height: 16.42857143px;
+}
+.modal-content{
+    font-family: "Roboto", sans-serif !important;
+    width: 110%;
+}
+.modal-dialog{
+position: relative;
+/* right: -250px; */
+top: 30px; 
+width: auto;
+margin: .5rem;
+pointer-events: none;
+}
+.modal strong{
+    font-weight: 700;
+}
+.modal h2{
+    font-size: 2.5rem;
+    padding: 10px 0;
+    font-weight: 700;
+} 
+.modal p{
+    line-height: 1.5 !important;
+    padding-top: 5px;
+    color: #242424;
+    font-weight: 400;
+    font-size: 17px;
+
+}
+.modal-title{
+    font-size: 20px;
+}
+
+    /* display: none; */
+.modal a {
+pointer-events: none;
+color: rgb(39, 39, 39);;
+
+}
+@media only screen and (max-width:767px) {
+.modal-dialog{
+right: 0px;
+}
+.modal-content{
+    width: 350px;
+}
+}
+@media only screen and (min-device-width: 1025px) and (max-device-width: 1169px) and
+(-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
+.modal-dialog{
+right: 0px !important;
+}
+    .modal-content{
+    width: 600px !important;
+} 
+}
+/* @media only screen and (min-width:767px) and (max-width:1170px) {
+.modal-dialog{
+right: 0px !important;
+}
+    .modal-content{
+    width: 600px !important;
+} 
+} */
+@media only screen and (min-device-width:768px) and (max-device-width:1024px) and (orientation:portrait) {
+  .modal-dialog{
+right: 0px;
+}
+    .modal-content{
+    width: 600px  !important;
+}
+}
+@media only screen and (min-device-width:768px) and (max-device-width:1024px) and (orientation:landscape) {
+    .modal-dialog{
+right: 0px;
+}
+    .modal-content{
+    width: 600px  !important;
+}
+}

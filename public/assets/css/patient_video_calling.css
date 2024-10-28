@@ -1,0 +1,428 @@
+@import url("https://fonts.googleapis.com/css2?family=Heebo:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+body {
+  font-family: "Heebo", sans-serif;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+i {
+  margin-right: 10px;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+/* ===================== CALL SCREEN STARTS ========================== */
+
+.call-screen-header {
+  background: linear-gradient(to top, #08295a, #165dc8);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  padding: 5px 20px;
+  border-radius: 10px;
+  margin-top: 5px;
+}
+.call-screen-header i {
+  font-size: 35px;
+}
+.call-time {
+  background-color: red;
+  padding: 5px 15px;
+  border-radius: 7px;
+  margin-left: auto;
+}
+.video-call-screen {
+  background: #f8f5f5;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-top: 15px solid #08295a;
+  height: auto;
+  padding: 10px;
+  border-radius: 10px;
+}
+.right-detail-call-screen {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-top: 15px solid #08295a;
+  height: 100%;
+  padding: 10px;
+  border-radius: 10px;
+}
+.big-video-screen {
+    background-color: rgb(0, 0, 0);
+    height: 55vh;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+  .big-video-screen img,
+  .small-video-screen img {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+  }
+  .small-video-screen {
+    height: 120px;
+    background-color: #060708;
+    width: 150px;
+    border-radius: 10px;
+    /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+  }
+.call-disconnect {
+  display: flex;
+  align-items: center;
+}
+.call-disconnect i {
+  font-size: 30px;
+  margin: 0;
+  margin: auto;
+}
+
+.patient-name {
+  height: 120px;
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 0 15px;
+  text-align: justify;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 10px;
+}
+.patient-name p {
+  font-size: 14px;
+}
+.after-big-screen-div {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+.end-call {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 35px;
+  color: white;
+  background: linear-gradient(to top, #b70202, #ff1212);
+  border: none;
+  margin-right: 20px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+.mic-call {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 35px;
+  color: white;
+  background: linear-gradient(to top, #026702, #008000);
+  border: none;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+.call-disclaimer {
+  text-align: justify;
+  margin-top: 10px;
+}
+.right-detail-call-screen .nav-pills .nav-link {
+  background-color: #e1e1e2;
+  color: #000;
+  padding: 8px 0px;
+  width: 100%;
+  border: 1px solid #c6c6c8;
+  border-radius: 0;
+  box-shadow: none;
+  font-weight: 500;
+  font-size: 14px;
+}
+.right-detail-call-screen .nav-pills .nav-link.active {
+  background-color: white;
+  border: 1px solid #08295a73;
+  color: #08295a;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+.screen-medication .card {
+  width: 100%;
+  border-radius: 0;
+  margin-bottom: 10px;
+}
+.screen-medication .card-header span {
+  float: right;
+  font-size: 15px;
+  display: flex;
+  font-weight: 300;
+}
+.screen-medication .card-header {
+  color: #fff;
+  background-color: #08295a;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  font-size: 16px;
+  flex-wrap: wrap;
+}
+.screen-medication .card-body {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.3rem 1rem;
+  flex-wrap: wrap;
+
+}
+
+.screen-symtoms ul li {
+  list-style: inside;
+}
+.right-detail-call-screen .accordion-first .screen-symtoms {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.right-detail-call-screen .accordion-body {
+  padding: 10px;
+}
+.right-detail-call-screen .table-family {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.visit-history-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 10px;
+}
+.visit-history-div-wrapper{
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  padding: 10px;
+  margin-bottom: 8px;
+
+}
+.medical-history-btn{
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  padding: 7px;
+}
+.visit-history-div button {
+  border: none;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background-color: #08295a;
+  color: white;
+  font-weight: 500;
+}
+.medical-history-btn button {
+  border: none;
+  padding: 2px 8px;
+  border-radius: 30px;
+  background-color: #444b56;
+  color: white;
+  font-size: 13px;
+  font-weight: 400;
+}
+
+.right-detail-call-screen .accordion-flush .accordion-item .accordion-button {
+  border-radius: 0;
+  background: linear-gradient(to top, #08295a, #165dc8);
+  color: white;
+  margin: 10px 0;
+  padding: 0.5rem 1.25rem;
+}
+.right-detail-call-screen .accordion-button::after {
+  filter: invert();
+}
+.ghh{
+  cursor: pointer;
+}
+
+/* ===================== CALL SCREEN ENDS ========================== */
+
+
+
+
+/* ============ screen loader starts=============== */
+.spannerx{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: black;
+  background: (0,0,0,.9);
+  visibility: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.overlayx{
+  position: fixed;
+	width: 100%;
+	height: 100%;
+  background: rgba(0,0,0,0.5);
+  visibility: hidden;
+}
+
+.loaderx,
+.loaderx:before,
+.loaderx:after {
+  border-radius: 50%;
+  width: 2em;
+  height: 2em;
+  -webkit-animation-fill-mode: both;
+  animation-fill-mode: both;
+  -webkit-animation: load7 1.8s infinite ease-in-out;
+  animation: load7 1.8s infinite ease-in-out;
+}
+.loaderx {
+    color: #ffffff;
+    font-size: 8px;
+    /* margin: 80px auto; */
+    position: relative;
+    text-indent: -9999em;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-animation-delay: -0.16s;
+    animation-delay: -0.16s;
+    /* display: flex; */
+}
+.spannerx p {
+  font-size: 24px;
+    position: absolute;
+    margin-top: 99px;
+    font-weight: 300;
+    color: white;
+}
+.small-video-screen .spannerx p{
+  font-size: 14px;
+
+}
+.loaderx:before,
+.loaderx:after {
+  content: '';
+  position: absolute;
+  top: 0;
+}
+.loaderx:before {
+  left: -3.5em;
+  -webkit-animation-delay: -0.32s;
+  animation-delay: -0.32s;
+}
+.loaderx:after {
+  left: 3.5em;
+}
+@-webkit-keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0;
+  }
+}
+@keyframes load7 {
+  0%,
+  80%,
+  100% {
+    box-shadow: 0 2.5em 0 -1.3em;
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0;
+  }
+}
+
+.showx{
+  visibility: visible;
+}
+
+.spannerx, .overlayx{
+	opacity: 0;
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	transition: all 0.3s;
+}
+
+.spannerx.showx, .overlayx.showx {
+	opacity: 1;
+  border-radius: 10px;
+}
+.pres_li {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #00000026;
+  padding: 0 10px;
+  flex-wrap: wrap;
+}
+.pres-ul{
+  padding: 0;
+}
+
+.visit-history-data {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.visit-history-data::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #f5f5f5;
+  border-radius: 10px;
+}
+.visit-history-data::-webkit-scrollbar {
+  width: 7px;
+  background-color: #f5f5f5;
+}
+
+.visit-history-data::-webkit-scrollbar-thumb {
+  background-color: #124ea8;
+  border-radius: 10px;
+}
+
+
+@media screen and (max-width: 600px) {
+
+  .mic-call{
+    padding: 10px 20px;
+  }
+
+}
+
+@media screen and (max-width: 500px) {
+
+.small-video-screen{
+  width: 120px;
+}
+.after-big-screen-div{
+  flex-wrap: wrap;
+}
+
+
+.patient-name {
+  width: 135px;
+  padding: 0px 7px;
+}
+
+.call-disconnect i{
+  font-size: 18px;
+}
+.call-time h5{
+  font-size: 11px;
+}
+}
+@media screen and (max-width: 403px) {
+.patient-name{
+width: 100%;
+margin-top: 20px;
+}
+.call-screen-header i{
+font-size: 20px;
+}
+.call-screen-header h6{
+font-size: 13px;
+}
+.call-screen-header {
+padding: 5px 1px;
+}
+
+}
+/* ============ screen loader ends=============== */

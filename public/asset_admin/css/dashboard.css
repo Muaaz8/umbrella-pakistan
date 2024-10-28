@@ -1,0 +1,276 @@
+body {
+    background-color: #f8f8f8 !important;
+}
+
+.sidebar_menu {
+    background: #fff !important;
+}
+
+.sidebar .menu .list .header {
+    background: #f8f8f8 !important;
+    color: #000 !important;
+}
+
+.sidebar .menu {
+    background: #f8f8f8 !important;
+    color: #000 !important;
+    border-right: 3px solid #c6c6c6;
+}
+
+.sidebar .menu .list a {
+    color: #000 !important;
+    /* padding: 7px 13px !important; */
+}
+
+.sidebar .menu .list span {
+    padding-top: 11px !important;
+}
+
+.sidebar .menu .list a:hover span {
+    font-weight: bold !important;
+}
+
+.sidebar .menu .list a:hover i {
+    color: #fff !important;
+    background-color: #4677be !important;
+}
+
+.sidebar .menu .list a:hover {
+    color: #4677be !important;
+    font-weight: bold !important;
+}
+
+.sidebar .menu .list a i {
+    color: black !important;
+    height: 40px !important;
+    width: 40px !important;
+    border-radius: 100px !important;
+    background-color: rgb(237, 233, 233) !important;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px !important;
+    padding-top: 11px;
+}
+
+.navbar {
+    background: #4675bb !important;
+}
+.callbtn {
+    background-color: #08295a !important;
+    color: #fff !important;
+    font-weight: bold !important;
+    border: 1px solid #08295a !important;
+    padding: 10px !important;
+    border-radius: 8px !important;
+    width: 120px;
+}
+.send_contract{
+    background-color: #08295a !important;
+    color: #fff !important;
+    font-weight: bold !important;
+    border: 1px solid #08295a !important;
+    padding: 10px !important;
+    border-radius: 8px !important;
+    width: 140px; 
+}
+.ovrflw {
+    overflow-x: hidden;
+}
+.doc-icon{
+    color: rgb(253, 252, 252);
+    padding-top: 8px;
+}
+.doc_icon-eye {
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    border-radius: 100px;
+    background-color: rgb(11, 11, 11) !important;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px !important;
+    margin: 2px;
+
+}
+.doc_icon-block {
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    border-radius: 100px;
+    background-color: rgb(255, 5, 5) !important;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px !important;
+    margin: 2px;
+
+}
+.doc_icon-email {
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    border-radius: 100px;
+    background-color: rgb(44, 160, 255) !important;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px !important;
+    margin: 2px;
+
+}
+.doc_icon-rate {
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    border-radius: 100px;
+    background-color: rgb(37, 169, 61) !important;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px !important;
+    margin: 2px;
+}
+.pat-icon{
+    color: rgb(253, 252, 252);
+    padding-top: 10px;
+}
+.pat_icon-email {
+    height: 40px;
+    width: 40px;
+    text-align: center;
+    border-radius: 100px;
+    background-color: rgb(44, 160, 255) !important;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px !important;
+    margin-left: 16px;
+}
+.pat_icon-eye {
+    height: 40px;
+    width: 40px;
+    text-align: center;
+    border-radius: 100px;
+    background-color: rgb(11, 11, 11) !important;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px !important;
+    margin-left: 16px;
+
+}
+/* data table pagination */
+.page-item.active .page-link{
+    background-color: #08295a;
+    border-color: #08295a;
+    color: #fff !important;
+    font-weight: 600;
+}
+
+/* ACTIVITY LOG TIMELINE CSS */
+
+.vertical-timeline {
+    width: 100%;
+    position: relative;
+    padding: 1.5rem 0 1rem;
+}
+
+.vertical-timeline::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 95px;
+    height: 100%;
+    width: 4px;
+    background: #e9ecef;
+    border-radius: 0.25rem;
+}
+
+.vertical-timeline-element {
+    position: relative;
+    margin: 0 0 1rem;
+}
+
+.vertical-timeline--animate .vertical-timeline-element-icon.bounce-in {
+    visibility: visible;
+    animation: cd-bounce-1 0.8s;
+}
+
+.vertical-timeline-element-icon {
+    position: absolute;
+    top: 0;
+    left: 88px;
+}
+
+.vertical-timeline-element-icon .badge-dot-xl {
+    box-shadow: 0 0 0 5px #fff;
+}
+
+.badge-dot-xl {
+    width: 18px;
+    height: 18px;
+    position: relative;
+}
+
+.badge:empty {
+    display: none;
+}
+
+.badge-dot-xl::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 0.25rem;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -5px 0 0 -5px;
+    background: #fff;
+}
+
+.vertical-timeline-element-content {
+    position: relative;
+    margin-left: 90px;
+    font-size: 0.8rem;
+    box-sizing: border-box;
+    padding-left: 25px;
+}
+
+.vertical-timeline-element-content .timeline-title {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    margin: 0 0 0.5rem;
+    padding: 2px 0 0;
+    font-weight: bold;
+}
+
+.vertical-timeline-element-content .vertical-timeline-element-date {
+    display: block;
+    position: absolute;
+    left: -90px;
+    top: 0;
+    padding-right: 10px;
+    text-align: right;
+    color: #adb5bd;
+    font-size: 0.7619rem;
+    white-space: nowrap;
+}
+
+.vertical-timeline-element-content:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* ACTIVITY LOG TIMELINE CSS */
+
+
+
+
+     /* =============== For Nottification Start============ */
+
+
+     [data-notify="icon"]{
+        color: #fff;
+        margin-right: 5px;
+        /* background-color: wheat; */
+        border: none;
+      }
+      
+      .alert.alert-info {
+          background:  #08295a!important;
+          color: #FFF!important;
+          box-shadow: 0 3px 8px 0 rgba(0,207,221,.4);
+          border: none;
+      }
+      
+      .alert .close {
+
+        border: none;
+        padding: 0px 7px;
+        border-radius: 30px;
+    
+      }
+     /* =============== For Nottification Ends============ */
+

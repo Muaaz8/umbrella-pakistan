@@ -1,0 +1,59 @@
+.page-item {
+    margin: 5px !important;
+    border-radius: 5px !important
+}
+
+.page-link {
+    color: #111 !important;
+}
+
+.paginateCounter .page-item.active .page-link,
+.paginateCounter .page-item .page-link:hover {
+    background: #0c3b81 !important;
+    color: #fff !important;
+}
+
+.Contact a {
+    margin-right: 10px;
+    color: black;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.btns-group button {
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.Contact thead {
+    background-color: #4676be !important;
+    color: #fff !important;
+    padding-left: 30px !important;
+}
+
+.tblmsg {
+    border: 2px solid rgb(196, 187, 187);
+    border-radius: 13px !important;
+    text-align: justify !important;
+    width: 100% !important;
+    height: 60% !important;
+    color: #fff !important;
+    padding: 1rem !important;
+}
+
+.shadow-lg {
+    background: #4676be;
+    background: -webkit-linear-gradient(to bottom, #08295a, #5a80a6);
+    background: linear-gradient(to bottom,#08295a, #5a80a6);
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px !important;
+    border-radius: 20px !important;
+}
+
+.Contact_msg td {
+    margin-top: 20px !important;
+    padding: 1rem !important;
+    text-align: left;
+    color: #fff !important;
+    width: 150px !important;
+}

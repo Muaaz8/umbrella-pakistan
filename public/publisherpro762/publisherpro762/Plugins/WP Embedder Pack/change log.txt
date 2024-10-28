@@ -1,0 +1,40 @@
+----------------------------------------------------------------
+Version 1.2.2 - 5 May 2019
+----------------------------------------------------------------
+- Added: VC Support Added.
+- Added: Gutenberg Support Added.
+
+
+----------------------------------------------------------------
+Version 1.2.1 - 25 FEb 2018
+----------------------------------------------------------------
+- Fixed: wrong option name.
+- Fixed: Fatal error on standalone usage.
+
+
+----------------------------------------------------------------
+Version 1.2.0 - 11 Sep 2018
+----------------------------------------------------------------
+- Renamed to WP Embedder Pack
+- Fixed: Embedd document button not works.
+
+
+----------------------------------------------------------------
+Version 1.1.0 - 28 Apr 2018
+----------------------------------------------------------------
+- Improved: Codes improved.
+- Fixed:
+
+----------------------------------------------------------------
+Version 1.0.0 - 15 Apr 2018
+----------------------------------------------------------------
+- Public release in Publisher.
+
+- It helps you to embed (add) all following files to your posts.
+- Added: Google Drive support to "Better WP Embedder"
+- Added: DropBox support to "Better WP Embedder"
+- Supported formats to embed in post:
+  .PDF,  .DOC,   .DOCX, .XLS, .XLSX, .PPT,    .PPTX, .PAGES, .AI,   .PSD
+  .TXT,  .CSS,   .HTML, .PHP, .C,    .CPP,    .H,    .HPP,   .JS,   .TIFF
+  .ZIP,  .RAR,   .EPS,  .PS,  .SVG,  .XPS,    .TTF,  .TIFF,  .BMP,  .DXF
+  .WebM, .MPEG4, .3GPP, .MOV, .AVI,  .MPEGPS, .WMV,  .FLV,   .RTF
