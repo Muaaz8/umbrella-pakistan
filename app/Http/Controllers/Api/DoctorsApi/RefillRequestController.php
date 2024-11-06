@@ -117,7 +117,7 @@ class RefillRequestController extends BaseController
                 'received' => 'false',
                 'refill_id' => $refill['id'],
             ];
-            \App\Helper::firebase( $pat_user->id,'notification',$noti->id,$data);
+            // \App\Helper::firebase( $pat_user->id,'notification',$noti->id,$data);
             event(new RealTimeMessage($pat_user->id));
         } catch (\Exception $e) {
             Log::error($e);
@@ -284,7 +284,7 @@ class RefillRequestController extends BaseController
                 'received' => 'false',
                 'refill_id' => $request['id']
             ];
-            \App\Helper::firebase($refill->patient_id,'notification',$noti->id,$data);
+            // \App\Helper::firebase($refill->patient_id,'notification',$noti->id,$data);
             event(new RealTimeMessage($refill->patient_id));
             $code['code']= 200;
             return $this->sendResponse($code,"Session Requested Successully!");

@@ -186,12 +186,12 @@ class RegisterController extends Controller
                         'username' => $data['username'],
                         'country_id' => $data['country'],
                         'city_id' => $data['city'],
-                        'state_id' => $data['state'],
+                        'state_id' => '',
                         'password' => Hash::make($data['password']),
                         'date_of_birth' => $newd_o_b,
                         'phone_number' => $data['phone_number'],
                         'office_address' => $data['address'],
-                        'zip_code' => $data['zip_code'],
+                        'zip_code' => '',
                         'gender' => $data['gender'],
                         'terms_and_cond' => $data['terms_and_cond'],
                         'timeZone' => $data['timezone'],
@@ -262,12 +262,12 @@ class RegisterController extends Controller
                         'username' => $data['username'],
                         'country_id' => $data['country'],
                         'city_id' => $data['city'],
-                        'state_id' => $data['state'],
+                        'state_id' => '',
                         'password' => Hash::make($data['password']),
                         'date_of_birth' => $newd_o_b,
                         'phone_number' => $data['phone_number'],
                         'office_address' => $data['address'],
-                        'zip_code' => $data['zip_code'],
+                        'zip_code' => '',
                         'gender' => $data['gender'],
                         'terms_and_cond' => $data['terms_and_cond'],
                         'timeZone' => $data['timezone'],
@@ -322,7 +322,6 @@ class RegisterController extends Controller
             //doctor registration
             else {
                 $datecheck = $data['date_of_birth'];
-                // dd($datecheck);
                 $date = str_replace('-', '/', $datecheck);
                 $newd_o_b = date("Y-m-d", strtotime($date));
                 if (str_contains($datecheck, "/")) {
@@ -385,14 +384,14 @@ class RegisterController extends Controller
                     'username' => $data['username'],
                     'country_id' => $data['country'],
                     'city_id' => $data['city'],
-                    'state_id' => $data['state'],
+                    'state_id' => '',
                     'password' => Hash::make($data['password']),
                     'date_of_birth' => $newd_o_b,
                     'phone_number' => $data['phone_number'],
                     'office_address' => $data['address'],
-                    'zip_code' => $data['zip_code'],
+                    'zip_code' => '',
                     'nip_number' => $data['npi'],
-                    'upin' => $data['upin'],
+                    'upin' => '',
                     'specialization' => $data['specializations'],
                     'gender' => $data['gender'],
                     'id_card_front' => $frontimageName,
@@ -402,13 +401,6 @@ class RegisterController extends Controller
                     'signature' => $data['signature'],
                     'timeZone' => $data['timezone'],
                 ]);
-                foreach ($data['licensed_states'] as $li_state) {
-                    DoctorLicense::create([
-                        'doctor_id' => $user->id,
-                        'state_id' => $li_state
-                    ]);
-                }
-                // dd($user);
                 $x = rand(10e12, 10e16);
                 $hash_to_verify = base_convert($x, 10, 36);
                 $data1 = [
@@ -425,7 +417,6 @@ class RegisterController extends Controller
                     'verification_hash_code' => $hash_to_verify,
                     'user_id' => $user->id,
                 ]);
-
                 return $user;
             }
         }

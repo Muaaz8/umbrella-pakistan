@@ -94,7 +94,7 @@
                   <div class="col-md-12">
                     <div class="row m-auto">
                       <div class="d-flex justify-content-between flex-wrap align-items-baseline p-0">
-                        <h3>Quest Labtests</h3>
+                        <h3>Labtests</h3>
                         <div class="col-md-4 p-0">
                           <div class="input-group">
                             <input

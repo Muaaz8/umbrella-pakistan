@@ -304,8 +304,8 @@ class EvisitController extends BaseController
             event(new updateQuePatient('update patient que'));
             try {
                 $getSession->received = false;
-                \App\Helper::firebase($getSession->doctor_id,'notification',$evisitnoti->id,$data);
-                \App\Helper::firebase($getSession->doctor_id,'updateQuePatient',$session_id,$fireSession);
+                // \App\Helper::firebase($getSession->doctor_id,'notification',$evisitnoti->id,$data);
+                // \App\Helper::firebase($getSession->doctor_id,'updateQuePatient',$session_id,$fireSession);
             } catch (\Throwable $th) {
                 //throw $th;
             }
@@ -445,8 +445,8 @@ class EvisitController extends BaseController
             event(new RealTimeMessage($getSession->doctor_id));
             event(new updateQuePatient('update patient que'));
             try {
-                \App\Helper::firebase($getSession->doctor_id,'notification',$evisitnewCard->id,$data);
-                \App\Helper::firebase($getSession->doctor_id,'updateQuePatient',$request->session_id,$firebaseSession);
+                // \App\Helper::firebase($getSession->doctor_id,'notification',$evisitnewCard->id,$data);
+                // \App\Helper::firebase($getSession->doctor_id,'updateQuePatient',$request->session_id,$firebaseSession);
             } catch (\Throwable $th) {
                 //throw $th;
             }
@@ -494,9 +494,9 @@ class EvisitController extends BaseController
             event(new RealTimeMessage($sessionData->doctor_id));
             event(new updateDoctorWaitingRoom('new_patient_listed'));
             try {
-                \App\Helper::firebase($sessionData->doctor_id,'notification',$sessionNoti->id,$data);
+                // \App\Helper::firebase($sessionData->doctor_id,'notification',$sessionNoti->id,$data);
                 $sessionData->received = false;
-                \App\Helper::firebase($sessionData->doctor_id,'updateDoctorWaitingRoom',$session_id,$sessionData);
+                // \App\Helper::firebase($sessionData->doctor_id,'updateDoctorWaitingRoom',$session_id,$sessionData);
             } catch (\Throwable $th) {
                 //throw $th;
             }
@@ -580,7 +580,7 @@ class EvisitController extends BaseController
             event(new patientJoinCall($getSession->doctor_id, $getSession->patient_id, $id));
             try {
                 $getSession->received = false;
-                \App\Helper::firebase($getSession->doctor_id,'patientJoinCall',$getSession->patient_id,$id);
+                // \App\Helper::firebase($getSession->doctor_id,'patientJoinCall',$getSession->patient_id,$id);
             } catch (\Throwable $th) {
                 //throw $th;
             }

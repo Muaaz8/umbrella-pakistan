@@ -248,7 +248,7 @@ class AppointmentController extends Controller
                 'received' => 'false',
                 'session_id' => 'null',
             ];
-            \App\Helper::firebase($getAppointment->doctor_id,'notification',$notification_id->id,$data);
+            // \App\Helper::firebase($getAppointment->doctor_id,'notification',$notification_id->id,$data);
             event(new RealTimeMessage($getAppointment->patient_id));
         } catch (Exception $e) {
             Log::error($e);
@@ -300,15 +300,15 @@ class AppointmentController extends Controller
     {
         //$state = State::find($loc_id);
         if (auth()->user()->user_type=='patient') {
-            $Reg_state = auth()->user()->state_id;
-            $state = State::find($Reg_state);
+            // $Reg_state = auth()->user()->state_id;
+            // $state = State::find($Reg_state);
 
             $spe = DB::table('specializations')
             ->join('specalization_price', 'specalization_price.spec_id', 'specializations.id')
             ->join('users', 'users.specialization', 'specializations.id')
-            ->join('doctor_licenses', 'doctor_licenses.doctor_id', 'users.id')
-            ->where('specalization_price.state_id', $Reg_state)
-            ->where('doctor_licenses.is_verified', '1')
+            // ->join('doctor_licenses', 'doctor_licenses.doctor_id', 'users.id')
+            // ->where('specalization_price.state_id', $Reg_state)
+            // ->where('doctor_licenses.is_verified', '1')
             ->groupBy('specializations.id')
             ->select('specializations.*', 'specalization_price.follow_up_price as follow_up_price', 'specalization_price.initial_price as initial_price')
             ->get();
@@ -331,7 +331,7 @@ class AppointmentController extends Controller
                 }
             }
 
-            return view('dashboard_patient.Appointments.specialization', compact('spe','locations','state'));
+            return view('dashboard_patient.Appointments.specialization', compact('spe','locations'));
         } else {
             return redirect()->route('errors', '101');
         }
@@ -415,49 +415,37 @@ class AppointmentController extends Controller
         //return view('appointments.choose_doctor_for_appointment',compact('doctors','refered_doctors','already_session_did'));
     }
 
-    public function book_appointment(Request $req,$id,$loc)
+    public function book_appointment(Request $req,$id)
     {
         $user = Auth::user();
         $user->ses_id = '';
-        $loc_id = $loc;
-        $states = DB::table('states')->where('active', '1')->get();
-        $state = DB::table('states')->where('id', $loc_id)->first();
         if($id != '21'){
             if($req->name!=null){
-                $doctors = DB::table('doctor_licenses')
-                ->join('users', 'doctor_licenses.doctor_id', 'users.id')
+                $doctors = DB::table('users')
                 ->join('specializations', 'specializations.id', 'users.specialization')
                 ->leftJoin('doctor_schedules',function ($join) {
                     $join->on('doctor_schedules.doctorID', '=' , 'users.id');
                     $join->where('doctor_schedules.title','=','Availability');
                     $join->where('doctor_schedules.end','>',date('Y-m-d H:i:s'));
                 })
-                ->where('doctor_licenses.state_id', $req->loc_id)
                 ->where('users.specialization', $req->spec_id)
                 ->where('users.active', '1')
-                ->where('doctor_licenses.is_verified', '1')
                 ->where(DB::raw('CONCAT(users.name, " ",users.last_name)'),'LIKE','%'. $req->name . '%')
                 ->select('users.*', 'specializations.name as sp_name','doctor_schedules.title')
                 ->groupBy('users.id')
                 ->orderby('doctor_schedules.doctorID','DESC')
                 ->paginate(12);
-                $loc_id = $req->loc_id;
                 $id = $req->spec_id;
-                $states = DB::table('states')->where('active', '1')->get();
-                $state = DB::table('states')->where('id', $loc_id)->first();
             }else{
-                $doctors = DB::table('doctor_licenses')
-                    ->join('users', 'doctor_licenses.doctor_id', 'users.id')
+                $doctors = DB::table('users')
                     ->join('specializations', 'specializations.id', 'users.specialization')
                     ->leftJoin('doctor_schedules',function ($join) {
                         $join->on('doctor_schedules.doctorID', '=' , 'users.id');
                         $join->where('doctor_schedules.title','=','Availability');
                         $join->where('doctor_schedules.end','>',date('Y-m-d H:i:s'));
                     })
-                    ->where('doctor_licenses.state_id', $loc_id)
                     ->where('users.specialization', $id)
                     ->where('users.active', '1')
-                    ->where('doctor_licenses.is_verified', '1')
                     ->select('users.*', 'specializations.name as sp_name','doctor_schedules.title')
                     ->groupBy('users.id')
                     ->orderby('doctor_schedules.doctorID','DESC')
@@ -488,7 +476,7 @@ class AppointmentController extends Controller
                 }
             }
             $session = null;
-            $price = DB::table('specalization_price')->where('spec_id', $id)->where('state_id',$loc_id)->first();
+            $price = DB::table('specalization_price')->where('spec_id', $id)->first();
             if($price!=null)
             {
                 if ($price->follow_up_price != null) {
@@ -510,9 +498,9 @@ class AppointmentController extends Controller
             }
         }else{
             $flag = 'appointment';
-            return view('dashboard_patient.Evisit.patient_health',compact('user','flag','loc_id'));
+            return view('dashboard_patient.Evisit.patient_health',compact('user','flag'));
         }
-        return view('dashboard_patient.Appointments.book_appointment', compact('doctors','price','session', 'id', 'user','loc_id','state','states'));
+        return view('dashboard_patient.Appointments.book_appointment', compact('doctors','price','session', 'id', 'user'));
         //return view('appointments.choose_doctor_for_appointment',compact('doctors','refered_doctors','already_session_did'));
     }
 
@@ -672,28 +660,22 @@ class AppointmentController extends Controller
         return view('dashboard_patient.Appointments.load_docs', compact('doctors','price','session', 'user'));
     }
 
-    public function psych_book_appointment(Request $req,$id,$loc)
+    public function psych_book_appointment(Request $req,$id)
     {
 
         $user = Auth::user();
         $user->ses_id = '';
-        $loc_id = $loc;
-        $state = DB::table('states')->where('id', $loc_id)->first();
-        $states = DB::table('states')->where('active', '1')->get();
         $input = $req->all();
             if($input!=null){
-                $doctors = DB::table('doctor_licenses')
-                ->join('users', 'doctor_licenses.doctor_id', 'users.id')
+                $doctors = DB::table('users')
                 ->join('specializations', 'specializations.id', 'users.specialization')
                 ->leftJoin('doctor_schedules',function ($join) {
                     $join->on('doctor_schedules.doctorID', '=' , 'users.id');
                     $join->where('doctor_schedules.title','=','Availability');
                     $join->where('doctor_schedules.end','>',date('Y-m-d H:i:s'));
                 })
-                ->where('doctor_licenses.state_id', $req->loc_id)
                 ->where('users.specialization', $req->spec_id)
                 ->where('users.active', '1')
-                ->where('doctor_licenses.is_verified', '1')
                 ->where('users.name','LIKE','%'. $req->name . '%')
                 ->select('users.*', 'specializations.name as sp_name','doctor_schedules.title')
                 ->groupBy('users.id')
@@ -703,18 +685,15 @@ class AppointmentController extends Controller
                 $state = DB::table('states')->where('id', $loc_id)->first();
                 $id = $req->spec_id;
             }else{
-                $doctors = DB::table('doctor_licenses')
-                    ->join('users', 'doctor_licenses.doctor_id', 'users.id')
+                $doctors = DB::table('users')
                     ->join('specializations', 'specializations.id', 'users.specialization')
                     ->leftJoin('doctor_schedules',function ($join) {
                         $join->on('doctor_schedules.doctorID', '=' , 'users.id');
                         $join->where('doctor_schedules.title','=','Availability');
                         $join->where('doctor_schedules.end','>',date('Y-m-d H:i:s'));
                     })
-                    ->where('doctor_licenses.state_id', $loc_id)
                     ->where('users.specialization', $id)
                     ->where('users.active', '1')
-                    ->where('doctor_licenses.is_verified', '1')
                     ->select('users.*', 'specializations.name as sp_name','doctor_schedules.title')
                     ->groupBy('users.id')
                     ->orderby('doctor_schedules.doctorID','DESC')
@@ -745,7 +724,7 @@ class AppointmentController extends Controller
                 }
             }
             $session = null;
-            $price = DB::table('specalization_price')->where('spec_id', $id)->where('state_id', $loc_id)->first();
+            $price = DB::table('specalization_price')->where('spec_id', $id)->first();
             if ($price != null) {
             if ($price->follow_up_price != null) {
                 $session = DB::table('sessions')
@@ -759,7 +738,7 @@ class AppointmentController extends Controller
             }}else{
                 return view('errors.101');
             }
-        return view('dashboard_patient.Appointments.book_appointment', compact('doctors','price','session', 'id', 'user','loc_id','state','states'));
+        return view('dashboard_patient.Appointments.book_appointment', compact('doctors','price','session', 'id', 'user'));
 
         //return view('appointments.choose_doctor_for_appointment',compact('doctors','refered_doctors','already_session_did'));
 
@@ -1253,10 +1232,10 @@ class AppointmentController extends Controller
                     'received' => 'false',
                     'session_id' => 'null',
                 ];
-                \App\Helper::firebase($getSession->doctor_id,'notification',$notification_id->id,$notification_id);
+                // \App\Helper::firebase($getSession->doctor_id,'notification',$notification_id->id,$notification_id);
                 event(new RealTimeMessage($getSession->doctor_id));
 
-                \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
+                // \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
                 event(new updateQuePatient('update patient que'));
             } catch (Exception $e) {
                 Log::error($e);
@@ -1431,10 +1410,10 @@ class AppointmentController extends Controller
                     'received' => 'false',
                     'session_id' => 'null',
                 ];
-                \App\Helper::firebase($getSession->doctor_id,'notification',$notification_id->id,$data);
+                // \App\Helper::firebase($getSession->doctor_id,'notification',$notification_id->id,$data);
                 event(new RealTimeMessage($getSession->doctor_id));
 
-                \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
+                // \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
                 event(new updateQuePatient('update patient que'));
             } catch (Exception $e) {
                 Log::error($e);
@@ -1595,10 +1574,10 @@ class AppointmentController extends Controller
                 'received' => 'false',
                 'session_id' => 'null',
             ];
-            \App\Helper::firebase($getSession->doctor_id,'notification',$notification_id->id,$data);
+            // \App\Helper::firebase($getSession->doctor_id,'notification',$notification_id->id,$data);
             event(new RealTimeMessage($getSession->doctor_id));
 
-            \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
+            // \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
             event(new updateQuePatient('update patient que'));
 
             }
@@ -1704,7 +1683,7 @@ class AppointmentController extends Controller
                 'received' => 'false',
                 'session_id' => 'null',
             ];
-            \App\Helper::firebase($getAppointment->patient_id,'notification',$notification_id->id,$data);
+            // \App\Helper::firebase($getAppointment->patient_id,'notification',$notification_id->id,$data);
             event(new RealTimeMessage($getAppointment->patient_id));
         } catch (Exception $e) {
             Log::error($e);
@@ -2195,10 +2174,10 @@ class AppointmentController extends Controller
                     'received' => 'false',
                     'session_id' => 'null',
                 ];
-                \App\Helper::firebase($getSession->doctor_id,'notification',$notification_id->id,$data);
+                // \App\Helper::firebase($getSession->doctor_id,'notification',$notification_id->id,$data);
                 event(new RealTimeMessage($getSession->doctor_id));
 
-                \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
+                // \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
                 event(new updateQuePatient('update patient que'));
             } catch (Exception $e) {
                 Log::error($e);
@@ -2360,12 +2339,12 @@ class AppointmentController extends Controller
                 'received' => 'false',
                 'session_id' => 'null',
             ];
-            \App\Helper::firebase($pro_id,'notification',$notification_id->id,$data);
+            // \App\Helper::firebase($pro_id,'notification',$notification_id->id,$data);
             event(new RealTimeMessage($pro_id));
 
             $firebase_ses = DB::table('sessions')->where('appointment_id', $request->app_id)->first();
             $firebase_ses->received = false;
-            \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
+            // \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
             event(new updateQuePatient('update patient que'));
         } catch (Exception $e) {
             Log::error($e);
@@ -2449,7 +2428,7 @@ class AppointmentController extends Controller
                 'received' => 'false',
                 'session_id' => 'null',
             ];
-            \App\Helper::firebase($getAppointment->patient_id,'notification',$notification_id->id,$data);
+            // \App\Helper::firebase($getAppointment->patient_id,'notification',$notification_id->id,$data);
             event(new RealTimeMessage($getAppointment->patient_id));
         } catch (Exception $e) {
             Log::error($e);

@@ -675,7 +675,7 @@ public function view_DocProfile($username)
             'refill_id' => 'null',
         ];
         try {
-            \App\Helper::firebase($admin->id,'notification',$notification_id->id,$data);
+            // \App\Helper::firebase($admin->id,'notification',$notification_id->id,$data);
         } catch (\Throwable $th) {
             //throw $th;
         }
@@ -832,7 +832,7 @@ public function view_DocProfile($username)
         ];
         try {
 
-            \App\Helper::firebase($res->user_id,'notification',$notification_id->id,$data);
+            // \App\Helper::firebase($res->user_id,'notification',$notification_id->id,$data);
         } catch (\Throwable $th) {
             //throw $th;
         }
@@ -875,7 +875,7 @@ public function view_DocProfile($username)
             'refill_id' => 'null',
         ];
         try {
-            \App\Helper::firebase($res->user_id,'notification',$notification_id->id,$data);
+            // \App\Helper::firebase($res->user_id,'notification',$notification_id->id,$data);
 
         } catch (\Throwable $th) {
             //throw $th;
@@ -910,7 +910,7 @@ public function view_DocProfile($username)
         ];
         try {
 
-            \App\Helper::firebase($res->user_id,'notification',$notification_id->id,$data);
+            // \App\Helper::firebase($res->user_id,'notification',$notification_id->id,$data);
         } catch (\Throwable $th) {
             //throw $th;
         }
@@ -966,7 +966,7 @@ public function view_DocProfile($username)
         ];
         try {
 
-            \App\Helper::firebase($res->user_id,'notification',$notification_id->id,$data);
+            // \App\Helper::firebase($res->user_id,'notification',$notification_id->id,$data);
         } catch (\Throwable $th) {
             //throw $th;
         }
@@ -1201,7 +1201,7 @@ public function updateDocProfile(Request $request)
         ];
         try {
 
-            \App\Helper::firebase($res->user_id,'notification',$notification_id->id,$data);
+            // \App\Helper::firebase($res->user_id,'notification',$notification_id->id,$data);
         } catch (\Throwable $th) {
             //throw $th;
         }

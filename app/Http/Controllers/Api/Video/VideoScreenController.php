@@ -28,7 +28,7 @@ class VideoScreenController extends BaseController
         event(new patientJoinCall($session->doctor_id, $session->patient_id, $session_id));
         try {
                 $session->received = false;
-                \App\Helper::firebase($session->doctor_id,'patientJoinCall',$session_id,$session);
+                // \App\Helper::firebase($session->doctor_id,'patientJoinCall',$session_id,$session);
 
         } catch (\Throwable $th) {
             //throw $th;

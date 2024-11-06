@@ -86,9 +86,6 @@
                               <!-- <li>Or</li> -->
                               <li><b>Or</b> Email : <a href="mailto:support@umbrellamd.com">support@umbrellamd.com</a></li>
                               <li><strong>Phone</strong>: +1 (407) 693-8484</li>
-                              <li><strong>Near By Locations</strong>:</li>
-                              <li>Saint Lousi Missouri</li>
-                              <li>Saint Lousi Missouri</li>
                           </ul>
                       </div>
                   </div>
@@ -137,7 +134,7 @@
                                 <li><strong>Find Us</strong>:</li>
                               <li class="ab-spacing mt-2">
                           <p class="find_location_btn footer-call-btn mb-2" data-bs-toggle="modal" data-bs-target="#locationModal">
-    
+
                             <i class="fa-solid fa-location-dot" style="color: rgb(255, 53, 53)"></i><span>More Location</span>
                           </p>
                           </li>

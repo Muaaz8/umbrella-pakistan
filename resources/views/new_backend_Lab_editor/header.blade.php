@@ -39,7 +39,7 @@
 
             </div>
 
-            <a href="/quest/lab/tests" class="dashboard-nav-item"><i class="fa-solid fa-gear"></i>Quest Labtest </a>
+            <a href="/quest/lab/tests" class="dashboard-nav-item"><i class="fa-solid fa-gear"></i>Labtest </a>
             <a href="/online/lab/tests" class="dashboard-nav-item"><i class="fa-solid fa-gear"></i>Online Labtest </a>
             {{-- <a href="/lab/test/categories" class="dashboard-nav-item"><i class="fa-solid fa-gear"></i>Labtest Categories</a> --}}
             <!-- <div class="dashboard-nav-dropdown">

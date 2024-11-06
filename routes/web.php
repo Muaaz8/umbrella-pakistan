@@ -38,23 +38,6 @@ Route::get('sitemap', function () {
     return "sitemap created";
 });
 
-Route::get('/ok',function(){
-    event(new AppEvent);
-    dd('okkkkkkk');
-});
-
-Route::get('/msgsend',function(){
-$sid = "AC0e609f24f8429f79949def810c2f173e";
-$token = "b201871a7a92edc1a1dfbd8d6468a1c9";
-$twilio = new Client($sid, $token);
-
-$message = $twilio->messages
-->create("+923022294361", // to
-        ["body" => "Hi there", "from" => "+13613042174"]
-);
-dd($message->sid);
-});
-
 Route::get('/app_pat_video/{id}',function($id){
     $session = DB::table('sessions')->where('id',$id)->first();
     return view('dashboard_patient.Video.app_video',compact('session'));
@@ -62,89 +45,6 @@ Route::get('/app_pat_video/{id}',function($id){
 Route::get('/app_doc_video/{id}',function($id){
     $session = DB::table('sessions')->where('id',$id)->first();
     return view('dashboard_doctor.Video.app_video',compact('session'));
-});
-
-Route::get('/in',function(){
-    return view('dashboard_finance_admin.vendors.quest.invoicecollapse');
-});
-
-Route::get('content_seeder',function(){
-    $page = DB::table('pages')->insertGetId([
-        'name'=>"Landing Page",
-        'url'=>"/landing-page",
-        'created_at'=>now(),
-        'updated_at'=>now(),
-    ]);
-    $section = DB::table('section')->insert([
-        'page_id'=>$page,
-        'section_name'=>"main section",
-        'sequence_no'=>"1",
-        'created_at'=>date('Y-m-d H:i:s'),
-        'updated_at'=>date('Y-m-d H:i:s'),
-    ]);
-    $section = DB::table('section')->insert([
-        'page_id'=>$page,
-        'section_name'=>"primary-care",
-        'sequence_no'=>"1",
-        'created_at'=>date('Y-m-d H:i:s'),
-        'updated_at'=>date('Y-m-d H:i:s'),
-    ]);
-    $section = DB::table('section')->insert([
-        'page_id'=>$page,
-        'section_name'=>"psychiatry",
-        'sequence_no'=>"1",
-        'created_at'=>date('Y-m-d H:i:s'),
-        'updated_at'=>date('Y-m-d H:i:s'),
-    ]);
-    $section = DB::table('section')->insert([
-        'page_id'=>$page,
-        'section_name'=>"substance-abuse",
-        'sequence_no'=>"1",
-        'created_at'=>date('Y-m-d H:i:s'),
-        'updated_at'=>date('Y-m-d H:i:s'),
-    ]);
-    $section = DB::table('section')->insert([
-        'page_id'=>$page,
-        'section_name'=>"pain-management",
-        'sequence_no'=>"1",
-        'created_at'=>date('Y-m-d H:i:s'),
-        'updated_at'=>date('Y-m-d H:i:s'),
-    ]);
-    $section = DB::table('section')->insert([
-        'page_id'=>$page,
-        'section_name'=>"e-visit",
-        'sequence_no'=>"1",
-        'created_at'=>date('Y-m-d H:i:s'),
-        'updated_at'=>date('Y-m-d H:i:s'),
-    ]);
-    $section = DB::table('section')->insert([
-        'page_id'=>$page,
-        'section_name'=>"lab-test",
-        'sequence_no'=>"1",
-        'created_at'=>date('Y-m-d H:i:s'),
-        'updated_at'=>date('Y-m-d H:i:s'),
-    ]);
-    $section = DB::table('section')->insert([
-        'page_id'=>$page,
-        'section_name'=>"imaging",
-        'sequence_no'=>"1",
-        'created_at'=>date('Y-m-d H:i:s'),
-        'updated_at'=>date('Y-m-d H:i:s'),
-    ]);
-    $section = DB::table('section')->insert([
-        'page_id'=>$page,
-        'section_name'=>"why-header",
-        'sequence_no'=>"1",
-        'created_at'=>date('Y-m-d H:i:s'),
-        'updated_at'=>date('Y-m-d H:i:s'),
-    ]);
-    $section = DB::table('section')->insert([
-        'page_id'=>$page,
-        'section_name'=>"why-description",
-        'sequence_no'=>"1",
-        'created_at'=>date('Y-m-d H:i:s'),
-        'updated_at'=>date('Y-m-d H:i:s'),
-    ]);
 });
 
 Route::get('/doctor-profile/{id}',function($id){
@@ -165,13 +65,8 @@ Route::get('/doctor-profile/{id}',function($id){
         }
     }
     $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
-    // dd($doctor);
     return view('website_pages.doc_profile_page',compact('doctor'));
 });
-
-
-// Route::get('get-firebase-data', [FirebaseController::class, 'index'])->name('firebase.index');
-// Route::get('store-firebase-data', [FirebaseController::class, 'store']);
 
 Route::get('/screen_sharing','UserController@sc_share')->name('sc_share');
 Route::post('/create/screen_sharing','UserController@create_sc_sh')->name('create_sc_sh');
@@ -183,80 +78,37 @@ Route::post('/share/screen','UserController@share_sc')->name('share_sc');
 
 Route::get('excel','UserController@read_excel');
 
-Route::get('/checkApiRes',function(){
-    $curl = curl_init();
-    curl_setopt_array($curl, array(
-      CURLOPT_URL => 'https://apiscsandbox.isabelhealthcare.com/v3/convert_to_pro_query?language=en&web_service=json&query=Abdominal%2520aortic%2520aneurysm,Acne,Acute%2520cholecystitis',
-      CURLOPT_RETURNTRANSFER => true,
-      CURLOPT_ENCODING => '',
-      CURLOPT_MAXREDIRS => 10,
-      CURLOPT_TIMEOUT => 0,
-      CURLOPT_FOLLOWLOCATION => true,
-      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-      CURLOPT_CUSTOMREQUEST => 'GET',
-      CURLOPT_HTTPHEADER => array(
-        'authorization: krJM2RgWk7W5L2b5j3X8oYJTLey4E5AJ',
-        'Content-Type: application/json',
-        'Cookie: _session_id=e42ba831ad6182e1ae8b9728bd0a5c67; language=en'
-      ),
-    ));
-    $response = curl_exec($curl);
-    curl_close($curl);
-    echo $response;
+// Route::get('/checkApiRes',function(){
+//     $curl = curl_init();
+//     curl_setopt_array($curl, array(
+//       CURLOPT_URL => 'https://apiscsandbox.isabelhealthcare.com/v3/convert_to_pro_query?language=en&web_service=json&query=Abdominal%2520aortic%2520aneurysm,Acne,Acute%2520cholecystitis',
+//       CURLOPT_RETURNTRANSFER => true,
+//       CURLOPT_ENCODING => '',
+//       CURLOPT_MAXREDIRS => 10,
+//       CURLOPT_TIMEOUT => 0,
+//       CURLOPT_FOLLOWLOCATION => true,
+//       CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+//       CURLOPT_CUSTOMREQUEST => 'GET',
+//       CURLOPT_HTTPHEADER => array(
+//         'authorization: krJM2RgWk7W5L2b5j3X8oYJTLey4E5AJ',
+//         'Content-Type: application/json',
+//         'Cookie: _session_id=e42ba831ad6182e1ae8b9728bd0a5c67; language=en'
+//       ),
+//     ));
+//     $response = curl_exec($curl);
+//     curl_close($curl);
+//     echo $response;
 
-    dd($response);
-});
-
-Route::get('/add/services', function () {
-    $maintainance = DB::table('services')->where('name','maintainance_mode')->first();
-    $authorize = DB::table('services')->where('name','authorize_api_mode')->first();
-    if($maintainance==null)
-    {
-        DB::table('services')->insert([
-            'name'=>'maintainance_mode',
-            'status'=>'off',
-            'created_at'=>date('Y-m-d H:i:s'),
-            'updated_at'=>date('Y-m-d H:i:s'),
-        ]);
-    }
-    if($authorize==null)
-    {
-        DB::table('services')->insert([
-            'name'=>'authorize_api_mode',
-            'status'=>'liveMode',
-            'created_at'=>date('Y-m-d H:i:s'),
-            'updated_at'=>date('Y-m-d H:i:s'),
-        ]);
-    }
-    dd('done');
-});
+//     dd($response);
+// });
 
 Route::get('phpmyinfo', function () { phpinfo(); })->name('phpmyinfo');
 
-Route::get('check_price', function () {
-    $data = DB::table('patient_lab_recomend_aoe')->where('session_id', '13')->first();
-    $aoes = unserialize($data->aoes);
-    foreach ($aoes as $key => $value) {
-        $questionId = $value['ques_id'];
-        $question = $value['ques'];
-        $obxAlternativeText = $value['ans'];
-        dd($questionId . "====" . $question . "====" . $obxAlternativeText);
-    }
-});
-
-Route::get('mail', function () {
-    Mail::to('baqir.redecom@gmail.com')->send(new testingMail('ok'));
-    dd('ok');
-});
-
 Route::get('error/{code}','PaymentController@errorCodeMessage');
-
 Route::get('pdfcontract/{slug}','AdminController@pdfview_contract');
-
 
 Route::post('/order/done', 'PharmacyController@create_new_order')->name('order.done');
 Route::post('/order/payment/done', 'PharmacyController@authorize_create_new_order')->name('order.payment');
-
 
 
 Route::get('doc/video/page/{id}', 'VideoController@doctorVideo')->name('doc_video_page')->middleware('no_cache');
@@ -283,73 +135,20 @@ Route::get('admin/coupon/get/{category}/{sub}', 'CouponController@get_sub_catego
 Route::get('admin/coupon/delete/{id}', 'CouponController@destroy');
 Route::get('/admin/coupon/check', 'CouponController@check');
 
-
-Route::get('acc_set',function(){
-    return view('dashboard_admin.AccountSetting.index');
-});
-
-
-Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], function () {
-    Route::get('/conference_video',function(){
-        return view('dashboard_doctor.Video.doc_conference');
-    });
-});
-Route::get('/view/psychiatrist/{id}',function($id){
-    $event = DB::table('psychiatrist_info')->where('event_id',$id)->first();
-    $doc = DB::table('users')->where('id',$event->doctor_id)->first();
-    $doc->user_image = \App\Helper::check_bucket_files_url($doc->user_image);
-    $info = DB::table('psychiatrist_info')->where('doctor_id',$event->doctor_id)->where('event_id',$id)->first();
-    if($info != ''){
-        $info->concerns = explode(',',$info->concerns);
-        $info->services = explode(',',$info->services);
-        array_pop($info->concerns);
-        array_pop($info->services);
-    }
-    $doc->lic_state = DB::table('doctor_licenses')
-        ->join('states','doctor_licenses.state_id','states.id')
-        ->where('doctor_id',$doc->id)
-        ->select('states.name')->get();
-    $info->date = DB::table('therapy_session')->where('event_id',$info->event_id)->select('therapy_session.id as session_id','therapy_session.start_time','therapy_session.date')->first();
-    $info->date->date = date('m-d-Y',strtotime($info->date->date));
-    $info->date->est = date('h:i a',strtotime('-5 hours',strtotime($info->date->start_time)));
-    $info->date->cst = date('h:i a',strtotime('-6 hours',strtotime($info->date->start_time)));
-    $info->date->pst = date('h:i a',strtotime('-7 hours',strtotime($info->date->start_time)));
-    $info->date->mst = date('h:i a',strtotime('-8 hours',strtotime($info->date->start_time)));
-
-    return view('dashboard_doctor.psychiatrist_profile.index',compact('doc','info'));
-});
+// Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], function () {
+//     Route::get('/conference_video',function(){
+//         return view('dashboard_doctor.Video.doc_conference');
+//     });
+// });
 
 
 Route::get('/wrong/address',function(){
     return view('errors.Oops');
 })->name('wrong_address');
 
-Route::get('addsign', function () {
-    return view('dashboard_patient.addsign');
-});
-
-Route::post('/add_sign','PatientController@add_sign');
-
 Route::get('admin/dash', 'HomeController@new_admin_index')->middleware('admin_auth');
-
 Route::get('pharmacy/editor/dash', 'HomeController@new_pharm_editor_index')->name('pharmacy_editor_dash')->middleware('phar_auth');
-
 Route::get('pharmacy/admin/dash', 'HomeController@new_pharm_admin_index')->name('pharmacy_admin_dash')->middleware('phar_auth');
-
-Route::get('checkout_design', function () {
-    return view('website_pages.cart');
-});
-Route::get('dateFormat', function () {
-    $sessionMints = '15';
-    $sessionUpTime = Session::where('id', 1)->first();
-    $sessionTime = date('Y-m-d H:i:s', strtotime($sessionUpTime->updated_at));
-    $nowTime = Carbon::now()->addMinutes(15)->format('Y-m-d H:i:s');
-    $time1 = new DateTime($sessionTime);
-    $time2 = new DateTime($nowTime);
-    $interval = $time1->diff($time2);
-    dd($interval);
-    // dd($nowTime.'='.$sessionTime);
-});
 //open route
 Route::get(
     '/clear',
@@ -363,29 +162,8 @@ Route::get(
     }
 );
 
-// Route::get('updatequery',function(){
-//     $prices = DB::table('imaging_prices')->get();
-//     foreach($prices as $price){
-//         DB::table('imaging_prices')->where('id',$price->id)->update([
-//             'actual_price' => $price->price,
-//         ]);
-//     }
-// });
-
-// Route::get('updateimgprice',function(){
-//     $prices = DB::table('imaging_prices')->get();
-//     foreach($prices as $price){
-//         $up_price = (25/100)*(int)$price->actual_price;
-//         $up_price += (int)$price->actual_price;
-//         DB::table('imaging_prices')->where('id',$price->id)->update([
-//             'price' => $up_price,
-//         ]);
-//     }
-// });
-
 Route::get('passwordChange', function () {
     $pass = Hash::make('uhcs@1234');
-    // dd($pass);
     DB::table('users')->update(['password' => $pass]);
     dd('done change all user passwords');
 });
@@ -396,17 +174,13 @@ Route::post('/load_psych_question', 'VideoController@load_psych_question');
 Route::post('get_card_details', 'PharmacyController@get_card_details');
 Route::post('get_card_shipping_details', 'PharmacyController@get_card_shipping_details');
 
-
 Route::post('/send/guest/message','ContactController@send_guest_msg')->name('send_guest_msg');
 Route::post('/get/guest/msgs','ContactController@get_guest_msgs')->name('get_guest_msgs');
 Route::get('/get/chatbot/questions','ContactController@get_chatbot_questions')->name('get_chatbot_questions');
 Route::get('/new/patient/not/join/call/{id}', 'VideoController@patient_NotJoiningCall');
 
 Route::group(['middleware' => 'redirecttovideo'], function () {
-
-
     Auth::routes();
-
     Route::get('admin/editor/details/{id}','AdminController@dash_editor_details')->name('dash_editor_details');
     Route::get('order/complete/{id}', 'PharmacyController@orderComplete')->name('order.complete');
     Route::post('fetch_pharmacy_item_by_category', 'unAuthController@fetchPharmacyItemByCategory')->name('fetch_pharmacy_item_by_category');
@@ -442,9 +216,6 @@ Route::group(['middleware' => 'redirecttovideo'], function () {
     Route::get('/symptom_checker',"unAuthController@symptom_checker")->name('symptom_checker');
     Route::post('/get_symptom',"unAuthController@get_symptom")->name('get_symptom');
     Route::get('/forget_cookie',"unAuthController@forget_cookie");
-    Route::get('abccc',function (){
-        return view('absadasda');
-    });
 
     Route::get('/', 'WelcomeController@index')->name('welcome_page');
     Route::get('/landing-page', 'WelcomeController@landing_page')->name('landing_page');
@@ -493,16 +264,9 @@ Route::group(['middleware' => 'redirecttovideo'], function () {
         return view('errors.page_expired');
     })->name('error');
     Route::get('/errors/{code}', 'ErrorController@errorPage')->name('errors');
-    Route::get('/e_prescription', 'RecommendationController@eprescription');
+
     Route::get('health_topic', 'PharmacyController@healthTopic')->name('health_topic');
     Route::get('health_topic/{name}', 'PharmacyController@healthTopicSingle')->name('singleTopic');
-    //GeneratorBuilderController
-    Route::get('generator_builder', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@builder')->name('io_generator_builder');
-    Route::get('field_template', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@fieldTemplate')->name('io_field_template');
-    Route::get('relation_field_template', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@relationFieldTemplate')->name('io_relation_field_template');
-    Route::post('generator_builder/generate', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@generate')->name('io_generator_builder_generate');
-    Route::post('generator_builder/rollback', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@rollback')->name('io_generator_builder_rollback');
-    Route::post('generator_builder/generate-from-file', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@generateFromFile')->name('io_generator_builder_generate_from_file');
     // PharmacyController
     Route::get('/get_cities_by_state/{state_code}', 'PharmacyController@get_cities_by_state');
     Route::get('/get_maps_locations/{zipCode}', 'PharmacyController@get_lang_long');
@@ -511,16 +275,10 @@ Route::group(['middleware' => 'redirecttovideo'], function () {
     Route::get('/labtest/{slug}', 'PharmacyController@single_product')->name('single_product_view_labtest');
     Route::get('/medicines/{slug}', 'PharmacyController@single_product')->name('single_product_view_medicines');
     Route::get('/imagings/{slug}', 'PharmacyController@single_product')->name('single_product_view_imagings');
-    // Route::get('/substance-abuse/{slug}',
-    // function(){
-    //     return view('website_pages.substance.index');
-    // }
-    // )->name('substance');
     Route::get('/primary-care', 'PharmacyController@index')->name('primary');
     Route::get('/substance-abuse/{slug}', 'PharmacyController@index')->name('substance');
     Route::get('/psychiatry/{slug}', 'PharmacyController@index')->name('psychiatry');
     Route::get('/therapy-session/{slug}', 'PharmacyController@therapy_single')->name('therapy_session');
-    // Route::get('/substance-abuse/{slug}', 'PharmacyController@index')->name('substance');
     Route::get('/provider_contract/{slug}', 'AdminController@view_contract')->name('open_contract');
     Route::post('/sign_contract/{slug}', 'AdminController@sign_contract')->name('sign_contract');
 });
@@ -531,23 +289,23 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
 
     Route::get('add_discount_in_cart/{slug}','PatientController@add_discount_in_cart')->name('add_discount_in_cart');
     //Therapy Events Routs
-    Route::get('therapy/events','PatientController@therapy_events')->name('therapy_events');
-    Route::get('therapy/event/payment/{id}','PatientController@therapy_event_payment')->name('therapy_event_payment');
-    Route::get('/patient/therapy/{id}','PatientController@patient_therapy_video')->name('patient_therapy_video');
-    Route::get('/doctor/therapy/{id}','DoctorController@doctor_therapy_video')->name('doctor_therapy_video');
-    Route::get('/end/therapy/{id}','DoctorController@end_therapy_video')->name('end_therapy_video');
-    Route::post('therapy/payment/authorize', 'PatientController@api_payment_therapy')->name('payment_therapy');
-    Route::get('view/psychiatrist/info/form','DoctorController@view_psychiatrist_form')->name('psychiatrist_form');
+    // Route::get('therapy/events','PatientController@therapy_events')->name('therapy_events');
+    // Route::get('therapy/event/payment/{id}','PatientController@therapy_event_payment')->name('therapy_event_payment');
+    // Route::get('/patient/therapy/{id}','PatientController@patient_therapy_video')->name('patient_therapy_video');
+    // Route::get('/doctor/therapy/{id}','DoctorController@doctor_therapy_video')->name('doctor_therapy_video');
+    // Route::get('/end/therapy/{id}','DoctorController@end_therapy_video')->name('end_therapy_video');
+    // Route::post('therapy/payment/authorize', 'PatientController@api_payment_therapy')->name('payment_therapy');
+    // Route::get('view/psychiatrist/info/form','DoctorController@view_psychiatrist_form')->name('psychiatrist_form');
     Route::get('/admin/doctor/profile/management','DoctorController@admin_doctor_profile_management')->name('admin_doctor_profile_management');
     Route::get('/seo/doctor/profile/management','DoctorController@seo_doctor_profile_management')->name('seo_doctor_profile_management');
     Route::get('doctor/profile/management','DoctorController@doctor_profile_management')->name('doctor_profile_management');
-    Route::get('/get_doctor_details','DoctorController@get_doctor_details')->name('get_doctor_details');
-    Route::get('/get_doctor_details/{doc_id}','DoctorController@get_doctor_details_by_id')->name('get_doctor_details_by_id');
-    Route::get('edit/psychiatrist/info/form/{id}','DoctorController@edit_psychiatrist_form')->name('edit_psychiatrist_form');
-    Route::post('update/psychiatrist/info/form','DoctorController@update_therapy_event')->name('update_therapy_event');
-    Route::get('patient/end/conference/call/{id}','PatientController@end_conference_call')->name('end_conference_call');
-    Route::post('submit/psychiatrist/info/form','DoctorController@submit_psychiatrist_form')->name('submit_psychiatrist_form');
-    Route::post('raise/hand','PatientController@raise_hand')->name('raise_hand');
+    // Route::get('/get_doctor_details','DoctorController@get_doctor_details')->name('get_doctor_details');
+    // Route::get('/get_doctor_details/{doc_id}','DoctorController@get_doctor_details_by_id')->name('get_doctor_details_by_id');
+    // Route::get('edit/psychiatrist/info/form/{id}','DoctorController@edit_psychiatrist_form')->name('edit_psychiatrist_form');
+    // Route::post('update/psychiatrist/info/form','DoctorController@update_therapy_event')->name('update_therapy_event');
+    // Route::get('patient/end/conference/call/{id}','PatientController@end_conference_call')->name('end_conference_call');
+    // Route::post('submit/psychiatrist/info/form','DoctorController@submit_psychiatrist_form')->name('submit_psychiatrist_form');
+    // Route::post('raise/hand','PatientController@raise_hand')->name('raise_hand');
 
     Route::get('/chat/support','ContactController@chat_support')->name('chat_support');
     Route::get('/chat/support/account/setting','ContactController@chat_account_setting')->name('chat_account_setting');
@@ -719,14 +477,9 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
 
     });
 
-
     Route::post('patient/health/store','DoctorController@patient_health_store')->name('patient_health_store');
     Route::post('mood/disorder/store','DoctorController@mood_disorder_store')->name('mood_disorder_store');
     Route::post('anxiety/scale/store','DoctorController@anxiety_scale_store')->name('anxiety_scale_store');
-
-
-
-
 
     Route::group(['middleware' => 'admin_auth'], function () {
         Route::get('change/authorize_api/mode','AdminController@change_authorize_api_mode')->name('change_authorize_api_mode');
@@ -737,7 +490,6 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
         Route::get('change/banner/status/{id}','AdminController@change_banner_status')->name('change_banner_status');
         Route::get('delete/banner/{id}','AdminController@delete_banner')->name('delete_banner');
         Route::post('upload/new/banner','AdminController@upload_new_banner')->name('upload_new_banner');
-        // Route::get('admin/contact_us', 'AdminController@dash_admin_contact');
         Route::get('admin/all/state', 'AdminController@dash_allStates');
         Route::get('admin/all/appointments', 'AppointmentController@dash_admin_appointments');
         Route::post('admin/all/appointments', 'AppointmentController@dash_admin_appointments');
@@ -799,8 +551,6 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
         Route::get('admin/coupon/get/{category}', 'CouponController@get_category');
         Route::get('admin/coupon/get/sub/{category}', 'CouponController@get_sub_category_product');
         Route::get('admin/lab/reports','QuestController@admin_lab_reports')->name('admin_lab_reports');
-
-
     });
     Route::post('get_lab_test_aoes_during_session', 'PharmacyController@getLabTestAoesDuringSession')->name('getAoesDuringSession');
     Route::post('/set_session_start_time', 'SessionController@set_session_start_time');
@@ -841,10 +591,10 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
     Route::get('/patient/video/{id}', 'VideoController@videoJoin')->name('patient.video.session');
     Route::get('/doctor/video/{id}', 'VideoController@videoJoin')->name('doctor.video.session');
     // Quest Routes
-    Route::get('/quest_orders', 'QuestController@index')->name('quest_orders');
-    Route::get('/e_prescription', 'QuestController@e_prescription')->name('e_prescription');
-    Route::get('/quest_order/{id}', 'QuestController@requisition')->name('quest.requisition');
-    Route::get('/quest_failed_requests', 'QuestController@failed_requests')->name('quest_failed_requests');
+    // Route::get('/quest_orders', 'QuestController@index')->name('quest_orders');
+    // Route::get('/e_prescription', 'QuestController@e_prescription')->name('e_prescription');
+    // Route::get('/quest_order/{id}', 'QuestController@requisition')->name('quest.requisition');
+    // Route::get('/quest_failed_requests', 'QuestController@failed_requests')->name('quest_failed_requests');
     Route::get('admin/quest/failed/requests', 'QuestController@dash_failed_requests')->name('admin_quest_failed_requests');
     // Lab editor routes
     Route::get('/unassignedLabOrders', 'TblOrdersController@unassignedLabOrders')->name('unassignedLabOrders');
@@ -931,9 +681,9 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
         Route::get('doctor/lab/requisition', 'QuestController@doctor_viewAllQuestRequisitions')->name('doctor_Lab_requisition');
         Route::get('patient/lab/pending/requisition', 'QuestController@view_pending_requisitions')->name('Lab_pending_requisition');
         Route::get('doctor/lab/pending/requisition', 'QuestController@view_doctor_pending_requisitions')->name('Doctor_lab_pending_requisition');
-        Route::get('patient/online/doctors/{id}/{loc}', 'DoctorController@dash_getonlinedoctors')->name('patient_online_doctors');
-        Route::post('get/patient/online/doctors/{id}/{loc}', 'DoctorController@dash_getonlinedoctors_ajax')->name('patient_online_doctors_ajax');
-        Route::get('psych/patient/online/doctors/{id}/{loc}', 'DoctorController@dash_get_online_doctors')->name('psych_patient_online_doctors');
+        Route::get('patient/online/doctors/{id}', 'DoctorController@dash_getonlinedoctors')->name('patient_online_doctors');
+        Route::post('get/patient/online/doctors/{id}', 'DoctorController@dash_getonlinedoctors_ajax')->name('patient_online_doctors_ajax');
+        Route::get('psych/patient/online/doctors/{id}', 'DoctorController@dash_get_online_doctors')->name('psych_patient_online_doctors');
         Route::post('patient/store_symptoms', 'DoctorController@dash_store_symptoms_inquiry')->name('patient_inquiry_store');
         Route::post('/isabel/inquiry', 'DoctorController@isabel_inquiry')->name('isabel_inquiry');
         Route::get('patient/payment/session/{id}', 'DoctorController@dash_session_payment_page')->name('patient_session_payment_page')->middleware('no_cache');
@@ -1013,12 +763,12 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
         Route::get('/appointment/locations', 'AppointmentController@select_appointment_location')->name('select_appointment_location');
         Route::get('/specializations', 'AppointmentController@select_specialization')->name('select_specialization');
         Route::post('/get/states/specializations', 'AppointmentController@get_state_specializations')->name('get_state_specializations');
-        Route::get('/book/appointment/{id}/{loc}', 'AppointmentController@book_appointment')->name('book_appointment');
+        Route::get('/book/appointment/{id}', 'AppointmentController@book_appointment')->name('book_appointment');
         Route::get('/book/requested/appointment/{id}', 'AppointmentController@requested_session')->name('requested_session');
-        Route::post('/get/book/appointment/{id}/{loc}', 'AppointmentController@book_appointment_ajax')->name('book_appointment_ajax');
-        Route::get('psych/book/appointment/{id}/{loc}', 'AppointmentController@psych_book_appointment')->name('psych_book_appointment');
-        Route::post('psych/book/appointment/{id}/{loc}', 'AppointmentController@psych_book_appointment')->name('psych_book_appointment');
-        Route::post('/book/appointment/{id}/{loc}', 'AppointmentController@book_appointment')->name('book_appointment');
+        Route::post('/get/book/appointment/{id}', 'AppointmentController@book_appointment_ajax')->name('book_appointment_ajax');
+        Route::get('psych/book/appointment/{id}', 'AppointmentController@psych_book_appointment')->name('psych_book_appointment');
+        Route::post('psych/book/appointment/{id}', 'AppointmentController@psych_book_appointment')->name('psych_book_appointment');
+        Route::post('/book/appointment/{id}', 'AppointmentController@book_appointment')->name('book_appointment');
         Route::post('/create_appointment', 'AppointmentController@create_appointment')->name('create_appointment');
         Route::get('/appointment/payment/{id}', 'AppointmentController@appoint_payment')->name('appoint_payment');
         Route::post('/appointment/payment', 'AppointmentController@payment_appointment')->name('payment_appointment');
@@ -1464,9 +1214,6 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
         Route::post('/mainSearch', "WelcomeController@mainSearch")->name("mainSearch");
     });
 
-
-
-
     Route::get('/generate-pdf', [AllProductsController::class, 'generatePDF']);
     Route::post('/generate-sessionspdf', [AllProductsController::class, 'generate_sessions_pdf']);
     Route::post('/generate-sessionscsv', [AllProductsController::class, 'generate_sessions_csv']);
@@ -1483,66 +1230,4 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
     Route::post('/generate-doc_paidcsv',"FinanceController@generate_doc_paid_csv");
     Route::post('/generate-doc_paidpdf',"FinanceController@generate_doc_paid_pdf");
     Route::post('/generate-all_imaging_record_csv', [AllProductsController::class, 'generate_all_imaging_record_csv']);
-    // Route::get('/e-prescription', [AllProductsController::class, 'e_prescription']);
-    // Route::get('/lab_reports','TblOrdersController@patient_labs')->name('lab_orders');
-    // Route::get('/pricing','WelcomeController@pricing')->name('pricing');
-    // Route::get('/generate_pdf', 'AllProductsController@generatePDF');
-    // Route::get('cookie/set', 'WelcomeController@setCookie');
-    // Route::get('cookie/get', 'WelcomeController@getCookie');
-    // Route::get('/pharmacy_single',function () {return view('website_pages.pharmacy.single_view');})->name('pharmacy_single');
-    // Route::get('/med_details', function () {return view('med_details');})->name('med_details');
-    // Route::get('/privacy_policy', function () { return view('site.privacy_policy'); })->name('privacy_policy');
-    // Route::get('/pharmacy',function () { return view('pharmacy');})->name('pharmacy');
-    // Route::post('/pharmacy',function () { return view('pharmacy');})->name('pharmacy');
-    // Route::get('/labs', function () { return view('labs'); })->name('labs');
-    // Route::get('/lab_details', function () { return view('website_pages.lab-test.single_view');})->name('lab_details');
-    // Route::get('/labs', 'PharmacyController@labtests');
-    // Route::get('/test_details', function () {return view('test_details');})->name('test_details');
-    // Route::get('/lab_appointment_form', function () {return view('lab_appointment_form');})->name('lab_appointment_form');
-    // Route::get('/admin', function () {return view('home_admin');})->name('admin');
-    // Route::get('/patient', function () {return view('home_patient'); })->name('patient');
-    // Route::get('/auth/redirect/{provider}', 'SocialController@redirect');
-    // Route::get('/callback/{provider}', 'SocialController@callback');
-    // Route::get('/home', 'HomeController@index')->name('home');
-    // Route::get('/monthwise_appoint', function () {return view('appointments.monthwise_appoint');})->name('monthwise_appoint');
-    // Route::get('/doc_logs',function(){return view('doc_logs');})->name('doc_logs');
-    // Route::get('/general_adults',function(){return view('general_adults');})->name('general_adults');
-    // Route::get('/children',function(){return view('children');})->name('children');
-    // Route::get('/adolescent',function(){return view('adolescent');})->name('adolescent');
-    // Route::get('/women',function(){return view('women');})->name('women');
-    // Route::get('/login1',function(){return view('auth.login1');})->name('login1');
-    // Route::get('/mental_conditions', 'MentalConditionsController@show_all')->name('mental_conditions');
-    // Route::get('/mental_conditions/{id}', 'MentalConditionsController@condition')->name('condition');
-    // Route::get('/faq', 'TblFaqController@show_all')->name('faq');
-    // Route::get('/testRecieveEmail', 'PharmacyController@testRecieveEmail');
-    // Route::get('/testAddress', 'WelcomeController@testAddress');
-    // Route::get('/doctors','DoctorController@allDoctors')->name('doctors');
-    // Route::get('/all-states', function () { return State::where('country_code', 'US')->paginate(); });
-    // Route::resource('appointment','AppointmentController');
-    // Route::post('/doctor_waiting_room', 'DoctorController@doctor_waiting_room');
-    // Route::get('/lab_reports', 'QuestController@viewAllQuestTestReports')->name('lab_orders');
-    // Route::get('/hl7decode/{get_request_id}','HL7Controller@hl7Decode')->name('hl7decode');
-
-    // Payment URL
-    // Route::get('/testStripe', 'PharmacyController@testStripe');
-    // Route::get('/testStripe2', 'PharmacyController@testStripe2');
-    // Route::post('/checkoutStripe', 'PharmacyController@checkoutStripe');
-    // Route::get('terms-and-conditions',function(){return view('terms.term_and_condition_view');});
-    // Route::get("/agora_video", "HomeController@video");
-    // Route::get('/search_products', function () {return view('search_products');});
-    // Route::get('/getLabTestByAlphabet/{letter}', 'PharmacyController@getLabTestByAlphabetOrder');
-    // Route::get('/searchProducts/{keyword}/{searchType}/{categoryID}', 'PharmacyController@searchProducts');
-    // Route::get('/search', 'PharmacyController@search_products_live_2');
-    // Route::get('/sendMailWithAttachment', 'WelcomeController@sendMailWithAttachment');
-    // Route::get('/test', 'WelcomeController@test');
-    // Route::get('/test1', 'WelcomeController@test1');
-    // Route::get('/all_test', 'QuestController@all_test')->name('all_test');
-    // Route::get('/getstatesSelect', 'DoctorController@getstatesSelect');
-});
-
-
-Route::get('aasdkjdfioasdjfhiuh',function(){
-    $image1 = \App\Helper::check_bucket_files_url('doctors/20230915121148WhatsApp Image 2023-09-15 at 7.12.57 AM.jpeg');
-    $image2 = \App\Helper::check_bucket_files_url('doctors/20230915121150WhatsApp Image 2023-09-15 at 7.12.58 AM.jpeg');
-    dd($image1);
 });

@@ -222,33 +222,28 @@ class DoctorController extends Controller
             return redirect()->route('home');
         }
     }
-    public function dash_getonlinedoctors($id,$loc)
+    public function dash_getonlinedoctors($id)
     {
         $user = Auth::user();
-        $loc_id = $loc;
         if ($user->user_type == 'patient') {
             if($id != '21')
             {
                 $states = DB::table('states')->where('active','1')->get();
-                $state = DB::table('states')->where('id',$loc_id)->first();
-                $doctors = DB::table('doctor_licenses')
-                    ->join('users', 'doctor_licenses.doctor_id', 'users.id')
+                // $state = DB::table('states')->where('id',$loc_id)->first();
+                $doctors = DB::table('users')
                     ->join('specializations', 'specializations.id', 'users.specialization')
-                    ->where('doctor_licenses.state_id', $loc_id)
                     ->where('users.specialization', $id)
                     ->where('users.status', 'online')
                     ->where('users.active', '1')
-                    ->where('doctor_licenses.is_verified', '1')
                     ->select('users.*', 'specializations.name as sp_name')
                     ->paginate(10);
-                //dd($doctors);
                 foreach ($doctors as $doctor) {
 
                     $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
                 }
                 $session = null;
                 // $price = DB::table('specalization_price')->where('spec_id', $id)->first();
-                $price = DB::table('specalization_price')->where('spec_id', $id)->where('state_id', $loc_id)->first();
+                $price = DB::table('specalization_price')->where('spec_id', $id)->first();
                 if ($price != null) {
                 if ($price->follow_up_price != null) {
                     $session = DB::table('sessions')->where('patient_id', $user->id)
@@ -261,7 +256,7 @@ class DoctorController extends Controller
                 }
                 $symp = DB::table('isabel_symptoms')->get();
                 // return view('dashboard_patient.Evisit.online_doctor', compact('doctors', 'session', 'id'));
-                return view('dashboard_patient.Evisit.online_doctor', compact('doctors', 'session', 'id', 'price','symp','loc_id','states','state'));
+                return view('dashboard_patient.Evisit.online_doctor', compact('doctors', 'session', 'id', 'price','symp','states'));
             }else{
                 $flag = 'session';
                 return view('dashboard_patient.Evisit.patient_health',compact('user','flag','loc_id'));
@@ -286,14 +281,11 @@ class DoctorController extends Controller
         $user = auth()->user();
         $id = $request->spec_id;
         $loc_id = $request->loc_id;
-        $doctors = DB::table('doctor_licenses')
-        ->join('users', 'doctor_licenses.doctor_id', 'users.id')
+        $doctors = DB::table('users')
         ->join('specializations', 'specializations.id', 'users.specialization')
-        ->where('doctor_licenses.state_id', $request->loc_id)
         ->where('users.specialization', $request->spec_id)
         ->where('users.status', 'online')
         ->where('users.active', '1')
-        ->where('doctor_licenses.is_verified', '1')
         ->select('users.*', 'specializations.name as sp_name')
         ->get();
 
@@ -304,7 +296,7 @@ class DoctorController extends Controller
         }
         $session = null;
         // $price = DB::table('specalization_price')->where('spec_id', $id)->first();
-        $price = DB::table('specalization_price')->where('spec_id', $request->spec_id)->where('state_id', $request->loc_id)->first();
+        $price = DB::table('specalization_price')->where('spec_id', $request->spec_id)->first();
         if($price==null)
         {
             return '1';
@@ -1486,7 +1478,7 @@ class DoctorController extends Controller
                     try {
                         $firebase_ses = Session::where('id', $single_session['session_id'])->first();
                         $firebase_ses->received = false;
-                        \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
+                        // \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
                     } catch (\Throwable $th) {
                         //throw $th;
                     }
@@ -1539,7 +1531,7 @@ class DoctorController extends Controller
                         try {
                             $firebase_ses = Session::where('id', $single_session['session_id'])->first();
                             $firebase_ses->received = false;
-                            \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
+                            // \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
                         } catch (\Throwable $th) {
                             //throw $th;
                         }
@@ -1569,7 +1561,7 @@ class DoctorController extends Controller
                         try {
                             $firebase_ses = Session::where('id', $single_session['session_id'])->first();
                             $firebase_ses->received = false;
-                            \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
+                            // \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
                         } catch (\Throwable $th) {
                             //throw $th;
                         }
@@ -1625,7 +1617,7 @@ class DoctorController extends Controller
                 try {
                     $firebase_ses = Session::where('id', $single_session['session_id'])->first();
                     $firebase_ses->received = false;
-                    \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
+                    // \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
                 } catch (\Throwable $th) {
                     //throw $th;
                 }
@@ -1679,7 +1671,7 @@ class DoctorController extends Controller
                     try {
                         $firebase_ses = Session::where('id', $single_session['session_id'])->first();
                         $firebase_ses->received = false;
-                        \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
+                        // \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
                     } catch (\Throwable $th) {
                         //throw $th;
                     }
@@ -1709,7 +1701,7 @@ class DoctorController extends Controller
                     try {
                         $firebase_ses = Session::where('id', $single_session['session_id'])->first();
                         $firebase_ses->received = false;
-                        \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
+                        // \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
                     } catch (\Throwable $th) {
                         //throw $th;
                     }
@@ -1772,7 +1764,7 @@ class DoctorController extends Controller
                 try {
                     $firebase_ses = Session::where('id', $doc_joined_pat['session_id'])->first();
                     $firebase_ses->received = false;
-                    \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
+                    // \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
                 } catch (\Throwable $th) {
                     //throw $th;
                 }
@@ -1791,7 +1783,7 @@ class DoctorController extends Controller
                 try {
                     $firebase_ses = Session::where('id', $single_session['session_id'])->first();
                     $firebase_ses->received = false;
-                    \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
+                    // \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
                 } catch (\Throwable $th) {
                     //throw $th;
                 }
@@ -1852,7 +1844,7 @@ class DoctorController extends Controller
                     try {
                         $firebase_ses = Session::where('id', $doc_joined_pat['session_id'])->first();
                         $firebase_ses->received = false;
-                        \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
+                        // \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
                     } catch (\Throwable $th) {
                         //throw $th;
                     }
@@ -1872,7 +1864,7 @@ class DoctorController extends Controller
                     try {
                         $firebase_ses = Session::where('id', $single_session['session_id'])->first();
                         $firebase_ses->received = false;
-                        \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
+                        // \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
                     } catch (\Throwable $th) {
                         //throw $th;
                     }
@@ -1910,7 +1902,7 @@ class DoctorController extends Controller
                     try {
                         $firebase_ses = Session::where('id', $doc_joined_pat['session_id'])->first();
                         $firebase_ses->received = false;
-                        \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
+                        // \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
                     } catch (\Throwable $th) {
                         //throw $th;
                     }
@@ -1930,7 +1922,7 @@ class DoctorController extends Controller
                         //code...
                         $firebase_ses = Session::where('id', $single_session['session_id'])->first();
                         $firebase_ses->received = false;
-                        \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
+                        // \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
                     } catch (\Throwable $th) {
                         //throw $th;
                     }
@@ -1984,7 +1976,7 @@ class DoctorController extends Controller
                     //code...
                     $firebase_ses = Session::where('id', $single_session['session_id'])->first();
                     $firebase_ses->received = false;
-                    \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
+                    // \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
                 } catch (\Throwable $th) {
                     //throw $th;
                 }
@@ -2039,7 +2031,7 @@ class DoctorController extends Controller
                         //code...
                         $firebase_ses = Session::where('id', $single_session['session_id'])->first();
                         $firebase_ses->received = false;
-                        \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
+                        // \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
                     } catch (\Throwable $th) {
                         //throw $th;
                     }
@@ -2070,7 +2062,7 @@ class DoctorController extends Controller
                         //code...
                         $firebase_ses = Session::where('id', $single_session['session_id'])->first();
                         $firebase_ses->received = false;
-                        \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
+                        // \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
                     } catch (\Throwable $th) {
                         //throw $th;
                     }
@@ -2131,7 +2123,7 @@ class DoctorController extends Controller
                 try {
                     $firebase_ses = Session::where('id', $doc_joined_pat['session_id'])->first();
                     $firebase_ses->received = false;
-                    \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
+                    // \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
                 }catch (\Throwable $th) {
                     //throw $th;
                 }
@@ -2152,7 +2144,7 @@ class DoctorController extends Controller
                     //code...
                     $firebase_ses = Session::where('id', $single_session['session_id'])->first();
                     $firebase_ses->received = false;
-                    \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
+                    // \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
                 } catch (\Throwable $th) {
                     //throw $th;
                 }
@@ -2214,7 +2206,7 @@ class DoctorController extends Controller
                         //code...
                         $firebase_ses = Session::where('id', $doc_joined_pat['session_id'])->first();
                         $firebase_ses->received = false;
-                        \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
+                        // \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
                     } catch (\Throwable $th) {
                         //throw $th;
                     }
@@ -2235,7 +2227,7 @@ class DoctorController extends Controller
                         //code...
                         $firebase_ses = Session::where('id', $single_session['session_id'])->first();
                         $firebase_ses->received = false;
-                        \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
+                        // \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
                     } catch (\Throwable $th) {
                         //throw $th;
                     }
@@ -2274,7 +2266,7 @@ class DoctorController extends Controller
                         //code...
                         $firebase_ses = Session::where('id', $doc_joined_pat['session_id'])->first();
                         $firebase_ses->received = false;
-                        \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
+                        // \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
                     } catch (\Throwable $th) {
                         //throw $th;
                     }
@@ -2294,7 +2286,7 @@ class DoctorController extends Controller
                         //code...
                         $firebase_ses = Session::where('id', $single_session['session_id'])->first();
                         $firebase_ses->received = false;
-                        \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
+                        // \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
                     } catch (\Throwable $th) {
                         //throw $th;
                     }
@@ -2360,7 +2352,7 @@ class DoctorController extends Controller
                         //code...
                         $firebase_ses = Session::where('id', $doc_joined_pat['session_id'])->first();
                         $firebase_ses->received = false;
-                        \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
+                        // \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
                     } catch (\Throwable $th) {
                         //throw $th;
                     }
@@ -2382,7 +2374,7 @@ class DoctorController extends Controller
                         //code...
                         $firebase_ses = Session::where('id', $single_session['session_id'])->first();
                         $firebase_ses->received = false;
-                        \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
+                        // \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
                     } catch (\Throwable $th) {
                         //throw $th;
                     }
@@ -2441,7 +2433,7 @@ class DoctorController extends Controller
                             //code...
                             $firebase_ses = Session::where('id', $doc_joined_pat['session_id'])->first();
                             $firebase_ses->received = false;
-                            \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
+                            // \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
                         } catch (\Throwable $th) {
                             //throw $th;
                         }
@@ -2463,7 +2455,7 @@ class DoctorController extends Controller
                             //code...
                             $firebase_ses = Session::where('id', $single_session['session_id'])->first();
                             $firebase_ses->received = false;
-                            \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
+                            // \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
                         } catch (\Throwable $th) {
                             //throw $th;
                         }
@@ -2502,7 +2494,7 @@ class DoctorController extends Controller
                             //code...
                             $firebase_ses = Session::where('id', $doc_joined_pat['session_id'])->first();
                             $firebase_ses->received = false;
-                            \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
+                            // \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
                         } catch (\Throwable $th) {
                             //throw $th;
                         }
@@ -2524,7 +2516,7 @@ class DoctorController extends Controller
                             //code...
                             $firebase_ses = Session::where('id', $single_session['session_id'])->first();
                             $firebase_ses->received = false;
-                            \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
+                            // \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
                         } catch (\Throwable $th) {
                             //throw $th;
                         }
@@ -2560,7 +2552,7 @@ class DoctorController extends Controller
             $data1 = DB::table('users')->where('id',$doc->id)->select('id','status')->first();
             $data1->id = (string)$doc->id;
             $data1->received = "false";
-            \App\Helper::firebaseOnlineDoctor('loadOnlineDoctor',$doc->id,$data1);
+            // \App\Helper::firebaseOnlineDoctor('loadOnlineDoctor',$doc->id,$data1);
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -2581,7 +2573,7 @@ class DoctorController extends Controller
                     $data = DB::table('users')->where('id',$doc->id)->select('id','status')->first();
                     $data->id = (string)$doc->id;
                     $data->received = "false";
-                    \App\Helper::firebaseOnlineDoctor('loadOnlineDoctor',$doc->id,$data);
+                    // \App\Helper::firebaseOnlineDoctor('loadOnlineDoctor',$doc->id,$data);
                 } catch (\Throwable $th) {
                     throw $th;
                 }
@@ -2593,7 +2585,7 @@ class DoctorController extends Controller
                 $data = DB::table('users')->where('id',$doc->id)->select('id','status')->first();
                 $data->id = (string)$doc->id;
                 $data->received = "false";
-                \App\Helper::firebaseOnlineDoctor('loadOnlineDoctor',$doc->id,$data);
+                // \App\Helper::firebaseOnlineDoctor('loadOnlineDoctor',$doc->id,$data);
             } catch (\Throwable $th) {
                 throw $th;
             }
@@ -2631,7 +2623,7 @@ class DoctorController extends Controller
             }
             $data->id = (string)$doc->id;
             $data->received = "false";
-            \App\Helper::firebaseOnlineDoctor('loadOnlineDoctor',$doc->id,$data);
+            // \App\Helper::firebaseOnlineDoctor('loadOnlineDoctor',$doc->id,$data);
         } catch (\Throwable $th) {
             throw $th;
         }
@@ -2940,7 +2932,7 @@ class DoctorController extends Controller
                 'session_id' => 'null',
                 'appoint_id' => 'null',
             ];
-            \App\Helper::firebase($pat_user->id,'notification',$notification_id->id,$data);
+            // \App\Helper::firebase($pat_user->id,'notification',$notification_id->id,$data);
             event(new RealTimeMessage($pat_user->id));
         } catch (\Exception $e) {
             Log::error($e);
@@ -3257,7 +3249,7 @@ class DoctorController extends Controller
                 'session_id' => 'null',
                 'appoint_id' => 'null',
             ];
-            \App\Helper::firebase($u->id,'notification',$notification_id->id,$data);
+            // \App\Helper::firebase($u->id,'notification',$notification_id->id,$data);
             event(new RealTimeMessage($refill->patient_id));
         } catch (\Throwable $th) {
             return redirect()->back();

@@ -159,7 +159,7 @@ class MedicationController extends BaseController
                     'refill_id' => 'null',
                 ];
                 event(new RealTimeMessage($user->id));
-                \App\Helper::firebase($user->id,'notification',$noti->id,$data);
+                // \App\Helper::firebase($user->id,'notification',$noti->id,$data);
             } catch (\Exception $e) {
                 $log = Log::error($e);
             }

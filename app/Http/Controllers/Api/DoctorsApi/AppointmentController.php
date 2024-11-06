@@ -155,7 +155,7 @@ class AppointmentController extends BaseController
                 'received' => 'false',
                 'refill_id' => 'null',
             ];
-            \App\Helper::firebase($getAppointment->patient_id,'notification',$noti->id,$data);
+            // \App\Helper::firebase($getAppointment->patient_id,'notification',$noti->id,$data);
             event(new RealTimeMessage($getAppointment->patient_id));
         } catch (Exception $e) {
             Log::error($e);

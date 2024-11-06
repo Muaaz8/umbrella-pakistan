@@ -334,7 +334,7 @@ class FinanceController extends Controller
         if($request->s_id!=null)
         {
             $request->s_id = explode('-',$request->s_id);
-            $sessions = DB::table('sessions')->where('doctor_id',$doctor->id)->where('session_id',$request->s_id[1])->paginate(10);    
+            $sessions = DB::table('sessions')->where('doctor_id',$doctor->id)->where('session_id',$request->s_id[1])->paginate(10);
         }
         elseif($request->date!=null)
         {
@@ -346,13 +346,13 @@ class FinanceController extends Controller
             ->where('status','ended')
             ->whereDate('created_at', '>=', $startdate)
             ->whereDate('created_at', '<=', $enddate)
-            ->paginate(10);    
+            ->paginate(10);
         }
         else
         {
             $sessions = DB::table('sessions')->where('doctor_id',$doctor->id)->where('status','ended')->paginate(10);
         }
-        
+
         foreach($sessions as $ses)
         {
             $ses->doc_fee = ($percent->percentage/100)*$ses->price;
@@ -374,7 +374,7 @@ class FinanceController extends Controller
                 $request->s_id = 'UEV-'.$request->s_id;
             }
             $request->s_id = explode('-',$request->s_id);
-            $getSessionTotalSessions = DB::table('sessions')->where('doctor_id',$doctor->id)->where('session_id',$request->s_id[1])->get();    
+            $getSessionTotalSessions = DB::table('sessions')->where('doctor_id',$doctor->id)->where('session_id',$request->s_id[1])->get();
         }
         elseif($request->date!=null)
         {
@@ -386,7 +386,7 @@ class FinanceController extends Controller
             ->where('status','ended')
             ->whereDate('created_at', '>=', $startdate)
             ->whereDate('created_at', '<=', $enddate)
-            ->get();    
+            ->get();
         }
         else
         {
@@ -423,7 +423,7 @@ class FinanceController extends Controller
         if($request->s_id!=null)
         {
             $request->s_id = explode('-',$request->s_id);
-            $sessions = DB::table('sessions')->where('doctor_id',$doctor->id)->where('session_id',$request->s_id[1])->get();    
+            $sessions = DB::table('sessions')->where('doctor_id',$doctor->id)->where('session_id',$request->s_id[1])->get();
         }
         elseif($request->date!=null)
         {
@@ -435,7 +435,7 @@ class FinanceController extends Controller
             ->where('status','ended')
             ->whereDate('created_at', '>=', $startdate)
             ->whereDate('created_at', '<=', $enddate)
-            ->get();    
+            ->get();
         }
         else
         {
@@ -517,7 +517,7 @@ class FinanceController extends Controller
         }
         $columns = array_column($payable, 'date');
         array_multisort($columns, SORT_DESC, $payable);
-        $payable = (new Collection($payable))->paginate(10);
+        // $payable = (new Collection($payable))->paginate(10);
         return view('dashboard_finance_admin.Doctor_Reports.payable_amount',compact('payable','doctor','date'));
     }
 
@@ -651,7 +651,7 @@ class FinanceController extends Controller
 
         $columns = array_column($payable, 'date');
         array_multisort($columns, SORT_DESC, $payable);
-        
+
         $pdf = PDF::loadView('dashboard_finance_admin.pdf_pages.doc_payable_pdf', compact('payable'))->output();
         //return $pdf->download('EarningDetails.pdf');
         return response()->streamDownload(
@@ -749,7 +749,7 @@ class FinanceController extends Controller
                 ]);
                 $total += $pay['earning'];
             }
-            
+
         }
         fputcsv($handle, [
             '',
@@ -804,7 +804,7 @@ class FinanceController extends Controller
         }
         $columns = array_column($paid, 'date');
         array_multisort($columns, SORT_DESC, $paid);
-        $paid = (new Collection($paid))->paginate(10);
+        // $paid = (new Collection($paid))->paginate(10);
         return view('dashboard_finance_admin.Doctor_Reports.paid_amount',compact('paid','doctor','date'));
     }
 
@@ -931,7 +931,7 @@ class FinanceController extends Controller
             ->where('doc_fee','unpaid')
             ->orwhere('doc_fee','!=',null)
             ->get();
-            
+
             $online = DB::table('lab_orders')
             ->where('doc_id',$doctor->id)
             ->where('status','quest-forwarded')
@@ -962,7 +962,7 @@ class FinanceController extends Controller
 
         $columns = array_column($payable, 'date');
         array_multisort($columns, SORT_DESC, $payable);
-        
+
         $pdf = PDF::loadView('dashboard_finance_admin.pdf_pages.doc_paid_pdf', compact('payable'))->output();
         //return $pdf->download('EarningDetails.pdf');
         return response()->streamDownload(
@@ -1014,7 +1014,7 @@ class FinanceController extends Controller
             ->where('doc_fee','unpaid')
             ->orwhere('doc_fee','!=',null)
             ->get();
-            
+
             $online = DB::table('lab_orders')
             ->where('doc_id',$doctor->id)
             ->where('status','quest-forwarded')
@@ -1072,7 +1072,7 @@ class FinanceController extends Controller
                 ]);
                 $total += $pay['earning'];
             }
-            
+
         }
         fputcsv($handle, [
             '',

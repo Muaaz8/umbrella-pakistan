@@ -48,10 +48,7 @@
                           <thead>
                             <tr>
                               <th scope="col">Name</th>
-                              <th scope="col">State</th>
                               <th scope="col">Registered On</th>
-                              <th scope="col">UPIN</th>
-                              <th scope="col">NPI</th>
                               <th scope="col">Action</th>
                             </tr>
                           </thead>
@@ -59,10 +56,7 @@
                             @forelse($doctors as $doc)
                             <tr>
                                 <td data-label="Name">{{ "Dr. ".ucfirst($doc->name)." ".ucfirst($doc->last_name) }}</td>
-                                <td data-label="State">{{$doc->state_name}}</td>
                                 <td data-label="Registered On">{{$doc->created_at}}</td>
-                                <td data-label="UPIN">{{$doc->upin}}</td>
-                                <td data-label="NPI">{{$doc->nip_number}}</td>
                                 <td data-label="Action">
                                     <center>
                                         <a href="{{ route('doctor_pending_request_view',$doc->id) }}">

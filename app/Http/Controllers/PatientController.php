@@ -331,7 +331,7 @@ class PatientController extends Controller
                 $cart = AppTblCart::Create($data);
                 // event(new CountCartItem($user->id));
                 // try {
-                //     \App\Helper::firebase(Auth()->user()->id,'cart',$cart->id,$data);
+                //     // \App\Helper::firebase(Auth()->user()->id,'cart',$cart->id,$data);
                 // } catch (\Throwable $th) {
                 //     //throw $th;
                 // }
@@ -400,7 +400,7 @@ class PatientController extends Controller
                 $cart = AppTblCart::Create($data);
                 event(new CountCartItem($user_id));
                 try {
-                    \App\Helper::firebase(Auth()->user()->id,'cart',$cart->id,$data);
+                    // \App\Helper::firebase(Auth()->user()->id,'cart',$cart->id,$data);
                 } catch (\Throwable $th) {
                     //throw $th;
                 }
@@ -471,7 +471,7 @@ class PatientController extends Controller
                 $cart = AppTblCart::Create($data);
                 event(new CountCartItem($user_id));
                 try {
-                    \App\Helper::firebase(Auth()->user()->id,'cart',$cart->id,$data);
+                    // \App\Helper::firebase(Auth()->user()->id,'cart',$cart->id,$data);
                 } catch (\Throwable $th) {
                     //throw $th;
                 }
@@ -1262,7 +1262,7 @@ class PatientController extends Controller
                     'refill_id' => 'null',
                 ];
                 try {
-                    \App\Helper::firebase($user->id,'notification',$notification_id->id,$data);
+                    // \App\Helper::firebase($user->id,'notification',$notification_id->id,$data);
                 } catch (\Throwable $th) {
                     //throw $th;
                 }

@@ -28,7 +28,7 @@
               ><i class="fa-solid fa-calendar-check"></i> Lab Tests
             </p>
             <div class="dashboard-nav-dropdown-menu">
-              <a href="/quest/lab/tests" class="dashboard-nav-dropdown-item">Quest Labtest</a>
+              <a href="/quest/lab/tests" class="dashboard-nav-dropdown-item">Labtest</a>
               <a href="/online/lab/tests" class="dashboard-nav-dropdown-item">Online Labtest</a>
               <a href="/lab/test/categories" class="dashboard-nav-dropdown-item">Labtest Categories</a>
               <a href="/lab/reports" class="dashboard-nav-dropdown-item">Patient Lab Reports</a>
@@ -41,8 +41,8 @@
           </div>
 
           <a href="/lab/orders" class="dashboard-nav-item"><i class="fa-solid fa-gear"></i>Orders </a>
-          <a href="/quest/orders" class="dashboard-nav-item"><i class="fa-solid fa-gear"></i>Quest Orders </a>
-          <a href="/quest/failed/requests" class="dashboard-nav-item"><i class="fa-solid fa-gear"></i>Quest Failed Requests</a>
+          {{-- <a href="/quest/orders" class="dashboard-nav-item"><i class="fa-solid fa-gear"></i>Quest Orders </a> --}}
+          {{-- <a href="/quest/failed/requests" class="dashboard-nav-item"><i class="fa-solid fa-gear"></i>Quest Failed Requests</a> --}}
           <div class="dashboard-nav-dropdown">
             <p
               class="dashboard-nav-item dashboard-nav-dropdown-toggle" style="cursor:pointer;"

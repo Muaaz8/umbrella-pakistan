@@ -61,7 +61,7 @@ class CheckDoctorActivity extends Command
                         }
                         $data->id = (string)$doc->id;
                         $data->received = "false";
-                        \App\Helper::firebase($doc->id,'loadOnlineDoctor',$doc->id,$data);
+                        // \App\Helper::firebase($doc->id,'loadOnlineDoctor',$doc->id,$data);
                     } catch (\Throwable $th) {
                         throw $th;
                     }

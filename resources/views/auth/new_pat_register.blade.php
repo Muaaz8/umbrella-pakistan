@@ -84,9 +84,9 @@
         formatOnDisplay: true,
         separateDialCode: true,
         autoPlaceholder:"aggressive",
-        onlyCountries: ["us"],
+        onlyCountries: ["pk"],
         customPlaceholder: function(selectedCountryPlaceholder, selectedCountryData) {
-            return ('(407) 693-8484');
+            return ('316 800 1234');
         },
     });
     </script>
@@ -97,9 +97,9 @@
         formatOnDisplay: true,
         separateDialCode: true,
         autoPlaceholder:"aggressive",
-        onlyCountries: ["us"],
+        onlyCountries: ["pk"],
         customPlaceholder: function(selectedCountryPlaceholder, selectedCountryData) {
-            return ('(407) 693-8484');
+            return ('316 800 1234');
         },
     });
 
@@ -234,13 +234,13 @@ if (input.attr("type") == "password") {
 
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <input type="hidden" name="country" id="country" value="233" />
+                                {{--<div class="col-md-6">
                                     <div class="mb-1">
                                         <label for="firstname" class="form-label">Zip Code: *</label>
                                         <input type="text" class="form-control zip_code" name="zip_code" placeholder="Zip Code" id="zip_code"
                                         onkeydown="javascript: return event.keyCode === 8 || event.keyCode === 46 ? true : !isNaN(Number(event.key))">
                                         <small class="text-danger" id="zipcode_error"></small>
-                                        <input type="hidden" name="country" id="country" value="233" />
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -252,13 +252,11 @@ if (input.attr("type") == "password") {
                                         <small class="text-danger state_error"></small>
 
                                     </div>
-                                </div>
+                                </div>--}}
                                 <div class="col-md-6">
                                     <div class="mb-1">
                                         <label for="firstname" class="form-label">City: *</label>
-                                        <select class="form-select city" aria-label="Default select example" name="city" id="city">
-                                            <option selected value="">Select City</option>
-                                        </select>
+                                        <input type="text" class="form-control" name="city" id="city" placeholder="City" />
                                         <small class="text-danger city_error"></small>
 
                                     </div>

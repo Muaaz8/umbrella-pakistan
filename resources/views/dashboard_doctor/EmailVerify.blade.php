@@ -139,12 +139,12 @@
           @if($user->email_status==1 && $user->card_status==0)
             <div class="col-md-3 col-sm-6 mb-4">
                 <div class="reviewed_card_area reviewed-in-progress">
-                <h6 class="check-email-text">Please Upload Driver License</h6>
+                <h6 class="check-email-text">Please Upload NIC</h6>
                 <div class="single_reviewed_card">
                     <div class="reviewed_card_content">
                     <div class="reviewed_card_icon Email-confirm-wrap">
                         <img src="{{ asset('assets/images/credit-card.png') }}" alt="" />
-                        <h6>Driver License</h6>
+                        <h6>National Identity Card</h6>
                         <button type="button" class="resend-btn" data-bs-toggle="modal" data-bs-target="#upload">Upload</button>
                     </div>
 
@@ -164,7 +164,7 @@
                     <div class="reviewed_card_content">
                     <div class="reviewed_card_icon">
                         <img src="{{ asset('assets/images/credit-card.png') }}" alt="" />
-                        <h6>Driver License</h6>
+                        <h6>National Identity Card</h6>
                     </div>
 
                     <div class="reviewed_card_title">
@@ -182,7 +182,7 @@
                     <div class="reviewed_card_content">
                     <div class="reviewed_card_icon">
                         <img src="{{ asset('assets/images/credit-card.png') }}" alt="" />
-                        <h6>Driver License</h6>
+                        <h6>National Identity Card</h6>
                     </div>
 
                     <div class="reviewed_card_title">
@@ -397,7 +397,7 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Upload Drivering License</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Upload NIC</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <form action="{{ route('upload_license') }}" method="post" enctype="multipart/form-data">
@@ -407,13 +407,13 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="mb-3">
-                            <label for="formFile1" class="form-label">Driver' License Front</label>
+                            <label for="formFile1" class="form-label">NIC Front</label>
                             <input class="form-control" name="front_license" type="file" id="formFile1" required>
                         </div>
                     </div>
                     <div class="col-md-12">
                         <div class="mb-3">
-                            <label for="formFile2" class="form-label">Driver' License Back</label>
+                            <label for="formFile2" class="form-label">NIC Back</label>
                             <input class="form-control" name="back_license" type="file" id="formFile2" required>
                         </div>
                     </div>

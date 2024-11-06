@@ -757,18 +757,18 @@ class TblOrdersController extends AppBaseController
                     ->where('lab_orders.order_id', $orderId)
                     ->where('lab_orders.type', 'Prescribed')
                     ->groupBy('lab_orders.id')
-                    ->select('lab_orders.*', 'quest_data_test_codes.DESCRIPTION', 'quest_data_test_codes.SALE_PRICE', 'prescriptions.quantity',)
+                    ->select('lab_orders.*', 'quest_data_test_codes.DESCRIPTION', 'quest_data_test_codes.TEST_NAME', 'quest_data_test_codes.SALE_PRICE', 'prescriptions.quantity',)
                     ->get();
                     // dd($orderLabs);
                     $ordercntLabs = DB::table('lab_orders')
                     ->join('quest_data_test_codes', 'quest_data_test_codes.TEST_CD', 'lab_orders.product_id')
                     ->where('lab_orders.order_id', $orderId)
                     ->where('lab_orders.type', 'Counter')
-                    ->select('lab_orders.*', 'quest_data_test_codes.DESCRIPTION', 'quest_data_test_codes.SALE_PRICE')->get();
+                    ->select('lab_orders.*', 'quest_data_test_codes.DESCRIPTION', 'quest_data_test_codes.TEST_NAME', 'quest_data_test_codes.SALE_PRICE')->get();
             } elseif (Auth::user()->user_type == 'doctor') {
                 $ordercntLabs = DB::table('lab_orders')->where('order_id', $orderId)
                     ->join('quest_data_test_codes', 'quest_data_test_codes.TEST_CD', 'lab_orders.product_id')
-                    ->select('lab_orders.*', 'quest_data_test_codes.DESCRIPTION', 'quest_data_test_codes.SALE_PRICE')->get();
+                    ->select('lab_orders.*', 'quest_data_test_codes.DESCRIPTION', 'quest_data_test_codes.TEST_NAME', 'quest_data_test_codes.SALE_PRICE')->get();
             }
 
             $orderImagings = DB::table('imaging_orders')->where('order_id', $orderId)

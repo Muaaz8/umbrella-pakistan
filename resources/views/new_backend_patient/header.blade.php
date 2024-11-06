@@ -56,14 +56,14 @@ $totalsessions = \App\Session::where('status', 'ended')
                     <a href="/patient/appointments" class="dashboard-nav-dropdown-item">My Appointments</a>
                 </div>
             </div>
-            <div class="dashboard-nav-dropdown">
+            {{-- <div class="dashboard-nav-dropdown">
                 <a href="javascript:void(0)" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
                         class="fa-solid fa-users"></i>Group Therapy Session</a>
                 <div class="dashboard-nav-dropdown-menu">
                     <a href="/therapy/events" class="dashboard-nav-dropdown-item">Upcoming Events</a>
                     <!-- <a href="/patient/appointments" class="dashboard-nav-dropdown-item">My Appointments</a> -->
                 </div>
-            </div>
+            </div> --}}
             <div class="dashboard-nav-dropdown">
                 <a href="javascript:void(0)" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
                         class="fa-solid fa-capsules"></i> Pharmacy</a>
@@ -85,7 +85,7 @@ $totalsessions = \App\Session::where('status', 'ended')
                     <a href="{{ route('patient_Lab_result') }}" class="dashboard-nav-dropdown-item">Reports</a>
                 </div>
             </div>
-            <div class="dashboard-nav-dropdown">
+            {{-- <div class="dashboard-nav-dropdown">
                 <a href="javascript:void(0)" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
                         class="fa-solid fa-x-ray"></i>Imaging</a>
                 <div class="dashboard-nav-dropdown-menu">
@@ -93,7 +93,7 @@ $totalsessions = \App\Session::where('status', 'ended')
                     <a href="{{ route('patient_imaging_orders') }}" class="dashboard-nav-dropdown-item">Reports</a>
                     <a href="{{ route('patient_imaging_file') }}" class="dashboard-nav-dropdown-item">Imaging File</a>
                 </div>
-            </div>
+            </div> --}}
             <div class="dashboard-nav-dropdown">
                 <a href="javascript:void(0)" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
                         class="fa-solid fa-user"></i> Profile</a>

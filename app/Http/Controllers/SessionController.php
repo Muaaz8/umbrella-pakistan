@@ -72,7 +72,7 @@ class SessionController extends Controller
                 'refill_id' => 'null',
             ];
             try {
-                \App\Helper::firebase($sessionData->doctor_id,'notification',$notification_id->id,$data);
+                // \App\Helper::firebase($sessionData->doctor_id,'notification',$notification_id->id,$data);
 
             } catch (\Throwable $th) {
                 //throw $th;
@@ -81,7 +81,7 @@ class SessionController extends Controller
             event(new RealTimeMessage($sessionData->doctor_id));
             event(new updateDoctorWaitingRoom('new_patient_listed'));
             try {
-                \App\Helper::firebase($sessionData->doctor_id,'updateDoctorWaitingRoom',$request->session_id,$sessionData);
+                // \App\Helper::firebase($sessionData->doctor_id,'updateDoctorWaitingRoom',$request->session_id,$sessionData);
                 // mailgun send mail to doctor to join evisit session
                 $doctor =  DB::table('users')->where('id', $sessionData->doctor_id)->first();
                 $markDown = [
@@ -400,14 +400,14 @@ class SessionController extends Controller
     {
         //$state = State::find($loc_id);
         if (auth()->user()->user_type=='patient') {
-            $Reg_state = auth()->user()->state_id;
-            $state = State::find($Reg_state);
+            // $Reg_state = auth()->user()->state_id;
+            // $state = State::find($Reg_state);
 
             $spe = DB::table('specializations')
             ->join('specalization_price', 'specalization_price.spec_id', 'specializations.id')
             ->join('users', 'users.specialization', 'specializations.id')
             ->join('doctor_licenses', 'doctor_licenses.doctor_id', 'users.id')
-            ->where('specalization_price.state_id', $Reg_state)
+            // ->where('specalization_price.state_id', $Reg_state)
             ->where('doctor_licenses.is_verified', '1')
             ->groupBy('specializations.id')
             ->select('specializations.*', 'specalization_price.follow_up_price as follow_up_price', 'specalization_price.initial_price as initial_price')
@@ -430,7 +430,7 @@ class SessionController extends Controller
                     $loc->docs = 0;
                 }
             }
-            return view('dashboard_patient.Evisit.index', compact('spe','state','locations'));
+            return view('dashboard_patient.Evisit.index', compact('spe','locations'));
         } else {
             return redirect()->route('errors', '101');
         }
@@ -763,7 +763,7 @@ class SessionController extends Controller
         try {
 
             $sessionData->received = false;
-            \App\Helper::firebase($sessionData->patient_id,'patientEndCall',$sessionData->id,$sessionData);
+            // \App\Helper::firebase($sessionData->patient_id,'patientEndCall',$sessionData->id,$sessionData);
         } catch (\Throwable $th) {
             //throw $th;
         }
@@ -771,7 +771,7 @@ class SessionController extends Controller
         event(new patientEndCall($request['id']));
 
         $firebase_ses = Session::where('id', $request['id'])->first();
-        \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
+        // \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
         event(new updateQuePatient('update patient que'));
         Log::info('run que update event');
         return "done";

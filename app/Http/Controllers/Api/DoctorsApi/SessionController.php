@@ -77,7 +77,7 @@ class SessionController extends BaseController
             try {
                 $firebase_session = DB::table('sessions')->where('id',$id)->first();
                 $firebase_session->received = false;
-                \App\Helper::firebase($firebase_session->patient_id,'DoctorJoinedVideoSession',$firebase_session->id,$firebase_session);
+                // \App\Helper::firebase($firebase_session->patient_id,'DoctorJoinedVideoSession',$firebase_session->id,$firebase_session);
             } catch (\Throwable $th) {
                 //throw $th;
             }

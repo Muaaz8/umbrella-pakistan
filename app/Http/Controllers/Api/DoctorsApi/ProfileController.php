@@ -284,7 +284,7 @@ class ProfileController extends BaseController
                     'refill_id' => 'null',
                 ];
                 try {
-                    \App\Helper::firebase($res->user_id,'notification',$notification_id->id,$data);
+                    // \App\Helper::firebase($res->user_id,'notification',$notification_id->id,$data);
                 } catch (\Throwable $th) {
                     //throw $th;
                 }

@@ -34,7 +34,7 @@ class NotificationController extends BaseController
             DB::table('notifications')->where('user_id',$user_id)->update(['status' => 'old']);
         //    $firebase_noti= DB::table('notifications')->where('user_id',$user_id)->get();
         //     try {
-        //         \App\Helper::firebase($user_id,'notification',$firebase_noti->id,$firebase_noti);
+        //         // \App\Helper::firebase($user_id,'notification',$firebase_noti->id,$firebase_noti);
         //     } catch (\Throwable $th) {
         //         //throw $th;
         //     }

@@ -892,8 +892,8 @@ public function lab_approval_doctor(Request $req)
                 $user = Auth::user();
                 if(isset($request->name)){
                     $doctors = DB::table('users')
-                    ->select('users.*','states.name as state_name')
-                    ->join('states', 'users.state_id', '=', 'states.id')
+                    ->select('users.*')
+                    // ->join('states', 'users.state_id', '=', 'states.id')
                     ->leftjoin('contracts','contracts.provider_id','users.id')
                     ->where('user_type','=','doctor')
                     ->where('users.active','=','0')
@@ -908,8 +908,8 @@ public function lab_approval_doctor(Request $req)
                     // dd($request->name,$doctors);
                 }else{
                     $doctors = DB::table('users')
-                    ->select('users.*','states.name as state_name')
-                    ->join('states', 'users.state_id', '=', 'states.id')
+                    ->select('users.*')
+                    // ->join('states', 'users.state_id', '=', 'states.id')
                     ->leftjoin('contracts','contracts.provider_id','users.id')
                     ->where('users.user_type','=','doctor')
                     ->where('users.active','=','0')
@@ -1382,13 +1382,7 @@ public function lab_approval_doctor(Request $req)
                 $id = $request['id'];
                 $doctor = User::find($id);
                 $doctor->date_of_birth = Helper::get_date_with_format($doctor['date_of_birth']);
-                $doctor->state = State::find($doctor['state_id'])->name;
-                $doctor->city = City::find($doctor['city_id'])->name;
                 $doctor->specialization = Specialization::find($doctor['specialization'])->name;
-                $doctor->licenses = \DB::table('doctor_licenses')
-                    ->join('states', 'states.id', '=', 'doctor_licenses.state_id')
-                    ->where('doctor_licenses.doctor_id', $id)
-                    ->select('states.name as state', 'doctor_licenses.*')->get();
                 $doctor->email_verify = DB::table('users_email_verification')->where('user_id',$id)->first();
                 return view('dashboard_admin.doctors.pending_doctor_request.view', compact('doctor'));
             } else {
@@ -2888,25 +2882,25 @@ public function store_policy(Request $request){
                 'TEST_CD' => $request->tcd,
                 'TEST_NAME' => $request->name,
                 'DESCRIPTION' => $request->description,
-                'LEGAL_ENTITY' => $request->LE,
-                'UNIT_CD' => $request->uc,
-                'STATE' => $request->state,
+                // 'LEGAL_ENTITY' => $request->LE,
+                // 'UNIT_CD' => $request->uc,
+                // 'STATE' => $request->state,
                 'PRICE' => $request->price,
                 'SALE_PRICE' => $request->sale_price,
                 'PARENT_CATEGORY' => $request->category,
                 'SPECIMEN_TYPE' => $request->sp_type,
-                'medicine_type' => $request->type,
-                'NBS_SERVICE_CODE' => $request->NSC,
-                'TOPLAB_PERFORMING_SITE' => $request->TLPS,
-                'NBS_PERFORMING_SITE' => $request->NBSPS,
-                'SUFFIX' => $request->suffix,
-                'PROFILE_IND' => $request->PIND,
-                'SELECTEST_IND' => $request->STI,
-                'TEST_FLAG' => $request->Tflag,
-                'NO_BILL_INDICATOR' => $request->NBI,
-                'BILL_ONLY_INDICATOR' => $request->BOI,
-                'SEND_OUT_REFLEX_COUNT' => $request->SORC,
-                'AOES_exist' => $request->aoess,
+                // 'medicine_type' => $request->type,
+                // 'NBS_SERVICE_CODE' => $request->NSC,
+                // 'TOPLAB_PERFORMING_SITE' => $request->TLPS,
+                // 'NBS_PERFORMING_SITE' => $request->NBSPS,
+                // 'SUFFIX' => $request->suffix,
+                // 'PROFILE_IND' => $request->PIND,
+                // 'SELECTEST_IND' => $request->STI,
+                // 'TEST_FLAG' => $request->Tflag,
+                // 'NO_BILL_INDICATOR' => $request->NBI,
+                // 'BILL_ONLY_INDICATOR' => $request->BOI,
+                // 'SEND_OUT_REFLEX_COUNT' => $request->SORC,
+                // 'AOES_exist' => $request->aoess,
                 'DETAILS' => $request->details,
                 'mode' => 'lab-test',
                 'ACTIVE_IND' => 'A',

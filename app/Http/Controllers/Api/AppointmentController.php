@@ -744,8 +744,8 @@ class AppointmentController extends BaseController
                     'refill_id' => 'null',
                 ];
                 $getSession->received = false;
-                \App\Helper::firebase($getSession->doctor_id,'notification',$notification_id->id,$data);
-                \App\Helper::firebase($getSession->doctor_id,'updateQuePatient',$session_id,$getSession);
+                // \App\Helper::firebase($getSession->doctor_id,'notification',$notification_id->id,$data);
+                // \App\Helper::firebase($getSession->doctor_id,'updateQuePatient',$session_id,$getSession);
                 event(new RealTimeMessage($getSession->doctor_id));
                 event(new updateQuePatient('update patient que'));
             } catch (Exception $e) {
@@ -910,8 +910,8 @@ class AppointmentController extends BaseController
                     'refill_id' => 'null',
                 ];
                 $getSession->received = false;
-                \App\Helper::firebase($getSession->doctor_id,'notification',$notification_id->id,$data);
-                \App\Helper::firebase($getSession->doctor_id,'updateQuePatient',$request->session_id,$getSession);
+                // \App\Helper::firebase($getSession->doctor_id,'notification',$notification_id->id,$data);
+                // \App\Helper::firebase($getSession->doctor_id,'updateQuePatient',$request->session_id,$getSession);
 
                 event(new RealTimeMessage($getSession->doctor_id));
                 event(new updateQuePatient('update patient que'));
@@ -1051,7 +1051,7 @@ class AppointmentController extends BaseController
                 'received' => 'false',
                 'refill_id' => 'null',
             ];
-            \App\Helper::firebase($getAppointment->patient_id,'notification',$notification_id->id,$data);
+            // \App\Helper::firebase($getAppointment->patient_id,'notification',$notification_id->id,$data);
             event(new RealTimeMessage($getAppointment->patient_id));
         } catch (Exception $e) {
             Log::error($e);

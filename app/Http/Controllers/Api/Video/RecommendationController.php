@@ -182,7 +182,7 @@ class RecommendationController extends BaseController
                 'appoint_id' => 'null',
                 'refill_id' => 'null',
             ];
-            \App\Helper::firebase($patient_user->id,'notification',$notification_id->id,$data);
+            // \App\Helper::firebase($patient_user->id,'notification',$notification_id->id,$data);
             event(new RealTimeMessage($patient_user->id));
         } catch (\Exception $e) {
             Log::error($e);
@@ -251,7 +251,7 @@ class RecommendationController extends BaseController
                     'appoint_id' => 'null',
                     'refill_id' => 'null',
                 ];
-                \App\Helper::firebase($referal->patient_id,'notification',$notification_id2->id,$data);
+                // \App\Helper::firebase($referal->patient_id,'notification',$notification_id2->id,$data);
                 event(new RealTimeMessage($referal->patient_id));
                 $data = [
                     'user_id' => $referal->sp_doctor_id,
@@ -262,13 +262,13 @@ class RecommendationController extends BaseController
                     'appoint_id' => 'null',
                     'refill_id' => 'null',
                 ];
-                \App\Helper::firebase($referal->patient_id,'notification',$notification_id->id,$data);
+                // \App\Helper::firebase($referal->patient_id,'notification',$notification_id->id,$data);
                 event(new RealTimeMessage($referal->sp_doctor_id));
             } catch (\Throwable $th) {
                 $sessionData = Session::find($session_id);
                 $sessionData->received = false;
                 event(new redirectToCart($session->id));
-                \App\Helper::firebase($sessionData->patient_id,'redirectToCart',$sessionData->id,$sessionData);
+                // \App\Helper::firebase($sessionData->patient_id,'redirectToCart',$sessionData->id,$sessionData);
                 $recommendation['code'] = 200;
                 return $this->sendResponse($recommendation,'Recommendation Completed');
             }
@@ -276,7 +276,7 @@ class RecommendationController extends BaseController
         $sessionData = Session::find($session_id);
         $sessionData->received = false;
         event(new redirectToCart($session->id));
-        \App\Helper::firebase($sessionData->patient_id,'redirectToCart',$sessionData->id,$sessionData);
+        // \App\Helper::firebase($sessionData->patient_id,'redirectToCart',$sessionData->id,$sessionData);
         $recommendation['code'] = 200;
         return $this->sendResponse($recommendation,'Recommendation Completed');
     }

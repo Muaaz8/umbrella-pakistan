@@ -1172,33 +1172,6 @@ $(document).ready(function(){
                         }
                     }
 
-                    var zip_code=$('#zip_code').val();
-                    if(zip_code.length=='')
-                    {
-                        $(window).scrollTop(790);
-                        $('#zipcode_error').text('Please put a valid zipcode');
-                        $('#zip_code').addClass('border-danger');
-                        return false;
-                    }
-                    else{
-                        $('#zipcode_error').text('');
-                        $('#zip_code').removeClass('border-danger');
-                    }
-
-
-                    var state=$('.state').val();
-                    if(state.length=='')
-                    {
-                        $(window).scrollTop(790);
-                        $('.state_error').text('Please select state');
-                        $('.state').addClass('border-danger');
-                        return false;
-                    }
-                    else{
-                        $('.state_error').text('');
-                        $('.state').removeClass('border-danger');
-                    }
-
                     var city=$('#city').val();
                     if(city.length=='')
                     {

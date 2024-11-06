@@ -212,9 +212,9 @@ window.intlTelInput(input, {
     formatOnDisplay: true,
     separateDialCode: true,
     autoPlaceholder:"aggressive",
-    onlyCountries: ["us"],
+    onlyCountries: ["pk"],
     customPlaceholder: function(selectedCountryPlaceholder, selectedCountryData) {
-        return ('(407) 693-8484');
+        return ('316 800 1234');
     },
 });
 </script>
@@ -300,29 +300,29 @@ window.intlTelInput(input, {
                                         <small class="text-danger" id="phone_error"></small>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="mb-1">
-                                        <label for="firstname" class="form-label">Zip Code: *</label>
-                                        <input type="text" class="form-control" name="zip_code" id="zip_code" placeholder="Zip Code">
-                                        <input type="hidden" name="country" id="country" value="233" />
-                                        <small class="text-danger" id="zipcode_error"></small>
+                                <input type="hidden" name="country" id="country" value="233" />
+                                {{--
+                                    <div class="col-md-6">
+                                        <div class="mb-1">
+                                            <label for="firstname" class="form-label">Zip Code: *</label>
+                                            <input type="text" class="form-control" name="zip_code" id="zip_code" placeholder="Zip Code">
+                                            <small class="text-danger" id="zipcode_error"></small>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-1">
-                                        <label for="firstname" class="form-label">State: *</label>
-                                        <select class="form-select" aria-label="Default select example" readonly name="state" id="state">
-                                            <option selected value="">Select State</option>
-                                        </select>
-                                        <small class="text-danger" id="state_error"></small>
+                                    <div class="col-md-6">
+                                        <div class="mb-1">
+                                            <label for="firstname" class="form-label">State: *</label>
+                                            <select class="form-select" aria-label="Default select example" readonly name="state" id="state">
+                                                <option selected value="">Select State</option>
+                                            </select>
+                                            <small class="text-danger" id="state_error"></small>
+                                        </div>
                                     </div>
-                                </div>
+                                --}}
                                 <div class="col-md-6">
                                     <div class="mb-1">
                                         <label for="firstname" class="form-label">City: *</label>
-                                        <select class="form-select" aria-label="Default select example" name="city" id="city">
-                                            <option selected value="">Select City</option>
-                                        </select>
+                                        <input type="text" class="form-control" id="city" name="city" placeholder="City">
                                         <small class="text-danger" id="city_error"></small>
                                     </div>
                                 </div>
@@ -340,18 +340,18 @@ window.intlTelInput(input, {
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-1">
-                                        <label for="npi" class="form-label">NPI: *</label>
-                                        <input type="text" class="form-control"  name="npi" id="npi" placeholder="NPI" maxlength="10">
+                                        <label for="npi" class="form-label">PMDC Registration Number: *</label>
+                                        <input type="text" class="form-control"  name="npi" id="npi" placeholder="PMDC Registration Number" maxlength="10">
                                         <small class="text-danger" id="npi_error"></small>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                {{--<div class="col-md-6">
                                     <div class="mb-1">
                                         <label for="upin" class="form-label">UPIN: </label>
                                         <input type="text" class="form-control" name="upin" id="upin" placeholder="UPIN(Optional).">
                                         <small class="text-danger" id="upin_error"></small>
                                     </div>
-                                </div>
+                                </div>--}}
                                 <div class="col-md-6">
                                     <div class="mb-1">
                                         <label for="firstname" class="form-label">Specialization: *</label>
@@ -364,7 +364,7 @@ window.intlTelInput(input, {
                                         <small class="text-danger" id="specializations_error"></small>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                {{--<div class="col-md-6">
                                     <div class="mb-1">
                                         <label for="Licensed_States" class="form-label">Licensed States: *</label>
                                         <select class="form-select mb-3 form-control select2 select2-hidden-accessible" multiple="" id="licensed_states" name="licensed_states[]" data-placeholder="Select a State" style="width: 100%; margin:0; " tabindex="-1" aria-hidden="true">
@@ -376,7 +376,7 @@ window.intlTelInput(input, {
                                         <small class="text-danger" id="licensed_state_error"></small>
 
                                     </div>
-                                </div>
+                                </div>--}}
                             </div>
                         </div>
                         <h5 class="patient_det_head mb-2 mt-2">Account Information:</h5>

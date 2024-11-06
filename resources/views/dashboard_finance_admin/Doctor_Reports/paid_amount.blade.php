@@ -129,7 +129,7 @@ function createfile(type)
                                   Download Data
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                  
+
                                   <li><a class="dropdown-item" href="#" onclick="createfile('csv')">Download As CSV</a></li>
                                   <li><a class="dropdown-item" href="#" onclick="createfile('pdf')">Download As PDF</a></li>
 
@@ -168,7 +168,7 @@ function createfile(type)
                               @endforelse
                           </tbody>
                         </table>
-                        {{ $paid->links('pagination::bootstrap-4') }}
+                        {{-- $paid->links('pagination::bootstrap-4') --}}
                         <!-- <nav aria-label="..." class="float-end pe-3">
                           <ul class="pagination">
                             <li class="page-item disabled">

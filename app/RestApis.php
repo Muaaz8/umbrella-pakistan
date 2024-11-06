@@ -585,7 +585,7 @@ class RestApis extends Model
         ];
         try {
             //code...
-            \App\Helper::firebase($arr['doctor_id'],'notification',$create->id,$data);
+            // // \App\Helper::firebase($arr['doctor_id'],'notification',$create->id,$data);
         } catch (\Throwable $th) {
             //throw $th;
         }

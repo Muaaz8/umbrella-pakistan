@@ -87,7 +87,7 @@
                           @foreach ($orderLabs as $labs)
                           <tr>
                           <!-- <th><i class="fa-solid fa fa-flask fs-4"></i></th> -->
-                          <td data-label="Product Name">{{ $labs->DESCRIPTION }}</td>
+                          <td data-label="Product Name">{{ $labs->TEST_NAME }}</td>
                           <td data-label="Quantity"></td>
                           <td data-label="Price">${{ $labs->price }}</td>
                           <td data-label="Status">{{ $labs->status }}</td>
@@ -101,7 +101,7 @@
                           @foreach ($ordercntLabs as $labs)
                           <tr>
                           <!-- <th><i class="fa-solid fa fa-flask fs-4"></i></th> -->
-                          <td data-label="Product Name">{{ $labs->DESCRIPTION }}</td>
+                          <td data-label="Product Name">{{ $labs->TEST_NAME }}</td>
                           <td data-label="Quantity"></td>
                           <td data-label="Price">${{ $labs->price }}</td>
                           <td data-label="Status">{{ $labs->status }}</td>

@@ -1194,7 +1194,7 @@ class PharmacyController extends Controller
                     'product_id' => $item->product_id,
                     'session_id' => $item->doc_session_id,
                     'pres_id' => $item->pres_id,
-                    'status' => 'quest-forwarded',
+                    'status' => 'lab-editor-approval',
                     'type' => 'Prescribed',
                     'date' => date('Y-m-d'),
                     'time' => 0,
@@ -1216,48 +1216,48 @@ class PharmacyController extends Controller
             $doctor = User::find($item->doc_id);
             $patient = User::find($item->user_id);
 
-            $timestamp = time();
-            $lab_ref_num = 'UMD' . $item->user_id . 'Q' . $timestamp;
-            $orderedtestcode = json_encode($testsData);
-            $name = json_encode($testsData);
-            $testAoes = json_encode($testsData);
-            $collect_date = date('Y-m-d', strtotime($item->created_at));
-            $collect_time = date('H:i:s', strtotime($item->created_at));
-            $doc_name = $doctor->last_name . ' ,' . $doctor->name;
-            $barcode = $account->number . $lab_ref_num;
-            $arr_specimen = array(
-                [
-                    'client_num' => '73917104',
-                    'lab_referance' => $lab_ref_num,
-                    'patient_name' => $patient->last_name . ', ' . $patient->name,
-                    'barcode' => $account->number . $lab_ref_num,
-                ],
-            );
-            $specimen_labels = json_encode($arr_specimen);
-            $comment = '';
-            $client_bill = '$2y$10$iguHq2BCqFaGg1tI3eZDWujOwENMEmJDYdA7Ywl11Iwv1r/NNmmgu';
-            $patient_bill = '';
-            $third_party_bill = '';
-            $order = QuestLab::create([
-                'order_id' => $item->orderSystemId,
-                'umd_patient_id' => $item->user_id,
-                'quest_patient_id' => $item->user_id,
-                'abn' => '',
-                'billing_type' => 'Client',
-                'diagnosis_code' => 'V725',
-                'vendor_account_id' => $account->id,
-                'orderedtestcode' => $orderedtestcode, 'names' => $name, 'aoe' => $testAoes, 'collect_date' => $collect_date,
-                'collect_time' => $collect_time, 'lab_reference_num' => $lab_ref_num, 'npi' => $doctor->nip_number,
-                'ssn' => '', 'insurance_num' => '', 'room' => '', 'result_notification' => 'Normal',
-                'group_num' => '', 'relation' => 'Self', 'upin' => $doctor->upin, 'ref_physician_id' => $doc_name,
-                'temp' => '', 'icd_diagnosis_code' => '', 'psc_hold' => 1, 'barcode' => $barcode,
-                'specimen_labels' => $specimen_labels, 'comment' => $comment, 'client_bill' => $client_bill,
-                'patient_bill' => $patient_bill, 'third_party_bill' => $third_party_bill,
-            ]);
+            // $timestamp = time();
+            // $lab_ref_num = 'UMD' . $item->user_id . 'Q' . $timestamp;
+            // $orderedtestcode = json_encode($testsData);
+            // $name = json_encode($testsData);
+            // $testAoes = json_encode($testsData);
+            // $collect_date = date('Y-m-d', strtotime($item->created_at));
+            // $collect_time = date('H:i:s', strtotime($item->created_at));
+            // $doc_name = $doctor->last_name . ' ,' . $doctor->name;
+            // $barcode = $account->number . $lab_ref_num;
+            // $arr_specimen = array(
+            //     [
+            //         'client_num' => '73917104',
+            //         'lab_referance' => $lab_ref_num,
+            //         'patient_name' => $patient->last_name . ', ' . $patient->name,
+            //         'barcode' => $account->number . $lab_ref_num,
+            //     ],
+            // );
+            // $specimen_labels = json_encode($arr_specimen);
+            // $comment = '';
+            // $client_bill = '$2y$10$iguHq2BCqFaGg1tI3eZDWujOwENMEmJDYdA7Ywl11Iwv1r/NNmmgu';
+            // $patient_bill = '';
+            // $third_party_bill = '';
+            // $order = QuestLab::create([
+            //     'order_id' => $item->orderSystemId,
+            //     'umd_patient_id' => $item->user_id,
+            //     'quest_patient_id' => $item->user_id,
+            //     'abn' => '',
+            //     'billing_type' => 'Client',
+            //     'diagnosis_code' => 'V725',
+            //     'vendor_account_id' => $account->id,
+            //     'orderedtestcode' => $orderedtestcode, 'names' => $name, 'aoe' => $testAoes, 'collect_date' => $collect_date,
+            //     'collect_time' => $collect_time, 'lab_reference_num' => $lab_ref_num, 'npi' => $doctor->nip_number,
+            //     'ssn' => '', 'insurance_num' => '', 'room' => '', 'result_notification' => 'Normal',
+            //     'group_num' => '', 'relation' => 'Self', 'upin' => $doctor->upin, 'ref_physician_id' => $doc_name,
+            //     'temp' => '', 'icd_diagnosis_code' => '', 'psc_hold' => 1, 'barcode' => $barcode,
+            //     'specimen_labels' => $specimen_labels, 'comment' => $comment, 'client_bill' => $client_bill,
+            //     'patient_bill' => $patient_bill, 'third_party_bill' => $third_party_bill,
+            // ]);
 
-            $order->zip_code = $patient->zip_code;
-            $hl7_obj = new HL7Controller();
-            $hl7_obj->new_hl7Encode($order);
+            // $order->zip_code = $patient->zip_code;
+            // $hl7_obj = new HL7Controller();
+            // $hl7_obj->new_hl7Encode($order);
         }
         if ($cartPreImg != null) {
             foreach ($cartPreImg as $key => $order) {
@@ -1469,7 +1469,7 @@ class PharmacyController extends Controller
                         'type' => '/patient/all/orders/',
                     ];
                     try {
-                        \App\Helper::firebase($u->id,'notification',$notification_id->id,$data);
+                        // \App\Helper::firebase($u->id,'notification',$notification_id->id,$data);
                     } catch (\Throwable $th) {
                         //throw $th;
                     }
@@ -1492,7 +1492,7 @@ class PharmacyController extends Controller
                     ];
                     try {
 
-                        \App\Helper::firebase($u->id,'notification',$notification_id->id,$data);
+                        // \App\Helper::firebase($u->id,'notification',$notification_id->id,$data);
                     } catch (\Throwable $th) {
                         //throw $th;
                     }
@@ -1514,7 +1514,7 @@ class PharmacyController extends Controller
                 ];
                 try {
 
-                    \App\Helper::firebase($u->id,'notification',$notification_id->id,$data);
+                    // \App\Helper::firebase($u->id,'notification',$notification_id->id,$data);
                 } catch (\Throwable $th) {
                     //throw $th;
                 }
@@ -1743,7 +1743,7 @@ class PharmacyController extends Controller
                         'refill_id' => 'null',
                     ];
                     try {
-                        \App\Helper::firebase($user->id,'notification',$notification_id->id,$data);
+                        // \App\Helper::firebase($user->id,'notification',$notification_id->id,$data);
 
                     } catch (\Throwable $th) {
                         //throw $th;
@@ -1812,7 +1812,7 @@ class PharmacyController extends Controller
                 ];
                 try {
 
-                    \App\Helper::firebase($admin_data->id,'notification',$notification_id->id,$data);
+                    // \App\Helper::firebase($admin_data->id,'notification',$notification_id->id,$data);
                 } catch (\Throwable $th) {
                     //throw $th;
                 }
@@ -1851,7 +1851,7 @@ class PharmacyController extends Controller
                 ];
                 try {
 
-                    \App\Helper::firebase($user_id,'notification',$notification_id->id,$data);
+                    // \App\Helper::firebase($user_id,'notification',$notification_id->id,$data);
                 } catch (\Throwable $th) {
                     //throw $th;
                 }

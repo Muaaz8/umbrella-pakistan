@@ -240,7 +240,7 @@ class DoctorDashboardController extends BaseController
                     $data = DB::table('users')->where('id',$doc->id)->select('id','status')->first();
                     $data->id = (string)$doc->id;
                     $data->received = "false";
-                    \App\Helper::firebaseOnlineDoctor('loadOnlineDoctor',$doc->id,$data);
+                    // \App\Helper::firebaseOnlineDoctor('loadOnlineDoctor',$doc->id,$data);
                 } catch (\Throwable $th) {
 
                 }
@@ -255,7 +255,7 @@ class DoctorDashboardController extends BaseController
                 $data = DB::table('users')->where('id',$doc->id)->select('id','status')->first();
                 $data->id = (string)$doc->id;
                 $data->received = "false";
-                \App\Helper::firebaseOnlineDoctor('loadOnlineDoctor',$doc->id,$data);
+                // \App\Helper::firebaseOnlineDoctor('loadOnlineDoctor',$doc->id,$data);
             } catch (\Throwable $th) {
 
             }

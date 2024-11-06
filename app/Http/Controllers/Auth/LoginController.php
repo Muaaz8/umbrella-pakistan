@@ -99,7 +99,7 @@ class LoginController extends Controller
                 }
                 $data->id = (string)$user->id;
                 $data->received = "false";
-                \App\Helper::firebaseOnlineDoctor('loadOnlineDoctor',$user->id,$data);
+                // \App\Helper::firebaseOnlineDoctor('loadOnlineDoctor',$user->id,$data);
             } catch (\Throwable $th) {
                 // throw $th;
             }

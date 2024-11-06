@@ -680,8 +680,8 @@
                             </div>
                             <div class="col-md-6 col-lg-8">
                                 <div class="text-hover mb-5 hover-text-new hover-text-new-home">
-                                    All lab tests include $6 Physician's fee.
-                                    <i class="fa-solid fa-circle-info"></i>
+                                    {{--All lab tests include $6 Physician's fee.
+                                    <i class="fa-solid fa-circle-info"></i>--}}
                                     <div class="tooltip">$6 fee is collected on behalf of affiliated physicians oversight
                                         for lab testing,
                                         lab results may require physicians follow-up services, UmbrellaMD will collect this

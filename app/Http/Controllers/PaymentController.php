@@ -1595,63 +1595,63 @@ class PaymentController extends Controller
             ->groupby('sessions.id')
             ->select('sessions.session_id as ses_id','sessions.id as sessi_id','sessions.created_at')
             ->paginate(10,['*'],'pres');
-            foreach ($prescriptions as $press) {
-                $press->prescriptions = DB::table('prescriptions')
-                ->join('sessions','prescriptions.session_id','sessions.id')
-                ->join('tbl_cart','prescriptions.id','tbl_cart.pres_id')
-                ->where('tbl_cart.item_type','prescribed')
-                ->where('tbl_cart.status','purchased')
-                ->where('sessions.id',$press->sessi_id)
-                ->orderBy('prescriptions.id','DESC')
-                ->select('prescriptions.*','sessions.session_id as ses_id','sessions.id as sessi_id')
-                ->get();
-                $orderid=null;
-                foreach($press->prescriptions as $pres)
-                {
-                    if ($pres->type == 'lab-test') {
-                        $test = DB::table('quest_data_test_codes')->where('TEST_CD', $pres->test_id)->first();
-                        $order = DB::table('lab_orders')->where('pres_id', $pres->id)->where('product_id', $pres->test_id)->first();
-                        $pres->name = $test->DESCRIPTION;
-                        $pres->sale_price = $test->SALE_PRICE;
-                        $pres->price = $test->PRICE;
-                        $pres->order_id = $order->order_id;
-                        $pres->pro_id = $pres->test_id;
-                    } else if ($pres->type == 'imaging') {
-                        $test = DB::table('tbl_products')->where('id', $pres->imaging_id)->first();
-                        $order = DB::table('imaging_orders')->where('pres_id', $pres->id)->where('product_id', $pres->imaging_id)->first();
-                        $loc = DB::table('imaging_selected_location')->where('session_id', $pres->sessi_id)->where('product_id',$pres->imaging_id)->first();
-                        $price = DB::table('imaging_prices')->where('location_id', $loc->imaging_location_id)->where('product_id',$loc->product_id)->first();;
-                        $pres->name = $test->name;
-                        $pres->sale_price = $price->price;
-                        $pres->price = $price->actual_price;
-                        $pres->order_id = $order->order_id;
-                        $pres->pro_id = $pres->imaging_id;
-                    } else if ($pres->type == 'medicine') {
-                        $test = DB::table('tbl_products')->where('id', $pres->medicine_id)->first();
-                        $order = DB::table('medicine_order')->where('session_id', $pres->sessi_id)->first();
-                        $price = DB::table('medicine_pricings')
-                        ->where('id', $pres->price)
-                        ->first();
-                        $pres->name = $test->name;
-                        $pres->sale_price = $price->sale_price;
-                        $pres->price = $price->price;
-                        $pres->order_id = $order->order_main_id;
-                        $pres->pro_id = $pres->medicine_id;
-                    }
-                    if(date('Y-m',strtotime($pres->created_at))==$currentMonth)
-                    {
-                        $getOrderMonthTotal += $pres->sale_price;
-                    }
-                    if(date('Y-m-d',strtotime($pres->created_at))==$currentDay)
-                    {
-                        $getOrderTodayTotal += $pres->sale_price;
-                    }
-                    $getOrderTotal += $pres->sale_price;
-                    $orderid = $pres->order_id;
-                }
-                $press->order_id = $orderid;
-                $press->datetime = User::convert_utc_to_user_timezone($user_id, $press->created_at);
-            }
+            // foreach ($prescriptions as $press) {
+            //     $press->prescriptions = DB::table('prescriptions')
+            //     ->join('sessions','prescriptions.session_id','sessions.id')
+            //     ->join('tbl_cart','prescriptions.id','tbl_cart.pres_id')
+            //     ->where('tbl_cart.item_type','prescribed')
+            //     ->where('tbl_cart.status','purchased')
+            //     ->where('sessions.id',$press->sessi_id)
+            //     ->orderBy('prescriptions.id','DESC')
+            //     ->select('prescriptions.*','sessions.session_id as ses_id','sessions.id as sessi_id')
+            //     ->get();
+            //     $orderid=null;
+            //     foreach($press->prescriptions as $pres)
+            //     {
+            //         if ($pres->type == 'lab-test') {
+            //             $test = DB::table('quest_data_test_codes')->where('TEST_CD', $pres->test_id)->first();
+            //             $order = DB::table('lab_orders')->where('pres_id', $pres->id)->where('product_id', $pres->test_id)->first();
+            //             $pres->name = $test->DESCRIPTION;
+            //             $pres->sale_price = $test->SALE_PRICE;
+            //             $pres->price = $test->PRICE;
+            //             $pres->order_id = $order->order_id;
+            //             $pres->pro_id = $pres->test_id;
+            //         } else if ($pres->type == 'imaging') {
+            //             $test = DB::table('tbl_products')->where('id', $pres->imaging_id)->first();
+            //             $order = DB::table('imaging_orders')->where('pres_id', $pres->id)->where('product_id', $pres->imaging_id)->first();
+            //             $loc = DB::table('imaging_selected_location')->where('session_id', $pres->sessi_id)->where('product_id',$pres->imaging_id)->first();
+            //             $price = DB::table('imaging_prices')->where('location_id', $loc->imaging_location_id)->where('product_id',$loc->product_id)->first();;
+            //             $pres->name = $test->name;
+            //             $pres->sale_price = $price->price;
+            //             $pres->price = $price->actual_price;
+            //             $pres->order_id = $order->order_id;
+            //             $pres->pro_id = $pres->imaging_id;
+            //         } else if ($pres->type == 'medicine') {
+            //             $test = DB::table('tbl_products')->where('id', $pres->medicine_id)->first();
+            //             $order = DB::table('medicine_order')->where('session_id', $pres->sessi_id)->first();
+            //             $price = DB::table('medicine_pricings')
+            //             ->where('id', $pres->price)
+            //             ->first();
+            //             $pres->name = $test->name;
+            //             $pres->sale_price = $price->sale_price;
+            //             $pres->price = $price->price;
+            //             $pres->order_id = $order->order_main_id;
+            //             $pres->pro_id = $pres->medicine_id;
+            //         }
+            //         if(date('Y-m',strtotime($pres->created_at))==$currentMonth)
+            //         {
+            //             $getOrderMonthTotal += $pres->sale_price;
+            //         }
+            //         if(date('Y-m-d',strtotime($pres->created_at))==$currentDay)
+            //         {
+            //             $getOrderTodayTotal += $pres->sale_price;
+            //         }
+            //         $getOrderTotal += $pres->sale_price;
+            //         $orderid = $pres->order_id;
+            //     }
+            //     $press->order_id = $orderid;
+            //     $press->datetime = User::convert_utc_to_user_timezone($user_id, $press->created_at);
+            // }
             //start here total orders earning
 
             //dd($getOrderTotal);
@@ -2063,7 +2063,7 @@ class PaymentController extends Controller
                 if($price!=null)
                 {
                     $pres->sale_price = $price->sale_price;
-                    $pres->price = $price->price;   
+                    $pres->price = $price->price;
                 }
                 $pres->order_id = $order->order_main_id;
                 $pres->pro_id = $pres->medicine_id;

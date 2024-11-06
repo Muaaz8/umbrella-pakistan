@@ -1153,32 +1153,32 @@ $(document).ready(function(){
                         }
                     }
 
-                    var zip_code=$('#zip_code').val();
-                    if(zip_code.length=='')
-                    {
-                        $('#zipcode_error').text('Please put a valid zipcode');
-                        $('#zip_code').addClass('border-danger');
-                        $(window).scrollTop(350);
-                        return false;
-                    }
-                    else{
-                        $('#zipcode_error').text('');
-                        $('#zip_code').removeClass('border-danger');
-                    }
+                    // var zip_code=$('#zip_code').val();
+                    // if(zip_code.length=='')
+                    // {
+                    //     $('#zipcode_error').text('Please put a valid zipcode');
+                    //     $('#zip_code').addClass('border-danger');
+                    //     $(window).scrollTop(350);
+                    //     return false;
+                    // }
+                    // else{
+                    //     $('#zipcode_error').text('');
+                    //     $('#zip_code').removeClass('border-danger');
+                    // }
 
 
-                    var state=$('#state').val();
-                    if(state.length=='')
-                    {
-                        $('#state_error').text('Please select state');
-                        $('#state').addClass('border-danger');
-                        $(window).scrollTop(350);
-                        return false;
-                    }
-                    else{
-                        $('#state_error').text('');
-                        $('#state').removeClass('border-danger');
-                    }
+                    // var state=$('#state').val();
+                    // if(state.length=='')
+                    // {
+                    //     $('#state_error').text('Please select state');
+                    //     $('#state').addClass('border-danger');
+                    //     $(window).scrollTop(350);
+                    //     return false;
+                    // }
+                    // else{
+                    //     $('#state_error').text('');
+                    //     $('#state').removeClass('border-danger');
+                    // }
 
                     var city=$('#city').val();
                     if(city.length=='')
@@ -1216,7 +1216,7 @@ $(document).ready(function(){
                     exist = nipExists(npi);
                     if(npi.length!=10)
                     {
-                        $('#npi_error').text('Please put a valid NPI');
+                        $('#npi_error').text('Please put a valid PMDC number');
                         $('#npi').addClass('border-danger');
                         $(window).scrollTop(350);
                         return false;
@@ -1258,18 +1258,18 @@ $(document).ready(function(){
                         $('#specializations').removeClass('border-danger');
                     }
 
-                    var licensed_states=$('#licensed_states').val();
-                    if(licensed_states=='')
-                    {
-                        $('#licensed_state_error').text('Please select your licensed state');
-                        $('#licensed_states').addClass('border-danger');
-                        $(window).scrollTop(350);
-                        return false;
-                    }
-                    else{
-                        $('#licensed_state_error').text('');
-                        $('#licensed_states').removeClass('border-danger');
-                    }
+                    // var licensed_states=$('#licensed_states').val();
+                    // if(licensed_states=='')
+                    // {
+                    //     $('#licensed_state_error').text('Please select your licensed state');
+                    //     $('#licensed_states').addClass('border-danger');
+                    //     $(window).scrollTop(350);
+                    //     return false;
+                    // }
+                    // else{
+                    //     $('#licensed_state_error').text('');
+                    //     $('#licensed_states').removeClass('border-danger');
+                    // }
 
                     var email=$('#email').val();
                     // var checker=checkEmail(email);
@@ -1408,7 +1408,7 @@ $(document).ready(function(){
                         $('#confirm_password_error').text('');
                         $('#password_confirmation').removeClass('border-danger');
                     }
-                    
+
                     var term = document.getElementById('term');
                     var signature = $("#signature").val();
 
@@ -1442,7 +1442,7 @@ $(document).ready(function(){
                 },
                 complete: function(data)
                 {
-                    
+
                 }
             });
         }

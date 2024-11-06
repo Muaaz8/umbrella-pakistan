@@ -58,7 +58,6 @@
                 @endif
                 <form action="{{ route('patient_health_store') }}" method="POST">
                     @csrf
-                    <input type="hidden" value="{{$loc_id}}" name="loc_id" id="loc_id">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <h2>PATIENT HEALTH QUESTIONNAIRE (PHQ-9)</h2>

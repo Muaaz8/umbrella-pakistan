@@ -142,7 +142,7 @@ class VideoController extends Controller
             ->first();
             try {
                 $session->received = false;
-                \App\Helper::firebase($session->doctor_id,'patientJoinCall',$session_id,$session);
+                // \App\Helper::firebase($session->doctor_id,'patientJoinCall',$session_id,$session);
             } catch (\Throwable $th) {
                 //throw $th;
             }
@@ -422,7 +422,7 @@ class VideoController extends Controller
 
                 $firebase_session = DB::table('sessions')->where('id',$id)->first();
                 $firebase_session->received = false;
-                \App\Helper::firebase($firebase_session->patient_id,'DoctorJoinedVideoSession',$firebase_session->id,$firebase_session);
+                // \App\Helper::firebase($firebase_session->patient_id,'DoctorJoinedVideoSession',$firebase_session->id,$firebase_session);
             } catch (\Throwable $th) {
                 //throw $th;
             }
@@ -566,7 +566,7 @@ class VideoController extends Controller
             //event accure
             try {
                 $getSession->received = false;
-                \App\Helper::firebase($getSession->doctor_id,'patientJoinCall',$getSession->id,$getSession);
+                // \App\Helper::firebase($getSession->doctor_id,'patientJoinCall',$getSession->id,$getSession);
             } catch (\Throwable $th) {
                 //throw $th;
             }
@@ -628,7 +628,7 @@ class VideoController extends Controller
         try {
             $firebase_ses = Session::where('id', $session->id)->first();
             $firebase_ses->received = false;
-            \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
+            // \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
 
         } catch (\Throwable $th) {
             //throw $th;
@@ -691,7 +691,7 @@ class VideoController extends Controller
             try {
                 $firebase_ses = Session::where('id', $doctor->id)->first();
                 $firebase_ses->received = false;
-                \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
+                // \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
             } catch (\Throwable $th) {
                 //throw $th;
             }
@@ -727,7 +727,7 @@ class VideoController extends Controller
             try {
                 $firebase_session = DB::table('sessions')->where('id',$session_id)->first();
                 $firebase_session->received = false;
-                \App\Helper::firebase($firebase_session->patient_id,'DoctorJoinedVideoSession',$firebase_session->id,$firebase_session);
+                // \App\Helper::firebase($firebase_session->patient_id,'DoctorJoinedVideoSession',$firebase_session->id,$firebase_session);
 
             } catch (\Throwable $th) {
                 //throw $th;
@@ -802,7 +802,7 @@ class VideoController extends Controller
                     'refill_id' => 'null',
                 ];
 
-                \App\Helper::firebase($patient_data->id,'notification',$notification_id->id,$data);
+                // \App\Helper::firebase($patient_data->id,'notification',$notification_id->id,$data);
 
                 event(new RealTimeMessage($patient_data->id));
                 //////////////////////////////////////////////////////////////////End
@@ -975,7 +975,7 @@ class VideoController extends Controller
         ];
         try {
 
-            \App\Helper::firebase($doc_id,'notification',$notification_id->id,$data);
+            // \App\Helper::firebase($doc_id,'notification',$notification_id->id,$data);
         } catch (\Throwable $th) {
             //throw $th;
         }
@@ -1129,7 +1129,7 @@ class VideoController extends Controller
                     try {
                         $firebase_ses = Session::where('id', $doctor->id)->first();
                         $firebase_ses->received = false;
-                        \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
+                        // \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
 
                     } catch (\Throwable $th) {
                         //throw $th;

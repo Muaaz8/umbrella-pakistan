@@ -67,7 +67,7 @@ class CartController extends BaseController
                 $data['location_id'] = '';
                 $appTblCart =AppTblCart::Create($data);
                 try {
-                    \App\Helper::firebase($user_id,'CountCartItem',$appTblCart->id,$appTblCart);
+                    // \App\Helper::firebase($user_id,'CountCartItem',$appTblCart->id,$appTblCart);
                 } catch (\Throwable $th) {
                     //throw $th;
                 }

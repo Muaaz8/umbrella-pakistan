@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endsection
-    
+
 @section('page_title')
     <title>Quest Lab Tests</title>
 @endsection
@@ -30,7 +30,7 @@
         var sp = $('#sp_'+id).val();
         var cn = $('#cn_'+id).val();
         var det = $('#det_'+id).val();
-        
+
         $('#test_cd').val(id);
         $('#sn').val(det);
         $('#tn').val(name);
@@ -91,7 +91,7 @@
                   <div class="col-md-12">
                     <div class="row m-auto">
                       <div class="d-flex justify-content-between flex-wrap align-items-baseline p-0">
-                        <h3>Quest Labtests</h3>
+                        <h3>Labtests</h3>
                         <div class="col-md-4 p-0">
                           <div class="input-group">
                             <input
@@ -183,7 +183,7 @@
 
 
       <!-- ------------------Edit-Quest-labtest-Categories-Modal-start------------------ -->
-  
+
             <!-- Modal -->
             <div class="modal fade" id="edit_quest_labtests" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -195,7 +195,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        
+
                           <form action="">
                             <div class="p-3">
                             <div class="row">
@@ -238,7 +238,7 @@
                                     <textarea class="form-control" id="des" name="des" rows="5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente ullam ducimus reiciendis quia eos veniam animi porro placeat corrupti dolore dignissimos excepturi numquam illum quas sunt recusandae dolorem quisquam odit explicabo, nulla saepe corporis exercitationem? Hic accusamus eius non incidunt aperiam esse, cupiditate fugit voluptas officia beatae molestiae atque velit?</textarea>
                                 </div>
                             </div>
-    
+
                           </div>
                     </div>
                     <div class="modal-footer">
@@ -249,8 +249,8 @@
                 </div>
                 </div>
             </div>
-@endsection  
-  
+@endsection
+
     <!-- ------------------Edit-Quest-labtest-Categories-Modal-end------------------ -->
 
     <!-- Option 1: Bootstrap Bundle with Popper -->

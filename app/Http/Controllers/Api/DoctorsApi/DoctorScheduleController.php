@@ -348,9 +348,9 @@ class DoctorScheduleController extends BaseController
         return $this->sendError($scheduleDelDataError,"Opps! Somthing Went Wrong");
     }
     public function doctor_patient_queue(){
-        // 
+        //
         $user = auth()->user();
-        $user_state = $user->state_id; 
+        $user_state = $user->state_id;
         $state = State::find($user_state);
         if ($state->active == 1) {
             $doc_id = $user->id;
@@ -385,7 +385,7 @@ class DoctorScheduleController extends BaseController
                     event(new updateQuePatient('update patient que'));
                     // try {
                     //     $firebaseSession->received = false;
-                    //     \App\Helper::firebase($user->id,'updateQuePatient',$single_session['session_id'],$firebaseSession );
+                    //     // \App\Helper::firebase($user->id,'updateQuePatient',$single_session['session_id'],$firebaseSession );
                     // } catch (\Throwable $th) {
                     //     //throw $th;
                     // }
@@ -433,7 +433,7 @@ class DoctorScheduleController extends BaseController
                         event(new updateQuePatient('update patient que'));
                         try {
                             $firebaseSession->received = false;
-                            \App\Helper::firebase($user->id,'updateQuePatient',$single_session['session_id'],$firebaseSession );
+                            // \App\Helper::firebase($user->id,'updateQuePatient',$single_session['session_id'],$firebaseSession );
                         } catch (\Throwable $th) {
                             //throw $th;
                         }
@@ -463,7 +463,7 @@ class DoctorScheduleController extends BaseController
                         event(new updateQuePatient('update patient que'));
                         try {
                             $firebaseSession->received = false;
-                            \App\Helper::firebase($user->id,'updateQuePatient',$single_session['session_id'],$firebaseSession );
+                            // \App\Helper::firebase($user->id,'updateQuePatient',$single_session['session_id'],$firebaseSession );
                         } catch (\Throwable $th) {
                             //throw $th;
                         }
