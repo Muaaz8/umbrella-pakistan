@@ -835,7 +835,7 @@ $(document).ready(function(){
 
     var onloadCallback = function() {
         grecaptcha.render('google_recaptcha', {
-            'sitekey' : '6Lfx12gjAAAAAFk6DNZK-O5frG--VljoUTj1zko9'
+            'sitekey' : '6LctFXkqAAAAAHG3mAMi56uxbdOJ3iOjAKXhyeyW'
           });
     };
 

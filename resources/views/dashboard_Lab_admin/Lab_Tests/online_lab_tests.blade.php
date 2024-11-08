@@ -190,7 +190,7 @@
                                     <tr>
                                         <th scope="col">Name</th>
                                         <th scope="col">Category Name</th>
-                                        <th scope="col">Sale Price</th>
+                                        <th scope="col">Sell Price</th>
                                         <th scope="col">Action</th>
                                     </tr>
                                 </thead>
@@ -403,11 +403,11 @@
                             </div>
                             <div class="row mt-2">
                                 <div class="col-md-6">
-                                    <label for="specialInstructions">Price:</label>
+                                    <label for="specialInstructions">Actual Price:</label>
                                     <input type="text" name="price" class="form-control" placeholder="" required>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="specialInstructions">Sale Price:</label>
+                                    <label for="specialInstructions">Sell Price:</label>
                                     <input type="text" name="sale_price" class="form-control" placeholder=""
                                         required>
                                 </div>
@@ -484,12 +484,12 @@
                             </div>
                             <div class="row mt-2">
                                 <div class="col-md-6">
-                                    <label for="specialInstructions">Price:</label>
+                                    <label for="specialInstructions">Actual Price:</label>
                                     <input type="text" id="e_pr" name="pr" class="form-control"
                                         placeholder="21">
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="specialInstructions">Sale Price:</label>
+                                    <label for="specialInstructions">Sell Price:</label>
                                     <input type="text" id="e_sp" name="sp" class="form-control"
                                         placeholder="39.00">
                                 </div>

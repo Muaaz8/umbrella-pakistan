@@ -643,7 +643,7 @@
                                 </div>
                             </div>
 
-                            <div class="accordion-item">
+                            {{-- <div class="accordion-item">
                                 <h2 class="accordion-header" id="flush-headingFive">
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                         data-bs-target="#flush-collapseFive" aria-expanded="false"
@@ -661,7 +661,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>

@@ -2303,9 +2303,9 @@ class DoctorController extends Controller
     public function doctor_patient_queue(Request $request)
     {
         $user = auth()->user();
-        $user_state = $user->state_id;
-        $state = State::find($user_state);
-        if ($state->active == 1) {
+        // $user_state = $user->state_id;
+        // $state = State::find($user_state);
+        // if ($state->active == 1) {
             $session_check = Session::where('doctor_id',$user->id)->where('status','started')->first();
             if($session_check!=null){
                 return redirect()->route('doc_video_page', ['id' => \Crypt::encrypt($session_check->id)]);
@@ -2527,9 +2527,9 @@ class DoctorController extends Controller
                 }
             }
             }
-        } else {
-            return redirect()->route('errors', '101');
-        }
+        // } else {
+        //     return redirect()->route('errors', '101');
+        // }
     }
 
     public function modal_change_status(Request $request)

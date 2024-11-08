@@ -1837,23 +1837,6 @@ header("Access-Control-Allow-Origin: *"); @endphp
                             aria-labelledby="pills-home-tab">
                             <div>
                                 <div class="accordion accordion-flush" id="accordionFlushExample">
-                                    {{-- <div class="accordion-item">
-                                        <h2 class="accordion-header" id="flush-headingOne">
-                                            <button class="accordion-button collapsed" type="button"
-                                                data-bs-toggle="collapse" data-bs-target="#flush-collapseOne"
-                                                aria-expanded="false" aria-controls="flush-collapseOne">
-                                                Symptoms
-                                            </button>
-                                        </h2>
-                                        <div id="flush-collapseOne" class="accordion-collapse collapse"
-                                            aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                                            <div class="accordion-body accordion-first">
-                                                <div class="screen-symtoms">
-                                                    <ul id="loadSymtems"></ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div> --}}
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="flush-headingSix">
                                             <button class="accordion-button collapsed" type="button"
@@ -1892,16 +1875,6 @@ header("Access-Control-Allow-Origin: *"); @endphp
                                                 </div>
                                             </div>
                                         </div>
-                                        <!-- ====for No Data===== -->
-                                        <!-- <div id="flush-collapseTwo" class="accordion-collapse collapse"
-                                            aria-labelledby="flush-headingTwo"
-                                            data-bs-parent="#accordionFlushExample">
-                                            <div class="accordion-body text-center" >
-                                            <img src="{{ asset('assets/images/for-empty.png') }}" alt="">
-                                             <h3>No Data Found</h3>
-                                            </div>
-                                        </div> -->
-                                        <!-- ====for No Data===== -->
                                     </div>
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="flush-headingThree">
@@ -2334,7 +2307,7 @@ header("Access-Control-Allow-Origin: *"); @endphp
 
                                     </div>
 
-                                    <div class="btn-wrapper-div">
+                                    {{-- <div class="btn-wrapper-div">
                                         <button class="but-img btn-3">
                                             Imagings
                                         </button>
@@ -2424,7 +2397,7 @@ header("Access-Control-Allow-Origin: *"); @endphp
                                             </div>
                                         </div>
 
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
 

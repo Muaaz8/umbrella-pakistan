@@ -29,6 +29,7 @@
         var pr = $('#pr_'+id).val();
         var sp = $('#sp_'+id).val();
         var cn = $('#cn_'+id).val();
+        // var cat = $('#cat_'+id).val();
         var det = $('#det_'+id).val();
 
         $('#test_cd').val(id);
@@ -37,8 +38,7 @@
         $('#pr').val(pr);
         $('#sp').val(sp);
         $('#des').text(des);
-        $('#cat').html('');
-        $('#cat').html('<option value="'+cn+'">'+cn+'</option>');
+        $('#cat').val(cn);
         $('#edit_quest_labtests').modal('show');
 
     }
@@ -77,7 +77,7 @@
             +'<td data-label="Sale Price">'+arr.SALE_PRICE+'</td>'
             +'<input type="hidden" id="sp_'+arr.TEST_CD+'" value="'+arr.SALE_PRICE+'">'
             +'<td data-label="Category">'+arr.main_category_name+'</td>'
-            +'<input type="hidden" id="cn_'+arr.TEST_CD+'" value="'+arr.main_category_name+'">'
+            +'<input type="hidden" id="cn_'+arr.TEST_CD+'" value="'+arr.PARENT_CATEGORY+'">'
             +'<input type="hidden" id="det_'+arr.TEST_CD+'" value="'+arr.DETAILS+'">'
             +'<td data-label="Action"><button onclick="edit_quest_lab('+arr.TEST_CD+')" class="orders-view-btn" >Edit</button></td>'
             );
@@ -115,8 +115,8 @@
                               <th scope="col">Test Code</th>
                               <th scope="col">Service Name</th>
                               <th scope="col">Full Name</th>
-                              <th scope="col">Price</th>
-                              <th scope="col">Sale Price</th>
+                              <th scope="col">Actual Price</th>
+                              <th scope="col">Sell Price</th>
                               <th scope="col">Category</th>
                               <th scope="col">Action</th>
                           </thead>
@@ -133,7 +133,7 @@
                                 <td data-label="Sale Price">{{ $item->SALE_PRICE }}</td>
                                 <input type='hidden' id="sp_{{ $item->TEST_CD }}" value="{{ $item->SALE_PRICE }}">
                                 <td data-label="Category">{{ $item->main_category_name }}</td>
-                                <input type='hidden' id="cn_{{ $item->TEST_CD }}" value="{{ $item->main_category_name }}">
+                                <input type='hidden' id="cn_{{ $item->TEST_CD }}" value="{{ $item->PARENT_CATEGORY }}">
                                 <input type='hidden' id="det_{{ $item->TEST_CD }}" value="{{ $item->DETAILS }}">
                                 <td data-label="Action"><button onclick="edit_quest_lab({{$item->TEST_CD}})" class="orders-view-btn" >Edit</button></td>
                             </tr>
@@ -204,7 +204,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <label for="specialInstructions">Test Code</label>
-                                    <input type="text" id="test_cd" name="test_cd" class="form-control" placeholder="223" readonly>
+                                    <input type="text" id="test_cd" name="test_cd" class="form-control" placeholder="223">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="specialInstructions">Service Name</label>
@@ -218,20 +218,20 @@
                                 </div>
                                 <div class="col-md-6">
                                   <label for="specialInstructions">Category</label>
-                                  <select class="form-select" name="cat" aria-label="Default select example" disabled>
-                                    <option id="cat" selected>Digestive Health</option>
-                                    <option value="1">DNA</option>
-                                    <option value="2">Drugs and Alcohol</option>
+                                  <select class="form-select" name="cat" id="cat" aria-label="Default select example">
+                                    @foreach ($sub as $item)
+                                        <option value="{{$item->id}}" >{{$item->name}}</option>
+                                    @endforeach
                                   </select>
                               </div>
                             </div>
                             <div class="row mt-2">
                                 <div class="col-md-6">
-                                    <label for="specialInstructions">Price</label>
+                                    <label for="specialInstructions">Actual Price</label>
                                     <input type="text" id="pr"  name="pr" class="form-control" placeholder="2.5">
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="specialInstructions">Sale Price</label>
+                                    <label for="specialInstructions">Sell Price</label>
                                     <input type="text" id="sp" name="sp" class="form-control" placeholder="15">
                                 </div>
                             </div>

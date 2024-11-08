@@ -160,7 +160,7 @@ class RegisterController extends Controller
         {
             return redirect()->back()->with('You Are A Robot');
         }
-        $secretKey = "6Lfx12gjAAAAABKWoz1v0TkSkjDxPmy4yfU84n7m";
+        $secretKey = "6LctFXkqAAAAAIMmlIukFW8I-pb_-iUeAhB-LQ7O";
         $response = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secretKey.'&response='.$captcha);
         $response = json_decode($response,true);
 

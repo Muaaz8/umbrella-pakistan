@@ -19,6 +19,7 @@ use App\Models\PhysicalLocations;
 use App\Models\ContactForm;
 use App\Mail\UserVerificationEmail;
 use App\Models\ProductCategory;
+use App\Models\ProductsSubCategory;
 use App\Models\Contract;
 use App\Models\Document;
 use App\Models\Policy;
@@ -2925,14 +2926,14 @@ public function store_policy(Request $request){
     public function edit_lab_test(Request $request)
     {
         $test = DB::table('quest_data_test_codes')->where('TEST_CD',$request->test_cd)->first();
-        // dd($request->all(),$test);
-
         DB::table('quest_data_test_codes')->where('TEST_CD',$request->test_cd)->update([
             'TEST_NAME' => $request->tn,
             'PRICE' => $request->pr,
             'SALE_PRICE' => $request->sp,
+            'PARENT_CATEGORY' => $request->cat,
             'DETAILS' => $request->sn,
             'DESCRIPTION' => $request->des,
+            'UPDATE_DATETIME' => now(),
         ]);
         DB::table('activity_log')->insert([
             'user_id'=>auth()->user()->id,
@@ -2964,6 +2965,7 @@ public function store_policy(Request $request){
             // ->where('quest_data_test_codes.TEST_CD', '1759')
             ->orderBy('quest_data_test_codes.TEST_NAME', 'ASC')
             ->get()->toArray();
+        $sub = ProductCategory::where('category_type','lab-test')->get();
         foreach ($data as $item) {
             $ids = explode(",", $item->PARENT_CATEGORY);
             $cat_names = ProductCategory::select(
@@ -2977,11 +2979,11 @@ public function store_policy(Request $request){
 
         if(auth()->user()->user_type == 'admin_lab')
         {
-            return view('dashboard_Lab_admin.Lab_Tests.quest_lab_tests', compact('data','da'));
+            return view('dashboard_Lab_admin.Lab_Tests.quest_lab_tests', compact('data','da','sub'));
         }
         elseif(auth()->user()->user_type == 'editor_lab')
         {
-            return view('dashboard_Lab_editor.Lab_Tests.quest_lab_tests', compact('data','da'));
+            return view('dashboard_Lab_editor.Lab_Tests.quest_lab_tests', compact('data','da','sub'));
         }
         else
         {

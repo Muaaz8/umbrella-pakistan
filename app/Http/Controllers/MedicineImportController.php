@@ -8,6 +8,7 @@ use App\MedicinePricing;
 use App\MedicineUOM;
 use App\Models\AllProducts;
 use App\User;
+use App\Models\ProductCategory;
 use App\Models\ProductsSubCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -411,51 +412,34 @@ class MedicineImportController extends Controller
     public function dash_uploadFile(Request $request)
     {
         $user_id = Auth::user()->id;
-        // dd($request);
         $fileData = $this->readCSV($request->file('file'), ',');
-
         $errorValidation = $this->errorValidation($fileData);
-
         if (count($errorValidation) == 0) {
-
             $pricingData = [];
-
             foreach ($fileData as $item) {
-
-                // echo $item['ProductName'];
                 $product_id = $this->payloadProducts($item, $user_id);
-
-                // $string = $product_id . '|';
-
                 $units = explode(",", $item['Units']);
-
-                foreach ($units as $unitName) {
-
+                $prices = explode(",", $item['Price']);
+                foreach ($units as $key => $unitName) {
                     $unit = MedicineUOM::where('unit', $unitName)->first();
-                    $unit_id = $unit->id;
-                    // echo '<p>' . $unit_id . '</p>';
+                    if($unit){
+                        $unit_id = $unit->id;
+                    }else{
+                        $new_unit = MedicineUOM::create([
+                            'unit'=> $unitName,
+                            'status'=> 1,
+                        ])->first();
+                        $unit_id = $new_unit->id;
 
-                    $prices = explode(",", $item['Price']);
-                    $days = explode(",", $item['Days']);
-
-                    // echo count($prices);
-
-                    for ($i = 0; $i < count($prices); $i++) {
-
-                        $price = $prices[$i];
-                        $day = $days[$i];
-                        $dayss = MedicineDays::where('days', 'like', '%' . $day . '%')->first();
-                        $days_id = $dayss->id;
-
-                        $pricingData[] = [
-                            'product_id' => $product_id,
-                            'unit_id' => $unit_id,
-                            'days_id' => $days_id,
-                            'price' => $price,
-                            'sale_price' => $price,
-                            'created_by' => $user_id,
-                        ];
                     }
+                    $price = $prices[$key];
+                    $pricingData[] = [
+                        'product_id' => $product_id,
+                        'unit_id' => $unit_id,
+                        'price' => $price,
+                        'sale_price' => $price,
+                        'created_by' => $user_id,
+                    ];
                 }
             }
 
@@ -475,30 +459,37 @@ class MedicineImportController extends Controller
 
     public function payloadProducts($item, $user_id)
     {
-        $arr = [
-            'name' => $item['ProductName'],
-            'slug' => $this->slugify($item['ProductName']),
-            'parent_category' => $item['MainCategory'],
-            'sub_category' => $item['SubCategory'],
-            'featured_image' => 'dummy_medicine.png',
-            'sale_price' => 0,
-            'regular_price' => 0,
-            'quantity' => 999,
-            'mode' => 'medicine',
-            'medicine_type' => 'prescribed',
-            'is_featured' => 0,
-            'short_description' => $item['Description'],
-            'description' => $item['Description'],
-            'medicine_ingredients' => '0',
-            'stock_status' => 'in_stock',
-            'medicine_warnings' => '0',
-            'medicine_directions' => '0',
-            'user_id' => $user_id,
-            'product_status' => 1,
-            'is_approved' => 1,
-        ];
+        $main = ProductCategory::where('slug','LIKE','%'.$this->slugify($item['MainCategory']).'%')->first();
+        $sub = ProductsSubCategory::where('slug','LIKE','%'.$this->slugify($item['SubCategory']).'%')->first();
+        $prod = AllProducts::where('name',$item['ProductName'])->where('parent_category',$main->id)->where('sub_category',$sub->id)->first();
+        if($prod){
+            $product_id = $prod->id;
+        }else{
+            $arr = [
+                'name' => $item['ProductName'],
+                'slug' => $this->slugify($item['ProductName']),
+                'parent_category' => $main->id,
+                'sub_category' => $sub->id,
+                'featured_image' => 'dummy_medicine.png',
+                'sale_price' => 0,
+                'regular_price' => 0,
+                'quantity' => 999,
+                'mode' => 'medicine',
+                'medicine_type' => 'prescribed',
+                'is_featured' => 0,
+                'short_description' => $item['Description'],
+                'description' => $item['Description'],
+                'medicine_ingredients' => '0',
+                'stock_status' => 'in_stock',
+                'medicine_warnings' => '0',
+                'medicine_directions' => '0',
+                'user_id' => $user_id,
+                'product_status' => 1,
+                'is_approved' => 1,
+            ];
 
-        $product_id = AllProducts::create($arr)->id;
+            $product_id = AllProducts::create($arr)->id;
+        }
         return $product_id;
     }
 

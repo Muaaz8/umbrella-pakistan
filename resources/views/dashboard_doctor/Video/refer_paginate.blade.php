@@ -7,7 +7,7 @@
                     </div>
                     <div class="text-wrapper">
                         <h3 class="fs-6">Dr. {{ $item->name . ' ' . $item->last_name }} </h3>
-                        <p class="fs-6"><b>NPI: </b> {{ $item->nip_number }} </p>
+                        <p class="fs-6"><b>PMDC no: </b> {{ $item->nip_number }} </p>
                         <button type="button" id="{{ $item->refer_id }}" class="bg-danger referbutn"
                             onclick="cancelReferal({{ $item->refer_id }})">Cancel Refer</button>
                     </div>
@@ -21,7 +21,7 @@
                     </div>
                     <div class="text-wrapper">
                         <h3 class="fs-6">Dr. {{ $item->name . ' ' . $item->last_name }} </h3>
-                        <p class="fs-6"><b>NPI: </b> {{ $item->nip_number }} </p>
+                        <p class="fs-6"><b>PMDC no: </b> {{ $item->nip_number }} </p>
                         <textarea class="form-control" id="commit_ {{ $item->id }} " placeholder="Add Comment"
                             style="line-height:1 ; height: 32px;"></textarea>
                         <button type="button" id="{{ $item->id }}" class="referbutn"

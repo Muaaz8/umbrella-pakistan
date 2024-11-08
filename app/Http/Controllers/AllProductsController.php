@@ -1108,13 +1108,13 @@ class AllProductsController extends AppBaseController
                 ])
                 ->where('TEST_CD', '!=', '92613')
                 ->where('TEST_CD', '!=', '11196')
-                ->where('LEGAL_ENTITY', 'DAL')
+                // ->where('LEGAL_ENTITY', 'DAL')
                 ->where('TEST_NAME','!=', null)
                 ->orWhere('PRICE', '!=', '')
                 ->get();
         } else {
             $labs = QuestDataTestCode::where('TEST_NAME', 'LIKE', "%{$request->name}%")
-                ->where('LEGAL_ENTITY', 'DAL')
+                // ->where('LEGAL_ENTITY', 'DAL')
                 ->where('PRICE', '!=', null)
                 ->get();
         }
