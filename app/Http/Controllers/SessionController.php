@@ -1018,9 +1018,9 @@ class SessionController extends Controller
         $user_type = $user->user_type;
         $user_time_zone = $user->timeZone;
         if ($user_type == 'patient') {
-            $user_state = Auth::user()->state_id;
-            $state = State::find($user_state);
-            if ($state->active == 1) {
+            // $user_state = Auth::user()->state_id;
+            // $state = State::find($user_state);
+            // if ($state->active == 1) {
                 $user_id = $user->id;
                 $sessions = Session::where('patient_id', $user_id)
                     ->where('status', 'ended')
@@ -1098,9 +1098,9 @@ class SessionController extends Controller
                 }
                 //  dd($sessions);
                 return view('dashboard_patient.Session.index', compact('user_type', 'sessions'));
-            } else {
-                return redirect()->route('errors', '101');
-            }
+            // } else {
+            //     return redirect()->route('errors', '101');
+            // }
         }
     }
     public function dash_record(Request $request)
@@ -1109,9 +1109,9 @@ class SessionController extends Controller
         $user_type = $user->user_type;
         $user_time_zone = $user->timeZone;
         if ($user_type == 'doctor') {
-            $user_state = Auth::user()->state_id;
-            $state = State::find($user_state);
-            if ($state->active == 1) {
+            // $user_state = Auth::user()->state_id;
+            // $state = State::find($user_state);
+            // if ($state->active == 1) {
                 $user_id = $user->id;
                 $sessions = Session::where('doctor_id', $user_id)
                     ->where('status', 'ended')
@@ -1195,9 +1195,9 @@ class SessionController extends Controller
                 // return view('session.sessions_full',['sessions'=>$sessions,'user_type'=>$user_type]);
 
                 return view('dashboard_doctor.All_Session.index', compact('user_type', 'sessions'));
-            } else {
-                return redirect()->route('errors', '101');
-            }
+            // } else {
+            //     return redirect()->route('errors', '101');
+            // }
         } else if ($user_type == 'admin') {
             $user_id = $user->id;
             $sessions = Session::where('status', 'ended')->orderByDesc('id')->paginate(7);

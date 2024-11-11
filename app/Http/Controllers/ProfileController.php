@@ -243,8 +243,8 @@ public function view_DocProfile($username)
                         if ($patient->city_id == null) {
                             $patient->city = 'None';
                         } else {
-                            $city = City::where('id', $patient->city_id)->first();
-                            $patient->city = $city['name'];
+                            // $city = City::where('id', $patient->city_id)->first();
+                            $patient->city = $patient->city_id;
                         }
                         if ($patient->state_id == null) {
                             $patient->state = 'None';
@@ -255,8 +255,8 @@ public function view_DocProfile($username)
                         if ($patient->country_id == null) {
                             $patient->country = 'None';
                         } else {
-                            $country = Country::where('id', $patient->country_id)->first();
-                            $patient->country = $country['name'];
+                            // $country = Country::where('id', $patient->country_id)->first();
+                            $patient->country = "Pakistan";
                         }
 
                         $patient->user_image = \App\Helper::check_bucket_files_url($patient->user_image);

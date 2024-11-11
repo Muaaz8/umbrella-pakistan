@@ -132,9 +132,9 @@ class AppointmentController extends Controller
         $user = Auth::user();
         $today = date('Y-m-d');
         $todayTime = date('h:i A');
-        $user_state = $user->state_id;
-        $state = State::find($user_state);
-        if ($state->active == 1) {
+        // $user_state = $user->state_id;
+        // $state = State::find($user_state);
+        // if ($state->active == 1) {
             // $make_reschudle = DB::table('appointments')
             // ->where('appointments.date', '<=', $today)
             // ->where('appointments.time', '<', $todayTime)
@@ -156,9 +156,9 @@ class AppointmentController extends Controller
                 $app->date = User::convert_utc_to_user_timezone($user->id, $ddd)['date'];
             }
             return view('dashboard_patient.Appointments.index', compact('appointments', 'user'));
-        } else {
-            return redirect()->route('errors', '101');
-        }
+        // } else {
+        //     return redirect()->route('errors', '101');
+        // }
     }
 
     public function non_refund_cancel_appointment($id)
@@ -866,16 +866,14 @@ class AppointmentController extends Controller
         $user = Auth::user();
         $today = date('Y-m-d');
         $todayTime = date('h:i A');
-        $user_state = $user->state_id;
-        $state = State::find($user_state);
-        if ($state->active == 1) {
+        // $user_state = $user->state_id;
+        // $state = State::find($user_state);
+        // if ($state->active == 1) {
             $make_reschudle = DB::table('appointments')
                 ->where('appointments.date', '<=', $today)
                 ->where('appointments.time', '<', $todayTime)
                 ->where('appointments.status', 'pending')
                 ->update(['appointments.status' => 'make-reschedule']);
-            // dd($make_reschudle);
-
 
             $appointments = DB::table('appointments')
                 ->join('sessions', 'appointments.id', 'sessions.appointment_id')
@@ -891,9 +889,9 @@ class AppointmentController extends Controller
                 $app->time = User::convert_utc_to_user_timezone($user->id, $ddd)['time'];
             }
             return view('dashboard_doctor.Appointments.index', compact('appointments', 'user'));
-        } else {
-            return redirect()->route('errors', '101');
-        }
+        // } else {
+            // return redirect()->route('errors', '101');
+        // }
     }
 
     public function create_appointment(Request $request)

@@ -87,13 +87,14 @@
             var des = $('#des_' + id).val();
             var pr = $('#pr_' + id).val();
             var sp = $('#sp_' + id).val();
-            var cat = $('#cat_' + id).val();
+            var cat = $('#cn_' + id).val();
             var catt = "{{ $categories }}";
             var de = $('#de_' + id).val();
             $('#e_id').val(id);
             $('#e_name').val(name);
             $('#e_pr').val(pr);
             $('#e_sp').val(sp);
+            $('#e_cat').val(cat);
             $('#e_des').text(des);
             $('#e_de').text(de);
             CKEDITOR.instances['e_de'].setData(de);
@@ -131,11 +132,9 @@
                             '<td data-label="Sale Price">' + arr.SALE_PRICE + '</td>' +
                             '<input type="hidden" id="des_' + arr.TEST_CD + '" value="' + arr.DESCRIPTION +
                             '">' +
-                            '<input type="hidden" id="nam_' + arr.TEST_CD + '" value="' + arr.TEST_NAME + '">' +
+                            '<input type="hidden" id="na_' + arr.TEST_CD + '" value="' + arr.TEST_NAME + '">' +
                             '<input type="hidden" id="pr_' + arr.TEST_CD + '" value="' + arr.PRICE + '">' +
                             '<input type="hidden" id="sp_' + arr.TEST_CD + '" value="' + arr.SALE_PRICE + '">' +
-                            '<input type="hidden" id="cn_' + arr.TEST_CD + '" value="' + arr
-                            .main_category_name + '">' +
                             '<input type="hidden" id="cn_' + arr.TEST_CD + '" value="' + arr.PARENT_CATEGORY +
                             '">' +
                             '<input type="hidden" id="cn_' + arr.TEST_CD + '" value="' + arr.SLUG + '">' +
@@ -203,7 +202,7 @@
                                             <input type='hidden' id="na_{{ $item->TEST_CD }}"
                                                 value="{{ $item->TEST_NAME }}">
                                             <input type='hidden' id="sl_{{ $item->TEST_CD }}" value="{{ $item->SLUG }}">
-                                            <input type='hidden' id="cat_{{ $item->TEST_CD }}"
+                                            <input type='hidden' id="cn_{{ $item->TEST_CD }}"
                                                 value="{{ $item->PARENT_CATEGORY }}">
                                             <input type='hidden' id="des_{{ $item->TEST_CD }}"
                                                 value="{{ $item->DESCRIPTION }}">
@@ -495,16 +494,16 @@
                                 </div>
 
                             </div>
-                            <!-- <div class="row mt-2">
-                                    <div class="col-md-12">
-                                        <label for="specialInstructions">Choose Lab Test Category:</label>
-                                        <select class="form-select" id="e_cat" name="category" aria-label="Default select example">
-                                          <option selected>General Health</option>
-                                          <option value="1">Infectious Disease</option>
-                                          <option value="2">Women's Health</option>
-                                        </select>
-                                    </div>
-                                </div> -->
+                            <div class="row mt-2">
+                                <div class="col-md-12">
+                                    <label for="specialInstructions">Choose Lab Test Category:</label>
+                                    <select class="form-select" id="e_cat" name="category" aria-label="Default select example">
+                                        @foreach ($categories as $cat)
+                                            <option value="{{ $cat->id }}">{{ $cat->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
                             <div class="row mt-2">
                                 <div class="col-md-12">
                                     <label for="specialInstructions">Test Details:</label>
