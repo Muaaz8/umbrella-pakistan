@@ -566,14 +566,14 @@ class unAuthController extends Controller
 
                 $session_price = "";
                 if ($check_session_already_have > 0) {
-                    $session_price_get = DB::table('specalization_price')->where('spec_id', $request->specializationId)->where('state_id', auth()->user()->state_id)->first();
+                    $session_price_get = DB::table('specalization_price')->where('spec_id', $request->specializationId)->first();
                     if ($session_price_get->follow_up_price != null) {
                         $session_price = $session_price_get->follow_up_price;
                     } else {
                         $session_price = $session_price_get->initial_price;
                     }
                 } else {
-                    $session_price_get = DB::table('specalization_price')->where('spec_id', $request->specializationId)->where('state_id', auth()->user()->state_id)->first();
+                    $session_price_get = DB::table('specalization_price')->where('spec_id', $request->specializationId)->first();
                     $session_price = $session_price_get->initial_price;
                 }
 

@@ -139,9 +139,9 @@ public function all_doctor_appointments(){
     {
         $edit_data = "";
         if(isset($req)){
-            $data = DB::table('specializations')->where('name','LIKE','%'.$req->name.'%')->orderBy('status','desc')->paginate(7);
+            $data = DB::table('specializations')->where('name','LIKE','%'.$req->name.'%')->paginate(7);
         }else{
-            $data = DB::table('specializations')->orderBy('status','desc')->paginate(7);
+            $data = DB::table('specializations')->paginate(7);
         }
         return view('dashboard_admin.All_specialization.index', compact('data', 'edit_data'));
     }
@@ -330,14 +330,13 @@ public function all_doctor_appointments(){
 
     public function dash_editSpecialization(Request $request){
         $input = $request->all();
-        // dd($input);
         if($input['status'] == "Activate"){
             $status = "1";
         }else{
             $status = "0";
         }
         DB::table('specializations')->where('id',$request['id'])->update(
-            ['status'=> $status]
+            ['name'=>$input['specialization'],'status'=> $status]
         );
         return redirect('/admin/all/specializations');
     }
@@ -2826,7 +2825,7 @@ public function store_policy(Request $request){
         )
         ->where([['quest_data_test_codes.PARENT_CATEGORY', '!=', ""],['quest_data_test_codes.AOES_exist', null]])
         // ->where('quest_data_test_codes.TEST_CD', '1759')
-        ->orderBy('quest_data_test_codes.TEST_NAME', 'ASC')
+        ->orderBy('quest_data_test_codes.id', 'ASC')
         ->get()->toArray();
 
         foreach ($data as $item) {
@@ -2841,7 +2840,10 @@ public function store_policy(Request $request){
         $da = $data;
         $data = (new Collection($data))->paginate(10);
 
-        $categories = DB::table('product_categories')->where('category_type','lab-test')->get();
+        $categories = DB::table('product_categories')
+            ->where('category_type','lab-test')
+            ->orWhere('category_type','imaging')
+            ->get();
         $states = DB::table('states')->where('country_id','233')->get();
 
         if(auth()->user()->user_type == 'admin_lab')
@@ -2878,6 +2880,7 @@ public function store_policy(Request $request){
     public function create_online_labtest(Request $request)
     {
         $slug = $this->slugify($request->name);
+        $product_category = DB::table('product_categories')->where('id',$request->category)->first();
         $id = DB::table('quest_data_test_codes')->insertGetId(
             [
                 'TEST_CD' => $request->tcd,
@@ -2903,7 +2906,7 @@ public function store_policy(Request $request){
                 // 'SEND_OUT_REFLEX_COUNT' => $request->SORC,
                 // 'AOES_exist' => $request->aoess,
                 'DETAILS' => $request->details,
-                'mode' => 'lab-test',
+                'mode' => $product_category->category_type,
                 'ACTIVE_IND' => 'A',
                 'UPDATE_USER' => 'OEAPP',
                 'INSERT_DATETIME' => date('Y-m-d H:i:s'),
@@ -2926,11 +2929,13 @@ public function store_policy(Request $request){
     public function edit_lab_test(Request $request)
     {
         $test = DB::table('quest_data_test_codes')->where('TEST_CD',$request->test_cd)->first();
+        $product_category = DB::table('product_categories')->where('id',$request->category)->first();
         DB::table('quest_data_test_codes')->where('TEST_CD',$request->test_cd)->update([
             'TEST_NAME' => $request->tn,
             'PRICE' => $request->pr,
             'SALE_PRICE' => $request->sp,
-            'PARENT_CATEGORY' => $request->cat,
+            'PARENT_CATEGORY' => $request->category,
+            'mode' => $product_category->category_type,
             'DETAILS' => $request->sn,
             'DESCRIPTION' => $request->des,
             'UPDATE_DATETIME' => now(),

@@ -150,18 +150,18 @@ class RecommendationController extends Controller
                     }
                     $labData->pres_id = $pro_list->id;
                     $items[] = $labData;
-                } else if ($pro_list->type == "imaging") {
-                    $data = $this->allProductsRepository->find($pro_list->imaging_id);
-                    // dd($data->id);
-                    $res = DB::table('imaging_selected_location')->where('session_id', $request['session_id'])->where('product_id', $data->id)->first();
-                    if ($res != null) {
-                        $get = DB::table('imaging_locations')->where('imaging_locations.id', $res->imaging_location_id)->first();
-                        $data->location = $get->city;
-                    } else {
-                        $data->location = 'nothing';
-                    }
-                    $data->pres_id = $pro_list->id;
-                    $items[] = $data;
+                // } else if ($pro_list->type == "imaging") {
+                //     $data = $this->allProductsRepository->find($pro_list->imaging_id);
+                //     // dd($data->id);
+                //     $res = DB::table('imaging_selected_location')->where('session_id', $request['session_id'])->where('product_id', $data->id)->first();
+                //     if ($res != null) {
+                //         $get = DB::table('imaging_locations')->where('imaging_locations.id', $res->imaging_location_id)->first();
+                //         $data->location = $get->city;
+                //     } else {
+                //         $data->location = 'nothing';
+                //     }
+                //     $data->pres_id = $pro_list->id;
+                //     $items[] = $data;
                 } else if ($pro_list->type == "medicine") {
                     if ($pro_list->usage != null) {
                         $getRes = $this->allProductsRepository->find($pro_list->medicine_id);
@@ -215,11 +215,11 @@ class RecommendationController extends Controller
                 $product = DB::table('tbl_products')->where('id', $pres->medicine_id)->first();
                 if ($pres->type == "medicine") {
                     $med_unit = DB::table('medicine_units')->where('unit',$pres->med_unit)->first();
-                    $med_day = DB::table('medicine_days')->where('days',$pres->med_days)->first();
+                    // $med_day = DB::table('medicine_days')->where('days',$pres->med_days)->first();
                     $price = DB::table('medicine_pricings')
                     ->where('product_id', $pres->medicine_id)
                     ->where('unit_id',$med_unit->id)
-                    ->where('days_id',$med_day->id)
+                    // ->where('days_id',$med_day->id)
                     ->first();
                     $pres->price = $price->sale_price;
                     $up = DB::table('prescriptions')->where('id',$pres->id)->update(['price' => $price->id]);
