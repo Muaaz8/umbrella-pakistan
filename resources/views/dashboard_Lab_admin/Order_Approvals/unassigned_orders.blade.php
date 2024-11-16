@@ -70,7 +70,7 @@
           {
             $('#bodies').append('<tr id="body_'+arr.order_id+'"></tr>');
             $('#body_'+arr.order_id).append('<td data-label="Order ID">'+arr.order_id+'</td>'
-            +'<td data-label="Order State">'+arr.user_state+'</td>'
+            // +'<td data-label="Order State">'+arr.user_state+'</td>'
             +'<td data-label="Date">'+arr.date+'</td>'
             +'<td data-label="Lab Products" id="names_'+arr.order_id+'"></td>'
             +'<td data-label="Status">'+arr.decline_status+'</td>'
@@ -122,7 +122,7 @@
                         <table class="table">
                             <thead>
                                 <th scope="col">Order ID</th>
-                                <th scope="col">Order State</th>
+                                {{-- <th scope="col">Order State</th> --}}
                                 <th scope="col">Order Date</th>
                                 <th scope="col">Lab Products</th>
                                 <th scope="col">Status</th>
@@ -134,7 +134,7 @@
                             @php $index = 1; @endphp
                               <tr>
                                   <td data-label="Order ID">{{ $order->order_id }}</td>
-                                  <td data-label="Order State">{{ $order->user_state }}</td>
+                                  {{-- <td data-label="Order State">{{ $order->user_state }}</td> --}}
                                   <td data-label="Order Date">{{ $order->date }}</td>
                                   <td class="d-block" data-label="Lab Products">
                                     @foreach($order->test_name as $data)

@@ -92,8 +92,8 @@ header("Access-Control-Allow-Origin: *"); @endphp
                                 } else if (product.mode == "imaging") {
                                     $(".prescribed_items").append(
                                         '<span class="selected-value-bydoc">' +
-                                        product.name +
-                                        '<a onclick="img_remove(' + product.id + ')">' +
+                                        product.TEST_NAME +
+                                        '<a onclick="lab_remove(' + product.TEST_CD + ')">' +
                                         '<i class="fa-solid fa-circle-xmark"></i>' +
                                         "</a>" +
                                         "</span>"
@@ -531,8 +531,8 @@ header("Access-Control-Allow-Origin: *"); @endphp
                         } else if (product.mode == "imaging") {
                             $(".prescribed_items").append(
                                 '<span class="selected-value-bydoc">' +
-                                product.name +
-                                '<a onclick="img_remove(' + product.id + ')">' +
+                                product.TEST_NAME +
+                                '<a onclick="lab_remove(' + product.TEST_CD + ')">' +
                                 '<i class="fa-solid fa-circle-xmark"></i>' +
                                 "</a>" +
                                 "</span>"
@@ -820,17 +820,18 @@ header("Access-Control-Allow-Origin: *"); @endphp
                     );
                 } else {
                     if (response.length != 0) {
+                        console.log(response[0].TEST_NAME);
                         $.each(response, function (key, value) {
                             if (value.added == 'yes') {
                                 $('#load_imaging_product').append(
                                     '<div class="col-md-4 col-sm-6">' +
-                                    '<button title="' + value.pro_name + '" class="selected_medi" onclick="javascript:void(0)">' + value.pro_name + '</button>' +
+                                    '<button title="' + value.TEST_NAME + '" class="selected_medi" onclick="javascript:void(0)">' + value.TEST_NAME + '</button>' +
                                     '</div>'
                                 );
                             } else {
                                 $('#load_imaging_product').append(
                                     '<div class="col-md-4 col-sm-6">' +
-                                    '<button title="' + value.pro_name + '" id="img_' + value.pro_id + '" onclick="add_img(' + value.pro_id + ',' + value.location_id + ')">' + value.pro_name + '</button>' +
+                                    '<button title="' + value.TEST_NAME + '" id="' + value.TEST_CD + '" onclick="checkAoes(' + value.TEST_CD + ')">' + value.TEST_NAME + '</button>' +
                                     '</div>'
                                 );
                             }
@@ -882,13 +883,13 @@ header("Access-Control-Allow-Origin: *"); @endphp
                             if (value.added == 'yes') {
                                 $('#load_imaging_product').append(
                                     '<div class="col-md-4">' +
-                                    '<button title="' + value.pro_name + '" class="selected_medi" onclick="javascript:void(0)">' + value.pro_name + '</button>' +
+                                    '<button title="' + value.TEST_NAME + '" class="selected_medi" onclick="javascript:void(0)">' + value.TEST_NAME + '</button>' +
                                     '</div>'
                                 );
                             } else {
                                 $('#load_imaging_product').append(
                                     '<div class="col-md-4">' +
-                                    '<button title="' + value.pro_name + '" id="img_' + value.pro_id + '" onclick="add_img(' + value.pro_id + ',' + value.location_id + ')">' + value.pro_name + '</button>' +
+                                    '<button title="' + value.TEST_NAME + '" id="' + value.TEST_CD + '" onclick="checkAoes(' + value.TEST_CD + ')">' + value.TEST_NAME + '</button>' +
                                     '</div>'
                                 );
                             }
@@ -2307,33 +2308,11 @@ header("Access-Control-Allow-Origin: *"); @endphp
 
                                     </div>
 
-                                    {{-- <div class="btn-wrapper-div">
+                                    <div class="btn-wrapper-div">
                                         <button class="but-img btn-3">
                                             Imagings
                                         </button>
                                         <div class="content img_zipcode">
-                                            <div class="p-3 Imagings-zip-wrap">
-                                                <h6>Zip Code:</h6>
-                                                <div class="d-flex">
-                                                    <input type="type" id="get-user-zipcode"
-                                                        placeholder="Enter zip code" />
-                                                    <button class="magnifying-btn" onclick="forZipCode()">
-                                                        <i class="fa-solid fa-magnifying-glass m-0" style="
-                                                                vertical-align: middle;
-                                                            "></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="card Imagings-zip-card" style="width: 100%">
-                                                <ul class="list-group list-group-flush" id="load_imaging_locations">
-
-
-                                                </ul>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="content imaging_category">
                                             <div class="prescriptio-card-wrapper">
                                                 <div class="card">
                                                     <div class="card-header fw-bold"><i
@@ -2397,7 +2376,7 @@ header("Access-Control-Allow-Origin: *"); @endphp
                                             </div>
                                         </div>
 
-                                    </div> --}}
+                                    </div>
                                 </div>
                             </div>
 

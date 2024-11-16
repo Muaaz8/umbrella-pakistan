@@ -87,28 +87,30 @@ class DoctorController extends Controller
         $error = "success";
         foreach ($items as $item) {
             if ($item->type == 'lab-test') {
-
                 $getTestAOE = QuestDataAOE::select("TEST_CD AS TestCode", "AOE_QUESTION AS QuestionShort", "AOE_QUESTION_DESC AS QuestionLong")
                     ->where('TEST_CD', $item->test_id)
                     ->groupBy('AOE_QUESTION_DESC')
                     ->get();
-
                 $count = count($getTestAOE);
-
                 if ($count > 0) {
-
                     $res = DB::table('patient_lab_recomend_aoe')->where('testCode', $item->test_id)->where('session_id', $request->id)->first();
                     if ($res == null) {
-
                         $product = \App\QuestDataTestCode::where('TEST_CD', $item->test_id)->first();
                         $error = "lab-error_" . $product->DESCRIPTION;
                     }
                 }
             } else if ($item->type == 'imaging') {
-                $res = DB::table('imaging_selected_location')->where('product_id', $item->imaging_id)->where('session_id', $request->id)->first();
-                if ($res == null) {
-                    $product = AllProducts::where('id', $item->imaging_id)->first();
-                    $error = "imaging-error_" . $product->name;
+                $getTestAOE = QuestDataAOE::select("TEST_CD AS TestCode", "AOE_QUESTION AS QuestionShort", "AOE_QUESTION_DESC AS QuestionLong")
+                    ->where('TEST_CD', $item->test_id)
+                    ->groupBy('AOE_QUESTION_DESC')
+                    ->get();
+                $count = count($getTestAOE);
+                if ($count > 0) {
+                    $res = DB::table('patient_lab_recomend_aoe')->where('testCode', $item->test_id)->where('session_id', $request->id)->first();
+                    if ($res == null) {
+                        $product = \App\QuestDataTestCode::where('TEST_CD', $item->test_id)->first();
+                        $error = "lab-error_" . $product->DESCRIPTION;
+                    }
                 }
             }
         }

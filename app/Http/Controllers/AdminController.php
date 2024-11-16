@@ -2585,9 +2585,9 @@ public function store_policy(Request $request){
             ->get()->toArray();
             $requisition->date = User::convert_utc_to_user_timezone($requisition->user_id, $requisition->created_at);
             $requisition->date = $requisition->date['date'];
-            $user = User::find($requisition->user_id);
-            $state = State::find($user->state_id);
-            $requisition->user_state = $state->name;
+            // $user = User::find($requisition->user_id);
+            // $state = State::find($user->state_id);
+            // $requisition->user_state = $state->name;
             // $doctors = DB::table('doctor_licenses')
             //     ->join('users', 'users.id', 'doctor_licenses.doctor_id')
             //     ->where('doctor_licenses.state_id', $user->state_id)
@@ -2595,7 +2595,7 @@ public function store_policy(Request $request){
             //     ->get()->toArray();
             $doctors = DB::table('doctor_licenses')
             ->join('users', 'users.id', 'doctor_licenses.doctor_id')
-            ->where('doctor_licenses.state_id', $user->state_id)
+            // ->where('doctor_licenses.state_id', $user->state_id)
             ->join('lab_approval_doctors', 'users.id','lab_approval_doctors.doctor_id')
             ->select('users.name', 'users.last_name', 'users.id as user_id')
             ->get()->toArray();
@@ -2620,9 +2620,9 @@ public function store_policy(Request $request){
             $requisition->test_name = json_encode($requisition->test_name);
             $requisition->date = User::convert_utc_to_user_timezone($requisition->user_id, $requisition->created_at);
             $requisition->date = $requisition->date['date'];
-            $user = User::find($requisition->user_id);
-            $state = State::find($user->state_id);
-            $requisition->user_state = $state->name;
+            // $user = User::find($requisition->user_id);
+            // $state = State::find($user->state_id);
+            // $requisition->user_state = $state->name;
             // $doctors = DB::table('doctor_licenses')
             //     ->join('users', 'users.id', 'doctor_licenses.doctor_id')
             //     ->where('doctor_licenses.state_id', $user->state_id)
@@ -2630,7 +2630,7 @@ public function store_policy(Request $request){
             //     ->get()->toArray();
             $doctors = DB::table('doctor_licenses')
             ->join('users', 'users.id', 'doctor_licenses.doctor_id')
-            ->where('doctor_licenses.state_id', $user->state_id)
+            // ->where('doctor_licenses.state_id', $user->state_id)
             ->join('lab_approval_doctors', 'users.id','lab_approval_doctors.doctor_id')
             ->select('users.name', 'users.last_name', 'users.id as user_id')
             ->get()->toArray();

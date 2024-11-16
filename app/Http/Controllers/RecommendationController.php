@@ -150,18 +150,20 @@ class RecommendationController extends Controller
                     }
                     $labData->pres_id = $pro_list->id;
                     $items[] = $labData;
-                // } else if ($pro_list->type == "imaging") {
-                //     $data = $this->allProductsRepository->find($pro_list->imaging_id);
-                //     // dd($data->id);
-                //     $res = DB::table('imaging_selected_location')->where('session_id', $request['session_id'])->where('product_id', $data->id)->first();
-                //     if ($res != null) {
-                //         $get = DB::table('imaging_locations')->where('imaging_locations.id', $res->imaging_location_id)->first();
-                //         $data->location = $get->city;
-                //     } else {
-                //         $data->location = 'nothing';
-                //     }
-                //     $data->pres_id = $pro_list->id;
-                //     $items[] = $data;
+                } else if ($pro_list->type == "imaging") {
+                    $labData = \App\QuestDataTestCode::where('TEST_CD', $pro_list->test_id)->first();
+                    $getTestAOE = QuestDataAOE::select("TEST_CD AS TestCode", "AOE_QUESTION AS QuestionShort", "AOE_QUESTION_DESC AS QuestionLong")
+                        ->where('TEST_CD', $pro_list->test_id)
+                        ->groupBy('AOE_QUESTION_DESC')
+                        ->get();
+                    $count = count($getTestAOE);
+                    if ($count > 0) {
+                        $labData->aoes = 1;
+                    } else {
+                        $labData->aoes = 0;
+                    }
+                    $labData->pres_id = $pro_list->id;
+                    $items[] = $labData;
                 } else if ($pro_list->type == "medicine") {
                     if ($pro_list->usage != null) {
                         $getRes = $this->allProductsRepository->find($pro_list->medicine_id);
@@ -251,7 +253,7 @@ class RecommendationController extends Controller
                     $lab_test_price = QuestDataTestCode::where('TEST_CD', $pres->test_id)->first();
                     Cart::create([
                         'product_id' => $pres->test_id,
-                        'name' => $lab_test_price->DESCRIPTION,
+                        'name' => $lab_test_price->TEST_NAME,
                         'quantity' => $pres->quantity,
                         'price' => $lab_test_price->SALE_PRICE,
                         'update_price' => $lab_test_price->SALE_PRICE * $pres->quantity,
@@ -267,25 +269,19 @@ class RecommendationController extends Controller
                         'product_image' => $lab_test_price->featured_image,
                     ]);
                     $singleItemTest = [
-                        'test_name' => $lab_test_price->DESCRIPTION,
+                        'test_name' => $lab_test_price->TEST_NAME,
                         'quantity' => $pres->quantity,
                         'comment' => $pres->comment,
                     ];
                     array_push($preLab, $singleItemTest);
                 } else if ($pres->type == "imaging") {
-                    $product = DB::table('tbl_products')->where('id', $pres->imaging_id)->first();
-                    $location = DB::table('imaging_selected_location')->where('session_id', $pres->session_id)->where('product_id', $pres->imaging_id)->first();
-                    $imaging_price = ImagingPrices::where('location_id', $location->imaging_location_id)->where('product_id',$pres->imaging_id)->first();
-                    // $imaging_price = ImagingPrices::where('id', $location->imaging_location_id)->first();
-                    // $product=DB::table('tbl_products')->where('id',$pres->imaging_id)->first();
-                    // $location=DB::table('imaging_selected_location')->where('session_id',$pres->session_id)->where('product_id',$pres->imaging_id)->first();
-                    // $imaging_price = ImagingPrices::where('location_id', $pres->imaging_id)->where('product_id', $pres->imaging_id)->first();
+                    $lab_test_price = QuestDataTestCode::where('TEST_CD', $pres->test_id)->first();
                     Cart::create([
-                        'product_id' => $pres->imaging_id,
-                        'name' => $product->name,
+                        'product_id' => $pres->test_id,
+                        'name' => $lab_test_price->TEST_NAME,
                         'quantity' => $pres->quantity,
-                        'price' => $imaging_price->price,
-                        'update_price' => $imaging_price->price * $pres->quantity,
+                        'price' => $lab_test_price->SALE_PRICE,
+                        'update_price' => $lab_test_price->SALE_PRICE * $pres->quantity,
                         'product_mode' => $pres->type,
                         'user_id' => $session->patient_id,
                         'doc_id' => $session->doctor_id,
@@ -295,15 +291,14 @@ class RecommendationController extends Controller
                         'status' => 'recommended',
                         'checkout_status' => 1,
                         'purchase_status' => 1,
-                        'product_image' => $product->featured_image,
-                        'location_id' => $location->imaging_location_id
+                        'product_image' => $lab_test_price->featured_image,
                     ]);
-                    $singleItemImaging = [
-                        'imaging_name' => $product->name,
+                    $singleItemTest = [
+                        'test_name' => $lab_test_price->TEST_NAME,
                         'quantity' => $pres->quantity,
                         'comment' => $pres->comment,
                     ];
-                    array_push($preImaging, $singleItemImaging);
+                    array_push($preLab, $singleItemTest);
                 }
             }
             Session::where('id', $session_id)->update([
@@ -441,287 +436,7 @@ class RecommendationController extends Controller
         $sessionData = Session::find($session_id);
         $sessionData->received = false;
         event(new redirectToCart($session->id));
-        // \App\Helper::firebase($sessionData->patient_id,'redirectToCart',$sessionData->id,$sessionData);
         return redirect()->route('doctor_queue');
-        //return redirect()->route('session_recom.display', ['session_id' => $session_id]);
-
-
-        // $pat_id = $session['patient_id'];
-        // $pat = User::find($session['patient_id']);
-        // $pharm = $request['pharm_id'];
-        // $prod_arr = explode(',', $prod_list);
-        // $lab_arr = explode(',', $lab_list);
-        // $pres_list = Prescription::where('session_id', $session_id)->get();
-        // foreach ($pres_list as $pres)
-        // {
-        //     if (!in_array($pres['medicine_id'], $prod_arr))
-        //     {
-        //         Prescription::where('session_id', $session_id)->where('medicine_id', $pres['medicine_id'])->delete();
-        //     }
-        // }
-        // $pres_list = Prescription::where('session_id', $session_id)->get();
-        // $products = [];
-        // $prescrip = Prescription::where('session_id', $session_id)->count();
-        // if ($prod_arr[0] != '0' || $prod_arr[0] != '' || $lab_arr[0] != '0' || $lab_arr[0] != '')
-        // {
-        //     Session::where('id', $session_id)->update(['cart_flag' => '1']);
-        //     if ($prod_arr[0] != '0' && $prod_arr[0] != '')
-        //     {
-        //         foreach ($prod_arr as $id)
-        //         {
-        //             $prod = AllProducts::find($id);
-        //             if ($prod->mode == 'imaging')
-        //             {
-        //                 $price_obj = ImagingPrices::where('location_id', $request['imaging_id'])
-        //                     ->where('product_id', $prod->id)->first();
-        //                 if (isset($price_obj['price']))
-        //                 {
-        //                     $price = $price_obj['price'];
-        //                 }
-        //                 else
-        //                 {
-        //                     $price = 0;
-        //                 }
-        //                 if (isset($price_obj['price']))
-        //                 {
-        //                     $zipcode = $price_obj['id'];
-        //                 }
-        //                 else
-        //                 {
-        //                     $zipcode = 0;
-        //                 }
-        //             }
-        //             else
-        //             {
-        //                 $price = $prod->sale_price;
-        //                 $zipcode = 0;
-        //             }
-        //             $dose = $request[$id . '_dose'];
-        //             if ($request[$id . '_comment'] != "")
-        //             {
-        //                 $inst = $request[$id . '_comment'];
-        //             }
-        //             else
-        //             {
-        //                 $inst = $request[$id . '_instruction'];
-        //             }
-
-        //             $quantity = $request[$id . '_quantity'];
-        //             if (empty($quantity))
-        //             {
-        //                 $quantity = 1;
-        //             }
-        //             if ($prod->mode == 'medicine')
-        //             {
-        //                 $days = $request[$id . '_days'];
-        //                 $units = $request[$id . '_units'];
-        //                 $med_time = $request[$id . '_med_time'];
-        //                 $price = $request[$id . '_med_price'];
-        //                 Prescription::where('session_id', $session_id)->where('medicine_id', $id)->update([
-        //                     'comment' => $inst,
-        //                     'usage' => $dose,
-        //                     'quantity' => $quantity,
-        //                     'med_days' => $days,
-        //                     'med_unit' => $units,
-        //                     'med_time' => $med_time,
-        //                     'price' => $price,
-        //                 ]);
-        //             }
-        //             else
-        //             {
-        //                 Prescription::where('session_id', $session_id)->where('medicine_id', $id)->update([
-        //                     'comment' => $inst,
-        //                     'usage' => $dose,
-        //                     'quantity' => $quantity,
-        //                 ]);
-        //             }
-        //             $pres = Prescription::where('session_id', $session_id)->where('medicine_id', $id)->first();
-        //             if (empty($pres))
-        //             {
-        //                 if ($prod->mode == 'medicine')
-        //                 {
-        //                     Prescription::create([
-        //                         'medicine_id' => $id,
-        //                         'session_id' => $session_id,
-        //                         'type' => 'medicine',
-        //                         'comment' => $inst,
-        //                         'usage' => $dose,
-        //                         'quantity' => $quantity,
-        //                         'med_days' => $days,
-        //                         'med_unit' => $units,
-        //                         'med_time' => $med_time,
-        //                         'price' => $price,
-        //                     ]);
-        //                 }
-        //                 else
-        //                 {
-        //                     $pres = Prescription::create([
-        //                         'medicine_id' => $id,
-        //                         'session_id' => $session_id,
-        //                         'type' => $prod['mode'],
-        //                         'comment' => $inst,
-        //                         'usage' => $dose,
-        //                         'quantity' => $quantity,
-        //                     ]);
-        //                 }
-        //             }
-        //             $pres_id = $pres->id;
-
-        //             if ($price != 0)
-        //             {
-        //                 Cart::create([
-        //                     'product_id' => $id,
-        //                     'name' => $prod['name'],
-        //                     'quantity' => $quantity,
-        //                     'price' => $price,
-        //                     'update_price' => $price * $quantity,
-        //                     'product_mode' => $prod['mode'],
-        //                     'user_id' => $pat_id,
-        //                     'doc_id' => $session['doctor_id'],
-        //                     'doc_session_id' => $session_id,
-        //                     'pres_id' => $pres_id,
-        //                     'item_type' => 'prescribed',
-        //                     'status' => 'recommended',
-        //                     'checkout_status' => 1,
-        //                     'purchase_status' => 1,
-        //                     'map_marker_id' => $pharm, //not using
-        //                     'product_image' => $prod->featured_image,
-        //                     'location_id'=> $zipcode
-        //                 ]);
-
-        //             }
-        //             $prod->type = 'pharmacy';
-        //             $prod->comment = $inst;
-        //             $prod->usage = $dose;
-        //             $products[] = $prod;
-        //         }
-        //     }
-        //     if ($lab_arr[0] != '0' && $lab_arr[0] != '')
-        //     {
-        //         foreach ($lab_arr as $id)
-        //         {
-        //             $prod = QuestDataTestCode::where('TEST_CD', $id)->first();
-        //             if ($prod->PRICE != null)
-        //             {
-        //                 $price = $prod->PRICE;
-        //             }
-        //             else
-        //             {
-        //                 $price = 100;
-        //             }
-        //             $zipcode = 0;
-        //             $quantity = 1;
-        //             Prescription::where('session_id', $session_id)->where('test_id', $id)->update(['quantity' => $quantity]);
-        //             $pres = Prescription::where('session_id', $session_id)->where('test_id', $id)->first();
-        //             if (empty($pres))
-        //             {
-        //                 $pres = Prescription::create([
-        //                     'test_id' => $id,
-        //                     'session_id' => $session_id,
-        //                     'type' => 'lab-test',
-        //                     'quantity' => $quantity,
-        //                 ]);
-        //             }
-
-        //             $pres_id = $pres->id;
-
-        //             Cart::create([
-        //                 'product_id' => $id,
-        //                 'name' => $prod['DESCRIPTION'],
-        //                 'quantity' => $quantity,
-        //                 'price' => $price,
-        //                 'update_price' => $price * $quantity,
-        //                 'zipcode' => $zipcode,
-        //                 'product_mode' => 'lab-test',
-        //                 'user_id' => $pat_id,
-        //                 'doc_id' => $session['doctor_id'],
-        //                 'doc_session_id' => $session_id,
-        //                 'pres_id' => $pres_id,
-        //                 'item_type' => 'prescribed',
-        //                 'status' => 'recommended',
-        //                 'map_marker_id' => $pharm,
-        //                 'product_image' => $prod->featured_image,
-        //             ]);
-
-        //             $prod->type = 'test';
-        //             $products[] = $prod;
-
-        //         }
-
-        //     }
-
-        // notifications comment
-        //     try {
-
-        //         $dataMarge = [];
-        //         $prePharma = [];
-        //         $preLab = [];
-        //         $preImaging = [];
-
-        //         $preItem = DB::table('prescriptions')->where('session_id', $session_id)->get();
-        //         foreach ($preItem as $item)
-        //         {
-        //             if ($item->medicine_id != "0")
-        //             {
-        //                 $medicine = DB::table('tbl_products')->where('id', $item->medicine_id)->first();
-        //                 $singleItemMedicine = [
-        //                     'medicine_name' => $medicine->name,
-        //                     'quantity' => $item->quantity,
-        //                     'usage' => $item->usage,
-        //                     'comment' => $item->comment,
-        //                 ];
-        //                 array_push($prePharma, $singleItemMedicine);
-        //             }
-        //             else if ($item->test_id != "0")
-        //             {
-        //                 $tests = DB::table('quest_data_test_codes')->where('TEST_CD', $item->test_id)->first();
-        //                 $singleItemTest = [
-        //                     'test_name' => $tests->DESCRIPTION,
-        //                     'quantity' => $item->quantity,
-        //                     'comment' => $item->comment,
-        //                 ];
-        //                 array_push($preLab, $singleItemTest);
-        //             }
-        //             else if ($item->imaging_id != "0")
-        //             {
-        //                 $imaging = DB::table('tbl_products')->where('id', $item->imaging_id)->first();
-        //                 $singleItemImaging = [
-        //                     'imaging_name' => $imaging->name,
-        //                     'quantity' => $item->quantity,
-        //                     'comment' => $item->comment,
-        //                 ];
-        //                 array_push($preImaging, $singleItemImaging);
-        //             }
-        //         }
-        //         array_push($dataMarge, array('pat_name' => ucwords($pat->name)));
-        //         array_push($dataMarge, array('rec_test' => $preLab));
-        //         array_push($dataMarge, array('rec_pharma' => $prePharma));
-        //         array_push($dataMarge, array('rec_imaging' => $preImaging));
-        //         array_push($dataMarge, array('pat_email' => ucwords($pat->email)));
-        //         //mailgun send mail to patient recommendations
-        //         Mail::to($pat->email)->send(new patientEvisitRecommendationMail($dataMarge));
-        //         $text = "Session Complete Please Check Recommendations";
-        //         Notification::create([
-        //             'user_id' => $pat->id,
-        //             'type' => '/cart',
-        //             'text' => $text,
-        //             'session_id' => $session_id,
-        //         ]);
-        //         event(new RealTimeMessage('Hello World'));
-        //         //////////////////////////////////////////////////////////////////End
-        //     } catch (\Exception $e) {
-        //         Log::error($e);
-        //     }
-        // }
-        // else
-        // {
-        //     Session::where('id', $session_id)->update(['cart_flag' => '1']);
-        // }
-        // $prescriptionData = Prescription::where('session_id', $session_id)->first();
-        // $sessionData = Session::where('id', $session_id)->first();
-        // $patientDetail=User::where('id',$sessionData->patient_id)->first();
-
-
     }
     public function display_session(Request $request)
     {

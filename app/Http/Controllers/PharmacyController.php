@@ -840,7 +840,6 @@ class PharmacyController extends Controller
         $getLastOrderId = DB::table('tbl_orders')->orderBy('id', 'desc')->first();
         $randNumber=rand(1,100);
         if ($getLastOrderId != null) {
-
             $orderId = $getLastOrderId->order_id + 1+$randNumber;
         } else {
             $orderId = $dateString+$randNumber;
@@ -872,12 +871,20 @@ class PharmacyController extends Controller
                 $item->orderSubId = $orderId . $item->product_id;
                 $item->orderSystemId = $orderId;
                 array_push($orderAllIds, $orderId . $item->product_id);
-                array_push($cartCntImg, $item);
+                array_push($cartCntLab, $item);
+                // $item->orderSubId = $orderId . $item->product_id;
+                // $item->orderSystemId = $orderId;
+                // array_push($orderAllIds, $orderId . $item->product_id);
+                // array_push($cartCntImg, $item);
             } else if ($item->item_type == 'prescribed' && $item->product_mode == 'imaging') {
                 $item->orderSubId = $orderId . $item->product_id;
                 $item->orderSystemId = $orderId;
                 array_push($orderAllIds, $orderId . $item->product_id);
-                array_push($cartPreImg, $item);
+                array_push($cartPreLab, $item);
+                // $item->orderSubId = $orderId . $item->product_id;
+                // $item->orderSystemId = $orderId;
+                // array_push($orderAllIds, $orderId . $item->product_id);
+                // array_push($cartPreImg, $item);
             }
         }
         $request->card_number = str_replace('-', '', $request->card_number);
@@ -1163,7 +1170,7 @@ class PharmacyController extends Controller
                     'product_id' => $order->product_id,
                     'session_id' => $order->doc_session_id,
                     'pres_id' => $order->pres_id,
-                    'status' => 'lab-editor-approval',
+                    'status' => 'quest-forwarded',
                     'date' => date('Y-m-d'),
                     'time' => 0,
                     'type' => 'Counter',
@@ -1194,7 +1201,7 @@ class PharmacyController extends Controller
                     'product_id' => $item->product_id,
                     'session_id' => $item->doc_session_id,
                     'pres_id' => $item->pres_id,
-                    'status' => 'lab-editor-approval',
+                    'status' => 'quest-forwarded',
                     'type' => 'Prescribed',
                     'date' => date('Y-m-d'),
                     'time' => 0,
@@ -1204,133 +1211,139 @@ class PharmacyController extends Controller
                 ]);
 
                 $data = DB::table('patient_lab_recomend_aoe')->where('session_id', $item->doc_session_id)->where('testCode', $item->product_id)->first();
-                $aoes = '';
-                if ($data != null) {
-                    $aoes = unserialize($data->aoes);
-                    array_push($testsData, ['testCode' => $item->product_id, 'testName' => $item->name, 'aoes' => $aoes]);
-                } else {
-                    array_push($testsData, ['testCode' => $item->product_id, 'testName' => $item->name, 'aoes' => '']);
-                }
+                array_push($testsData, ['testCode' => $item->product_id, 'testName' => $item->name, 'aoes' => '']);
             }
 
             $doctor = User::find($item->doc_id);
             $patient = User::find($item->user_id);
-
-            // $timestamp = time();
-            // $lab_ref_num = 'UMD' . $item->user_id . 'Q' . $timestamp;
-            // $orderedtestcode = json_encode($testsData);
-            // $name = json_encode($testsData);
-            // $testAoes = json_encode($testsData);
-            // $collect_date = date('Y-m-d', strtotime($item->created_at));
-            // $collect_time = date('H:i:s', strtotime($item->created_at));
-            // $doc_name = $doctor->last_name . ' ,' . $doctor->name;
-            // $barcode = $account->number . $lab_ref_num;
-            // $arr_specimen = array(
-            //     [
-            //         'client_num' => '73917104',
-            //         'lab_referance' => $lab_ref_num,
-            //         'patient_name' => $patient->last_name . ', ' . $patient->name,
-            //         'barcode' => $account->number . $lab_ref_num,
-            //     ],
-            // );
-            // $specimen_labels = json_encode($arr_specimen);
-            // $comment = '';
-            // $client_bill = '$2y$10$iguHq2BCqFaGg1tI3eZDWujOwENMEmJDYdA7Ywl11Iwv1r/NNmmgu';
-            // $patient_bill = '';
-            // $third_party_bill = '';
-            // $order = QuestLab::create([
-            //     'order_id' => $item->orderSystemId,
-            //     'umd_patient_id' => $item->user_id,
-            //     'quest_patient_id' => $item->user_id,
-            //     'abn' => '',
-            //     'billing_type' => 'Client',
-            //     'diagnosis_code' => 'V725',
-            //     'vendor_account_id' => $account->id,
-            //     'orderedtestcode' => $orderedtestcode, 'names' => $name, 'aoe' => $testAoes, 'collect_date' => $collect_date,
-            //     'collect_time' => $collect_time, 'lab_reference_num' => $lab_ref_num, 'npi' => $doctor->nip_number,
-            //     'ssn' => '', 'insurance_num' => '', 'room' => '', 'result_notification' => 'Normal',
-            //     'group_num' => '', 'relation' => 'Self', 'upin' => $doctor->upin, 'ref_physician_id' => $doc_name,
-            //     'temp' => '', 'icd_diagnosis_code' => '', 'psc_hold' => 1, 'barcode' => $barcode,
-            //     'specimen_labels' => $specimen_labels, 'comment' => $comment, 'client_bill' => $client_bill,
-            //     'patient_bill' => $patient_bill, 'third_party_bill' => $third_party_bill,
-            // ]);
-
-            // $order->zip_code = $patient->zip_code;
-            // $hl7_obj = new HL7Controller();
-            // $hl7_obj->new_hl7Encode($order);
-        }
-        if ($cartPreImg != null) {
-            foreach ($cartPreImg as $key => $order) {
-                ImagingOrder::create([
-                    'user_id' => Auth::user()->id,
-                    'order_id' => $order->orderSystemId,
-                    'product_id' => $order->product_id,
-                    'session_id' => $order->doc_session_id,
-                    'pres_id' => $order->pres_id,
-                    'location_id' => $order->location_id,
-                    'status' => 'pending',
-                    'price' => $order->update_price,
-                    'sub_order_id' => $order->orderSubId,
-                ]);
-                $order_id = $order->orderSubId;
-                $doctor = User::find($order->doc_id);
-                $patient = User::find($order->user_id);
-                $state = State::find($doctor->state_id);
-                $city = City::find($doctor->city_id);
-                $p_city = City::find($patient->city_id);
-                $p_state = State::find($patient->state_id);
-                $orderDate = User::convert_utc_to_user_timezone($patient->id, Carbon::now()->format('Y-m-d H:i:s'));
-                $date = str_replace('-', '/',  $patient->date_of_birth);
-                $patient->date_of_birth = date('m/d/Y', strtotime($date));
-
-                $presc_meds[$order->doc_session_id]['first_name'] = $patient->name." ".$patient->last_name;;
-                $presc_meds[$order->doc_session_id]['address'] = $patient->office_address;
-                $presc_meds[$order->doc_session_id]['city'] = $p_city->name;
-                $presc_meds[$order->doc_session_id]['state'] = $p_state->name;
-                $presc_meds[$order->doc_session_id]['zip_code'] = $patient->zip_code;
-                $presc_meds[$order->doc_session_id]['email_address'] = $patient->email;
-                $presc_meds[$order->doc_session_id]['phone_number'] = $patient->phone_number;
-                $presc_meds[$order->doc_session_id]['patient_dob'] = $patient->date_of_birth;
-                $presc_meds[$order->doc_session_id]['patient_gender'] = $patient->gender;
-                $presc_meds[$order->doc_session_id]['patient_id'] = $patient->id;
-                $presc_meds[$order->doc_session_id]['phy_id'] = $doctor->id;
-                $presc_meds[$order->doc_session_id]['order_sub_id'] = $order->orderSubId;
-                $presc_meds[$order->doc_session_id]['order_main_id'] = $order->orderSystemId;
-                $presc_meds[$order->doc_session_id]['phy_by'] = $doctor->name . ' ' . $doctor->last_name;
-                $presc_meds[$order->doc_session_id]['phy_phone_number'] = $doctor->phone_number;
-                $presc_meds[$order->doc_session_id]['phy_address'] = $doctor->office_address;
-                $presc_meds[$order->doc_session_id]['phy_city'] = $city->name;
-                $presc_meds[$order->doc_session_id]['phy_state'] = $state->name;
-                $presc_meds[$order->doc_session_id]['phy_zip_code'] = $doctor->zip_code;
-                $presc_meds[$order->doc_session_id]['NPI'] = $doctor->nip_number;
-                $presc_meds[$order->doc_session_id]['signature'] = $doctor->signature;
-                $presc_meds[$order->doc_session_id]['date'] = $orderDate['date'];
-
-                $pres = Prescription::find($order->pres_id);
-                $img = DB::table('tbl_products')->where('id',$pres->imaging_id)->first();
-                $loc = DB::table('imaging_locations')->where('id',$order->location_id)->first();
-                $presc_meds[$order->doc_session_id]['items'][$key]['name'] = $img->name;
-                $presc_meds[$order->doc_session_id]['items'][$key]['address'] = $loc->address;
-                $presc_meds[$order->doc_session_id]['items'][$key]['zip_code'] = $loc->zip_code;
-            }
-            $recom_obj = new RecommendationController($this->allProductsRepository);
-            $recom_obj->new_imaging_order($presc_meds);
         }
         if ($cartCntImg != null) {
-            foreach ($cartCntImg as $order) {
-                ImagingOrder::create([
+            foreach ($cartCntLab as $order) {
+                LabOrder::create([
                     'user_id' => Auth::user()->id,
                     'order_id' => $order->orderSystemId,
                     'product_id' => $order->product_id,
                     'session_id' => $order->doc_session_id,
                     'pres_id' => $order->pres_id,
-                    'location_id' => $order->location_id,
-                    'status' => 'pending',
+                    'status' => 'quest-forwarded',
+                    'date' => date('Y-m-d'),
+                    'time' => 0,
+                    'type' => 'Counter',
+                    'map_marker_id' => 0,
                     'price' => $order->update_price,
                     'sub_order_id' => $order->orderSubId,
                 ]);
             }
+            $text = "New Online Lab Order Place By " . Auth::user()->name;
+            $lab_admins = DB::table('users')->where('user_type','admin_lab')->get();
+            foreach($lab_admins as $admin)
+            {
+                Notification::create([
+                    'user_id' => $admin->id,
+                    'type' => '/unassigned/lab/orders',
+                    'text' => $text,
+                ]);
+            }
         }
+        if ($cartPreImg != null) {
+            $account = VendorAccount::where('vendor', 'quest')->first();
+            $testsData = [];
+
+            foreach ($cartPreImg as $item) {
+                LabOrder::create([
+                    'user_id' => Auth::user()->id,
+                    'order_id' => $item->orderSystemId,
+                    'product_id' => $item->product_id,
+                    'session_id' => $item->doc_session_id,
+                    'pres_id' => $item->pres_id,
+                    'status' => 'quest-forwarded',
+                    'type' => 'Prescribed',
+                    'date' => date('Y-m-d'),
+                    'time' => 0,
+                    'map_marker_id' => 0,
+                    'price' => $item->update_price,
+                    'sub_order_id' => $item->orderSubId,
+                ]);
+
+                $data = DB::table('patient_lab_recomend_aoe')->where('session_id', $item->doc_session_id)->where('testCode', $item->product_id)->first();
+                array_push($testsData, ['testCode' => $item->product_id, 'testName' => $item->name, 'aoes' => '']);
+            }
+
+            $doctor = User::find($item->doc_id);
+            $patient = User::find($item->user_id);
+        }
+        // if ($cartPreImg != null) {
+        //     foreach ($cartPreImg as $key => $order) {
+        //         ImagingOrder::create([
+        //             'user_id' => Auth::user()->id,
+        //             'order_id' => $order->orderSystemId,
+        //             'product_id' => $order->product_id,
+        //             'session_id' => $order->doc_session_id,
+        //             'pres_id' => $order->pres_id,
+        //             'location_id' => $order->location_id,
+        //             'status' => 'pending',
+        //             'price' => $order->update_price,
+        //             'sub_order_id' => $order->orderSubId,
+        //         ]);
+        //         $order_id = $order->orderSubId;
+        //         $doctor = User::find($order->doc_id);
+        //         $patient = User::find($order->user_id);
+        //         $state = State::find($doctor->state_id);
+        //         $city = City::find($doctor->city_id);
+        //         $p_city = City::find($patient->city_id);
+        //         $p_state = State::find($patient->state_id);
+        //         $orderDate = User::convert_utc_to_user_timezone($patient->id, Carbon::now()->format('Y-m-d H:i:s'));
+        //         $date = str_replace('-', '/',  $patient->date_of_birth);
+        //         $patient->date_of_birth = date('m/d/Y', strtotime($date));
+
+        //         $presc_meds[$order->doc_session_id]['first_name'] = $patient->name." ".$patient->last_name;;
+        //         $presc_meds[$order->doc_session_id]['address'] = $patient->office_address;
+        //         $presc_meds[$order->doc_session_id]['city'] = $p_city->name;
+        //         $presc_meds[$order->doc_session_id]['state'] = $p_state->name;
+        //         $presc_meds[$order->doc_session_id]['zip_code'] = $patient->zip_code;
+        //         $presc_meds[$order->doc_session_id]['email_address'] = $patient->email;
+        //         $presc_meds[$order->doc_session_id]['phone_number'] = $patient->phone_number;
+        //         $presc_meds[$order->doc_session_id]['patient_dob'] = $patient->date_of_birth;
+        //         $presc_meds[$order->doc_session_id]['patient_gender'] = $patient->gender;
+        //         $presc_meds[$order->doc_session_id]['patient_id'] = $patient->id;
+        //         $presc_meds[$order->doc_session_id]['phy_id'] = $doctor->id;
+        //         $presc_meds[$order->doc_session_id]['order_sub_id'] = $order->orderSubId;
+        //         $presc_meds[$order->doc_session_id]['order_main_id'] = $order->orderSystemId;
+        //         $presc_meds[$order->doc_session_id]['phy_by'] = $doctor->name . ' ' . $doctor->last_name;
+        //         $presc_meds[$order->doc_session_id]['phy_phone_number'] = $doctor->phone_number;
+        //         $presc_meds[$order->doc_session_id]['phy_address'] = $doctor->office_address;
+        //         $presc_meds[$order->doc_session_id]['phy_city'] = $city->name;
+        //         $presc_meds[$order->doc_session_id]['phy_state'] = $state->name;
+        //         $presc_meds[$order->doc_session_id]['phy_zip_code'] = $doctor->zip_code;
+        //         $presc_meds[$order->doc_session_id]['NPI'] = $doctor->nip_number;
+        //         $presc_meds[$order->doc_session_id]['signature'] = $doctor->signature;
+        //         $presc_meds[$order->doc_session_id]['date'] = $orderDate['date'];
+
+        //         $pres = Prescription::find($order->pres_id);
+        //         $img = DB::table('tbl_products')->where('id',$pres->imaging_id)->first();
+        //         $loc = DB::table('imaging_locations')->where('id',$order->location_id)->first();
+        //         $presc_meds[$order->doc_session_id]['items'][$key]['name'] = $img->name;
+        //         $presc_meds[$order->doc_session_id]['items'][$key]['address'] = $loc->address;
+        //         $presc_meds[$order->doc_session_id]['items'][$key]['zip_code'] = $loc->zip_code;
+        //     }
+        //     $recom_obj = new RecommendationController($this->allProductsRepository);
+        //     $recom_obj->new_imaging_order($presc_meds);
+        // }
+        // if ($cartCntImg != null) {
+        //     foreach ($cartCntImg as $order) {
+        //         ImagingOrder::create([
+        //             'user_id' => Auth::user()->id,
+        //             'order_id' => $order->orderSystemId,
+        //             'product_id' => $order->product_id,
+        //             'session_id' => $order->doc_session_id,
+        //             'pres_id' => $order->pres_id,
+        //             'location_id' => $order->location_id,
+        //             'status' => 'pending',
+        //             'price' => $order->update_price,
+        //             'sub_order_id' => $order->orderSubId,
+        //         ]);
+        //     }
+        // }
         if ($cartPreMed != null) {
             $presc_meds = array();
             foreach ($cartPreMed as $key => $item) {

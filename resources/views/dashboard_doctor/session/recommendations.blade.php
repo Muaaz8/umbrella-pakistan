@@ -245,7 +245,7 @@
                                                 </div>
                                             </div>
                                         @elseif($pre->mode == 'imaging')
-                                            <div class="pharmacy-item">
+                                            {{--<div class="pharmacy-item">
                                                 <div class="d-flex align-items-center">
                                                     <div class="d-item1">
                                                         <i class="fa-solid fa-capsules fs-3"></i>
@@ -259,6 +259,25 @@
                                                     <input type="hidden" name="session_id"
                                                         value="{{ $getSession->id }}">
                                                     <input type="hidden" name="pro_id" value="{{ $pre->id }}">
+                                                    <input type="hidden" name="type" value="{{ $pre->mode }}">
+                                                    <div class="d-item4"><a type="button"
+                                                            href="/delete_prescribe_item_from_recom/{{ $pre->pres_id }}"><i
+                                                                class="fa-solid fa-circle-xmark fs-4 text-danger"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>--}}
+                                            <div class="pharmacy-item">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="d-item1">
+                                                        <i class="fa-solid fa-capsules fs-3"></i>
+                                                        <div class="imaging-tag">{{ $pre->mode }}</div>
+                                                    </div>
+                                                    <div class="d-item2">
+                                                        <p class="fs-5">{{ $pre->TEST_NAME }}</p>
+                                                    </div>
+                                                    <div class="d-item3"></div>
+                                                    <input type="hidden" name="session_id" value="{{ $getSession->id }}">
+                                                    <input type="hidden" name="pro_id" value="{{ $pre->TEST_CD }}">
                                                     <input type="hidden" name="type" value="{{ $pre->mode }}">
                                                     <div class="d-item4"><a type="button"
                                                             href="/delete_prescribe_item_from_recom/{{ $pre->pres_id }}"><i

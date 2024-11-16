@@ -132,7 +132,7 @@
                         <thead>
                         <tr class="table-primary">
                             <th scope="col">Recommendation</th>
-                            <th scope="col">Dosage and Imaging Location</th>
+                            <th scope="col">Dosage</th>
                             <th scope="col">Comment</th>
                             <th scope="col">Type</th>
                             <th scope="col">Status</th>
@@ -141,8 +141,8 @@
                         <tbody>
                         @foreach ($ses->pres as $meds)
                         <tr>
-                            @if ($meds->type == 'lab-test')
-                                <td data-label="Recommendation" scope="row">{{ $meds->prod_detail->DESCRIPTION }}</td>
+                            @if ($meds->type == 'lab-test' || $meds->type == 'imaging')
+                                <td data-label="Recommendation" scope="row">{{ $meds->prod_detail->TEST_NAME }}</td>
                             @else
                                 <td data-label="Recommendation" scope="row">{{ $meds->prod_detail->name }}</td>
                             @endif

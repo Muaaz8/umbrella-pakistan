@@ -815,11 +815,12 @@ class AllProductsController extends AppBaseController
     {
         // dd($request);
         $pres = DB::table('prescriptions')->where('session_id',$request->session_id)->where('test_id',$request->id)->get();
+        $test = DB::table('quest_data_test_codes')->where('TEST_CD',$request['id'])->first();
         if(count($pres)==0){
             Prescription::insert([
                 'session_id' => $request['session_id'],
                 'test_id' => $request['id'],
-                'type' => 'lab-test',
+                'type' => $test->mode,
                 'quantity' => 1,
                 'created_at' => Carbon::now(),
             ]);
@@ -849,18 +850,23 @@ class AllProductsController extends AppBaseController
                 }
                 $items[] = $labData;
             } else if ($pro_list->type == "imaging") {
-                $data = $this->allProductsRepository->find($pro_list->imaging_id);
-                // dd($data->id);
-                $res = DB::table('imaging_selected_location')->where('session_id', $request['session_id'])->where('product_id', $data->id)->first();
-                if ($res != null) {
-                    // dd($res);
-                    $get = DB::table('imaging_locations')->where('imaging_locations.id', $res->imaging_location_id)->first();
-                    $data->location = $get->clinic_name . ', ' . $get->city . ', ' . $get->zip_code;
-                } else {
-                    $data->location = 'nothing';
-                }
 
-                $items[] = $data;
+                $labData = \App\QuestDataTestCode::where('TEST_CD', $pro_list->test_id)->first();
+
+                $getTestAOE = QuestDataAOE::select("TEST_CD AS TestCode", "AOE_QUESTION AS QuestionShort", "AOE_QUESTION_DESC AS QuestionLong")
+                    ->where('TEST_CD', $pro_list->test_id)
+                    ->groupBy('AOE_QUESTION_DESC')
+                    ->get();
+                $count = count($getTestAOE);
+                if ($count > 0) {
+                    $labData->aoes = 1;
+                } else {
+                    $labData->aoes = 0;
+                }
+                $items[] = $labData;
+
+
+
             } else if ($pro_list->type == "medicine") {
                 if ($pro_list->usage != null) {
                     $getRes = $this->allProductsRepository->find($pro_list->medicine_id);
@@ -1065,56 +1071,71 @@ class AllProductsController extends AppBaseController
     public function new_get_imaging_products_by_category(Request $request)
     {
         if ($request->name == '') {
-            $products = DB::table('tbl_products')
-                ->join('imaging_prices', 'imaging_prices.product_id', 'tbl_products.id')
-                ->where('imaging_prices.location_id', $request->location_id)
-                ->where('tbl_products.parent_category', $request->cat_id)
-                ->where('imaging_prices.price','!=','0')
-                ->select('tbl_products.id as pro_id', 'tbl_products.name as pro_name', 'imaging_prices.location_id')
-                ->get();
-        } else {
-            $products = DB::table('tbl_products')
-                ->join('imaging_prices', 'imaging_prices.product_id', 'tbl_products.id')
-                ->where('tbl_products.name', 'LIKE', "%{$request->name}%")
-                ->where('imaging_prices.location_id', $request->location_id)
-                ->where('tbl_products.parent_category', $request->cat_id)
-                ->where('imaging_prices.price','!=','0')
-                ->select('tbl_products.id as pro_id', 'tbl_products.name as pro_name', 'imaging_prices.location_id')
-                ->get();
-        }
-        if (count($products) > 0) {
-            foreach ($products as $product) {
-                $res = DB::table('prescriptions')->where('imaging_id', $product->pro_id)->where('session_id', $request->session_id)->first();
-                if ($res != null) {
-                    $product->added = 'yes';
-                } else {
-                    $product->added = 'no';
-                }
-            }
-            return $products;
-        } else {
-            return "notfound";
-        }
-    }
-    public function new_get_lab_products_video_page(Request $request)
-    {
-        if ($request->name == '') {
-            $labs = QuestDataTestCode::whereRaw("TEST_CD NOT LIKE '#%%' ESCAPE '#'")
-                ->whereIn('id', [
-                    '3327', '4029', '1535', '3787', '47', '1412',
-                    '1484', '1794', '3194', '3352', '3566', '3769',
-                    '4446', '18811', '11363', '899', '16846', '3542',
-                    '229', '747', '6399', '7573', '16814',
-                ])
-                ->where('TEST_CD', '!=', '92613')
-                ->where('TEST_CD', '!=', '11196')
-                // ->where('LEGAL_ENTITY', 'DAL')
-                ->where('TEST_NAME','!=', null)
-                ->orWhere('PRICE', '!=', '')
+            $labs = QuestDataTestCode::where('mode', 'imaging')
+                ->where('PARENT_CATEGORY', $request->cat_id)
                 ->get();
         } else {
             $labs = QuestDataTestCode::where('TEST_NAME', 'LIKE', "%{$request->name}%")
-                // ->where('LEGAL_ENTITY', 'DAL')
+                ->where('mode', 'imaging')
+                ->where('PARENT_CATEGORY', $request->cat_id)
+                ->get();
+        }
+
+        foreach ($labs as $lab) {
+            $res = DB::table('prescriptions')->where('test_id', $lab->TEST_CD)->where('session_id', $request->id)->first();
+            if ($res != null) {
+                $lab->added = 'yes';
+            } else {
+                $lab->added = 'no';
+            }
+        }
+
+        return $labs;
+    }
+    // {
+    //     if ($request->name == '') {
+    //         $products = DB::table('tbl_products')
+    //             ->join('imaging_prices', 'imaging_prices.product_id', 'tbl_products.id')
+    //             ->where('imaging_prices.location_id', $request->location_id)
+    //             ->where('tbl_products.parent_category', $request->cat_id)
+    //             ->where('imaging_prices.price','!=','0')
+    //             ->select('tbl_products.id as pro_id', 'tbl_products.name as pro_name', 'imaging_prices.location_id')
+    //             ->get();
+    //     } else {
+    //         $products = DB::table('tbl_products')
+    //             ->join('imaging_prices', 'imaging_prices.product_id', 'tbl_products.id')
+    //             ->where('tbl_products.name', 'LIKE', "%{$request->name}%")
+    //             ->where('imaging_prices.location_id', $request->location_id)
+    //             ->where('tbl_products.parent_category', $request->cat_id)
+    //             ->where('imaging_prices.price','!=','0')
+    //             ->select('tbl_products.id as pro_id', 'tbl_products.name as pro_name', 'imaging_prices.location_id')
+    //             ->get();
+    //     }
+    //     if (count($products) > 0) {
+    //         foreach ($products as $product) {
+    //             $res = DB::table('prescriptions')->where('imaging_id', $product->pro_id)->where('session_id', $request->session_id)->first();
+    //             if ($res != null) {
+    //                 $product->added = 'yes';
+    //             } else {
+    //                 $product->added = 'no';
+    //             }
+    //         }
+    //         return $products;
+    //     } else {
+    //         return "notfound";
+    //     }
+    // }
+    public function new_get_lab_products_video_page(Request $request)
+    {
+        if ($request->name == '') {
+            $labs = QuestDataTestCode::where('mode', 'lab-test')
+                ->where('TEST_NAME','!=', null)
+                ->where('PRICE', '!=', null)
+                ->get();
+        } else {
+            $labs = QuestDataTestCode::where('TEST_NAME', 'LIKE', "%{$request->name}%")
+                ->where('mode', 'lab-test')
+                ->where('TEST_NAME','!=', null)
                 ->where('PRICE', '!=', null)
                 ->get();
         }
