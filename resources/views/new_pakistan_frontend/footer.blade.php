@@ -5,11 +5,10 @@
                 <img src="{{ asset('assets/new_frontend/logo.png') }}" alt="umbrella-logo" />
             </div>
             <div class="flex gap-15" id="social-icons">
-                <div><img src="{{ asset('assets/new_frontend/facebook-icon.svg') }}" alt="" /></div>
-                <div><img src="{{ asset('assets/new_frontend/twitter-icon.svg') }}" alt="" /></div>
-                <div><img src="{{ asset('assets/new_frontend/linkedin-icon.svg') }}" alt="" /></div>
-                <div><img src="{{ asset('assets/new_frontend/instagram-icon.svg') }}" alt="" /></div>
-                <div><img src="{{ asset('assets/new_frontend/pinterest-icon.svg') }}" alt="" /></div>
+                <div><i class="fa-brands fa-facebook"></i></div>
+                <div><i class="fa-brands fa-linkedin"></i></div>
+                <div><i class="fa-brands fa-instagram"></i></div>
+                <div><i class="fa-brands fa-pinterest"></i></div>
             </div>
         </div>
         <div id="footer-2" class="footer">
@@ -19,7 +18,7 @@
             </div>
             <div class="footer-content">
                 <div class="footer-highlight">
-                    <img src="{{ asset('assets/new_frontend/location-icon.svg') }}" alt="" />
+                    <i class="fa-solid fa-location-dot"></i>
                     <a href="#" data-bs-toggle="modal" data-bs-target="#locationModal">Find Location</a>
                 </div>
                 <p>contact@umbrellaamd.com</p>
@@ -36,19 +35,19 @@
                 <p>07:00 am - 08:00 pm</p>
                 <p>Umbrella Health Care Systems</p>
                 <div class="footer-info">
-                    <img src="{{ asset('assets/new_frontend/right-arrow-icon.svg') }}" alt="" />
+                    <i class="fa-solid fa-chevron-right"></i>
                     <a href="{{ route('about_us') }}">About Us</a>
                 </div>
                 <div class="footer-info">
-                    <img src="{{ asset('assets/new_frontend/right-arrow-icon.svg') }}" alt="" />
+                    <i class="fa-solid fa-chevron-right"></i>
                     <a href="{{ route('contact_us') }}">Contact Us</a>
                 </div>
                 <div class="footer-info">
-                    <img src="{{ asset('assets/new_frontend/right-arrow-icon.svg') }}" alt="" />
+                    <i class="fa-solid fa-chevron-right"></i>
                     <a href="{{ route('faq') }}">FAQs</a>
                 </div>
                 <div class="footer-info">
-                    <img src="{{ asset('assets/new_frontend/right-arrow-icon.svg') }}" alt="" />
+                    <i class="fa-solid fa-chevron-right"></i>
                     <a href="{{ route('privacy_policy') }}">Privacy Policy</a>
                 </div>
             </div>
@@ -60,7 +59,7 @@
             </div>
             <div class="footer-content">
                 <div class="footer-highlight">
-                    <img src="{{ asset('assets/new_frontend/phone-icon.svg') }}" alt="" />
+                    <i class="fa-solid fa-phone"></i>
                     <a href="">+1 (407) 693-8484</a>
                 </div>
                 <p>In Emergency, Please call 911</p>

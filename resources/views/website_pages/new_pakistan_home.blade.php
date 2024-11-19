@@ -91,112 +91,7 @@
             <div id="steps">
               <div class="step" data-bs-toggle="modal" data-bs-target="#loginModal">
                 <div class="step-icon">
-                  <svg
-                    fill="gray"
-                    version="1.1"
-                    id="Layer_1"
-                    xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                    viewBox="0 0 512 512"
-                    xml:space="preserve"
-                  >
-                    <g>
-                      <g>
-                        <path
-                          d="M511.489,20.065C509.128,8.518,498.662,0,486.881,0h-76.96c-4.428,0-8.017,3.588-8.017,8.017
-                            c0,4.428,3.588,8.017,8.017,8.017h76.96c4.953,0,9.086,4.127,9.086,9.086v60.392H16.033V25.119c0-4.953,4.133-9.086,9.086-9.086
-                            h342.046c4.428,0,8.017-3.588,8.017-8.017c0-4.428-3.588-8.017-8.017-8.017H25.119C11.429,0,0,11.423,0,25.119v324.944
-                            c0,4.428,3.589,8.017,8.017,8.017c4.427,0,8.017-3.588,8.017-8.017V101.545h479.933v385.336c0,5.01-4.076,9.086-9.086,9.086
-                            H25.119c-5.01,0-9.086-4.076-9.086-9.086v-94.063c0-4.428-3.589-8.017-8.017-8.017c-4.427,0-8.017,3.588-8.017,8.017v94.063
-                            C0,500.732,11.268,512,25.119,512h461.762C500.732,512,512,500.732,512,486.881V25.119C512,23.422,511.829,21.721,511.489,20.065z
-                            "
-                        />
-                      </g>
-                    </g>
-                    <g>
-                      <g>
-                        <path
-                          d="M67.875,25.653c-13.851,0-25.119,11.268-25.119,25.119c0,13.851,11.268,25.119,25.119,25.119s25.119-11.268,25.119-25.119
-                                C92.994,36.922,81.725,25.653,67.875,25.653z M67.875,59.858c-5.01,0-9.086-4.076-9.086-9.086c0-5.01,4.076-9.086,9.086-9.086
-                                c5.01,0,9.086,4.076,9.086,9.086C76.96,55.782,72.885,59.858,67.875,59.858z"
-                        />
-                      </g>
-                    </g>
-                    <g>
-                      <g>
-                        <path
-                          d="M136.284,25.653c-13.851,0-25.119,11.268-25.119,25.119c0,13.851,11.268,25.119,25.119,25.119
-                                s25.119-11.268,25.119-25.119C161.403,36.922,150.135,25.653,136.284,25.653z M136.284,59.858c-5.01,0-9.086-4.076-9.086-9.086
-                                c0-5.01,4.076-9.086,9.086-9.086s9.086,4.076,9.086,9.086C145.37,55.782,141.294,59.858,136.284,59.858z"
-                        />
-                      </g>
-                    </g>
-                    <g>
-                      <g>
-                        <path
-                          d="M204.693,25.653c-13.851,0-25.119,11.268-25.119,25.119c0,13.851,11.268,25.119,25.119,25.119
-                            s25.119-11.268,25.119-25.119C229.812,36.922,218.544,25.653,204.693,25.653z M204.693,59.858c-5.01,0-9.086-4.076-9.086-9.086
-                            c0-5.01,4.076-9.086,9.086-9.086s9.086,4.076,9.086,9.086C213.779,55.782,209.703,59.858,204.693,59.858z"
-                        />
-                      </g>
-                    </g>
-                    <g>
-                      <g>
-                        <path
-                          d="M384.267,350.597H136.284c-4.427,0-8.017,3.588-8.017,8.017v34.205c0,4.428,3.589,8.017,8.017,8.017h247.983
-                            c4.428,0,8.017-3.588,8.017-8.017v-34.205C392.284,354.185,388.696,350.597,384.267,350.597z M376.251,384.802h-231.95V366.63
-                            h231.95V384.802z"
-                        />
-                      </g>
-                    </g>
-                    <g>
-                      <g>
-                        <path
-                          d="M384.267,419.006H136.284c-4.427,0-8.017,3.588-8.017,8.017v34.205c0,4.428,3.589,8.017,8.017,8.017h247.983
-                            c4.428,0,8.017-3.588,8.017-8.017v-34.205C392.284,422.595,388.696,419.006,384.267,419.006z M376.251,453.211h-231.95V435.04
-                            h231.95V453.211z"
-                        />
-                      </g>
-                    </g>
-                    <g>
-                      <g>
-                        <path
-                          d="M461.228,42.756h-17.102c-4.428,0-8.017,3.588-8.017,8.017c0,4.428,3.588,8.017,8.017,8.017h17.102
-			            c4.428,0,8.017-3.588,8.017-8.017C469.244,46.344,465.656,42.756,461.228,42.756z"
-                        />
-                      </g>
-                    </g>
-                    <g>
-                      <g>
-                        <path
-                          d="M418.472,42.756H290.205c-4.428,0-8.017,3.588-8.017,8.017c0,4.428,3.588,8.017,8.017,8.017h128.267
-			            c4.428,0,8.017-3.588,8.017-8.017C426.489,46.344,422.9,42.756,418.472,42.756z"
-                        />
-                      </g>
-                    </g>
-                    <g>
-                      <g>
-                        <path
-                          d="M307.307,196.676h-0.534v-26.188c0-23.281-18.941-42.221-42.221-42.221h-17.102c-23.281,0-42.221,18.941-42.221,42.221
-                            v8.551c0,4.428,3.589,8.017,8.017,8.017s8.017-3.588,8.017-8.017v-8.551c0-14.441,11.748-26.188,26.188-26.188h17.102
-                            c14.441,0,26.188,11.747,26.188,26.188v26.188h-86.046c-13.851,0-25.119,11.268-25.119,25.119v102.614
-                            c0,4.428,3.589,8.017,8.017,8.017h136.818c4.428,0,8.017-3.588,8.017-8.017V221.795
-                            C332.426,207.945,321.158,196.676,307.307,196.676z M316.393,316.393H195.608v-94.597c0-5.01,4.076-9.086,9.086-9.086h102.614
-                            c5.01,0,9.086,4.076,9.086,9.086V316.393z"
-                        />
-                      </g>
-                    </g>
-                    <g>
-                      <g>
-                        <path
-                          d="M256,230.881c-13.851,0-25.119,11.268-25.119,25.119c0,11.048,7.172,20.446,17.102,23.8v18.956
-                        c0,4.428,3.589,8.017,8.017,8.017c4.428,0,8.017-3.588,8.017-8.017V279.8c9.93-3.354,17.102-12.752,17.102-23.8
-                        C281.119,242.149,269.851,230.881,256,230.881z M256,265.086c-5.01,0-9.086-4.076-9.086-9.086s4.076-9.086,9.086-9.086
-                        s9.086,4.076,9.086,9.086S261.01,265.086,256,265.086z"
-                        />
-                      </g>
-                    </g>
-                  </svg>
+                    <i class="fa-regular fa-id-card"></i>
                 </div>
                 <div class="step-heading">
                   <h3>LOGIN | REGISTER</h3>
@@ -208,34 +103,11 @@
                 </div>
               </div>
               <div class="arrow">
-                <img src=" {{ asset('assets/new_frontend/right-arrow-long.svg') }}" alt="right-arrow" />
+                <i class="fa-solid fa-arrow-right-long"></i>
               </div>
               <div class="step" data-bs-toggle="modal" data-bs-target="#e-visitModal">
                 <div class="step-icon">
-                  <svg
-                    fill="gray"
-                    version="1.1"
-                    id="Capa_1"
-                    xmlns="http://www.w3.org/2000/svg"
-                    xmlns:xlink="http://www.w3.org/1999/xlink"
-                    viewBox="0 0 452.388 452.388"
-                    xml:space="preserve"
-                  >
-                    <g>
-                      <g id="Layer_8_38_">
-                        <path
-                          d="M441.677,43.643H10.687C4.785,43.643,0,48.427,0,54.329v297.425c0,5.898,4.785,10.676,10.687,10.676h162.069v25.631
-                        c0,0.38,0.074,0.722,0.112,1.089h-23.257c-5.407,0-9.796,4.389-9.796,9.795c0,5.408,4.389,9.801,9.796,9.801h158.506
-                        c5.406,0,9.795-4.389,9.795-9.801c0-5.406-4.389-9.795-9.795-9.795h-23.256c0.032-0.355,0.115-0.709,0.115-1.089V362.43H441.7
-                        c5.898,0,10.688-4.782,10.688-10.676V54.329C452.37,48.427,447.589,43.643,441.677,43.643z M422.089,305.133
-                        c0,5.903-4.784,10.687-10.683,10.687H40.96c-5.898,0-10.684-4.783-10.684-10.687V79.615c0-5.898,4.786-10.684,10.684-10.684
-                        h370.446c5.898,0,10.683,4.785,10.683,10.684V305.133z M303.942,290.648H154.025c0-29.872,17.472-55.661,42.753-67.706
-                        c-15.987-10.501-26.546-28.571-26.546-49.13c0-32.449,26.306-58.755,58.755-58.755c32.448,0,58.753,26.307,58.753,58.755
-                        c0,20.553-10.562,38.629-26.545,49.13C286.475,234.987,303.942,260.781,303.942,290.648z"
-                        />
-                      </g>
-                    </g>
-                  </svg>
+                    <i class="fa-solid fa-laptop"></i>
                 </div>
                 <div class="step-heading">
                   <h3>E-VISIT | LABTEST | PHARMACY</h3>
@@ -247,20 +119,11 @@
                 </div>
               </div>
               <div class="arrow">
-                <img src=" {{ asset('assets/new_frontend/right-arrow-long.svg') }}" alt="right-arrow" />
+                <i class="fa-solid fa-arrow-right-long"></i>
               </div>
               <div class="step" onclick="window.location.href='{{ route('login') }}'">
                 <div class="step-icon">
-                  <svg
-                    viewBox="0 0 1024 1024"
-                    class="icon"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      fill="gray"
-                      d="M192 352h640l64 544H128l64-544zm128 224h64V448h-64v128zm320 0h64V448h-64v128zM384 288h-64a192 192 0 11384 0h-64a128 128 0 10-256 0z"
-                    />
-                  </svg>
+                    <i class="fa-solid fa-bag-shopping"></i>
                 </div>
                 <div class="step-heading">
                   <h3>CONFIRM ORDER</h3>
@@ -272,20 +135,11 @@
                 </div>
               </div>
               <div class="arrow">
-                <img src=" {{ asset('assets/new_frontend/right-arrow-long.svg') }}" alt="right-arrow" />
+                <i class="fa-solid fa-arrow-right-long"></i>
               </div>
               <div class="step" onclick="window.location.href='{{ route('login') }}'">
                 <div class="step-icon">
-                  <svg
-                    fill="gray"
-                    viewBox="0 0 52 52"
-                    data-name="Layer 1"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M38.67,27.35A11.33,11.33,0,1,1,27.35,38.67h0A11.34,11.34,0,0,1,38.67,27.35ZM20.36,37.63a4,4,0,1,1-4,4v0A4,4,0,0,1,20.36,37.63ZM42.8,34.07l-6.06,6.79L34,38.09a.79.79,0,0,0-1.11,0l0,0-1.11,1.07a.7.7,0,0,0-.07,1l.07.08L35.6,44a1.62,1.62,0,0,0,1.14.48A1.47,1.47,0,0,0,37.87,44l7.19-7.87a.83.83,0,0,0,0-1l-1.12-1.05a.79.79,0,0,0-1.11,0ZM8.2,2a2.42,2.42,0,0,1,2.25,1.7h0l.62,2.16H46.36A1.5,1.5,0,0,1,47.9,7.31a1.24,1.24,0,0,1-.06.47h0L43.66,22.43a1.42,1.42,0,0,1-.52.82,16.42,16.42,0,0,0-4.47-.64,16,16,0,0,0-5.47,1H19.36a2.2,2.2,0,0,0-2.22,2.18,2.11,2.11,0,0,0,.13.75h0v.08a2.26,2.26,0,0,0,2.17,1.62h7.1a16,16,0,0,0-2.77,4.61H16a2.32,2.32,0,0,1-2.25-1.7h0L6.5,6.62H4.33A2.37,2.37,0,0,1,2,4.22V4.16A2.46,2.46,0,0,1,4.48,2H8.2Z"
-                    />
-                  </svg>
+                    <i class="fa-regular fa-credit-card"></i>
                 </div>
                 <div class="step-heading">
                   <h3>CHECKOUT</h3>
@@ -353,7 +207,7 @@
                   </p>
                   <div class="doc-btn-container">
                     <div class="doctor-button">
-                      <img src=" {{ asset('assets/new_frontend/stethoscope-icon.svg') }}" alt="" />
+                        <i class="fa-solid fa-user-doctor"></i>
                       <a data-bs-toggle="modal" data-bs-target="#loginModal" href="#">TALK TO DOCTORS</a>
                       {{--<span data-bs-toggle="modal" data-bs-target="#loginModal">
                         <button>TALK TO DOCTORS</button>
@@ -380,12 +234,12 @@
                 <div class="pharmacy-categories">
                     @foreach ($data['prescribed_medicines_category'] as $item)
                         <div class="pharmacy-category" onclick="getPharmacyProductByCategory({{ $item->id }},5)">
-                            <img src="{{ asset('assets/new_frontend/medicine.svg') }}" alt="pills-icon" />
+                            <i class="fa-solid fa-pills"></i>
                             <div title="{{$item->title}}">{{ \Str::limit($item->title, 15, '...') }}</div>
                         </div>
                     @endforeach
                     <div class="pharmacy-category">
-                        <img src="{{ asset('assets/new_frontend/medicine.svg') }}" alt="wellness-icon" />
+                        <i class="fa-solid fa-pills"></i>
                         <div onclick="location.href='{{ route('pharmacy') }}'">View More</div>
                     </div>
                 </div>
@@ -396,8 +250,8 @@
                   <div class="card">
                     <div class="prescription"><p>prescription required</p></div>
                     <div class="med-price">$ 100</div>
-                    <h4>Niacin ER tablet</h4>
-                    <h6>Heart Disease</h6>
+                    <h4 class="truncate">Niacin ER tablet</h4>
+                    <h6 class="truncate">Heart Disease</h6>
                     <p class="truncate-overflow">
                       Niacin is used to lower blood levels of "bad" cholesterol
                       (low-density lipoprotein, or LDL) and triglycerides, and
@@ -408,8 +262,8 @@
                   <div class="card">
                     <div class="prescription"><p>prescription required</p></div>
                     <div class="med-price">$ 100</div>
-                    <h4>Niacin ER tablet</h4>
-                    <h6>Heart Disease</h6>
+                    <h4 class="truncate">Niacin ER tablet</h4>
+                    <h6 class="truncate">Heart Disease</h6>
                     <p class="truncate-overflow">
                       Niacin is used to lower blood levels of "bad" cholesterol
                       (low-density lipoprotein, or LDL) and triglycerides, and
@@ -420,8 +274,8 @@
                   <div class="card">
                     <div class="prescription"><p>prescription required</p></div>
                     <div class="med-price">$ 100</div>
-                    <h4>Niacin ER tablet</h4>
-                    <h6>Heart Disease</h6>
+                    <h4 class="truncate">Niacin ER tablet</h4>
+                    <h6 class="truncate">Heart Disease</h6>
                     <p class="truncate-overflow">
                       Niacin is used to lower blood levels of "bad" cholesterol
                       (low-density lipoprotein, or LDL) and triglycerides, and
@@ -432,8 +286,8 @@
                   <div class="card">
                     <div class="prescription"><p>prescription required</p></div>
                     <div class="med-price">$ 100</div>
-                    <h4>Niacin ER tablet</h4>
-                    <h6>Heart Disease</h6>
+                    <h4 class="truncate" >Niacin ER tablet</h4>
+                    <h6 class="truncate" >Heart Disease</h6>
                     <p class="truncate-overflow">
                       Niacin is used to lower blood levels of "bad" cholesterol
                       (low-density lipoprotein, or LDL) and triglycerides, and
@@ -444,8 +298,8 @@
                   <div class="card">
                     <div class="prescription"><p>prescription required</p></div>
                     <div class="med-price">$ 100</div>
-                    <h4>Niacin ER tablet</h4>
-                    <h6>Heart Disease</h6>
+                    <h4 class="truncate">Niacin ER tablet</h4>
+                    <h6 class="truncate">Heart Disease</h6>
                     <p class="truncate-overflow">
                       Niacin is used to lower blood levels of "bad" cholesterol
                       (low-density lipoprotein, or LDL) and triglycerides, and
@@ -476,12 +330,12 @@
               <div class="pharmacy-categories">
                 @foreach ($data['labtest_category'] as $item)
                         <div class="pharmacy-category" onclick="getLabtestProductByCategory({{$item->id}},5)">
-                        <img src="{{ asset('assets/new_frontend/medicine.svg') }}" alt="pills-icon" />
+                            <i class="fa-solid fa-flask"></i>
                         <div title="{{$item->product_parent_category}}">{{ \Str::limit($item->product_parent_category, 15, '...') }}</div>
                     </div>
                 @endforeach
                 <div class="pharmacy-category">
-                    <img src="{{ asset('assets/new_frontend/medicine.svg') }}" alt="wellness-icon" />
+                    <i class="fa-solid fa-flask"></i>
                     <div>View More</div>
                 </div>
               </div>
@@ -494,10 +348,10 @@
                   <div class="test-card-content">
                     <div class="add_to_cart_container">
                       <button class="add_to_cart_btn">
-                        <img src=" {{ asset('assets/new_frontend/cart.png') }}" alt="" />
+                        <i class="fa-solid fa-cart-shopping"></i>
                       </button>
                     </div>
-                    <h4>Complete Blood Count</h4>
+                    <h4 class="truncate">Complete Blood Count</h4>
                     <p class="truncate-overflow">
                       Complete Blood Count (CBC) is a blood test used to
                       evaluate your overall health and detect a wide range of
@@ -510,10 +364,10 @@
                   <div class="test-card-content">
                     <div class="add_to_cart_container">
                       <button class="add_to_cart_btn">
-                        <img src=" {{ asset('assets/new_frontend/cart.png') }}" alt="" />
+                        <i class="fa-solid fa-cart-shopping"></i>
                       </button>
                     </div>
-                    <h4>Complete Blood Count</h4>
+                    <h4 class="truncate">Complete Blood Count</h4>
                     <p class="truncate-overflow">
                       Complete Blood Count (CBC) is a blood test used to
                       evaluate your overall health and detect a wide range of
@@ -526,10 +380,10 @@
                   <div class="test-card-content">
                     <div class="add_to_cart_container">
                       <button class="add_to_cart_btn">
-                        <img src=" {{ asset('assets/new_frontend/cart.png') }}" alt="" />
+                        <i class="fa-solid fa-cart-shopping"></i>
                       </button>
                     </div>
-                    <h4>Complete Blood Count</h4>
+                    <h4 class="truncate">Complete Blood Count</h4>
                     <p class="truncate-overflow">
                       Complete Blood Count (CBC) is a blood test used to
                       evaluate your overall health and detect a wide range of
@@ -542,10 +396,10 @@
                   <div class="test-card-content">
                     <div class="add_to_cart_container">
                       <button class="add_to_cart_btn">
-                        <img src=" {{ asset('assets/new_frontend/cart.png') }}" alt="" />
+                        <i class="fa-solid fa-cart-shopping"></i>
                       </button>
                     </div>
-                    <h4>Complete Blood Count</h4>
+                    <h4 class="truncate">Complete Blood Count</h4>
                     <p class="truncate-overflow">
                       Complete Blood Count (CBC) is a blood test used to
                       evaluate your overall health and detect a wide range of
@@ -558,10 +412,10 @@
                   <div class="test-card-content">
                     <div class="add_to_cart_container">
                       <button class="add_to_cart_btn">
-                        <img src=" {{ asset('assets/new_frontend/cart.png') }}" alt="" />
+                        <i class="fa-solid fa-cart-shopping"></i>
                       </button>
                     </div>
-                    <h4>Complete Blood Count</h4>
+                    <h4 class="truncate">Complete Blood Count</h4>
                     <p class="truncate-overflow">
                       Complete Blood Count (CBC) is a blood test used to
                       evaluate your overall health and detect a wide range of
@@ -591,12 +445,12 @@
               <div class="pharmacy-categories">
                     @foreach ($data['imaging_category'] as $item)
                         <div class="pharmacy-category" onclick="getImagingProductByCategory({{$item->id}},5)">
-                            <img src="{{ asset('assets/new_frontend/medicine.svg') }}" alt="pills-icon" />
+                            <i class="fa-solid fa-flask"></i>
                             <div title="{{$item->product_parent_category}}">{{ \Str::limit($item->product_parent_category, 15, '...') }}</div>
                         </div>
                     @endforeach
                     <div class="pharmacy-category">
-                        <img src="{{ asset('assets/new_frontend/medicine.svg') }}" alt="wellness-icon" />
+                        <i class="fa-solid fa-flask"></i>
                         <div>View More</div>
                     </div>
                 </div>
@@ -609,10 +463,10 @@
                   <div class="test-card-content">
                     <div class="add_to_cart_container">
                       <button class="add_to_cart_btn">
-                        <img src=" {{ asset('assets/new_frontend/cart.png') }}" alt="" />
+                        <i class="fa-solid fa-cart-shopping"></i>
                       </button>
                     </div>
-                    <h4>Complete Blood Count</h4>
+                    <h4 class="truncate">Complete Blood Count</h4>
                     <p class="truncate-overflow">
                       Complete Blood Count (CBC) is a blood test used to
                       evaluate your overall health and detect a wide range of
@@ -625,10 +479,10 @@
                   <div class="test-card-content">
                     <div class="add_to_cart_container">
                       <button class="add_to_cart_btn">
-                        <img src=" {{ asset('assets/new_frontend/cart.png') }}" alt="" />
+                        <i class="fa-solid fa-cart-shopping"></i>
                       </button>
                     </div>
-                    <h4>Complete Blood Count</h4>
+                    <h4 class="truncate">Complete Blood Count</h4>
                     <p class="truncate-overflow">
                       Complete Blood Count (CBC) is a blood test used to
                       evaluate your overall health and detect a wide range of
@@ -641,10 +495,10 @@
                   <div class="test-card-content">
                     <div class="add_to_cart_container">
                       <button class="add_to_cart_btn">
-                        <img src=" {{ asset('assets/new_frontend/cart.png') }}" alt="" />
+                        <i class="fa-solid fa-cart-shopping"></i>
                       </button>
                     </div>
-                    <h4>Complete Blood Count</h4>
+                    <h4 class="truncate">Complete Blood Count</h4>
                     <p class="truncate-overflow">
                       Complete Blood Count (CBC) is a blood test used to
                       evaluate your overall health and detect a wide range of
@@ -657,10 +511,10 @@
                   <div class="test-card-content">
                     <div class="add_to_cart_container">
                       <button class="add_to_cart_btn">
-                        <img src=" {{ asset('assets/new_frontend/cart.png') }}" alt="" />
+                        <i class="fa-solid fa-cart-shopping"></i>
                       </button>
                     </div>
-                    <h4>Complete Blood Count</h4>
+                    <h4 class="truncate">Complete Blood Count</h4>
                     <p class="truncate-overflow">
                       Complete Blood Count (CBC) is a blood test used to
                       evaluate your overall health and detect a wide range of
@@ -673,10 +527,10 @@
                   <div class="test-card-content">
                     <div class="add_to_cart_container">
                       <button class="add_to_cart_btn">
-                        <img src=" {{ asset('assets/new_frontend/cart.png') }}" alt="" />
+                        <i class="fa-solid fa-cart-shopping"></i>
                       </button>
                     </div>
-                    <h4>Complete Blood Count</h4>
+                    <h4 class="truncate">Complete Blood Count</h4>
                     <p class="truncate-overflow">
                       Complete Blood Count (CBC) is a blood test used to
                       evaluate your overall health and detect a wide range of
@@ -716,7 +570,7 @@
                   </p>
                   <div class="doc-btn-container">
                     <div class="doctor-button">
-                      <img src=" {{ asset('assets/new_frontend/stethoscope-icon.svg') }}" alt="" />
+                        <i class="fa-solid fa-user-doctor"></i>
                       <a href="">TALK TO DOCTORS</a>
                     </div>
                   </div>
@@ -743,7 +597,7 @@
               <div class="psychiatry-container">
                 @foreach ($data['psychiatrist'] as $key => $item)
                     <div class="psychiatry-box">
-                      <img src=" {{ asset('assets/new_frontend/doctor-icon.svg') }}" alt="{{ $item->title }}" />
+                      <img src=" {{ asset('assets/new_frontend/depression.png') }}" alt="{{ $item->title }}" />
                       <p>{{ $item->title }}</p>
                     </div>
                 @endforeach
@@ -771,7 +625,7 @@
                 @foreach ($data['pain_categories'] as $key => $item)
                     <div class="pain-management-box">
                         <img
-                        src=" {{ asset('assets/new_frontend/pain-management-icon.svg') }}"
+                        src=" {{ asset('assets/new_frontend/cancer-icon-umbrella.png') }}"
                         alt="{{ $item->title }}"
                         />
                         <p>{{ $item->title }}</p>
@@ -801,7 +655,7 @@
               <div class="substance-abuse-container">
                 @foreach ($data['substance_categories'] as $item)
                     <div class="substance-abuse-box">
-                    <img src=" {{ asset('assets/new_frontend/e-visit-icon.svg') }}" alt="{{ $item->title }}" />
+                    <img src=" {{ asset('assets/new_frontend/self-pay.png') }}" alt="{{ $item->title }}" />
                     <p>{{ $item->title }}</p>
                     </div>
                 @endforeach
@@ -884,7 +738,7 @@
                 <div class="faq">
                     <div class="faq-question">
                         <h3>{{ $faq->question }}</h3>
-                        <img src=" {{ asset('assets/new_frontend/plus.svg') }}" alt="" />
+                        <i class="fa-solid fa-plus"></i>
                     </div>
                     <div class="faq-answer">
                         <p>{!! $faq->answer !!}</p>

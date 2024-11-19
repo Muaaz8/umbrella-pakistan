@@ -15,11 +15,11 @@
           </div>
           <div class="flex gap-15" id="nav-right-side">
             <div id="checker">
-              <img src="{{ asset('assets/new_frontend/checker-icon.svg') }}" alt="" />
+                <i class="fa-regular fa-user"></i>
               <a data-bs-toggle="modal" data-bs-target="#symptomsOpen">Symptoms Checker</a>
             </div>
             <div id="join">
-              <img src="{{ asset('assets/new_frontend/join-icon.svg') }}" alt="" />
+                <i class="fa-solid fa-user-group"></i>
               <a href="">Join Us</a>
             </div>
             <div onclick="window.location.href='{{ url('/my/cart') }}'">
