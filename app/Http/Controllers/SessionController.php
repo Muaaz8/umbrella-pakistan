@@ -205,7 +205,7 @@ class SessionController extends Controller
                             $product = AllProducts::where('id', $prod['medicine_id'])->first()->toArray();
                         } else {
                             $product = QuestDataTestCode::where('TEST_CD', $prod['test_id'])
-                                ->first()->toArray();
+                                ->first();
                         }
                         $cart = Cart::where('doc_session_id', $session['id'])
                             ->where('pres_id', $prod->id)->first();

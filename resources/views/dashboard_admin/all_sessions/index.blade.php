@@ -128,7 +128,6 @@
                                                 <th scope="col">Date</th>
                                                 <th scope="col">Start Time</th>
                                                 <th scope="col">End Time</th>
-                                                <th scope="col">Recording</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -144,11 +143,6 @@
                                                 <td data-label="Date">{{ $session->date }}</td>
                                                 <td data-label="Start Time">{{ $session->start_time }}</td>
                                                 <td data-label="End Time">{{ $session->end_time }}</td>
-                                                <td data-label="Recording"><a class="btn btn-secondary video-btn"
-                                                        onclick="window.open('{{ route('VideoRecordSession', ['id' => $session->id]) }}','popup','width=600,height=500'); return false;"
-                                                        target="popup" rola="button"><i class="fa-solid fa-video fs-5"
-                                                            title="click to watch call recording"
-                                                            style="cursor:pointer; font-size:35px;"></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -178,7 +172,7 @@
                                                     @if (isset($pres->prod_detail['name']))
                                                         <td>{{ ucfirst($pres->prod_detail['name']) }}</td>
                                                     @else
-                                                        <td>{{ ucfirst($pres->prod_detail['DESCRIPTION']) }}</td>
+                                                        <td>{{ ucfirst($pres->prod_detail['TEST_NAME']) }}</td>
                                                     @endif
                                                     <!-- <td>{{ ucfirst($pres->usage) }}</td> -->
                                                     @php

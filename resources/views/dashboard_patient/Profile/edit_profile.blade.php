@@ -117,7 +117,7 @@
                                             </div>
                                     </div>
 
-                                    <div class="row gx-3 mb-3">
+                                    {{--<div class="row gx-3 mb-3">
                                         <div class="col-md-6">
                                             <label class="small mb-1" for="inputBirthday">State</label>
                                             <small class="text-danger state_error"></small>
@@ -131,7 +131,7 @@
                                             <select class="form-select city" name="city" aria-label="Default select example">
                                                 <option selected value="{{ $patient_data->city['id'] }}">{{ $patient_data->city['name'] }}</option>                                            </select>
                                         </div>
-                                    </div>
+                                    </div>--}}
                                     <div class="row gx-3 mb-3">
                                         <div class="col-md-12">
                                             <label class="small mb-1" for="inputEmailAddress">Reason for changing</label>

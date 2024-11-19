@@ -192,8 +192,9 @@ class unAuthController extends Controller
             $products = DB::table('quest_data_test_codes')
                 ->where('SALE_PRICE', '!=', null)
                 ->where('AOES_exist', null)
-                ->where('PARENT_CATEGORY', [21, 25])
-                ->orderBy('TEST_NAME', 'ASC')
+                // ->where('PARENT_CATEGORY', [21, 25])
+                // ->orderBy('TEST_NAME', 'ASC')
+                ->inRandomOrder()
                 ->limit($request->limit)
                 ->get();
             foreach ($products as $product) {
@@ -212,29 +213,63 @@ class unAuthController extends Controller
     }
     public function fetchImagingItemByCategory(Request $request)
     {
+        // if ($request->cat_id != 'all') {
+        //     $products = DB::table('tbl_products')
+        //         ->join('product_categories', 'product_categories.id', 'tbl_products.parent_category')
+        //         ->where('tbl_products.parent_category', $request->cat_id)
+        //         ->where('tbl_products.short_description', '!=', null)
+        //         ->select('tbl_products.*', 'product_categories.slug as cat_name')
+        //         ->limit($request->limit)
+        //         ->get();
+        //     foreach ($products as $product) {
+        //         $product->short_description = strip_tags($product->short_description);
+        //     }
+        // } else {
+        //     $products = DB::table('tbl_products')
+        //         ->where('tbl_products.mode', 'imaging')
+        //         ->where('tbl_products.short_description', '!=', null)
+        //         ->inRandomOrder()
+        //         ->limit($request->limit)
+        //         ->get();
+        //     foreach ($products as $product) {
+        //         $product->short_description = strip_tags($product->short_description);
+        //     }
+        // }
+        // return $products;
         if ($request->cat_id != 'all') {
-            $products = DB::table('tbl_products')
-                ->join('product_categories', 'product_categories.id', 'tbl_products.parent_category')
-                ->where('tbl_products.parent_category', $request->cat_id)
-                ->where('tbl_products.short_description', '!=', null)
-                ->select('tbl_products.*', 'product_categories.slug as cat_name')
+            $cat_name = DB::table('product_categories')->where('id', $request->cat_id)->first();
+
+            $products = DB::table('quest_data_test_codes')
+                ->where('SALE_PRICE', '!=', null)
+                ->where('AOES_exist', null)
+                ->where('PARENT_CATEGORY', 'LIKE', '%' . $request->cat_id . '%')
                 ->limit($request->limit)
                 ->get();
             foreach ($products as $product) {
-                $product->short_description = strip_tags($product->short_description);
+                $product->cat_name = $cat_name->slug;
+                $product->DETAILS = strip_tags($product->DETAILS);
+                $product->SALE_PRICE = number_format($product->SALE_PRICE, 2);
             }
         } else {
-            $products = DB::table('tbl_products')
-                ->where('tbl_products.mode', 'imaging')
-                ->where('tbl_products.short_description', '!=', null)
+            $products = DB::table('quest_data_test_codes')
+                ->where('SALE_PRICE', '!=', null)
+                ->where('AOES_exist', null)
+                // ->where('PARENT_CATEGORY', [21, 25])
+                // ->orderBy('TEST_NAME', 'ASC')
                 ->inRandomOrder()
                 ->limit($request->limit)
                 ->get();
             foreach ($products as $product) {
-                $product->short_description = strip_tags($product->short_description);
+                $product->DETAILS = strip_tags($product->DETAILS);
+                $product->SALE_PRICE = number_format($product->SALE_PRICE, 2);
             }
         }
-        return $products;
+        if (Auth::check()) {
+            $user_id = Auth::user()->id;
+        } else {
+            $user_id = '';
+        }
+        return array('products' => $products, 'user_id' => $user_id);
     }
     public function searchPharmacyItem(Request $request)
     {

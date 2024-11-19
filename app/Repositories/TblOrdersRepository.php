@@ -229,11 +229,11 @@ class TblOrdersRepository extends BaseRepository
     {
 
         $data = DB::table('tbl_orders')
-            ->join('states', 'states.id', '=', 'tbl_orders.order_state')
+            // ->join('states', 'states.id', '=', 'tbl_orders.order_state')
             //->select('name as product_name', 'sale_price')
             ->where('tbl_orders.customer_id', '=', $user_id)
             ->orderBy('tbl_orders.created_at', 'desc')
-            ->select('states.name as order_state', 'tbl_orders.order_status as order_status', 'tbl_orders.order_id', 'tbl_orders.id', 'tbl_orders.created_at')
+            ->select('tbl_orders.order_status as order_status', 'tbl_orders.order_id', 'tbl_orders.id', 'tbl_orders.created_at')
             ->paginate(5);
 
         return $data;

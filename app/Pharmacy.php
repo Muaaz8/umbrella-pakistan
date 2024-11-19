@@ -146,7 +146,7 @@ class Pharmacy extends Model
             ->when($type == 'medicine', function ($query) {
                 return $query->where('id', '38');
             })
-            ->orderBy('name', 'asc')
+            ->orderBy('name', 'desc')
             ->whereNotIn('id', ['27', '29', '43'])
             ->limit(5)
             ->get();

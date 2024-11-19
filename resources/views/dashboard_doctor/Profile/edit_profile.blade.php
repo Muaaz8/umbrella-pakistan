@@ -120,23 +120,6 @@
                                         <input class="form-control zip_code" id="inputPhone" type="tel" name="zip_code" placeholder="Enter your Zip Code" value="{{  $doctor_data->zip_code }}">
                                     </div>
                                     <div class="col-md-6">
-                                        <label class="small mb-1" for="inputBirthday">State</label>
-                                        <small class="text-danger state_error"></small>
-                                        <select class="form-select state" name="state" readonly aria-label="Default select example">
-                                            <option selected value="{{  $doctor_data->state['id']}}">{{  $doctor_data->state['name'] }}</option>
-                                        </select>
-                                    </div>
-                                    </div>
-
-                                <div class="row gx-3 mb-3">
-                                    <div class="col-md-6">
-                                        <label class="small mb-1" for="inputBirthday">City</label>
-                                        <small class="text-danger city_error"></small>
-                                        <select class="form-select city" name="city" aria-label="Default select example">
-                                            <option selected value="{{  $doctor_data->city['id'] }}">{{  $doctor_data->city['name'] }}</option>
-                                          </select>
-                                    </div>
-                                    <div class="col-md-6">
                                         <label class="small mb-1" for="inputPhone">BIO</label>
                                         <input class="form-control" id="bio" type="text"  name="bio"  placeholder="Enter your Bio" value="{{ $doctor_data->bio }}">
 
@@ -144,7 +127,8 @@
                                           {{ $doctor_data->bio }}
                                         </textarea> -->
                                     </div>
-                                </div>
+                                    </div>
+
                                 <div class="row gx-3 mb-3">
                                     <div class="col-md-12">
                                         <label class="small mb-1" for="inputEmailAddress">Reason for changing</label>

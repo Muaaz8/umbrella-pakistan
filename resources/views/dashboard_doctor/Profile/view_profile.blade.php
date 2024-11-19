@@ -106,23 +106,7 @@
                                             @endphp
                                             <p class="py-2 text-muted">{{ $newd_o_b }}</p>
                                         </div>
-                                        <div class="d-flex align-items-center justify-content-between border-bottom">
-                                            <p class="py-2">Country</p>
-                                            <p class="py-2 text-muted" value="{{ $doctor->country }}">
-                                                {{ $doctor->country->name }}</p>
-                                        </div>
-                                        <div class="d-flex align-items-center justify-content-between border-bottom">
-                                            <p class="py-2">State</p>
 
-                                            <p class="py-2 text-muted" value="{{ $doctor->state_id }}">
-                                                {{ $doctor->state->name }}</p>
-
-                                        </div>
-                                        <div class="d-flex align-items-center justify-content-between border-bottom">
-                                            <p class="py-2">City</p>
-                                            <p class="py-2 text-muted" value="{{ $doctor->city_id }}">
-                                                {{ $doctor->city->name }}</p>
-                                        </div>
                                         <div class="d-flex justify-content-between border-bottom">
                                             <p class="py-2">Address</p>
                                             <p class="py-2 text-muted text-break text-end"> {{ $doctor->office_address }}</p>

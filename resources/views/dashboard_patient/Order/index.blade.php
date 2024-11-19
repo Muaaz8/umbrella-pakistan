@@ -48,7 +48,7 @@
                 <thead>
                     <!-- <th scope="col">S.No</th> -->
                     <th scope="col">Order ID</th>
-                    <th scope="col">Order State</th>
+                    {{-- <th scope="col">Order State</th> --}}
                     <th scope="col">Payment</th>
                     <th scope="col">Date</th>
                     <th scope="col">Time</th>
@@ -62,7 +62,7 @@
                 <tr>
                     <!-- <td data-label="S.No" scope="row">{{ $counter }}</td> -->
                     <td data-label="Order ID" type="hidden">{{ $order->order_id }}</td>
-                    <td data-label="Order State">{{ $order->order_state }}</td>
+                    {{-- <td data-label="Order State">{{ $order->order_state }}</td> --}}
                     @if ($order->order_status == "paid")
                         <td data-label="Payment"><label class="order-paid">Paid</label></td>
                     @elseif ($order->order_status == "Pending")

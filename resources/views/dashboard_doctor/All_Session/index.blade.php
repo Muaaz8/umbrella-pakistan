@@ -119,7 +119,7 @@
                         <th scope="col">Date</th>
                         <th scope="col">Start Time</th>
                         <th scope="col">End Time</th>
-                        <th scope="col">Recording</th>
+                        {{-- <th scope="col">Recording</th> --}}
                       </tr>
                     </thead>
                     <tbody>
@@ -132,8 +132,8 @@
                         <td  data-label="Date">{{ $ses->date }}</td>
                         <td  data-label="Start Time">{{ $ses->start_time }}</td>
                         <td  data-label="End Time">{{ $ses->end_time }}</td>
-                        <td  data-label="Recording"><a onclick="window.open('{{ route('sessions.record.view',['id'=>$ses->id]) }}','popup','width=600,height=500'); return false;"
-                            target="popup" rola="button"><button type="button" class="btn btn-secondary video-btn"><i class="fa-solid fa-video"></i>&nbsp; View</button></a></td>
+                        {{-- <td  data-label="Recording"><a onclick="window.open('{{ route('sessions.record.view',['id'=>$ses->id]) }}','popup','width=600,height=500'); return false;"
+                            target="popup" rola="button"><button type="button" class="btn btn-secondary video-btn"><i class="fa-solid fa-video"></i>&nbsp; View</button></a></td> --}}
                       </tr>
                     </tbody>
                   </table>
@@ -154,7 +154,7 @@
                             @foreach ($ses->pres as $meds)
                             <tr>
                                 @if ($meds->type == 'lab-test')
-                                    <td data-label="Recommendation" scope="row">{{ $meds->prod_detail['DESCRIPTION'] }}</td>
+                                    <td data-label="Recommendation" scope="row">{{ $meds->prod_detail['TEST_NAME'] }}</td>
                                 @else
                                     <td data-label="Recommendation" scope="row">{{ $meds->prod_detail['name'] }}</td>
                                 @endif
