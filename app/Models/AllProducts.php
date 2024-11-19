@@ -77,7 +77,9 @@ class AllProducts extends Model
         'del_req',
         'product_status',
         'is_approved',
-        'is_approved_by'
+        'is_approved_by',
+        'generic',
+        'class'
     ];
 
     /**

@@ -468,6 +468,8 @@ class MedicineImportController extends Controller
             $arr = [
                 'name' => $item['ProductName'],
                 'slug' => $this->slugify($item['ProductName']),
+                'generic' => $item['Generic'],
+                'class' => $item['Class'],
                 'parent_category' => $main->id,
                 'sub_category' => $sub->id,
                 'featured_image' => 'dummy_medicine.png',

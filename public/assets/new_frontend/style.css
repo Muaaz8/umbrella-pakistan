@@ -2109,3 +2109,162 @@ footer {
   }
 }
 
+.contact-wrapper .button,
+.modal-body {
+    text-align: center;
+}
+.botIcon,
+.modal {
+    z-index: 9999;
+}
+.modal-e-visit-btn button,
+.modal-login-reg-btn a,
+.modal-login-reg-btn button {
+    background: #fff;
+    box-shadow: rgba(0, 0, 0, 0.4) 0 2px 4px, rgba(0, 0, 0, 0.3) 0 7px 13px -3px,
+        rgba(0, 0, 0, 0.2) 0 -3px 0 inset;
+}
+.modal-login-reg-btn a,
+.modal-login-reg-btn button {
+    padding: 7px 22px;
+    color: #000;
+    font-weight: 500;
+    border: none;
+    border-radius: 20px;
+    margin-left: 10px;
+}
+.modal-login-reg-btn {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.modal-e-visit-btn button:hover,
+.modal-login-reg-btn a:hover,
+.modal-login-reg-btn button:hover {
+    background: #08295a;
+    color: #fff !important;
+}
+.labsbutton.active,
+.modal-e-visit-btn a:hover {
+    color: #fff !important;
+}
+.modal-e-visit-btn a {
+    color: #000;
+    font-weight: 600;
+}
+.modal-e-visit-btn button {
+    padding: 7px 0;
+    border: none;
+    border-radius: 20px;
+    width: 70%;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+.modal-header {
+    background: #08295a;
+    color: #fff;
+    position: relative;
+}
+.modal-header .btn-close {
+    opacity: 1;
+    position: absolute;
+    right: -13px;
+    top: -10px;
+    background-color: beige;
+    border-radius: 50%;
+    font-size: 19px;
+    padding: 12px;
+}
+#msform .action-button:focus,
+#msform .action-button:hover,
+.input-group-text,
+.progress-bar,
+.slider-content button,
+.top-header {
+    background-color: #08295a;
+}
+#msform fieldset:not(:first-of-type),
+#text,
+.botSubject,
+.checkout-steps-wrap #checkoutform fieldset:not(:first-of-type),
+.lte8 .hover-text-new .tooltip,
+.messages,
+.myDiv,
+.resp-cart-icon,
+.showBotSubject .botIconContainer,
+.showMessenger .botIconContainer {
+    display: none;
+}
+#msform,
+#msform fieldset,
+#progressbar li,
+.about-sec-wrapper,
+.affiliate-grid,
+.back-arrow-about,
+.card,
+.catalog-left,
+.contact-wrapper .card,
+.e-visit-wrapper,
+.last,
+.login-inp,
+.medium,
+.text-area {
+    position: relative;
+}
+#clearBtn,
+#msform .action-button,
+#progressbar li.active:after,
+#progressbar li.active:before {
+    background: #08295a;
+}
+#msform {
+    text-align: center;
+    margin-top: 20px;
+}
+#msform fieldset {
+    background: #fff;
+    border: 0;
+    border-radius: 0.5rem;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    padding-bottom: 20px;
+}
+#msform .action-button {
+    width: 100px;
+    font-weight: 700;
+    color: #fff;
+    border: 0;
+    border-radius: 30px;
+    cursor: pointer;
+    padding: 5px;
+    margin: 10px 0 10px 5px;
+    float: right;
+}
+#msform .action-button-previous {
+    width: 100px;
+    background: #e60004;
+    font-weight: 700;
+    color: #fff;
+    border: 0;
+    border-radius: 30px;
+    cursor: pointer;
+    padding: 5px;
+    margin: 10px 5px 10px 0;
+    float: left;
+}
+#msform .action-button-previous:focus,
+#msform .action-button-previous:hover,
+.health_cards a:hover,
+.labsbutton button.active {
+    background-color: #08295a;
+    color: #fff;
+}
+#msform .action-button:focus,
+#msform .action-button:hover,
+.input-group-text,
+.progress-bar,
+.slider-content button,
+.top-header {
+    background-color: #08295a;
+}
