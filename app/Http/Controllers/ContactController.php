@@ -15,11 +15,6 @@ class ContactController extends Controller
     {
         if($r != null)
         {
-            $secretKey = "6Lfx12gjAAAAABKWoz1v0TkSkjDxPmy4yfU84n7m";
-            $response = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secretKey.'&response='.$_POST['g-recaptcha-response']);
-            $response = json_decode($response,true);
-            if($response['success'] === true)
-            {
                 ContactForm::create([
                     'name' =>  $r->fname." ".$r->lname,
                     'email' => $r->email,
@@ -27,9 +22,7 @@ class ContactController extends Controller
                     'subject' => $r->subject,
                     'message' => $r->message,
                 ]);
-            }
         }
-        //  dd($data);
         return redirect(url('/contact-us'));
     }
 
@@ -119,7 +112,7 @@ class ContactController extends Controller
         $user = auth()->user();
         if($user->user_type != "chat_support")
         {
-            
+
             $check = DB::table('chat')->where('from',$user->id)->where('token_status','unsolved')->first();
             $id = DB::table('chat')->insertGetId([
                 'to'=>'agent',
@@ -156,7 +149,7 @@ class ContactController extends Controller
             {
                 DB::table('chat')->where('id',$id)->update(['to'=>$check->to,'token'=>$check->token]);
             }
-        
+
             event(new SendMessage($id,'user'));
             $user->user_image = \App\Helper::check_bucket_files_url($user->user_image);
             return $user;
@@ -249,7 +242,7 @@ class ContactController extends Controller
         {
             DB::table('chat')->where('id',$id)->update(['to'=>$check->to,'token'=>$check->token]);
         }
-    
+
         event(new SendMessage($id,'user'));
         return 'ok';
     }
@@ -264,7 +257,7 @@ class ContactController extends Controller
     public function get_guest_msgs(Request $request)
     {
         $chat = DB::table('chat')->where('user_id',$request->ip)->where('token_status','unsolved')->get();
-        return $chat;   
+        return $chat;
     }
 
     public function get_chatbot_questions()

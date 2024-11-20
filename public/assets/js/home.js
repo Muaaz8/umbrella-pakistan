@@ -85,7 +85,7 @@ function getLabtestProductByCategory(cat_id,limit)
                             '<button class="add_to_cart_btn"><i class="fa-solid fa-cart-shopping"></i>'+
                             '</button></div><h4 class="truncate" title="'+value.TEST_NAME+'">'+value.TEST_NAME+'</h4>'+
                             '<p class="truncate-overflow">'+value.DETAILS+'</p>'+
-                            '<button class="learn_btn">Learn More</button></div></div>'
+                            '<button onclick="window.location.href=\'/labtest/' + value.SLUG + '\'" class="learn_btn">Learn More</button></div></div>'
                         );
                     });
                 }else{
@@ -95,7 +95,7 @@ function getLabtestProductByCategory(cat_id,limit)
                             '<button class="add_to_cart_btn"><i class="fa-solid fa-cart-shopping"></i>'+
                             '</button></div><h4 class="truncate" title="'+value.TEST_NAME+'">'+value.TEST_NAME+'</h4>'+
                             '<p class="truncate-overflow">'+value.DETAILS+'</p>'+
-                            '<button class="learn_btn">Learn More</button></div></div>'
+                            '<button onclick="window.location.href=\'/labtest/' + value.SLUG + '\'" class="learn_btn">Learn More</button></div></div>'
                         );
                     });
                 }
@@ -146,7 +146,7 @@ function getImagingProductByCategory(cat_id,limit)
                         '<div class="add_to_cart_container"><button class="add_to_cart_btn">'+
                         '<i class="fa-solid fa-cart-shopping"></i></button></div>'+
                         '<h4 class="truncate" title="'+value.TEST_NAME+'">'+value.TEST_NAME+'</h4><p class="truncate-overflow" title="'+value.DETAILS+'">'+value.DETAILS+'</p>'+
-                        '<button class="learn_btn" href="/imagings/'+value.slug+'">Learn More</button></div></div>'
+                        '<button onclick="window.location.href=\'/imagings/' + value.SLUG + '\'" class="learn_btn">Learn More</button></div></div>'
                         );
                     });
 
