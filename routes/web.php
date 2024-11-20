@@ -334,7 +334,7 @@ Route::group(['middleware' => 'redirecttovideo'], function () {
         $url = url()->current();
         $tags = DB::table('meta_tags')->where('url',$url)->get();
         $title = DB::table('meta_tags')->where('url',$url)->where('name','title')->first();
-        return view('website_pages.contact_us',compact('tags','title'));
+        return view('website_pages.new_pakistan_contact_us',compact('tags','title'));
     })->name('contact_us');
     Route::post('/contact_us', 'WelcomeController@contact_us')->name('contact_submit');
     Route::post('/contact', 'ContactController@contact_sub');
