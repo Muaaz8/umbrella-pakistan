@@ -328,7 +328,7 @@ Route::group(['middleware' => 'redirecttovideo'], function () {
         $url = url()->current();
         $tags = DB::table('meta_tags')->where('url',$url)->get();
         $title = DB::table('meta_tags')->where('url',$url)->where('name','title')->first();
-        return view('website_pages.about',compact('tags','title'));
+        return view('website_pages.new_pakistan_about',compact('tags','title'));
     })->name('about_us');
     Route::get('/contact-us', function () {
         $url = url()->current();

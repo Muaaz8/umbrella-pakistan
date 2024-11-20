@@ -20,7 +20,7 @@
             </div>
             <div id="join">
                 <i class="fa-solid fa-user-group"></i>
-              <a href="">Join Us</a>
+              <a href="{{ route('login') }}">Join Us</a>
             </div>
             <div onclick="window.location.href='{{ url('/my/cart') }}'">
               <img src="{{ asset('assets/new_frontend/purchase-icon.svg') }}" alt="shop-icon" />
