@@ -54,7 +54,7 @@
                     ->where('section_id', $section->id)
                     ->first();
             @endphp
-            <div class="box"></div>
+
             <div id="hero-content">
                 @if ($top_content[0])
                     {!! $top_content[0]->content !!}
@@ -114,9 +114,10 @@
                             </p>
                         </div>
                     </div>
-                    <div class="arrow">
-                        <i class="fa-solid fa-arrow-right-long"></i>
-                    </div>
+                    <div class="arrow arrow1">
+                <i class="right_arrow fa-solid fa-arrow-right-long"></i>
+                <i class="down_arrow fa-solid fa-arrow-down"></i>
+              </div>
                     <div class="step" data-bs-toggle="modal" data-bs-target="#e-visitModal">
                         <div class="step-icon">
                             <i class="fa-solid fa-laptop"></i>
@@ -130,9 +131,10 @@
                             </p>
                         </div>
                     </div>
-                    <div class="arrow">
-                        <i class="fa-solid fa-arrow-right-long"></i>
-                    </div>
+                    <div class="arrow arrow1">
+                <i class="right_arrow fa-solid fa-arrow-right-long"></i>
+                <i class="down_arrow fa-solid fa-arrow-down"></i>
+              </div>
                     <div class="step" onclick="window.location.href='{{ route('login') }}'">
                         <div class="step-icon">
                             <i class="fa-solid fa-bag-shopping"></i>
@@ -146,9 +148,10 @@
                             </p>
                         </div>
                     </div>
-                    <div class="arrow">
-                        <i class="fa-solid fa-arrow-right-long"></i>
-                    </div>
+                    <div class="arrow arrow1">
+                <i class="right_arrow fa-solid fa-arrow-right-long"></i>
+                <i class="down_arrow fa-solid fa-arrow-down"></i>
+              </div>
                     <div class="step" onclick="window.location.href='{{ route('login') }}'">
                         <div class="step-icon">
                             <i class="fa-regular fa-credit-card"></i>
@@ -205,7 +208,7 @@
         <div class="container1 container-fluid tab-content" id="nav-tabContent">
             <section class="tab-pane fade show active" id="e-visit" role="tabpanel" aria-labelledby="e-visit-tab"
                 tabindex="0">
-                <div class="tabs-section-container">
+                <div class="tabs-section-container e-visit-section">
                     <div class="tabs-section-heading">
                         <h2>E-visit</h2>
                         <div class="underline"></div>
@@ -223,7 +226,7 @@
                             ->where('section_id', $section->id)
                             ->first();
                     @endphp
-                    <div class="e-vist-content">
+                    <div class="e-visit-content">
                         <div class="left">
                             @if ($top_content)
                                 {!! $top_content->content !!}
@@ -667,7 +670,7 @@
                             ->where('section_id', $section->id)
                             ->first();
                     @endphp
-                    <div class="e-vist-content">
+                    <div class="e-visit-content">
                         <div class="left">
                             @if ($top_content)
                                 {!! $top_content->content !!}

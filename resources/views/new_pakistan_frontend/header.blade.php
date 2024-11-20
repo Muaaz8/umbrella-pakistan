@@ -6,7 +6,31 @@
           <div class="flex gap-15" id="nav-left-side">
             <a href="{{ url('/') }}">Home</a>
             <a href="{{ route('about_us') }}">About</a>
-            <a href="#buttons-section">Services</a>
+            <div class="dropdown">
+                <a
+                  class="dropdown-toggle"
+                  href="#"
+                  role="button"
+                  id="servicesDropdown"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Services
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
+                  <li><a class="dropdown-item" href="#">Pharmacy</a></li>
+                  <li><a class="dropdown-item" href="#">Lab Tests</a></li>
+                  <li><a class="dropdown-item" href="#">Imaging</a></li>
+                  <li><a class="dropdown-item" href="#">Primary Care</a></li>
+                  <li><a class="dropdown-item" href="#">Psychiatry</a></li>
+                  <li>
+                    <a class="dropdown-item" href="#">Pain Management</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#">Substance Abuse</a>
+                  </li>
+                </ul>
+              </div>
             <a href="{{ route('e-visit') }}">E-Visit</a>
             <a href="{{ route('contact_us') }}">Contact</a>
           </div>
@@ -18,10 +42,16 @@
                 <i class="fa-regular fa-user"></i>
               <a data-bs-toggle="modal" data-bs-target="#symptomsOpen">Symptoms Checker</a>
             </div>
-            <div id="join">
-                <i class="fa-solid fa-user-group"></i>
-              <a href="{{ route('login') }}">Join Us</a>
-            </div>
+            <div class="dropdown" >
+                <button class="dropdown-toggle w-100" type="button" id="joinDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="fa-solid fa-user-group"></i> Join Us
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="joinDropdown">
+                  <li><a class="dropdown-item" href="{{ route('login') }}" >Register as Doctor</a></li>
+                  <li><a class="dropdown-item" href="{{ route('login') }}" >Register as Patient</a></li>
+                  <li><a class="dropdown-item" href="{{ route('login') }}">Login</a></li>
+                </ul>
+              </div>
             <div onclick="window.location.href='{{ url('/my/cart') }}'">
               <img src="{{ asset('assets/new_frontend/purchase-icon.svg') }}" alt="shop-icon" />
             </div>
