@@ -79,7 +79,8 @@ class AllProducts extends Model
         'is_approved',
         'is_approved_by',
         'generic',
-        'class'
+        'class',
+        'is_single'
     ];
 
     /**

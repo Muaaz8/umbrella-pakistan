@@ -368,16 +368,7 @@ class MedicineImportController extends Controller
                 foreach ($units as $unitName) {
 
                     $unit = MedicineUOM::where('unit', $unitName)->first();
-                    if($unit){
-                        $unit_id = $unit->id;
-                    }else{
-                        $newUnit = MedicineUOM::create([
-                            'unit' => $unitName,
-                            'status' => 1,
-                        ]);
-                        $unit_id = $newUnit->id;
-
-                    }
+                    $unit_id = $unit->id;
                     $prices = explode(",", $item['Price']);
                     $days = explode(",", $item['Days']);
 
@@ -464,8 +455,8 @@ class MedicineImportController extends Controller
 
     public function payloadProducts($item, $user_id)
     {
-        $main = ProductCategory::where('slug','LIKE','%'.$this->slugify($item['MainCategory']).'%')->first();
-        $sub = ProductsSubCategory::where('slug','LIKE','%'.$this->slugify($item['SubCategory']).'%')->first();
+        $main = ProductCategory::where('slug',$this->slugify($item['MainCategory']))->first();
+        $sub = ProductsSubCategory::where('slug',$this->slugify($item['SubCategory']))->first();
         $prod = AllProducts::where('name',$item['ProductName'])->where('parent_category',$main->id)->where('sub_category',$sub->id)->first();
         if($prod){
             $product_id = $prod->id;
@@ -493,6 +484,7 @@ class MedicineImportController extends Controller
                 'user_id' => $user_id,
                 'product_status' => 1,
                 'is_approved' => 1,
+                'is_single' => $item['Is_single'],
             ];
 
             $product_id = AllProducts::create($arr)->id;
@@ -525,10 +517,10 @@ class MedicineImportController extends Controller
             foreach ($units as $unitName) {
                 $unit = MedicineUOM::where('unit', $unitName)->count();
                 if ($unit == 0) {
-                    $result[] = [
-                        'message' => $unitName . '  not found in our records at line ' . $i,
-                        'status' => 'ERROR',
-                    ];
+                    $newUnit = MedicineUOM::create([
+                        'unit' => $unitName,
+                        'status' => 1,
+                    ]);
                 }
             }
 
