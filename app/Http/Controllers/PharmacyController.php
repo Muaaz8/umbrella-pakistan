@@ -222,9 +222,13 @@ class PharmacyController extends Controller
                 return view('website_pages.lab-test.new_pakistan_single_view', compact('products','meta_tags','title'));
             } else if ($product->mode == 'imaging') {
                 $meta_tags = DB::table('meta_tags')->where('product_id',$product->id)->get();
+                $product->related_products = DB::table('related_products')
+                    ->join('quest_data_test_codes','quest_data_test_codes.TEST_CD','related_products.related_product_ids')
+                    ->where('related_products.product_id',$product->id)
+                    ->select('quest_data_test_codes.*')
+                    ->get();
                 $title = DB::table('meta_tags')->where('name','title')->where('product_id',$product->id)->first();
-                // return view('single_product_details', compact('products'));
-                return view('website_pages.imaging.single_view', compact('products','meta_tags','title'));
+                return view('website_pages.imaging.new_pakistan_single_view', compact('products','meta_tags','title'));
             }
         }
     }

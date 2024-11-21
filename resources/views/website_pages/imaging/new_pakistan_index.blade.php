@@ -183,7 +183,7 @@
         </div>
 
         <div class="container">
-            <h3>Umbrella Health Care Systems - Medicines</h3>
+            <h3>Umbrella Health Care Systems - Imaging</h3>
             <p>
                 Our pharmacy offers prescription drugs at discounted prices.
             </p>

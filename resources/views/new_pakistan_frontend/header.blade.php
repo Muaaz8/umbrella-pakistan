@@ -18,16 +18,15 @@
                   Services
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
-                  <li><a class="dropdown-item" href="#">Pharmacy</a></li>
-                  <li><a class="dropdown-item" href="#">Lab Tests</a></li>
-                  <li><a class="dropdown-item" href="#">Imaging</a></li>
-                  <li><a class="dropdown-item" href="#">Primary Care</a></li>
-                  <li><a class="dropdown-item" href="#">Psychiatry</a></li>
+                  <li><a class="dropdown-item" href="{{ route('pharmacy') }}">Pharmacy</a></li>
+                  <li><a class="dropdown-item" href="{{ route('labs') }}">Lab Tests</a></li>
+                  <li><a class="dropdown-item" href="{{ route('imaging') }}">Imaging</a></li>
+                  <li><a class="dropdown-item" href="{{ route('psychiatry',['slug'=>'anxiety']) }}">Psychiatry</a></li>
                   <li>
-                    <a class="dropdown-item" href="#">Pain Management</a>
+                    <a class="dropdown-item" href="{{ route('pain.management') }}">Pain Management</a>
                   </li>
                   <li>
-                    <a class="dropdown-item" href="#">Substance Abuse</a>
+                    <a class="dropdown-item" href="{{ route('substance',['slug'=>'first-visit']) }}">Substance Abuse</a>
                   </li>
                 </ul>
               </div>
@@ -38,17 +37,17 @@
             <img src="{{ asset('assets/new_frontend/logo.png') }}" alt="umbrella-logo" />
           </div>
           <div class="flex gap-15" id="nav-right-side">
-            <div id="checker">
+            {{-- <div id="checker">
                 <i class="fa-regular fa-user"></i>
               <a data-bs-toggle="modal" data-bs-target="#symptomsOpen">Symptoms Checker</a>
-            </div>
+            </div> --}}
             <div class="dropdown" >
                 <button class="dropdown-toggle w-100" type="button" id="joinDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                   <i class="fa-solid fa-user-group"></i> Join Us
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="joinDropdown">
-                  <li><a class="dropdown-item" href="{{ route('login') }}" >Register as Doctor</a></li>
-                  <li><a class="dropdown-item" href="{{ route('login') }}" >Register as Patient</a></li>
+                  <li><a class="dropdown-item" href="{{ route('doc_register') }}" >Register as Doctor</a></li>
+                  <li><a class="dropdown-item" href="{{ route('pat_register') }}" >Register as Patient</a></li>
                   <li><a class="dropdown-item" href="{{ route('login') }}">Login</a></li>
                 </ul>
               </div>
@@ -68,12 +67,12 @@
             <span class="close-btn" onclick="toggleDrawer()">×</span>
             <img width="220px" src="{{ asset('assets/new_frontend/logo.png') }}" alt="" />
             <hr />
-            <a href="#">Home</a>
-            <a href="#">About</a>
+            <a href="{{ url('/') }}">Home</a>
+            <a href="{{ route('about_us') }}">About</a>
             <a href="#">Services</a>
-            <a href="#">Contact</a>
+            <a href="{{ route('contact_us') }}">Contact</a>
             <hr />
-            <a href="#">Symptoms Checker</a>
+            {{-- <a href="#">Symptoms Checker</a> --}}
             <a href="#">Join Us</a>
           </div>
 
