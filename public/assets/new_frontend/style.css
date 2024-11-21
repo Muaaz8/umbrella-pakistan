@@ -2216,65 +2216,99 @@
 
   /* modal css  */
 
-.contact-wrapper .button,
-.modal-body {
-    text-align: center;
-}
-
-.botIcon,
-.modal {
-    z-index: 9999;
-}
-
-.modal-e-visit-btn button,
-.modal-login-reg-btn a,
-.modal-login-reg-btn button {
-    background: #fff;
-    box-shadow: rgba(0, 0, 0, 0.4) 0 2px 4px, rgba(0, 0, 0, 0.3) 0 7px 13px -3px,
-        rgba(0, 0, 0, 0.2) 0 -3px 0 inset;
-}
-
-.modal-login-reg-btn a,
-.modal-login-reg-btn button {
-    padding: 7px 22px;
-    color: #000;
-    font-weight: 500;
-    border: none;
-    border-radius: 20px;
-    margin-left: 10px;
-}
-.modal-login-reg-btn {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-.modal-e-visit-btn button:hover,
-.modal-login-reg-btn a:hover,
-.modal-login-reg-btn button:hover {
-    background: var(--navy-blue);
-    color: #fff !important;
-}
-.labsbutton.active,
-.modal-e-visit-btn a:hover {
-    color: #fff !important;
-}
-.modal-e-visit-btn a {
-    color: #000;
-    font-weight: 600;
-}
-.modal-e-visit-btn button {
-    padding: 7px 0;
-    border: none;
-    border-radius: 20px;
-    width: 70%;
-    margin-bottom: 20px;
-    font-weight: 600;
-}
-.modal-header {
-    background: var(--navy-blue);
+  .modal-header {
+    background: #08295a;
     color: #fff;
     position: relative;
 }
+
+
+.fs-title {
+    font-size: 25px;
+    color: #673ab7;
+    margin-bottom: 15px;
+    font-weight: normal;
+    text-align: left;
+}
+
+
+#msform {
+    text-align: center;
+    position: relative;
+    margin-top: 20px;
+}
+
+
+.fieldlabels {
+    color: gray;
+    text-align: left;
+}
+
+
+#msform fieldset {
+    background: #fff;
+    border: 0 none;
+    border-radius: .5rem;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0;
+    padding-bottom: 20px;
+    position: relative;
+}
+
+
+#msform .custom_input {
+    padding: 8px 15px 8px 15px;
+    border: 1px solid #ccc;
+    border-radius: 0;
+    margin-bottom: 14px;
+    margin-top: 2px;
+    width: 100%;
+    box-sizing: border-box;
+    font-family: montserrat;
+    color: #2c3e50;
+    background-color: #eceff1;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+
+#msform .action-button {
+    width: 100px;
+    background: #673ab7;
+    font-weight: bold;
+    color: #fff;
+    border: 0 none;
+    border-radius: 0;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 0 10px 5px;
+    float: right;
+}
+
+
+#msform .action-button-previous {
+    width: 100px;
+    background: #616161;
+    font-weight: bold;
+    color: #fff;
+    border: 0 none;
+    border-radius: 0;
+    cursor: pointer;
+    padding: 10px 5px;
+    margin: 10px 5px 10px 0;
+    float: right;
+}
+
+
+.login-or-sec {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 700;
+}
+
+
 .modal-header .btn-close {
     opacity: 1;
     position: absolute;
@@ -2286,14 +2320,150 @@
     padding: 12px;
 }
 
-#msform .action-button:focus,
-#msform .action-button:hover,
-.input-group-text,
-.progress-bar,
-.slider-content button,
-.top-header {
-    background-color: var(--navy-blue);
+
+.message__div {
+    display: flex
+;
+    align-items: center;
+    gap: 7px;
+    margin-top: 10px;
 }
+
+
+.right__user {
+    display: flex;
+    justify-content: end;
+    gap: 14px;
+    align-items: end;
+    padding: 2px;
+}
+
+
+.invalid-feedback {
+    display: none;
+    width: 100%;
+    margin-top: .25rem;
+    font-size: .875em;
+    color: var(--bs-form-invalid-color);
+}
+
+
+.dropdown-select {
+    display: none;
+
+
+}
+
+
+.chatmain {
+    max-height: 180px;
+    overflow-y: auto;
+}
+
+
+.right_p {
+    background-color: #08295a;
+    padding: 10px 19px;
+    border-radius: 10px 10px 0 10px;
+    color: #fff;
+    max-width: 400px;
+    word-break: break-word;
+}
+
+
+.right__user_img {
+    border-radius: 15px;
+    width: 30px;
+    height: 30px;
+}
+
+
+.message__div {
+    display: flex
+;
+    align-items: center;
+    gap: 7px;
+    margin-top: 10px;
+}
+
+
+.left_p {
+  background-color: #cecece;
+  padding: 10px 19px;
+  border-radius: 10px 10px 10px 0;
+  color: #000;
+  text-align: left;
+  max-width: 400px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  word-break: break-word;
+}
+
+
+.left_user{
+  display: flex;
+  justify-content: start;
+  width: 100%;
+  gap: 14px;
+  align-items: end;
+  flex-direction: row-reverse;
+  padding: 5px;
+}
+
+
+.contact-wrapper .button,
+.modal-body {
+  text-align: center;
+}
+
+
+.botIcon,
+.modal {
+  z-index: 9999;
+}
+
+
+.modal-e-visit-btn button,
+.modal-login-reg-btn a,
+.modal-login-reg-btn button {
+  background: #fff;
+  box-shadow: rgba(0, 0, 0, 0.4) 0 2px 4px, rgba(0, 0, 0, 0.3) 0 7px 13px -3px,
+    rgba(0, 0, 0, 0.2) 0 -3px 0 inset;
+}
+
+
+
+
+.modal-login-reg-btn {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+
+.modal-e-visit-btn button:hover,
+.modal-login-reg-btn a:hover,
+.modal-login-reg-btn button:hover {
+  background: #08295a;
+  color: #fff !important;
+}
+
+
+.labsbutton.active,
+.modal-e-visit-btn a:hover {
+  color: #fff !important;
+}
+
+
+.modal-e-visit-btn button {
+  padding: 7px 0;
+  border: none;
+  border-radius: 20px;
+  width: 70%;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
 
 #msform fieldset:not(:first-of-type),
 #text,
@@ -2305,8 +2475,9 @@
 .resp-cart-icon,
 .showBotSubject .botIconContainer,
 .showMessenger .botIconContainer {
-    display: none;
+  display: none;
 }
+
 
 #msform,
 #msform fieldset,
@@ -2322,61 +2493,26 @@
 .login-inp,
 .medium,
 .text-area {
-    position: relative;
+  position: relative;
 }
+
 
 #clearBtn,
 #msform .action-button,
 #progressbar li.active:after,
 #progressbar li.active:before {
-    background: var(--navy-blue);
+  background: #08295a;
 }
 
-#msform {
-    text-align: center;
-    margin-top: 20px;
-}
-#msform fieldset {
-    background: #fff;
-    border: 0;
-    border-radius: 0.5rem;
-    box-sizing: border-box;
-    width: 100%;
-    margin: 0;
-    padding-bottom: 20px;
-}
-
-#msform .action-button {
-    width: 100px;
-    font-weight: 700;
-    color: #fff;
-    border: 0;
-    border-radius: 30px;
-    cursor: pointer;
-    padding: 5px;
-    margin: 10px 0 10px 5px;
-    float: right;
-}
-#msform .action-button-previous {
-    width: 100px;
-    background: #e60004;
-    font-weight: 700;
-    color: #fff;
-    border: 0;
-    border-radius: 30px;
-    cursor: pointer;
-    padding: 5px;
-    margin: 10px 5px 10px 0;
-    float: left;
-}
 
 #msform .action-button-previous:focus,
 #msform .action-button-previous:hover,
 .health_cards a:hover,
 .labsbutton button.active {
-    background-color: var(--navy-blue);
-    color: #fff;
+  background-color: #08295a;
+  color: #fff;
 }
+
 
 #msform .action-button:focus,
 #msform .action-button:hover,
@@ -2384,241 +2520,7 @@
 .progress-bar,
 .slider-content button,
 .top-header {
-    background-color: var(--navy-blue);
-}
-
-.fs-title {
-    font-size: 25px;
-    color: #673ab7;
-    margin-bottom: 15px;
-    font-weight: normal;
-    text-align: left;
-}
-
-.fieldlabels {
-    color: gray;
-    text-align: left;
-}
-
-
-.right_p {
-    background-color: var(--navy-blue);
-    padding: 10px 19px;
-    border-radius: 10px 10px 0 10px;
-    color: #fff;
-    max-width: 300px;
-}
-#msform .custom_input {
-    padding: 8px 15px 8px 15px;
-    border: 1px solid #ccc;
-    border-radius: 0;
-    margin-bottom: 14px;
-    margin-top: 2px;
-    width: 100%;
-    box-sizing: border-box;
-    font-family: montserrat;
-    color: #2c3e50;
-    background-color: #eceff1;
-    font-size: 16px;
-    letter-spacing: 1px;
-}
-
-#msform .action-button {
-    width: 100px;
-    background: #673ab7;
-    font-weight: bold;
-    color: #fff;
-    border: 0 none;
-    border-radius: 0;
-    cursor: pointer;
-    padding: 10px 5px;
-    margin: 10px 0 10px 5px;
-    float: right;
-}
-
-.right__user_img {
-    border-radius: 15px;
-    width: 30px;
-    height: 30px;
-}
-
-.right__user {
-    display: flex;
-    justify-content: end;
-    gap: 14px;
-    align-items: center;
-}
-
-#send_button {
-    border: none;
-    padding: 6px 8px;
-    outline: none;
-    background: var(--navy-blue);
-    color: #fff;
-    border-radius: 5px;
-}
-
-
-.left_p {
-    background-color: #cecece;
-    padding: 10px 19px;
-    border-radius: 10px 10px 10px 0;
-    color: #000;
-    text-align: left;
-    max-width: 300px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.right__user_img {
-    border-radius: 15px;
-    width: 30px;
-    height: 30px;
-}
-
-
-
-.modal-header {
-    background: var(--navy-blue);
-    color: #fff;
-    position: relative;
-}
-
-.fs-title {
-    font-size: 25px;
-    color: #673ab7;
-    margin-bottom: 15px;
-    font-weight: normal;
-    text-align: left;
-}
-
-#msform {
-    text-align: center;
-    position: relative;
-    margin-top: 20px;
-}
-
-.fieldlabels {
-    color: gray;
-    text-align: left;
-}
-
-#msform fieldset {
-    background: #fff;
-    border: 0 none;
-    border-radius: .5rem;
-    box-sizing: border-box;
-    width: 100%;
-    margin: 0;
-    padding-bottom: 20px;
-    position: relative;
-}
-
-#msform .custom_input {
-    padding: 8px 15px 8px 15px;
-    border: 1px solid #ccc;
-    border-radius: 0;
-    margin-bottom: 14px;
-    margin-top: 2px;
-    width: 100%;
-    box-sizing: border-box;
-    font-family: montserrat;
-    color: #2c3e50;
-    background-color: #eceff1;
-    font-size: 16px;
-    letter-spacing: 1px;
-}
-
-#msform .action-button {
-    width: 100px;
-    background: #673ab7;
-    font-weight: bold;
-    color: #fff;
-    border: 0 none;
-    border-radius: 0;
-    cursor: pointer;
-    padding: 10px 5px;
-    margin: 10px 0 10px 5px;
-    float: right;
-}
-
-#msform .action-button-previous {
-    width: 100px;
-    background: #616161;
-    font-weight: bold;
-    color: #fff;
-    border: 0 none;
-    border-radius: 0;
-    cursor: pointer;
-    padding: 10px 5px;
-    margin: 10px 5px 10px 0;
-    float: right;
-}
-
-.login-or-sec {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-weight: 700;
-}
-
-.modal-header .btn-close {
-    opacity: 1;
-    position: absolute;
-    right: -13px;
-    top: -10px;
-    background-color: beige;
-    border-radius: 50%;
-    font-size: 19px;
-    padding: 12px;
-}
-
-.message__div {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    margin-top: 10px;
-    width: 50%;
-    position: fixed;
-    bottom: 0%;
-}
-
-.right__user {
-    display: flex;
-    justify-content: end;
-    gap: 14px;
-    align-items: center;
-}
-
-.invalid-feedback {
-    display: none;
-    width: 100%;
-    margin-top: .25rem;
-    font-size: .875em;
-    color: var(--bs-form-invalid-color);
-}
-
-.dropdown-select {
-    display: none;
-}
-
-
-.modal-body{
-    border: none;
-    width: 100%;
-    margin: 0 auto;
-    overflow-y: auto;
-    min-height: 50vh;
-}
-
-
-.modal-body .card{
-    border: none !important;
-    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-    padding: 20px;
-    margin: 20px 0;
-    min-height: 50vh;
+  background-color: #08295a;
 }
 
 
@@ -3042,3 +2944,4 @@
         margin-top: 10%;
       }
     }
+

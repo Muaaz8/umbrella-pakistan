@@ -555,7 +555,7 @@
                         @endforeach
                         <div class="pharmacy-category">
                             <i class="fa-solid fa-flask"></i>
-                            <div>View More</div>
+                            <div onclick="location.href='{{ route('imaging') }}'">View More</div>
                         </div>
                     </div>
 
@@ -646,7 +646,7 @@
                     </div>
 
                     <div class="btn-div">
-                        <button class="view_all">View All</button>
+                        <button class="view_all" onclick="location.href='{{ route('imaging') }}'">View All</button>
                     </div>
                 </div>
             </section>
@@ -746,7 +746,7 @@
                     </div>
 
                     <div class="btn-div">
-                        <button class="view_all">View All</button>
+                        <button class="view_all" onclick="location.href='{{ route('psychiatry',['slug'=>"anxiety"]) }}'">View All</button>
                     </div>
                 </div>
             </section>
@@ -793,7 +793,7 @@
                     </div>
 
                     <div class="btn-div">
-                        <button class="view_all">View All</button>
+                        <button class="view_all" onclick="location.href='{{ route('pain.management') }}'">View All</button>
                     </div>
                 </div>
             </section>
@@ -839,7 +839,7 @@
                     </div>
 
                     <div class="btn-div">
-                        <button class="view_all">View All</button>
+                        <button class="view_all" onclick="location.href='{{ route('substance',['slug'=>'first-visit']) }}'">View All</button>
                     </div>
                 </div>
             </section>

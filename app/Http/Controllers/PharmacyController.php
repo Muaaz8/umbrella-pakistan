@@ -107,21 +107,21 @@ class PharmacyController extends Controller
         } elseif ($pageName == "imaging") {
             $modeType = "imaging";
             $sideMenus = $this->Pharmacy->getMainCategory($modeType);
-            $viewName = 'website_pages.imaging.index';
+            $viewName = 'website_pages.imaging.new_pakistan_index';
         } elseif ($pageName == "substance-abuse") {
             $modeType = 'substance-abuse';
             $sideMenus = $this->getSideMenuByType($modeType);
-            $viewName = 'website_pages.substance.index';
+            $viewName = 'website_pages.substance.new_pakistan_index';
         } elseif ($pageName == "pain-management") {
 
             $modeType = $pageName;
             $sideMenus = $this->getSideMenuByType($modeType);
 
-            $viewName = 'website_pages.pain-management.index';
+            $viewName = 'website_pages.pain-management.new_pakistan_index';
         }elseif ($pageName == "psychiatry") {
             $modeType = $pageName;
             $sideMenus = $this->getSideMenuByType($modeType);
-            $viewName = 'website_pages.psychiatrist.index';
+            $viewName = 'website_pages.psychiatrist.new_pakistan_index';
         }elseif ($pageName == "primary-care"){
             $sideMenus ='';
             $viewName = 'website_pages.primary-care.index';
@@ -168,11 +168,11 @@ class PharmacyController extends Controller
                 $slug_name = "MR";
             }
         } elseif (!empty($slug) && $pageName == 'substance-abuse') {
-            $products = $this->Pharmacy->getProductBySlugCommaIds($slug, $modeType);
+            $products = $this->Pharmacy->getProductBySlugCommaIds($slug="", $modeType);
         } elseif (!empty($slug) && $pageName == 'pain-management') {
             $products = $this->Pharmacy->getProductBySlugCommaIds($slug, $modeType);
         }elseif (!empty($slug) && $pageName == 'psychiatry') {
-            $products = $this->Pharmacy->getProductBySlugCommaIds($slug, $modeType);
+            $products = $this->Pharmacy->getProductBySlugCommaIds($slug="", $modeType);
         }elseif ($pageName == 'primary-care'){
             $products = '';
         } else {

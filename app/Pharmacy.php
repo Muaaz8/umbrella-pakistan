@@ -194,10 +194,7 @@ class Pharmacy extends Model
             return $data;
         } elseif ($mode == 'substance-abuse') {
             $get_cat_id = DB::table($this->tbl_SubCategories)->select('id')
-                ->where('slug', '=', $slug)
                 ->get();
-            // dd($get_cat_id);
-            $cat_id = $get_cat_id[0]->id;
             $data = DB::table($this->tbl_Products)
                 ->leftJoin('product_categories', 'tbl_products.parent_category', '=', 'product_categories.id')
                 ->leftJoin('products_sub_categories', 'tbl_products.sub_category', '=', 'products_sub_categories.id')
@@ -208,7 +205,7 @@ class Pharmacy extends Model
                     'products_sub_categories.title as sub_category_name',
                     'products_sub_categories.slug as sub_category_slug'
                 )
-                ->whereRaw("find_in_set('$cat_id',`sub_category`)")
+                ->whereRaw("find_in_set('18',`parent_category`)")
                 ->where('product_status', 1)
                 ->where('is_approved', 1)
                 ->orderBy('name', 'asc')
@@ -237,11 +234,8 @@ class Pharmacy extends Model
             return $data;
         }elseif ($mode == 'psychiatry') {
             $get_cat_id = DB::table($this->tbl_SubCategories)->select('id')
-                ->where('slug', '=', $slug)
                 ->get();
-                $cat_id = $get_cat_id[count($get_cat_id)-1]->id;
-                // dd($get_cat_id);
-            $data = DB::table($this->tbl_SubCategories)->where('id',$cat_id)->get();
+            $data = DB::table($this->tbl_SubCategories)->where('parent_id',44)->get();
             return $data;
         }
         $get_cat_id = DB::table($this->tbl_Categories)->select('id')
@@ -270,14 +264,24 @@ class Pharmacy extends Model
                 ->orderBy('name', 'ASC')
                 ->paginate(10);
         } elseif ($mode == 'imaging') {
-            $data = DB::table($this->tbl_Products)
-                ->select("*")
-                ->whereRaw("find_in_set('$cat_id',`parent_category`)")
-                ->where('mode', $mode)
-                ->where('product_status', 1)
-                ->where('is_approved', 1)
+            $data = DB::table('quest_data_test_codes')
+                ->select(
+                    'TEST_CD AS id',
+                    'TEST_NAME AS name',
+                    'SALE_PRICE AS sale_price',
+                    'DETAILS AS short_description',
+                    'DETAILS AS description',
+                    DB::raw('SLUG as slug'),
+                    DB::raw('"quest_data_test_codes" as tbl_name')
+                )->where([
+                    ['PARENT_CATEGORY', '!=', ""],
+                    ['AOES_exist', null],
+                    ['DETAILS', '!=', ""],
+                    ['SALE_PRICE', '!=', ""],
+                ])->whereRaw("find_in_set('$cat_id',`PARENT_CATEGORY`)")
+                // ->union($first)
                 ->orderBy('name', 'ASC')
-                ->paginate(12);
+                ->paginate(10);
         }
         // dd($data);
         return $data;
