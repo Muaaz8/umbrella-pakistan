@@ -351,7 +351,7 @@ Route::group(['middleware' => 'redirecttovideo'], function () {
         $url = url()->current();
         $tags = DB::table('meta_tags')->where('url',$url)->get();
         $title = DB::table('meta_tags')->where('url',$url)->where('name','title')->first();
-        return view('website_pages.e-visit',compact('tags','title'));
+        return view('website_pages.new_pakistan_e-visit',compact('tags','title'));
     })->name('e-visit');
     Route::get('/careers', function () {
         return view('careers');

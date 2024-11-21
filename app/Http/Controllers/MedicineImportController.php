@@ -500,19 +500,19 @@ class MedicineImportController extends Controller
         $i = 2;
         $result = [];
         foreach ($data as $item) {
-            if (empty($item['ProductName']) || empty($item['MainCategory']) || empty($item['Units']) || empty($item['Price']) || empty($item['Days'])) {
+            if (empty($item['ProductName']) || empty($item['MainCategory']) || empty($item['Units']) || empty($item['Price'])) {
                 $result[] = [
                     'message' => 'Empty Column found at line ' . $i,
                     'status' => 'ERROR',
                 ];
             }
 
-            if (count(explode(",", $item['Price'])) != count(explode(",", $item['Days']))) {
-                $result[] = [
-                    'message' => 'Check Price and Days at line ' . $i,
-                    'status' => 'ERROR',
-                ];
-            }
+            // if (count(explode(",", $item['Price'])) != count(explode(",", $item['Days']))) {
+            //     $result[] = [
+            //         'message' => 'Check Price and Days at line ' . $i,
+            //         'status' => 'ERROR',
+            //     ];
+            // }
 
 
             $units = explode(",", $item['Units']);
@@ -527,17 +527,17 @@ class MedicineImportController extends Controller
                 }
             }
 
-            $days = explode(",", $item['Days']);
+            // $days = explode(",", $item['Days']);
 
-            foreach ($days as $day) {
-                $day_data = MedicineDays::where('days', 'like', '%' . $day . '%')->count();
-                if ($day_data == 0) {
-                    $result[] = [
-                        'message' => $day . ' Days  not found in our records at line ' . $i,
-                        'status' => 'ERROR',
-                    ];
-                }
-            }
+            // foreach ($days as $day) {
+            //     $day_data = MedicineDays::where('days', 'like', '%' . $day . '%')->count();
+            //     if ($day_data == 0) {
+            //         $result[] = [
+            //             'message' => $day . ' Days  not found in our records at line ' . $i,
+            //             'status' => 'ERROR',
+            //         ];
+            //     }
+            // }
 
             $i++;
         }

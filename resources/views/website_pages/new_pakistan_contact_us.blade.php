@@ -166,28 +166,46 @@
                     <div class="underline"></div>
                 </div>
                 <div>
-                    <p>
-                        The information on this site is not intended or implied to be a
-                        substitute for professional medical advice, diagnosis or
-                        treatment. All content, including text, graphics, images and
-                        Information, contained on or available through this web site is
-                        for general information purposes only. Umbrellamd.com makes no
-                        representation and assumes no responsibility for the accuracy of
-                        information contained on or available through this web site, and
-                        such information is subject to change without notice. You are
-                        encouraged to confirm any information obtained from or through
-                        this web site with other sources, and review all information
-                        regarding any medical condition or treatment with your
-                        physician.
-                    </p>
-                    <p>
-                        Never disregard professional medical advice or delay seeking
-                        medical treatment because of something you have read on or
-                        accessed through this web site. umbrella health care systems not
-                        responsible nor liable for any advice, course of treatment,
-                        diagnosis or any other information, services or products that
-                        you obtain through this website.
-                    </p>
+                    @php
+                        $page = DB::table('pages')->where('url', '/')->first();
+                        $section = DB::table('section')
+                            ->where('page_id', $page->id)
+                            ->where('section_name', 'disclaimer')
+                            ->where('sequence_no', '1')
+                            ->first();
+                        $top_content = DB::table('content')
+                            ->where('section_id', $section->id)
+                            ->first();
+                        $image_content = DB::table('images_content')
+                            ->where('section_id', $section->id)
+                            ->first();
+                    @endphp
+                    @if ($top_content)
+                        {!! $top_content->content !!}
+                    @else
+                        <p>
+                            The information on this site is not intended or implied to be a
+                            substitute for professional medical advice, diagnosis or
+                            treatment. All content, including text, graphics, images and
+                            Information, contained on or available through this web site is
+                            for general information purposes only. Umbrellamd.com makes no
+                            representation and assumes no responsibility for the accuracy of
+                            information contained on or available through this web site, and
+                            such information is subject to change without notice. You are
+                            encouraged to confirm any information obtained from or through
+                            this web site with other sources, and review all information
+                            regarding any medical condition or treatment with your
+                            physician.
+                        </p>
+                        <p>
+                            Never disregard professional medical advice or delay seeking
+                            medical treatment because of something you have read on or
+                            accessed through this web site. umbrella health care systems not
+                            responsible nor liable for any advice, course of treatment,
+                            diagnosis or any other information, services or products that
+                            you obtain through this website.
+                        </p>
+                    @endif
                 </div>
             </div>
             <div class="custom-shape-divider-bottom-1731257443">
