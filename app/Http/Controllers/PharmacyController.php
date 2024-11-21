@@ -99,7 +99,7 @@ class PharmacyController extends Controller
         if ($pageName == 'pharmacy') {
             $modeType = 'medicine';
             $sideMenus = $this->Pharmacy->getMedPrescribeSubCategories();
-            $viewName = "website_pages.pharmacy.index";
+            $viewName = "website_pages.pharmacy.new_pakistan_index";
         } elseif ($pageName == 'labtests') {
             $modeType = 'lab-test';
             $sideMenus = $this->Pharmacy->getMainCategory($modeType);
@@ -184,20 +184,10 @@ class PharmacyController extends Controller
         $data['sidebar'] = $sideMenus;
         $data['products'] = $products;
 
-        // dd($data);
-        $banners = DB::table('banner')->where('status',1)->where('page_name',$pageName)->get()->toArray();
-        foreach($banners as $banner)
-        {
-            if($banner->img!=null)
-            {
-                $banner->img=\App\Helper::check_bucket_files_url($banner->img);
-            }
-        }
-        $banners = json_encode($banners);
         $url = url()->current();
-        $tags = DB::table('meta_tags')->where('url',$url)->get();
+        $meta_tags = DB::table('meta_tags')->where('url',$url)->get();
         $title = DB::table('meta_tags')->where('url',$url)->where('name','title')->first();
-        return view($viewName, compact('data', 'slug', 'slug_name','banners','title','tags'));
+        return view($viewName, compact('data', 'slug', 'slug_name','title','meta_tags'));
     }
 
     public function single_product($slug)
@@ -219,7 +209,7 @@ class PharmacyController extends Controller
             if ($product->mode == "medicine") {
                 $meta_tags = DB::table('meta_tags')->where('product_id',$product->id)->get();
                 $title = DB::table('meta_tags')->where('name','title')->where('product_id',$product->id)->first();
-                return view('website_pages.pharmacy.single_view', compact('products','meta_tags','title'));
+                return view('website_pages.pharmacy.new_pakistan_single_view', compact('products','meta_tags','title'));
                 // return view('single_product_details', compact('products'));
             } else if ($product->mode == 'lab-test') {
                 $meta_tags = DB::table('meta_tags')->where('product_id',$product->id)->get();

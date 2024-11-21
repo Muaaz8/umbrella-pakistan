@@ -368,13 +368,18 @@ class MedicineImportController extends Controller
                 foreach ($units as $unitName) {
 
                     $unit = MedicineUOM::where('unit', $unitName)->first();
-                    $unit_id = $unit->id;
-                    // echo '<p>' . $unit_id . '</p>';
+                    if($unit){
+                        $unit_id = $unit->id;
+                    }else{
+                        $newUnit = MedicineUOM::create([
+                            'unit' => $unitName,
+                            'status' => 1,
+                        ]);
+                        $unit_id = $newUnit->id;
 
+                    }
                     $prices = explode(",", $item['Price']);
                     $days = explode(",", $item['Days']);
-
-                    // echo count($prices);
 
                     for ($i = 0; $i < count($prices); $i++) {
 

@@ -329,7 +329,7 @@ class Pharmacy extends Model
                     return $query->where([['parent_category', '!=', "15"]]);
                 })
                 ->orderBy('name', 'asc')
-                ->paginate(24);
+                ->paginate(10);
         }
 
         return $data;

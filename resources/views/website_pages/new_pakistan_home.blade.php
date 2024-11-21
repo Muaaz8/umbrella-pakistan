@@ -380,7 +380,7 @@
                         </div>
 
                         <div class="btn-div">
-                            <button class="view_all">View All</button>
+                            <button onclick="location.href='{{ route('pharmacy') }}'" class="view_all">View All</button>
                         </div>
                     </div>
                 </div>
