@@ -268,7 +268,7 @@ class Pharmacy extends Model
                 ])->whereRaw("find_in_set('$cat_id',`PARENT_CATEGORY`)")
                 // ->union($first)
                 ->orderBy('name', 'ASC')
-                ->paginate(16);
+                ->paginate(10);
         } elseif ($mode == 'imaging') {
             $data = DB::table($this->tbl_Products)
                 ->select("*")
@@ -305,7 +305,7 @@ class Pharmacy extends Model
                     ['SALE_PRICE', '!=', ""], /* WILL REMOVE */
                 ])
                 ->orderBy('name', 'ASC')
-                ->paginate(24);
+                ->paginate(10);
             //dd($data);
         } else {
             $data = DB::table($this->tbl_Products)

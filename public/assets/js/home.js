@@ -37,7 +37,7 @@ function getPharmacyProductByCategory(sub_cat_id,limit)
                 $.each(res, function(key, value) {
                     $('#load_pharmacy_item_by_category').append(
                         '<div class="card"><div class="prescription"><p>prescription required</p></div>'+
-                        '<h4 class="truncate" title="'+value.name+'">'+value.name+'</h4><h6 class="truncate">Heart Disease</h6>'+
+                        '<h4 class="truncate" title="'+value.name+'">'+value.name+'</h4><h6 class="truncate">'+value.category_name+'</h6>'+
                         '<p class="truncate-overflow">'+value.short_description+'</p>'+
                         '<a href="/medicines/'+value.slug+'" class="read_more">Read More</p></div>'
                     );

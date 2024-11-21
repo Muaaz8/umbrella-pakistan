@@ -423,7 +423,7 @@
                         @endforeach
                         <div class="pharmacy-category">
                             <i class="fa-solid fa-flask"></i>
-                            <div>View More</div>
+                            <div onclick="location.href='{{ route('labs') }}'">View More</div>
                         </div>
                     </div>
 
@@ -513,7 +513,7 @@
                         </div>
                     </div>
                     <div class="btn-div">
-                        <button class="view_all">View All</button>
+                        <button class="view_all" onclick="location.href='{{ route('labs') }}'">View All</button>
                     </div>
                 </div>
             </section>
@@ -1122,8 +1122,6 @@
         </div>
     </div>
 
-
-
     <!-- Modal -->
     <div class="modal fade cart-modal" id="afterLogin" tabindex="-1" aria-labelledby="afterLoginLabel"
         aria-hidden="true">
@@ -1171,8 +1169,6 @@
             </div>
         </div>
     </div>
-
-
 
 
     <!-- Modal -->

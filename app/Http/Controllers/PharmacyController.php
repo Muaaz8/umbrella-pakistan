@@ -103,7 +103,7 @@ class PharmacyController extends Controller
         } elseif ($pageName == 'labtests') {
             $modeType = 'lab-test';
             $sideMenus = $this->Pharmacy->getMainCategory($modeType);
-            $viewName = 'website_pages.lab-test.index';
+            $viewName = 'website_pages.lab-test.new_pakistan_index';
         } elseif ($pageName == "imaging") {
             $modeType = "imaging";
             $sideMenus = $this->Pharmacy->getMainCategory($modeType);
@@ -219,7 +219,7 @@ class PharmacyController extends Controller
                     ->select('quest_data_test_codes.*')
                     ->get();
                 $title = DB::table('meta_tags')->where('name','title')->where('product_id',$product->id)->first();
-                return view('website_pages.lab-test.single_view', compact('products','meta_tags','title'));
+                return view('website_pages.lab-test.new_pakistan_single_view', compact('products','meta_tags','title'));
             } else if ($product->mode == 'imaging') {
                 $meta_tags = DB::table('meta_tags')->where('product_id',$product->id)->get();
                 $title = DB::table('meta_tags')->where('name','title')->where('product_id',$product->id)->first();
