@@ -96,7 +96,6 @@
 
                     <div class="contact-icons container">
                         <div><i class="fa-brands fa-facebook"></i></div>
-                        <div><i class="fa-brands fa-x-twitter"></i></div>
                         <div><i class="fa-brands fa-linkedin"></i></div>
                         <div><i class="fa-brands fa-instagram"></i></div>
                         <div><i class="fa-brands fa-pinterest"></i></div>
