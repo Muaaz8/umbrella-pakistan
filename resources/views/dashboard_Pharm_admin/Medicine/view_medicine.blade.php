@@ -214,7 +214,7 @@
                     <div class="row m-auto">
                         <div class="d-flex align-items-end p-0">
                             <div>
-                                <h3>RxOutreach Medicine Catalogue</h3>
+                                <h3>Medicine Catalogue</h3>
                             </div>
 
                         </div>
@@ -235,12 +235,11 @@
                             <table class="table">
                                 <thead>
                                     <tr>
+                                        <th scope="col">Sr. </th>
                                         <th scope="col">Medicine Name</th>
                                         <th scope="col">Unit</th>
-                                        <th scope="col">Days</th>
                                         <th scope="col">Price</th>
                                         <th scope="col">Sale Price</th>
-                                        <th scope="col">Percentage</th>
                                         <th scope="col">Sub Category</th>
                                         <th scope="col">Updated At</th>
                                         <th scope="col">Status</th>
@@ -250,15 +249,14 @@
                                     </tr>
                                 </thead>
                                 <tbody id="bodies">
-                                    @forelse ($data as $item)
+                                    @forelse ($data as $key => $item)
                                         <tr>
                                             <input type="hidden" name="prod_id" id="prod_id_{{ $item->id }}" value="{{ $item->product_id }}">
+                                            <td data-label="Medicine Name">{{ $key + 1 + ($data->currentPage() - 1) * $data->perPage() }}</td>
                                             <td data-label="Medicine Name">{{ $item->name }}</td>
                                             <td data-label="Unit" id="un_{{ $item->id }}">{{ $item->unit }}</td>
-                                            <td data-label="Days" id="dy_{{ $item->id }}">{{ $item->days }}</td>
                                             <td data-label="Price" id="p_{{ $item->id }}">{{ $item->price }}</td>
                                             <td data-label="Sale Price">{{ $item->sale_price }}</td>
-                                            <td data-label="Percentage" id="per_{{ $item->id }}">{{ $item->percentage }}</td>
                                             <td data-label="Sub Category" id="sc_{{ $item->id }}">{{ $item->sub_category }}</td>
                                             <td data-label="Updated At" >{{ $item->updated_at }}</td>
 

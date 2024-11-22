@@ -217,13 +217,16 @@ class RecommendationController extends Controller
                 $product = DB::table('tbl_products')->where('id', $pres->medicine_id)->first();
                 if ($pres->type == "medicine") {
                     $med_unit = DB::table('medicine_units')->where('unit',$pres->med_unit)->first();
-                    // $med_day = DB::table('medicine_days')->where('days',$pres->med_days)->first();
                     $price = DB::table('medicine_pricings')
-                    ->where('product_id', $pres->medicine_id)
-                    ->where('unit_id',$med_unit->id)
-                    // ->where('days_id',$med_day->id)
-                    ->first();
-                    $pres->price = $price->sale_price;
+                        ->where('product_id', $pres->medicine_id)
+                        ->where('unit_id',$med_unit->id)
+                        ->first();
+                    $prescription = DB::table('prescriptions')->where('id',$pres->id)->first();
+                    if($product->is_single){
+                        $pres->price = ($prescription->med_time*$prescription->med_days)*$price->sale_price;
+                    }else{
+                        $pres->price = $price->sale_price;
+                    }
                     $up = DB::table('prescriptions')->where('id',$pres->id)->update(['price' => $price->id]);
                     Cart::create([
                         'product_id' => $pres->medicine_id,
