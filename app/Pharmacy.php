@@ -289,9 +289,7 @@ class Pharmacy extends Model
 
     public function getProductOrderByDesc($modeType)
     {
-        if ($modeType == 'lab-test') {
-
-
+        if ($modeType == 'lab-test' || $modeType == 'imaging') {
             $data = DB::table('quest_data_test_codes')
                 ->select(
                     'TEST_CD AS id',
@@ -308,6 +306,7 @@ class Pharmacy extends Model
                     ['DETAILS', '!=', ""], /* WILL REMOVE */
                     ['SALE_PRICE', '!=', ""], /* WILL REMOVE */
                 ])
+                ->where('mode',$modeType)
                 ->orderBy('name', 'ASC')
                 ->paginate(10);
             //dd($data);

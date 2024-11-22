@@ -254,6 +254,7 @@ class unAuthController extends Controller
             $products = DB::table('quest_data_test_codes')
                 ->where('SALE_PRICE', '!=', null)
                 ->where('AOES_exist', null)
+                ->where('mode','imaging')
                 // ->where('PARENT_CATEGORY', [21, 25])
                 // ->orderBy('TEST_NAME', 'ASC')
                 ->inRandomOrder()

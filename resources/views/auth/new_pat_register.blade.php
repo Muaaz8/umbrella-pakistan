@@ -1,4 +1,4 @@
-@extends('layouts.new_web_register_layout')
+@extends('layouts.new_pakistan_layout')
 
 @section('meta_tags')
     <meta charset="utf-8" />

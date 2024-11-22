@@ -2530,7 +2530,7 @@
     margin-left: 5px;
     margin-right: 5px;
     padding: 10px;
-    border 1px solid var(--navy-blue);
+    border: 1px solid var(--navy-blue);
     border-radius: 10px;
 }
 

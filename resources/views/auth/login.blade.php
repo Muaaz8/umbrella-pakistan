@@ -73,7 +73,7 @@ $('#btn_reset_password').click(function(){
               </button> -->
             <!-- </a> -->
               <div class="text-center">
-                <img src="{{ asset('assets/images/logo_all.png') }}" alt="" width="250" height="140" />
+                <img src="{{ asset('assets/images/logo_all.png') }}" alt="" width="90%" height="auto" />
               </div>
               <h1 class="text-center py-3">Login</h1>
 
