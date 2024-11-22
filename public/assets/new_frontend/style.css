@@ -337,6 +337,7 @@
     gap: 20px;
   }
 
+
   .pharmacy-content hr {
     width: 100%;
     border: 1px solid gainsboro;
@@ -356,9 +357,9 @@
     padding: 15px;
     font-size: 13px;
     width: 230px;
-    ;
     background: var(--navy-blue);
     color: white;
+    cursor: pointer;
     clip-path: polygon(0 20%,
         10% 0,
         100% 0,
@@ -367,10 +368,19 @@
         0% 100%);
   }
 
+  .pharmacy-category:hover {
+    background: linear-gradient(to right, var(--red), #ec3544);
+  }
+
   .pharmacy-category>i {
     font-size: 1.8rem;
   }
 
+  .view_all:hover{
+    color: var(--red);
+    background: #ffffff;
+    border: 1px solid var(--red);
+  }
 
   .step:hover {
     scale: 1.05;
@@ -448,6 +458,10 @@
     font-size: 1.7rem;
     color: var(--navy-blue);
     width: max-content;
+  }
+
+  .tabs-section-container > p{
+    padding: 10px 0;
   }
 
   .tabs-section-para {
@@ -1281,6 +1295,10 @@
     padding: 10px;
   }
 
+  .medicines-container > .card:hover {
+    transform: scale(1.02);
+  }
+
   .card {
     flex: 1 1 calc(20% - 15px);
     display: flex;
@@ -1323,6 +1341,7 @@
   .card p {
     font-size: 11px;
     color: gray;
+    line-height: normal;
   }
 
   .prescription {
@@ -1438,8 +1457,11 @@
     position: relative;
     padding: 10px;
     box-shadow: -2px 2px 3px 0px rgba(128, 128, 128, 0.322);
-    ;
     margin-top: 10px;
+  }
+
+.tests-card:hover {
+    transform: scale(1.02);
   }
 
   .tests-card h4 {
@@ -1449,11 +1471,13 @@
     font-size: 14px;
     text-decoration: underline;
     text-align: left;
+    width: 75%;
   }
 
   .tests-card p {
     font-size: 12px;
     color: gray;
+    line-height: normal;
   }
 
   .test-card-content {
@@ -1480,6 +1504,16 @@
     right: 0;
     box-shadow: 0px 0px 0px 8px #f5f5f5;
   }
+
+  .add_to_cart_btn:hover{
+    background: var(--red);
+  }
+
+  .add_to_cart_btn:hover i {
+    transform: rotate(-10deg);
+    transition: transform 0.3s ease; /* Optional for a smooth effect */
+  }
+
 
   .add_to_cart_btn::after {
     content: "";
@@ -1519,6 +1553,11 @@
     background: #ffffff;
     color: var(--blue);
     cursor: pointer;
+  }
+
+  .learn_btn:hover{
+    background: var(--navy-blue);
+    color: white;
   }
 
   .psychiatry-container {
@@ -1576,11 +1615,18 @@
     border-radius: 8px;
     padding: 15px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 1px solid transparent;
+
   }
 
   .pain-management-box img {
     width: 20%;
     margin-bottom: 10px;
+  }
+
+  .pain-management-box:hover {
+    transform: scale(1.05);
+    border: 1px solid var(--navy-blue);
   }
 
 
@@ -1600,6 +1646,12 @@
     border-radius: 8px;
     padding: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border: 1px solid transparent;
+  }
+
+  .substance-abuse-box:hover {
+    transform: scale(1.05);
+    border: 1px solid var(--navy-blue);
   }
 
   .substance-abuse-box img {
@@ -2100,7 +2152,7 @@
     background-color: white;
     color: var(--navy-blue);
     padding: 0.5rem;
-    font-weight: bold;
+    font-weight: 500;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
   }
 
@@ -2168,13 +2220,34 @@
     cursor: pointer;
     font-weight: bold;
     transition: background-color 0.3s ease;
+    position: relative;
   }
 
-  .alphabet:hover {
+  .alphabet-group:hover .alphabet {
     background-color: var(--red);
   }
 
-  /* Dropdown Styles */
+  .alphabet-group:hover .alphabet::after {
+    content: '';
+    position: absolute;
+    bottom: -16%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 6px solid var(--red);
+  }
+
+  .alphabet-group:hover .alphabet::before {
+    content: '';
+    position: absolute;
+    bottom: -16%;
+    height: 8px;
+    width: 100%;
+    background: transparent;
+    left: 0;
+  }
+
   .categories-list {
     list-style: none;
     padding: 0;
@@ -2182,13 +2255,12 @@
     position: absolute;
     max-height: 300px;
     overflow-y: auto;
-    top: 100%;
+    top: 114%;
     left: 0;
     background-color: white;
-    border: 1px solid var(--blue);
+    border: 1px solid var(--red);
     border-radius: 4px;
-    display: none;
-    /* Initially hidden */
+    display: none; /* Initially hidden */
     width: 150px;
     z-index: 1000;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -2196,7 +2268,7 @@
 
   .categories-list li {
     padding: 0.5rem 1rem;
-    border-bottom: 1px solid #f8f9fa;
+    border-bottom: 1px solid #dadada;
     color: var(--dark-gray);
   }
 
@@ -2205,7 +2277,7 @@
   }
 
   .categories-list li:hover {
-    background-color: var(--blue);
+    background-color: #4f8be6;
     color: white;
   }
 
@@ -2213,6 +2285,7 @@
   .alphabet-group:hover .categories-list {
     display: block;
   }
+
 
   /* modal css  */
 

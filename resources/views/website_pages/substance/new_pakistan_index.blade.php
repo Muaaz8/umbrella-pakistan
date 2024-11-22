@@ -62,7 +62,7 @@
         </div>
 
         <div class="container">
-            <h3>Umbrella Health Care Systems - Substance Abuse</h3>
+            <h3>Community Health Care Clinics - Substance Abuse</h3>
         </div>
 
         <div class="container my-3 z-3 pharmacy-page-container">

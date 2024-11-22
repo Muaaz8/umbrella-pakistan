@@ -182,7 +182,10 @@
         </div>
 
         <div class="container">
-            <h3>Umbrella Health Care Systems - Labtests</h3>
+            <h3>Community Health Care Clinics - Labtests</h3>
+            <p>
+                Community Health Care Clinics offers a wide range of lab tests and diagnostic services.
+            </p>
         </div>
 
         <div class="container mt-3 pharmacy-page-container">

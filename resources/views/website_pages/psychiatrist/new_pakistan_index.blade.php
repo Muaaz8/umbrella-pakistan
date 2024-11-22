@@ -62,7 +62,10 @@
         </div>
 
         <div class="container">
-            <h3>Umbrella Health Care Systems - Psychiatry</h3>
+            <h3>Community Health Care Clinics - Psychiatry</h3>
+            <p>
+                Community Health Care Clinics is a leading provider of mental health services in Pakistan.
+            </p>
         </div>
 
         <div class="container my-3">

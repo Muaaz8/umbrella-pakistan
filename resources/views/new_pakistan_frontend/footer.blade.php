@@ -21,9 +21,9 @@
                     <i class="fa-solid fa-location-dot"></i>
                     <a href="#" data-bs-toggle="modal" data-bs-target="#locationModal">Find Location</a>
                 </div>
-                <p>contact@umbrellaamd.com</p>
-                <p>support@umbrellaamd.com</p>
-                <p>+1 (407) 693-8484</p>
+                <p>contact@communityhealthcareclinics.com</p>
+                <p>support@communityhealthcareclinics.com</p>
+                <p>0337-2350684</p>
             </div>
         </div>
         <div id="footer-3" class="footer">
@@ -33,7 +33,7 @@
             </div>
             <div class="footer-content">
                 <p>07:00 am - 08:00 pm</p>
-                <p>Umbrella Health Care Systems</p>
+                <p>Community Health Care Clinics</p>
                 <div class="footer-info">
                     <i class="fa-solid fa-chevron-right"></i>
                     <a href="{{ route('about_us') }}">About Us</a>
@@ -59,8 +59,8 @@
             </div>
             <div class="footer-content">
                 <div class="footer-highlight">
-                    <i class="fa-solid fa-phone"></i>
-                    <a href="">+1 (407) 693-8484</a>
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <a href="">0337-2350684</a>
                 </div>
                 <p>In Emergency, Please call 911</p>
             </div>
@@ -70,7 +70,7 @@
     <section id="copyright">
         <p>
             Copyright &copy; {{ date('Y') }}.
-            <span>Umbrella Health Care Systems. All Rights Reserved</span>
+            <span>Community Health Care Clinics. All Rights Reserved</span>
         </p>
     </section>
 </footer>
