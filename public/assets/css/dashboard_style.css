@@ -526,8 +526,8 @@ a.dashboard-nav-dropdown-item::before {
 }
 
 .nav-info-img img {
-  /* width: 100%; */
-  height: 105px;
+  width: 90%;
+  height: auto;
 }
 
 .nav-info-div-wrapper {
@@ -2041,7 +2041,7 @@ div.datedropper.primary .pick-lg-h {
     font-weight: 700;
     top: 0;
   }
-  
+
   .visited-doc-flag:after {
     content: ' ';
     position: absolute;

@@ -30,7 +30,7 @@
                                 <p>Welcome to Umbrella Health Care Systems</p>
                             </div>
                             <div class="first-card-img-div">
-                                <img src="assets/images/logo.png" alt=""  height="100" width="150">
+                                <img src="assets/images/logo.png" alt=""  height="auto" width="200">
                             </div>
                         </div>
 

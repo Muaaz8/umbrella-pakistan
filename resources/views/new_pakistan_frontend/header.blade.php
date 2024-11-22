@@ -37,10 +37,10 @@
             <img src="{{ asset('assets/new_frontend/logo.png') }}" alt="umbrella-logo" />
           </div>
           <div class="flex gap-15" id="nav-right-side">
-            {{-- <div id="checker">
+            <div id="checker">
                 <i class="fa-regular fa-user"></i>
-              <a data-bs-toggle="modal" data-bs-target="#symptomsOpen">Symptoms Checker</a>
-            </div> --}}
+                <a href="#" class="pe-none">Symptoms Checker</a>
+            </div>
             <div class="dropdown" >
                 <button class="dropdown-toggle w-100" type="button" id="joinDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                   <i class="fa-solid fa-user-group"></i> Join Us

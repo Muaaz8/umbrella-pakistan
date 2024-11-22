@@ -2534,7 +2534,9 @@
     border-radius: 10px;
 }
 
-
+#checker {
+    opacity: 0;
+}
 
 
 .modal-login-reg-btn {
