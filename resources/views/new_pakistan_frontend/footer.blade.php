@@ -23,7 +23,7 @@
                 </div>
                 <p>contact@communityhealthcareclinics.com</p>
                 <p>support@communityhealthcareclinics.com</p>
-                <p>0337-2350684</p>
+                <p>Progressive Center, Main Shahrah Faisal, Karachi</p>
             </div>
         </div>
         <div id="footer-3" class="footer">
@@ -62,7 +62,6 @@
                     <i class="fa-brands fa-whatsapp"></i>
                     <a href="">0337-2350684</a>
                 </div>
-                <p>In Emergency, Please call 911</p>
             </div>
         </div>
     </section>

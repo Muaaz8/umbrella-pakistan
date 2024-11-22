@@ -1303,7 +1303,7 @@
     flex: 1 1 calc(20% - 15px);
     display: flex;
     justify-content: center;
-    max-width: 250px;
+    max-width: 300px;
     height: max(200px, 10vh);
     background-color: #ffffff;
     color: rgb(0, 0, 0);
@@ -1491,6 +1491,8 @@
     overflow-x: hidden;
   }
 
+
+
   .add_to_cart_btn {
     border: none;
     height: 40px;
@@ -1555,6 +1557,26 @@
     color: var(--blue);
     cursor: pointer;
   }
+
+  .medicine_btn {
+    padding: 10px 20px;
+    font-size: 12px;
+    width: 100%;
+    border: none;
+    border-radius: 5px;
+    border: 1px solid white;
+    background: var(--navy-blue);
+    color: white;
+    cursor: pointer;
+  }
+
+  .medicine_btn:hover{
+    border: 1px solid var(--navy-blue);
+    background: white;
+    color: var(--navy-blue);
+  }
+
+
 
   .learn_btn:hover{
     background: var(--navy-blue);

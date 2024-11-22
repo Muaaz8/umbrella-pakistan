@@ -76,6 +76,51 @@
 
         <div class="container my-3 z-3 pharmacy-page-container border border-1 rounded-3">
 
+        <div class="container border border-1 rounded-2 p-3 my-3">
+            <div class="row align-items-center">
+
+                <div class="col-md-8 d-flex align-items-center justify-content-start">
+                    <img src="https://via.placeholder.com/150" width="150" height="150" alt="Medicine" class="img-fluid rounded">
+                    <div class="p-3">
+                        <h5 class="fw-bold">Medicine Name</h5>
+                        <p class="text-muted w-75">limit wqqeed descriptiofdsfsdfsfsdfdsfsdfdsfdsfdfdsdfsn.</p>
+                    </div>
+                </div>
+
+                <div class="col-md-4">
+                    <div>
+                        <label for="quantity" class="form-label fw-bold"><u>Quantity</u></label>
+                        <div class="input-group">
+                            <button class="btn btn-outline-secondary w-25" id="decrement" type="button">-</button>
+                            <input type="number" class="form-control text-center" id="quantity" value="1" min="1" readonly>
+                            <button class="btn btn-outline-secondary w-25" id="increment" type="button">+</button>
+                        </div>
+                    </div>
+
+                    <div class="my-2">
+                        <label class="form-label fw-bold"><u>Options</u></label>
+                        <div class="d-flex gap-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="options" id="option1" value="5">
+                                <label class="form-check-label" for="option1">5 Pieces</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="options" id="option2" value="10">
+                                <label class="form-check-label" for="option2">10 Pieces</label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="options" id="option3" value="12">
+                                <label class="form-check-label" for="option3">12 Pieces</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr class="py-1 m-0">
+                    <button class="medicine_btn w-100 fs-6 fw-bold">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
             <h3 class="text-center p-2"><u>Detail Description</u></h3>
             <div class="med-description p-4">
                 {!! $products[0]->description !!}
@@ -160,4 +205,40 @@
         </div>
     </div>
     <!-- ******* LOGIN-REGISTER-MODAL ENDS ******** -->
+
+    <script>
+        const quantityInput = document.getElementById('quantity');
+        const incrementButton = document.getElementById('increment');
+        const decrementButton = document.getElementById('decrement');
+        const radioButtons = document.querySelectorAll('input[name="options"]');
+
+        radioButtons.forEach(radio => {
+            radio.addEventListener('change', (event) => {
+                quantityInput.value = event.target.value;
+            });
+        });
+
+        const deselectRadioButtons = () => {
+            radioButtons.forEach(radio => {
+                radio.checked = false;
+            });
+        };
+
+        incrementButton.addEventListener('click', () => {
+            const currentValue = parseInt(quantityInput.value, 10);
+            quantityInput.value = currentValue + 1;
+            deselectRadioButtons();
+        });
+
+        decrementButton.addEventListener('click', () => {
+            const currentValue = parseInt(quantityInput.value, 10);
+            if (currentValue > 1) {
+                quantityInput.value = currentValue - 1;
+                deselectRadioButtons();
+            }
+        });
+    </script>
 @endsection
+
+
+
