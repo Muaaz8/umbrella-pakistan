@@ -40,7 +40,7 @@
           min-width: 100%;
           object-fit: cover;
           cursor: pointer;
-          filter: grayscale(80%);
+          filter: grayscale(40%);
           transition: .35s linear;
         }
 
@@ -153,22 +153,21 @@
 
             <div class="container">
                 <div class="row mt-5">
-                    <div class="col-md-6">
+                    <div class="col-lg-6 col-md-12">
                         <div class="gallery">
-                            <img src="https://picsum.photos/id/1028/300/300" alt="a forest after an apocalypse">
-                            <img src="https://picsum.photos/id/15/300/300" alt="a waterfall and many rocks">
-                            <img src="https://picsum.photos/id/1040/300/300" alt="a house on a mountain">
-                            <img src="https://picsum.photos/id/106/300/300" alt="sime pink flowers">
-                            <img src="https://picsum.photos/id/136/300/300" alt="big rocks with some trees">
-                            <img src="https://picsum.photos/id/1039/300/300"
-                                alt="a waterfall, a lot of tree and a great view from the sky">
-                            <img src="https://picsum.photos/id/110/300/300" alt="a cool landscape">
-                            <img src="https://picsum.photos/id/1047/300/300" alt="inside a town between two big buildings">
-                            <img src="https://picsum.photos/id/1057/300/300"
+                            <img src="{{ asset("assets/new_frontend/e-pic9.png") }}" alt="a forest after an apocalypse">
+                            <img src="{{ asset("assets/new_frontend/e-pic6.png") }}" alt="a waterfall and many rocks">
+                            <img src="{{ asset("assets/new_frontend/e-pic2.png") }}" alt="a house on a mountain">
+                            <img src="{{ asset("assets/new_frontend/e-pic3.png") }}" alt="sime pink flowers">
+                            <img src="{{ asset("assets/new_frontend/e-pic4.png") }}" alt="big rocks with some trees">
+                            <img src="{{ asset("assets/new_frontend/e-pic6.png") }}" alt="a waterfall, a lot of tree and a great view from the sky">
+                            <img src="{{ asset("assets/new_frontend/e-pic1.png") }}" alt="a cool landscape">
+                            <img src="{{ asset("assets/new_frontend/e-pic7.png") }}" alt="inside a town between two big buildings">
+                            <img src="{{ asset("assets/new_frontend/e-pic8.png") }}"
                                 alt="a great view of the sea above the mountain">
                         </div>
                     </div>
-                    <div class="col-md-6 d-flex align-items-start justify-content-center flex-column">
+                    <div class="col-lg-6 col-md-12 d-flex align-items-start justify-content-center flex-column">
                         @php
                             $section = DB::table('section')
                                 ->where('page_id', $page->id)
