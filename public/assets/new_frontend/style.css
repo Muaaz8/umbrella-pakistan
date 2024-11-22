@@ -1448,7 +1448,7 @@
 
   .tests-card {
     flex: 1 1 calc(20% - 15px);
-    min-width: 150px;
+    max-width: 250px;
     height: max(200px, 10vh);
     background-color: #ffffff;
     color: rgb(0, 0, 0);
