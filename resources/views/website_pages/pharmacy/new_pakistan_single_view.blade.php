@@ -116,7 +116,20 @@
                     </div>
 
                     <hr class="py-1 m-0">
-                    <button class="medicine_btn w-100 fs-6 fw-bold">Add to Cart</button>
+                    <div class="row">
+                        <label for="strength" class="form-label fw-bold"><u>Strength</u></label>
+                        <div class="col-lg-6 col-md-12">
+                            <select id="strength" class="form-select w-100 h-100">
+                                <option value="250mg" selected>250mg</option>
+                                <option value="500mg">500mg</option>
+                                <option value="750mg">750mg</option>
+                                <option value="1000mg">1000mg</option>
+                            </select>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <button class="medicine_btn w-100 fs-6 fw-bold">Add to Cart</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
