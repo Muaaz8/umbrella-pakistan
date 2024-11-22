@@ -2525,6 +2525,13 @@
   background: #fff;
   box-shadow: rgba(0, 0, 0, 0.4) 0 2px 4px, rgba(0, 0, 0, 0.3) 0 7px 13px -3px,
     rgba(0, 0, 0, 0.2) 0 -3px 0 inset;
+    text-decoration: none;
+    color: var(--navy-blue);
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 10px;
+    border 1px solid var(--navy-blue);
+    border-radius: 10px;
 }
 
 
