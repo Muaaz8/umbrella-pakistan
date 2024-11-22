@@ -336,10 +336,10 @@
                                     <label for="Expirationmonth">Choose Time For Dose</label>
                                     <select id="dose" name="med_time" class="form-select" required>
                                         <option value="">Choose Time</option>
-                                        <option value="6">6hrs</option>
-                                        <option value="8">8hrs</option>
-                                        <option value="12">12hrs</option>
-                                        <option value="24">24hrs</option>
+                                        <option value="4">4 Times</option>
+                                        <option value="3">3 Times</option>
+                                        <option value="2">2 Times</option>
+                                        <option value="1">1 Times</option>
                                     </select>
                                 </div>
                                 <div class="col-md-6">

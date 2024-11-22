@@ -1308,7 +1308,7 @@ class SessionController extends Controller
             'med_time' => $request['med_time'],
             'price' => $request['price'],
             'comment' => $request['instructions'],
-            'usage' => 'Dosage: Every ' . $request['med_time'] . ' hours for ' . $request['days'] . ' days',
+            'usage' => 'Dosage: ' . $request['med_time'] . ' Times a day for ' . $request['days'] . ' days',
         ]);
         if ($res) {
             return redirect()->back();

@@ -46,9 +46,18 @@
                   <i class="fa-solid fa-user-group"></i> Join Us
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="joinDropdown">
-                  <li><a class="dropdown-item" href="{{ route('doc_register') }}" >Register as Doctor</a></li>
-                  <li><a class="dropdown-item" href="{{ route('pat_register') }}" >Register as Patient</a></li>
-                  <li><a class="dropdown-item" href="{{ route('login') }}">Login</a></li>
+                    @if (Auth::check())
+                        <li><a class="dropdown-item" href="{{ route('home') }}">Go to Dashboard</a></li>
+                        <li><a class="dropdown-item"  href="{{ route('logout') }}"
+                            onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a></li>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    @else
+                        <li><a class="dropdown-item" href="{{ route('login') }}">Login</a></li>
+                        <li><a class="dropdown-item" href="{{ route('doc_register') }}" >Register as Doctor</a></li>
+                        <li><a class="dropdown-item" href="{{ route('pat_register') }}" >Register as Patient</a></li>
+                    @endif()
                 </ul>
               </div>
             <div onclick="window.location.href='{{ url('/my/cart') }}'">
