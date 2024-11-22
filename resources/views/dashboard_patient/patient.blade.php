@@ -128,7 +128,7 @@ $(window).scroll(function() {
                                 <h1>Umbrella Health Care Systems</h1>
                             </div>
                             <div class="first-card-img-div">
-                                <img src="{{ asset('assets/images/logoAll.png') }}" alt="" height="100" width="150">
+                                <img src="{{ asset('assets/images/logoAll.png') }}" alt="" height="auto" width="200">
                             </div>
                         </div>
 
