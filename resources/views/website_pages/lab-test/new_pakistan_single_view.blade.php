@@ -61,18 +61,6 @@
             </div>
         </div>
 
-        <div class="container d-flex align-items-center justify-content-between w-100">
-            <div class="w-50">
-                <h5 class="text-danger">Prescription Required for this Labtest</h5>
-                <p class="text-danger">
-                    if you need a prescription please do an E-visit with our online doctor’s
-                </p>
-            </div>
-            <div class="w-50 d-flex align-items-center justify-content-end">
-                <button class="btn btn-outline-primary w-50" data-bs-toggle="modal" data-bs-target="#loginModal">Talk to
-                    Doctor</button>
-            </div>
-        </div>
 
         <div class="container my-3 z-3 pharmacy-page-container border border-1 rounded-3">
 

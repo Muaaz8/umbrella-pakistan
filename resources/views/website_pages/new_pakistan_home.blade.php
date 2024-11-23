@@ -255,7 +255,7 @@
                             </div>
                         </div>
                         <div class="right">
-                            <img width="400px" src=" {{ asset('assets/new_frontend/side-image.png') }}"
+                            <img width="500px" src=" {{ asset('assets/new_frontend/doc-s.png') }}"
                                 alt="" />
                         </div>
                     </div>
@@ -698,7 +698,7 @@
                             </div>
                         </div>
                         <div class="right">
-                            <img width="400px" src=" {{ asset('assets/new_frontend/side-image.png') }}"
+                            <img width="500px" src=" {{ asset('assets/new_frontend/doc-s.png') }}"
                                 alt="" />
                         </div>
                     </div>

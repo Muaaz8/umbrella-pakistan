@@ -70,17 +70,15 @@
                             <i class="fa-solid fa-location-dot"></i>
                             <div class="d-flex flex-column align-items-start justify-content-center px-3">
                                 <div class="fw-bold">Address</div>
-                                <p>Surkhet, NP12</p>
-                                <p>Birendranagar 06</p>
+                                <p>Progressive Center, Main Shahrah Faisal, Karachi</p>
                             </div>
                         </div>
                         <hr class="hr">
                         <div class="text-center contact-info my-2">
-                            <i class="fa-solid fa-phone-volume"></i>
+                            <i class="fa-solid fa-phone"></i>
                             <div class="d-flex flex-column align-items-start justify-content-center px-3">
                                 <div class="fw-bold">Phone</div>
-                                <p>+0098 9893 5647</p>
-                                <p>+0096 3434 5678</p>
+                                <p>0337-2350684</p>
                             </div>
                         </div>
                         <hr class="hr">
@@ -88,17 +86,16 @@
                             <i class="fa-regular fa-envelope-open"></i>
                             <div class="d-flex flex-column align-items-start justify-content-center px-3">
                                 <div class="fw-bold">Email</div>
-                                <p>codinglab@gmail.com</p>
-                                <p>info.codinglab@gmail.com</p>
+                                <p>contact@communityhealthcareclinics.com</p>
                             </div>
                         </div>
                     </div>
 
                     <div class="contact-icons container">
-                        <div><i class="fa-brands fa-facebook"></i></div>
-                        <div><i class="fa-brands fa-linkedin"></i></div>
-                        <div><i class="fa-brands fa-instagram"></i></div>
-                        <div><i class="fa-brands fa-pinterest"></i></div>
+                        <a href="https://www.facebook.com/CommunityHealthcareClinics"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#"><i class="fa-brands fa-pinterest"></i></a>
                     </div>
 
 
