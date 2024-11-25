@@ -300,6 +300,11 @@
     width: 40px;
   }
 
+  .carousel-img{
+    width: 800px;
+    height: 350px;
+  }
+
   .red {
     color: var(--red);
   }
@@ -3253,6 +3258,10 @@
         grid-column: auto;
         grid-row: auto;
     }
+    .carousel-img{
+        width: 100%;
+        height: auto;
+      }
   }
 
 

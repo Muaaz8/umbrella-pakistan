@@ -70,28 +70,22 @@
                 <div class="carousel-inner rounded-4">
                   <div class="carousel-item active">
                     <img
-                      height="340"
-                      width="800"
                       src="{{ asset('assets/new_frontend/banner1.png') }}"
-                      class="d-block w-100"
+                      class="d-block w-100 carousel-img"
                       alt="Slide 1"
                     />
                   </div>
                   <div class="carousel-item">
                     <img
-                    height="340"
-                      width="800"
                       src="{{ asset('assets/new_frontend/banner1.png') }}"
-                      class="d-block w-100"
+                      class="d-block w-100 carousel-img"
                       alt="Slide 2"
                     />
                   </div>
                   <div class="carousel-item">
                     <img
-                    height="340"
-                      width="800"
                       src="{{ asset('assets/new_frontend/banner1.png') }}"
-                      class="d-block w-100"
+                      class="d-block w-100 carousel-img"
                       alt="Slide 3"
                     />
                   </div>
