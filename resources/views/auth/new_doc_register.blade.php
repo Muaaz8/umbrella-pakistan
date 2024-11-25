@@ -177,9 +177,9 @@
     }
     .eye__pass_{
         position: absolute;
-    top: 11px;
-    right: 0;
-    cursor: pointer;
+        top: 11px;
+        right: 10px;
+        cursor: pointer;
     }
     #sig-canvas {
     border: 2px dotted #ccc;

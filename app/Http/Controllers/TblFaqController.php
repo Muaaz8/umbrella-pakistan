@@ -47,10 +47,13 @@ class TblFaqController extends AppBaseController
 
     public function website_faqs(){
         $tblFaqs = DB::table('tbl_faq')->orderBy('id', 'desc')->get();
-        return view('website_pages.faq', compact('tblFaqs'));
+        $url = url()->current();
+        $tags = DB::table('meta_tags')->where('url',$url)->get();
+        $title = DB::table('meta_tags')->where('url',$url)->where('name','title')->first();
+        return view('website_pages.new_pakistan_faq', compact('tblFaqs','tags','title'));
     }
 
-//new_index_for_faqs
+    //new_index_for_faqs
     public function faqs(Request $request)
     {
 
