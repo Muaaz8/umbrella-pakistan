@@ -98,7 +98,7 @@
               <div class="row g-2 h-98">
                 <div class="col-lg-12 col-md-6 col-12 custom-card">
                   <div class="custom-card-body">
-                    <h5 class="custom-card-title">Dcotor consultation</h5>
+                    <h5 class="custom-card-title">Doctor consultation</h5>
                     <p class="custom-card-text">
                       Short description of the first card.
                     </p>
@@ -108,7 +108,7 @@
                     <img
                       width="70"
                       height="70"
-                      src="{{ asset('assets/new_frontend/consultation2.png') }}"
+                      src="{{ asset('assets/new_frontend/doc1.png') }}"
                       alt="Image 1"
                     />
                   </div>
@@ -126,9 +126,7 @@
                   </div>
                   <div class="custom-card-img">
                     <img
-                      width="70"
-                      height="70"
-                      src="{{ asset('assets/new_frontend/home-labtest.png') }}"
+                      src="{{ asset('assets/new_frontend/med1.png') }}"
                       alt="Image 1"
                     />
                   </div>
@@ -148,7 +146,7 @@
                     <img
                       width="70"
                       height="70"
-                      src="{{ asset('assets/new_frontend/homeservice2.png') }}"
+                      src="{{ asset('assets/new_frontend/lab3.png') }}"
                       alt="Image 1"
                     />
                   </div>
@@ -168,7 +166,7 @@
                     <img
                       width="60"
                       height="60"
-                      src="{{ asset('assets/new_frontend/consultation2.png') }}"
+                      src="{{ asset('assets/new_frontend/bottom1.png') }}"
                       alt="Image 1"
                     />
                   </div>
@@ -186,7 +184,7 @@
                     <img
                       width="60"
                       height="60"
-                      src="{{ asset('assets/new_frontend/consultation2.png') }}"
+                      src="{{ asset('assets/new_frontend/bottom2.png') }}"
                       alt="Image 1"
                     />
                   </div>
@@ -204,7 +202,7 @@
                     <img
                       width="60"
                       height="60"
-                      src="{{ asset('assets/new_frontend/consultation2.png') }}"
+                      src="{{ asset('assets/new_frontend/bottom3.png') }}"
                       alt="Image 1"
                     />
                   </div>
@@ -222,7 +220,7 @@
                     <img
                       width="60"
                       height="60"
-                      src="{{ asset('assets/new_frontend/consultation2.png') }}"
+                      src="{{ asset('assets/new_frontend/bottom4.png') }}"
                       alt="Image 1"
                     />
                   </div>

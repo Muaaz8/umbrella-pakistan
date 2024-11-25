@@ -3129,16 +3129,40 @@
   }
 
   .custom-card:nth-child(1) {
-    background:  #b1d7f3;
+    background:  #d9effd;
+  }
+
+  .custom-card:nth-child(1) button {
+    background: var(--navy-blue);
+  }
+
+  .custom-card:nth-child(1) button:hover {
+    background: #0f3e85;
   }
 
   .custom-card:nth-child(2) {
-    background:  #c4ffbc;
+    background:  #cdecc3;
   }
 
+    .custom-card:nth-child(2) button:hover {
+        background: #4bc530;
+    }
+
+    .custom-card:nth-child(2) button {
+        background: var(--green);
+    }
+
   .custom-card:nth-child(3) {
-    background: #ffbdbd;
+    background: #f0c2c2;
   }
+
+    .custom-card:nth-child(3) button {
+        background: var(--red);
+    }
+
+    .custom-card:nth-child(3) button:hover {
+        background: #df2130;
+    }
 
   .custom-card {
     display: flex;
@@ -3152,6 +3176,7 @@
     overflow: hidden;
     height: 32%;
     position: relative;
+    overflow-x: hidden;
   }
 
   .custom-card-body {
@@ -3186,13 +3211,13 @@
     align-items: center;
     justify-content: center;
     position: absolute;
-    right: 10px;
-    bottom: 0;
+    right: -16%;
+    bottom: -5%;
   }
 
   .custom-card-img img {
-    height: 100%;
-    width: 100%;
+    height: auto;
+    width: 65%;
     object-fit: cover;
   }
 
@@ -3209,22 +3234,23 @@
     box-shadow: 2px 2px 2px 0px rgba(228, 228, 228, 0.849);
     position: relative;
     width: 100%;
+    overflow: hidden;
   }
 
   .col-lg-3:nth-child(1) .card-secondary {
-    background: #cbe9ff;
+    background: #F9E9E2;
   }
 
   .col-lg-3:nth-child(3) .card-secondary {
-    background: #ddfdd9;
+    background: #F0F7F9;
   }
 
   .col-lg-3:nth-child(2) .card-secondary {
-    background: #fdd6d6;
+    background: #FBE6EF;
   }
 
   .col-lg-3:nth-child(4) .card-secondary {
-    background: #ffe7cb;
+    background: #d1d9d83d;
   }
 
   .card-secondary div h5 {
