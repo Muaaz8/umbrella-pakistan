@@ -348,12 +348,12 @@ class PatientController extends Controller
         $user_id=Auth::user()->id;
 
         $getProductMetaData='';
-        if ($request->pro_mode=="lab-test")
+        if ($request->pro_mode=="lab-test" || $request->pro_mode=="imaging")
         {
             $count=DB::table('tbl_cart')
                 ->where('user_id',$user_id)
                 ->where('product_id',$request->pro_id)
-                ->where('product_mode','lab-test')
+                ->where('product_mode',$request->pro_mode)
                 ->where('item_type','counter')
                 ->where('status','recommended')
                 ->first();
@@ -414,19 +414,21 @@ class PatientController extends Controller
                 ->where('user_id',$user_id)
                 ->where('product_id',$request->pro_id)
                 ->where('product_mode',$request->pro_mode)
+                ->where('prescription',$request->unit)
                 ->where('item_type','counter')
                 ->where('status','recommended')
                 ->first();
             if($count!=null)
             {
-                $qty=$count->quantity+1;
+                $qty=$count->quantity+$request->quantity;
+                $pricing = DB::table('medicine_pricings')->where('id',$request->unit)->first();
                 $count=DB::table('tbl_cart')
                     ->where('user_id',$user_id)
                     ->where('product_id',$request->pro_id)
                     ->where('product_mode',$request->pro_mode)
                     ->where('item_type','counter')
                     ->where('status','recommended')
-                    ->update(['quantity'=>$qty,'update_price'=>$qty*$count->price]);
+                    ->update(['quantity'=>$qty,'price'=>$qty*$pricing->sale_price]);
                     event(new CountCartItem($user_id));
                     return "ok";
             }
@@ -441,19 +443,20 @@ class PatientController extends Controller
                         'featured_image'
                     )
                     ->where('id', $request->pro_id)
-                    ->where('quantity', '>=', (int) $request->pro_qty)
+                    ->where('quantity', '>=', (int) $request->quantity)
                     ->first();
+                $pricing = DB::table('medicine_pricings')->where('id',$request->unit)->first();
 
                 $data['session_id'] = '';
                 $data['cart_row_id'] = rand();
                 $data['product_id']=$getProductMetaData->product_id;
                 $data['name'] = $getProductMetaData->name;
                 $data['product_image'] = $getProductMetaData->featured_image;
-                $data['prescription'] = '';
+                $data['prescription'] = $request->unit;
                 $data['design_view'] = '';
                 $data['strip_per_pack'] = 0;
-                $data['quantity'] = $request->pro_qty;
-                $data['price'] = $getProductMetaData->sale_price;
+                $data['quantity'] = $request->quantity;
+                $data['price'] = $pricing->sale_price*$request->quantity;
                 $data['discount'] = 0;
                 $data['created_at'] = Carbon::now();
                 $data['updated_at'] = Carbon::now();
@@ -470,11 +473,6 @@ class PatientController extends Controller
 
                 $cart = AppTblCart::Create($data);
                 event(new CountCartItem($user_id));
-                try {
-                    // \App\Helper::firebase(Auth()->user()->id,'cart',$cart->id,$data);
-                } catch (\Throwable $th) {
-                    //throw $th;
-                }
                 return "ok";
             }
         }

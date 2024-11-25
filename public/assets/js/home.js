@@ -82,7 +82,7 @@ function getLabtestProductByCategory(cat_id,limit)
                     $.each(res.products, function(key, value) {
                         $('#load_labtest_item_by_category').append(
                             '<div class="tests-card"><div class="test-card-content"><div class="add_to_cart_container">'+
-                            '<button class="add_to_cart_btn"><i class="fa-solid fa-cart-shopping"></i>'+
+                            '<button class="add_to_cart_btn" class="add_to_cart_btn" data-bs-toggle="modal" data-bs-target="#loginModal" type="button"><i class="fa-solid fa-cart-shopping"></i>'+
                             '</button></div><h4 class="truncate" title="'+value.TEST_NAME+'">'+value.TEST_NAME+'</h4>'+
                             '<p class="truncate-overflow">'+value.DETAILS+'</p>'+
                             '<button onclick="window.location.href=\'/labtest/' + value.SLUG + '\'" class="learn_btn">Learn More</button></div></div>'
@@ -92,7 +92,7 @@ function getLabtestProductByCategory(cat_id,limit)
                     $.each(res.products, function(key, value) {
                         $('#load_labtest_item_by_category').append(
                             '<div class="tests-card"><div class="test-card-content"><div class="add_to_cart_container">'+
-                            '<button class="add_to_cart_btn"><i class="fa-solid fa-cart-shopping"></i>'+
+                            '<button class="add_to_cart_btn '+value.TEST_CD+' '+mode+'" onclick="addedItem(this)" type="button"><i class="fa-solid fa-cart-shopping"></i>'+
                             '</button></div><h4 class="truncate" title="'+value.TEST_NAME+'">'+value.TEST_NAME+'</h4>'+
                             '<p class="truncate-overflow">'+value.DETAILS+'</p>'+
                             '<button onclick="window.location.href=\'/labtest/' + value.SLUG + '\'" class="learn_btn">Learn More</button></div></div>'
@@ -117,6 +117,7 @@ function getLabtestProductByCategory(cat_id,limit)
 
 function getImagingProductByCategory(cat_id,limit)
 {
+    var mode='imaging';
     $.ajax({
         type: "POST",
         url: "/fetch_imaging_item_by_category",
@@ -140,16 +141,27 @@ function getImagingProductByCategory(cat_id,limit)
                 }
                 else
                 {
-                    $.each(res.products, function(key, value) {
-                        $('#load_imaging_item_by_category').append(
-                        '<div class="tests-card"><div class="test-card-content">'+
-                        '<div class="add_to_cart_container"><button class="add_to_cart_btn">'+
-                        '<i class="fa-solid fa-cart-shopping"></i></button></div>'+
-                        '<h4 class="truncate" title="'+value.TEST_NAME+'">'+value.TEST_NAME+'</h4><p class="truncate-overflow" title="'+value.DETAILS+'">'+value.DETAILS+'</p>'+
-                        '<button onclick="window.location.href=\'/imagings/' + value.SLUG + '\'" class="learn_btn">Learn More</button></div></div>'
-                        );
-                    });
-
+                    if(res.user_id==''){
+                        $.each(res.products, function(key, value) {
+                            $('#load_imaging_item_by_category').append(
+                                '<div class="tests-card"><div class="test-card-content"><div class="add_to_cart_container">'+
+                                '<button class="add_to_cart_btn" class="add_to_cart_btn" data-bs-toggle="modal" data-bs-target="#loginModal" type="button"><i class="fa-solid fa-cart-shopping"></i>'+
+                                '</button></div><h4 class="truncate" title="'+value.TEST_NAME+'">'+value.TEST_NAME+'</h4>'+
+                                '<p class="truncate-overflow">'+value.DETAILS+'</p>'+
+                                '<button onclick="window.location.href=\'/labtest/' + value.SLUG + '\'" class="learn_btn">Learn More</button></div></div>'
+                            );
+                        });
+                    }else{
+                        $.each(res.products, function(key, value) {
+                            $('#load_imaging_item_by_category').append(
+                                '<div class="tests-card"><div class="test-card-content"><div class="add_to_cart_container">'+
+                                '<button class="add_to_cart_btn '+value.TEST_CD+' '+mode+'" onclick="addedItem(this)" type="button"><i class="fa-solid fa-cart-shopping"></i>'+
+                                '</button></div><h4 class="truncate" title="'+value.TEST_NAME+'">'+value.TEST_NAME+'</h4>'+
+                                '<p class="truncate-overflow">'+value.DETAILS+'</p>'+
+                                '<button onclick="window.location.href=\'/labtest/' + value.SLUG + '\'" class="learn_btn">Learn More</button></div></div>'
+                            );
+                        });
+                    }
                     if(cat_id=='all')
                     {
                         $('#load_more_btn_imaging').append(
@@ -923,9 +935,10 @@ function addedItem(a)
 {
     var all_classes=$(a).attr('class');
     var class_split = all_classes.split(' ');
-    var pro_id=class_split[2];
-    var pro_mode=class_split[3];
-    var pro_qty=class_split[4];
+    var pro_id=class_split[1];
+    var pro_mode=class_split[2];
+    var pro_qty=1;
+    console.log(class_split,pro_id,pro_mode,pro_qty);
     $.ajax({
         type: "POST",
         url: "/add_to_cart",
