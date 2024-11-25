@@ -27,7 +27,7 @@
     @if ($title != null)
         <title>{{ $title->content }}</title>
     @else
-        <title>Imaging</title>
+        <title>Labtest</title>
     @endif
 @endsection
 
