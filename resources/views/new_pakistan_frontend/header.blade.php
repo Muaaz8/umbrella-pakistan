@@ -3,36 +3,6 @@
     <nav>
       <section id="navbar">
         <div class="wrap flex gap-15 between">
-          <div class="flex gap-15" id="nav-left-side">
-            <a href="{{ url('/') }}">Home</a>
-            <a href="{{ route('about_us') }}">About</a>
-            <div class="dropdown">
-                <a
-                  class="dropdown-toggle"
-                  href="#"
-                  role="button"
-                  id="servicesDropdown"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Services
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
-                  <li><a class="dropdown-item" href="{{ route('pharmacy') }}">Pharmacy</a></li>
-                  <li><a class="dropdown-item" href="{{ route('labs') }}">Lab Tests</a></li>
-                  <li><a class="dropdown-item" href="{{ route('imaging') }}">Imaging</a></li>
-                  <li><a class="dropdown-item" href="{{ route('psychiatry',['slug'=>'anxiety']) }}">Psychiatry</a></li>
-                  <li>
-                    <a class="dropdown-item" href="{{ route('pain.management') }}">Pain Management</a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="{{ route('substance',['slug'=>'first-visit']) }}">Substance Abuse</a>
-                  </li>
-                </ul>
-              </div>
-            <a href="{{ route('e-visit') }}">E-Visit</a>
-            <a href="{{ route('contact_us') }}">Contact</a>
-          </div>
           <div id="nav-logo" class="logo">
             <img src="{{ asset('assets/new_frontend/logo.png') }}" alt="umbrella-logo" />
           </div>
@@ -41,6 +11,10 @@
                 <i class="fa-regular fa-user"></i>
                 <a href="#" class="pe-none">Symptoms Checker</a>
             </div>
+                <button class="nav_btns" data-bs-toggle="modal" data-bs-target="#symptomsOpen">
+                    <i class="fa-solid fa-user-doctor"></i>
+                    <a href="#">Talk to Doctor</a>
+                </button>
             @if (Auth::check())
             <div class="dropdown" >
                 <button class="dropdown-toggle w-100" type="button" id="joinDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -86,7 +60,7 @@
             <a href="{{ url('/') }}">Home</a>
             <a href="{{ route('about_us') }}">About</a>
             <a href="#">Services</a>
-            <a href="{{ route('contact_us') }}">Contact</a>
+            <a href="{{ route('contact_us') }}">Contact <i class="fa-solid fa-phone-flip"></i></a>
             <hr />
             {{-- <a href="#">Symptoms Checker</a> --}}
             <a href="#">Join Us</a>
@@ -98,6 +72,36 @@
             onclick="toggleDrawer()"
           ></div>
         </div>
+        <div class="flex gap-15" id="nav-left-side">
+            <a href="{{ url('/') }}">Home</a>
+            <a href="{{ route('about_us') }}">About</a>
+            <div class="dropdown">
+                <a
+                  class="dropdown-toggle"
+                  href="#"
+                  role="button"
+                  id="servicesDropdown"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Services
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
+                  <li><a class="dropdown-item" href="{{ route('pharmacy') }}">Pharmacy</a></li>
+                  <li><a class="dropdown-item" href="{{ route('labs') }}">Lab Tests</a></li>
+                  <li><a class="dropdown-item" href="{{ route('imaging') }}">Imaging</a></li>
+                  <li><a class="dropdown-item" href="{{ route('psychiatry',['slug'=>'anxiety']) }}">Psychiatry</a></li>
+                  <li>
+                    <a class="dropdown-item" href="{{ route('pain.management') }}">Pain Management</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="{{ route('substance',['slug'=>'first-visit']) }}">Substance Abuse</a>
+                  </li>
+                </ul>
+              </div>
+            <a href="{{ route('e-visit') }}">E-Visit</a>
+            <a href="{{ route('contact_us') }}">Contact <i class="fa-solid fa-phone-flip"></i></a>
+          </div>
       </section>
     </nav>
   </header>
