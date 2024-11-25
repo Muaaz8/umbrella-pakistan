@@ -209,6 +209,12 @@ class PharmacyController extends Controller
             if ($product->mode == "medicine") {
                 $meta_tags = DB::table('meta_tags')->where('product_id',$product->id)->get();
                 $title = DB::table('meta_tags')->where('name','title')->where('product_id',$product->id)->first();
+                $product->featured_image = \App\Helper::check_bucket_files_url($product->featured_image);
+                $product->units = DB::table('medicine_pricings')
+                                ->join('medicine_units','medicine_units.id','medicine_pricings.unit_id')
+                                ->where('product_id',$product->id)
+                                ->select('medicine_pricings.*','medicine_units.unit')
+                                ->get();
                 return view('website_pages.pharmacy.new_pakistan_single_view', compact('products','meta_tags','title'));
                 // return view('single_product_details', compact('products'));
             } else if ($product->mode == 'lab-test') {

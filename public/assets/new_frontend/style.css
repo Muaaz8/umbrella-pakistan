@@ -3260,3 +3260,10 @@
 
 
 
+    .icon-top .fa-check {
+        font-size: 50px;
+        border: 1px solid #1fe31f;
+        padding: 13px 17px;
+        border-radius: 50%;
+        color: #1fe31f;
+    }

@@ -27,7 +27,7 @@
     @if ($title != null)
         <title>{{ $title->content }}</title>
     @else
-        <title>Labtests | Umbrella Health Care Systems</title>
+        <title>Imaging</title>
     @endif
 @endsection
 
@@ -108,7 +108,8 @@
 
                         } else {
                             $.each(res.products, function(key, value) {
-                                var stripped_description = $("<div>").html(value.DESCRIPTION).text();
+                                var stripped_description = $("<div>").html(value.DESCRIPTION)
+                                    .text();
                                 $('#loadSearchPharmacyItemByCategory').append(
                                     `<div class="tests-card"><div class="test-card-content">
                                     <div class="add_to_cart_container"><button class="add_to_cart_btn">
@@ -123,6 +124,31 @@
 
             }
         });
+
+        function addedItem(a) {
+            var all_classes = $(a).attr('class');
+            var class_split = all_classes.split(' ');
+            var pro_id = class_split[1];
+            var pro_mode = class_split[2];
+            var pro_qty = 1;
+            console.log(class_split, pro_id, pro_mode, pro_qty);
+            $.ajax({
+                type: "POST",
+                url: "/add_to_cart",
+                data: {
+                    pro_id: pro_id,
+                    pro_mode: pro_mode,
+                    pro_qty: pro_qty,
+                },
+                success: function(data) {
+                    if (data.check == '1') {
+                        $('#alreadyadded').modal('show');
+                    } else {
+                        console.log('item added into cart');
+                    }
+                },
+            });
+        }
     </script>
 @endsection
 
@@ -149,7 +175,33 @@
             </div>
         </div>
         @php
-            $alpha = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z'];
+            $alpha = [
+                'A',
+                'B',
+                'C',
+                'D',
+                'E',
+                'F',
+                'G',
+                'H',
+                'I',
+                'J',
+                'K',
+                'L',
+                'M',
+                'N',
+                'O',
+                'P',
+                'Q',
+                'R',
+                'S',
+                'T',
+                'U',
+                'V',
+                'X',
+                'Y',
+                'Z',
+            ];
             $len = count($alpha);
         @endphp
         <div class="container">
@@ -162,15 +214,17 @@
                                 $alphabit = $alpha[$i];
                             @endphp
                             <div class="alphabet-group">
-                                <span class="alphabet" >{{ $alphabit }}</span>
-                                    <ul class="categories-list">
+                                <span class="alphabet">{{ $alphabit }}</span>
+                                <ul class="categories-list">
                                     @foreach ($data['sidebar'] as $val)
                                         @php
                                             $first_char = substr($val->product_parent_category, 0, 1);
                                         @endphp
-                                            @if ($first_char == $alphabit)
-                                                <li onclick="window.location.href='{{ route('slug.labtest', ['slug' => $val->slug]) }}'">{{ $val->product_parent_category }}</li>
-                                            @endif
+                                        @if ($first_char == $alphabit)
+                                            <li
+                                                onclick="window.location.href='{{ route('slug.labtest', ['slug' => $val->slug]) }}'">
+                                                {{ $val->product_parent_category }}</li>
+                                        @endif
                                     @endforeach
                                 </ul>
                             </div>
@@ -196,12 +250,13 @@
                         <select class="form-select custom-select" name="category" id="category">
                             <option value="all">All</option>
                             @foreach ($data['sidebar'] as $key => $item)
-                            <option value="{{ $item->id }}">{{ $item->product_parent_category }}</option>
+                                <option value="{{ $item->id }}">{{ $item->product_parent_category }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="searchbar d-flex">
-                        <input type="text" class="form-control custom-input" placeholder="Search for products" id="pharmacySearchText">
+                        <input type="text" class="form-control custom-input" placeholder="Search for products"
+                            id="pharmacySearchText">
                         <button class="btn custom-btn"><i class="fa-solid fa-search"></i></button>
                     </div>
                 </div>
@@ -213,18 +268,28 @@
                         <div class="tests-card">
                             <div class="test-card-content">
                                 <div class="add_to_cart_container">
-                                    <button class="add_to_cart_btn">
-                                        <i class="fa-solid fa-cart-shopping"></i>
-                                    </button>
+                                    @if (Auth::check())
+                                        <button class="add_to_cart_btn {{ $item->id }} lab-test"
+                                            onclick="addedItem(this)" type="button">
+                                            <i class="fa-solid fa-cart-shopping"></i>
+                                        </button>
+                                    @else
+                                        <button class="add_to_cart_btn" data-bs-toggle="modal" data-bs-target="#loginModal"
+                                            type="button">
+                                            <i class="fa-solid fa-cart-shopping"></i>
+                                        </button>
+                                    @endif
                                 </div>
                                 <h4 class="truncate">{{ $item->name }}</h4>
                                 <p class="truncate-overflow">{!! strip_tags($item->short_description) !!}</p>
-                                <button class="learn_btn" onclick="window.location.href='{{ route('single_product_view_labtest',['slug'=>$item->slug]) }}'">Learn More</button>
+                                <button class="learn_btn"
+                                    onclick="window.location.href='{{ route('single_product_view_labtest', ['slug' => $item->slug]) }}'">Learn
+                                    More</button>
                             </div>
                         </div>
                     @endforeach
                 </div>
-                {{ $data['products']->links('pagination::bootstrap-4')}}
+                {{ $data['products']->links('pagination::bootstrap-4') }}
             </div>
 
         </div>
@@ -278,4 +343,79 @@
             </div>
         </section>
     </main>
+    <!-- Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Select Registration Type</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-login-reg-btn my-3">
+                        <a href="{{ route('pat_register') }}"> REGISTER AS A PATIENT</a>
+                        <a href="{{ route('doc_register') }}">REGISTER AS A DOCTOR </a>
+                    </div>
+                    <div class="login-or-sec">
+                        <hr />
+                        OR
+                        <hr />
+                    </div>
+                    <div>
+                        <p>Already have account?</p>
+                        <a href="{{ route('login') }}">Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ******* LOGIN-REGISTER-MODAL ENDS ******** -->
+    <!-- ******* LOGIN-REGISTER-MODAL ENDS ******** -->
+    <!-- Modal -->
+    <div class="modal fade cart-modal" id="afterLogin" tabindex="-1" aria-labelledby="afterLoginLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="afterLoginLabel">Item Added</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="custom-modal">
+                        <div class="succes succes-animation icon-top"><i class="fa fa-check"></i></div>
+                        <div class="content flex-column align-items-center justify-content-center w-100 gap-1">
+                            <p class="type">Item Added</p>
+                            <div class="modal-login-reg-btn"><button data-bs-dismiss="modal" aria-label="Close">
+                                    Continue Shopping
+                                </button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade cart-modal" id="alreadyadded" tabindex="-1" aria-labelledby="alreadyaddedLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="alreadyaddedLabel">Item Not Added</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="custom-modal1">
+                        <div class="succes succes-animation icon-top"><i class="fa fa-check"></i></div>
+                            <div class="content flex-column align-items-center justify-content-center w-100 gap-1">
+                                <p class="type">Item Is Already in Cart</p>
+                                <div class="modal-login-reg-btn"><button data-bs-dismiss="modal" aria-label="Close">
+                                        Continue Shopping
+                                    </button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

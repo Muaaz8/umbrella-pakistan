@@ -88,7 +88,7 @@
                                                 '<p>'+value.short_description+'</p>'+
                                             '</div>'+
                                             '<div class="prescription-req-btn">'+
-                                                '<a href="/product/pharmacy/'+value.slug+'"><button>Learn More</button></a>'+
+                                                '<a href="/medicines/'+value.slug+'" class="read_more">Read More</p></div>'+
                                             '</div>'+
                                         '</div>'+
                                     '</div>'+
@@ -136,7 +136,7 @@
                             `<div class="card"><div class="prescription"><p>prescription required</p></div>
                             <h4 class="truncate">${value.name}</h4><h6 class="truncate">${value.category_name}</h6>
                             <p class="truncate-overflow">${value.short_description}</p>
-                            <a href="" class="read_more">Read More</a></div>`
+                            <a href="/medicines/${value.slug}" class="read_more">Read More</p></div>`
                         );
                     });
                 }

@@ -1480,12 +1480,33 @@ class AllProductsController extends AppBaseController
             'description' => ['required'],
             'short_description' => ['required'],
         ]);
+        if($request->hasFile('image'))
+        {
+            $files = $request->file('image');
+            $filename = \Storage::disk('s3')->put('medicine', $files);
+        }
+        if($request->hasFile('image'))
+        {
+            $res = DB::table('tbl_products')
+                ->where('id', $input['medicine'])
+                ->update(
+                    [
+                        'description' => $validateData['description'],
+                        'short_description' => $validateData['short_description'],
+                        'featured_image' => $filename,
+                    ]
+                );
+        }else{
+            $res = DB::table('tbl_products')
+                ->where('id', $input['medicine'])
+                ->update(
+                    [
+                        'description' => $validateData['description'],
+                        'short_description' => $validateData['short_description'],
+                    ]
+                );
 
-        $res = DB::table('tbl_products')
-            ->where('id', $input['medicine'])
-            ->update(
-                ['description' => $validateData['description'], 'short_description' => $validateData['short_description']]
-            );
+        }
 
 
         Flash::success('Description saved successfully.');

@@ -70,7 +70,7 @@
                         $.each(res, function(key, value) {
                             $('#loadSearchPharmacyItemByCategory').append(
                                 `<div class="tests-card"><div class="test-card-content">
-                                <div class="add_to_cart_container"><button class="add_to_cart_btn">
+                                <div class="add_to_cart_container ${value.TEST_CD} imaging" onclick="addedItem(this)" type="button"><button class="add_to_cart_btn">
                                 <i class="fa-solid fa-cart-shopping"></i></button></div>
                                 <h4 class="truncate">${value.TEST_NAME}</h4><p class="truncate-overflow">${stripped_description}</p>
                                 <button onclick="window.location.href='/labtest/${value.SLUG}'" class="learn_btn">Learn More</button></div></div>`
@@ -97,7 +97,7 @@
                     success: function(res) {
                         $('.prescription-req-view-btn').hide();
                         $('#loadSearchPharmacyItemByCategory').html('');
-                        if (res == "" || res == null) {
+                        if (res.products == "" || res.products == null) {
                             $('#loadSearchPharmacyItemByCategory').append(
                                 '<div class="no-product-text py-4">' +
                                 '<img src="/assets/images/exclamation.png" alt="">' +
@@ -107,17 +107,32 @@
                             );
 
                         } else {
-                            $.each(res.products, function(key, value) {
-                                var stripped_description = $("<div>").html(value.DESCRIPTION)
-                                    .text();
-                                $('#loadSearchPharmacyItemByCategory').append(
-                                    `<div class="tests-card"><div class="test-card-content">
-                                    <div class="add_to_cart_container"><button class="add_to_cart_btn">
-                                    <i class="fa-solid fa-cart-shopping"></i></button></div>
-                                    <h4 class="truncate">${value.TEST_NAME}</h4><p class="truncate-overflow">${stripped_description}</p>
-                                    <button onclick="window.location.href='/labtest/${value.SLUG}'" class="learn_btn">Learn More</button></div></div>`
-                                );
-                            });
+                            if(res.user_id==''){
+                                $.each(res.products, function(key, value) {
+                                    var stripped_description = $("<div>").html(value.DESCRIPTION)
+                                        .text();
+                                    $('#loadSearchPharmacyItemByCategory').append(
+                                        `<div class="tests-card"><div class="test-card-content">
+                                        <div class="add_to_cart_container" data-bs-toggle="modal" data-bs-target="#loginModal" type="button"><button class="add_to_cart_btn">
+                                        <i class="fa-solid fa-cart-shopping"></i></button></div>
+                                        <h4 class="truncate">${value.TEST_NAME}</h4><p class="truncate-overflow">${stripped_description}</p>
+                                        <button onclick="window.location.href='/labtest/${value.SLUG}'" class="learn_btn">Learn More</button></div></div>`
+                                    );
+                                });
+                            }else{
+                                $.each(res.products, function(key, value) {
+                                    var stripped_description = $("<div>").html(value.DESCRIPTION)
+                                        .text();
+
+                                    $('#loadSearchPharmacyItemByCategory').append(
+                                        `<div class="tests-card"><div class="test-card-content">
+                                        <div class="add_to_cart_container ${value.TEST_CD} imaging" onclick="addedItem(this)"><button class="add_to_cart_btn">
+                                        <i class="fa-solid fa-cart-shopping"></i></button></div>
+                                        <h4 class="truncate">${value.TEST_NAME}</h4><p class="truncate-overflow">${stripped_description}</p>
+                                        <button onclick="window.location.href='/labtest/${value.SLUG}'" class="learn_btn">Learn More</button></div></div>`
+                                    );
+                                });
+                            }
                         }
                     }
                 });
@@ -213,11 +228,19 @@
                     @foreach ($data['products'] as $item)
                         <div class="tests-card">
                             <div class="test-card-content">
-                                <div class="add_to_cart_container">
-                                    <button class="add_to_cart_btn">
-                                        <i class="fa-solid fa-cart-shopping"></i>
-                                    </button>
-                                </div>
+                                @if (Auth::check())
+                                    <div class="add_to_cart_container {{$item->id}} imaging" onclick="addedItem(this)">
+                                        <button class="add_to_cart_btn">
+                                            <i class="fa-solid fa-cart-shopping"></i>
+                                        </button>
+                                    </div>
+                                @else
+                                    <div class="add_to_cart_container" data-bs-toggle="modal" data-bs-target="#loginModal" type="button">
+                                        <button class="add_to_cart_btn">
+                                            <i class="fa-solid fa-cart-shopping"></i>
+                                        </button>
+                                    </div>
+                                @endif
                                 <h4 class="truncate">{{ $item->name }}</h4>
                                 <p class="truncate-overflow">{!! strip_tags($item->short_description) !!}</p>
                                 <button class="learn_btn" onclick="window.location.href='{{ route('single_product_view_imagings',['slug'=>$item->slug]) }}'">Learn More</button>
@@ -279,4 +302,78 @@
             </div>
         </section>
     </main>
+    <!-- Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Select Registration Type</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-login-reg-btn my-3">
+                        <a href="{{ route('pat_register') }}"> REGISTER AS A PATIENT</a>
+                        <a href="{{ route('doc_register') }}">REGISTER AS A DOCTOR </a>
+                    </div>
+                    <div class="login-or-sec">
+                        <hr />
+                        OR
+                        <hr />
+                    </div>
+                    <div>
+                        <p>Already have account?</p>
+                        <a href="{{ route('login') }}">Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ******* LOGIN-REGISTER-MODAL ENDS ******** -->
+    <!-- Modal -->
+    <div class="modal fade cart-modal" id="afterLogin" tabindex="-1" aria-labelledby="afterLoginLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="afterLoginLabel">Item Added</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="custom-modal">
+                        <div class="succes succes-animation icon-top"><i class="fa fa-check"></i></div>
+                        <div class="content flex-column align-items-center justify-content-center w-100 gap-1" >
+                            <p class="type">Item Added</p>
+                            <div class="modal-login-reg-btn"><button data-bs-dismiss="modal" aria-label="Close">
+                                    Continue Shopping
+                                </button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade cart-modal" id="alreadyadded" tabindex="-1" aria-labelledby="alreadyaddedLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="alreadyaddedLabel">Item Not Added</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="custom-modal1">
+                        <div class="succes succes-animation icon-top"><i class="fa fa-check"></i></div>
+                        <div class="content flex-column align-items-center justify-content-center w-100 gap-1" >
+                            <p class="type">Item Is Already in Cart</p>
+                            <div class="modal-login-reg-btn"><button data-bs-dismiss="modal" aria-label="Close">
+                                    Continue Shopping
+                                </button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

@@ -52,7 +52,7 @@ CKEDITOR.replace( 'description', {
                   </div>
                 </div>
             <div class="wallet-table" style="border-radius: 18px;">
-              <form action="{{ url('medicine_desc') }}" method="POST">
+              <form action="{{ url('medicine_desc') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                   <div class="medicine_description p-3">
                   <div class="row">
@@ -64,6 +64,12 @@ CKEDITOR.replace( 'description', {
                                   <option value="{{ $dt->id }}">{{ $dt->name }}</option>
                               @endforeach
                           </select>
+                      </div>
+                  </div>
+                  <div class="row mt-2">
+                      <div class="col-md-12">
+                          <label class="fw-bolder" for="image">Image:</label>
+                          <input type="file" name="image" class="form-control">
                       </div>
                   </div>
                   <div class="row mt-2">

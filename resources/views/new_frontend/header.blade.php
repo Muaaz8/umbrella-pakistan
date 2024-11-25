@@ -357,58 +357,6 @@
 }
 </style>
 <p class="notification"></p>
-<div class="top-header">
-  <div class="container">
-    <div class="row">
-      <div class="top-header-inner">
-
-        <div class="navbar-social-icon d-flex d-sm-none d-lg-block">
-          <a href="https://www.facebook.com/umbrellamd1" target="_blank" title="facebook"><i
-              class="fab fa-facebook-f t-i"></i></a>
-          <a href="https://www.linkedin.com/company/umbrella-health-care-systems" target="_blank"
-            title="linkedin t-i"><i class="fab fa-linkedin "></i></a>
-          <a href="https://twitter.com/umbrellahcs" target="_blank" title="twitter"><i class="fab fa-twitter t-i"
-              target="_blank"></i></a>
-          <a href="https://www.instagram.com/umbrellahealthcaresystems/" target="_blank" title="instagram"><i
-              class="fab fa-instagram t-i"></i></a>
-          <a href="https://www.pinterest.com/UmbrellaHealthCareSystems/" target="_blank" title="pinterest"><i
-              class="fab fa-pinterest t-i"></i></a>
-        </div>
-        <!-- <div class="top_middle_text">
-                  <div class="text-animation">
-                    <span class="animated-text">Avail 100% OFF on Complete Blood Count (CBC)</span>
-                </div>
-                </div> -->
-        @php
-        $ticker = DB::table('services')->where('name','ticker')->first();
-        @endphp
-        <div class="d-none d-md-block">
-          @if($ticker!=null && $ticker->status=='on')
-          <span class="topbar_off_text" style="cursor:pointer;"
-            onclick="window.location.href='/add_discount_in_cart/cbc---complete-blood-count-h-h-rbc-indices-wbc-plt'">{{$ticker->value}}</span>
-          @endif
-        </div>
-        <ul class="navbar-location d-flex">
-          <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#locationModal">
-                        Launch demo modal
-                        </button> -->
-          <!-- <li><i class="fa-solid fa-phone" style="color: rgb(12, 180, 12)"></i> +1 (407) 693-8484</li> -->
-
-          <li class="ab-spacing ms-3">
-            <p>
-              <span data-bs-toggle="modal" data-bs-target="#locationModal" class="find_location_btn">
-                <i class="fa-solid fa-location-dot" style="color: rgb(255, 53, 53)"></i><span class="mr3"> Find Location</span>
-              </span>
-              <a href="#contact" class="find_location_btn">
-                <i class="fa-solid fa-phone"  style="color: rgb(255, 53, 53)"></i><span> Call Us</span>
-              </a>
-            </p>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
 <header>
   <nav class="navbar navbar-expand-lg navbar-light">
     <div class="container">

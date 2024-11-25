@@ -36,6 +36,41 @@
 
 
 @section('bottom_import_file')
+<script>
+    <?php header('Access-Control-Allow-Origin: *'); ?>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    function addedItem()
+    {
+        var pro_id = $('#product_id').val();
+        var quantity = $('#quantity').val();
+        var unit = $('#strength').val();
+        var pro_mode = "medicine";
+
+        $.ajax({
+            type: "POST",
+            url: "/add_to_cart",
+            data: {
+                pro_id: pro_id,
+                pro_mode: pro_mode,
+                quantity: quantity,
+                unit:unit
+            },
+            success: function(data) {
+                console.log(data);
+                if(data.check=='1'){
+                    $('#alreadyadded').modal('show');
+                }
+                else{
+                    console.log('item added into cart');
+                }
+            },
+        });
+    }
+</script>
 @endsection
 
 @section('content')
@@ -61,78 +96,78 @@
             </div>
         </div>
 
-        <div class="container d-flex align-items-center justify-content-between w-100">
-            <div class="w-50">
-                <h5 class="text-danger">Prescription Required for this Medicine</h5>
-                <p class="text-danger">
-                    if you need a prescription please do an E-visit with our online doctor’s
-                </p>
-            </div>
-            <div class="w-50 d-flex align-items-center justify-content-end">
-                <button class="btn btn-outline-primary w-50" data-bs-toggle="modal" data-bs-target="#loginModal">Talk to
-                    Doctor</button>
-            </div>
-        </div>
-
         <div class="container my-3 z-3 pharmacy-page-container border border-1 rounded-3">
 
-        <div class="container border border-1 rounded-2 p-3 my-3">
-            <div class="row align-items-center">
+            <div class="container border border-1 rounded-2 p-3 my-3">
+                <div class="row align-items-center">
 
-                <div class="col-md-8 d-flex align-items-center justify-content-start">
-                    <img src="https://via.placeholder.com/150" width="150" height="150" alt="Medicine" class="img-fluid rounded">
-                    <div class="p-3">
-                        <h5 class="fw-bold">Medicine Name</h5>
-                        <p class="text-muted w-75">limit wqqeed descriptiofdsfsdfsfsdfdsfsdfdsfdsfdfdsdfsn.</p>
-                    </div>
-                </div>
-
-                <div class="col-md-4">
-                    <div>
-                        <label for="quantity" class="form-label fw-bold"><u>Quantity</u></label>
-                        <div class="input-group">
-                            <button class="btn btn-outline-secondary w-25" id="decrement" type="button">-</button>
-                            <input type="number" class="form-control text-center" id="quantity" value="1" min="1" readonly>
-                            <button class="btn btn-outline-secondary w-25" id="increment" type="button">+</button>
+                    <div class="col-md-8 d-flex align-items-center justify-content-start">
+                        <img src="{{ $products[0]->featured_image }}" width="150" height="150" alt="Medicine"
+                            class="img-fluid rounded">
+                        <div class="p-3">
+                            <h5 class="fw-bold">{{ $products[0]->name }}</h5>
+                            <p class="text-muted w-75">{{ $products[0]->generic }}</p>
                         </div>
                     </div>
+                    <div class="col-md-4">
+                    <form action="#" method="post" onsubmit="return false;">
+                        @csrf
+                        <input type="hidden" name="pro_id" id="product_id" value="{{$products[0]->id}}">
+                            <div>
+                                <label for="quantity" class="form-label fw-bold"><u>Quantity</u></label>
+                                <div class="input-group">
+                                    <button class="btn btn-outline-secondary w-25" id="decrement" type="button">-</button>
+                                    <input type="number" class="form-control text-center" id="quantity" value="1"
+                                        min="1" name="quantity" readonly>
+                                    <button class="btn btn-outline-secondary w-25" id="increment" type="button">+</button>
+                                </div>
+                            </div>
+                            @if ($products[0]->is_single)
+                                <div class="my-2">
+                                    <label class="form-label fw-bold"><u>Options</u></label>
+                                    <div class="d-flex gap-3">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="options" id="option1"
+                                                value="5">
+                                            <label class="form-check-label" for="option1">5 Pieces</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="options" id="option2"
+                                                value="10">
+                                            <label class="form-check-label" for="option2">10 Pieces</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="options" id="option3"
+                                                value="12">
+                                            <label class="form-check-label" for="option3">12 Pieces</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
 
-                    <div class="my-2">
-                        <label class="form-label fw-bold"><u>Options</u></label>
-                        <div class="d-flex gap-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="options" id="option1" value="5">
-                                <label class="form-check-label" for="option1">5 Pieces</label>
+                            <hr class="py-1 m-0">
+                            <div class="row">
+                                <label for="strength" class="form-label fw-bold"><u>Strength</u></label>
+                                <div class="col-lg-6 col-md-12">
+                                    <select id="strength" class="form-select w-100 h-100" name="unit">
+                                        @foreach ($products[0]->units as $item)
+                                            <option value="{{ $item->id }}">{{ $item->unit }} (Rs.
+                                                {{ $item->sale_price }})</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-lg-6 col-md-12">
+                                    @if(Auth::check())
+                                        <button class="medicine_btn w-100 fs-6 fw-bold" onclick="addedItem()">Add to Cart</button>
+                                    @else
+                                        <button class="medicine_btn w-100 fs-6 fw-bold" data-bs-toggle="modal" data-bs-target="#loginModal">Add to Cart</button>
+                                    @endif
+                                </div>
                             </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="options" id="option2" value="10">
-                                <label class="form-check-label" for="option2">10 Pieces</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="options" id="option3" value="12">
-                                <label class="form-check-label" for="option3">12 Pieces</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <hr class="py-1 m-0">
-                    <div class="row">
-                        <label for="strength" class="form-label fw-bold"><u>Strength</u></label>
-                        <div class="col-lg-6 col-md-12">
-                            <select id="strength" class="form-select w-100 h-100">
-                                <option value="250mg" selected>250mg</option>
-                                <option value="500mg">500mg</option>
-                                <option value="750mg">750mg</option>
-                                <option value="1000mg">1000mg</option>
-                            </select>
-                        </div>
-                        <div class="col-lg-6 col-md-12">
-                            <button class="medicine_btn w-100 fs-6 fw-bold">Add to Cart</button>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
-        </div>
 
             <h3 class="text-center p-2"><u>Detail Description</u></h3>
             <div class="med-description p-4">
@@ -218,6 +253,53 @@
         </div>
     </div>
     <!-- ******* LOGIN-REGISTER-MODAL ENDS ******** -->
+    <!-- Modal -->
+    <div class="modal fade cart-modal" id="afterLogin" tabindex="-1" aria-labelledby="afterLoginLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="afterLoginLabel">Item Added</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="custom-modal">
+                        <div class="succes succes-animation icon-top"><i class="fa fa-check"></i></div>
+                        <div class="content flex-column align-items-center justify-content-center w-100 gap-1">
+                            <p class="type">Item Added</p>
+                            <div class="modal-login-reg-btn"><button data-bs-dismiss="modal" aria-label="Close">
+                                    Continue Shopping
+                                </button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade cart-modal" id="alreadyadded" tabindex="-1" aria-labelledby="alreadyaddedLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="alreadyaddedLabel">Item Not Added</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="custom-modal1">
+                        <div class="succes succes-animation icon-top"><i class="fa fa-check"></i></div>
+                            <div class="content flex-column align-items-center justify-content-center w-100 gap-1">
+                                <p class="type">Item Is Already in Cart</p>
+                                <div class="modal-login-reg-btn"><button data-bs-dismiss="modal" aria-label="Close">
+                                        Continue Shopping
+                                    </button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
         const quantityInput = document.getElementById('quantity');
@@ -252,6 +334,3 @@
         });
     </script>
 @endsection
-
-
-
