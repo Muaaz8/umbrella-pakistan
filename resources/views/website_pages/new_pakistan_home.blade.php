@@ -79,7 +79,7 @@ $page = DB::table('pages')->where('url', '/')->first();
                             <p class="custom-card-text">
                                 Short description of the first card.
                             </p>
-                            <button class="btn btn-primary custom-btn2">E-visit</button>
+                            <button class="btn btn-primary custom-btn2" onclick="window.location.href='{{route('e-visit')}}'">E-visit</button>
                         </div>
                         <div class="custom-card-img">
                             <img width="70" height="70" src="{{ asset('assets/new_frontend/doc1.png') }}"
@@ -93,7 +93,7 @@ $page = DB::table('pages')->where('url', '/')->first();
                             <p class="custom-card-text">
                                 Short description of the first card.
                             </p>
-                            <button class="btn btn-success custom-btn2">Visit Our Store</button>
+                            <button class="btn btn-success custom-btn2" onclick="window.location.href='{{route('pharmacy')}}'">Visit Our Store</button>
                         </div>
                         <div class="custom-card-img">
                             <img src="{{ asset('assets/new_frontend/med1.png') }}" alt="Image 1" />
@@ -106,7 +106,7 @@ $page = DB::table('pages')->where('url', '/')->first();
                             <p class="custom-card-text">
                                 Short description of the first card.
                             </p>
-                            <button class="btn btn-danger custom-btn2">Online Tests</button>
+                            <button class="btn btn-danger custom-btn2" onclick="window.location.href='{{route('labs')}}'">Online Tests</button>
                         </div>
                         <div class="custom-card-img">
                             <img width="70" height="70" src="{{ asset('assets/new_frontend/lab3.png') }}"
@@ -124,7 +124,7 @@ $page = DB::table('pages')->where('url', '/')->first();
                         <div>
                             <h5>Personal Care</h5>
                             <p>Lorem ipsum dolor sit amet.</p>
-                            <button class="btn btn-success custom-btn2">View More</button>
+                            <button class="btn btn-success custom-btn2" onclick="window.location.href='{{route('pharmacy.category',['slug'=>'personal-care'])}}'">View More</button>
                             <div class="custom-card-img">
                                 <img width="60" height="60" src="{{ asset('assets/new_frontend/bottom1.png') }}"
                                     alt="Image 1" />
@@ -138,7 +138,7 @@ $page = DB::table('pages')->where('url', '/')->first();
                         <div>
                             <h5>Mother & Baby Care</h5>
                             <p>Lorem ipsum dolor sit amet.</p>
-                            <button class="btn btn-success custom-btn2">View More</button>
+                            <button class="btn btn-success custom-btn2" onclick="window.location.href='{{route('pharmacy.category',['slug'=>'baby-mothercare'])}}'">View More</button>
                             <div class="custom-card-img">
                                 <img width="60" height="60" src="{{ asset('assets/new_frontend/bottom2.png') }}"
                                     alt="Image 1" />
@@ -166,7 +166,7 @@ $page = DB::table('pages')->where('url', '/')->first();
                         <div>
                             <h5>Multi-Vitamins</h5>
                             <p>Lorem ipsum dolor sit amet.</p>
-                            <button class="btn btn-success custom-btn2">View More</button>
+                            <button class="btn btn-success custom-btn2" onclick="window.location.href='{{route('pharmacy.category',['slug'=>'multivitamins'])}}'">View More</button>
                             <div class="custom-card-img">
                                 <img width="60" height="60" src="{{ asset('assets/new_frontend/bottom4.png') }}"
                                     alt="Image 1" />

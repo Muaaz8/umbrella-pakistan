@@ -79,8 +79,11 @@
             <img width="220px" src="{{ asset('assets/new_frontend/logo.png') }}" alt="" />
             <hr />
             <a href="{{ url('/') }}">Home</a>
+            <a href="{{ route('pharmacy') }}">Pharmacy</a>
+            <a href="{{ route('labs') }}">Lab Tests</a>
+            <a href="{{ route('imaging') }}">Imaging</a>
+            <a href="{{ route('e-visit') }}">E-Visit</a>
             <a href="{{ route('about_us') }}">About</a>
-            <a href="#">Services</a>
             <a href="{{ route('contact_us') }}">Contact <i class="fa-solid fa-phone-flip"></i></a>
             <hr />
             {{-- <a href="#">Symptoms Checker</a> --}}
@@ -95,10 +98,12 @@
         </div>
         <div class="flex gap-15" id="nav-left-side">
             <a href="{{ url('/') }}">Home</a>
+            <a href="{{ route('pharmacy') }}">Pharmacy</a>
+            <a href="{{ route('labs') }}">Lab Tests</a>
+            <a href="{{ route('imaging') }}">Imaging</a>
+            <a href="{{ route('e-visit') }}">E-Visit</a>
             <a href="{{ route('about_us') }}">About</a>
-            <a href="#">Pharmacy</a>
-            <a href="#">Lab Tests</a>
-            <a href="#">Imaging</a>
+            <a href="{{ route('contact_us') }}">Contact <i class="fa-solid fa-phone-flip"></i></a>
 
 
 
@@ -126,10 +131,6 @@
                   </li>
                 </ul>
               </div> --}}
-
-
-            <a href="{{ route('e-visit') }}">E-Visit</a>
-            <a href="{{ route('contact_us') }}">Contact <i class="fa-solid fa-phone-flip"></i></a>
           </div>
       </section>
     </nav>
