@@ -27,7 +27,7 @@
     @if ($title != null)
         <title>{{ $title->content }}</title>
     @else
-        <title>Labtests | Umbrella Health Care Systems</title>
+        <title>Imaging</title>
     @endif
 @endsection
 

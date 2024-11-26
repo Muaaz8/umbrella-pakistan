@@ -11,7 +11,7 @@
                 <i class="fa-regular fa-user"></i>
                 <a href="#" class="pe-none">Symptoms Checker</a>
             </div>
-                <button class="nav_btns" data-bs-toggle="modal" data-bs-target="#symptomsOpen">
+                <button class="nav_btns" >
                     <i class="fa-solid fa-user-doctor"></i>
                     <a href="#">Talk to Doctor</a>
                 </button>
