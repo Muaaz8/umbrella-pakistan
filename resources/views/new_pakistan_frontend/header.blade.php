@@ -1,4 +1,24 @@
 <!-- header  -->
+<div id="offerBanner" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <div class="offer-banner primary-bg text-white text-center py-2">
+          <span>Get 20% off on your first purchase! Use code: FIRST20</span>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="offer-banner primary-bg text-white text-center py-2">
+          <span>Free delivery on orders above $50!</span>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="offer-banner primary-bg text-white text-center py-2">
+          <span>Limited Time Offer: Buy 1 Get 1 Free!</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
 <header>
     <nav>
       <section id="navbar">
@@ -11,10 +31,7 @@
                 <i class="fa-regular fa-user"></i>
                 <a href="#" class="pe-none">Symptoms Checker</a>
             </div>
-                <button class="nav_btns" >
-                    <i class="fa-solid fa-user-doctor"></i>
-                    <a href="#">Talk to Doctor</a>
-                </button>
+
             @if (Auth::check())
             <div class="dropdown" >
                 <button class="dropdown-toggle w-100" type="button" id="joinDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -41,6 +58,10 @@
                     </ul>
                 </div>
               @endif
+              <button class="nav_btns">
+                <i class="fa-brands fa-whatsapp"></i>
+                <a href="https://wa.me/923372350684" target="_blank">0337-2350684</a>
+              </button>
             <div onclick="window.location.href='{{ url('/my/cart') }}'">
               <img src="{{ asset('assets/new_frontend/purchase-icon.svg') }}" alt="shop-icon" />
             </div>
@@ -75,7 +96,12 @@
         <div class="flex gap-15" id="nav-left-side">
             <a href="{{ url('/') }}">Home</a>
             <a href="{{ route('about_us') }}">About</a>
-            <div class="dropdown">
+            <a href="#">Pharmacy</a>
+            <a href="#">Lab Tests</a>
+            <a href="#">Imaging</a>
+
+
+{{--            <div class="dropdown">
                 <a
                   class="dropdown-toggle"
                   href="#"
@@ -98,7 +124,9 @@
                     <a class="dropdown-item" href="{{ route('substance',['slug'=>'first-visit']) }}">Substance Abuse</a>
                   </li>
                 </ul>
-              </div>
+              </div> --}}
+
+
             <a href="{{ route('e-visit') }}">E-Visit</a>
             <a href="{{ route('contact_us') }}">Contact <i class="fa-solid fa-phone-flip"></i></a>
           </div>
