@@ -1156,14 +1156,16 @@ class SessionController extends Controller
                             if ($prod['type'] == 'medicine') {
                                 $product = AllProducts::where('id', $prod['medicine_id'])->first();
                             } else if ($prod['type'] == 'imaging') {
-                                $product = AllProducts::where('id', $prod['imaging_id'])->first();
-                                $usage = DB::table('imaging_selected_location')
-                                ->join('imaging_locations', 'imaging_selected_location.imaging_location_id', 'imaging_locations.id')
-                                ->where('imaging_selected_location.session_id', $prod['session_id'])
-                                ->where('imaging_selected_location.product_id', $prod['imaging_id'])
-                                ->select('imaging_locations.city as location')
-                                ->first();
-                                $prod->usage = $usage->location;
+                                // $product = AllProducts::where('id', $prod['imaging_id'])->first();
+                                // $usage = DB::table('imaging_selected_location')
+                                // ->join('imaging_locations', 'imaging_selected_location.imaging_location_id', 'imaging_locations.id')
+                                // ->where('imaging_selected_location.session_id', $prod['session_id'])
+                                // ->where('imaging_selected_location.product_id', $prod['imaging_id'])
+                                // ->select('imaging_locations.city as location')
+                                // ->first();
+                                // $prod->usage = $usage->location;
+                                $product = QuestDataTestCode::where('TEST_CD', $prod['test_id'])
+                                    ->first();
                             } else if ($prod['type'] == 'lab-test') {
                                 $product = QuestDataTestCode::where('TEST_CD', $prod['test_id'])
                                     ->first();

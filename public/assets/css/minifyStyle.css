@@ -31,8 +31,8 @@ ul {
 i {
     margin-right: 10px;
 }
-.back-arrow-about nav ol,
-.back-arrow-detail-pharmacy nav ol,
+.back-arrow-about ol,
+.back-arrow-detail-pharmacy ol,
 .iconInner i,
 .payment-form-wrap .form-text,
 h1,
@@ -58,7 +58,7 @@ li {
     list-style: none;
 }
 @media all and (max-width: 991px) {
-    .after-login-dash-res .nav-item {
+    .after-login-dash-res {
         width: 100%;
         margin-bottom: 10px;
     }
@@ -343,7 +343,7 @@ footer ul li {
     font-size: 19px;
 }
 #clearBtn,
-.add-to-cart-detail .nav-tabs .nav-link,
+.add-to-cart-detail,
 .back-arrow-about .breadcrumb-item + .breadcrumb-item::before,
 .back-arrow-detail-pharmacy .breadcrumb-item + .breadcrumb-item::before,
 .counter-box.colored .counter,
@@ -352,7 +352,6 @@ footer ul li {
 .dropdown1-content a,
 .input-group-text i,
 .labsbutton button:hover,
-.nav-pills li a,
 .pharmacy-tabs-cards .card .card-content h6 a,
 .slider-content h1,
 .slider-content p,
@@ -579,27 +578,8 @@ footer ul li {
     font-weight: 400;
     font-size: 20px;
 }
-.nav-pills .nav-link {
-    border: 0;
-    border-radius: 0.25rem;
-    background-color: #08295a;
-    color: #fff;
-    padding: 12px 0;
-    width: 100%;
-    box-shadow: rgb(0 0 0 / 24%) 0 3px 8px;
-}
 .b-bottom {
     border-bottom: 1px solid #dcdcdc;
-}
-.nav-pills .nav-link.active,
-.nav-pills .show > .nav-link {
-    background-color: #fff;
-    border: 1px solid #08295a;
-    color: #08295a;
-}
-.nav-pills .nav-link.active a {
-    color: #08295a !important;
-    font-weight: 600;
 }
 .tabs-content button {
     border: none;
@@ -1561,17 +1541,6 @@ span.avtr figure {
     justify-content: center;
     flex-direction: column;
 }
-.back-arrow-about nav,
-.back-arrow-detail-pharmacy nav {
-    display: flex;
-    align-items: center;
-    border: 1px solid #fff;
-    border-radius: 20px;
-    padding: 2px 11px;
-    position: absolute;
-    top: 8px;
-    left: 0;
-}
 .add-to-cart-card p,
 .medical-imaging-card .card .content p,
 .prescription-req-content p {
@@ -1905,11 +1874,6 @@ span.avtr figure {
 .prescription-req-heading {
     overflow: hidden;
 }
-.ver-nav,
-.ver-tab {
-    overflow-y: scroll;
-    overflow-x: hidden;
-}
 .prescription-req-content span {
     font-size: 16px;
     font-weight: 600;
@@ -1923,17 +1887,6 @@ span.avtr figure {
     border-radius: 20px;
     color: #fff;
     background-color: #08295a;
-}
-.ver-nav::-webkit-scrollbar {
-    width: 10px;
-}
-.ver-nav::-webkit-scrollbar-track {
-    border-radius: 5px;
-}
-.ver-nav::-webkit-scrollbar-thumb {
-    border-radius: 5px;
-    -webkit-box-shadow: inset 0 0 6px #fff;
-    background-color: #000;
 }
 .ver-tab .fa-arrow-left-long {
     background: #08295a;
@@ -1960,22 +1913,12 @@ span.avtr figure {
     box-shadow: rgba(100, 100, 111, 0.2) 0 7px 29px 0;
     width: 100%;
 }
-.ver-nav {
-    display: block;
-    height: 67vh;
-    background-color: #08295a;
-}
 .ver-tab {
     height: 90vh;
 }
 .vertical-tab-content h2 {
     text-align: center;
     margin-bottom: 20px;
-}
-.catalog-wrapper .nav-pills .nav-link {
-    border-radius: unset;
-    border-top: 1px solid #fff;
-    border-bottom: 1px solid #fff;
 }
 .catalog-heading i {
     font-size: 30px;
@@ -2178,12 +2121,6 @@ span.avtr figure {
 .catalog-search-wrapper .dropdown-select .option:focus,
 .catalog-search-wrapper .dropdown-select .option:hover {
     background-color: #e9ecef !important;
-}
-.catalog-wrapper .nav-pills .nav-link:hover {
-    background-color: #fff;
-    color: #000;
-    border: 1px solid #000;
-    font-weight: 500;
 }
 .catalog-search-wrapper .dropdown-select .option.selected {
     font-weight: 600;
@@ -2499,19 +2436,6 @@ span.avtr figure {
     position: relative;
     flex-direction: column;
 }
-.add-to-cart-detail .nav-tabs {
-    background-color: #08295a;
-    justify-content: space-between;
-    align-items: center;
-}
-.nav-tabs .nav-item.show .nav-link,
-.nav-tabs .nav-link.active {
-    color: #000 !important;
-    background-color: #fff;
-    border-color: #dee2e6 #dee2e6 #fff;
-    border-bottom: 1px;
-    border-radius: 0;
-}
 .detail-cart-btn button {
     border: none;
     padding: 6px 20px;
@@ -2720,9 +2644,6 @@ span.avtr figure {
         width: 100%;
         padding: 50px 30px;
     }
-    .nav-right-items {
-        width: 100% !important;
-    }
     .footer-widget,
     .pharmacy-search {
         margin-bottom: 20px;
@@ -2736,20 +2657,6 @@ span.avtr figure {
     }
     .dropdown-toggle::after {
         float: right;
-    }
-    .navbar-location {
-        justify-content: space-between;
-        flex-wrap: wrap;
-        display: block !important;
-    }
-    .navbar-location .ab-spacing {
-        margin-left: 0 !important;
-    }
-    .navbar-social-icon {
-        flex-wrap: nowrap !important;
-        position: absolute;
-        right: 0;
-        top: -2px;
     }
 }
 @media screen and (max-width: 767px) {
@@ -2812,15 +2719,6 @@ span.avtr figure {
         width: 40px;
         height: 40px;
         line-height: 37px;
-    }
-    .navbar-location {
-        display: block;
-    }
-    .navbar-location br {
-        display: none;
-    }
-    .navbar-location li {
-        display: flex;
     }
     .ab-spacing {
         padding: 0;
@@ -2891,16 +2789,6 @@ span.avtr figure {
     }
     .home-carousel .carousel-indicators {
         bottom: 41%;
-    }
-}
-@media screen and (max-width: 1200px) {
-    .navbar-social-icon {
-        flex-wrap: wrap;
-    }
-}
-@media screen and (max-width: 991px) {
-    .nav-right-items {
-        width: auto !important;
     }
 }
 @media screen and (max-width: 300px) {

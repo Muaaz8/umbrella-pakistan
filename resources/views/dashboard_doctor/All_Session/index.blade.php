@@ -153,7 +153,7 @@
                         <tbody>
                             @foreach ($ses->pres as $meds)
                             <tr>
-                                @if ($meds->type == 'lab-test')
+                                @if ($meds->type == 'lab-test' || $meds->type == 'imaging')
                                     <td data-label="Recommendation" scope="row">{{ $meds->prod_detail['TEST_NAME'] }}</td>
                                 @else
                                     <td data-label="Recommendation" scope="row">{{ $meds->prod_detail['name'] }}</td>

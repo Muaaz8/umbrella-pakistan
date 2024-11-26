@@ -1,22 +1,698 @@
 @extends('layouts.new_web_layout')
 
 @section('meta_tags')
-<meta charset="utf-8" />
-<meta name="google-site-verification" content="Zgq0W54U_oOpntcqrKICmQpKyIPsJWhntAVoGqDCqV0" />
-<meta name="csrf-token" content="{{ csrf_token() }}" />
-<meta name="language" content="en-us">
-<meta name="robots" content="index,follow" />
-<meta name="copyright" content="© 2022 All Rights Reserved. Powered By UmbrellaMd">
-<meta name="url" content="https://www.umbrellamd.com">
-<meta property="og:locale" content="en_US" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://www.umbrellamd.com" />
-<meta property="og:site_name" content="Umbrella Health Care Systems | Umbrellamd.com" />
-<meta name="twitter:site" content="@umbrellamd	">
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="author" content="Umbrellamd">
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="icon" href="{{ asset('asset_frontend/images/logo.ico') }}" type="image/x-icon">
+    <meta charset="utf-8" />
+    <meta name="google-site-verification" content="Zgq0W54U_oOpntcqrKICmQpKyIPsJWhntAVoGqDCqV0" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <meta name="language" content="en-us">
+    <meta name="robots" content="index,follow" />
+    <meta name="copyright" content="© 2022 All Rights Reserved. Powered By UmbrellaMd">
+    <meta name="url" content="https://www.umbrellamd.com">
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.umbrellamd.com" />
+    <meta property="og:site_name" content="Umbrella Health Care Systems | Umbrellamd.com" />
+    <meta name="twitter:site" content="@umbrellamd	">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="author" content="Umbrellamd">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="{{ asset('asset_frontend/images/logo.ico') }}" type="image/x-icon">
+    <style>
+        :root {
+
+            --red: #c80919;
+
+            --blue: #2964bc;
+
+            --maroon: #c80919;
+
+            --navy-blue: #082755;
+
+            --green: #35b518;
+
+            --lh: 1.4rem;
+
+        }
+
+
+
+        * {
+
+            margin: 0;
+
+            padding: 0;
+
+            box-sizing: border-box;
+
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
+            transition: all 0.3s ease-out;
+
+        }
+
+
+
+        p {
+
+            margin-bottom: 0;
+
+        }
+
+
+
+        ::-webkit-scrollbar {
+
+            width: 6px;
+
+        }
+
+
+
+        ::-webkit-scrollbar-track {
+
+            background: #c7c7c7;
+
+        }
+
+
+
+        ::-webkit-scrollbar-thumb {
+
+            background: #3b35ac;
+
+        }
+
+
+
+        ::-webkit-scrollbar-thumb:hover {
+
+            background: #082755;
+
+        }
+
+
+
+        html,
+
+        body {
+
+            width: 100%;
+
+            overflow-x: hidden;
+
+        }
+
+
+
+        header {
+
+            height: 85px;
+
+            background-color: white;
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 10;
+
+        }
+
+
+
+        #contact-bar {
+
+            height: 50px;
+
+            background-color: var(--red);
+
+            color: white;
+
+            font-size: small;
+
+        }
+
+
+
+        #navbar {
+
+            position: sticky;
+
+            top: 0;
+
+            width: 100%;
+
+            background-color: white;
+
+        }
+
+
+
+        #left-side>div>div,
+
+        #right-side>div,
+
+        #social-icons>div {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            border: 2px solid white;
+
+            border-radius: 30px;
+
+            padding: 6px;
+
+        }
+
+
+
+        #contact-bar img {
+
+            width: 15px;
+
+        }
+
+        .wrap {
+
+            height: 100%;
+
+            width: 90%;
+
+            margin: 0 auto;
+
+            border-bottom: 1px solid #e0e0e0;
+
+        }
+
+
+
+        .logo {
+
+            border-radius: 100%;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+        }
+
+
+
+        .logo>img {
+
+            width: 250px;
+
+        }
+
+
+
+        #nav-left-side,
+
+        #nav-right-side {
+
+            gap: 20px;
+
+        }
+
+
+
+        #nav-left-side {
+
+            justify-content: center;
+
+        }
+
+
+
+        #navbar a {
+
+            text-decoration: none;
+
+            color: black;
+
+            border-bottom: 2px solid transparent;
+
+            font-size: 15px;
+
+            padding: 5px;
+
+            font-weight: 600;
+
+        }
+
+
+
+        #nav-left-side>a:hover {
+
+            border-bottom: 2px solid var(--red);
+
+        }
+
+
+
+        #checker,
+
+        #joinDropdown {
+
+            border: 2px solid var(--green);
+
+            padding: 5px 15px;
+
+            border-radius: 30px;
+
+            background: #ffff;
+
+            font-weight: 600;
+
+        }
+
+
+
+        .background-secondary {
+
+            background: #f5f5f5;
+
+            height: 100%;
+
+        }
+
+
+
+        #checker>img,
+
+        #joinDropdown>img {
+
+            width: 25px;
+
+        }
+
+
+
+        #checker:hover,
+
+        #joinDropdown:hover {
+
+            border: 2px solid var(--red);
+
+        }
+
+
+
+        .nav_btns {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: between;
+
+            border: 2px solid var(--green);
+
+            border-radius: 30px;
+
+            background: #ffff;
+
+            padding: 5px 15px;
+
+        }
+
+
+
+        .nav_btns>a {
+
+            font-size: 16px !important;
+
+            text-decoration: none;
+
+            color: black;
+
+            padding: 0px !important;
+
+            margin-bottom: 0 !important;
+
+            margin-left: 5px;
+
+            font-weight: 500;
+
+        }
+
+
+
+        .nav_btns:hover {
+
+            border: 2px solid var(--red);
+
+        }
+
+
+
+        #nav-right-side>div:last-child>img {
+
+            width: 30px;
+
+        }
+
+
+
+        #checker,
+
+        #joinDropdown {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 5px;
+
+        }
+
+
+
+
+
+        footer {
+            max-width: 100vw;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--navy-blue);
+            padding: 40px 0 20px 0;
+            gap: 20px;
+        }
+
+        #footer-section {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            align-items: flex-start;
+            width: 90%;
+            gap: 20px;
+            color: white;
+        }
+
+        .footer {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            align-items: start;
+        }
+
+        #footer-1 {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: start;
+        }
+
+        .footer-heading {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-heading>h3 {
+            font-size: 24px;
+        }
+
+        .footer-content>h4 {
+            font-weight: 400;
+            color: gainsboro;
+        }
+
+        .footer-content>div>a {
+            text-decoration: none;
+            color: gainsboro;
+        }
+
+        .footer-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-info>img {
+            width: 10px;
+        }
+
+        .footer-info>a {
+            border-bottom: 1px solid transparent;
+        }
+
+        .footer-info>a:hover {
+            border-bottom: 1px solid var(--red);
+            color: white;
+        }
+
+        .footer-highlight {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: var(--red);
+            padding: 10px 15px;
+            border-radius: 20px;
+        }
+
+        .footer-highlight>img {
+            width: 20px;
+        }
+
+        .footer-highlight>a:hover {
+            color: gainsboro;
+        }
+
+        #footer-logo {
+            display: block;
+            background-color: white;
+            border-radius: 5px;
+        }
+
+        #footer-logo>img {
+            width: 230px;
+        }
+
+        #footer-2>.footer-content>h4 {
+            text-decoration: 1px solid underline;
+        }
+
+        #social-icons {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #social-icons>div {
+            background-color: var(--red);
+            border: none;
+            padding: 8px;
+        }
+
+        #social-icons>div>i {
+            font-size: 17px;
+        }
+
+        #footer-4>div>h4 {
+            font-weight: 500;
+            color: white;
+            font-size: 18px;
+        }
+
+        #copyright>p {
+            color: gainsboro;
+        }
+
+        #copyright>span {
+            font-weight: bold;
+        }
+
+        .seperation {
+            width: 100%;
+            height: 1px;
+            background-color: gainsboro;
+        }
+
+        #disclaimer {
+            background-position: cover center;
+            background-repeat: no-repeat;
+            background-size: 100vw;
+            position: relative;
+            min-height: 410px;
+            padding-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .disclaimer-box {
+            width: 100%;
+            height: 400px;
+            position: absolute;
+            background-color: white;
+            opacity: 0.82;
+        }
+
+        #disclaimer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        #disclaimer-content>div:first-child>.underline {
+            background-color: var(--navy-blue);
+        }
+
+        #disclaimer-content>div:first-child {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+            font-size: 40px;
+            color: var(--red);
+        }
+
+        #disclaimer-content>div:first-child>h2 {
+            color: var(--red);
+            font-size: 2.5rem;
+        }
+
+        #disclaimer-content>div:last-child {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        #disclaimer-content>div>p {
+            font-size: 16px;
+            padding: 0 50px;
+            color: var(--navy-blue);
+            text-align: justify;
+            text-align-last: center;
+            font-weight: 400;
+        }
+
+        .disclaimer-blob {
+            position: absolute;
+            left: -300px;
+            top: -100px;
+            opacity: 0.2;
+            width: 700px;
+            z-index: -1;
+        }
+
+        .hamburger_container {
+            cursor: pointer;
+            display: none;
+            z-index: 1000;
+        }
+
+        .hamburger div {
+            width: 30px;
+            height: 3px;
+            background-color: #333;
+            margin: 5px 0;
+            transition: 0.4s;
+        }
+
+        .drawer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100%;
+            background-color: #ffffff;
+            color: #202020;
+            transform: translateX(-100%);
+            transition: transform 0.4s ease;
+            padding-top: 60px;
+            z-index: 999;
+            border-right: 1px solid #ff5757;
+        }
+
+        .drawer a {
+            padding: 15px 30px;
+            text-decoration: none;
+            font-size: 16px;
+            color: #fff;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .drawer hr {
+            width: 90%;
+            margin: 0 auto;
+            border: 1px solid #ff5757;
+        }
+
+        .drawer a:hover {
+            background-color: #575757;
+            color: #ffffff;
+        }
+
+        .drawer.active {
+            transform: translateX(0);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #202020;
+            transition: 0.3s;
+        }
+
+        .close-btn:hover {
+            color: #ff5757;
+        }
+
+        .blur-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+            display: none;
+        }
+
+        .blur-overlay.active {
+            display: block;
+        }
+
+        .hamburger.active div:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active div:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active div:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* utility.css  */
+
+        .text-center {
+            text-align: center;
+        }
+    </style>
 @endsection
 
 
@@ -97,22 +773,22 @@
                     $(".card-pic").html('');
                     $(".card-pic").html(
                         "<img src='{{ asset('assets/images/american-express.png') }}'' class='pay-image w-100' alt=''>"
-                        );
+                    );
                 } else if (e.substring(0, 1) == 4) {
                     $(".card-pic").html('');
                     $(".card-pic").html(
                         "<img src='{{ asset('assets/images/visa.png') }}'' class='pay-image w-100' alt=''>"
-                        );
+                    );
                 } else if (e.substring(0, 1) == 5) {
                     $(".card-pic").html('');
                     $(".card-pic").html(
                         "<img src='{{ asset('assets/images/master.png') }}'' class='pay-image w-100' alt=''>"
-                        );
+                    );
                 } else if (e.substring(0, 1) == 6) {
                     $(".card-pic").html('');
                     $(".card-pic").html(
                         "<img src='{{ asset('assets/images/discover.png') }}'' class='pay-image w-100' alt=''>"
-                        );
+                    );
                 } else {
                     $(".card-pic1").html('');
                 }
@@ -151,7 +827,8 @@
                                 '<h5 class="card-title">' + product.name + '</h5>' +
                                 '<h5 class="checkoutItem_prod" id="' + product.product_id +
                                 '" hidden></h5>' +
-                                '<h5 class="checkoutItem_cart" id="' + product.id + '" hidden>' +
+                                '<h5 class="checkoutItem_cart" id="' + product.id +
+                                '" hidden>' +
                                 product.id + '</h5>' +
                                 '<p class="card-text">Qty:1 <span class="float-end pe-3"><b> Price: $' +
                                 product.update_price + '</b></span></p>' +
@@ -174,7 +851,8 @@
                                 '<h5 class="card-title">' + product.name + '</h5>' +
                                 '<h5 class="checkoutItem_prod" id="' + product.product_id +
                                 '" hidden>' + product.product_id + '</h5>' +
-                                '<h5 class="checkoutItem_cart" id="' + product.id + '" hidden>' +
+                                '<h5 class="checkoutItem_cart" id="' + product.id +
+                                '" hidden>' +
                                 product.id + '</h5>' +
                                 '<p class="card-text">Qty:1 <span class="float-end pe-3"><b> Price: $' +
                                 product.update_price + '</b></span></p>' +
@@ -197,15 +875,15 @@
             $.ajax({
                 type: "get",
                 url: "/admin/coupon/check",
-                success: function (response) {
+                success: function(response) {
                     if (response == true) {
                         $('#promo_added').show();
-                        $('#coupon_code').prop("disabled",true);
-                        $('.coupon_apply').prop("disabled",true);
-                    }else{
+                        $('#coupon_code').prop("disabled", true);
+                        $('.coupon_apply').prop("disabled", true);
+                    } else {
                         $('#promo_added').hide();
-                        $('#coupon_code').prop("disabled",false);
-                        $('.coupon_apply').prop("disabled",false);
+                        $('#coupon_code').prop("disabled", false);
+                        $('.coupon_apply').prop("disabled", false);
                     }
 
                 }
@@ -418,7 +1096,7 @@
                             $("#shipping_customer_state").val(response.billing.state);
                             $("#shipping_customer_city").val(response.billing.city);
                             $("#shipping_customer_address").val(response.billing
-                            .street_address);
+                                .street_address);
                         }
                     });
                     $('.phd').hide();
@@ -427,6 +1105,7 @@
         });
 
         function create_custom_dropdowns() {}
+
         function divClick(e) {
             var value = $(e).data('card');
             var radioBtn = $(e).find('input[type="radio"]');
@@ -548,8 +1227,8 @@
                         } else {
                             $('#state_code').val(data.abbreviation);
                             $('#city').val(data.city);
-                            $('#state_code').attr('readonly',true);
-                            $('#city').attr('readonly',true);
+                            $('#state_code').attr('readonly', true);
+                            $('#city').attr('readonly', true);
                         }
                     },
                 });
@@ -627,16 +1306,15 @@
                     cart_id: cart_id,
                 },
                 success: function(response) {
-                    if(response == 'true'){
-                        $('#coupon_code').attr('disabled',true);
+                    if (response == 'true') {
+                        $('#coupon_code').attr('disabled', true);
                         $('#promo_success').show();
-                    }else if (response == 'false'){
+                    } else if (response == 'false') {
                         $('#promo_already_used').show();
                     }
-                    if (response == 'Date Expired!!'){
+                    if (response == 'Date Expired!!') {
                         $('#promo_danger').show();
-                    }
-                    else{
+                    } else {
                         $('#loadItemChecoutFinal').text('');
                         $.ajax({
                             type: 'POST',
@@ -670,9 +1348,11 @@
                                             '<h5 class="card-title">' + product
                                             .name + '</h5>' +
                                             '<h5 class="checkoutItem" id="' +
-                                            product.product_id + '" hidden></h5>' +
+                                            product.product_id +
+                                            '" hidden></h5>' +
                                             '<h5 class="checkoutItem" id="' +
-                                            product.id + '" hidden>' + product.id +
+                                            product.id + '" hidden>' + product
+                                            .id +
                                             '</h5>' +
                                             '<p class="card-text">Qty:1 <span class="float-end pe-3"><b> Price: $' +
                                             product.update_price +
@@ -701,7 +1381,8 @@
                                             product.product_id + '" hidden>' +
                                             product.product_id + '</h5>' +
                                             '<h5 class="checkoutItem" id="' +
-                                            product.id + '" hidden>' + product.id +
+                                            product.id + '" hidden>' + product
+                                            .id +
                                             '</h5>' +
                                             '<p class="card-text">Qty:1 <span class="float-end pe-3"><b> Price: $' +
                                             product.update_price +
@@ -722,7 +1403,7 @@
                                 $(".payAble").val(res.totalPrice);
                             }
                         });
-                }
+                    }
                 }
             });
         });
@@ -741,6 +1422,111 @@
 @endsection
 
 @section('content')
+
+    <header>
+        <nav>
+            <section id="navbar">
+                <div class="wrap flex gap-15 between">
+                    <div id="nav-logo" class="logo">
+                        <img src="{{ asset('assets/new_frontend/logo.png') }}" alt="umbrella-logo" />
+                    </div>
+                    <div class="flex gap-15" id="nav-right-side">
+                        <div id="checker">
+                            <i class="fa-regular fa-user"></i>
+                            <a href="#" class="pe-none">Symptoms Checker</a>
+                        </div>
+                        <button class="nav_btns" data-bs-toggle="modal" data-bs-target="#symptomsOpen">
+                            <i class="fa-solid fa-user-doctor"></i>
+                            <a href="#">Talk to Doctor</a>
+                        </button>
+                        @if (Auth::check())
+                            <div class="dropdown">
+                                <button class="dropdown-toggle w-100" type="button" id="joinDropdown"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa-solid fa-user-group"></i> Hi {{ Auth::user()->name }}
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="joinDropdown">
+                                    <li><a class="dropdown-item" href="{{ route('home') }}">Go to Dashboard</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
+                                    </li>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        style="display: none;">
+                                        @csrf
+                                    </form>
+                                </ul>
+                            </div>
+                        @else
+                            <div class="dropdown">
+                                <button class="dropdown-toggle w-100" type="button" id="joinDropdown"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa-solid fa-user-group"></i> Join Us
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="joinDropdown">
+                                    <li><a class="dropdown-item" href="{{ route('login') }}">Login</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('doc_register') }}">Register as Doctor</a>
+                                    </li>
+                                    <li><a class="dropdown-item" href="{{ route('pat_register') }}">Register as Patient</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        @endif
+                        <div onclick="window.location.href='{{ url('/my/cart') }}'">
+                            <img src="{{ asset('assets/new_frontend/purchase-icon.svg') }}" alt="shop-icon" />
+                        </div>
+                    </div>
+                    <div class="hamburger_container" onclick="toggleDrawer()">
+                        <div class="hamburger">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
+
+                    <div class="drawer" id="drawer">
+                        <span class="close-btn" onclick="toggleDrawer()">×</span>
+                        <img width="220px" src="{{ asset('assets/new_frontend/logo.png') }}" alt="" />
+                        <hr />
+                        <a href="{{ url('/') }}">Home</a>
+                        <a href="{{ route('about_us') }}">About</a>
+                        <a href="#">Services</a>
+                        <a href="{{ route('contact_us') }}">Contact <i class="fa-solid fa-phone-flip"></i></a>
+                        <hr />
+                        {{-- <a href="#">Symptoms Checker</a> --}}
+                        <a href="#">Join Us</a>
+                    </div>
+
+                    <div class="blur-overlay" id="blurOverlay" onclick="toggleDrawer()"></div>
+                </div>
+                <div class="flex gap-15" id="nav-left-side">
+                    <a href="{{ url('/') }}">Home</a>
+                    <a href="{{ route('about_us') }}">About</a>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle" href="#" role="button" id="servicesDropdown"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            Services
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
+                            <li><a class="dropdown-item" href="{{ route('pharmacy') }}">Pharmacy</a></li>
+                            <li><a class="dropdown-item" href="{{ route('labs') }}">Lab Tests</a></li>
+                            <li><a class="dropdown-item" href="{{ route('imaging') }}">Imaging</a></li>
+                            <li><a class="dropdown-item"
+                                    href="{{ route('psychiatry', ['slug' => 'anxiety']) }}">Psychiatry</a></li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('pain.management') }}">Pain Management</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item"
+                                    href="{{ route('substance', ['slug' => 'first-visit']) }}">Substance Abuse</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="{{ route('e-visit') }}">E-Visit</a>
+                    <a href="{{ route('contact_us') }}">Contact <i class="fa-solid fa-phone-flip"></i></a>
+                </div>
+            </section>
+        </nav>
+    </header>
     <div class="container">
         <div>
             @if (session()->get('msg'))
@@ -801,7 +1587,8 @@
                                                                                 alt="{{ $item->name }}"
                                                                                 src="{{ url('/uploads/' . $item->product_image) }}" />
                                                                             @if ($item->product_mode == 'medicine')
-                                                                                <h6 class="item-tag-name tag-name-pharmacy">
+                                                                                <h6
+                                                                                    class="item-tag-name tag-name-pharmacy">
                                                                                     Pharmacy</h6>
                                                                             @elseif($item->product_mode == 'lab-test')
                                                                                 <h6 class="item-tag-name tag-name-lab">Lab
@@ -822,7 +1609,8 @@
                                                                                     </div>
                                                                                 @endif
                                                                                 @isset($item->prescribed_by)
-                                                                                    <div class="row text-prescribed">Prescribed:
+                                                                                    <div class="row text-prescribed">
+                                                                                        Prescribed:
                                                                                         {{ $item->prescribed_by }} -
                                                                                         {{ $item->prescription_date }}</div>
                                                                                 @endisset
@@ -846,7 +1634,7 @@
                                                                         </div>
                                                                         <div class="col med-price price_{{ $counter }}"
                                                                             style="color: white;">
-                                                                            ${{ number_format($item->price, 2) }}
+                                                                            Rs.{{ number_format($item->price, 2) }}
                                                                             <span class="close">
                                                                                 <input type="checkbox" checked
                                                                                     id="item_{{ $counter }}"
@@ -875,7 +1663,8 @@
                                                                                 alt="{{ $item->name }}"
                                                                                 src="{{ url('/uploads/' . $item->product_image) }}" />
                                                                             @if ($item->product_mode == 'medicine')
-                                                                                <h6 class="item-tag-name tag-name-pharmacy">
+                                                                                <h6
+                                                                                    class="item-tag-name tag-name-pharmacy">
                                                                                     Pharmacy</h6>
                                                                             @elseif($item->product_mode == 'lab-test')
                                                                                 <h6 class="item-tag-name tag-name-lab">Lab
@@ -895,7 +1684,8 @@
                                                                                         {{ $item->medicine_usage }}</div>
                                                                                 @endif
                                                                                 @isset($item->prescribed_by)
-                                                                                    <div class="row text-prescribed">Prescribed:
+                                                                                    <div class="row text-prescribed">
+                                                                                        Prescribed:
                                                                                         {{ $item->prescribed_by }} -
                                                                                         {{ $item->prescription_date }}</div>
                                                                                 @endisset
@@ -918,7 +1708,7 @@
                                                                             @endif
                                                                         </div>
                                                                         <div class="col price_{{ $counter }}">
-                                                                            ${{ number_format($item->price, 2) }}
+                                                                            Rs.{{ number_format($item->price, 2) }}
                                                                             <span class="close">
                                                                                 <input type="checkbox"
                                                                                     id="item_{{ $counter }}"
@@ -959,15 +1749,15 @@
 
                                                         <li class="list-group-item">Provider Fee<span id="provider_fee">
 
-                                                                ${{ number_format($providerFee, 2) ?? '' }}
+                                                                Rs.{{ number_format($providerFee, 2) ?? '' }}
 
                                                             </span></li>
 
                                                         <li class="list-group-item">Total Cost <span
-                                                                id="totalCast">${{ number_format($itemSum, 2) }}</span>
+                                                                id="totalCast">Rs.{{ number_format($itemSum, 2) }}</span>
                                                         </li>
                                                         <li class="list-group-item">To be Paid <span
-                                                                id="totalPaid">${{ number_format($totalPrice, 2) }}</span>
+                                                                id="totalPaid">Rs.{{ number_format($totalPrice, 2) }}</span>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -994,8 +1784,8 @@
                                         <div class="col-md-7 mb-3 px-md-2 p-0 ">
                                             <div class="col-md-8 mb-2">
                                                 @foreach ($cards as $card)
-                                                    <div
-                                                        class="d-flex align-items-center mb-2 justify-content-between api_saved_card" data-card="{{ $card->id }}" onclick="divClick(this)">
+                                                    <div class="d-flex align-items-center mb-2 justify-content-between api_saved_card"
+                                                        data-card="{{ $card->id }}" onclick="divClick(this)">
                                                         <div class="d-flex align-items-center">
                                                             @if ($card->card_type == '5')
                                                                 <img src="{{ asset('assets/images/master.png') }}"
@@ -1026,8 +1816,8 @@
                                             <div class="col-md-12 mb-3 px-md-2 p-0 ">
                                                 @if (count($cards) != 0)
                                                     <div class="col-md-4 mb-3">
-                                                        <button id="addButton" onclick="addCard()" class="btn process-pay"
-                                                            style="width:100%">Add New
+                                                        <button id="addButton" onclick="addCard()"
+                                                            class="btn process-pay" style="width:100%">Add New
                                                             Card</button>
                                                     </div>
                                                 @endif
@@ -1037,47 +1827,57 @@
                                                         <form method="post" id="formWithCard"
                                                             action="{{ route('order.payment') }}">
                                                             @csrf
-                                                            <input type="hidden" class="payAble" id="payAble" name="payAble"
-                                                                value="{{ $totalPrice }}">
+                                                            <input type="hidden" class="payAble" id="payAble"
+                                                                name="payAble" value="{{ $totalPrice }}">
                                                             <div class="row">
                                                                 <div class="mb-3 col-md-6">
-                                                                    <label for="exampleInputEmail1" class="form-label">Card Holder
+                                                                    <label for="exampleInputEmail1"
+                                                                        class="form-label">Card Holder
                                                                         First Name</label>
-                                                                    <input type="text" value="{{ Auth::user()->name }}"
+                                                                    <input type="text"
+                                                                        value="{{ Auth::user()->name }}"
                                                                         name="card_holder_name" class="form-control mt-1"
                                                                         id="exampleInputEmail1" placeholder="First Name"
-                                                                        aria-describedby="emailHelp" required maxlength="30" />
+                                                                        aria-describedby="emailHelp" required
+                                                                        maxlength="30" />
                                                                 </div>
                                                                 <div class="mb-3 col-md-6">
-                                                                    <label for="exampleInputEmail1" class="form-label">Card Holder
+                                                                    <label for="exampleInputEmail1"
+                                                                        class="form-label">Card Holder
                                                                         Last Name</label>
-                                                                    <input type="text" value="{{ Auth::user()->last_name }}"
-                                                                        name="card_holder_last_name" class="form-control mt-1"
-                                                                        id="exampleInputEmail1" placeholder="Last Name"
-                                                                        maxlength="30" aria-describedby="emailHelp" required />
+                                                                    <input type="text"
+                                                                        value="{{ Auth::user()->last_name }}"
+                                                                        name="card_holder_last_name"
+                                                                        class="form-control mt-1" id="exampleInputEmail1"
+                                                                        placeholder="Last Name" maxlength="30"
+                                                                        aria-describedby="emailHelp" required />
                                                                 </div>
                                                                 <div class="mb-3 col-md-6">
                                                                     <label for="exampleInputEmail1"
                                                                         class="form-label">Email</label>
-                                                                    <input type="email" value="{{ Auth::user()->email }}"
-                                                                        name="email" class="form-control mt-1" id="email"
+                                                                    <input type="email"
+                                                                        value="{{ Auth::user()->email }}" name="email"
+                                                                        class="form-control mt-1" id="email"
                                                                         placeholder="Email" aria-describedby="emailHelp"
                                                                         required />
                                                                 </div>
                                                                 <div class="mb-3 col-md-6">
-                                                                    <label for="exampleInputEmail1" class="form-label">Phone
+                                                                    <label for="exampleInputEmail1"
+                                                                        class="form-label">Phone
                                                                         Number</label>
                                                                     <input type="text"
                                                                         value="{{ Auth::user()->phone_number }}"
                                                                         name="phoneNumber" class="form-control mt-1"
                                                                         id="exampleInputEmail1" placeholder="Phone Number"
-                                                                        aria-describedby="emailHelp" maxlength="10" required />
+                                                                        aria-describedby="emailHelp" maxlength="10"
+                                                                        required />
                                                                 </div>
                                                             </div>
                                                             <div class="mb-3">
                                                                 <label for="exampleInputPassword1" class="form-label">Card
                                                                     Number</label>
-                                                                <div id="emailHelp" class="form-text">Enter the 16 digit card
+                                                                <div id="emailHelp" class="form-text">Enter the 16 digit
+                                                                    card
                                                                     number on
                                                                     the card</div>
                                                                 <div class="input-group">
@@ -1086,24 +1886,27 @@
                                                                         <img src="{{ asset('assets\images\discover.png') }}"
                                                                             alt="" width="90%" />
                                                                     </span>
-                                                                    <input type="text" name="card_number" id="card_num"
-                                                                        class="form-control" value=""
-                                                                        placeholder="1234234534452324" required
-                                                                        maxlength="19" onkeyup="addHyphen(this)" />
+                                                                    <input type="text" name="card_number"
+                                                                        id="card_num" class="form-control"
+                                                                        value="" placeholder="1234234534452324"
+                                                                        required maxlength="19"
+                                                                        onkeyup="addHyphen(this)" />
                                                                 </div>
                                                             </div>
                                                             <div class="row mb-3 align-items-center">
                                                                 <div class="col-md-6">
                                                                     <label for="inputPassword6" class="form-label">CVV/CVC
                                                                         Number</label>
-                                                                    <p id="passwordHelpInline" class="form-text">Enter the 3 or 4
+                                                                    <p id="passwordHelpInline" class="form-text">Enter the
+                                                                        3 or 4
                                                                         digit
                                                                         numbers on card</p>
                                                                 </div>
                                                                 <div class="col-md-6">
                                                                     <input type="number" name="cvc" value=""
-                                                                        id="inputPassword6" onKeyPress="if(this.value.length==4) return false;" class="form-control"
-                                                                        placeholder="Enter CVV/CVC"
+                                                                        id="inputPassword6"
+                                                                        onKeyPress="if(this.value.length==4) return false;"
+                                                                        class="form-control" placeholder="Enter CVV/CVC"
                                                                         aria-describedby="passwordHelpInline" required />
                                                                 </div>
                                                             </div>
@@ -1117,18 +1920,24 @@
                                                                 </div>
                                                                 <div class="row col-md-6">
                                                                     <div class="col-5">
-                                                                        <input type="number" value="12" name="exp_month"
-                                                                            id="inputPassword6" class="form-control"
-                                                                            aria-describedby="passwordHelpInline" onKeyPress="if(this.value.length==2) return false;" required />
+                                                                        <input type="number" value="12"
+                                                                            name="exp_month" id="inputPassword6"
+                                                                            class="form-control"
+                                                                            aria-describedby="passwordHelpInline"
+                                                                            onKeyPress="if(this.value.length==2) return false;"
+                                                                            required />
                                                                     </div>
-                                                                    <div class="col-2 text-center m-auto" style="font-size: 2rem">
+                                                                    <div class="col-2 text-center m-auto"
+                                                                        style="font-size: 2rem">
                                                                         /
                                                                     </div>
                                                                     <div class="col-5">
-                                                                        <input type="number" value="{{ date('Y') }}" name="exp_year"
-                                                                            onKeyPress="if(this.value.length==4) return false;" id="inputPassword6"
-                                                                            class="form-control"
-                                                                            aria-describedby="passwordHelpInline" required />
+                                                                        <input type="number" value="{{ date('Y') }}"
+                                                                            name="exp_year"
+                                                                            onKeyPress="if(this.value.length==4) return false;"
+                                                                            id="inputPassword6" class="form-control"
+                                                                            aria-describedby="passwordHelpInline"
+                                                                            required />
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1137,15 +1946,16 @@
                                                                     <label for="zipcode" class="form-label">Zip</label>
                                                                     <input type="text" name="zipcode" value=""
                                                                         class="form-control mt-3" id="zipcode"
-                                                                        placeholder="Zip Code" aria-describedby="emailHelp"
-                                                                        required />
+                                                                        placeholder="Zip Code"
+                                                                        aria-describedby="emailHelp" required />
                                                                 </div>
                                                                 <div class="col-md-4 mb-3">
-                                                                    <label for="state_code" class="form-label">State</label>
-                                                                    <input type="text" value="" name="state_code"
-                                                                        class="form-control mt-3" id="state_code"
-                                                                        placeholder="State" aria-describedby="emailHelp"
-                                                                        required />
+                                                                    <label for="state_code"
+                                                                        class="form-label">State</label>
+                                                                    <input type="text" value=""
+                                                                        name="state_code" class="form-control mt-3"
+                                                                        id="state_code" placeholder="State"
+                                                                        aria-describedby="emailHelp" required />
                                                                 </div>
                                                                 <div class="col-md-4 mb-3">
                                                                     <label for="city" class="form-label">City</label>
@@ -1156,10 +1966,12 @@
                                                                 </div>
                                                             </div>
                                                             <div class="mb-3">
-                                                                <label for="exampleInputEmail1" class="form-label">Address</label>
+                                                                <label for="exampleInputEmail1"
+                                                                    class="form-label">Address</label>
                                                                 <input type="text" value="" name="address"
-                                                                    class="form-control" id="exampleInputEmail1" maxlength="60"
-                                                                    placeholder="Address" aria-describedby="emailHelp" required />
+                                                                    class="form-control" id="exampleInputEmail1"
+                                                                    maxlength="60" placeholder="Address"
+                                                                    aria-describedby="emailHelp" required />
                                                             </div>
                                                             <div class="text-center payment_toggole_form mb-3">
                                                                 <h5>SHIPPING ADDRESS FOR MEDICINES</h5>
@@ -1168,29 +1980,35 @@
                                                                     <span class="slider round"></span>
                                                                 </label>
                                                             </div>
-                                                            <div class="col-md-12 pt-3 phd border-top" style="display:none">
+                                                            <div class="col-md-12 pt-3 phd border-top"
+                                                                style="display:none">
                                                                 <div class="row">
                                                                     <div class="col-md-4 mb-3">
-                                                                        <label for="exampleInputEmail1" class="form-label">Full
+                                                                        <label for="exampleInputEmail1"
+                                                                            class="form-label">Full
                                                                             Name</label>
-                                                                        <input name="shipping_customer_name" type="text"
-                                                                            class="form-control mt-3" placeholder="Full Name" />
+                                                                        <input name="shipping_customer_name"
+                                                                            type="text" class="form-control mt-3"
+                                                                            placeholder="Full Name" />
                                                                     </div>
                                                                     <div class="col-md-4 mb-3">
                                                                         <label for="exampleInputEmail1"
                                                                             class="form-label">Email</label>
-                                                                        <input name="shipping_customer_email" type="text"
-                                                                            class="form-control mt-3" id="exampleInputEmail1"
-                                                                            placeholder="Email" aria-describedby="emailHelp" />
+                                                                        <input name="shipping_customer_email"
+                                                                            type="text" class="form-control mt-3"
+                                                                            id="exampleInputEmail1" placeholder="Email"
+                                                                            aria-describedby="emailHelp" />
                                                                     </div>
                                                                     <div class="col-md-4 mb-3">
                                                                         <label for="exampleInputEmail1"
                                                                             class="form-label">Phone</label>
-                                                                        <input name="shipping_customer_phone" type="text"
-                                                                            class="form-control mt-3" placeholder="Phone" />
+                                                                        <input name="shipping_customer_phone"
+                                                                            type="text" class="form-control mt-3"
+                                                                            placeholder="Phone" />
                                                                     </div>
                                                                     <div class="col-md-4 mb-3">
-                                                                        <label for="zip_code" class="form-label">Zip</label>
+                                                                        <label for="zip_code"
+                                                                            class="form-label">Zip</label>
                                                                         <input name="shipping_customer_zip" type="text"
                                                                             id="zip_code" class="form-control mt-3"
                                                                             placeholder="Zip Code" />
@@ -1198,21 +2016,25 @@
                                                                     <div class="col-md-4 mb-3">
                                                                         <label for="ship_state_code"
                                                                             class="form-label">State</label>
-                                                                        <input name="shipping_customer_state" type="text"
-                                                                            id="ship_state_code" class="form-control mt-3"
+                                                                        <input name="shipping_customer_state"
+                                                                            type="text" id="ship_state_code"
+                                                                            class="form-control mt-3"
                                                                             placeholder="State" />
                                                                     </div>
                                                                     <div class="col-md-4 mb-3">
-                                                                        <label for="ship_city" class="form-label">City</label>
-                                                                        <input name="shipping_customer_city" type="text"
-                                                                            id="ship_city" class="form-control mt-3"
+                                                                        <label for="ship_city"
+                                                                            class="form-label">City</label>
+                                                                        <input name="shipping_customer_city"
+                                                                            type="text" id="ship_city"
+                                                                            class="form-control mt-3"
                                                                             placeholder="City" />
                                                                     </div>
                                                                     <div class="col-md-12 mb-3">
                                                                         <label for="exampleInputEmail1"
                                                                             class="form-label">Address</label>
-                                                                        <input name="shipping_customer_address" type="text"
-                                                                            class="form-control mt-3" placeholder="Address" />
+                                                                        <input name="shipping_customer_address"
+                                                                            type="text" class="form-control mt-3"
+                                                                            placeholder="Address" />
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1232,13 +2054,16 @@
                                                             {{-- <input type="hidden" id="payAble" name="payAble" value="{{ $totalPrice }}"> --}}
                                                             <input type="hidden" name="old_card" value="yes">
                                                             <input type="hidden" name="session_id" value="">
-                                                            <input type="hidden" class="payAble" id="payAble" name="payAble"
-                                                                value="{{ $totalPrice }}">
-                                                            <input type="hidden" name="card_no" id="card_no" value="">
-                                                            <input type="hidden" id="billing_name" name="card_holder_name">
+                                                            <input type="hidden" class="payAble" id="payAble"
+                                                                name="payAble" value="{{ $totalPrice }}">
+                                                            <input type="hidden" name="card_no" id="card_no"
+                                                                value="">
+                                                            <input type="hidden" id="billing_name"
+                                                                name="card_holder_name">
                                                             <input type="hidden" id="billing_last_name"
                                                                 name="card_holder_last_name">
-                                                            <input type="hidden" id="billing_card_number" name="card_number">
+                                                            <input type="hidden" id="billing_card_number"
+                                                                name="card_number">
                                                             <input type="hidden" id="billing_email" name="email">
                                                             <input type="hidden" id="billing_month" name="exp_month">
                                                             <input type="hidden" id="billing_year" name="exp_year">
@@ -1253,58 +2078,71 @@
                                                             <div class="text-center payment_toggole_form mb-3">
                                                                 <h5>SHIPPING ADDRESS FOR MEDICINES</h5>
                                                                 <label class="switch">
-                                                                    <input type="checkbox" id="slider_round" name="sameBilling">
+                                                                    <input type="checkbox" id="slider_round"
+                                                                        name="sameBilling">
                                                                     <span class="slider round"></span>
                                                                 </label>
                                                             </div>
-                                                            <div class="col-md-12 pt-3 phd border-top" style="display:none">
+                                                            <div class="col-md-12 pt-3 phd border-top"
+                                                                style="display:none">
                                                                 <div class="row">
                                                                     <div class="col-md-4 mb-3">
-                                                                        <label for="exampleInputEmail1" class="form-label">Full
+                                                                        <label for="exampleInputEmail1"
+                                                                            class="form-label">Full
                                                                             Name</label>
-                                                                        <input name="shipping_customer_name" type="text"
-                                                                            id="shipping_customer_name" class="form-control mt-3"
+                                                                        <input name="shipping_customer_name"
+                                                                            type="text" id="shipping_customer_name"
+                                                                            class="form-control mt-3"
                                                                             placeholder="Full Name" value="" />
                                                                     </div>
                                                                     <div class="col-md-4 mb-3">
                                                                         <label for="exampleInputEmail1"
                                                                             class="form-label">Email</label>
-                                                                        <input name="shipping_customer_email" type="text"
-                                                                            class="form-control mt-3" id="shipping_customer_email"
-                                                                            placeholder="Email" aria-describedby="emailHelp"
-                                                                            value="" />
+                                                                        <input name="shipping_customer_email"
+                                                                            type="text" class="form-control mt-3"
+                                                                            id="shipping_customer_email"
+                                                                            placeholder="Email"
+                                                                            aria-describedby="emailHelp" value="" />
                                                                     </div>
                                                                     <div class="col-md-4 mb-3">
                                                                         <label for="exampleInputEmail1"
                                                                             class="form-label">Phone</label>
-                                                                        <input name="shipping_customer_phone" type="text"
-                                                                            id="shipping_customer_phone" class="form-control mt-3"
-                                                                            placeholder="Phone" value="" />
+                                                                        <input name="shipping_customer_phone"
+                                                                            type="text" id="shipping_customer_phone"
+                                                                            class="form-control mt-3" placeholder="Phone"
+                                                                            value="" />
                                                                     </div>
                                                                     <div class="col-md-4 mb-3">
-                                                                        <label for="Zip_Code" class="form-label">Zip</label>
+                                                                        <label for="Zip_Code"
+                                                                            class="form-label">Zip</label>
                                                                         <input name="shipping_customer_zip" type="text"
-                                                                            id="shipping_customer_zip" class="form-control mt-3"
+                                                                            id="shipping_customer_zip"
+                                                                            class="form-control mt-3"
                                                                             placeholder="Zip Code" value="" />
                                                                     </div>
                                                                     <div class="col-md-4 mb-3">
-                                                                        <label for="State_Code" class="form-label">State</label>
-                                                                        <input name="shipping_customer_state" type="text"
-                                                                            id="shipping_customer_state" class="form-control mt-3"
-                                                                            placeholder="State" value="" />
+                                                                        <label for="State_Code"
+                                                                            class="form-label">State</label>
+                                                                        <input name="shipping_customer_state"
+                                                                            type="text" id="shipping_customer_state"
+                                                                            class="form-control mt-3" placeholder="State"
+                                                                            value="" />
                                                                     </div>
                                                                     <div class="col-md-4 mb-3">
-                                                                        <label for="City" class="form-label">City</label>
-                                                                        <input name="shipping_customer_city" type="text"
-                                                                            id="shipping_customer_city" class="form-control mt-3"
-                                                                            placeholder="City" value="" />
+                                                                        <label for="City"
+                                                                            class="form-label">City</label>
+                                                                        <input name="shipping_customer_city"
+                                                                            type="text" id="shipping_customer_city"
+                                                                            class="form-control mt-3" placeholder="City"
+                                                                            value="" />
                                                                     </div>
                                                                     <div class="col-md-12 mb-3">
                                                                         <label for="exampleInputEmail1"
                                                                             class="form-label">Address</label>
-                                                                        <input name="shipping_customer_address" type="text"
-                                                                            class="form-control mt-3" placeholder="Address"
-                                                                            value="" id="shipping_customer_address" />
+                                                                        <input name="shipping_customer_address"
+                                                                            type="text" class="form-control mt-3"
+                                                                            placeholder="Address" value=""
+                                                                            id="shipping_customer_address" />
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -1317,298 +2155,325 @@
                                             </div>
                                         </div>
                                     @else
-                                    <div class="col-md-7 mb-3 px-md-2 p-0 ">
-                                        @if (count($cards) != 0)
-                                            <div class="col-md-4 mb-3">
-                                                <button id="addButton" onclick="addCard()" class="btn process-pay"
-                                                    style="width:100%">Add New
-                                                    Card</button>
-                                            </div>
-                                        @endif
-                                        <div class="payment-form-wrap" id="div1" style="display: none;">
-                                            <div class="card">
-                                                <div class="card-title mx-auto">PAYMENT</div>
-                                                <form method="post" id="formWithCard"
-                                                    action="{{ route('order.payment') }}">
-                                                    @csrf
-                                                    <input type="hidden" class="payAble" id="payAble" name="payAble"
-                                                        value="{{ $totalPrice }}">
-                                                    <div class="row">
-                                                        <div class="mb-3 col-md-6">
-                                                            <label for="exampleInputEmail1" class="form-label">Card Holder
-                                                                First Name</label>
-                                                            <input type="text" value="{{ Auth::user()->name }}"
-                                                                name="card_holder_name" class="form-control mt-1"
-                                                                id="exampleInputEmail1" placeholder="First Name"
-                                                                aria-describedby="emailHelp" required maxlength="30" />
-                                                        </div>
-                                                        <div class="mb-3 col-md-6">
-                                                            <label for="exampleInputEmail1" class="form-label">Card Holder
-                                                                Last Name</label>
-                                                            <input type="text" value="{{ Auth::user()->last_name }}"
-                                                                name="card_holder_last_name" class="form-control mt-1"
-                                                                id="exampleInputEmail1" placeholder="Last Name"
-                                                                maxlength="30" aria-describedby="emailHelp" required />
-                                                        </div>
-                                                        <div class="mb-3 col-md-6">
-                                                            <label for="exampleInputEmail1"
-                                                                class="form-label">Email</label>
-                                                            <input type="email" value="{{ Auth::user()->email }}"
-                                                                name="email" class="form-control mt-1" id="email"
-                                                                placeholder="Email" aria-describedby="emailHelp"
-                                                                required />
-                                                        </div>
-                                                        <div class="mb-3 col-md-6">
-                                                            <label for="exampleInputEmail1" class="form-label">Phone
-                                                                Number</label>
-                                                            <input type="text"
-                                                                value="{{ Auth::user()->phone_number }}"
-                                                                name="phoneNumber" class="form-control mt-1"
-                                                                id="exampleInputEmail1" placeholder="Phone Number"
-                                                                aria-describedby="emailHelp" maxlength="10" required />
-                                                        </div>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="exampleInputPassword1" class="form-label">Card
-                                                            Number</label>
-                                                        <div id="emailHelp" class="form-text">Enter the 16 digit card
-                                                            number on
-                                                            the card</div>
-                                                        <div class="input-group">
-                                                            <span class="input-group-text p-0 card-pic"
-                                                                style="width: 10%; background-color: #c0d1dc38">
-                                                                <img src="{{ asset('assets\images\discover.png') }}"
-                                                                    alt="" width="90%" />
-                                                            </span>
-                                                            <input type="text" name="card_number" id="card_num"
-                                                                class="form-control" value=""
-                                                                placeholder="1234234534452324" required
-                                                                maxlength="19" onkeyup="addHyphen(this)" />
-                                                        </div>
-                                                    </div>
-                                                    <div class="row mb-3 align-items-center">
-                                                        <div class="col-md-6">
-                                                            <label for="inputPassword6" class="form-label">CVV/CVC
-                                                                Number</label>
-                                                            <p id="passwordHelpInline" class="form-text">Enter the 3 or 4
-                                                                digit
-                                                                numbers on card</p>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <input type="number" name="cvc" value=""
-                                                                id="inputPassword6" onKeyPress="if(this.value.length==4) return false;" class="form-control"
-                                                                placeholder="Enter CVV/CVC"
-                                                                aria-describedby="passwordHelpInline" required />
-                                                        </div>
-                                                    </div>
-                                                    <div class="row align-items-center mb-3">
-                                                        <div class="col-md-6">
-                                                            <label for="inputPassword6" class="form-label">Expiry
-                                                                Date</label>
-                                                            <p id="passwordHelpInline" class="form-text">Enter the
-                                                                expiration
-                                                                date of the card</p>
-                                                        </div>
-                                                        <div class="row col-md-6">
-                                                            <div class="col-5">
-                                                                <input type="number" value="12" name="exp_month"
-                                                                    id="inputPassword6" class="form-control"
-                                                                    aria-describedby="passwordHelpInline" onKeyPress="if(this.value.length==2) return false;" required />
+                                        <div class="col-md-7 mb-3 px-md-2 p-0 ">
+                                            @if (count($cards) != 0)
+                                                <div class="col-md-4 mb-3">
+                                                    <button id="addButton" onclick="addCard()" class="btn process-pay"
+                                                        style="width:100%">Add New
+                                                        Card</button>
+                                                </div>
+                                            @endif
+                                            <div class="payment-form-wrap" id="div1" style="display: none;">
+                                                <div class="card">
+                                                    <div class="card-title mx-auto">PAYMENT</div>
+                                                    <form method="post" id="formWithCard"
+                                                        action="{{ route('order.payment') }}">
+                                                        @csrf
+                                                        <input type="hidden" class="payAble" id="payAble"
+                                                            name="payAble" value="{{ $totalPrice }}">
+                                                        <div class="row">
+                                                            <div class="mb-3 col-md-6">
+                                                                <label for="exampleInputEmail1" class="form-label">Card
+                                                                    Holder
+                                                                    First Name</label>
+                                                                <input type="text" value="{{ Auth::user()->name }}"
+                                                                    name="card_holder_name" class="form-control mt-1"
+                                                                    id="exampleInputEmail1" placeholder="First Name"
+                                                                    aria-describedby="emailHelp" required
+                                                                    maxlength="30" />
                                                             </div>
-                                                            <div class="col-2 text-center m-auto" style="font-size: 2rem">
-                                                                /
+                                                            <div class="mb-3 col-md-6">
+                                                                <label for="exampleInputEmail1" class="form-label">Card
+                                                                    Holder
+                                                                    Last Name</label>
+                                                                <input type="text"
+                                                                    value="{{ Auth::user()->last_name }}"
+                                                                    name="card_holder_last_name" class="form-control mt-1"
+                                                                    id="exampleInputEmail1" placeholder="Last Name"
+                                                                    maxlength="30" aria-describedby="emailHelp"
+                                                                    required />
                                                             </div>
-                                                            <div class="col-5">
-                                                                <input type="number" value="{{ date('Y') }}" name="exp_year"
-                                                                    onKeyPress="if(this.value.length==4) return false;" id="inputPassword6"
-                                                                    class="form-control"
+                                                            <div class="mb-3 col-md-6">
+                                                                <label for="exampleInputEmail1"
+                                                                    class="form-label">Email</label>
+                                                                <input type="email" value="{{ Auth::user()->email }}"
+                                                                    name="email" class="form-control mt-1"
+                                                                    id="email" placeholder="Email"
+                                                                    aria-describedby="emailHelp" required />
+                                                            </div>
+                                                            <div class="mb-3 col-md-6">
+                                                                <label for="exampleInputEmail1" class="form-label">Phone
+                                                                    Number</label>
+                                                                <input type="text"
+                                                                    value="{{ Auth::user()->phone_number }}"
+                                                                    name="phoneNumber" class="form-control mt-1"
+                                                                    id="exampleInputEmail1" placeholder="Phone Number"
+                                                                    aria-describedby="emailHelp" maxlength="10"
+                                                                    required />
+                                                            </div>
+                                                        </div>
+                                                        <div class="mb-3">
+                                                            <label for="exampleInputPassword1" class="form-label">Card
+                                                                Number</label>
+                                                            <div id="emailHelp" class="form-text">Enter the 16 digit card
+                                                                number on
+                                                                the card</div>
+                                                            <div class="input-group">
+                                                                <span class="input-group-text p-0 card-pic"
+                                                                    style="width: 10%; background-color: #c0d1dc38">
+                                                                    <img src="{{ asset('assets\images\discover.png') }}"
+                                                                        alt="" width="90%" />
+                                                                </span>
+                                                                <input type="text" name="card_number" id="card_num"
+                                                                    class="form-control" value=""
+                                                                    placeholder="1234234534452324" required maxlength="19"
+                                                                    onkeyup="addHyphen(this)" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="row mb-3 align-items-center">
+                                                            <div class="col-md-6">
+                                                                <label for="inputPassword6" class="form-label">CVV/CVC
+                                                                    Number</label>
+                                                                <p id="passwordHelpInline" class="form-text">Enter the 3
+                                                                    or 4
+                                                                    digit
+                                                                    numbers on card</p>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <input type="number" name="cvc" value=""
+                                                                    id="inputPassword6"
+                                                                    onKeyPress="if(this.value.length==4) return false;"
+                                                                    class="form-control" placeholder="Enter CVV/CVC"
                                                                     aria-describedby="passwordHelpInline" required />
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-4 mb-3">
-                                                            <label for="zipcode" class="form-label">Zip</label>
-                                                            <input type="text" name="zipcode" value=""
-                                                                class="form-control mt-3" id="zipcode"
-                                                                placeholder="Zip Code" aria-describedby="emailHelp"
-                                                                required />
+                                                        <div class="row align-items-center mb-3">
+                                                            <div class="col-md-6">
+                                                                <label for="inputPassword6" class="form-label">Expiry
+                                                                    Date</label>
+                                                                <p id="passwordHelpInline" class="form-text">Enter the
+                                                                    expiration
+                                                                    date of the card</p>
+                                                            </div>
+                                                            <div class="row col-md-6">
+                                                                <div class="col-5">
+                                                                    <input type="number" value="12" name="exp_month"
+                                                                        id="inputPassword6" class="form-control"
+                                                                        aria-describedby="passwordHelpInline"
+                                                                        onKeyPress="if(this.value.length==2) return false;"
+                                                                        required />
+                                                                </div>
+                                                                <div class="col-2 text-center m-auto"
+                                                                    style="font-size: 2rem">
+                                                                    /
+                                                                </div>
+                                                                <div class="col-5">
+                                                                    <input type="number" value="{{ date('Y') }}"
+                                                                        name="exp_year"
+                                                                        onKeyPress="if(this.value.length==4) return false;"
+                                                                        id="inputPassword6" class="form-control"
+                                                                        aria-describedby="passwordHelpInline" required />
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <div class="col-md-4 mb-3">
-                                                            <label for="state_code" class="form-label">State</label>
-                                                            <input type="text" value="" name="state_code"
-                                                                class="form-control mt-3" id="state_code"
-                                                                placeholder="State" aria-describedby="emailHelp"
-                                                                required />
-                                                        </div>
-                                                        <div class="col-md-4 mb-3">
-                                                            <label for="city" class="form-label">City</label>
-                                                            <input type="text" value="" name="city"
-                                                                class="form-control mt-3" id="city"
-                                                                placeholder="City" aria-describedby="emailHelp"
-                                                                required />
-                                                        </div>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label for="exampleInputEmail1" class="form-label">Address</label>
-                                                        <input type="text" value="" name="address"
-                                                            class="form-control" id="exampleInputEmail1" maxlength="60"
-                                                            placeholder="Address" aria-describedby="emailHelp" required />
-                                                    </div>
-                                                    <div class="text-center payment_toggole_form mb-3">
-                                                        <h5>SHIPPING ADDRESS FOR MEDICINES</h5>
-                                                        <label class="switch">
-                                                            <input type="checkbox" name="sameBilling">
-                                                            <span class="slider round"></span>
-                                                        </label>
-                                                    </div>
-                                                    <div class="col-md-12 pt-3 phd border-top" style="display:none">
                                                         <div class="row">
                                                             <div class="col-md-4 mb-3">
-                                                                <label for="exampleInputEmail1" class="form-label">Full
-                                                                    Name</label>
-                                                                <input name="shipping_customer_name" type="text"
-                                                                    class="form-control mt-3" placeholder="Full Name" />
+                                                                <label for="zipcode" class="form-label">Zip</label>
+                                                                <input type="text" name="zipcode" value=""
+                                                                    class="form-control mt-3" id="zipcode"
+                                                                    placeholder="Zip Code" aria-describedby="emailHelp"
+                                                                    required />
                                                             </div>
                                                             <div class="col-md-4 mb-3">
-                                                                <label for="exampleInputEmail1"
-                                                                    class="form-label">Email</label>
-                                                                <input name="shipping_customer_email" type="text"
-                                                                    class="form-control mt-3" id="exampleInputEmail1"
-                                                                    placeholder="Email" aria-describedby="emailHelp" />
+                                                                <label for="state_code" class="form-label">State</label>
+                                                                <input type="text" value="" name="state_code"
+                                                                    class="form-control mt-3" id="state_code"
+                                                                    placeholder="State" aria-describedby="emailHelp"
+                                                                    required />
                                                             </div>
                                                             <div class="col-md-4 mb-3">
-                                                                <label for="exampleInputEmail1"
-                                                                    class="form-label">Phone</label>
-                                                                <input name="shipping_customer_phone" type="text"
-                                                                    class="form-control mt-3" placeholder="Phone" />
-                                                            </div>
-                                                            <div class="col-md-4 mb-3">
-                                                                <label for="zip_code" class="form-label">Zip</label>
-                                                                <input name="shipping_customer_zip" type="text"
-                                                                    id="zip_code" class="form-control mt-3"
-                                                                    placeholder="Zip Code" />
-                                                            </div>
-                                                            <div class="col-md-4 mb-3">
-                                                                <label for="ship_state_code"
-                                                                    class="form-label">State</label>
-                                                                <input name="shipping_customer_state" type="text"
-                                                                    id="ship_state_code" class="form-control mt-3"
-                                                                    placeholder="State" />
-                                                            </div>
-                                                            <div class="col-md-4 mb-3">
-                                                                <label for="ship_city" class="form-label">City</label>
-                                                                <input name="shipping_customer_city" type="text"
-                                                                    id="ship_city" class="form-control mt-3"
-                                                                    placeholder="City" />
-                                                            </div>
-                                                            <div class="col-md-12 mb-3">
-                                                                <label for="exampleInputEmail1"
-                                                                    class="form-label">Address</label>
-                                                                <input name="shipping_customer_address" type="text"
-                                                                    class="form-control mt-3" placeholder="Address" />
+                                                                <label for="city" class="form-label">City</label>
+                                                                <input type="text" value="" name="city"
+                                                                    class="form-control mt-3" id="city"
+                                                                    placeholder="City" aria-describedby="emailHelp"
+                                                                    required />
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <button type="submit" id="final-pay-button"
-                                                        class="btn btn-primary pay"> Pay
-                                                        Now</button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                        <div class="payment-form-wrap" id="div2" style="display: none;">
-                                            <div class="card">
-                                                <div class="card-title mx-auto">PAYMENT</div>
-
-                                                <form method="post" id="formWithCard1"
-                                                    action="{{ route('order.payment') }}">
-                                                    @csrf
-                                                    {{-- <input type="hidden" id="payAble" name="payAble" value="{{ $totalPrice }}"> --}}
-                                                    <input type="hidden" name="old_card" value="yes">
-                                                    <input type="hidden" name="session_id" value="">
-                                                    <input type="hidden" class="payAble" id="payAble" name="payAble"
-                                                        value="{{ $totalPrice }}">
-                                                    <input type="hidden" name="card_no" id="card_no" value="">
-                                                    <input type="hidden" id="billing_name" name="card_holder_name">
-                                                    <input type="hidden" id="billing_last_name"
-                                                        name="card_holder_last_name">
-                                                    <input type="hidden" id="billing_card_number" name="card_number">
-                                                    <input type="hidden" id="billing_email" name="email">
-                                                    <input type="hidden" id="billing_month" name="exp_month">
-                                                    <input type="hidden" id="billing_year" name="exp_year">
-                                                    <input type="hidden" id="billing_csc" name="csc">
-                                                    <input type="hidden" id="billing_name" name="name">
-                                                    <input type="hidden" id="billing_address" name="address">
-                                                    <input type="hidden" id="billing_city" name="city">
-                                                    <input type="hidden" id="billing_state" name="state_code">
-                                                    <input type="hidden" id="billing_zip" name="zipcode">
-                                                    <input type="hidden" id="billing_phone" name="phoneNumber">
-
-                                                    <div class="text-center payment_toggole_form mb-3">
-                                                        <h5>SHIPPING ADDRESS FOR MEDICINES</h5>
-                                                        <label class="switch">
-                                                            <input type="checkbox" id="slider_round" name="sameBilling">
-                                                            <span class="slider round"></span>
-                                                        </label>
-                                                    </div>
-                                                    <div class="col-md-12 pt-3 phd border-top" style="display:none">
-                                                        <div class="row">
-                                                            <div class="col-md-4 mb-3">
-                                                                <label for="exampleInputEmail1" class="form-label">Full
-                                                                    Name</label>
-                                                                <input name="shipping_customer_name" type="text"
-                                                                    id="shipping_customer_name" class="form-control mt-3"
-                                                                    placeholder="Full Name" value="" />
-                                                            </div>
-                                                            <div class="col-md-4 mb-3">
-                                                                <label for="exampleInputEmail1"
-                                                                    class="form-label">Email</label>
-                                                                <input name="shipping_customer_email" type="text"
-                                                                    class="form-control mt-3" id="shipping_customer_email"
-                                                                    placeholder="Email" aria-describedby="emailHelp"
-                                                                    value="" />
-                                                            </div>
-                                                            <div class="col-md-4 mb-3">
-                                                                <label for="exampleInputEmail1"
-                                                                    class="form-label">Phone</label>
-                                                                <input name="shipping_customer_phone" type="text"
-                                                                    id="shipping_customer_phone" class="form-control mt-3"
-                                                                    placeholder="Phone" value="" />
-                                                            </div>
-                                                            <div class="col-md-4 mb-3">
-                                                                <label for="Zip_Code" class="form-label">Zip</label>
-                                                                <input name="shipping_customer_zip" type="text"
-                                                                    id="shipping_customer_zip" class="form-control mt-3"
-                                                                    placeholder="Zip Code" value="" />
-                                                            </div>
-                                                            <div class="col-md-4 mb-3">
-                                                                <label for="State_Code" class="form-label">State</label>
-                                                                <input name="shipping_customer_state" type="text"
-                                                                    id="shipping_customer_state" class="form-control mt-3"
-                                                                    placeholder="State" value="" />
-                                                            </div>
-                                                            <div class="col-md-4 mb-3">
-                                                                <label for="City" class="form-label">City</label>
-                                                                <input name="shipping_customer_city" type="text"
-                                                                    id="shipping_customer_city" class="form-control mt-3"
-                                                                    placeholder="City" value="" />
-                                                            </div>
-                                                            <div class="col-md-12 mb-3">
-                                                                <label for="exampleInputEmail1"
-                                                                    class="form-label">Address</label>
-                                                                <input name="shipping_customer_address" type="text"
-                                                                    class="form-control mt-3" placeholder="Address"
-                                                                    value="" id="shipping_customer_address" />
+                                                        <div class="mb-3">
+                                                            <label for="exampleInputEmail1"
+                                                                class="form-label">Address</label>
+                                                            <input type="text" value="" name="address"
+                                                                class="form-control" id="exampleInputEmail1"
+                                                                maxlength="60" placeholder="Address"
+                                                                aria-describedby="emailHelp" required />
+                                                        </div>
+                                                        <div class="text-center payment_toggole_form mb-3">
+                                                            <h5>SHIPPING ADDRESS FOR MEDICINES</h5>
+                                                            <label class="switch">
+                                                                <input type="checkbox" name="sameBilling">
+                                                                <span class="slider round"></span>
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-12 pt-3 phd border-top" style="display:none">
+                                                            <div class="row">
+                                                                <div class="col-md-4 mb-3">
+                                                                    <label for="exampleInputEmail1"
+                                                                        class="form-label">Full
+                                                                        Name</label>
+                                                                    <input name="shipping_customer_name" type="text"
+                                                                        class="form-control mt-3"
+                                                                        placeholder="Full Name" />
+                                                                </div>
+                                                                <div class="col-md-4 mb-3">
+                                                                    <label for="exampleInputEmail1"
+                                                                        class="form-label">Email</label>
+                                                                    <input name="shipping_customer_email" type="text"
+                                                                        class="form-control mt-3" id="exampleInputEmail1"
+                                                                        placeholder="Email"
+                                                                        aria-describedby="emailHelp" />
+                                                                </div>
+                                                                <div class="col-md-4 mb-3">
+                                                                    <label for="exampleInputEmail1"
+                                                                        class="form-label">Phone</label>
+                                                                    <input name="shipping_customer_phone" type="text"
+                                                                        class="form-control mt-3" placeholder="Phone" />
+                                                                </div>
+                                                                <div class="col-md-4 mb-3">
+                                                                    <label for="zip_code" class="form-label">Zip</label>
+                                                                    <input name="shipping_customer_zip" type="text"
+                                                                        id="zip_code" class="form-control mt-3"
+                                                                        placeholder="Zip Code" />
+                                                                </div>
+                                                                <div class="col-md-4 mb-3">
+                                                                    <label for="ship_state_code"
+                                                                        class="form-label">State</label>
+                                                                    <input name="shipping_customer_state" type="text"
+                                                                        id="ship_state_code" class="form-control mt-3"
+                                                                        placeholder="State" />
+                                                                </div>
+                                                                <div class="col-md-4 mb-3">
+                                                                    <label for="ship_city" class="form-label">City</label>
+                                                                    <input name="shipping_customer_city" type="text"
+                                                                        id="ship_city" class="form-control mt-3"
+                                                                        placeholder="City" />
+                                                                </div>
+                                                                <div class="col-md-12 mb-3">
+                                                                    <label for="exampleInputEmail1"
+                                                                        class="form-label">Address</label>
+                                                                    <input name="shipping_customer_address" type="text"
+                                                                        class="form-control mt-3" placeholder="Address" />
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <button type="submit" id="final-pay-button1"
-                                                        class="btn btn-primary pay">
-                                                        Pay Now</button>
-                                                </form>
+                                                        <button type="submit" id="final-pay-button"
+                                                            class="btn btn-primary pay"> Pay
+                                                            Now</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <div class="payment-form-wrap" id="div2" style="display: none;">
+                                                <div class="card">
+                                                    <div class="card-title mx-auto">PAYMENT</div>
+
+                                                    <form method="post" id="formWithCard1"
+                                                        action="{{ route('order.payment') }}">
+                                                        @csrf
+                                                        {{-- <input type="hidden" id="payAble" name="payAble" value="{{ $totalPrice }}"> --}}
+                                                        <input type="hidden" name="old_card" value="yes">
+                                                        <input type="hidden" name="session_id" value="">
+                                                        <input type="hidden" class="payAble" id="payAble"
+                                                            name="payAble" value="{{ $totalPrice }}">
+                                                        <input type="hidden" name="card_no" id="card_no"
+                                                            value="">
+                                                        <input type="hidden" id="billing_name" name="card_holder_name">
+                                                        <input type="hidden" id="billing_last_name"
+                                                            name="card_holder_last_name">
+                                                        <input type="hidden" id="billing_card_number"
+                                                            name="card_number">
+                                                        <input type="hidden" id="billing_email" name="email">
+                                                        <input type="hidden" id="billing_month" name="exp_month">
+                                                        <input type="hidden" id="billing_year" name="exp_year">
+                                                        <input type="hidden" id="billing_csc" name="csc">
+                                                        <input type="hidden" id="billing_name" name="name">
+                                                        <input type="hidden" id="billing_address" name="address">
+                                                        <input type="hidden" id="billing_city" name="city">
+                                                        <input type="hidden" id="billing_state" name="state_code">
+                                                        <input type="hidden" id="billing_zip" name="zipcode">
+                                                        <input type="hidden" id="billing_phone" name="phoneNumber">
+
+                                                        <div class="text-center payment_toggole_form mb-3">
+                                                            <h5>SHIPPING ADDRESS FOR MEDICINES</h5>
+                                                            <label class="switch">
+                                                                <input type="checkbox" id="slider_round"
+                                                                    name="sameBilling">
+                                                                <span class="slider round"></span>
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-md-12 pt-3 phd border-top" style="display:none">
+                                                            <div class="row">
+                                                                <div class="col-md-4 mb-3">
+                                                                    <label for="exampleInputEmail1"
+                                                                        class="form-label">Full
+                                                                        Name</label>
+                                                                    <input name="shipping_customer_name" type="text"
+                                                                        id="shipping_customer_name"
+                                                                        class="form-control mt-3" placeholder="Full Name"
+                                                                        value="" />
+                                                                </div>
+                                                                <div class="col-md-4 mb-3">
+                                                                    <label for="exampleInputEmail1"
+                                                                        class="form-label">Email</label>
+                                                                    <input name="shipping_customer_email" type="text"
+                                                                        class="form-control mt-3"
+                                                                        id="shipping_customer_email" placeholder="Email"
+                                                                        aria-describedby="emailHelp" value="" />
+                                                                </div>
+                                                                <div class="col-md-4 mb-3">
+                                                                    <label for="exampleInputEmail1"
+                                                                        class="form-label">Phone</label>
+                                                                    <input name="shipping_customer_phone" type="text"
+                                                                        id="shipping_customer_phone"
+                                                                        class="form-control mt-3" placeholder="Phone"
+                                                                        value="" />
+                                                                </div>
+                                                                <div class="col-md-4 mb-3">
+                                                                    <label for="Zip_Code" class="form-label">Zip</label>
+                                                                    <input name="shipping_customer_zip" type="text"
+                                                                        id="shipping_customer_zip"
+                                                                        class="form-control mt-3" placeholder="Zip Code"
+                                                                        value="" />
+                                                                </div>
+                                                                <div class="col-md-4 mb-3">
+                                                                    <label for="State_Code"
+                                                                        class="form-label">State</label>
+                                                                    <input name="shipping_customer_state" type="text"
+                                                                        id="shipping_customer_state"
+                                                                        class="form-control mt-3" placeholder="State"
+                                                                        value="" />
+                                                                </div>
+                                                                <div class="col-md-4 mb-3">
+                                                                    <label for="City" class="form-label">City</label>
+                                                                    <input name="shipping_customer_city" type="text"
+                                                                        id="shipping_customer_city"
+                                                                        class="form-control mt-3" placeholder="City"
+                                                                        value="" />
+                                                                </div>
+                                                                <div class="col-md-12 mb-3">
+                                                                    <label for="exampleInputEmail1"
+                                                                        class="form-label">Address</label>
+                                                                    <input name="shipping_customer_address" type="text"
+                                                                        class="form-control mt-3" placeholder="Address"
+                                                                        value="" id="shipping_customer_address" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <button type="submit" id="final-pay-button1"
+                                                            class="btn btn-primary pay">
+                                                            Pay Now</button>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
                                     @endif
                                     <div class="col-md-5">
                                         <div>
@@ -1616,13 +2481,21 @@
                                                 <div class="mb-3 promo_maIN_div">
                                                     <label class="form-label">Enter Promo Code:</label>
                                                     <div class="d-flex justify-content-between">
-                                                        <input type="text" class="form-control w-75 promo_input_F" id="coupon_code">
+                                                        <input type="text" class="form-control w-75 promo_input_F"
+                                                            id="coupon_code">
                                                         <button class="btn promo__btn_apl coupon_apply">Apply</button>
                                                     </div>
-                                                    <small id="promo_already_used" class="text-danger" style="display: none"> Promo Code Already Used Once. </small>
-                                                    <small id="promo_success" class="text-success" style="display: none"> Promo Code Added Successfully. </small>
-                                                    <small id="promo_danger" class="text-danger" style="display: none"> Promo Code Expired. </small>
-                                                    <small id="promo_added" class="text-success" style="display: none"> Promo Code Already Applied. </small>
+                                                    <small id="promo_already_used" class="text-danger"
+                                                        style="display: none"> Promo Code Already Used Once. </small>
+                                                    <small id="promo_success" class="text-success"
+                                                        style="display: none">
+                                                        Promo Code Added Successfully. </small>
+                                                    <small id="promo_danger" class="text-danger"
+                                                        style="display: none">
+                                                        Promo Code Expired. </small>
+                                                    <small id="promo_added" class="text-success"
+                                                        style="display: none">
+                                                        Promo Code Already Applied. </small>
                                                 </div>
                                                 <div class="card">
                                                     <div class="card-header">Order Summary</div>
@@ -1645,8 +2518,8 @@
                                                         <h2 class="accordion-header" id="flush-headingOne">
                                                             <button class="accordion-button collapsed" type="button"
                                                                 data-bs-toggle="collapse"
-                                                                data-bs-target="#flush-collapseOne" aria-expanded="false"
-                                                                aria-controls="flush-collapseOne">
+                                                                data-bs-target="#flush-collapseOne"
+                                                                aria-expanded="false" aria-controls="flush-collapseOne">
                                                                 Your Items
                                                             </button>
                                                         </h2>
@@ -1680,4 +2553,80 @@
             </div>
         @endif
     </div>
+    <footer>
+        <section id="footer-section">
+            <div id="footer-1" class="footer">
+                <div class="logo" id="footer-logo">
+                    <img src="{{ asset('assets/new_frontend/logo.png') }}" alt="umbrella-logo" />
+                </div>
+                <div class="flex gap-15" id="social-icons">
+                    <div><i class="fa-brands fa-facebook"></i></div>
+                    <div><i class="fa-brands fa-linkedin"></i></div>
+                    <div><i class="fa-brands fa-instagram"></i></div>
+                    <div><i class="fa-brands fa-pinterest"></i></div>
+                </div>
+            </div>
+            <div id="footer-2" class="footer">
+                <div class="footer-heading">
+                    <h3>Contact Us</h3>
+                    <div class="underline"></div>
+                </div>
+                <div class="footer-content">
+                    <div class="footer-highlight">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#locationModal">Find Location</a>
+                    </div>
+                    <p>contact@communityhealthcareclinics.com</p>
+                    <p>support@communityhealthcareclinics.com</p>
+                    <p>Progressive Center, Main Shahrah Faisal, Karachi</p>
+                </div>
+            </div>
+            <div id="footer-3" class="footer">
+                <div class="footer-heading">
+                    <h3>Working Hours</h3>
+                    <div class="underline"></div>
+                </div>
+                <div class="footer-content">
+                    <p>07:00 am - 08:00 pm</p>
+                    <p>Community Health Care Clinics</p>
+                    <div class="footer-info">
+                        <i class="fa-solid fa-chevron-right"></i>
+                        <a href="{{ route('about_us') }}">About Us</a>
+                    </div>
+                    <div class="footer-info">
+                        <i class="fa-solid fa-chevron-right"></i>
+                        <a href="{{ route('contact_us') }}">Contact Us</a>
+                    </div>
+                    <div class="footer-info">
+                        <i class="fa-solid fa-chevron-right"></i>
+                        <a href="{{ route('faq') }}">FAQs</a>
+                    </div>
+                    <div class="footer-info">
+                        <i class="fa-solid fa-chevron-right"></i>
+                        <a href="{{ route('privacy_policy') }}">Privacy Policy</a>
+                    </div>
+                </div>
+            </div>
+            <div id="footer-4" class="footer">
+                <div class="footer-heading">
+                    <h3>Emergency Contact</h3>
+                    <div class="underline"></div>
+                </div>
+                <div class="footer-content">
+                    <div class="footer-highlight">
+                        <i class="fa-brands fa-whatsapp"></i>
+                        <a href="">0337-2350684</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="seperation"></div>
+        <section id="copyright">
+            <p>
+                Copyright &copy; {{ date('Y') }}.
+                <span>Community Health Care Clinics. All Rights Reserved</span>
+            </p>
+        </section>
+    </footer>
+
 @endsection

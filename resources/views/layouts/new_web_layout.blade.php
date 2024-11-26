@@ -15,9 +15,7 @@
         @yield('top_import_file')
     </head>
     <body>
-        @include('./new_frontend/header')
         @yield('content')
-        {{-- @include('./new_frontend/footer') --}}
         @include('./new_frontend/bottom_script')
         @yield('bottom_import_file')
     </body>
