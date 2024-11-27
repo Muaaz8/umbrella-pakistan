@@ -2,9 +2,9 @@ $(document).ready(function(){
     $('.imaging-penal').click(function(){
         getImagingProductByCategory('all',4);
     });
-    $('.pharmacy-penal').click(function(){
-        getPharmacyProductByCategory('all',6);
-    });
+    // $('.pharmacy-penal').click(function(){
+    //     getPharmacyProductByCategory('all',6);
+    // });
     $('.labtest-penal').click(function(){
         getLabtestProductByCategory('all',5);
     });

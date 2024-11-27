@@ -1420,8 +1420,9 @@ footer {
   flex: 1 1 calc(30% - 15px);
   display: flex;
   justify-content: center;
+  align-items: center;
   max-width: 350px;
-  height: max(210px, 10vh);
+  height: max(300px, 10vh);
   background-color: #ffffff;
   color: rgb(0, 0, 0);
   text-align: center;
@@ -1429,8 +1430,7 @@ footer {
   position: relative;
   padding: 10px;
   box-shadow: -2px 2px 3px 0px rgba(128, 128, 128, 0.322);
-  padding-top: 1%;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 .card h4 {
@@ -1509,16 +1509,17 @@ footer {
 }
 
 .med-img {
-  position: absolute;
-  top: 4%;
-  left: 3%;
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
+  width: 100%;
   display: flex;
-  align-items: center;
+  align-items: end;
   justify-content: center;
   overflow: hidden;
+}
+
+.med-img img {
+  width: 50%;
+  height: auto;
+  object-fit: cover;
 }
 
 .read_more {

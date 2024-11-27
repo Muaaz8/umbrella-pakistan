@@ -379,14 +379,9 @@ $page = DB::table('pages')->where('url', '/')->first();
                             <div class="prescription">
                                 <p>prescription required</p>
                             </div>
-                            <div class="med-img"><img src="https://placehold.co/70" alt="img"></div>
-                            <h4 class="truncate">Niacin ER tablet</h4>
-                            <h6 class="truncate">Heart Disease</h6>
-                            <p class="truncate-overflow">
-                                Niacin is used to lower blood levels of "bad" cholesterol
-                                (low-density lipoprotein, or LDL) and triglycerides, and
-                                incre
-                            </p>
+                            <div class="med-img"><img src="{{ asset('assets/new_frontend/panadol.png') }}" alt="img"></div>
+                            <h4 class="truncate m-0 p-0">Niacin ER tablet</h4>
+                            <h6 class="truncate m-0 p-0">Heart Disease</h6>
                             <div class="pharmacy_btn">
                                 <a class="read-more btn btn-outline-danger" href="#">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
                                 <a class="add-to-cart" href="#">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
@@ -399,11 +394,6 @@ $page = DB::table('pages')->where('url', '/')->first();
                             <div class="med-img"><img src="https://placehold.co/70" alt="img"></div>
                             <h4 class="truncate">Niacin ER tablet</h4>
                             <h6 class="truncate">Heart Disease</h6>
-                            <p class="truncate-overflow">
-                                Niacin is used to lower blood levels of "bad" cholesterol
-                                (low-density lipoprotein, or LDL) and triglycerides, and
-                                incre
-                            </p>
                             <div class="pharmacy_btn">
                                 <a class="read-more btn btn-outline-danger" href="#">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
                                 <a class="add-to-cart" href="#">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
@@ -416,11 +406,6 @@ $page = DB::table('pages')->where('url', '/')->first();
                             <div class="med-img"><img src="https://placehold.co/70" alt="img"></div>
                             <h4 class="truncate">Niacin ER tablet</h4>
                             <h6 class="truncate">Heart Disease</h6>
-                            <p class="truncate-overflow">
-                                Niacin is used to lower blood levels of "bad" cholesterol
-                                (low-density lipoprotein, or LDL) and triglycerides, and
-                                incre
-                            </p>
                             <div class="pharmacy_btn">
                                 <a class="read-more btn btn-outline-danger" href="#">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
                                 <a class="add-to-cart" href="#">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
@@ -433,11 +418,6 @@ $page = DB::table('pages')->where('url', '/')->first();
                             <div class="med-img"><img src="https://placehold.co/70" alt="img"></div>
                             <h4 class="truncate">Niacin ER tablet</h4>
                             <h6 class="truncate">Heart Disease</h6>
-                            <p class="truncate-overflow">
-                                Niacin is used to lower blood levels of "bad" cholesterol
-                                (low-density lipoprotein, or LDL) and triglycerides, and
-                                incre
-                            </p>
                             <div class="pharmacy_btn">
                                 <a class="read-more btn btn-outline-danger" href="#">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
                                 <a class="add-to-cart" href="#">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
@@ -450,11 +430,6 @@ $page = DB::table('pages')->where('url', '/')->first();
                             <div class="med-img"><img src="https://placehold.co/70" alt="img"></div>
                             <h4 class="truncate">Niacin ER tablet</h4>
                             <h6 class="truncate">Heart Disease</h6>
-                            <p class="truncate-overflow">
-                                Niacin is used to lower blood levels of "bad" cholesterol
-                                (low-density lipoprotein, or LDL) and triglycerides, and
-                                incre
-                            </p>
                             <div class="pharmacy_btn">
                                 <a class="read-more btn btn-outline-danger" href="#">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
                                 <a class="add-to-cart" href="#">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
@@ -467,11 +442,6 @@ $page = DB::table('pages')->where('url', '/')->first();
                             <div class="med-img"><img src="https://placehold.co/70" alt="img"></div>
                             <h4 class="truncate">Niacin ER tablet</h4>
                             <h6 class="truncate">Heart Disease</h6>
-                            <p class="truncate-overflow">
-                                Niacin is used to lower blood levels of "bad" cholesterol
-                                (low-density lipoprotein, or LDL) and triglycerides, and
-                                incre
-                            </p>
                             <div class="pharmacy_btn">
                                 <a class="read-more btn btn-outline-danger" href="#">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
                                 <a class="add-to-cart" href="#">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
