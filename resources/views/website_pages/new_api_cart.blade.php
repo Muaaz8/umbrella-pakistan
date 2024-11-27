@@ -118,9 +118,9 @@
 
         }
 
-        .primary-bg{
-    background: #0048b1;
-  }
+        .primary-bg {
+            background: #0048b1;
+        }
 
 
         #contact-bar {
@@ -376,34 +376,34 @@
         }
 
         .text-center {
-    text-align: center;
-  }
+            text-align: center;
+        }
 
 
-  .flex {
-    display: flex;
-    align-items: center;
-  }
+        .flex {
+            display: flex;
+            align-items: center;
+        }
 
 
-  .gap-5 {
-    gap: 5px;
-  }
+        .gap-5 {
+            gap: 5px;
+        }
 
 
-  .gap-10 {
-    gap: 10px;
-  }
+        .gap-10 {
+            gap: 10px;
+        }
 
 
-  .gap-15 {
-    gap: 10px;
-  }
+        .gap-15 {
+            gap: 10px;
+        }
 
 
-  .between {
-    justify-content: space-between;
-  }
+        .between {
+            justify-content: space-between;
+        }
 
 
 
@@ -1455,142 +1455,143 @@
 
 @section('content')
 
-<!-- header  -->
-<div id="offerBanner" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <div class="offer-banner primary-bg text-white text-center py-2">
-          <span>Get 20% off on your first purchase! Use code: FIRST20</span>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <div class="offer-banner primary-bg text-white text-center py-2">
-          <span>Free delivery on orders above $50!</span>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <div class="offer-banner primary-bg text-white text-center py-2">
-          <span>Limited Time Offer: Buy 1 Get 1 Free!</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-<header>
-    <nav>
-      <section id="navbar">
-        <div class="wrap flex gap-15 between">
-          <div id="nav-logo" class="logo">
-            <img src="{{ asset('assets/new_frontend/logo.png') }}" alt="umbrella-logo" />
-          </div>
-          <div class="flex gap-15" id="nav-right-side">
-            <div id="checker">
-                <i class="fa-regular fa-user"></i>
-                <a href="#" class="pe-none">Symptoms Checker</a>
-            </div>
-
-            @if (Auth::check())
-            <div class="dropdown" >
-                <button class="dropdown-toggle w-100" type="button" id="joinDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa-solid fa-user-group"></i> Hi {{ Auth::user()->name}}
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="joinDropdown">
-                    <li><a class="dropdown-item" href="{{ route('home') }}">Go to Dashboard</a></li>
-                    <li><a class="dropdown-item"  href="{{ route('logout') }}"
-                        onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a></li>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
-                </ul>
-              </div>
-              @else
-                <div class="dropdown" >
-                    <button class="dropdown-toggle w-100" type="button" id="joinDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fa-solid fa-user-group"></i> Join Us
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="joinDropdown">
-                        <li><a class="dropdown-item" href="{{ route('login') }}">Login</a></li>
-                        <li><a class="dropdown-item" href="{{ route('doc_register') }}" >Register as Doctor</a></li>
-                        <li><a class="dropdown-item" href="{{ route('pat_register') }}" >Register as Patient</a></li>
-                    </ul>
+    <!-- header  -->
+    <div id="offerBanner" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="offer-banner primary-bg text-white text-center py-2">
+                    <span>Get 20% off on your first purchase! Use code: FIRST20</span>
                 </div>
-              @endif
-              <button class="nav_btns">
-                <i class="fa-brands fa-whatsapp"></i>
-                <a href="https://wa.me/923372350684" target="_blank">0337-2350684</a>
-              </button>
-            <div onclick="window.location.href='{{ url('/my/cart') }}'">
-              <img src="{{ asset('assets/new_frontend/purchase-icon.svg') }}" alt="shop-icon" />
             </div>
-          </div>
-          <div class="hamburger_container" onclick="toggleDrawer()">
-            <div class="hamburger">
-              <div></div>
-              <div></div>
-              <div></div>
+            <div class="carousel-item">
+                <div class="offer-banner primary-bg text-white text-center py-2">
+                    <span>Free delivery on orders above $50!</span>
+                </div>
             </div>
-          </div>
-
-          <div class="drawer" id="drawer">
-            <span class="close-btn" onclick="toggleDrawer()">×</span>
-            <img width="220px" src="{{ asset('assets/new_frontend/logo.png') }}" alt="" />
-            <hr />
-            <a href="{{ url('/') }}">Home</a>
-            <a href="{{ route('about_us') }}">About</a>
-            <a href="#">Services</a>
-            <a href="{{ route('contact_us') }}">Contact <i class="fa-solid fa-phone-flip"></i></a>
-            <hr />
-            {{-- <a href="#">Symptoms Checker</a> --}}
-            <a href="#">Join Us</a>
-          </div>
-
-          <div
-            class="blur-overlay"
-            id="blurOverlay"
-            onclick="toggleDrawer()"
-          ></div>
+            <div class="carousel-item">
+                <div class="offer-banner primary-bg text-white text-center py-2">
+                    <span>Limited Time Offer: Buy 1 Get 1 Free!</span>
+                </div>
+            </div>
         </div>
-        <div class="flex gap-15" id="nav-left-side">
-            <a href="{{ url('/') }}">Home</a>
-            <a href="{{ route('about_us') }}">About</a>
-            <a href="#">Pharmacy</a>
-            <a href="#">Lab Tests</a>
-            <a href="#">Imaging</a>
+    </div>
+
+    <header>
+        <nav>
+            <section id="navbar">
+                <div class="wrap flex gap-15 between">
+                    <div id="nav-logo" class="logo">
+                        <img src="{{ asset('assets/new_frontend/logo.png') }}" alt="umbrella-logo" />
+                    </div>
+                    <div class="flex gap-15" id="nav-right-side">
+                        {{-- <div id="checker">
+                            <i class="fa-regular fa-user"></i>
+                            <a href="#" class="pe-none">Symptoms Checker</a>
+                        </div> --}}
+
+                        @if (Auth::check())
+                            <div class="dropdown">
+                                <button class="dropdown-toggle w-100" type="button" id="joinDropdown"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa-solid fa-user-group"></i> Hi {{ Auth::user()->name }}
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="joinDropdown">
+                                    <li><a class="dropdown-item" href="{{ route('home') }}">Go to Dashboard</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
+                                    </li>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        style="display: none;">
+                                        @csrf
+                                    </form>
+                                </ul>
+                            </div>
+                        @else
+                            <div class="dropdown">
+                                <button class="dropdown-toggle w-100" type="button" id="joinDropdown"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa-solid fa-user-group"></i> Join Us
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="joinDropdown">
+                                    <li><a class="dropdown-item" href="{{ route('login') }}">Login</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('doc_register') }}">Register as Doctor</a>
+                                    </li>
+                                    <li><a class="dropdown-item" href="{{ route('pat_register') }}">Register as Patient</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        @endif
+                        <button class="nav_btns">
+                            <i class="fa-brands fa-whatsapp"></i>
+                            <a href="https://wa.me/923372350684" target="_blank">0337-2350684</a>
+                        </button>
+                        <div onclick="window.location.href='{{ url('/my/cart') }}'">
+                            <img src="{{ asset('assets/new_frontend/purchase-icon.svg') }}" alt="shop-icon" />
+                        </div>
+                    </div>
+                    <div class="hamburger_container" onclick="toggleDrawer()">
+                        <div class="hamburger">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
+
+                    <div class="drawer" id="drawer">
+                        <span class="close-btn" onclick="toggleDrawer()">×</span>
+                        <img width="220px" src="{{ asset('assets/new_frontend/logo.png') }}" alt="" />
+                        <hr />
+                        <a href="{{ url('/') }}">Home</a>
+                        <a href="{{ route('pharmacy') }}">Pharmacy</a>
+                        <a href="{{ route('labs') }}">Lab Tests</a>
+                        <a href="{{ route('imaging') }}">Imaging</a>
+                        <a href="{{ route('about_us') }}">About</a>
+                        <a href="{{ route('contact_us') }}">Contact <i class="fa-solid fa-phone-flip"></i></a>
+                        <hr />
+                        <a href="#">Join Us</a>
+                    </div>
+
+                    <div class="blur-overlay" id="blurOverlay" onclick="toggleDrawer()"></div>
+                </div>
+                <div class="flex gap-15" id="nav-left-side">
+                    <a href="{{ url('/') }}">Home</a>
+                    <a href="{{ route('pharmacy') }}">Pharmacy</a>
+                    <a href="{{ route('labs') }}">Lab Tests</a>
+                    <a href="{{ route('imaging') }}">Imaging</a>
 
 
 
-            {{--            <div class="dropdown">
-                <a
-                  class="dropdown-toggle"
-                  href="#"
-                  role="button"
-                  id="servicesDropdown"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Services
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
-                  <li><a class="dropdown-item" href="{{ route('pharmacy') }}">Pharmacy</a></li>
-                  <li><a class="dropdown-item" href="{{ route('labs') }}">Lab Tests</a></li>
-                  <li><a class="dropdown-item" href="{{ route('imaging') }}">Imaging</a></li>
-                  <li><a class="dropdown-item" href="{{ route('psychiatry',['slug'=>'anxiety']) }}">Psychiatry</a></li>
-                  <li>
-                    <a class="dropdown-item" href="{{ route('pain.management') }}">Pain Management</a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="{{ route('substance',['slug'=>'first-visit']) }}">Substance Abuse</a>
-                  </li>
-                </ul>
-              </div> --}}
-
-
-            <a href="{{ route('e-visit') }}">E-Visit</a>
-            <a href="{{ route('contact_us') }}">Contact <i class="fa-solid fa-phone-flip"></i></a>
-          </div>
-      </section>
-    </nav>
-  </header>
+                    {{--<div class="dropdown">
+                            <a
+                            class="dropdown-toggle"
+                            href="#"
+                            role="button"
+                            id="servicesDropdown"
+                            data-bs-toggle="dropdown"
+                            aria-expanded="false"
+                            >
+                            Services
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
+                            <li><a class="dropdown-item" href="{{ route('pharmacy') }}">Pharmacy</a></li>
+                            <li><a class="dropdown-item" href="{{ route('labs') }}">Lab Tests</a></li>
+                            <li><a class="dropdown-item" href="{{ route('imaging') }}">Imaging</a></li>
+                            <li><a class="dropdown-item" href="{{ route('psychiatry',['slug'=>'anxiety']) }}">Psychiatry</a></li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('pain.management') }}">Pain Management</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ route('substance',['slug'=>'first-visit']) }}">Substance Abuse</a>
+                            </li>
+                            </ul>
+                    </div> --}}
+                    <a href="{{ route('e-visit') }}">E-Visit</a>
+                    <a href="{{ route('about_us') }}">About</a>
+                    <a href="{{ route('contact_us') }}">Contact <i class="fa-solid fa-phone-flip"></i></a>
+                </div>
+            </section>
+        </nav>
+    </header>
 
     <div class="container pt-4">
         <div>

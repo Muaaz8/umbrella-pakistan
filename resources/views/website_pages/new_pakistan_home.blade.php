@@ -265,14 +265,14 @@ $page = DB::table('pages')->where('url', '/')->first();
                 role="tab" aria-controls="psychiatry" aria-selected="false">
                 <div>Psychiatry</div>
             </div>
-            <div id="pain-management-tab" class="nav-link" data-bs-toggle="tab" data-bs-target="#pain-management"
+            {{--<div id="pain-management-tab" class="nav-link" data-bs-toggle="tab" data-bs-target="#pain-management"
                 type="button" role="tab" aria-controls="pain-management" aria-selected="false">
                 <div>Pain Management</div>
             </div>
             <div id="substance-abuse-tab" class="nav-link" data-bs-toggle="tab" data-bs-target="#substance-abuse"
                 type="button" role="tab" aria-controls="substance-abuse" aria-selected="false">
                 <div>Substance Abuse</div>
-            </div>
+            </div>--}}
         </div>
     </section>
     <div class="container1 container-fluid tab-content" id="nav-tabContent">
