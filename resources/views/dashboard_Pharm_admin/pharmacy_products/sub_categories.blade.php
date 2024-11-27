@@ -43,13 +43,30 @@ $(document).on("click", '.edit', function(e) {
     var id = $(this).attr('id');
     var name = $('#name'+id).text();
     var pname = $('#parent_name'+id).text();
+    var pid = $('#parent'+id).text();
     var description = $('#description'+id).text();
-    // alert(pname);
+    var is_featured = $('#is_featured'+id).text();
+    console.log(is_featured)
+    $.ajax({
+        type: 'GET',
+        url: "{{ URL('/getMainCategories') }}",
+        success: function(res)
+        {
+            $('#edit_sub_cat').html("");
+            $.each(res, function (I, V) {
+                 $('#edit_sub_cat').append('<option value="'+V.id+'">'+V.name+'</option>');
+            });
+            $('#edit_sub_cat').val(pid);
+        }
+    });
     $('#edit_id').val(id);
     $('#edit_title').val(name);
-    $('#edit_sub_cat').html("");
-    $('#edit_sub_cat').append('<option value="'+pname+'">'+pname+'</option>');
     $('#edit_description').val(description);
+    if (is_featured == 1){
+        $('#edit_is_featured').prop('checked',true);
+    }else{
+        $('#edit_is_featured').prop('checked',false);
+    }
     $('#edit_subcategory').modal('show');
 });
 
@@ -173,6 +190,7 @@ $(".add").click(function () {
                                 <tbody id="bodies">
                                     @forelse ($productsSubCategories as $item)
                                         <p id="description{{ $item->id }}" hidden>{{ $item->description }}</p>
+                                        <p id="is_featured{{ $item->id }}" hidden>{{ $item->is_featured }}</p>
                                         <p id="created{{ $item->id }}" hidden >{{ $item->created_at }}</p>
                                         <p id="updated{{ $item->id }}" hidden >{{ $item->updated_at }}</p>
                                         <tr>
@@ -216,53 +234,53 @@ $(".add").click(function () {
         </div>
     </div>
 
-                <!-- ------------------View-SubCategory-Details-Modal-start------------------ -->
+    <!-- ------------------View-SubCategory-Details-Modal-start------------------ -->
 
-            <!-- Modal -->
-            <div class="modal fade" id="view_subcategory" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Subcategory View Details</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-
-                          <form action="">
-                            <div class="p-3">
-                            <div class="row">
-                                <div class="col-md-6">
-                                  <p><span class="fw-bold">Title:</span>  <span id="title"></span></p>
-                                </div>
-                                <div class="col-md-6">
-                                  <p><span class="fw-bold">Parent Name:</span> <span id="pname"></span></p>
-                              </div>
-                            </div>
-                            <div class="row mt-2">
-                              <div class="col-md-6">
-                                <p><span class="fw-bold">Created At:</span> <span id="created_at"></span></p>
-                            </div>
-                                <div class="col-md-6">
-                                  <p><span class="fw-bold">Updated At:</span> <span id="updated_at"></span></p>
-                              </div>
-                            </div>
-                            <div class="row mt-2">
-                              <div class="col-md-12">
-                                <p><span class="fw-bold">Description:</span> <span id="description"></span></p>
-                            </div>
-                            </div>
-
-                          </div>
-                          </form>
-
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-
-                    </div>
+    <!-- Modal -->
+        <div class="modal fade" id="view_subcategory" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Subcategory View Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
+                <div class="modal-body">
+
+                        <form action="">
+                        <div class="p-3">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p><span class="fw-bold">Title:</span>  <span id="title"></span></p>
+                            </div>
+                            <div class="col-md-6">
+                                <p><span class="fw-bold">Parent Name:</span> <span id="pname"></span></p>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-6">
+                            <p><span class="fw-bold">Created At:</span> <span id="created_at"></span></p>
+                        </div>
+                            <div class="col-md-6">
+                                <p><span class="fw-bold">Updated At:</span> <span id="updated_at"></span></p>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-md-12">
+                            <p><span class="fw-bold">Description:</span> <span id="description"></span></p>
+                        </div>
+                        </div>
+
+                        </div>
+                        </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+
                 </div>
             </div>
+            </div>
+        </div>
 
 
     <!-- ------------------View-SubCategory-Details-Modal-end------------------ -->
@@ -298,6 +316,10 @@ $(".add").click(function () {
                               <div class="col-md-12">
                               <label for="specialInstructions">Description</label>
                               <input type="text" name="description" id="description" class="form-control" placeholder="">
+                              </div>
+                              <div class="col-md-12 my-2">
+                                <input type="checkbox" id="is_featured" name="is_featured" value="1">
+                                <label for="is_featured"> Is Featured</label><br>
                               </div>
                               <div class="col-md-12">
                                 <label for="specialInstructions">Thumbnail</label>
@@ -354,6 +376,10 @@ $(".add").click(function () {
                               <div class="col-md-12">
                               <label for="specialInstructions">Description</label>
                               <input type="text" name="description" id="edit_description" class="form-control" value="">
+                              </div>
+                              <div class="col-md-12 my-2">
+                                <input type="checkbox" id="edit_is_featured" name="is_featured" value="1">
+                                <label for="edit_is_featured"> Is Featured</label><br>
                               </div>
                               <div class="col-md-12">
                                 <label for="specialInstructions">Thumbnail</label>

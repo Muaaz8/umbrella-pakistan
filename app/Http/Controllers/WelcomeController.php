@@ -88,7 +88,7 @@ class WelcomeController extends Controller
             $data['prescribed_medicines_category'] = ProductsSubCategory::select('id', 'slug', 'title')
                 ->where('parent_id', '38')
                 ->whereNotIn('id', ['126', '88', '139', '137'])
-                ->orderBy('title', 'asc')
+                ->orderBy('is_featured', 'desc')
                 ->limit(5)
                 ->get();
             $data['pain_categories'] = ProductsSubCategory::select('id', 'slug', 'title', 'thumbnail')

@@ -56,6 +56,15 @@ $.ajaxSetup({
 @section('content')
   <div class="dashboard-content">
           <div class="container">
+            <div class="row align-items-center mb-3 mx-0">
+                <div class="col-md-4">
+                    <div>
+                        <button class="location__back__BTN" onclick="window.location.href='{{url()->previous()}}'"><i class="fa-solid fa-arrow-left"></i> Back</button>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                </div>
+            </div>
             <div class="row profile-row-wrapper m-auto">
               <div class="col-md-5">
                 <div class="row">

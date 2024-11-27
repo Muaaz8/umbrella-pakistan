@@ -33,7 +33,8 @@ class ProductsSubCategory extends Model
         'created_by',
         'description',
         'parent_id',
-        'thumbnail'
+        'thumbnail',
+        'is_featured'
     ];
 
     /**

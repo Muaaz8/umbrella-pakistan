@@ -1,13 +1,13 @@
 $(document).ready(function(){
-    // $('.imaging-penal').click(function(){
-    //     getImagingProductByCategory('all',5);
-    // });
-    // $('.pharmacy-penal').click(function(){
-    //     getPharmacyProductByCategory('all',5);
-    // });
-    // $('.labtest-penal').click(function(){
-    //     getLabtestProductByCategory('all',5);
-    // });
+    $('.imaging-penal').click(function(){
+        getImagingProductByCategory('all',4);
+    });
+    $('.pharmacy-penal').click(function(){
+        getPharmacyProductByCategory('all',6);
+    });
+    $('.labtest-penal').click(function(){
+        getLabtestProductByCategory('all',5);
+    });
 });
 
 function getPharmacyProductByCategory(sub_cat_id,limit)
@@ -36,10 +36,24 @@ function getPharmacyProductByCategory(sub_cat_id,limit)
                 {
                 $.each(res, function(key, value) {
                     $('#load_pharmacy_item_by_category').append(
-                        '<div class="card"><div class="prescription"><p>prescription required</p></div>'+
-                        '<h4 class="truncate" title="'+value.name+'">'+value.name+'</h4><h6 class="truncate">'+value.category_name+'</h6>'+
-                        '<p class="truncate-overflow">'+value.short_description+'</p>'+
-                        '<a href="/medicines/'+value.slug+'" class="read_more">Read More</p></div>'
+                        // '<div class="card"><div class="prescription"><p>prescription required</p></div>'+
+                        // '<h4 class="truncate" title="'+value.name+'">'+value.name+'</h4><h6 class="truncate">'+value.category_name+'</h6>'+
+                        // '<p class="truncate-overflow">'+value.short_description+'</p>'+
+                        // '<a href="/medicines/'+value.slug+'" class="read_more">Read More</p></div>'
+                        // insert before h4
+                        // <div class="med-img"><img src="https://placehold.co/70" alt="img"></div>
+                        `<div class="card">
+                            <div class="prescription">
+                                <p>prescription required</p>
+                            </div>
+                            <h4 class="truncate" title="${value.name}">${value.name}</h4>
+                            <h6 class="truncate">${value.category_name}</h6>
+                            <p class="truncate-overflow">${value.short_description}</p>
+                            <div class="pharmacy_btn">
+                                <a class="read-more btn btn-outline-danger" href="/medicines/${value.slug}">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
+                                <a class="add-to-cart" href="/medicines/${value.slug}">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
+                            </div>
+                        </div>`
                     );
                 });
                 if(sub_cat_id=='all')
@@ -81,21 +95,35 @@ function getLabtestProductByCategory(cat_id,limit)
                 if(res.user_id==''){
                     $.each(res.products, function(key, value) {
                         $('#load_labtest_item_by_category').append(
-                            '<div class="tests-card"><div class="test-card-content"><div class="add_to_cart_container">'+
-                            '<button class="add_to_cart_btn" class="add_to_cart_btn" data-bs-toggle="modal" data-bs-target="#loginModal" type="button"><i class="fa-solid fa-cart-shopping"></i>'+
-                            '</button></div><h4 class="truncate" title="'+value.TEST_NAME+'">'+value.TEST_NAME+'</h4>'+
-                            '<p class="truncate-overflow">'+value.DETAILS+'</p>'+
-                            '<button onclick="window.location.href=\'/labtest/' + value.SLUG + '\'" class="learn_btn">Learn More</button></div></div>'
+                           `<div class="tests-card">
+                                <div class="test-card-content">
+                                    <div class="add_to_cart_container">
+                                        <button class="add_to_cart_btn" onclick="window.location.href='/labtest/${value.SLUG}'">
+                                            Learn More
+                                        </button>
+                                    </div>
+                                    <h4 class="truncate" title="${value.TEST_NAME}">${value.TEST_NAME}</h4>
+                                    <p class="truncate-overflow">${value.DETAILS}</p>
+                                    <button class="learn_btn" data-bs-toggle="modal" data-bs-target="#loginModal" type="button">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
+                                </div>
+                            </div>`
                         );
                     });
                 }else{
                     $.each(res.products, function(key, value) {
                         $('#load_labtest_item_by_category').append(
-                            '<div class="tests-card"><div class="test-card-content"><div class="add_to_cart_container">'+
-                            '<button class="add_to_cart_btn '+value.TEST_CD+' '+mode+'" onclick="addedItem(this)" type="button"><i class="fa-solid fa-cart-shopping"></i>'+
-                            '</button></div><h4 class="truncate" title="'+value.TEST_NAME+'">'+value.TEST_NAME+'</h4>'+
-                            '<p class="truncate-overflow">'+value.DETAILS+'</p>'+
-                            '<button onclick="window.location.href=\'/labtest/' + value.SLUG + '\'" class="learn_btn">Learn More</button></div></div>'
+                             `<div class="tests-card">
+                                <div class="test-card-content">
+                                    <div class="add_to_cart_container">
+                                        <button class="add_to_cart_btn" onclick="window.location.href='/labtest/${value.SLUG}'">
+                                            Learn More
+                                        </button>
+                                    </div>
+                                    <h4 class="truncate" title="${value.TEST_NAME}">${value.TEST_NAME}</h4>
+                                    <p class="truncate-overflow">${value.DETAILS}</p>
+                                    <button class="learn_btn ${value.TEST_CD} ${mode}" onclick="addedItem(this)" type="button">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
+                                </div>
+                            </div>`
                         );
                     });
                 }
@@ -144,32 +172,47 @@ function getImagingProductByCategory(cat_id,limit)
                     if(res.user_id==''){
                         $.each(res.products, function(key, value) {
                             $('#load_imaging_item_by_category').append(
-                                '<div class="tests-card"><div class="test-card-content"><div class="add_to_cart_container">'+
-                                '<button class="add_to_cart_btn" class="add_to_cart_btn" data-bs-toggle="modal" data-bs-target="#loginModal" type="button"><i class="fa-solid fa-cart-shopping"></i>'+
-                                '</button></div><h4 class="truncate" title="'+value.TEST_NAME+'">'+value.TEST_NAME+'</h4>'+
-                                '<p class="truncate-overflow">'+value.DETAILS+'</p>'+
-                                '<button onclick="window.location.href=\'/labtest/' + value.SLUG + '\'" class="learn_btn">Learn More</button></div></div>'
+                               `<div class="tests-card">
+                                    <div class="test-card-content">
+                                        <div class="add_to_cart_container">
+                                            <button class="add_to_cart_btn" onclick="window.location.href='/labtest/${value.SLUG}'">
+                                                Learn More
+                                            </button>
+                                        </div>
+                                        <h4 class="truncate" title="${value.TEST_NAME}">${value.TEST_NAME}</h4>
+                                        <p class="truncate-overflow">${value.DETAILS}</p>
+                                        <button class="learn_btn" data-bs-toggle="modal" data-bs-target="#loginModal" type="button">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
+                                    </div>
+                                </div>`
                             );
                         });
                     }else{
                         $.each(res.products, function(key, value) {
                             $('#load_imaging_item_by_category').append(
-                                '<div class="tests-card"><div class="test-card-content"><div class="add_to_cart_container">'+
-                                '<button class="add_to_cart_btn '+value.TEST_CD+' '+mode+'" onclick="addedItem(this)" type="button"><i class="fa-solid fa-cart-shopping"></i>'+
-                                '</button></div><h4 class="truncate" title="'+value.TEST_NAME+'">'+value.TEST_NAME+'</h4>'+
-                                '<p class="truncate-overflow">'+value.DETAILS+'</p>'+
-                                '<button onclick="window.location.href=\'/labtest/' + value.SLUG + '\'" class="learn_btn">Learn More</button></div></div>'
+                                 `<div class="tests-card">
+                                    <div class="test-card-content">
+                                        <div class="add_to_cart_container">
+                                            <button class="add_to_cart_btn" onclick="window.location.href='/labtest/${value.SLUG}'">
+                                                Learn More
+                                            </button>
+                                        </div>
+                                        <h4 class="truncate" title="${value.TEST_NAME}">${value.TEST_NAME}</h4>
+                                        <p class="truncate-overflow">${value.DETAILS}</p>
+                                        <button class="learn_btn ${value.TEST_CD} ${mode}" onclick="addedItem(this)" type="button">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
+                                    </div>
+                                </div>`
                             );
                         });
                     }
+
                     if(cat_id=='all')
                     {
-                        $('#load_more_btn_imaging').append(
-                            '<a href="/imaging"> <button>View All</button></a>'
+                        $('#load_more_btn_lab').append(
+                            '<a href="/labtests"> <button>View All</button></a>'
                         );
                     }else{
-                        $('#load_more_btn_imaging').append(
-                            '<a href="/imaging/'+res[0].cat_name+'"> <button>View More </button></a>'
+                        $('#load_more_btn_lab').append(
+                            '<a href="/labtests/'+res[0].cat_name+'"> <button>View More </button></a>'
                         );
                     }
                 }

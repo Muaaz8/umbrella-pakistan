@@ -90,8 +90,8 @@
                                         <div class="e-visit-price-box">
                                             <p class="third"><b>Service Type:</b> E-Visit</p>
                                             <div>
-                                                <h6 class="m-0"><b>Initial Price: </b>${{ $spec->initial_price }}</h6>
-                                                <h6 class="m-0"><b>Follow-up Price: </b> ${{ $spec->follow_up_price }}
+                                                <h6 class="m-0"><b>Initial Price: </b>Rs. {{ $spec->initial_price }}</h6>
+                                                <h6 class="m-0"><b>Follow-up Price: </b> Rs. {{ $spec->follow_up_price }}
                                                 </h6>
                                             </div>
                                         </div>
@@ -101,7 +101,7 @@
                                     <h3>{{ $spec->name }}</h1>
                                         <div class="e-visit-price-box">
                                             <p class="third"><b>Service Type:</b> E-Visit</p>
-                                            <h6 class="m-0"><b>Price: </b> ${{ $spec->initial_price }}</h6>
+                                            <h6 class="m-0"><b>Price: </b> Rs. {{ $spec->initial_price }}</h6>
                                         </div>
                                 </div>
                             @endif

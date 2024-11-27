@@ -361,7 +361,7 @@ $page = DB::table('pages')->where('url', '/')->first();
                 <div class="pharmacy-content">
                     <div class="pharmacy-categories">
                         @foreach ($data['prescribed_medicines_category'] as $item)
-                        <div class="pharmacy-category" onclick="getPharmacyProductByCategory({{ $item->id }},5)">
+                        <div class="pharmacy-category" onclick="getPharmacyProductByCategory({{ $item->id }},6)">
                             <i class="fa-solid fa-pills"></i>
                             <div title="{{ $item->title }}">{{ \Str::limit($item->title, 15, '...') }}</div>
                         </div>
@@ -648,7 +648,7 @@ $page = DB::table('pages')->where('url', '/')->first();
                 @endif
                 <div class="pharmacy-categories">
                     @foreach ($data['imaging_category'] as $item)
-                    <div class="pharmacy-category" onclick="getImagingProductByCategory({{ $item->id }},5)">
+                    <div class="pharmacy-category" onclick="getImagingProductByCategory({{ $item->id }},4)">
                         <i class="fa-solid fa-flask"></i>
                         <div title="{{ $item->product_parent_category }}">
                             {{ \Str::limit($item->product_parent_category, 15, '...') }}</div>
@@ -1221,9 +1221,9 @@ $page = DB::table('pages')->where('url', '/')->first();
         </div>
     </div>
 </div>
-
 <!-- Modal -->
-<div class="modal fade cart-modal" id="afterLogin" tabindex="-1" aria-labelledby="afterLoginLabel" aria-hidden="true">
+<div class="modal fade cart-modal" id="afterLogin" tabindex="-1" aria-labelledby="afterLoginLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -1233,7 +1233,7 @@ $page = DB::table('pages')->where('url', '/')->first();
             <div class="modal-body">
                 <div class="custom-modal">
                     <div class="succes succes-animation icon-top"><i class="fa fa-check"></i></div>
-                    <div class="content">
+                    <div class="content flex-column align-items-center justify-content-center w-100 gap-1">
                         <p class="type">Item Added</p>
                         <div class="modal-login-reg-btn"><button data-bs-dismiss="modal" aria-label="Close">
                                 Continue Shopping
@@ -1255,20 +1255,19 @@ $page = DB::table('pages')->where('url', '/')->first();
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <div class="custom-modal">
-                    <div class="succes succes-animation icon-top"><i class="fa fa-times"></i></div>
-                    <div class="content">
-                        <p class="type">Item Is Already in Cart</p>
-                        <div class="modal-login-reg-btn"><button data-bs-dismiss="modal" aria-label="Close">
-                                Continue Shopping
-                            </button></div>
+                <div class="custom-modal1">
+                    <div class="succes succes-animation icon-top"><i class="fa fa-check"></i></div>
+                        <div class="content flex-column align-items-center justify-content-center w-100 gap-1">
+                            <p class="type">Item Is Already in Cart</p>
+                            <div class="modal-login-reg-btn"><button data-bs-dismiss="modal" aria-label="Close">
+                                    Continue Shopping
+                                </button></div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 
 <!-- Modal -->
 <div class="modal fade cart-modal" id="beforeLogin" tabindex="-1" aria-labelledby="beforeLoginLabel" aria-hidden="true">

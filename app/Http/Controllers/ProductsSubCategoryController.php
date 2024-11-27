@@ -296,13 +296,21 @@ class ProductsSubCategoryController extends AppBaseController
     public function dash_sub_cat_update(Request $request)
     {
         $id = $request->edit_id;
-
-       DB::table('products_sub_categories')->where('id',$id)->update([
-        'title' => $request->title,
-        'slug' => $this->slugify($request->title),
-        'description' => $request->description,
-       ]);
-
+        if (isset($request->is_featured)){
+            DB::table('products_sub_categories')->where('id',$id)->update([
+                'title' => $request->title,
+                'slug' => $this->slugify($request->title),
+                'description' => $request->description,
+                'is_featured' => 1,
+            ]);
+        } else {
+            DB::table('products_sub_categories')->where('id',$id)->update([
+                'title' => $request->title,
+                'slug' => $this->slugify($request->title),
+                'description' => $request->description,
+                'is_featured' => 0,
+           ]);
+        }
         Flash::success('Product Category updated successfully.');
 
         return redirect()->back();
