@@ -502,6 +502,8 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
+  border-right: 4px solid;
+
 }
 
 .step-icon>i {
