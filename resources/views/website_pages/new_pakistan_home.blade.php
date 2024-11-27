@@ -192,10 +192,11 @@ $page = DB::table('pages')->where('url', '/')->first();
             <div id="steps">
                 <div class="step" data-bs-toggle="modal" data-bs-target="#loginModal">
                     <div class="step-icon">
-                        <i class="fa-regular fa-id-card"></i>
+                        1
                     </div>
+                    <span class="num"> <span class="vr"></span> </span>
                     <div class="step-heading">
-                        <h3>LOGIN | REGISTER</h3>
+                        <h3> LOGIN / REGISTER</h3>
                     </div>
                 </div>
                 <div class="arrow arrow1">
@@ -204,10 +205,11 @@ $page = DB::table('pages')->where('url', '/')->first();
                 </div>
                 <div class="step" data-bs-toggle="modal" data-bs-target="#e-visitModal">
                     <div class="step-icon">
-                        <i class="fa-solid fa-laptop"></i>
+                        2
                     </div>
+                    <span class="num"><span class="vr"></span> </span>
                     <div class="step-heading">
-                        <h3>E-VISIT | LABTEST | PHARMACY</h3>
+                        <h3> E-VISIT/ LABTEST/ PHARMACY</h3>
                     </div>
                 </div>
                 <div class="arrow arrow1">
@@ -216,8 +218,9 @@ $page = DB::table('pages')->where('url', '/')->first();
                 </div>
                 <div class="step" onclick="window.location.href='{{ route('login') }}'">
                     <div class="step-icon">
-                        <i class="fa-solid fa-bag-shopping"></i>
+                        3
                     </div>
+                    <span class="num"><span class="vr"></span> </span>
                     <div class="step-heading">
                         <h3>CONFIRM ORDER</h3>
                     </div>
@@ -228,8 +231,9 @@ $page = DB::table('pages')->where('url', '/')->first();
                 </div>
                 <div class="step" onclick="window.location.href='{{ route('login') }}'">
                     <div class="step-icon">
-                        <i class="fa-regular fa-credit-card"></i>
+                        4
                     </div>
+                    <span class="num"> <span class="vr"></span> </span>
                     <div class="step-heading">
                         <h3>CHECKOUT</h3>
                     </div>
@@ -375,7 +379,7 @@ $page = DB::table('pages')->where('url', '/')->first();
                             <div class="prescription">
                                 <p>prescription required</p>
                             </div>
-                            <div class="med-price">$ 100</div>
+                            <div class="med-img"><img src="https://placehold.co/70" alt="img"></div>
                             <h4 class="truncate">Niacin ER tablet</h4>
                             <h6 class="truncate">Heart Disease</h6>
                             <p class="truncate-overflow">
@@ -383,13 +387,16 @@ $page = DB::table('pages')->where('url', '/')->first();
                                 (low-density lipoprotein, or LDL) and triglycerides, and
                                 incre
                             </p>
-                            <p class="read_more">Read More</p>
+                            <div class="pharmacy_btn">
+                                <a class="read-more btn btn-outline-danger" href="#">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
+                                <a class="add-to-cart" href="#">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
+                            </div>
                         </div>
                         <div class="card">
                             <div class="prescription">
                                 <p>prescription required</p>
                             </div>
-                            <div class="med-price">$ 100</div>
+                            <div class="med-img"><img src="https://placehold.co/70" alt="img"></div>
                             <h4 class="truncate">Niacin ER tablet</h4>
                             <h6 class="truncate">Heart Disease</h6>
                             <p class="truncate-overflow">
@@ -397,13 +404,16 @@ $page = DB::table('pages')->where('url', '/')->first();
                                 (low-density lipoprotein, or LDL) and triglycerides, and
                                 incre
                             </p>
-                            <p class="read_more">Read More</p>
+                            <div class="pharmacy_btn">
+                                <a class="read-more btn btn-outline-danger" href="#">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
+                                <a class="add-to-cart" href="#">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
+                            </div>
                         </div>
                         <div class="card">
                             <div class="prescription">
                                 <p>prescription required</p>
                             </div>
-                            <div class="med-price">$ 100</div>
+                            <div class="med-img"><img src="https://placehold.co/70" alt="img"></div>
                             <h4 class="truncate">Niacin ER tablet</h4>
                             <h6 class="truncate">Heart Disease</h6>
                             <p class="truncate-overflow">
@@ -411,13 +421,16 @@ $page = DB::table('pages')->where('url', '/')->first();
                                 (low-density lipoprotein, or LDL) and triglycerides, and
                                 incre
                             </p>
-                            <p class="read_more">Read More</p>
+                            <div class="pharmacy_btn">
+                                <a class="read-more btn btn-outline-danger" href="#">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
+                                <a class="add-to-cart" href="#">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
+                            </div>
                         </div>
                         <div class="card">
                             <div class="prescription">
                                 <p>prescription required</p>
                             </div>
-                            <div class="med-price">$ 100</div>
+                            <div class="med-img"><img src="https://placehold.co/70" alt="img"></div>
                             <h4 class="truncate">Niacin ER tablet</h4>
                             <h6 class="truncate">Heart Disease</h6>
                             <p class="truncate-overflow">
@@ -425,13 +438,16 @@ $page = DB::table('pages')->where('url', '/')->first();
                                 (low-density lipoprotein, or LDL) and triglycerides, and
                                 incre
                             </p>
-                            <p class="read_more">Read More</p>
+                            <div class="pharmacy_btn">
+                                <a class="read-more btn btn-outline-danger" href="#">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
+                                <a class="add-to-cart" href="#">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
+                            </div>
                         </div>
                         <div class="card">
                             <div class="prescription">
                                 <p>prescription required</p>
                             </div>
-                            <div class="med-price">$ 100</div>
+                            <div class="med-img"><img src="https://placehold.co/70" alt="img"></div>
                             <h4 class="truncate">Niacin ER tablet</h4>
                             <h6 class="truncate">Heart Disease</h6>
                             <p class="truncate-overflow">
@@ -439,8 +455,29 @@ $page = DB::table('pages')->where('url', '/')->first();
                                 (low-density lipoprotein, or LDL) and triglycerides, and
                                 incre
                             </p>
-                            <p class="read_more">Read More</p>
+                            <div class="pharmacy_btn">
+                                <a class="read-more btn btn-outline-danger" href="#">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
+                                <a class="add-to-cart" href="#">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
+                            </div>
                         </div>
+                        <div class="card">
+                            <div class="prescription">
+                                <p>prescription required</p>
+                            </div>
+                            <div class="med-img"><img src="https://placehold.co/70" alt="img"></div>
+                            <h4 class="truncate">Niacin ER tablet</h4>
+                            <h6 class="truncate">Heart Disease</h6>
+                            <p class="truncate-overflow">
+                                Niacin is used to lower blood levels of "bad" cholesterol
+                                (low-density lipoprotein, or LDL) and triglycerides, and
+                                incre
+                            </p>
+                            <div class="pharmacy_btn">
+                                <a class="read-more btn btn-outline-danger" href="#">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
+                                <a class="add-to-cart" href="#">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
+                            </div>
+                        </div>
+
                     </div>
 
                     <div class="btn-div">
@@ -499,7 +536,7 @@ $page = DB::table('pages')->where('url', '/')->first();
                         <div class="test-card-content">
                             <div class="add_to_cart_container">
                                 <button class="add_to_cart_btn">
-                                    <i class="fa-solid fa-cart-shopping"></i>
+                                    Learn More
                                 </button>
                             </div>
                             <h4 class="truncate">Complete Blood Count</h4>
@@ -508,14 +545,14 @@ $page = DB::table('pages')->where('url', '/')->first();
                                 evaluate your overall health and detect a wide range of
                                 disorders, including anemia, infection and leukemia.
                             </p>
-                            <button class="learn_btn">Learn More</button>
+                            <button class="learn_btn">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
                         </div>
                     </div>
                     <div class="tests-card">
                         <div class="test-card-content">
                             <div class="add_to_cart_container">
                                 <button class="add_to_cart_btn">
-                                    <i class="fa-solid fa-cart-shopping"></i>
+                                    Learn More
                                 </button>
                             </div>
                             <h4 class="truncate">Complete Blood Count</h4>
@@ -524,14 +561,14 @@ $page = DB::table('pages')->where('url', '/')->first();
                                 evaluate your overall health and detect a wide range of
                                 disorders, including anemia, infection and leukemia.
                             </p>
-                            <button class="learn_btn">Learn More</button>
+                            <button class="learn_btn">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
                         </div>
                     </div>
                     <div class="tests-card">
                         <div class="test-card-content">
                             <div class="add_to_cart_container">
                                 <button class="add_to_cart_btn">
-                                    <i class="fa-solid fa-cart-shopping"></i>
+                                    Learn More
                                 </button>
                             </div>
                             <h4 class="truncate">Complete Blood Count</h4>
@@ -540,14 +577,14 @@ $page = DB::table('pages')->where('url', '/')->first();
                                 evaluate your overall health and detect a wide range of
                                 disorders, including anemia, infection and leukemia.
                             </p>
-                            <button class="learn_btn">Learn More</button>
+                            <button class="learn_btn">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
                         </div>
                     </div>
                     <div class="tests-card">
                         <div class="test-card-content">
                             <div class="add_to_cart_container">
                                 <button class="add_to_cart_btn">
-                                    <i class="fa-solid fa-cart-shopping"></i>
+                                    Learn More
                                 </button>
                             </div>
                             <h4 class="truncate">Complete Blood Count</h4>
@@ -556,14 +593,14 @@ $page = DB::table('pages')->where('url', '/')->first();
                                 evaluate your overall health and detect a wide range of
                                 disorders, including anemia, infection and leukemia.
                             </p>
-                            <button class="learn_btn">Learn More</button>
+                            <button class="learn_btn">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
                         </div>
                     </div>
                     <div class="tests-card">
                         <div class="test-card-content">
                             <div class="add_to_cart_container">
                                 <button class="add_to_cart_btn">
-                                    <i class="fa-solid fa-cart-shopping"></i>
+                                    Learn More
                                 </button>
                             </div>
                             <h4 class="truncate">Complete Blood Count</h4>
@@ -572,7 +609,7 @@ $page = DB::table('pages')->where('url', '/')->first();
                                 evaluate your overall health and detect a wide range of
                                 disorders, including anemia, infection and leukemia.
                             </p>
-                            <button class="learn_btn">Learn More</button>
+                            <button class="learn_btn">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
                         </div>
                     </div>
                 </div>
@@ -904,7 +941,7 @@ $page = DB::table('pages')->where('url', '/')->first();
         </section>
     </div>
 
-    <section id="problems-section" class="py-5">
+    <section id="problems-section" class="py-2">
     <div class="blob position-absolute">
         <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
             <path fill="#E8DAFF"

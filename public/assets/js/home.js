@@ -1,13 +1,13 @@
 $(document).ready(function(){
-    $('.imaging-penal').click(function(){
-        getImagingProductByCategory('all',5);
-    });
-    $('.pharmacy-penal').click(function(){
-        getPharmacyProductByCategory('all',5);
-    });
-    $('.labtest-penal').click(function(){
-        getLabtestProductByCategory('all',5);
-    });
+    // $('.imaging-penal').click(function(){
+    //     getImagingProductByCategory('all',5);
+    // });
+    // $('.pharmacy-penal').click(function(){
+    //     getPharmacyProductByCategory('all',5);
+    // });
+    // $('.labtest-penal').click(function(){
+    //     getLabtestProductByCategory('all',5);
+    // });
 });
 
 function getPharmacyProductByCategory(sub_cat_id,limit)
