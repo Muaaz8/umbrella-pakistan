@@ -481,14 +481,44 @@ header {
 
 
 .step:hover .step-icon {
-  border-color: #2964bc;
-  box-shadow: 0px 0px 14px -5px var(--navy-blue);
-}
+    box-shadow: 0px 0px 14px -5px var(--navy-blue);
+    color: #2964bc;
+    animation: leftborder 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
 
-.step:hover .step-icon>i {
-  color: #2964bc;
+  @keyframes leftborder {
+    0% {
+      border-top: 4px solid var(--blue);
+      border-left: 4px solid transparent;
+      border-right: 4px solid transparent;
+      border-bottom: 4px solid transparent;
+    }
+    25% {
+      border-top: 4px solid var(--blue);
+      border-left: 4px solid var(--blue);
+      border-right: 4px solid transparent;
+      border-bottom: 4px solid transparent;
+    }
+    50% {
+      border-top: 4px solid var(--blue);
+      border-left: 4px solid var(--blue);
+      border-right: 4px solid transparent;
+      border-bottom: 4px solid var(--blue);
+    }
+    75% {
+      border-top: 4px solid var(--blue);
+      border-left: 4px solid var(--blue);
+      border-right: 4px solid var(--blue);
+      border-bottom: 4px solid var(--blue);
+    }
+    100% {
+      border-top: 4px solid var(--blue);
+      border-left: 4px solid var(--blue);
+      border-right: 4px solid var(--blue);
+      border-bottom: 4px solid var(--blue);
+    }
+  }
 
-}
 
 .step-icon {
   padding: 25px;
@@ -764,7 +794,7 @@ header {
 
 #problems-section {
   position: relative;
-  min-height: 350px;
+  min-height: 250px;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -1120,7 +1150,7 @@ footer {
   background-size: 100vw;
   position: relative;
   min-height: 410px;
-  padding-bottom: 30px;
+  padding-bottom: 70px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1538,7 +1568,7 @@ footer {
 .btn-div button {
   padding: 12px 40px;
   border: 1px solid transparent;
-  border-radius: 20px;
+  border-radius: 10px;
   background: var(--red);
   color: white;
   cursor: pointer;
@@ -1610,7 +1640,7 @@ footer {
 .add_to_cart_btn {
   border: none;
   height: 40px;
-  width: 75%;
+  width: 60%;
   border-radius: 10px;
   color: white;
   cursor: pointer;

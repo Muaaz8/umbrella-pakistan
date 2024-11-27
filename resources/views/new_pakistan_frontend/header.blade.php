@@ -84,7 +84,7 @@
             <a href="{{ route('imaging') }}">Imaging</a>
             <a href="{{ route('e-visit') }}">E-Visit</a>
             <a href="{{ route('about_us') }}">About</a>
-            <a href="{{ route('contact_us') }}">Contact <i class="fa-solid fa-phone-flip"></i></a>
+            <a href="{{ route('contact_us') }}">Contact</a>
             <hr />
             {{-- <a href="#">Symptoms Checker</a> --}}
             <a href="#">Join Us</a>
@@ -103,7 +103,7 @@
             <a href="{{ route('imaging') }}">Imaging</a>
             <a href="{{ route('e-visit') }}">E-Visit</a>
             <a href="{{ route('about_us') }}">About</a>
-            <a href="{{ route('contact_us') }}">Contact <i class="fa-solid fa-phone-flip"></i></a>
+            <a href="{{ route('contact_us') }}">Contact</a>
 
 
 
