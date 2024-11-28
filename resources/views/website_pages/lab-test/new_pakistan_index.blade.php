@@ -43,42 +43,73 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+        var mode='lab-test';
 
         $('.searchPharmacyProduct').click(function() {
             var text = $('#pharmacySearchText').val();
             var cat_id = $('#pharmacy_cat_name').val();
             $.ajax({
-                type: "POST",
-                url: "/search_lab_item_by_category",
-                data: {
-                    text: text,
-                    cat_id: cat_id
-                },
-                success: function(res) {
-                    $('.prescription-req-view-btn').hide();
-                    $('#loadSearchPharmacyItemByCategory').html('');
-                    if (res == "" || res == null) {
-                        $('#loadSearchPharmacyItemByCategory').append(
-                            '<div class="no-product-text">' +
-                            '<img src="/assets/images/exclamation.png" alt="">' +
-                            '<h1>NO ITEM Found</h1>' +
-                            '<p>There are no item that match your current filters. Try removing some of them to get better results.</p>' +
-                            '</div>'
-                        );
-
-                    } else {
-                        $.each(res, function(key, value) {
+                    type: "POST",
+                    url: "/search_lab_item_by_category",
+                    data: {
+                        text: text,
+                        cat_id: "all"
+                    },
+                    success: function(res) {
+                        $('.pagination').hide();
+                        $('.prescription-req-view-btn').hide();
+                        $('#loadSearchPharmacyItemByCategory').html('');
+                        if (res == "" || res == null) {
                             $('#loadSearchPharmacyItemByCategory').append(
-                                `<div class="tests-card"><div class="test-card-content">
-                                <div class="add_to_cart_container"><button class="add_to_cart_btn">
-                                <i class="fa-solid fa-cart-shopping"></i></button></div>
-                                <h4 class="truncate">${value.TEST_NAME}</h4><p class="truncate-overflow">${stripped_description}</p>
-                                <button onclick="window.location.href='/labtest/${value.SLUG}'" class="learn_btn">Learn More</button></div></div>`
+                                '<div class="no-product-text py-4">' +
+                                '<img src="/assets/images/exclamation.png" alt="">' +
+                                '<h1>NO ITEM Found</h1>' +
+                                '<p>There are no item that match your current filters. Try removing some of them to get better results.</p>' +
+                                '</div>'
                             );
-                        });
+
+                        } else {
+                            if(res.user_id==''){
+                                $.each(res.products, function(key, value) {
+                                    $('#loadSearchPharmacyItemByCategory').append(
+                                    `<div class="tests-card">
+                                            <div class="test-card-content">
+                                                <div class="add_to_cart_container">
+                                                    <button class="add_to_cart_btn" onclick="window.location.href='/labtest/${value.SLUG}'">
+                                                        Learn More
+                                                    </button>
+                                                </div>
+                                                <h4 class="truncate" title="${value.TEST_NAME}">${value.TEST_NAME}</h4>
+                                                <p class="truncate-overflow">${value.DETAILS}</p>
+                                                <button class="learn_btn" data-bs-toggle="modal" data-bs-target="#loginModal" type="button">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
+                                            </div>
+                                        </div>`
+                                    );
+                                });
+                            }else{
+                                $.each(res.products, function(key, value) {
+                                    $('#loadSearchPharmacyItemByCategory').append(
+                                        `<div class="tests-card">
+                                            <div class="test-card-content">
+                                                <div class="add_to_cart_container">
+                                                    <button class="add_to_cart_btn" onclick="window.location.href='/labtest/${value.SLUG}'">
+                                                        Learn More
+                                                    </button>
+                                                </div>
+                                                <h4 class="truncate" title="${value.TEST_NAME}">${value.TEST_NAME}</h4>
+                                                <p class="truncate-overflow">${value.DETAILS}</p>
+                                                <button class="learn_btn ${value.TEST_CD} ${mode}" onclick="addedItem(this)" type="button">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
+                                            </div>
+                                        </div>`
+                                    );
+                                });
+                            }
+                        }
+                        if(text == ""){
+                            $('.pagination').show();
+                        }
                     }
-                }
-            });
+                });
         });
 
 
@@ -95,6 +126,7 @@
                         cat_id: "all"
                     },
                     success: function(res) {
+                        $('.pagination').hide();
                         $('.prescription-req-view-btn').hide();
                         $('#loadSearchPharmacyItemByCategory').html('');
                         if (res == "" || res == null) {
@@ -107,21 +139,47 @@
                             );
 
                         } else {
-                            $.each(res.products, function(key, value) {
-                                var stripped_description = $("<div>").html(value.DESCRIPTION)
-                                    .text();
-                                $('#loadSearchPharmacyItemByCategory').append(
-                                    `<div class="tests-card"><div class="test-card-content">
-                                    <div class="add_to_cart_container"><button class="add_to_cart_btn">
-                                    <i class="fa-solid fa-cart-shopping"></i></button></div>
-                                    <h4 class="truncate">${value.TEST_NAME}</h4><p class="truncate-overflow">${stripped_description}</p>
-                                    <button onclick="window.location.href='/labtest/${value.SLUG}'" class="learn_btn">Learn More</button></div></div>`
-                                );
-                            });
+                            if(res.user_id==''){
+                                $.each(res.products, function(key, value) {
+                                    $('#loadSearchPharmacyItemByCategory').append(
+                                    `<div class="tests-card">
+                                            <div class="test-card-content">
+                                                <div class="add_to_cart_container">
+                                                    <button class="add_to_cart_btn" onclick="window.location.href='/labtest/${value.SLUG}'">
+                                                        Learn More
+                                                    </button>
+                                                </div>
+                                                <h4 class="truncate" title="${value.TEST_NAME}">${value.TEST_NAME}</h4>
+                                                <p class="truncate-overflow">${value.DETAILS}</p>
+                                                <button class="learn_btn" data-bs-toggle="modal" data-bs-target="#loginModal" type="button">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
+                                            </div>
+                                        </div>`
+                                    );
+                                });
+                            }else{
+                                $.each(res.products, function(key, value) {
+                                    $('#loadSearchPharmacyItemByCategory').append(
+                                        `<div class="tests-card">
+                                            <div class="test-card-content">
+                                                <div class="add_to_cart_container">
+                                                    <button class="add_to_cart_btn" onclick="window.location.href='/labtest/${value.SLUG}'">
+                                                        Learn More
+                                                    </button>
+                                                </div>
+                                                <h4 class="truncate" title="${value.TEST_NAME}">${value.TEST_NAME}</h4>
+                                                <p class="truncate-overflow">${value.DETAILS}</p>
+                                                <button class="learn_btn ${value.TEST_CD} ${mode}" onclick="addedItem(this)" type="button">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
+                                            </div>
+                                        </div>`
+                                    );
+                                });
+                            }
+                        }
+                        if(text == ""){
+                            $('.pagination').show();
                         }
                     }
                 });
-
             }
         });
 
@@ -174,7 +232,7 @@
                 </svg>
             </div>
         </div>
-        @php
+        {{--@php
             $alpha = [
                 'A',
                 'B',
@@ -233,7 +291,7 @@
                     <hr>
                 </div>
             </div>
-        </div>
+        </div>--}}
 
         <div class="container">
             <h3>Community Health Care Clinics - Labtests</h3>
@@ -247,17 +305,17 @@
                 class="container-fluid background-secondary d-flex align-items-center justify-content-between flex-column rounded-4">
                 <div class="d-flex align-items-center justify-content-between custom-search-container">
                     <div class="category-dropdown">
-                        <select class="form-select custom-select" name="category" id="category">
+                        {{--<select class="form-select custom-select" name="category" id="category">
                             <option value="all">All</option>
                             @foreach ($data['sidebar'] as $key => $item)
                                 <option value="{{ $item->id }}">{{ $item->product_parent_category }}</option>
                             @endforeach
-                        </select>
+                        </select>--}}
                     </div>
                     <div class="searchbar d-flex">
                         <input type="text" class="form-control custom-input" placeholder="Search for products"
                             id="pharmacySearchText">
-                        <button class="btn custom-btn"><i class="fa-solid fa-search"></i></button>
+                        <button class="btn custom-btn searchPharmacyProduct"><i class="fa-solid fa-search"></i></button>
                     </div>
                 </div>
 
@@ -268,28 +326,26 @@
                         <div class="tests-card">
                             <div class="test-card-content">
                                 <div class="add_to_cart_container">
-                                    @if (Auth::check())
-                                        <button class="add_to_cart_btn {{ $item->id }} lab-test"
-                                            onclick="addedItem(this)" type="button">
-                                            <i class="fa-solid fa-cart-shopping"></i>
-                                        </button>
-                                    @else
-                                        <button class="add_to_cart_btn" data-bs-toggle="modal" data-bs-target="#loginModal"
-                                            type="button">
-                                            <i class="fa-solid fa-cart-shopping"></i>
-                                        </button>
-                                    @endif
+                                    <button class="add_to_cart_btn" onclick="window.location.href='{{ route('single_product_view_labtest', ['slug' => $item->slug]) }}'">
+                                        Learn More
+                                    </button>
                                 </div>
                                 <h4 class="truncate">{{ $item->name }}</h4>
                                 <p class="truncate-overflow">{!! strip_tags($item->short_description) !!}</p>
-                                <button class="learn_btn"
-                                    onclick="window.location.href='{{ route('single_product_view_labtest', ['slug' => $item->slug]) }}'">Learn
-                                    More</button>
+                                @if (Auth::check())
+                                    <button class="learn_btn {{ $item->id }} lab-test" onclick="addedItem(this)">Add To Cart
+                                        <i class="fa-solid fa-cart-shopping mx-2"></i>
+                                    </button>
+                                @else
+                                    <button class="learn_btn" data-bs-toggle="modal" data-bs-target="#loginModal">Add To Cart
+                                        <i class="fa-solid fa-cart-shopping mx-2"></i>
+                                    </button>
+                                @endif
                             </div>
                         </div>
                     @endforeach
                 </div>
-                {{ $data['products']->links('pagination::bootstrap-4') }}
+                <div class="pagination">{{ $data['products']->links('pagination::bootstrap-4') }}</div>
             </div>
 
         </div>

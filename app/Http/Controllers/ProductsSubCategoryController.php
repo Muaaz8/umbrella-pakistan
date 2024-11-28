@@ -301,6 +301,7 @@ class ProductsSubCategoryController extends AppBaseController
                 'title' => $request->title,
                 'slug' => $this->slugify($request->title),
                 'description' => $request->description,
+                'parent_id' => $request->sub_cat,
                 'is_featured' => 1,
             ]);
         } else {
@@ -308,6 +309,7 @@ class ProductsSubCategoryController extends AppBaseController
                 'title' => $request->title,
                 'slug' => $this->slugify($request->title),
                 'description' => $request->description,
+                'parent_id' => $request->sub_cat,
                 'is_featured' => 0,
            ]);
         }
@@ -319,16 +321,27 @@ class ProductsSubCategoryController extends AppBaseController
     public function dash_sub_cat_store(Request $request)
     {
         // dd($request->all());
-        DB::table('products_sub_categories')->insert([
-            'title' => $request->title,
-            'slug' => $this->slugify($request->title),
-            'description' => $request->description,
-            'parent_id' => $request->sub_cat,
-            'created_at' => NOW(),
-            'updated_at' => NOW(),
-
-        ]);
-
+        if (isset($request->is_featured)){
+            DB::table('products_sub_categories')->insert([
+                'title' => $request->title,
+                'slug' => $this->slugify($request->title),
+                'description' => $request->description,
+                'parent_id' => $request->sub_cat,
+                'is_featured' => 1,
+                'created_at' => NOW(),
+                'updated_at' => NOW(),
+            ]);
+        }else{
+            DB::table('products_sub_categories')->insert([
+                'title' => $request->title,
+                'slug' => $this->slugify($request->title),
+                'description' => $request->description,
+                'parent_id' => $request->sub_cat,
+                'is_featured' => 0,
+                'created_at' => NOW(),
+                'updated_at' => NOW(),
+            ]);
+        }
         Flash::success('Product Category updated successfully.');
 
         return redirect()->back();

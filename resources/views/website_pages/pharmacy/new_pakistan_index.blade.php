@@ -52,10 +52,11 @@
             url: "/search_pharmacy_item_by_category",
             data: {
                 text:text,
-                cat_id:cat_id
+                cat_id:"all"
             },
             success: function(res)
             {
+                $('.pagination').hide();
                 $('.prescription-req-view-btn').hide();
                 $('#loadSearchPharmacyItemByCategory').html('');
                 if(res=="" || res==null)
@@ -73,29 +74,23 @@
                 {
                     $.each(res, function(key, value) {
                         $('#loadSearchPharmacyItemByCategory').append(
-                            '<div class="col-md-4 col-lg-3 col-sm-6 col-11 resp-phar-col">'+
-                                '<div class="required-cards">'+
-                                    '<div class="card_container prescription-req-div">'+
-                                        '<div class="card" data-label="Prescription Required">'+
-                                            '<div class="card-container prescription-req-content">'+
-                                                '<div class="d-flex pt-3">'+
-                                                    '<i class="fa-solid fa-capsules"></i>'+
-                                                    '<div class="prescription-req-heading">'+
-                                                    '<h3 title="'+value.name+'">'+value.name+'</h3>'+
-                                                    '<h6 title="'+value.category_name+'">'+value.category_name+'</h6>'+
-                                                    '</div>'+
-                                                '</div>'+
-                                                '<p>'+value.short_description+'</p>'+
-                                            '</div>'+
-                                            '<div class="prescription-req-btn">'+
-                                                '<a href="/medicines/'+value.slug+'" class="read_more">Read More</p></div>'+
-                                            '</div>'+
-                                        '</div>'+
-                                    '</div>'+
-                                '</div>'+
-                            '</div>'
+                            `<div class="card">
+                            <div class="prescription">
+                                <p>prescription required</p>
+                            </div>
+                            <h4 class="truncate" title="${value.name}">${value.name}</h4>
+                            <h6 class="truncate">${value.category_name}</h6>
+                            <p class="truncate-overflow">${value.short_description}</p>
+                            <div class="pharmacy_btn">
+                                <a class="read-more btn btn-outline-danger" href="/medicines/${value.slug}">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
+                                <a class="add-to-cart" href="/medicines/${value.slug}">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
+                            </div>
+                        </div>`
                         );
                     });
+                }
+                if(text == ""){
+                    $('.pagination').show();
                 }
             }
         });
@@ -117,6 +112,7 @@
             success: function(res)
             {
                 $('.prescription-req-view-btn').hide();
+                $('.pagination').hide();
                 $('#loadSearchPharmacyItemByCategory').html('');
                 if(res=="" || res==null)
                 {
@@ -133,12 +129,23 @@
                 {
                     $.each(res, function(key, value) {
                         $('#loadSearchPharmacyItemByCategory').append(
-                            `<div class="card"><div class="prescription"><p>prescription required</p></div>
-                            <h4 class="truncate">${value.name}</h4><h6 class="truncate">${value.category_name}</h6>
-                            <p class="truncate-overflow">${value.short_description}</p>
-                            <a href="/medicines/${value.slug}" class="read_more">Read More</p></div>`
+                            `<div class="card">
+                                <div class="prescription">
+                                    <p>prescription required</p>
+                                </div>
+                                <h4 class="truncate" title="${value.name}">${value.name}</h4>
+                                <h6 class="truncate">${value.category_name}</h6>
+                                <p class="truncate-overflow">${value.short_description}</p>
+                                <div class="pharmacy_btn">
+                                    <a class="read-more btn btn-outline-danger" href="/medicines/${value.slug}">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
+                                    <a class="add-to-cart" href="/medicines/${value.slug}">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
+                                </div>
+                            </div>`
                         );
                     });
+                }
+                if(text == ""){
+                    $('.pagination').show();
                 }
             }
         });
@@ -237,14 +244,18 @@
                             <div class="prescription">
                                 <p>prescription required</p>
                             </div>
+                            {{--<div class="med-img"><img src="https://placehold.co/70" alt="img"></div>--}}
                             <h4 class="truncate">{{ $item->name }}</h4>
                             <h6 class="truncate">{{ $item->sub_category_name }}</h6>
                             <p class="truncate-overflow">{{ $item->short_description }}</p>
-                            <a href="{{ route('single_product_view_medicines', ['slug' => $item->slug]) }}" class="read_more">Read More</a>
+                            <div class="pharmacy_btn">
+                                <a class="read-more btn btn-outline-danger" href="{{ route('single_product_view_medicines', ['slug' => $item->slug]) }}">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
+                                <a class="add-to-cart" href="{{ route('single_product_view_medicines', ['slug' => $item->slug]) }}">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
+                            </div>
                         </div>
                     @endforeach
                 </div>
-                {{ $data['products']->links('pagination::bootstrap-4') }}
+                <div class="pagination">{{ $data['products']->links('pagination::bootstrap-4') }}</div>
             </div>
 
         </div>
