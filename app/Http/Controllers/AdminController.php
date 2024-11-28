@@ -3618,7 +3618,12 @@ public function store_policy(Request $request){
 
     public function upload_banner()
     {
-        return view('dashboard_admin.banners.upload_banner');
+        if (Auth::user()->user_type == "admin") {
+            return view('dashboard_admin.banners.upload_banner');
+        } elseif (Auth::user()->user_type == "admin_seo"){
+            return view('dashboard_SEO.banners.upload_banner');
+        }
+
     }
 
     public function upload_new_banner(Request $request)
@@ -3631,9 +3636,7 @@ public function store_policy(Request $request){
         }
         DB::table('banner')->insert([
             'img'=>$filename,
-            'html'=>$request->html,
             'status'=>$request->status,
-            'page_name'=>$request->page_name,
             'sequence'=>$request->sequence,
             'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s'),
@@ -3650,7 +3653,11 @@ public function store_policy(Request $request){
                 $banner->img=\App\Helper::check_bucket_files_url($banner->img);
             }
         }
-        return view('dashboard_admin.banners.view_banners',compact('banners'));
+        if (Auth::user()->user_type == "admin") {
+            return view('dashboard_admin.banners.view_banners',compact('banners'));
+        } elseif (Auth::user()->user_type == "admin_seo"){
+            return view('dashboard_SEO.banners.view_banners',compact('banners'));
+        }
     }
 
     public function change_banner_status($id)

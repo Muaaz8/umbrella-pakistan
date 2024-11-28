@@ -46,24 +46,26 @@ $page = DB::table('pages')->where('url', '/')->first();
             <div class="div2 order-1 order-md-1 order-lg-2">
                 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-indicators">
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0"
-                            class="active"></button>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1"></button>
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2"></button>
+                        @foreach ($banners as $key => $banner)
+                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{$key}}"
+                                class="{{$key==0?'active':''}}"></button>
+                        @endforeach
                     </div>
                     <div class="carousel-inner rounded-4">
-                        <div class="carousel-item active">
-                            <img src="{{ asset('assets/new_frontend/banner1.png') }}" class="d-block w-100 carousel-img"
-                                alt="Slide 1" />
-                        </div>
-                        <div class="carousel-item">
+                        @foreach ($banners as $key => $banner)
+                            <div class="carousel-item {{$key==0?'active':''}}">
+                                <img src="{{ $banner->img }}" class="d-block w-100 carousel-img"
+                                    alt="Slide {{$key}}" />
+                            </div>
+                        @endforeach
+                        {{--<div class="carousel-item">
                             <img src="{{ asset('assets/new_frontend/banner1.png') }}" class="d-block w-100 carousel-img"
                                 alt="Slide 2" />
                         </div>
                         <div class="carousel-item">
                             <img src="{{ asset('assets/new_frontend/banner1.png') }}" class="d-block w-100 carousel-img"
                                 alt="Slide 3" />
-                        </div>
+                        </div>--}}
                     </div>
                 </div>
             </div>

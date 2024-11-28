@@ -338,7 +338,7 @@ class Pharmacy extends Model
                     return $query->where([['parent_category', '!=', "15"]]);
                 })
                 ->orderBy('name', 'asc')
-                ->paginate(9);
+                ->paginate(12);
                 foreach ($data as $product) {
                     $product->short_description = strip_tags($product->short_description);
                     $product->featured_image = \App\Helper::check_bucket_files_url($product->featured_image);

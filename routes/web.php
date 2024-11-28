@@ -580,15 +580,16 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
     Route::post('mood/disorder/store','DoctorController@mood_disorder_store')->name('mood_disorder_store');
     Route::post('anxiety/scale/store','DoctorController@anxiety_scale_store')->name('anxiety_scale_store');
 
+    Route::get('upload/banner','AdminController@upload_banner')->name('upload_banner');
+    Route::get('view/banners','AdminController@view_banners')->name('view_banners');
+    Route::get('change/banner/status/{id}','AdminController@change_banner_status')->name('change_banner_status');
+    Route::get('delete/banner/{id}','AdminController@delete_banner')->name('delete_banner');
+    Route::post('upload/new/banner','AdminController@upload_new_banner')->name('upload_new_banner');
+
     Route::group(['middleware' => 'admin_auth'], function () {
         Route::get('change/authorize_api/mode','AdminController@change_authorize_api_mode')->name('change_authorize_api_mode');
         Route::get('change/maintainance/mode','AdminController@change_maintainance_mode')->name('change_maintainance_mode');
         Route::post('change/ticker','AdminController@change_ticker')->name('change_ticker');
-        Route::get('upload/banner','AdminController@upload_banner')->name('upload_banner');
-        Route::get('view/banners','AdminController@view_banners')->name('view_banners');
-        Route::get('change/banner/status/{id}','AdminController@change_banner_status')->name('change_banner_status');
-        Route::get('delete/banner/{id}','AdminController@delete_banner')->name('delete_banner');
-        Route::post('upload/new/banner','AdminController@upload_new_banner')->name('upload_new_banner');
         Route::get('admin/all/state', 'AdminController@dash_allStates');
         Route::get('admin/all/appointments', 'AppointmentController@dash_admin_appointments');
         Route::post('admin/all/appointments', 'AppointmentController@dash_admin_appointments');

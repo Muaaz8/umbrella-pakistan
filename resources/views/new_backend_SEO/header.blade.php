@@ -16,6 +16,14 @@
         <a href="/pages/section/content" class="dashboard-nav-item"><i class="fa-solid fa-square-plus"></i> Website Page Content </a>
         <a href="/pages/image/content" class="dashboard-nav-item"><i class="fa-solid fa-square-plus"></i> Website Page Images </a>
         <a href="{{ route('admin_doctor_profile_management') }}" class="dashboard-nav-item"><i class="fa-solid fas fa-user-md"></i>Doctor Profile Management</a>
+        <div class="dashboard-nav-dropdown">
+            <a href="javascript:void(0)" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
+                    class="fa-solid fa-image"></i> Banners </a>
+            <div class="dashboard-nav-dropdown-menu">
+            <a href="{{ route('view_banners') }}" class="dashboard-nav-dropdown-item"> View Banners </a>
+            <a href="{{ route('upload_banner') }}" class="dashboard-nav-dropdown-item"> Upload Banners </a>
+            </div>
+        </div>
         <a href="/add/items/faqs" class="dashboard-nav-item"><i class="fa-solid fa-gear"></i>FAQs </a>
         <a href="/seo/admin/account/settings" class="dashboard-nav-item"><i class="fa-solid fa-gear"></i>Account Setting </a>
 

@@ -128,8 +128,11 @@ class WelcomeController extends Controller
             $tags = DB::table('meta_tags')->where('url',$url)->get();
             $title = DB::table('meta_tags')->where('url',$url)->where('name','title')->first();
             $faqs = DB::table('tbl_faq')->orderby('id','desc')->limit(3)->get();
-
-            return view('website_pages.new_pakistan_home', compact('data', 'slug', 'title','tags','faqs'));
+            $banners = DB::table('banner')->where('status',1)->orderBy('sequence','asc')->get();
+            foreach ($banners as $banner) {
+                $banner->img=\App\Helper::check_bucket_files_url($banner->img);
+            }
+            return view('website_pages.new_pakistan_home', compact('data', 'slug', 'title','tags','faqs','banners'));
         }
     }
 
