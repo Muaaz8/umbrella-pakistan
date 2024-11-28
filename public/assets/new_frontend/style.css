@@ -440,12 +440,12 @@ header {
     position: absolute;
     bottom: -6%;
     left: 50%;
-    width: 80%;
+    width: 90%;
     transform: translateX(-50%);
 }
 
 .read-more{
-    font-size: 13px;
+    font-size: 11px;
     width: 49%;
     padding: 10px 0px;
     border-radius: 8px;
@@ -459,7 +459,7 @@ header {
 
 .add-to-cart{
     color: white;
-    font-size: 13px;
+    font-size: 11px;
     background: var(--navy-blue);
     width: 49%;
     padding: 10px 0px;
@@ -1451,8 +1451,8 @@ footer {
   display: flex;
   justify-content: center;
   align-items: center;
-  max-width: 350px;
-  height: max(300px, 10vh);
+  max-width: 250px;
+  height: max(250px, 10vh);
   background-color: #ffffff;
   color: rgb(0, 0, 0);
   text-align: center;
