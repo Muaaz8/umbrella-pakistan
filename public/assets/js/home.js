@@ -12,6 +12,8 @@ $(document).ready(function(){
 
 function getPharmacyProductByCategory(sub_cat_id,limit)
 {
+    $('#load_pharmacy_item_by_category').html('');
+    $('.no-product-loader').removeClass('d-none');
     $.ajax({
         type: "POST",
         url: "/fetch_pharmacy_item_by_category",
@@ -20,7 +22,6 @@ function getPharmacyProductByCategory(sub_cat_id,limit)
             limit:limit,
         },
         success: function(res) {
-            $('#load_pharmacy_item_by_category').html('');
             $('#load_pharmacy_more_btn').html('');
             if(res=="" || res==null)
                 {
@@ -68,6 +69,7 @@ function getPharmacyProductByCategory(sub_cat_id,limit)
                     );
                 }
             }
+            $('.no-product-loader').addClass('d-none');
         }
     });
 }

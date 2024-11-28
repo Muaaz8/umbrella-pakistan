@@ -75,17 +75,17 @@
                     $.each(res, function(key, value) {
                         $('#loadSearchPharmacyItemByCategory').append(
                             `<div class="card">
-                            <div class="prescription">
-                                <p>prescription required</p>
-                            </div>
-                            <h4 class="truncate" title="${value.name}">${value.name}</h4>
-                            <h6 class="truncate">${value.category_name}</h6>
-                            <p class="truncate-overflow">${value.short_description}</p>
-                            <div class="pharmacy_btn">
-                                <a class="read-more btn btn-outline-danger" href="/medicines/${value.slug}">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
-                                <a class="add-to-cart" href="/medicines/${value.slug}">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
-                            </div>
-                        </div>`
+                                <div class="prescription">
+                                    <p>prescription required</p>
+                                </div>
+                                <div class="med-img"><img src="${value.featured_image?value.featured_image:'assets/new_frontend/panadol2.png'}" alt="img"></div>
+                                <h4 class="truncate m-0 p-0" title="${value.name}">${value.name}</h4>
+                                <h6 class="truncate m-0 p-0">${value.category_name}</h6>
+                                <div class="pharmacy_btn">
+                                    <a class="read-more btn btn-outline-danger" href="/medicines/${value.slug}">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
+                                    <a class="add-to-cart" href="/medicines/${value.slug}">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
+                                </div>
+                            </div>`
                         );
                     });
                 }
@@ -133,9 +133,9 @@
                                 <div class="prescription">
                                     <p>prescription required</p>
                                 </div>
-                                <h4 class="truncate" title="${value.name}">${value.name}</h4>
-                                <h6 class="truncate">${value.category_name}</h6>
-                                <p class="truncate-overflow">${value.short_description}</p>
+                                <div class="med-img"><img src="${value.featured_image?value.featured_image:'assets/new_frontend/panadol2.png'}" alt="img"></div>
+                                <h4 class="truncate m-0 p-0" title="${value.name}">${value.name}</h4>
+                                <h6 class="truncate m-0 p-0">${value.category_name}</h6>
                                 <div class="pharmacy_btn">
                                     <a class="read-more btn btn-outline-danger" href="/medicines/${value.slug}">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
                                     <a class="add-to-cart" href="/medicines/${value.slug}">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
@@ -244,10 +244,9 @@
                             <div class="prescription">
                                 <p>prescription required</p>
                             </div>
-                            {{--<div class="med-img"><img src="https://placehold.co/70" alt="img"></div>--}}
-                            <h4 class="truncate">{{ $item->name }}</h4>
-                            <h6 class="truncate">{{ $item->sub_category_name }}</h6>
-                            <p class="truncate-overflow">{{ $item->short_description }}</p>
+                            <div class="med-img"><img src="{{ $item->featured_image?$item->featured_image:asset('assets/new_frontend/panadol2.png') }}" alt="img"></div>
+                            <h4 class="truncate m-0 p-0">{{ $item->name }}</h4>
+                            <h6 class="truncate m-0 p-0">{{ $item->sub_category_name }}</h6>
                             <div class="pharmacy_btn">
                                 <a class="read-more btn btn-outline-danger" href="{{ route('single_product_view_medicines', ['slug' => $item->slug]) }}">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
                                 <a class="add-to-cart" href="{{ route('single_product_view_medicines', ['slug' => $item->slug]) }}">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>

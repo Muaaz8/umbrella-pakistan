@@ -333,6 +333,13 @@ class Pharmacy extends Model
                 })
                 ->orderBy('name', 'asc')
                 ->paginate(9);
+                foreach ($data as $product) {
+                    $product->short_description = strip_tags($product->short_description);
+                    $product->featured_image = \App\Helper::check_bucket_files_url($product->featured_image);
+                    if($product->featured_image == env('APP_URL')."/assets/images/user.png"){
+                        $product->featured_image = asset('assets/new_frontend/panadol2.png');
+                    }
+                }
         }
 
         return $data;

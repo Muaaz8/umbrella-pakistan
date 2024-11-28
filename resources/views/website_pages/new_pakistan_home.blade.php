@@ -150,7 +150,7 @@ $page = DB::table('pages')->where('url', '/')->first();
                     style="animation-delay: 0.4s;">
                     <div class="card-secondary d-flex flex-row align-items-center justify-content-between">
                         <div>
-                            <h5>Primary Care</h5>
+                            <h5>Dermatology</h5>
                             <p>Lorem ipsum dolor sit amet.</p>
                             <button class="btn btn-success custom-btn2">View More</button>
                             <div class="custom-card-img">
@@ -375,7 +375,7 @@ $page = DB::table('pages')->where('url', '/')->first();
                     <hr />
 
                     <div class="medicines-container" id="load_pharmacy_item_by_category">
-                        <div class="card">
+                        {{--<div class="card">
                             <div class="prescription">
                                 <p>prescription required</p>
                             </div>
@@ -386,68 +386,70 @@ $page = DB::table('pages')->where('url', '/')->first();
                                 <a class="read-more btn btn-outline-danger" href="#">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
                                 <a class="add-to-cart" href="#">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
                             </div>
-                        </div>
-                        <div class="card">
-                            <div class="prescription">
-                                <p>prescription required</p>
                             </div>
-                            <div class="med-img"><img src="https://placehold.co/70" alt="img"></div>
-                            <h4 class="truncate">Niacin ER tablet</h4>
-                            <h6 class="truncate">Heart Disease</h6>
-                            <div class="pharmacy_btn">
-                                <a class="read-more btn btn-outline-danger" href="#">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
-                                <a class="add-to-cart" href="#">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
+                            <div class="card">
+                                <div class="prescription">
+                                    <p>prescription required</p>
+                                </div>
+                                <div class="med-img"><img src="https://placehold.co/70" alt="img"></div>
+                                <h4 class="truncate">Niacin ER tablet</h4>
+                                <h6 class="truncate">Heart Disease</h6>
+                                <div class="pharmacy_btn">
+                                    <a class="read-more btn btn-outline-danger" href="#">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
+                                    <a class="add-to-cart" href="#">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
+                                </div>
                             </div>
-                        </div>
-                        <div class="card">
-                            <div class="prescription">
-                                <p>prescription required</p>
+                            <div class="card">
+                                <div class="prescription">
+                                    <p>prescription required</p>
+                                </div>
+                                <div class="med-img"><img src="https://placehold.co/70" alt="img"></div>
+                                <h4 class="truncate">Niacin ER tablet</h4>
+                                <h6 class="truncate">Heart Disease</h6>
+                                <div class="pharmacy_btn">
+                                    <a class="read-more btn btn-outline-danger" href="#">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
+                                    <a class="add-to-cart" href="#">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
+                                </div>
                             </div>
-                            <div class="med-img"><img src="https://placehold.co/70" alt="img"></div>
-                            <h4 class="truncate">Niacin ER tablet</h4>
-                            <h6 class="truncate">Heart Disease</h6>
-                            <div class="pharmacy_btn">
-                                <a class="read-more btn btn-outline-danger" href="#">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
-                                <a class="add-to-cart" href="#">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
+                            <div class="card">
+                                <div class="prescription">
+                                    <p>prescription required</p>
+                                </div>
+                                <div class="med-img"><img src="https://placehold.co/70" alt="img"></div>
+                                <h4 class="truncate">Niacin ER tablet</h4>
+                                <h6 class="truncate">Heart Disease</h6>
+                                <div class="pharmacy_btn">
+                                    <a class="read-more btn btn-outline-danger" href="#">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
+                                    <a class="add-to-cart" href="#">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
+                                </div>
                             </div>
-                        </div>
-                        <div class="card">
-                            <div class="prescription">
-                                <p>prescription required</p>
+                            <div class="card">
+                                <div class="prescription">
+                                    <p>prescription required</p>
+                                </div>
+                                <div class="med-img"><img src="https://placehold.co/70" alt="img"></div>
+                                <h4 class="truncate">Niacin ER tablet</h4>
+                                <h6 class="truncate">Heart Disease</h6>
+                                <div class="pharmacy_btn">
+                                    <a class="read-more btn btn-outline-danger" href="#">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
+                                    <a class="add-to-cart" href="#">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
+                                </div>
                             </div>
-                            <div class="med-img"><img src="https://placehold.co/70" alt="img"></div>
-                            <h4 class="truncate">Niacin ER tablet</h4>
-                            <h6 class="truncate">Heart Disease</h6>
-                            <div class="pharmacy_btn">
-                                <a class="read-more btn btn-outline-danger" href="#">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
-                                <a class="add-to-cart" href="#">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="prescription">
-                                <p>prescription required</p>
-                            </div>
-                            <div class="med-img"><img src="https://placehold.co/70" alt="img"></div>
-                            <h4 class="truncate">Niacin ER tablet</h4>
-                            <h6 class="truncate">Heart Disease</h6>
-                            <div class="pharmacy_btn">
-                                <a class="read-more btn btn-outline-danger" href="#">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
-                                <a class="add-to-cart" href="#">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="prescription">
-                                <p>prescription required</p>
-                            </div>
-                            <div class="med-img"><img src="https://placehold.co/70" alt="img"></div>
-                            <h4 class="truncate">Niacin ER tablet</h4>
-                            <h6 class="truncate">Heart Disease</h6>
-                            <div class="pharmacy_btn">
-                                <a class="read-more btn btn-outline-danger" href="#">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
-                                <a class="add-to-cart" href="#">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
-                            </div>
-                        </div>
-
+                            <div class="card">
+                                <div class="prescription">
+                                    <p>prescription required</p>
+                                </div>
+                                <div class="med-img"><img src="https://placehold.co/70" alt="img"></div>
+                                <h4 class="truncate">Niacin ER tablet</h4>
+                                <h6 class="truncate">Heart Disease</h6>
+                                <div class="pharmacy_btn">
+                                    <a class="read-more btn btn-outline-danger" href="#">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
+                                    <a class="add-to-cart" href="#">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
+                                </div>
+                        </div>--}}
+                    </div>
+                    <div class="d-flex justify-content-center no-product-loader">
+                        <i class="fa fa-spinner fa-spin fs-1"></i>
                     </div>
 
                     <div class="btn-div">
@@ -484,7 +486,7 @@ $page = DB::table('pages')->where('url', '/')->first();
                     and precise lab work.
                 </p>
                 @endif
-                <div class="pharmacy-categories">
+                {{--<div class="pharmacy-categories">
                     @foreach ($data['labtest_category'] as $item)
                     <div class="pharmacy-category" onclick="getLabtestProductByCategory({{ $item->id }},5)">
                         <i class="fa-solid fa-flask"></i>
@@ -496,13 +498,14 @@ $page = DB::table('pages')->where('url', '/')->first();
                         <i class="fa-solid fa-flask"></i>
                         <div onclick="location.href='{{ route('labs') }}'">View More</div>
                     </div>
-                </div>
+                </div>--}}
+
 
                 <hr class="hr" />
 
                 <h2 class="text-center">Most Popular Labtests</h2>
                 <div class="tests-container" id="load_labtest_item_by_category">
-                    <div class="tests-card">
+                    {{--<div class="tests-card">
                         <div class="test-card-content">
                             <div class="add_to_cart_container">
                                 <button class="add_to_cart_btn">
@@ -581,6 +584,10 @@ $page = DB::table('pages')->where('url', '/')->first();
                             </p>
                             <button class="learn_btn">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
                         </div>
+                    </div>--}}
+                    <div class="no-product-text">
+                        <i class="fa fa-spinner fa-spin fs-1"></i>
+                        <p>Loading</p>
                     </div>
                 </div>
                 <div class="btn-div">
@@ -634,7 +641,7 @@ $page = DB::table('pages')->where('url', '/')->first();
 
                 <h2 class="text-center">Most Popular Labtests</h2>
                 <div class="tests-container" id="load_imaging_item_by_category">
-                    <div class="tests-card">
+                    {{--<div class="tests-card">
                         <div class="test-card-content">
                             <div class="add_to_cart_container">
                                 <button class="add_to_cart_btn">
@@ -713,6 +720,10 @@ $page = DB::table('pages')->where('url', '/')->first();
                             </p>
                             <button class="learn_btn">Learn More</button>
                         </div>
+                    </div>--}}
+                    <div class="no-product-text">
+                        <i class="fa fa-spinner fa-spin fs-1"></i>
+                        <p>Loading</p>
                     </div>
                 </div>
 
