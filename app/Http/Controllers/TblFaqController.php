@@ -59,7 +59,11 @@ class TblFaqController extends AppBaseController
 
         $tblFaqs = DB::table('tbl_faq')->orderBy('id', 'desc')->get();
         $this->data['tblFaq'] = $tblFaqs;
-        return view('dashboard_admin.Add_Items.FAQs.index', $this->data);
+        if (auth()->user()->user_type == "admin") {
+            return view('dashboard_admin.Add_Items.FAQs.index', $this->data);
+        } elseif (auth()->user()->user_type == "admin_seo") {
+            return view('dashboard_SEO.Add_Items.FAQs.index', $this->data);
+        }
 
         //     $tblFaqs = $this->tblFaqRepository->all();
 
@@ -71,7 +75,11 @@ class TblFaqController extends AppBaseController
     //new_add_new_faqs
     public function create_faqs()
     {
-        return view('dashboard_admin.Add_Items.FAQs.Add');
+        if (auth()->user()->user_type == "admin") {
+            return view('dashboard_admin.Add_Items.FAQs.Add');
+        } elseif (auth()->user()->user_type == "admin_seo") {
+            return view('dashboard_SEO.Add_Items.FAQs.Add');
+        }
     }
 //new_insert_faqs
 
@@ -95,7 +103,11 @@ class TblFaqController extends AppBaseController
 
         $fetch = DB::table('tbl_faq')->where('id', $id)->first();
         $this->data['tblFaq'] = $fetch;
-        return view('dashboard_admin.Add_Items.FAQs.edit', $this->data);
+        if (auth()->user()->user_type == "admin") {
+            return view('dashboard_admin.Add_Items.FAQs.edit', $this->data);
+        } elseif (auth()->user()->user_type == "admin_seo") {
+            return view('dashboard_SEO.Add_Items.FAQs.edit', $this->data);
+        }
     }
     public function update_faqs($id, Request $request)
     {
@@ -112,7 +124,11 @@ class TblFaqController extends AppBaseController
 
         $fetch = DB::table('tbl_faq')->where('id', $id)->get();
         $this->data['tblFaq'] = $fetch;
-        return view('dashboard_admin.Add_Items.FAQs.view', $this->data);
+        if (auth()->user()->user_type == "admin") {
+            return view('dashboard_admin.Add_Items.FAQs.view', $this->data);
+        } elseif (auth()->user()->user_type == "admin_seo") {
+            return view('dashboard_SEO.Add_Items.FAQs.view', $this->data);
+        }
     }
 
     /**

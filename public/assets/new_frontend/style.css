@@ -2429,7 +2429,7 @@ footer {
   border: 1px solid var(--red);
   border-radius: 4px;
   display: none; /* Initially hidden */
-  width: 150px;
+  max-width:300px;
   z-index: 1000;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }

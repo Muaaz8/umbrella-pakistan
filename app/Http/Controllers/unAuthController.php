@@ -148,6 +148,10 @@ class unAuthController extends Controller
                 ->get();
             foreach ($products as $product) {
                 $product->short_description = strip_tags($product->short_description);
+                $product->featured_image = \App\Helper::check_bucket_files_url($product->featured_image);
+                if($product->featured_image == env('APP_URL')."/assets/images/user.png"){
+                    $product->featured_image = asset('assets/new_frontend/panadol2.png');
+                }
             }
         } else if ($request->cat_id == 'all' && strlen($request->text) >= 4) {
             $products = DB::table('tbl_products')
@@ -163,6 +167,10 @@ class unAuthController extends Controller
                 ->get();
             foreach ($products as $product) {
                 $product->short_description = strip_tags($product->short_description);
+                $product->featured_image = \App\Helper::check_bucket_files_url($product->featured_image);
+                if($product->featured_image == env('APP_URL')."/assets/images/user.png"){
+                    $product->featured_image = asset('assets/new_frontend/panadol2.png');
+                }
             }
         } else if ($request->cat_id != 'all' && strlen($request->text) >= 4) {
             $products = DB::table('tbl_products')
@@ -177,6 +185,10 @@ class unAuthController extends Controller
                 ->get();
             foreach ($products as $product) {
                 $product->short_description = strip_tags($product->short_description);
+                $product->featured_image = \App\Helper::check_bucket_files_url($product->featured_image);
+                if($product->featured_image == env('APP_URL')."/assets/images/user.png"){
+                    $product->featured_image = asset('assets/new_frontend/panadol2.png');
+                }
             }
         }
 

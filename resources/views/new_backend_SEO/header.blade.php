@@ -16,6 +16,7 @@
         <a href="/pages/section/content" class="dashboard-nav-item"><i class="fa-solid fa-square-plus"></i> Website Page Content </a>
         <a href="/pages/image/content" class="dashboard-nav-item"><i class="fa-solid fa-square-plus"></i> Website Page Images </a>
         <a href="{{ route('admin_doctor_profile_management') }}" class="dashboard-nav-item"><i class="fa-solid fas fa-user-md"></i>Doctor Profile Management</a>
+        <a href="/add/items/faqs" class="dashboard-nav-item"><i class="fa-solid fa-gear"></i>FAQs </a>
         <a href="/seo/admin/account/settings" class="dashboard-nav-item"><i class="fa-solid fa-gear"></i>Account Setting </a>
 
       </nav>

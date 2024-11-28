@@ -915,29 +915,27 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
         //Route::post('/admin/walletPay', 'PaymentController@Wallet_Pay')->name('admin_wallet_pay');
         // Route::get('/new_item',function(){return view('new_item');})->name('new_item');
 
-        Route::group(['middleware' => 'admin_auth'], function () {
-            //mental_conditions
-            Route::get('/add/items/mental/condition', 'MentalConditionsController@view_condition')->name('mental_condition');
-            Route::get('/add/items/mental/ondition/view/{id}', 'MentalConditionsController@view')->name('view_condition');
-            Route::get('/add/items/mental/condition/create', 'MentalConditionsController@create_condition')->name('create_condition');
-            Route::post('/add/items/mental/condition/insert_condition', 'MentalConditionsController@insert_condition')->name('insert_condition');
-            Route::get('/add/items/mental/condition/edit/{id}', 'MentalConditionsController@edit_condition')->name('edit_condition');
-            Route::post('/add/items/mental/condition/update/{id}', 'MentalConditionsController@update_condition')->name('update_condition');
-            Route::get('/add/items/mental/condition/delete/{id}', 'MentalConditionsController@delete')->name('delete_condition');
+        //mental_conditions
+        Route::get('/add/items/mental/condition', 'MentalConditionsController@view_condition')->name('mental_condition');
+        Route::get('/add/items/mental/ondition/view/{id}', 'MentalConditionsController@view')->name('view_condition');
+        Route::get('/add/items/mental/condition/create', 'MentalConditionsController@create_condition')->name('create_condition');
+        Route::post('/add/items/mental/condition/insert_condition', 'MentalConditionsController@insert_condition')->name('insert_condition');
+        Route::get('/add/items/mental/condition/edit/{id}', 'MentalConditionsController@edit_condition')->name('edit_condition');
+        Route::post('/add/items/mental/condition/update/{id}', 'MentalConditionsController@update_condition')->name('update_condition');
+        Route::get('/add/items/mental/condition/delete/{id}', 'MentalConditionsController@delete')->name('delete_condition');
 
 
-            //faqs
-            Route::get('/add/items/faqs', 'TblFaqController@faqs')->name('FAQs');
-            Route::get('/add/items/faqs/view/{id}', 'TblFaqController@view')->name('view_faqs');
-            Route::get('/add/items/faqs/create', 'TblFaqController@create_faqs')->name('create_faqs');
-            Route::post('/add/items/faqs/insert_faqs', 'TblFaqController@insert_faqs')->name('insert_faqs');
-            Route::get('/add/items/faqs/edit/{id}', 'TblFaqController@edit_faqs')->name('edit_faqs');
-            Route::post('/add/items/faqs/update/{id}', 'TblFaqController@update_faqs')->name('update_faqs');
-            Route::get('/add/items/faqs/delete/{id}', 'TblFaqController@delete')->name('delete_faqs');
+        //faqs
+        Route::get('/add/items/faqs', 'TblFaqController@faqs')->name('FAQs');
+        Route::get('/add/items/faqs/view/{id}', 'TblFaqController@view')->name('view_faqs');
+        Route::get('/add/items/faqs/create', 'TblFaqController@create_faqs')->name('create_faqs');
+        Route::post('/add/items/faqs/insert_faqs', 'TblFaqController@insert_faqs')->name('insert_faqs');
+        Route::get('/add/items/faqs/edit/{id}', 'TblFaqController@edit_faqs')->name('edit_faqs');
+        Route::post('/add/items/faqs/update/{id}', 'TblFaqController@update_faqs')->name('update_faqs');
+        Route::get('/add/items/faqs/delete/{id}', 'TblFaqController@delete')->name('delete_faqs');
 
-            //Related Products
-            Route::resource('related_products', 'RelatedProductsController');
-        });
+        //Related Products
+        Route::resource('related_products', 'RelatedProductsController');
 
         //  Route::get('/add/items/mental/condition', 'MentalConditionsController@view_condition')->name('mental_condition');
         //  Route::get('/add/items/faqs', 'TblFaqController@faqs')->name('FAQs');

@@ -191,6 +191,12 @@ class Pharmacy extends Model
                 ->where('is_approved', 1)
                 ->orderBy('name', 'asc')
                 ->paginate(12);
+                foreach ($data as $key => $product) {
+                    $product->featured_image = \App\Helper::check_bucket_files_url($product->featured_image);
+                    if($product->featured_image == env('APP_URL')."/assets/images/user.png"){
+                        $product->featured_image = asset('assets/new_frontend/panadol2.png');
+                    }
+                }
             return $data;
         } elseif ($mode == 'substance-abuse') {
             $get_cat_id = DB::table($this->tbl_SubCategories)->select('id')

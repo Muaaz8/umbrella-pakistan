@@ -152,6 +152,11 @@
 
     }
     });
+
+    function changed(e){
+        var svalue = $(".custom-select").val()
+        window.location.href = '/pharmacy/'+svalue;
+    }
 </script>
 @endsection
 
@@ -222,10 +227,10 @@
                 class="container-fluid background-secondary d-flex align-items-center justify-content-between flex-column rounded-4">
                 <div class="d-flex align-items-center justify-content-between custom-search-container">
                     <div class="category-dropdown">
-                        <select class="form-select custom-select" name="category" id="category">
+                        <select class="form-select custom-select" name="category" id="category" onchange="changed(this)">
                             <option value="all">All</option>
                             @foreach ($data['sidebar'] as $val)
-                                <option value="{{ $val->id }}" >{{ $val->title }}</option>
+                                <option value="{{ $val->slug }}" >{{ $val->title }}</option>
                             @endforeach
                         </select>
                     </div>
