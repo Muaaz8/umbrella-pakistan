@@ -1607,8 +1607,8 @@ footer {
 }
 
 .tests-card {
-  flex: 1 1 calc(20% - 15px);
-  max-width: 214px;
+  flex: 1 1 calc(30% - 15px);
+  max-width: 250px;
   height: max(200px, 10vh);
   background-color: #ffffff;
   color: rgb(0, 0, 0);

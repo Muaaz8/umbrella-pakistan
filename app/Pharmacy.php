@@ -295,7 +295,7 @@ class Pharmacy extends Model
 
     public function getProductOrderByDesc($modeType)
     {
-        if ($modeType == 'lab-test' || $modeType == 'imaging') {
+        if ($modeType == 'lab-test') {
             $data = DB::table('quest_data_test_codes')
                 ->select(
                     'TEST_CD AS id',
@@ -314,7 +314,28 @@ class Pharmacy extends Model
                 ])
                 ->where('mode',$modeType)
                 ->orderBy('name', 'ASC')
-                ->paginate(10);
+                ->paginate(12);
+            //dd($data);
+        } elseif ($modeType == 'imaging') {
+            $data = DB::table('quest_data_test_codes')
+                ->select(
+                    'TEST_CD AS id',
+                    'TEST_NAME AS name',
+                    'SALE_PRICE AS sale_price',
+                    'DETAILS AS short_description',
+                    'DETAILS AS description',
+                    DB::raw('SLUG as slug'),
+                    DB::raw('"quest_data_test_codes" as tbl_name')
+                )
+                ->where([
+                    ['PARENT_CATEGORY', '!=', ""],
+                    ['AOES_exist', null],
+                    ['DETAILS', '!=', ""], /* WILL REMOVE */
+                    ['SALE_PRICE', '!=', ""], /* WILL REMOVE */
+                ])
+                ->where('mode',$modeType)
+                ->orderBy('name', 'ASC')
+                ->paginate(12);
             //dd($data);
         } else {
             $data = DB::table($this->tbl_Products)

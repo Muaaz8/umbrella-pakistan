@@ -34,6 +34,7 @@
         <nav class="dashboard-nav-list">
             <a href="{{ url('pharmacy/admin/dash') }}" class="dashboard-nav-item"><i class="fa-solid fa-house"></i> Dashboard
             </a>
+            <a href="{{ url('/pharmacy/admin/all/medicines') }}" class="dashboard-nav-item"><i class="fa-solid fa-house"></i> Medicine Products</a>
             <div class="dashboard-nav-dropdown">
                 <a href="javascript:void(0)" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
                         class="fa-solid fa-vial"></i> Pharmacy Products </a>

@@ -147,6 +147,35 @@ class MedicineImportController extends Controller
         }
     }
 
+    public function pharmacy_admin_all_medicines(Request $request)
+    {
+
+        $data = DB::table('tbl_products')
+            ->leftJoin('products_sub_categories', 'tbl_products.sub_category', 'products_sub_categories.id')
+            ->orderBy('tbl_products.name', 'asc')
+            ->where('mode', 'medicine')
+            ->select('tbl_products.*', 'products_sub_categories.title')
+            ->paginate(20);
+        $data1 = DB::table('tbl_products')
+            ->leftJoin('products_sub_categories', 'tbl_products.sub_category', '=', 'products_sub_categories.id')
+            ->orderBy('tbl_products.name', 'asc')
+            ->where('mode', 'medicine')
+            ->get()
+            ->toArray();
+
+        $units = DB::table('medicine_units')->get();
+        $subs = DB::table('products_sub_categories')->get();
+        $allProducts = AllProducts::select('name as product_id', 'name','id')->where([['parent_category', 38], ['mode', 'medicine']])->get();
+
+        $user_type = Auth::user()->user_type;
+
+        if($user_type == 'admin_pharm'){
+            return view('dashboard_Pharm_admin.Medicine.view_medicine_list', compact('data','units','allProducts','data1','subs'));
+        }elseif($user_type == 'editor_pharmacy'){
+            return view('dashboard_Pharm_editor.Medicine.view_medicine', compact('data','units','allProducts','data1'));
+        }
+    }
+
     // Store function of Medicine Variations
     public function storeMedicineVariation(Request $request)
     {
@@ -191,10 +220,54 @@ class MedicineImportController extends Controller
             'created_by' => $user_id,
         ]);
 
-    Flash::success('Data saved successfully.');
-    return redirect()->back();
+        Flash::success('Data saved successfully.');
+        return redirect()->back();
 
     }
+
+    public function dash_store_medicine_product(Request $request)
+    {
+        $user_id = Auth::user()->id;
+        $input = $request->all();
+        if(isset($input['is_single'])){
+            $prod = DB::table('tbl_products')->insert([
+                'name' => $input['med_name'],
+                'slug' => \Str::slug($input['med_name']),
+                'parent_category' => 38,
+                'mode' => 'medicine',
+                'medicine_type' => 'prescribed',
+                'sub_category' => $input['sub_category'],
+                'generic' => $input['generic'],
+                'class' => $input['class'],
+                'is_single' => 1,
+                'user_id' => auth()->user()->id,
+                'product_status' => 1,
+                'is_approved' => 1,
+                'is_approved_by' => '',
+            ]);
+        }else{
+            $prod = DB::table('tbl_products')->insert([
+                'name' => $input['med_name'],
+                'slug' => \Str::slug($input['med_name']),
+                'parent_category' => 38,
+                'mode' => 'medicine',
+                'medicine_type' => 'prescribed',
+                'sub_category' => $input['sub_category'],
+                'generic' => $input['generic'],
+                'class' => $input['class'],
+                'is_single' => 0,
+                'user_id' => auth()->user()->id,
+                'product_status' => 1,
+                'is_approved' => 1,
+                'is_approved_by' => '',
+            ]);
+        }
+
+        Flash::success('Data saved successfully.');
+        return redirect()->back();
+
+    }
+
     public function getRxMedicine()
     {
 
@@ -302,6 +375,47 @@ class MedicineImportController extends Controller
 
     }
 
+    public function dash_edit_medicine_product(Request $request)
+    {
+        $input = $request->input();
+        if(isset($input['is_single'])){
+            $prod = DB::table('tbl_products')->where('id',$input['product_id'])->update([
+                'name' => $input['med_name'],
+                'slug' => \Str::slug($input['med_name']),
+                'parent_category' => 38,
+                'mode' => 'medicine',
+                'medicine_type' => 'prescribed',
+                'sub_category' => $input['sub_category'],
+                'generic' => $input['generic'],
+                'class' => $input['class'],
+                'is_single' => 1,
+                'user_id' => auth()->user()->id,
+                'product_status' => 1,
+                'is_approved' => 1,
+                'is_approved_by' => '',
+            ]);
+        }else{
+            $prod = DB::table('tbl_products')->where('id',$input['product_id'])->update([
+                'name' => $input['med_name'],
+                'slug' => \Str::slug($input['med_name']),
+                'parent_category' => 38,
+                'mode' => 'medicine',
+                'medicine_type' => 'prescribed',
+                'sub_category' => $input['sub_category'],
+                'generic' => $input['generic'],
+                'class' => $input['class'],
+                'is_single' => 0,
+                'user_id' => auth()->user()->id,
+                'product_status' => 1,
+                'is_approved' => 1,
+                'is_approved_by' => '',
+            ]);
+        }
+
+        return redirect()->back();
+
+    }
+
     public function dash_get_medicine_details(){
         $days = DB::table('medicine_days')->get();
         $units = DB::table('medicine_units')->get();
@@ -338,6 +452,16 @@ class MedicineImportController extends Controller
         //     'id' => $input['del_id'],
         // ])->delete();
         // return redirect()->back();
+    }
+
+    public function dash_delete_medicine_product(Request $request)
+    {
+        $input = $request->input();
+        AllProducts::find($input['del_id'])->forcedelete();
+        $delete2 = MedicinePricing::where([
+            'product_id' => $input['del_id'],
+        ])->forcedelete();
+        return redirect()->back();
     }
 
     public function uploadFile(Request $request)

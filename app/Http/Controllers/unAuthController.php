@@ -124,7 +124,7 @@ class unAuthController extends Controller
                 ->where('product_status', 1)
                 ->where('is_approved', 1)
                 ->select('tbl_products.*', 'products_sub_categories.title as category_name')
-                ->limit(10)
+                ->limit(12)
                 ->get();
             foreach ($products as $product) {
                 $product->short_description = strip_tags($product->short_description);
@@ -144,7 +144,7 @@ class unAuthController extends Controller
                 ->where('product_status', 1)
                 ->where('is_approved', 1)
                 ->select('tbl_products.*', 'products_sub_categories.title as category_name')
-                ->limit(10)
+                ->limit(12)
                 ->get();
             foreach ($products as $product) {
                 $product->short_description = strip_tags($product->short_description);
@@ -163,7 +163,7 @@ class unAuthController extends Controller
                 ->where('product_status', 1)
                 ->where('is_approved', 1)
                 ->select('tbl_products.*', 'products_sub_categories.title as category_name')
-                ->limit(10)
+                ->limit(12)
                 ->get();
             foreach ($products as $product) {
                 $product->short_description = strip_tags($product->short_description);
@@ -181,7 +181,7 @@ class unAuthController extends Controller
                 ->where('tbl_products.medicine_type', 'prescribed')
                 ->where('tbl_products.name', 'LIKE', '%' . $request->text . '%')
                 ->select('tbl_products.*', 'products_sub_categories.title as category_name')
-                ->limit(10)
+                ->limit(12)
                 ->get();
             foreach ($products as $product) {
                 $product->short_description = strip_tags($product->short_description);

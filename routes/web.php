@@ -427,11 +427,15 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
         Route::get('/pharmacy/medicine/view', 'MedicineImportController@pe_view_Medicine')->name('pe_view_Medicine');
         Route::get('/pharmacy/medicine/upload', 'MedicineImportController@dash_index')->name('upload_Medicine');
         Route::post("/pharmacy/medicine/delete", "MedicineImportController@dash_deleteRxMedicine")->name('dash_deleteRxMedicine');
+        Route::post("/dash_delete_medicine_product", "MedicineImportController@dash_delete_medicine_product")->name('dash_delete_medicine_product');
         Route::post("/pharmacy/medicine/edit", "MedicineImportController@dash_editRxMedicine")->name('dash_editRxMedicine');
+        Route::post("/dash_edit_medicine_product", "MedicineImportController@dash_edit_medicine_product")->name('dash_edit_medicine_product');
         Route::get("/get/medicine/details", "MedicineImportController@dash_get_medicine_details")->name('dash_get_medicine_details');
         Route::post("/get/medicine/details/store", "MedicineImportController@dash_storeMedicineVariation")->name('dash_store_Medicine_Variation');
+        Route::post("/dash/store/medicine/product", "MedicineImportController@dash_store_medicine_product")->name('dash_store_medicine_product');
         Route::get("/pharmacy/admin/manage/users", "AdminController@pharmacy_admin_manage_editors")->name('pharmacy_admin_manage_editors');
         Route::get("/pharmacy/admin/manage/user/status/{id}", "AdminController@pharmacy_admin_change_status")->name('pharmacy_admin_change_status');
+        Route::get("/pharmacy/admin/all/medicines", "MedicineImportController@pharmacy_admin_all_medicines")->name('pharmacy_admin_all_medicines');
     });
 
     Route::group(['middleware' => ['img_auth']], function () {
