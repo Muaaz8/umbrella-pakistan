@@ -46,15 +46,15 @@
                     <i class="fa-solid fa-chevron-right"></i>
                     <a href="{{ route('faq') }}">FAQs</a>
                 </div>
-                <div class="footer-info">
+                {{-- <div class="footer-info">
                     <i class="fa-solid fa-chevron-right"></i>
                     <a href="{{ route('privacy_policy') }}">Privacy Policy</a>
-                </div>
+                </div> --}}
             </div>
         </div>
         <div id="footer-4" class="footer">
             <div class="footer-heading">
-                <h3>Emergency Contact</h3>
+                <h3>For Queries</h3>
                 <div class="underline"></div>
             </div>
             <div class="footer-content">

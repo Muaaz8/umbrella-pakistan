@@ -3418,6 +3418,10 @@ background-color: #08295a;
       background: #12487B;
   }
 
+.card-secondary div h1,
+.card-secondary div h2,
+.card-secondary div h3,
+.card-secondary div h4,
 .card-secondary div h5 {
   font-size: 1rem;
   color: #333;

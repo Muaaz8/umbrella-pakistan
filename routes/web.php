@@ -48,102 +48,15 @@ Route::get('/app_doc_video/{id}',function($id){
 });
 
 Route::get('/seed',function(){
-    // \App\Models\ProductsSubCategory::create([
-    //     'title'=> 'Depression' ,
-    //     'slug'=> 'depression' ,
-    //     'created_by'=> '164' ,
-    //     'description'=> '' ,
-    //     'parent_id'=> '44' ,
-    //     'thumbnail' => '' ,
-    // ]);
-    // \App\Models\ProductsSubCategory::create([
-    //     'title'=> 'Anxiety' ,
-    //     'slug'=> 'anxiety' ,
-    //     'created_by'=> '164' ,
-    //     'description'=> '' ,
-    //     'parent_id'=> '44' ,
-    //     'thumbnail' => '' ,
-    // ]);
-    // \App\Models\ProductsSubCategory::create([
-    //     'title'=> 'Bipolar Disorder' ,
-    //     'slug'=> 'bipolar-disorder' ,
-    //     'created_by'=> '164' ,
-    //     'description'=> '' ,
-    //     'parent_id'=> '44' ,
-    //     'thumbnail' => '' ,
-    // ]);
-    // \App\Models\ProductsSubCategory::create([
-    //     'title'=> 'Psychological Evaluations' ,
-    //     'slug'=> 'psychological-evaluations' ,
-    //     'created_by'=> '164' ,
-    //     'description'=> '' ,
-    //     'parent_id'=> '44' ,
-    //     'thumbnail' => '' ,
-    // ]);
-    // \App\Models\ProductsSubCategory::create([
-    //     'title'=> 'Medication Management' ,
-    //     'slug'=> 'medication-management' ,
-    //     'created_by'=> '164' ,
-    //     'description'=> '' ,
-    //     'parent_id'=> '44' ,
-    //     'thumbnail' => '' ,
-    // ]);
-    // \App\Models\ProductsSubCategory::create([
-    //     'title'=> 'Medical Cannabis' ,
-    //     'slug'=> 'medical-cannabis' ,
-    //     'created_by'=> '164' ,
-    //     'description'=> '' ,
-    //     'parent_id'=> '44' ,
-    //     'thumbnail' => '' ,
-    // ]);
-    // \App\Models\ProductsSubCategory::create([
-    //     'title'=> 'PSTD' ,
-    //     'slug'=> 'pstd' ,
-    //     'created_by'=> '164' ,
-    //     'description'=> '' ,
-    //     'parent_id'=> '44' ,
-    //     'thumbnail' => '' ,
-    // ]);
-    // \App\Models\ProductsSubCategory::create([
-    //     'title'=> 'TMS' ,
-    //     'slug'=> 'tms' ,
-    //     'created_by'=> '164' ,
-    //     'description'=> '' ,
-    //     'parent_id'=> '44' ,
-    //     'thumbnail' => '' ,
-    // ]);
-    \App\Models\ProductsSubCategory::create([
-        'title'=> 'Cancer-Related Pain' ,
-        'slug'=> 'cancer-related-pain' ,
-        'created_by'=> '164' ,
-        'description'=> '' ,
-        'parent_id'=> '39' ,
-        'thumbnail' => '' ,
-    ]);
-    \App\Models\ProductsSubCategory::create([
-        'title'=> 'Joint And Muscle Pain' ,
-        'slug'=> 'joint-and-muscle-pain' ,
-        'created_by'=> '164' ,
-        'description'=> '' ,
-        'parent_id'=> '39' ,
-        'thumbnail' => '' ,
-    ]);
-    \App\Models\ProductsSubCategory::create([
-        'title'=> 'Neck And Back Pain' ,
-        'slug'=> 'neck-and-back-pain' ,
-        'created_by'=> '164' ,
-        'description'=> '' ,
-        'parent_id'=> '39' ,
-        'thumbnail' => '' ,
-    ]);
-    \App\Models\ProductsSubCategory::create([
-        'title'=> 'Nerve Related Pain' ,
-        'slug'=> 'nerve-related-pain' ,
-        'created_by'=> '164' ,
-        'description'=> '' ,
-        'parent_id'=> '39' ,
-        'thumbnail' => '' ,
-    ]);
+    for($i=1; $i<=7; $i++){
+        DB::table('section')->insert([
+            'page_id'=> 1,
+            'section_name'=> 'box-'.$i,
+            'sequence_no'=> 1,
+            'created_at'=>now(),
+            'updated_at'=>now(),
+        ]);
+    }
 });
 
 Route::get('/doctor-profile/{id}',function($id){

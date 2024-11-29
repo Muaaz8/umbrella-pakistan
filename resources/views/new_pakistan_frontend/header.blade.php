@@ -23,7 +23,7 @@
     <nav>
       <section id="navbar">
         <div class="wrap flex gap-15 between">
-          <div id="nav-logo" class="logo">
+          <div id="nav-logo" class="logo" onclick="window.location.href='{{ url('/') }}'" style="cursor: pointer;">
             <img src="{{ asset('assets/new_frontend/logo.png') }}" alt="umbrella-logo" />
           </div>
           <div class="flex gap-15" id="nav-right-side">

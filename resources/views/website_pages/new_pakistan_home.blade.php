@@ -7,6 +7,25 @@
 <meta name="{{ $tag->name }}" content="{{ $tag->content }}">
 @endforeach
 <link rel="icon" href="{{ asset('asset_frontend/images/logo.ico') }}" type="image/x-icon">
+<style>
+    .custom-card-body h1,
+    .custom-card-body h2,
+    .custom-card-body h3,
+    .custom-card-body h4,
+    .custom-card-body h5{
+        font-size: 1rem;
+        color: #333;
+        margin: 0;
+        font-weight: 700;
+        margin-bottom: 0px;
+        text-decoration: underline;
+    }
+    .custom-card-body p{
+        font-size: 0.8rem;
+        color: #666;
+        margin: 0 0 5px 0;
+    }
+</style>
 @endsection
 
 
@@ -58,14 +77,6 @@ $page = DB::table('pages')->where('url', '/')->first();
                                     alt="Slide {{$key}}" />
                             </div>
                         @endforeach
-                        {{--<div class="carousel-item">
-                            <img src="{{ asset('assets/new_frontend/banner1.png') }}" class="d-block w-100 carousel-img"
-                                alt="Slide 2" />
-                        </div>
-                        <div class="carousel-item">
-                            <img src="{{ asset('assets/new_frontend/banner1.png') }}" class="d-block w-100 carousel-img"
-                                alt="Slide 3" />
-                        </div>--}}
                     </div>
                 </div>
             </div>
@@ -77,10 +88,27 @@ $page = DB::table('pages')->where('url', '/')->first();
                     <div class="col-lg-12 col-md-6 col-12 custom-card animate__animated animate__fadeInLeft"
                         style="animation-delay: 0s;">
                         <div class="custom-card-body">
-                            <h5 class="custom-card-title">Doctor consultation</h5>
-                            <p class="custom-card-text">
-                                Short description of the first card.
-                            </p>
+                            @php
+                                $section = DB::table('section')
+                                ->where('page_id', $page->id)
+                                ->where('section_name', 'box-1')
+                                ->where('sequence_no', '1')
+                                ->first();
+                                $top_content = DB::table('content')
+                                ->where('section_id', $section->id)
+                                ->first();
+                                $image_content = DB::table('images_content')
+                                ->where('section_id', $section->id)
+                                ->first();
+                            @endphp
+                            @if($top_content)
+                                {!! $top_content->content !!}
+                            @else
+                                <h5 class="custom-card-title">Doctor consultation</h5>
+                                <p class="custom-card-text">
+                                    Short description of the first card.
+                                </p>
+                            @endif
                             <button class="btn btn-primary custom-btn2" onclick="window.location.href='{{route('e-visit')}}'">E-visit</button>
                         </div>
                         <div class="custom-card-img">
@@ -91,10 +119,27 @@ $page = DB::table('pages')->where('url', '/')->first();
                     <div class="col-lg-12 col-md-6 col-12 custom-card animate__animated animate__fadeInLeft"
                         style="animation-delay: 0.2s;">
                         <div class="custom-card-body">
-                            <h5 class="custom-card-title">Pharmacy</h5>
-                            <p class="custom-card-text">
-                                Short description of the first card.
-                            </p>
+                            @php
+                                $section = DB::table('section')
+                                ->where('page_id', $page->id)
+                                ->where('section_name', 'box-2')
+                                ->where('sequence_no', '1')
+                                ->first();
+                                $top_content = DB::table('content')
+                                ->where('section_id', $section->id)
+                                ->first();
+                                $image_content = DB::table('images_content')
+                                ->where('section_id', $section->id)
+                                ->first();
+                            @endphp
+                            @if($top_content)
+                                {!! $top_content->content !!}
+                            @else
+                                <h5 class="custom-card-title">Pharmacy</h5>
+                                <p class="custom-card-text">
+                                    Short description of the first card.
+                                </p>
+                            @endif
                             <button class="btn btn-success custom-btn2" onclick="window.location.href='{{route('pharmacy')}}'">Visit Our Store</button>
                         </div>
                         <div class="custom-card-img">
@@ -104,10 +149,27 @@ $page = DB::table('pages')->where('url', '/')->first();
                     <div class="col-lg-12 col-md-12 custom-card animate__animated animate__fadeInLeft"
                         style="animation-delay: 0.5s;">
                         <div class="custom-card-body">
-                            <h5 class="custom-card-title">Online Lab Tests</h5>
-                            <p class="custom-card-text">
-                                Short description of the first card.
-                            </p>
+                            @php
+                                $section = DB::table('section')
+                                ->where('page_id', $page->id)
+                                ->where('section_name', 'box-3')
+                                ->where('sequence_no', '1')
+                                ->first();
+                                $top_content = DB::table('content')
+                                ->where('section_id', $section->id)
+                                ->first();
+                                $image_content = DB::table('images_content')
+                                ->where('section_id', $section->id)
+                                ->first();
+                            @endphp
+                            @if($top_content)
+                                {!! $top_content->content !!}
+                            @else
+                                <h5 class="custom-card-title">Online Lab Tests</h5>
+                                <p class="custom-card-text">
+                                    Short description of the first card.
+                                </p>
+                            @endif
                             <button class="btn btn-danger custom-btn2" onclick="window.location.href='{{route('labs')}}'">Online Tests</button>
                         </div>
                         <div class="custom-card-img">
@@ -124,8 +186,25 @@ $page = DB::table('pages')->where('url', '/')->first();
                     style="animation-delay: 0s;">
                     <div class="card-secondary d-flex flex-row align-items-center justify-content-between">
                         <div>
-                            <h5>Personal Care</h5>
-                            <p>Lorem ipsum dolor sit amet.</p>
+                            @php
+                                $section = DB::table('section')
+                                ->where('page_id', $page->id)
+                                ->where('section_name', 'box-4')
+                                ->where('sequence_no', '1')
+                                ->first();
+                                $top_content = DB::table('content')
+                                ->where('section_id', $section->id)
+                                ->first();
+                                $image_content = DB::table('images_content')
+                                ->where('section_id', $section->id)
+                                ->first();
+                            @endphp
+                            @if($top_content)
+                                {!! $top_content->content !!}
+                            @else
+                                <h5>Personal Care</h5>
+                                <p>Lorem ipsum dolor sit amet.</p>
+                            @endif
                             <button class="btn btn-success custom-btn2" onclick="window.location.href='{{route('pharmacy.category',['slug'=>'personal-care'])}}'">View More</button>
                             <div class="custom-card-img">
                                 <img width="60" height="60" src="{{ asset('assets/new_frontend/bottom1.png') }}"
@@ -138,8 +217,25 @@ $page = DB::table('pages')->where('url', '/')->first();
                     style="animation-delay: 0.2s;">
                     <div class="card-secondary d-flex flex-row align-items-center justify-content-between">
                         <div>
-                            <h5>Mother & Baby Care</h5>
-                            <p>Lorem ipsum dolor sit amet.</p>
+                            @php
+                                $section = DB::table('section')
+                                ->where('page_id', $page->id)
+                                ->where('section_name', 'box-5')
+                                ->where('sequence_no', '1')
+                                ->first();
+                                $top_content = DB::table('content')
+                                ->where('section_id', $section->id)
+                                ->first();
+                                $image_content = DB::table('images_content')
+                                ->where('section_id', $section->id)
+                                ->first();
+                            @endphp
+                            @if($top_content)
+                                {!! $top_content->content !!}
+                            @else
+                                <h5>Mother & Baby Care</h5>
+                                <p>Lorem ipsum dolor sit amet.</p>
+                            @endif
                             <button class="btn btn-success custom-btn2" onclick="window.location.href='{{route('pharmacy.category',['slug'=>'baby-mothercare'])}}'">View More</button>
                             <div class="custom-card-img">
                                 <img width="60" height="60" src="{{ asset('assets/new_frontend/bottom2.png') }}"
@@ -152,9 +248,26 @@ $page = DB::table('pages')->where('url', '/')->first();
                     style="animation-delay: 0.4s;">
                     <div class="card-secondary d-flex flex-row align-items-center justify-content-between">
                         <div>
-                            <h5>Dermatology</h5>
-                            <p>Lorem ipsum dolor sit amet.</p>
-                            <button class="btn btn-success custom-btn2">View More</button>
+                            @php
+                                $section = DB::table('section')
+                                ->where('page_id', $page->id)
+                                ->where('section_name', 'box-6')
+                                ->where('sequence_no', '1')
+                                ->first();
+                                $top_content = DB::table('content')
+                                ->where('section_id', $section->id)
+                                ->first();
+                                $image_content = DB::table('images_content')
+                                ->where('section_id', $section->id)
+                                ->first();
+                            @endphp
+                            @if($top_content)
+                                {!! $top_content->content !!}
+                            @else
+                                <h5>Dermatology</h5>
+                                <p>Lorem ipsum dolor sit amet.</p>
+                            @endif
+                            <button class="btn btn-success custom-btn2" onclick="window.location.href='{{route('pharmacy.category',['slug'=>'dermatology'])}}'">View More</button>
                             <div class="custom-card-img">
                                 <img width="60" height="60" src="{{ asset('assets/new_frontend/bottom3.png') }}"
                                     alt="Image 1" />
@@ -166,8 +279,25 @@ $page = DB::table('pages')->where('url', '/')->first();
                     style="animation-delay: 0.6s;">
                     <div class="card-secondary d-flex flex-row align-items-center justify-content-between">
                         <div>
-                            <h5>Multi-Vitamins</h5>
-                            <p>Lorem ipsum dolor sit amet.</p>
+                            @php
+                                $section = DB::table('section')
+                                ->where('page_id', $page->id)
+                                ->where('section_name', 'box-7')
+                                ->where('sequence_no', '1')
+                                ->first();
+                                $top_content = DB::table('content')
+                                ->where('section_id', $section->id)
+                                ->first();
+                                $image_content = DB::table('images_content')
+                                ->where('section_id', $section->id)
+                                ->first();
+                            @endphp
+                            @if($top_content)
+                                {!! $top_content->content !!}
+                            @else
+                                <h5>Multi-Vitamins</h5>
+                                <p>Lorem ipsum dolor sit amet.</p>
+                            @endif
                             <button class="btn btn-success custom-btn2" onclick="window.location.href='{{route('pharmacy.category',['slug'=>'multivitamins'])}}'">View More</button>
                             <div class="custom-card-img">
                                 <img width="60" height="60" src="{{ asset('assets/new_frontend/bottom4.png') }}"
