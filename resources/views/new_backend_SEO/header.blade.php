@@ -11,11 +11,12 @@
       <nav class="dashboard-nav-list">
         <a href="/seo/admin/dash" class="dashboard-nav-item"><i class="fa-solid fa-house"></i> Dashboard </a>
         <a href="/pages/meta/tag" class="dashboard-nav-item"><i class="fa-solid fa-square-plus"></i> Website Pages Tags </a>
-        <a href="/pages" class="dashboard-nav-item"><i class="fa-solid fa-square-plus"></i> Pages </a>
-        <a href="/pages/section" class="dashboard-nav-item"><i class="fa-solid fa-square-plus"></i> Sections </a>
+        {{-- <a href="/pages" class="dashboard-nav-item"><i class="fa-solid fa-square-plus"></i> Pages </a>
+        <a href="/pages/section" class="dashboard-nav-item"><i class="fa-solid fa-square-plus"></i> Sections </a> --}}
         <a href="/pages/section/content" class="dashboard-nav-item"><i class="fa-solid fa-square-plus"></i> Website Page Content </a>
         <a href="/pages/image/content" class="dashboard-nav-item"><i class="fa-solid fa-square-plus"></i> Website Page Images </a>
         <a href="{{ route('admin_doctor_profile_management') }}" class="dashboard-nav-item"><i class="fa-solid fas fa-user-md"></i>Doctor Profile Management</a>
+        <a href="{{ route('top_banner') }}" class="dashboard-nav-item"><i class="fa-solid fas fa-user-md"></i>Top Banner</a>
         <div class="dashboard-nav-dropdown">
             <a href="javascript:void(0)" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
                     class="fa-solid fa-image"></i> Banners </a>

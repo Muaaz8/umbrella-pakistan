@@ -1,7 +1,17 @@
 <!-- header  -->
 <div id="offerBanner" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
-      <div class="carousel-item active">
+        @php
+            $top_banners = DB::table('services')->where('name','ticker')->get();
+        @endphp
+        @foreach ($top_banners as $key => $banner)
+            <div class="carousel-item {{$key==0?'active':''}}">
+                <div class="offer-banner primary-bg text-white text-center py-2">
+                    <span>{{ $banner->status }}</span>
+                </div>
+            </div>
+        @endforeach
+      {{-- <div class="carousel-item active">
         <div class="offer-banner primary-bg text-white text-center py-2">
           <span>Get 20% off on your first purchase! Use code: FIRST20</span>
         </div>
@@ -15,7 +25,7 @@
         <div class="offer-banner primary-bg text-white text-center py-2">
           <span>Limited Time Offer: Buy 1 Get 1 Free!</span>
         </div>
-      </div>
+      </div> --}}
     </div>
   </div>
 

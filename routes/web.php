@@ -345,6 +345,12 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
     Route::get('/edit/page/{id}','SEOAdminController@edit_page')->name('edit_page');
     Route::post('/update/pages/{id}','SEOAdminController@update_page')->name('update_page');
 
+    Route::get('/top_banner','SEOAdminController@top_banner')->name('top_banner');
+    Route::get('/edit/top_banner/{id}','SEOAdminController@edit_top_banner')->name('edit_top_banner');
+    Route::post('/update/top_banner/{id}','SEOAdminController@update_top_banner')->name('update_top_banner');
+    Route::post('/insert/top_banner','SEOAdminController@save_top_banner')->name('save_top_banner');
+    Route::get('/del/top_banner/{id}','SEOAdminController@del_top_banner')->name('del_top_banner');
+
     Route::get('/pages/section','SEOAdminController@pages_section')->name('pages_section');
     Route::get('/edit/section/{id}','SEOAdminController@edit_section')->name('edit_section');
     Route::post('/update/section/{id}','SEOAdminController@update_section')->name('update_section');

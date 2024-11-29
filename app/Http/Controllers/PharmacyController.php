@@ -215,8 +215,8 @@ class PharmacyController extends Controller
                                 ->where('product_id',$product->id)
                                 ->select('medicine_pricings.*','medicine_units.unit')
                                 ->get();
-                if($product->featured_image == "http://127.0.0.1:8000/assets/images/user.png"){
-                    $product->featured_image = asset('assets/images/pills-tablets.jpg');
+                if($product->featured_image == env('APP_URL')."/assets/images/user.png"){
+                    $product->featured_image = asset('assets/new_frontend/panadol2.png');
                 }
                 return view('website_pages.pharmacy.new_pakistan_single_view', compact('products','meta_tags','title'));
                 // return view('single_product_details', compact('products'));

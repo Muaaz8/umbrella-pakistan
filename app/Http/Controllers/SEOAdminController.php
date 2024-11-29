@@ -106,6 +106,39 @@ class SEOAdminController extends Controller
         return redirect()->route('pages');
     }
 
+    public function top_banner()
+    {
+        $top_banner = DB::table('services')->where('name','ticker')->paginate(10);
+        return view('dashboard_SEO.top_banner.index',compact('top_banner'));
+    }
+
+    public function save_top_banner(Request $request)
+    {
+        $top_banner = DB::table('services')->insert([
+            'name' => 'ticker',
+            'status' => $request->value,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        return redirect()->route('top_banner');
+    }
+
+    public function edit_top_banner($id){
+        $top_banner = DB::table('services')->where('id',$id)->first();
+        return view('dashboard_SEO.top_banner.edit',compact('top_banner'));
+    }
+
+    public function update_top_banner($id,Request $request){
+        $pages = DB::table('services')->where('id',$id)->first();
+        if($pages){
+            DB::table('services')->where('id',$id)->update([
+                'status' => $request->value,
+                'updated_at' => now(),
+            ]);
+        }
+        return redirect()->route('top_banner');
+    }
+
 
     public function pages_section()
     {
@@ -270,6 +303,16 @@ class SEOAdminController extends Controller
         if($data!=null)
         {
             DB::table('pages')->where('url',$data->url)->delete();
+        }
+        return redirect()->back();
+    }
+
+    public function del_top_banner($id)
+    {
+        $data = DB::table('services')->where('id',$id)->first();
+        if($data!=null)
+        {
+            DB::table('services')->where('id',$id)->delete();
         }
         return redirect()->back();
     }
