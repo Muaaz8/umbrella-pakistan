@@ -1,12 +1,12 @@
 $(document).ready(function(){
     $('.imaging-penal').click(function(){
-        getImagingProductByCategory('all',4);
+        getImagingProductByCategory('all',10);
     });
     $('.pharmacy-penal').click(function(){
         getPharmacyProductByCategory('all',8);
     });
     $('.labtest-penal').click(function(){
-        getLabtestProductByCategory('all',4);
+        getLabtestProductByCategory('all',10);
     });
 });
 

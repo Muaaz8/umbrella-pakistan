@@ -77,11 +77,6 @@ class MedicineImportController extends Controller
          // End Form Of Medicine Variation
         if (isset($param['status']) && $param['status'] == 'deactive') {
             $delete = DB::table('medicine_pricings')->where('id',$param['product_id'])->delete();
-            // $delete1 = AllProducts::where('id',$param['product_id'])->update([
-            //     'product_status' => 0,
-            //     'is_approved' => 0
-            // ]);
-            // dd($delete1);
         } elseif (isset($param['status']) && $param['status'] == 'active') {
             $delete1 = AllProducts::where([
                 'id' => $param['product_id'],
@@ -276,22 +271,23 @@ class MedicineImportController extends Controller
     public function dash_editRxMedicine(Request $request)
     {
         $input = $request->input();
-        $medicineDay = MedicineDays::where('days', $input['days'])->first();
+        // $medicineDay = MedicineDays::where('days', $input['days'])->first();
         $medUnit = MedicineUOM::where('unit', $input['unit'])->first();
         $subCategoryID = ProductsSubCategory::select('id')->where('title', $input['sub_category'])->first();
         $updateCategoryID = AllProducts::where('id', $input['product_id'])->update(['sub_category' => $subCategoryID->id]);
 
-            // Calculating Percentage
-            $medSalePrice = $input['price'];
-            $medPercentage = $input['percentage'] / 100;
-            $input['sale_price'] = floor(($medPercentage * $medSalePrice) +  $medSalePrice);
-            // dd($input);
-            MedicinePricing::where('id', $input['id'])->update([
+        // Calculating Percentage
+        // $medSalePrice = $input['price'];
+        // $medPercentage = $input['percentage'] / 100;
+        // $input['sale_price'] = floor(($medPercentage * $medSalePrice) +  $medSalePrice);
+        $prod = DB::table('tbl_products')->where('id',$input['product_id'])->update([
+            'name' => $input['med_name'],
+            'slug' => \Str::slug($input['med_name']),
+        ]);
+        MedicinePricing::where('id', $input['id'])->update([
             'price' => $input['price'],
-             'sale_price' => $input['sale_price'],
+            'sale_price' => $input['price'],
             'unit_id' => $medUnit->id,
-            'days_id' => $medicineDay->id,
-            'percentage' => $input['percentage'],
             'updated_at' => NOW(),
         ]);
 

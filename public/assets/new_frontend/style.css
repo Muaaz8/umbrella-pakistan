@@ -2070,6 +2070,7 @@ footer {
   justify-content: center;
   gap: 5px;
   color: white;
+  opacity: 0;
 }
 
 .icon {

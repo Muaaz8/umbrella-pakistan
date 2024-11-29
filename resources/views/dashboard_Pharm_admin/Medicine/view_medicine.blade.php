@@ -114,17 +114,19 @@
         e.preventDefault();
         var id = $(this).attr('id');
         var unit = $("#un_"+id).text();
+        var med_name = $("#medname_"+id).text();
         var days = $("#dy_"+id).text();
         var price = $("#p_"+id).text();
         var percentage = $("#per_"+id).text();
         var sub_c = $("#sc_"+id).text();
         var prod_id = $("#prod_id_"+id).val();
-        // console.log(unit);
+        console.log(med_name);
 
         $("#edit_id").val(id);
         $('#unit').append('<option selected value="'+unit+'">'+unit+'</option>');
         $('#days').append('<option selected value="'+days+'">'+days+'</option>');
         $("#price").val(price);
+        $("#edit_med_name").val(med_name);
         $("#percentage").val(percentage);
         $("#pro_id").val(prod_id);
         $("#sub_category").append('<option selected value="'+sub_c+'">'+sub_c+'</option>');
@@ -253,7 +255,7 @@
                                         <tr>
                                             <input type="hidden" name="prod_id" id="prod_id_{{ $item->id }}" value="{{ $item->product_id }}">
                                             <td data-label="Medicine Name">{{ $key + 1 + ($data->currentPage() - 1) * $data->perPage() }}</td>
-                                            <td data-label="Medicine Name">{{ $item->name }}</td>
+                                            <td data-label="Medicine Name" id="medname_{{$item->id}}">{{ $item->name }}</td>
                                             <td data-label="Unit" id="un_{{ $item->id }}">{{ $item->unit }}</td>
                                             <td data-label="Price" id="p_{{ $item->id }}">{{ $item->price }}</td>
                                             <td data-label="Sale Price">{{ $item->sale_price }}</td>
@@ -414,34 +416,26 @@
                         <form action="">
                             <div class="row">
                                 <div class="col-md-6">
+                                    <label for="specialInstructions">Medicine Name</label>
+                                    <input class="form-control" id="edit_med_name" name="med_name" required>
+                                </div>
+                                <div class="col-md-6">
                                     <input type="hidden" name="id" id="edit_id">
                                     <input type="hidden" name="product_id" id="pro_id">
                                     <label for="specialInstructions">Unit</label>
-                                    <select class="form-select" id="unit" name="unit" required>
-                                    </select>
-                                </div>
-                                <div class="col-md-6">
-                                    <label for="specialization_status">Days</label>
-                                    <select class="form-select" id="days" name="days" required>
+                                    <select class="form-select" id="unit" name="unit" required readonly>
                                     </select>
                                 </div>
                             </div>
                             <div class="row mt-3 mb-3">
                                 <div class="col-md-6">
                                     <label for="specialInstructions">Sub Category</label>
-                                    <select class="form-select" id="sub_category" name="sub_category">
+                                    <select class="form-select" id="sub_category" name="sub_category" readonly>
                                     </select>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="specialization_status">Price</label>
                                     <input type="text" id="price" name="price" class="form-control" placeholder="Price">
-                                </div>
-                            </div>
-
-                            <div class="row mt-3 mb-3">
-                                <div class="col-md-6">
-                                    <label for="specialization_status">Percentage</label>
-                                    <input type="text" id="percentage" name="percentage" class="form-control" placeholder="Percentage">
                                 </div>
                             </div>
                             <div class="modal-footer">

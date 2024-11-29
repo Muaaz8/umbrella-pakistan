@@ -151,7 +151,7 @@
                                 <div class="col-lg-6 col-md-12">
                                     <select id="strength" class="form-select w-100 h-100" name="unit">
                                         @foreach ($products[0]->units as $item)
-                                            <option value="{{ $item->id }}">{{ $item->unit }} (Rs.
+                                            <option value="{{ $item->id }}">{{ $item->unit!="-"?$item->unit:'' }} (Rs.
                                                 {{ $item->sale_price }})</option>
                                         @endforeach
                                     </select>

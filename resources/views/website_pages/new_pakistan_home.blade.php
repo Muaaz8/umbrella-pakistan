@@ -493,7 +493,7 @@ $page = DB::table('pages')->where('url', '/')->first();
                 <div class="pharmacy-content">
                     <div class="pharmacy-categories">
                         @foreach ($data['prescribed_medicines_category'] as $item)
-                        <div class="pharmacy-category" onclick="getPharmacyProductByCategory({{ $item->id }},6)">
+                        <div class="pharmacy-category" onclick="getPharmacyProductByCategory({{ $item->id }},8)">
                             <i class="fa-solid fa-pills"></i>
                             <div title="{{ $item->title }}">{{ \Str::limit($item->title, 15, '...') }}</div>
                         </div>
@@ -757,7 +757,7 @@ $page = DB::table('pages')->where('url', '/')->first();
                 @endif
                 <div class="pharmacy-categories">
                     @foreach ($data['imaging_category'] as $item)
-                    <div class="pharmacy-category" onclick="getImagingProductByCategory({{ $item->id }},4)">
+                    <div class="pharmacy-category" onclick="getImagingProductByCategory({{ $item->id }},10)">
                         <i class="fa-solid fa-flask"></i>
                         <div title="{{ $item->product_parent_category }}">
                             {{ \Str::limit($item->product_parent_category, 15, '...') }}</div>
