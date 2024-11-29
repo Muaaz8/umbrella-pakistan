@@ -148,7 +148,7 @@
                             <hr class="py-1 m-0">
                             <div class="row">
                                 <label for="strength" class="form-label fw-bold"><u>Strength</u></label>
-                                <div class="col-lg-6 col-md-12">
+                                <div class="col-lg-12 col-md-12 mb-2">
                                     <select id="strength" class="form-select w-100 h-100" name="unit">
                                         @foreach ($products[0]->units as $item)
                                             <option value="{{ $item->id }}">{{ $item->unit!="-"?$item->unit:'' }} (Rs.
@@ -156,7 +156,7 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                <div class="col-lg-6 col-md-12">
+                                <div class="col-lg-12 col-md-12">
                                     @if(Auth::check())
                                         <button class="medicine_btn w-100 fs-6 fw-bold" onclick="addedItem()">Add to Cart</button>
                                     @else

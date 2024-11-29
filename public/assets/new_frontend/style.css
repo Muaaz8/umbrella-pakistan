@@ -182,6 +182,22 @@ header {
   background: #0048b1;
 }
 
+.price{
+    position: absolute;
+    top: 5%;
+    left: 5%;
+}
+
+.price p{
+    font-weight: 600;
+    z-index: 5;
+    font-size: 16px !important;
+    color: white !important;
+    background: var(--blue) !important;
+    padding: 5px 10px;
+    border-radius: 10px;
+}
+
 #hero-section {
   background-image: url("./slider-1.jpeg");
   background-position: 80% center;
@@ -1504,7 +1520,6 @@ footer {
 }
 
 .prescription p {
-  background: red;
   color: white !important;
   padding: 5px;
   border-radius: 20px;

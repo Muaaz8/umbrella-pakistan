@@ -507,9 +507,12 @@ $page = DB::table('pages')->where('url', '/')->first();
                     <hr />
 
                     <div class="medicines-container" id="load_pharmacy_item_by_category">
-                        {{--<div class="card">
+                        <div class="card">
                             <div class="prescription">
-                                <p>prescription required</p>
+                                <p style="background: red">prescription required</p>
+                            </div>
+                            <div class="price">
+                                <p>Rs: 200</p>
                             </div>
                             <div class="med-img"><img src="{{ asset('assets/new_frontend/panadol.png') }}" alt="img"></div>
                             <h4 class="truncate m-0 p-0">Niacin ER tablet</h4>
@@ -521,7 +524,7 @@ $page = DB::table('pages')->where('url', '/')->first();
                             </div>
                             <div class="card">
                                 <div class="prescription">
-                                    <p>prescription required</p>
+                                    <p style="background: #35b518">prescription required</p>
                                 </div>
                                 <div class="med-img"><img src="https://placehold.co/70" alt="img"></div>
                                 <h4 class="truncate">Niacin ER tablet</h4>
@@ -578,7 +581,7 @@ $page = DB::table('pages')->where('url', '/')->first();
                                     <a class="read-more btn btn-outline-danger" href="#">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
                                     <a class="add-to-cart" href="#">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
                                 </div>
-                        </div>--}}
+                        </div>
                     </div>
                     <div class="d-flex justify-content-center no-product-loader">
                         <i class="fa fa-spinner fa-spin fs-1"></i>
