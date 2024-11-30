@@ -81,55 +81,6 @@
                 {!! $products[0]->description !!}
             </div>
         </div>
-
-        <section id="disclaimer">
-            <div class="disclaimer-box"></div>
-            <div id="disclaimer-content">
-                <div>
-                    <h2>DISCLAIMER</h2>
-                    <div class="underline"></div>
-                </div>
-                <div>
-                    <p>
-                        The information on this site is not intended or implied to be a
-                        substitute for professional medical advice, diagnosis or
-                        treatment. All content, including text, graphics, images and
-                        Information, contained on or available through this web site is
-                        for general information purposes only. Umbrellamd.com makes no
-                        representation and assumes no responsibility for the accuracy of
-                        information contained on or available through this web site, and
-                        such information is subject to change without notice. You are
-                        encouraged to confirm any information obtained from or through
-                        this web site with other sources, and review all information
-                        regarding any medical condition or treatment with your
-                        physician.
-                    </p>
-                    <p>
-                        Never disregard professional medical advice or delay seeking
-                        medical treatment because of something you have read on or
-                        accessed through this web site. umbrella health care systems not
-                        responsible nor liable for any advice, course of treatment,
-                        diagnosis or any other information, services or products that
-                        you obtain through this website.
-                    </p>
-                </div>
-            </div>
-            <div class="custom-shape-divider-bottom-1731257443">
-                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"
-                    preserveAspectRatio="none">
-                    <path
-                        d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z"
-                        class="shape-fill"></path>
-                </svg>
-            </div>
-            <div class="disclaimer-blob">
-                <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                    <path fill="gray"
-                        d="M46,-39.1C56.3,-35.6,59.3,-17.8,54.9,-4.4C50.5,9.1,38.9,18.1,28.5,30.5C18.1,42.9,9.1,58.5,-2.6,61.1C-14.2,63.7,-28.4,53.2,-43.7,40.8C-59.1,28.4,-75.5,14.2,-75.6,-0.1C-75.6,-14.3,-59.3,-28.6,-44,-32.2C-28.6,-35.7,-14.3,-28.4,1.7,-30.2C17.8,-31.9,35.6,-42.7,46,-39.1Z"
-                        transform="translate(100 100)" />
-                </svg>
-            </div>
-        </section>
     </main>
 
 

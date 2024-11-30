@@ -388,7 +388,6 @@ class PharmacyController extends Controller
                 }
                 $item->unit = \App\MedicineUOM::find($item->prescription);
             }
-            dd($user_cart_items);
 
             $totalPrice = $itemSum + $providerFee;
             return view('website_pages.new_api_cart', compact('user_cart_items', 'countItem', 'itemSum', 'totalPrice', 'providerFee', 'cards'));
