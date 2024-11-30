@@ -46,7 +46,7 @@ function getPharmacyProductByCategory(sub_cat_id,limit)
                          // <p class="truncate-overflow">${value.short_description}</p>
                         `<div class="card">
                             <div class="prescription">
-                                <p>prescription required</p>
+                                <p style="background: red">prescription required</p>
                             </div>
                             <div class="med-img"><img src="${value.featured_image?value.featured_image:'assets/new_frontend/panadol2.png'}" alt="img"></div>
                             <h4 class="truncate m-0 p-0" title="${value.name}">${value.name}</h4>

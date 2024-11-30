@@ -170,12 +170,11 @@
                         $('#bodies').append('<tr id="body_'+arr.id+'"></tr>');
                         $('#body_'+arr.id).append(
                             +'<input type="hidden" name="prod_id" id="prod_id_'+arr.id+'" value="'+arr.product_id+'">'
+                            +'<td data-label="Sr ">'+ ++key +'</td>'
                             +'<td data-label="Medicine Name">'+arr.name+'</td>'
                             +'<td data-label="Unit" id="un_'+arr.id+'">'+arr.unit+'</td>'
-                            +'<td data-label="Days" id="dy_'+arr.id+'">'+arr.days+'</td>'
                             +'<td data-label="Price" id="p_'+arr.id+'">'+arr.price+'</td>'
                             +'<td data-label="Sale Price">'+arr.sale_price+'</td>'
-                            +'<td data-label="Percentage" id="per_'+arr.id+'">'+arr.percentage+'</td>'
                             +'<td data-label="Sub Category" id="sc_'+arr.id+'">'+arr.sub_category+'</td>'
                             +'<td data-label="Updated At" >'+arr.updated_at+'</td>'
                         );
@@ -331,7 +330,7 @@
                     <div class="dosage-body">
                         <form action="{{ route('dash_store_Medicine_Variation') }}" method="POST">
                             @csrf
-                            <div class="row">
+                            {{-- <div class="row">
                                 <div class="col-md-6">
                                     <label for="specialInstructions">Medicine Products</label>
                                     <div class="med-pro-select">
@@ -383,6 +382,46 @@
                                 <div class="col-md-6">
                                     <label for="specialization_status">Percentage</label>
                                     <input type="text" class="form-control" name="percentage" placeholder="Percentage">
+                                </div>
+                            </div> --}}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="specialInstructions">Medicine Products</label>
+                                    <div class="med-pro-select">
+                                        <div class="main">
+                                            <select name="product_id" class="modal_prod" >
+                                                @foreach ($allProducts as $prod)
+                                                    <option value="{{ $prod->id }}">{{ $prod->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="specialization_status">Medicine Units</label>
+                                    <div class="med-pro-select">
+                                        <div class="main">
+                                            <select name="unit_id" class="modal_units">
+                                                @foreach ($units as $u)
+                                                    <option value="{{ $u->id }}">{{ $u->unit }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-3 mb-3">
+                                <div class="col-md-6">
+                                    <label for="specialInstructions">Sub Category</label>
+                                    <select class="form-select" id="sub_category" name="sub_category" readonly>
+                                        @foreach ($subs as $item)
+                                            <option value="{{$item->id}}">{{$item->title}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="specialization_status">Price</label>
+                                    <input type="text" id="price" name="price" class="form-control" placeholder="Price">
                                 </div>
                             </div>
                             <div class="modal-footer">

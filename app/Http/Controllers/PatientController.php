@@ -464,7 +464,7 @@ class PatientController extends Controller
                 $data['doc_session_id'] = 0;
                 $data['doc_id'] = 0;
                 $data['pres_id'] = 0;
-                $data['update_price'] = 0;
+                $data['update_price'] = $pricing->sale_price*$request->quantity;
                 $data['product_mode'] = $getProductMetaData->mode;
                 $data['item_type'] = 'counter';
                 $data['status'] = 'recommended';

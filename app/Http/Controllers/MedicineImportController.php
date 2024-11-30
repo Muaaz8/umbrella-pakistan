@@ -138,10 +138,11 @@ class MedicineImportController extends Controller
         }
         $days = DB::table('medicine_days')->get();
         $units = DB::table('medicine_units')->get();
+        $subs = DB::table('products_sub_categories')->get();
         $allProducts = AllProducts::select('name as product_id', 'name','id')->where([['parent_category', 38], ['mode', 'medicine']])->get();
         $user_type = Auth::user()->user_type;
         if($user_type == 'admin_pharm'){
-            return view('dashboard_Pharm_admin.Medicine.view_medicine', compact('data','days','units','allProducts','data1'));
+            return view('dashboard_Pharm_admin.Medicine.view_medicine', compact('data','days','units','allProducts','data1','subs'));
         }elseif($user_type == 'editor_pharmacy'){
             return view('dashboard_Pharm_editor.Medicine.view_medicine', compact('data','days','units','allProducts','data1'));
         }
@@ -205,18 +206,12 @@ class MedicineImportController extends Controller
     {
         $user_id = Auth::user()->id;
         $input = $request->all();
-        // dd($input);
-        $medSalePrice = $input['price'];
-        $medPercentage = $input['percentage'] / 100;
-        $input['sale_price'] = floor(($medPercentage * $medSalePrice) +  $medSalePrice);
 
         $data = MedicinePricing::Create([
             'product_id' => $input['product_id'],
             'unit_id' => $input['unit_id'],
-            'days_id' => $input['days_id'],
             'price' => $input['price'],
-            'sale_price' => $input['sale_price'],
-            'percentage' => $input['percentage'],
+            'sale_price' => $input['price'],
             'created_by' => $user_id,
         ]);
 

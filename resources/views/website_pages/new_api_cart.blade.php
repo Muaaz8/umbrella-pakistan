@@ -1030,15 +1030,15 @@
                         var itemSum = res.itemSum;
                         var totalPrice = res.totalPrice;
                         $('#totalItem').text(countItem);
-                        $('#totalCast').text('$' + itemSum);
-                        $('#totalPaid').text('$' + totalPrice);
+                        $('#totalCast').text('Rs. ' + itemSum);
+                        $('#totalPaid').text('Rs. ' + totalPrice);
                         $('.payAble').val(totalPrice);
 
                         if (typeof res.providerFee == 'undefined') {
-                            $('#provider_fee').html('$0.00');
+                            $('#provider_fee').html('Rs. 0.00');
 
                         } else {
-                            $('#provider_fee').html('$' + res.providerFee);
+                            $('#provider_fee').html('Rs. ' + res.providerFee);
                         }
                     }
                 });
@@ -1063,14 +1063,14 @@
                         var itemSum = res.itemSum;
                         var totalPrice = res.totalPrice;
                         $('#totalItem').text(countItem);
-                        $('#totalCast').text('$' + itemSum);
-                        $('#totalPaid').text('$' + totalPrice);
+                        $('#totalCast').text('Rs. ' + itemSum);
+                        $('#totalPaid').text('Rs. ' + totalPrice);
                         $('.payAble').val(totalPrice);
                         if (typeof res.providerFee == 'undefined') {
-                            $('#provider_fee').html('$0.00');
+                            $('#provider_fee').html('Rs. 0.00');
 
                         } else {
-                            $('#provider_fee').html('$' + res.providerFee);
+                            $('#provider_fee').html('Rs. ' + res.providerFee);
                         }
 
                     }
