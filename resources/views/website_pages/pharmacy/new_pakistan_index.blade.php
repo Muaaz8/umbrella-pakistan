@@ -164,7 +164,7 @@
     <main>
         <div class="contact-section">
             <div class="contact-content">
-                <h1>Pharmacy</h1>
+                <h1>{{ $slug!=""?$slug:"Pharmacy" }}</h1>
                 <div class="underline3"></div>
             </div>
             <div class="custom-shape-divider-bottom-17311915372">
