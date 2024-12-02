@@ -80,7 +80,8 @@ class AllProducts extends Model
         'is_approved_by',
         'generic',
         'class',
-        'is_single'
+        'is_single',
+        'is_otc',
     ];
 
     /**

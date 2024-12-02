@@ -120,6 +120,7 @@
         var medclass = $("#medclass_"+id).text();
         var subcat = $("#sub_category_id_"+id).val();
         var is_single = $("#is_single_"+id).text();
+        var is_otc = $("#is_otc_"+id).text();
         console.log(subcat)
         $("#edit_id").val(id);
         $("#edit_product_id").val(prod_id);
@@ -131,6 +132,11 @@
             $('#edit_is_single').prop('checked',true);
         }else{
             $('#edit_is_single').prop('checked',false);
+        }
+        if (is_otc == 1){
+            $('#edit_is_otc').prop('checked',true);
+        }else{
+            $('#edit_is_otc').prop('checked',false);
         }
         $('#edit_medicine_variations').modal('show')
     });
@@ -170,13 +176,14 @@
                         $('#bodies').append('<tr id="body_'+arr.id+'"></tr>');
                         $('#body_'+arr.id).append(
                             `<td data-label="Sr_">${key}</td>
-                            <input type="hidden" name="sub_category_id" id="subcat_${arr.id}" value="${arr.sub_category}">
+                            <input type="hidden" name="sub_category_id" id="sub_category_id_${arr.id}" value="${arr.sub_category}">
                             <input type="hidden" name="prod_id" id="prod_id_${arr.id}" value="${arr.id}">
                             <td data-label="Medicine Name" id="medname_${arr.id}">${arr.name}</td>
                             <td data-label="Generic" id="medgeneric_${arr.id}">${arr.generic}</td>
                             <td data-label="Class" id="medclass_${arr.id}">${arr.class}</td>
                             <td data-label="Product Sub Category" id="${arr.id}">${arr.title}</td>
                             <td data-label="Is Single" id="is_single_${arr.id}">${arr.is_single}</td>
+                            <td data-label="Is OTC" id="is_otc_${arr.id}">${arr.is_otc}</td>
                             </td><td data-label="Actions">
                             <div class="dropdown"><button class="btn option-view-btn dropdown-toggle" type="button"
                             id="dropdownMenuButton1" data-bs-toggle="dropdown"aria-expanded="false">
@@ -227,6 +234,7 @@
                                         <th scope="col">Class</th>
                                         <th scope="col">Product Sub Category</th>
                                         <th scope="col">Is Single</th>
+                                        <th scope="col">Is OTC</th>
                                         <th scope="col">Actions</th>
                                     </tr>
                                 </thead>
@@ -241,6 +249,7 @@
                                             <td data-label="Class" id="medclass_{{$item->id}}">{{ $item->class }}</td>
                                             <td data-label="Product Sub Category" id="subcat_{{$item->id}}">{{ $item->title }}</td>
                                             <td data-label="Is Single" id="is_single_{{$item->id}}">{{ $item->is_single }}</td>
+                                            <td data-label="Is OTC" id="is_otc_{{$item->id}}">{{ $item->is_otc }}</td>
                                             <td data-label="Actions">
                                                 <div class="dropdown">
                                                     <button class="btn option-view-btn dropdown-toggle" type="button"
@@ -321,6 +330,10 @@
                                     <input type="checkbox" id="is_single" name="is_single">
                                     <label for="is_single"> Is Single </label><br>
                                 </div>
+                                <div class="col-md-6">
+                                    <input type="checkbox" id="is_otc" name="is_otc">
+                                    <label for="is_otc"> Is OTC </label><br>
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -380,6 +393,10 @@
                                 <div class="col-md-6">
                                     <input type="checkbox" id="edit_is_single" name="is_single" value="1">
                                     <label for="edit_is_single"> Is Single </label><br>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="checkbox" id="edit_is_otc" name="is_otc" value="1">
+                                    <label for="edit_is_otc"> Is OTC </label><br>
                                 </div>
                             </div>
                             <div class="modal-footer">
