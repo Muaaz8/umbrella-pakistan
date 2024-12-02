@@ -1,6 +1,6 @@
 
 
-@extends('layouts.new_web_layout')
+@extends('layouts.new_pakistan_layout')
 
 @section('meta_tags')
     <meta charset="utf-8" />
@@ -25,7 +25,7 @@
 
 <!-- forgot - Password - Modal -->
 
-  <div class="container">
+  <div class="container m-3">
     <div class="forgot-pass-modal">
      <div class="row align-items-center my-4 my-sm-0">
     		<div class="col-12 col-md-6 text-center">
@@ -59,7 +59,6 @@
                         <label for="password"
                           >Password</label
                         >
-                        <small>Error Message</small>
                         <input
                           type="password"
                           name="password"
@@ -68,14 +67,12 @@
                           id="password"
                           required
                         />
-                        <span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                       </div>
     		        {{-- <input class="form-control form-control-lg" type="password" name="password" placeholder="New Password" required> --}}
                     <div class="mb-3 login-inp abc">
                         <label for="password_confirmation"
                           >Confirm Password</label
                         >
-                        <small>Error Message</small>
                         <input
                           type="password"
                           name="password_confirmation"
@@ -84,7 +81,6 @@
                           id="password_confirmation"
                           required
                         />
-                        <span toggle="#password_confirmation" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                       </div>
     		        {{-- <input class="form-control form-control-lg" type="password" name="password_confirmation" placeholder="Confirm Password" required> --}}
                     <div class="text-right my-3">
