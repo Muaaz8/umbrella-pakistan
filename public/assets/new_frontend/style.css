@@ -191,7 +191,7 @@ header {
 .price p{
     font-weight: 600;
     z-index: 5;
-    font-size: 16px !important;
+    font-size: 12px !important;
     color: white !important;
     background: var(--blue) !important;
     padding: 5px 10px;

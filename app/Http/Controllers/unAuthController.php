@@ -78,9 +78,16 @@ class unAuthController extends Controller
     {
         if ($request->sub_cat_id != 'all') {
             $products = DB::table('tbl_products')
+                ->join('medicine_pricings', 'medicine_pricings.product_id', 'tbl_products.id')
                 ->join('products_sub_categories', 'products_sub_categories.id', 'tbl_products.sub_category')
                 ->where('tbl_products.sub_category', $request->sub_cat_id)
-                ->select('tbl_products.*', 'products_sub_categories.title as category_name', 'products_sub_categories.slug as category_slug')
+                ->select(
+                    'tbl_products.*',
+                    'products_sub_categories.title as category_name',
+                    'products_sub_categories.slug as category_slug',
+                    DB::raw('MIN(medicine_pricings.sale_price) as sale_price')
+                )
+                ->groupBy('tbl_products.id', 'products_sub_categories.title', 'products_sub_categories.slug') // group by product and category fields
                 ->limit($request->limit)
                 ->get();
 
@@ -93,10 +100,15 @@ class unAuthController extends Controller
             }
         } else {
             $products = DB::table('tbl_products')
-                ->where('tbl_products.mode', 'medicine')
+                ->join('medicine_pricings', 'medicine_pricings.product_id', 'tbl_products.id')
                 ->join('products_sub_categories', 'products_sub_categories.id', 'tbl_products.sub_category')
-                ->inRandomOrder()
-                ->select('tbl_products.*', 'products_sub_categories.title as category_name', 'products_sub_categories.slug as category_slug')
+                ->select(
+                    'tbl_products.*',
+                    'products_sub_categories.title as category_name',
+                    'products_sub_categories.slug as category_slug',
+                    DB::raw('MIN(medicine_pricings.sale_price) as sale_price')
+                )
+                ->groupBy('tbl_products.id', 'products_sub_categories.title', 'products_sub_categories.slug') // group by product and category fields
                 ->limit($request->limit)
                 ->get();
 
@@ -116,15 +128,19 @@ class unAuthController extends Controller
         // dd($request->all());
         if ($request->cat_id == 'all' && strlen($request->text) < 4) {
             $products = DB::table('tbl_products')
+                ->join('medicine_pricings', 'medicine_pricings.product_id', 'tbl_products.id')
                 ->join('products_sub_categories', 'products_sub_categories.id', 'tbl_products.sub_category')
                 ->where('tbl_products.mode', 'medicine')
-                ->where('tbl_products.sale_price', '!=', null)
                 ->where('tbl_products.medicine_type', 'prescribed')
+                ->where('tbl_products.sub_category', $request->sub_cat_id)
                 ->where('tbl_products.name', 'LIKE', $request->text . '%')
-                ->where('product_status', 1)
-                ->where('is_approved', 1)
-                ->select('tbl_products.*', 'products_sub_categories.title as category_name')
-                ->limit(12)
+                ->select(
+                    'tbl_products.*',
+                    'products_sub_categories.title as category_name',
+                    'products_sub_categories.slug as category_slug',
+                    DB::raw('MIN(medicine_pricings.sale_price) as sale_price')
+                )
+                ->groupBy('tbl_products.id', 'products_sub_categories.title', 'products_sub_categories.slug') // group by product and category fields
                 ->get();
             foreach ($products as $product) {
                 $product->short_description = strip_tags($product->short_description);
@@ -135,16 +151,19 @@ class unAuthController extends Controller
             }
         } else if ($request->cat_id != 'all' && strlen($request->text) < 4) {
             $products = DB::table('tbl_products')
+                ->join('medicine_pricings', 'medicine_pricings.product_id', 'tbl_products.id')
                 ->join('products_sub_categories', 'products_sub_categories.id', 'tbl_products.sub_category')
                 ->where('tbl_products.mode', 'medicine')
-                ->where('tbl_products.sub_category', $request->cat_id)
-                ->where('tbl_products.sale_price', '!=', null)
                 ->where('tbl_products.medicine_type', 'prescribed')
+                ->where('tbl_products.sub_category', $request->sub_cat_id)
                 ->where('tbl_products.name', 'LIKE', $request->text . '%')
-                ->where('product_status', 1)
-                ->where('is_approved', 1)
-                ->select('tbl_products.*', 'products_sub_categories.title as category_name')
-                ->limit(12)
+                ->select(
+                    'tbl_products.*',
+                    'products_sub_categories.title as category_name',
+                    'products_sub_categories.slug as category_slug',
+                    DB::raw('MIN(medicine_pricings.sale_price) as sale_price')
+                )
+                ->groupBy('tbl_products.id', 'products_sub_categories.title', 'products_sub_categories.slug') // group by product and category fields
                 ->get();
             foreach ($products as $product) {
                 $product->short_description = strip_tags($product->short_description);
@@ -155,15 +174,18 @@ class unAuthController extends Controller
             }
         } else if ($request->cat_id == 'all' && strlen($request->text) >= 4) {
             $products = DB::table('tbl_products')
+                ->join('medicine_pricings', 'medicine_pricings.product_id', 'tbl_products.id')
                 ->join('products_sub_categories', 'products_sub_categories.id', 'tbl_products.sub_category')
                 ->where('tbl_products.mode', 'medicine')
-                ->where('tbl_products.sale_price', '!=', null)
                 ->where('tbl_products.medicine_type', 'prescribed')
-                ->where('tbl_products.name', 'LIKE', '%' . $request->text . '%')
-                ->where('product_status', 1)
-                ->where('is_approved', 1)
-                ->select('tbl_products.*', 'products_sub_categories.title as category_name')
-                ->limit(12)
+                ->where('tbl_products.name', 'LIKE', $request->text . '%')
+                ->select(
+                    'tbl_products.*',
+                    'products_sub_categories.title as category_name',
+                    'products_sub_categories.slug as category_slug',
+                    DB::raw('MIN(medicine_pricings.sale_price) as sale_price')
+                )
+                ->groupBy('tbl_products.id', 'products_sub_categories.title', 'products_sub_categories.slug') // group by product and category fields
                 ->get();
             foreach ($products as $product) {
                 $product->short_description = strip_tags($product->short_description);
@@ -174,14 +196,18 @@ class unAuthController extends Controller
             }
         } else if ($request->cat_id != 'all' && strlen($request->text) >= 4) {
             $products = DB::table('tbl_products')
+                ->join('medicine_pricings', 'medicine_pricings.product_id', 'tbl_products.id')
                 ->join('products_sub_categories', 'products_sub_categories.id', 'tbl_products.sub_category')
                 ->where('tbl_products.mode', 'medicine')
-                ->where('tbl_products.sub_category', $request->cat_id)
-                ->where('tbl_products.sale_price', '!=', null)
                 ->where('tbl_products.medicine_type', 'prescribed')
-                ->where('tbl_products.name', 'LIKE', '%' . $request->text . '%')
-                ->select('tbl_products.*', 'products_sub_categories.title as category_name')
-                ->limit(12)
+                ->where('tbl_products.name', 'LIKE', $request->text . '%')
+                ->select(
+                    'tbl_products.*',
+                    'products_sub_categories.title as category_name',
+                    'products_sub_categories.slug as category_slug',
+                    DB::raw('MIN(medicine_pricings.sale_price) as sale_price')
+                )
+                ->groupBy('tbl_products.id', 'products_sub_categories.title', 'products_sub_categories.slug') // group by product and category fields
                 ->get();
             foreach ($products as $product) {
                 $product->short_description = strip_tags($product->short_description);

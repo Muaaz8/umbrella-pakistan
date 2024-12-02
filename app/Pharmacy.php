@@ -176,20 +176,32 @@ class Pharmacy extends Model
                 ->where('slug', '=', $slug)
                 ->get();
             $cat_id = $get_cat_id[0]->id;
-            $data = DB::table($this->tbl_Products)
-                ->leftJoin('product_categories', 'tbl_products.parent_category', '=', 'product_categories.id')
-                ->leftJoin('products_sub_categories', 'tbl_products.sub_category', '=', 'products_sub_categories.id')
+            // $data = DB::table($this->tbl_Products)
+            //     ->leftJoin('product_categories', 'tbl_products.parent_category', '=', 'product_categories.id')
+            //     ->leftJoin('products_sub_categories', 'tbl_products.sub_category', '=', 'products_sub_categories.id')
+            //     ->select(
+            //         'tbl_products.*',
+            //         'product_categories.name as main_category_name',
+            //         'product_categories.slug as main_category_slug',
+            //         'products_sub_categories.title as sub_category_name',
+            //         'products_sub_categories.slug as sub_category_slug'
+            //     )
+            //     ->whereRaw("find_in_set('$cat_id',`sub_category`)")
+            //     ->where('product_status', 1)
+            //     ->where('is_approved', 1)
+            //     ->orderBy('name', 'asc')
+            //     ->paginate(12);
+            $data = DB::table('tbl_products')
+                ->join('products_sub_categories', 'products_sub_categories.id', 'tbl_products.sub_category')
+                ->join('medicine_pricings', 'medicine_pricings.product_id', 'tbl_products.id')
                 ->select(
                     'tbl_products.*',
-                    'product_categories.name as main_category_name',
-                    'product_categories.slug as main_category_slug',
                     'products_sub_categories.title as sub_category_name',
-                    'products_sub_categories.slug as sub_category_slug'
+                    'products_sub_categories.slug as sub_category_slug',
+                    DB::raw('MIN(medicine_pricings.sale_price) as sale_prices')
                 )
                 ->whereRaw("find_in_set('$cat_id',`sub_category`)")
-                ->where('product_status', 1)
-                ->where('is_approved', 1)
-                ->orderBy('name', 'asc')
+                ->groupBy('tbl_products.id', 'products_sub_categories.title', 'products_sub_categories.slug') // group by product and category fields
                 ->paginate(12);
                 foreach ($data as $key => $product) {
                     $product->featured_image = \App\Helper::check_bucket_files_url($product->featured_image);
@@ -338,27 +350,35 @@ class Pharmacy extends Model
                 ->paginate(12);
             //dd($data);
         } else {
-            $data = DB::table($this->tbl_Products)
-                ->leftJoin('product_categories', 'tbl_products.parent_category', '=', 'product_categories.id')
-                ->leftJoin('products_sub_categories', 'tbl_products.sub_category', '=', 'products_sub_categories.id')
+            // $data = DB::table($this->tbl_Products)
+            //     ->leftJoin('product_categories', 'tbl_products.parent_category', '=', 'product_categories.id')
+            //     ->leftJoin('products_sub_categories', 'tbl_products.sub_category', '=', 'products_sub_categories.id')
+            //     ->join('medicine_pricings', 'medicine_pricings.product_id', 'tbl_products.id')
+            //     ->select(
+            //         'tbl_products.*',
+            //         'product_categories.name as main_category_name',
+            //         'product_categories.slug as main_category_slug',
+            //         'products_sub_categories.title as sub_category_name',
+            //         'products_sub_categories.slug as sub_category_slug',
+            //         DB::raw('"tbl_products" as tbl_name'),
+            //         DB::raw('MIN(medicine_pricings.sale_price) as sale_price')
+            //     )
+            //     ->where('mode', $modeType)
+            //     ->where('product_status', 1)
+            //     ->where('is_approved', 1)
+            //     ->orderBy('name', 'asc')
+            //     ->paginate(12);
+
+                $data = DB::table('tbl_products')
+                ->join('products_sub_categories', 'products_sub_categories.id', 'tbl_products.sub_category')
+                ->join('medicine_pricings', 'medicine_pricings.product_id', 'tbl_products.id')
                 ->select(
                     'tbl_products.*',
-                    'product_categories.name as main_category_name',
-                    'product_categories.slug as main_category_slug',
                     'products_sub_categories.title as sub_category_name',
                     'products_sub_categories.slug as sub_category_slug',
-                    DB::raw('"tbl_products" as tbl_name')
+                    DB::raw('MIN(medicine_pricings.sale_price) as sale_prices')
                 )
-                ->where('mode', $modeType)
-                ->where('product_status', 1)
-                ->where('is_approved', 1)
-                ->when($modeType == 'lab-test', function ($query) {
-                    return $query->where([['sale_price', '!=', '0'], ['tags', '!=', ""]]);
-                })
-                ->when($modeType == 'substance-abuse', function ($query) {
-                    return $query->where([['parent_category', '!=', "15"]]);
-                })
-                ->orderBy('name', 'asc')
+                ->groupBy('tbl_products.id', 'products_sub_categories.title', 'products_sub_categories.slug') // group by product and category fields
                 ->paginate(12);
                 foreach ($data as $product) {
                     $product->short_description = strip_tags($product->short_description);

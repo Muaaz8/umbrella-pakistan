@@ -78,6 +78,9 @@
                                 <div class="prescription">
                                     <p style="background: red">prescription required</p>
                                 </div>
+                                <div class="price">
+                                    <p>Rs: ${value.sale_price}</p>
+                                </div>
                                 <div class="med-img"><img src="${value.featured_image?value.featured_image:'assets/new_frontend/panadol2.png'}" alt="img"></div>
                                 <h4 class="truncate m-0 p-0" title="${value.name}">${value.name}</h4>
                                 <h6 class="truncate m-0 p-0">${value.category_name}</h6>
@@ -132,6 +135,9 @@
                             `<div class="card">
                                 <div class="prescription">
                                     <p style="background: red">prescription required</p>
+                                </div>
+                                <div class="price">
+                                    <p>Rs: ${value.sale_price}</p>
                                 </div>
                                 <div class="med-img"><img src="${value.featured_image?value.featured_image:'assets/new_frontend/panadol2.png'}" alt="img"></div>
                                 <h4 class="truncate m-0 p-0" title="${value.name}">${value.name}</h4>
@@ -248,6 +254,9 @@
                         <div class="card">
                             <div class="prescription">
                                 <p style="background: red">prescription required</p>
+                            </div>
+                            <div class="price">
+                                <p>Rs: {{ $item->sale_prices}}</p>
                             </div>
                             <div class="med-img"><img src="{{ $item->featured_image?$item->featured_image:asset('assets/new_frontend/panadol2.png') }}" alt="img"></div>
                             <h4 class="truncate m-0 p-0">{{ $item->name }}</h4>
