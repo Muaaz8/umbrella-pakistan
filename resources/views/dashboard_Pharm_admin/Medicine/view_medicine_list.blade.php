@@ -165,25 +165,25 @@
             $('#pag').html('');
             $.each(array, function(key, arr) {
                 if ((arr.id != null && arr.id.toString().match(val)) || (arr.name != null &&
-                        arr.name.toString().match(val))) {
+                arr.name.toString().match(val))) {
+                        console.log(arr);
                         $('#bodies').append('<tr id="body_'+arr.id+'"></tr>');
                         $('#body_'+arr.id).append(
                             `<td data-label="Sr_">${key}</td>
+                            <input type="hidden" name="sub_category_id" id="subcat_${arr.id}" value="${arr.sub_category}">
                             <input type="hidden" name="prod_id" id="prod_id_${arr.id}" value="${arr.id}">
                             <td data-label="Medicine Name" id="medname_${arr.id}">${arr.name}</td>
-                            <td data-label="Generic" id="medname_${arr.id}">${arr.generic}</td>
-                            <td data-label="Class" id="medname_${arr.id}">${arr.class}</td>
-                            <td data-label="Product Sub Category" id="subcat_${arr.id}">${arr.title}</td>
-                            <td data-label="Is Single" id="is_single_${arr.id}">${arr.is_single}</td>`
+                            <td data-label="Generic" id="medgeneric_${arr.id}">${arr.generic}</td>
+                            <td data-label="Class" id="medclass_${arr.id}">${arr.class}</td>
+                            <td data-label="Product Sub Category" id="${arr.id}">${arr.title}</td>
+                            <td data-label="Is Single" id="is_single_${arr.id}">${arr.is_single}</td>
+                            </td><td data-label="Actions">
+                            <div class="dropdown"><button class="btn option-view-btn dropdown-toggle" type="button"
+                            id="dropdownMenuButton1" data-bs-toggle="dropdown"aria-expanded="false">
+                            OPTIONS</button><ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item edit"id="${arr.id}">Edit</a></li><li><a class="dropdown-item delete"
+                            id="${arr.product_id}">Delete</a></li></ul></div></td></tr>`
                         );
-
-
-                        $('#body_'+arr.id).append('</td><td data-label="Actions">'
-                            +'<div class="dropdown"><button class="btn option-view-btn dropdown-toggle" type="button"'
-                            +'id="dropdownMenuButton1" data-bs-toggle="dropdown"aria-expanded="false">'
-                            +'OPTIONS</button><ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">'
-                            +'<li><a class="dropdown-item edit"id="'+arr.id+'">Edit</a></li><li><a class="dropdown-item delete"'
-                            +'id="'+arr.product_id+'">Delete</a></li></ul></div></td>');
                 }
             });
         }

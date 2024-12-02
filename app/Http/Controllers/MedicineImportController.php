@@ -161,6 +161,7 @@ class MedicineImportController extends Controller
             ->leftJoin('products_sub_categories', 'tbl_products.sub_category', '=', 'products_sub_categories.id')
             ->orderBy('tbl_products.name', 'asc')
             ->where('mode', 'medicine')
+            ->select('tbl_products.*', 'products_sub_categories.title')
             ->get()
             ->toArray();
 

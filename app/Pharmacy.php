@@ -379,6 +379,9 @@ class Pharmacy extends Model
                     DB::raw('MIN(medicine_pricings.sale_price) as sale_prices')
                 )
                 ->groupBy('tbl_products.id', 'products_sub_categories.title', 'products_sub_categories.slug') // group by product and category fields
+                ->where('product_status', 1)
+                ->where('is_approved', 1)
+                ->orderBy('name', 'asc')
                 ->paginate(12);
                 foreach ($data as $product) {
                     $product->short_description = strip_tags($product->short_description);
