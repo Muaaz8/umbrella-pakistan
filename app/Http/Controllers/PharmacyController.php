@@ -12,6 +12,7 @@ use Flash;
 use App\ImagingOrder;
 use App\ImagingPrices;
 use App\LabOrder;
+use App\Mail\AdviyatOrderEmail;
 use App\Mail\OrderConfirmationEmail;
 use App\Models\AllProducts;
 use App\Models\TblTransaction;
@@ -1456,14 +1457,7 @@ class PharmacyController extends Controller
                         Mail::to($shippingEmail)->send(new OrderConfirmationEmail($order_cart_items, $userDetails));
                     }
                      Mail::to($u->email)->send(new OrderConfirmationEmail($order_cart_items, $userDetails));
-                }else{
-                    DB::table('emails_to_be_sent')->insert([
-                        'reciever_id' => $u->id,
-                        'template_name' => 'patientOrderPlace',
-                        'markdowndata' => serialize($userDetails),
-                        'order_cart_item' => serialize($order_cart_items),
-                        'status' => 'pending',
-                    ]);
+                     Mail::to(env('ADVIYAT_EMAIL'))->send(new AdviyatOrderEmail($order_cart_items, $userDetails));
                 }
 
 
@@ -1529,12 +1523,6 @@ class PharmacyController extends Controller
                         'appoint_id' => 'null',
                         'refill_id' => 'null',
                 ];
-                try {
-
-                    // \App\Helper::firebase($u->id,'notification',$notification_id->id,$data);
-                } catch (\Throwable $th) {
-                    //throw $th;
-                }
                 }
                 if($u->id==Auth::user()->id)
                 {

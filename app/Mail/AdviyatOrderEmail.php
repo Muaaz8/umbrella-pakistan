@@ -11,16 +11,17 @@ use Illuminate\Support\Facades\DB;
 class AdviyatOrderEmail extends Mailable
 {
     use Queueable, SerializesModels;
-    public $id;
-
+    public $data;
+    public $userDetails;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($id)
+    public function __construct($data,$userDetails)
     {
-        $this->id = $id;
+        $this->data=$data;
+        $this->userDetails=$userDetails;
     }
 
     /**
@@ -30,11 +31,13 @@ class AdviyatOrderEmail extends Mailable
      */
     public function build()
     {
-        $data = DB::table('tbl_orders')
-            ->join('medicine_order','medicine_order.order_main_id','tbl_orders.order_id')
-            ->where('tbl_orders.id',$this->id)
+        $data = DB::table('tbl_cart')
+            ->join('tbl_products', 'tbl_products.id','tbl_cart.product_id')
+            ->where('tbl_cart.user_id', auth()->user()->id)
+            ->where('show_product', '1')
+            ->where('status', 'recommended')
+            ->select('tbl_cart.*','tbl_products.generic','tbl_products.is_single')
             ->get();
-        dd($data);
-        return $this->view('emails.adviyatEmail');
+        return $this->view('emails.adviyatEmail',compact('data'));
     }
 }

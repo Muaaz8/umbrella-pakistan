@@ -125,24 +125,26 @@
                     <thead>
                         <tr>
                             <th>Medicine Name</th>
-                            <th>Category</th>
+                            {{-- <th>Generic</th> --}}
                             <th>Quantity</th>
                             <th>Price</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Paracetamol 500mg</td>
-                            <td>Pain Relief</td>
-                            <td>2</td>
-                            <td>$10.00</td>
-                        </tr>
-                        <tr>
-                            <td>Ibuprofen 200mg</td>
-                            <td>Anti-inflammatory</td>
-                            <td>1</td>
-                            <td>$5.00</td>
-                        </tr>
+                        @php
+                            $total_price = 0;
+                        @endphp
+                        @foreach($data as $dt)
+                            @php
+                                $total_price += $dt->update_price;
+                            @endphp
+                            <tr>
+                                <td>{{ $dt->name }}</td>
+                                {{-- <td>{{ $dt->generic }}</td> --}}
+                                <td>{{ $dt->quantity }}</td>
+                                <td>Rs. {{ $dt->update_price }}</td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </td>
@@ -151,21 +153,21 @@
         <tr>
             <td class="price-breakdown">
                 <table>
-                    <tr>
+                    {{-- <tr>
                         <td class="label">Tax:</td>
                         <td class="amount">$1.50</td>
                     </tr>
                     <tr>
                         <td class="label">Discount:</td>
                         <td class="amount">-$5.00</td>
-                    </tr>
+                    </tr> --}}
                     <tr>
                         <td class="label">Total Price:</td>
-                        <td class="amount">$25.00</td>
+                        <td class="amount">Rs. {{ $total_price }}</td>
                     </tr>
                     <tr class="total">
                         <td class="label"><strong>Grand Total:</strong></td>
-                        <td class="amount"><strong>$21.50</strong></td>
+                        <td class="amount"><strong>Rs. {{ $total_price }}</strong></td>
                     </tr>
                 </table>
             </td>
