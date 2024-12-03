@@ -21,6 +21,7 @@ use App\Events\DoctorJoinedVideoSession;
 use Spatie\Sitemap\SitemapGenerator;
 use Illuminate\Http\Request;
 use Twilio\Rest\Client;
+use App\Mail\AdviyatOrderEmail;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,6 +39,12 @@ Route::get('sitemap', function () {
     return "sitemap created";
 });
 
+Route::get('testing/mail',function(){
+    // Mail::to('adviyat@yopmail.com')->send(new AdviyatOrderEmail());
+    Mail::to('muaazmuhammad298@gmail.com')->send(new AdviyatOrderEmail(62));
+    dd('ok');
+});
+
 Route::get('/app_pat_video/{id}',function($id){
     $session = DB::table('sessions')->where('id',$id)->first();
     return view('dashboard_patient.Video.app_video',compact('session'));
@@ -47,17 +54,17 @@ Route::get('/app_doc_video/{id}',function($id){
     return view('dashboard_doctor.Video.app_video',compact('session'));
 });
 
-Route::get('/seed',function(){
-    for($i=1; $i<=7; $i++){
-        DB::table('section')->insert([
-            'page_id'=> 1,
-            'section_name'=> 'box-'.$i,
-            'sequence_no'=> 1,
-            'created_at'=>now(),
-            'updated_at'=>now(),
-        ]);
-    }
-});
+// Route::get('/seed',function(){
+//     for($i=1; $i<=7; $i++){
+//         DB::table('section')->insert([
+//             'page_id'=> 1,
+//             'section_name'=> 'box-'.$i,
+//             'sequence_no'=> 1,
+//             'created_at'=>now(),
+//             'updated_at'=>now(),
+//         ]);
+//     }
+// });
 
 Route::get('/doctor-profile/{id}',function($id){
     // $doctor_details = DB::table('users')

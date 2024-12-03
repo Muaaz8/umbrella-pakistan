@@ -76,7 +76,7 @@
                         $('#loadSearchPharmacyItemByCategory').append(
                             `<div class="card">
                                 <div class="prescription">
-                                    <p style="background: red">prescription required</p>
+                                    <p style="background: ${value.is_otc==1?'green':'red'}">${value.is_otc==1?'over the counter':'prescription required'}</p>
                                 </div>
                                 <div class="price">
                                     <p>Rs: ${value.sale_price}</p>
@@ -134,7 +134,7 @@
                         $('#loadSearchPharmacyItemByCategory').append(
                             `<div class="card">
                                 <div class="prescription">
-                                    <p style="background: red">prescription required</p>
+                                    <p style="background: ${value.is_otc==1?'green':'red'}">${value.is_otc==1?'over the counter':'prescription required'}</p>
                                 </div>
                                 <div class="price">
                                     <p>Rs: ${value.sale_price}</p>
@@ -253,7 +253,7 @@
                     @foreach ($data['products'] as $item)
                         <div class="card">
                             <div class="prescription">
-                                <p style="background: red">prescription required</p>
+                                <p style="background: {{ $item->is_otc==1?'green':'red'}}">{{$item->is_otc==1?'over the counter':'prescription required'}}</p>
                             </div>
                             <div class="price">
                                 <p>Rs: {{ $item->sale_prices}}</p>

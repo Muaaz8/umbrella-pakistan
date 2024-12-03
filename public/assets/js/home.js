@@ -39,7 +39,7 @@ function getPharmacyProductByCategory(sub_cat_id,limit)
                     $('#load_pharmacy_item_by_category').append(
                         `<div class="card">
                                 <div class="prescription">
-                                    <p style="background: red">prescription required</p>
+                                    <p style="background: ${value.is_otc==1?'green':'red'}">${value.is_otc==1?'over the counter':'prescription required'}</p>
                                 </div>
                                 <div class="price">
                                     <p>Rs: ${value.sale_price}</p>
