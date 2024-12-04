@@ -85,13 +85,9 @@ $page = DB::table('pages')->where('url', '/')->first();
                 <div class="underline"></div>
             </div>
             <div class="footer-content">
-                <div class="footer-highlight">
-                    <i class="fa-solid fa-location-dot"></i>
-                    <a href="#" data-bs-toggle="modal" data-bs-target="#locationModal">Find Location</a>
-                </div>
-                <p>contact@communityhealthcareclinics.com</p>
-                <p>support@communityhealthcareclinics.com</p>
-                <p>Progressive Center, Main Shahrah Faisal, Karachi</p>
+                <p class="d-flex align-items-center"><i class="fa-solid mx-2 fa-envelope"></i> <span>contact@communityhealthcareclinics.com</span></p>
+                <p class="d-flex align-items-center"><i class="fa-solid mx-2 fa-envelope"></i> <span>support@communityhealthcareclinics.com</span></p>
+                <p class="d-flex align-items-center"><i class="fa-solid mx-2 fa-location-dot"></i>  <span>Progressive Center, Main Shahrah Faisal, Karachi</span></p>
             </div>
         </div>
         <div id="footer-3" class="footer">
