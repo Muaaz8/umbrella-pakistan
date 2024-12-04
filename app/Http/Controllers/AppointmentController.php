@@ -926,25 +926,11 @@ class AppointmentController extends Controller
         $provider_name = $pro_name_data[0]->name . " " . $pro_name_data[0]->last_name;
         $appoint_data_time = $datetime['datetime'];
 
-
-        //dd($appoint_data_time);
-
         $firstReminder = date('Y-m-d H:i:s', (strtotime('-1 day', strtotime($appoint_data_time))));
         $timestamp = strtotime($appoint_data_time);
         $time = $timestamp - (15 * 60);
 
         $secondReminder = date("Y-m-d H:i:s", $time);
-        // $appoint = Appointment::where('doctor_id',$data['provider'])->where('date',$date)->where('time',$p_s_Time)->get();
-        // if($appoint!=[[]])
-        // {
-        //     return response()->json([$appoint]);
-        // }
-        // $problems = '';
-        // for ($i = 0; $i < count($data['problem']); $i++) {
-        //     $problems = $problems . $data['problem'][$i] . ',' ;
-        // }
-        //  dd($problems);
-
         $new_app_id;
         $randNumber=rand(11,99);
         $getLastAppId = DB::table('appointments')->orderBy('id', 'desc')->first();
@@ -974,78 +960,22 @@ class AppointmentController extends Controller
             'reminder_two' => $secondReminder,
             'appointment_id' => $new_app_id,
         ])->id;
-        //$semtem=explode(" ",$data['problem']);
-        $headache = 0;
-        $flu = 0;
-        $fever = 0;
-        $nausea = 0;
-        $others = 0;
-        // $temp = $problems;
-        // foreach ($data['problem'] as $prob) {
-        //     if ($prob == 'headache') {
-        //         $headache = 1;
-        //         $temp = $temp . $prob . ",";
-        //     }
-        //     if ($prob == 'flu') {
-        //         $flu = 1;
-        //         $temp = $temp . $prob . ",";
-        //     }
-        //     if ($prob == 'fever') {
-        //         $fever = 1;
-        //         $temp = $temp . $prob . ",";
-        //     }
-        //     if ($prob == 'nausea') {
-        //         $nausea = 1;
-        //         $temp = $temp . $prob . ",";
-        //     }
-        //     if ($prob == 'others') {
-        //         $others = 1;
-        //         $temp = $temp . $prob . ",";
-        //     }
-        // }
-        // $symp = Symptom::create([
-        //     'patient_id' => $patient_id,
-        //     'doctor_id' => $pro_id,
-        //     'headache' => $headache,
-        //     'flu' => $flu,
-        //     'fever' => $fever,
-        //     'nausea' => $nausea,
-        //     'others' => $others,
-        //     'symptoms_text' => $temp,
-        //     'description' => 'NaN',
-        //     'status' => 'pending'
-        // ]);
-        // $symp->save();
-        // $temp = explode(',',$temp);
-        // array_pop($temp);
-        // $sym = IsabelController::proquery($temp);
-        // if($sym != "Invalid Authentication."){
-        //     $pro_sym = IsabelController::getsymptoms($sym,$request->Pregnancy);
-        //     $isabel_symp_id = DB::table('isabel_session_diagnosis')->insertGetId([
-        //         'triage_api_url' => $pro_sym->triage_api_url,
-        //         'diagnoses' => serialize($pro_sym->diagnoses),
-        //     ]);
-        // }else{
-        //     $isabel_symp_id = 0;
-        // }
-
 
         $check_session_already_have = DB::table('sessions')
             ->where('doctor_id', $pro_id)
             ->where('patient_id', $patient_id)
             ->where('specialization_id', $request->spec_id)
             ->count();
-        // dd($request->spec_id);
         $session_price = "";
         if ($check_session_already_have > 0) {
-            $session_price_get = DB::table('specalization_price')->where('spec_id', $request->spec_id)->where('state_id', auth()->user()->state_id)->first();
+            $session_price_get = DB::table('specalization_price')->where('spec_id', $request->spec_id)->first();
             if ($session_price_get->follow_up_price != null) {
                 $session_price = $session_price_get->follow_up_price;
             } else {
                 $session_price = $session_price_get->initial_price;
             }
         } else {
-            $session_price_get = DB::table('specalization_price')->where('spec_id', $request->spec_id)->where('state_id', auth()->user()->state_id)->first();
+            $session_price_get = DB::table('specalization_price')->where('spec_id', $request->spec_id)->first();
             // dd($session_price_get);
             $session_price = $session_price_get->initial_price;
         }
