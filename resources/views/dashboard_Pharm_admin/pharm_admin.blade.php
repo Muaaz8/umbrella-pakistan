@@ -8,7 +8,7 @@
 @endsection
 
 @section('page_title')
-    <title>UHCS - Pharmacy Admin Dashboard</title>
+    <title>Pharmacy Admin Dashboard</title>
 @endsection
 
 @section('top_import_file')
@@ -26,8 +26,8 @@
                     <div class="card first-card-wrap">
                         <div class="card-body">
                             <div class="first-card-content">
-                                <h1>Umbrella Health Care Systems</h1>
-                                <p>Welcome to Umbrella Health Care Systems</p>
+                                <h1>Community Health Care Clinics</h1>
+                                <p>Welcome to Community Health Care Clinics</p>
                             </div>
                             <div class="first-card-img-div">
                                 <img src="assets/images/logo.png" alt=""  height="auto" width="200">

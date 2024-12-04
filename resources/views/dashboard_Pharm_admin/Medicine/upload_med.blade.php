@@ -8,7 +8,7 @@
 @endsection
 
 @section('page_title')
-    <title>UHCS - Pharmacy Admin Dashboard</title>
+    <title>Pharmacy Admin Dashboard</title>
 @endsection
 
 @section('top_import_file')
@@ -28,7 +28,7 @@
           <div class="row m-auto">
               <div class="d-flex align-items-baseline justify-content-between flex-wrap p-0">
                   <div>
-                    <h3>Upload RxOutreach Medicine</h3>
+                    <h3>Upload Medicines</h3>
                   </div>
                   <div class="col-md-4 p-0">
                     <div class="input-group justify-content-end">
