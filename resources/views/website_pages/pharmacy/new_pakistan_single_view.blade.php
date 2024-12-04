@@ -112,7 +112,11 @@
                     <div class="col-md-4">
                     <form action="#" method="post" onsubmit="return false;">
                         @csrf
-                        <input type="hidden" name="pro_id" id="product_id" value="{{$products[0]->id}}">
+                        <input type="hidden" name="pro_id" id="product_id" value="{{ $products[0]->id }}">
+                            <div class="d-flex justify-content-between">
+                                <label for="Price" class="form-label fw-bold"><u>Price</u></label>
+                                <label for="Price" class="form-label fw-bold" id="price">Rs. {{ $products[0]->units[0]->sale_price }}</label>
+                            </div>
                             <div>
                                 <label for="quantity" class="form-label fw-bold"><u>Quantity</u></label>
                                 <div class="input-group">
@@ -151,8 +155,9 @@
                                 <div class="col-lg-12 col-md-12 mb-2">
                                     <select id="strength" class="form-select w-100 h-100" name="unit">
                                         @foreach ($products[0]->units as $item)
-                                            <option value="{{ $item->id }}">{{ $item->unit!="-"?$item->unit:'' }} (Rs.
-                                                {{ $item->sale_price }})</option>
+                                            <option value="{{ $item->id }}" data-sale-price="{{ $item->sale_price }}">{{ $item->unit!="-"?$item->unit:'' }} (Rs.
+                                                {{ $item->sale_price }})
+                                            </option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -253,6 +258,15 @@
     </div>
 
     <script>
+
+        document.getElementById('strength').addEventListener('change', function() {
+            var strenght = $('#strength').val();
+            const selectedOption = this.options[this.selectedIndex];
+            const salePrice = selectedOption.dataset.salePrice;
+            var price = salePrice*quantityInput.value;
+            $('#price').html("Rs. "+price);
+        });
+
         const quantityInput = document.getElementById('quantity');
         const incrementButton = document.getElementById('increment');
         const decrementButton = document.getElementById('decrement');
@@ -261,6 +275,7 @@
         radioButtons.forEach(radio => {
             radio.addEventListener('change', (event) => {
                 quantityInput.value = event.target.value;
+                document.getElementById('strength').dispatchEvent(new Event('change'));
             });
         });
 
@@ -274,6 +289,7 @@
             const currentValue = parseInt(quantityInput.value, 10);
             quantityInput.value = currentValue + 1;
             deselectRadioButtons();
+            document.getElementById('strength').dispatchEvent(new Event('change'));
         });
 
         decrementButton.addEventListener('click', () => {
@@ -281,7 +297,9 @@
             if (currentValue > 1) {
                 quantityInput.value = currentValue - 1;
                 deselectRadioButtons();
+                document.getElementById('strength').dispatchEvent(new Event('change'));
             }
         });
+
     </script>
 @endsection
