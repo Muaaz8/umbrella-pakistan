@@ -616,6 +616,21 @@ header {
   padding: 10px 0px 20px 0px;
 }
 
+.cart-count{
+    position: absolute;
+    top: -45%;
+    right: -50%;
+    background: var(--red);
+    color: white;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .e-visit-content {
   display: flex;
   align-items: center;
