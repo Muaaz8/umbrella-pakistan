@@ -189,7 +189,7 @@
                             id="dropdownMenuButton1" data-bs-toggle="dropdown"aria-expanded="false">
                             OPTIONS</button><ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                             <li><a class="dropdown-item edit"id="${arr.id}">Edit</a></li><li><a class="dropdown-item delete"
-                            id="${arr.product_id}">Delete</a></li></ul></div></td></tr>`
+                            id="${arr.id}">Delete</a></li></ul></div></td></tr>`
                         );
                 }
             });
