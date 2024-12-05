@@ -72,8 +72,11 @@
                 <i class="fa-brands fa-whatsapp"></i>
                 <a href="https://wa.me/923372350684" target="_blank">0337-2350684</a>
               </button>
-            <div onclick="window.location.href='{{ url('/my/cart') }}'">
+            <div class="position-relative" onclick="window.location.href='{{ url('/my/cart') }}'">
               <img src="{{ asset('assets/new_frontend/purchase-icon.svg') }}" alt="shop-icon" />
+                <div class="cart-count">
+                    <span> 10 </span>
+                </div>
             </div>
           </div>
           <div class="hamburger_container" onclick="toggleDrawer()">
