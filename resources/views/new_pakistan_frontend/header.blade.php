@@ -74,9 +74,11 @@
               </button>
             <div class="position-relative" onclick="window.location.href='{{ url('/my/cart') }}'">
               <img src="{{ asset('assets/new_frontend/purchase-icon.svg') }}" alt="shop-icon" />
+              @if (Auth::check())
                 <div class="cart-count">
-                    <span> 10 </span>
+                    <span>{{ app('item_count_cart_responsive') }}</span>
                 </div>
+              @endif
             </div>
           </div>
           <div class="hamburger_container" onclick="toggleDrawer()">

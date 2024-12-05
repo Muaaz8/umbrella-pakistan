@@ -81,6 +81,7 @@
                                                 </div>
                                                 <h4 class="truncate" title="${value.TEST_NAME}">${value.TEST_NAME}</h4>
                                                 <p class="truncate-overflow">${value.DETAILS}</p>
+                                                <div class="test-card-price">Rs. ${value.SALE_PRICE}</div>
                                                 <button class="learn_btn" data-bs-toggle="modal" data-bs-target="#loginModal" type="button">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
                                             </div>
                                         </div>`
@@ -98,6 +99,7 @@
                                                 </div>
                                                 <h4 class="truncate" title="${value.TEST_NAME}">${value.TEST_NAME}</h4>
                                                 <p class="truncate-overflow">${value.DETAILS}</p>
+                                                <div class="test-card-price">Rs. ${value.SALE_PRICE}</div>
                                                 <button class="learn_btn ${value.TEST_CD} ${mode}" onclick="addedItem(this)" type="button">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
                                             </div>
                                         </div>`
@@ -151,6 +153,7 @@
                                                 </div>
                                                 <h4 class="truncate" title="${value.TEST_NAME}">${value.TEST_NAME}</h4>
                                                 <p class="truncate-overflow">${value.DETAILS}</p>
+                                                <div class="test-card-price">Rs. ${value.SALE_PRICE}</div>
                                                 <button class="learn_btn" data-bs-toggle="modal" data-bs-target="#loginModal" type="button">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
                                             </div>
                                         </div>`
@@ -168,6 +171,7 @@
                                                 </div>
                                                 <h4 class="truncate" title="${value.TEST_NAME}">${value.TEST_NAME}</h4>
                                                 <p class="truncate-overflow">${value.DETAILS}</p>
+                                                <div class="test-card-price">Rs. ${value.SALE_PRICE}</div>
                                                 <button class="learn_btn ${value.TEST_CD} ${mode}" onclick="addedItem(this)" type="button">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
                                             </div>
                                         </div>`
@@ -267,7 +271,7 @@
 
 
 
-                <div class="tests-container" id="loadSearchPharmacyItemByCategory">
+                <div class="tests-container w-100" id="loadSearchPharmacyItemByCategory">
                     @foreach ($data['products'] as $item)
                         <div class="tests-card">
                             <div class="test-card-content">
@@ -278,6 +282,7 @@
                                 </div>
                                 <h4 class="truncate">{{ $item->name }}</h4>
                                 <p class="truncate-overflow">{!! strip_tags($item->short_description) !!}</p>
+                                <div class="test-card-price">Rs. {{ $item->sale_price }}</div>
                                 @if (Auth::check())
                                     <button class="learn_btn {{ $item->id }} lab-test" onclick="addedItem(this)">Add To Cart
                                         <i class="fa-solid fa-cart-shopping mx-2"></i>

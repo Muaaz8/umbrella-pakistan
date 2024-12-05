@@ -31,7 +31,7 @@ class CountCartItem implements ShouldBroadcast
         $item_count=DB::table('tbl_cart')
             ->where('user_id',$this->user_id)
             ->where('status','recommended')
-            ->sum('quantity');
+            ->count('id');
 
         return [
             "user_id"=>$this->user_id,

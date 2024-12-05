@@ -33,9 +33,9 @@
 
 @section('page_title')
     @if ($title != null)
-        <title>{{ $title->content }} | Umbrellamd.com</title>
+        <title>{{ $title->content }} </title>
     @else
-        <title>Umbrellamd.com</title>
+        <title>Community Health Care Clinics</title>
     @endif
 @endsection
 

@@ -60,8 +60,8 @@
             var user_id = "{{ Auth::user()->id ?? '0' }}";
             if (e.user_id == user_id) {
                 $('#afterLogin').modal('show');
-                $('#cart_counter').text(e.cart_conunt);
-                $('#cart_counter_res').text(e.cart_conunt);
+                $('.cart-count').text(e.cart_conunt);
+                // $('#cart_counter_res').text(e.cart_conunt);
             }
         });
     Echo.channel('events')

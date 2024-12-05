@@ -56,9 +56,9 @@
 
 @section('page_title')
     @if ($title != null)
-        <title>{{ $title->content }} | Umbrella Health Care Systems</title>
+        <title>{{ $title->content }}</title>
     @else
-        <title>E-visit | Umbrella Health Care Systems</title>
+        <title>Community Health Care Clinics</title>
     @endif
 @endsection
 
