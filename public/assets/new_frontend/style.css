@@ -662,6 +662,16 @@ header {
   width: 25%;
 }
 
+.medicine-total{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--navy-);
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 0;
+}
 
 
 

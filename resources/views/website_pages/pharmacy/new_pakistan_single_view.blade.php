@@ -113,17 +113,16 @@
                     <form action="#" method="post" onsubmit="return false;">
                         @csrf
                         <input type="hidden" name="pro_id" id="product_id" value="{{ $products[0]->id }}">
-                            <div class="d-flex justify-content-between">
-                                <label for="Price" class="form-label fw-bold"><u>Price</u></label>
-                                <label for="Price" class="form-label fw-bold" id="price">Rs. {{ $products[0]->units[0]->sale_price }}</label>
+                            <div class="d-flex justify-content-end ">
+                                <label for="Price" class="form-label medicine-total fw-bold" id="price">Rs. {{ $products[0]->units[0]->sale_price }}</label>
                             </div>
                             <div>
                                 <label for="quantity" class="form-label fw-bold"><u>Quantity</u></label>
                                 <div class="input-group">
-                                    <button class="btn btn-outline-secondary w-25" id="decrement" type="button">-</button>
+                                    <button class="btn btn-outline-primary w-25 fs-4 " id="decrement" type="button">-</button>
                                     <input type="number" class="form-control text-center" id="quantity" value="1"
                                         min="1" name="quantity" readonly>
-                                    <button class="btn btn-outline-secondary w-25" id="increment" type="button">+</button>
+                                    <button class="btn btn-outline-primary w-25 fs-4" id="increment" type="button">+</button>
                                 </div>
                             </div>
                             @if ($products[0]->is_single)
