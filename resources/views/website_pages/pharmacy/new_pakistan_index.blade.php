@@ -249,7 +249,7 @@
 
 
 
-                <div class="medicines-container" id="loadSearchPharmacyItemByCategory">
+                <div class="medicines-container w-100" id="loadSearchPharmacyItemByCategory">
                     @foreach ($data['products'] as $item)
                         <div class="card">
                             <div class="prescription">

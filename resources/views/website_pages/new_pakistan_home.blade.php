@@ -640,7 +640,7 @@ $page = DB::table('pages')->where('url', '/')->first();
 
                 <h2 class="text-center">Most Popular Labtests</h2>
                 <div class="tests-container" id="load_labtest_item_by_category">
-                    {{--<div class="tests-card">
+                {{--   <div class="tests-card">
                         <div class="test-card-content">
                             <div class="add_to_cart_container">
                                 <button class="add_to_cart_btn">
@@ -653,6 +653,7 @@ $page = DB::table('pages')->where('url', '/')->first();
                                 evaluate your overall health and detect a wide range of
                                 disorders, including anemia, infection and leukemia.
                             </p>
+                            <div class="test-card-price">Rs. 2000</div>
                             <button class="learn_btn">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
                         </div>
                     </div>
@@ -719,7 +720,7 @@ $page = DB::table('pages')->where('url', '/')->first();
                             </p>
                             <button class="learn_btn">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
                         </div>
-                    </div>--}}
+                    </div> --}}
                     <div class="no-product-text">
                         <i class="fa fa-spinner fa-spin fs-1"></i>
                         <p>Loading</p>

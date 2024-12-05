@@ -1477,7 +1477,7 @@ footer {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-  justify-content: center;
+  justify-content: start;
   padding: 10px;
 }
 
@@ -1628,13 +1628,14 @@ footer {
   flex-wrap: wrap;
   gap: 15px;
   padding: 10px;
-  justify-content: center;
+  justify-content: start;
 }
 
 .tests-card {
-  flex: 1 1 calc(30% - 15px);
-  max-width: 250px;
-  height: max(200px, 10vh);
+  flex: 1 1 calc(25% - 15px);
+  max-width: 300px;
+  min-width: 250px;
+  height: max(230px, 10vh);
   background-color: #ffffff;
   color: rgb(0, 0, 0);
   text-align: center;
@@ -1645,8 +1646,32 @@ footer {
   margin-top: 10px;
 }
 
+.test-card-price{
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    color: var(--blue);
+    padding: 6px;
+    font-size: 14px;
+    border-radius: 20px;
+    font-weight: 600;
+    z-index: 2;
+    box-shadow: 0px 0px 0px 4px #f5f5f5;
+}
+
 .tests-card:hover {
   transform: scale(1.02);
+}
+
+.lab-test-page-price{
+    position: absolute;
+    top: 5%;
+    right: 5%;
+    color: var(--blue);
+    padding: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    z-index: 2;
 }
 
 .tests-card h4 {
@@ -1680,7 +1705,7 @@ footer {
 .add_to_cart_btn {
   border: none;
   height: 40px;
-  width: 60%;
+  width: 40%;
   border-radius: 10px;
   color: white;
   cursor: pointer;
@@ -1702,7 +1727,7 @@ footer {
 .add_to_cart_btn::after {
   content: "";
   position: absolute;
-  bottom: -63%;
+  bottom: -65%;
   border-top-right-radius: 10px;
   right: 0;
   width: 30%;
@@ -1716,7 +1741,7 @@ footer {
   position: absolute;
   top: 0;
   border-top-right-radius: 10px;
-  left: -36%;
+  left: -39%;
   width: 30%;
   height: 40%;
   background: transparent;

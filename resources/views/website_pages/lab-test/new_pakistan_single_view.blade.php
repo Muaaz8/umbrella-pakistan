@@ -62,8 +62,10 @@
         </div>
 
 
-        <div class="container my-3 z-3 pharmacy-page-container border border-1 rounded-3">
-
+        <div class="container my-3 z-3 pharmacy-page-container border border-1 rounded-3 position-relative">
+            <div class="lab-test-page-price">
+                Rs. 100
+            </div>
             <h3 class="text-center p-2"><u>Detail Description</u></h3>
             <div class="med-description p-4">
                 {!! $products[0]->description !!}
