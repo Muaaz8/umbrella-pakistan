@@ -120,16 +120,14 @@
         var percentage = $("#per_"+id).text();
         var sub_c = $("#sc_"+id).text();
         var prod_id = $("#prod_id_"+id).val();
-        console.log(med_name);
 
         $("#edit_id").val(id);
         $('#unit').append('<option selected value="'+unit+'">'+unit+'</option>');
         $('#days').append('<option selected value="'+days+'">'+days+'</option>');
-        $("#price").val(price);
+        $("#edit_price").val(price);
         $("#edit_med_name").val(med_name);
-        $("#percentage").val(percentage);
         $("#pro_id").val(prod_id);
-        $("#sub_category").append('<option selected value="'+sub_c+'">'+sub_c+'</option>');
+        $("#edit_sub_category").append('<option selected value="'+sub_c+'">'+sub_c+'</option>');
         $('#edit_medicine_variations').modal('show')
     });
 
@@ -171,7 +169,7 @@
                         $('#body_'+arr.id).append(
                             +'<input type="hidden" name="prod_id" id="prod_id_'+arr.id+'" value="'+arr.product_id+'">'
                             +'<td data-label="Sr ">'+ ++key +'</td>'
-                            +'<td data-label="Medicine Name">'+arr.name+'</td>'
+                            +'<td data-label="Medicine Name" id="medname_'+arr.id+'">'+arr.name+'</td>'
                             +'<td data-label="Unit" id="un_'+arr.id+'">'+arr.unit+'</td>'
                             +'<td data-label="Price" id="p_'+arr.id+'">'+arr.price+'</td>'
                             +'<td data-label="Sale Price">'+arr.sale_price+'</td>'
@@ -469,12 +467,12 @@
                             <div class="row mt-3 mb-3">
                                 <div class="col-md-6">
                                     <label for="specialInstructions">Sub Category</label>
-                                    <select class="form-select" id="sub_category" name="sub_category" readonly>
+                                    <select class="form-select" id="edit_sub_category" name="sub_category" readonly>
                                     </select>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="specialization_status">Price</label>
-                                    <input type="text" id="price" name="price" class="form-control" placeholder="Price">
+                                    <input type="text" id="edit_price" name="price" class="form-control" placeholder="Price">
                                 </div>
                             </div>
                             <div class="modal-footer">
