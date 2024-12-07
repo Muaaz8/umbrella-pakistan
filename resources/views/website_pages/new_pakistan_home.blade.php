@@ -12,7 +12,7 @@
     .custom-card-body h2,
     .custom-card-body h3,
     .custom-card-body h4,
-    .custom-card-body h5{
+    .custom-card-body h5 {
         font-size: 1rem;
         color: #333;
         margin: 0;
@@ -20,7 +20,8 @@
         margin-bottom: 0px;
         text-decoration: underline;
     }
-    .custom-card-body p{
+
+    .custom-card-body p {
         font-size: 0.8rem;
         color: #666;
         margin: 0 0 5px 0;
@@ -66,16 +67,15 @@ $page = DB::table('pages')->where('url', '/')->first();
                 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
                     <div class="carousel-indicators">
                         @foreach ($banners as $key => $banner)
-                            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{$key}}"
-                                class="{{$key==0?'active':''}}"></button>
+                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{$key}}"
+                            class="{{$key==0?'active':''}}"></button>
                         @endforeach
                     </div>
                     <div class="carousel-inner rounded-4">
                         @foreach ($banners as $key => $banner)
-                            <div class="carousel-item {{$key==0?'active':''}}">
-                                <img src="{{ $banner->img }}" class="d-block w-100 carousel-img"
-                                    alt="Slide {{$key}}" />
-                            </div>
+                        <div class="carousel-item {{$key==0?'active':''}}">
+                            <img src="{{ $banner->img }}" class="d-block w-100 carousel-img" alt="Slide {{$key}}" />
+                        </div>
                         @endforeach
                     </div>
                 </div>
@@ -89,27 +89,28 @@ $page = DB::table('pages')->where('url', '/')->first();
                         style="animation-delay: 0s;">
                         <div class="custom-card-body">
                             @php
-                                $section = DB::table('section')
-                                ->where('page_id', $page->id)
-                                ->where('section_name', 'box-1')
-                                ->where('sequence_no', '1')
-                                ->first();
-                                $top_content = DB::table('content')
-                                ->where('section_id', $section->id)
-                                ->first();
-                                $image_content = DB::table('images_content')
-                                ->where('section_id', $section->id)
-                                ->first();
+                            $section = DB::table('section')
+                            ->where('page_id', $page->id)
+                            ->where('section_name', 'box-1')
+                            ->where('sequence_no', '1')
+                            ->first();
+                            $top_content = DB::table('content')
+                            ->where('section_id', $section->id)
+                            ->first();
+                            $image_content = DB::table('images_content')
+                            ->where('section_id', $section->id)
+                            ->first();
                             @endphp
                             @if($top_content)
-                                {!! $top_content->content !!}
+                            {!! $top_content->content !!}
                             @else
-                                <h5 class="custom-card-title">Doctor consultation</h5>
-                                <p class="custom-card-text">
-                                    Short description of the first card.
-                                </p>
+                            <h5 class="custom-card-title">Doctor consultation</h5>
+                            <p class="custom-card-text">
+                                Short description of the first card.
+                            </p>
                             @endif
-                            <button class="btn btn-primary custom-btn2" onclick="window.location.href='{{route('e-visit')}}'">E-visit</button>
+                            <button class="btn btn-primary custom-btn2"
+                                onclick="window.location.href='{{route('e-visit')}}'">E-visit</button>
                         </div>
                         <div class="custom-card-img">
                             <img width="70" height="70" src="{{ asset('assets/new_frontend/doc1.png') }}"
@@ -120,27 +121,28 @@ $page = DB::table('pages')->where('url', '/')->first();
                         style="animation-delay: 0.2s;">
                         <div class="custom-card-body">
                             @php
-                                $section = DB::table('section')
-                                ->where('page_id', $page->id)
-                                ->where('section_name', 'box-2')
-                                ->where('sequence_no', '1')
-                                ->first();
-                                $top_content = DB::table('content')
-                                ->where('section_id', $section->id)
-                                ->first();
-                                $image_content = DB::table('images_content')
-                                ->where('section_id', $section->id)
-                                ->first();
+                            $section = DB::table('section')
+                            ->where('page_id', $page->id)
+                            ->where('section_name', 'box-2')
+                            ->where('sequence_no', '1')
+                            ->first();
+                            $top_content = DB::table('content')
+                            ->where('section_id', $section->id)
+                            ->first();
+                            $image_content = DB::table('images_content')
+                            ->where('section_id', $section->id)
+                            ->first();
                             @endphp
                             @if($top_content)
-                                {!! $top_content->content !!}
+                            {!! $top_content->content !!}
                             @else
-                                <h5 class="custom-card-title">Pharmacy</h5>
-                                <p class="custom-card-text">
-                                    Short description of the first card.
-                                </p>
+                            <h5 class="custom-card-title">Pharmacy</h5>
+                            <p class="custom-card-text">
+                                Short description of the first card.
+                            </p>
                             @endif
-                            <button class="btn btn-success custom-btn2" onclick="window.location.href='{{route('pharmacy')}}'">Visit Our Store</button>
+                            <button class="btn btn-success custom-btn2"
+                                onclick="window.location.href='{{route('pharmacy')}}'">Visit Our Store</button>
                         </div>
                         <div class="custom-card-img">
                             <img src="{{ asset('assets/new_frontend/med1.png') }}" alt="Image 1" />
@@ -150,27 +152,28 @@ $page = DB::table('pages')->where('url', '/')->first();
                         style="animation-delay: 0.5s;">
                         <div class="custom-card-body">
                             @php
-                                $section = DB::table('section')
-                                ->where('page_id', $page->id)
-                                ->where('section_name', 'box-3')
-                                ->where('sequence_no', '1')
-                                ->first();
-                                $top_content = DB::table('content')
-                                ->where('section_id', $section->id)
-                                ->first();
-                                $image_content = DB::table('images_content')
-                                ->where('section_id', $section->id)
-                                ->first();
+                            $section = DB::table('section')
+                            ->where('page_id', $page->id)
+                            ->where('section_name', 'box-3')
+                            ->where('sequence_no', '1')
+                            ->first();
+                            $top_content = DB::table('content')
+                            ->where('section_id', $section->id)
+                            ->first();
+                            $image_content = DB::table('images_content')
+                            ->where('section_id', $section->id)
+                            ->first();
                             @endphp
                             @if($top_content)
-                                {!! $top_content->content !!}
+                            {!! $top_content->content !!}
                             @else
-                                <h5 class="custom-card-title">Online Lab Tests</h5>
-                                <p class="custom-card-text">
-                                    Short description of the first card.
-                                </p>
+                            <h5 class="custom-card-title">Online Lab Tests</h5>
+                            <p class="custom-card-text">
+                                Short description of the first card.
+                            </p>
                             @endif
-                            <button class="btn btn-danger custom-btn2" onclick="window.location.href='{{route('labs')}}'">Online Tests</button>
+                            <button class="btn btn-danger custom-btn2"
+                                onclick="window.location.href='{{route('labs')}}'">Online Tests</button>
                         </div>
                         <div class="custom-card-img">
                             <img width="70" height="70" src="{{ asset('assets/new_frontend/lab3.png') }}"
@@ -181,134 +184,154 @@ $page = DB::table('pages')->where('url', '/')->first();
                 </div>
             </div>
 
-            <div class="div3 row order-3 px-2">
-                <div class="col-lg-3 col-md-6 col-12 card-secondary-div animate__animated animate__fadeInUp"
-                    style="animation-delay: 0s;">
-                    <div class="card-secondary d-flex flex-row align-items-center justify-content-between">
-                        <div>
-                            @php
-                                $section = DB::table('section')
-                                ->where('page_id', $page->id)
-                                ->where('section_name', 'box-4')
-                                ->where('sequence_no', '1')
-                                ->first();
-                                $top_content = DB::table('content')
-                                ->where('section_id', $section->id)
-                                ->first();
-                                $image_content = DB::table('images_content')
-                                ->where('section_id', $section->id)
-                                ->first();
-                            @endphp
-                            @if($top_content)
-                                {!! $top_content->content !!}
-                            @else
-                                <h5>Personal Care</h5>
-                                <p>Lorem ipsum dolor sit amet.</p>
-                            @endif
-                            <button class="btn btn-success custom-btn2" onclick="window.location.href='{{route('pharmacy.category',['slug'=>'personal-care'])}}'">View More</button>
-                            <div class="custom-card-img">
-                                <img width="60" height="60" src="{{ asset('assets/new_frontend/bottom1.png') }}"
-                                    alt="Image 1" />
-                            </div>
-                        </div>
-                    </div>
+            <div class="div3 row order-3 py-4">
+                <div class="w-50 fw-bold">
+                    <h2>
+                        Featured
+                        <span class="red">Categories</span>
+                    </h2>
+                    <div class="underline w-25"></div>
                 </div>
-                <div class="col-lg-3 col-md-6 col-12 card-secondary-div animate__animated animate__fadeInUp"
-                    style="animation-delay: 0.2s;">
-                    <div class="card-secondary d-flex flex-row align-items-center justify-content-between">
-                        <div>
-                            @php
-                                $section = DB::table('section')
-                                ->where('page_id', $page->id)
-                                ->where('section_name', 'box-5')
-                                ->where('sequence_no', '1')
-                                ->first();
-                                $top_content = DB::table('content')
-                                ->where('section_id', $section->id)
-                                ->first();
-                                $image_content = DB::table('images_content')
-                                ->where('section_id', $section->id)
-                                ->first();
-                            @endphp
-                            @if($top_content)
-                                {!! $top_content->content !!}
-                            @else
-                                <h5>Mother & Baby Care</h5>
-                                <p>Lorem ipsum dolor sit amet.</p>
-                            @endif
-                            <button class="btn btn-success custom-btn2" onclick="window.location.href='{{route('pharmacy.category',['slug'=>'baby-mothercare'])}}'">View More</button>
-                            <div class="custom-card-img">
-                                <img width="60" height="60" src="{{ asset('assets/new_frontend/bottom2.png') }}"
-                                    alt="Image 1" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-12 card-secondary-div animate__animated animate__fadeInUp"
-                    style="animation-delay: 0.4s;">
-                    <div class="card-secondary d-flex flex-row align-items-center justify-content-between">
-                        <div>
-                            @php
-                                $section = DB::table('section')
-                                ->where('page_id', $page->id)
-                                ->where('section_name', 'box-6')
-                                ->where('sequence_no', '1')
-                                ->first();
-                                $top_content = DB::table('content')
-                                ->where('section_id', $section->id)
-                                ->first();
-                                $image_content = DB::table('images_content')
-                                ->where('section_id', $section->id)
-                                ->first();
-                            @endphp
-                            @if($top_content)
-                                {!! $top_content->content !!}
-                            @else
-                                <h5>Dermatology</h5>
-                                <p>Lorem ipsum dolor sit amet.</p>
-                            @endif
-                            <button class="btn btn-success custom-btn2" onclick="window.location.href='{{route('pharmacy.category',['slug'=>'dermatology'])}}'">View More</button>
-                            <div class="custom-card-img">
-                                <img width="60" height="60" src="{{ asset('assets/new_frontend/bottom3.png') }}"
-                                    alt="Image 1" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 col-12 card-secondary-div animate__animated animate__fadeInUp"
-                    style="animation-delay: 0.6s;">
-                    <div class="card-secondary d-flex flex-row align-items-center justify-content-between">
-                        <div>
-                            @php
-                                $section = DB::table('section')
-                                ->where('page_id', $page->id)
-                                ->where('section_name', 'box-7')
-                                ->where('sequence_no', '1')
-                                ->first();
-                                $top_content = DB::table('content')
-                                ->where('section_id', $section->id)
-                                ->first();
-                                $image_content = DB::table('images_content')
-                                ->where('section_id', $section->id)
-                                ->first();
-                            @endphp
-                            @if($top_content)
-                                {!! $top_content->content !!}
-                            @else
-                                <h5>Multi-Vitamins</h5>
-                                <p>Lorem ipsum dolor sit amet.</p>
-                            @endif
-                            <button class="btn btn-success custom-btn2" onclick="window.location.href='{{route('pharmacy.category',['slug'=>'multivitamins'])}}'">View More</button>
-                            <div class="custom-card-img">
-                                <img width="60" height="60" src="{{ asset('assets/new_frontend/bottom4.png') }}"
-                                    alt="Image 1" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
+
         </div>
+
+        <div class="row px-3">
+            <div class="col-lg-3 col-md-6 col-12 card-secondary-div animate__animated animate__fadeInUp"
+                style="animation-delay: 0s;">
+                <div class="card-secondary d-flex flex-row align-items-center justify-content-between">
+                    <div>
+                        @php
+                        $section = DB::table('section')
+                        ->where('page_id', $page->id)
+                        ->where('section_name', 'box-4')
+                        ->where('sequence_no', '1')
+                        ->first();
+                        $top_content = DB::table('content')
+                        ->where('section_id', $section->id)
+                        ->first();
+                        $image_content = DB::table('images_content')
+                        ->where('section_id', $section->id)
+                        ->first();
+                        @endphp
+                        @if($top_content)
+                        {!! $top_content->content !!}
+                        @else
+                        <h5>Personal Care</h5>
+                        <p>Lorem ipsum dolor sit amet.</p>
+                        @endif
+                        <button class="btn btn-success custom-btn2"
+                            onclick="window.location.href='{{route('pharmacy.category',['slug'=>'personal-care'])}}'">View
+                            More</button>
+                        <div class="custom-card-img">
+                            <img width="60" height="60" src="{{ asset('assets/new_frontend/bottom1.png') }}"
+                                alt="Image 1" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-12 card-secondary-div animate__animated animate__fadeInUp"
+                style="animation-delay: 0.2s;">
+                <div class="card-secondary d-flex flex-row align-items-center justify-content-between">
+                    <div>
+                        @php
+                        $section = DB::table('section')
+                        ->where('page_id', $page->id)
+                        ->where('section_name', 'box-5')
+                        ->where('sequence_no', '1')
+                        ->first();
+                        $top_content = DB::table('content')
+                        ->where('section_id', $section->id)
+                        ->first();
+                        $image_content = DB::table('images_content')
+                        ->where('section_id', $section->id)
+                        ->first();
+                        @endphp
+                        @if($top_content)
+                        {!! $top_content->content !!}
+                        @else
+                        <h5>Mother & Baby Care</h5>
+                        <p>Lorem ipsum dolor sit amet.</p>
+                        @endif
+                        <button class="btn btn-success custom-btn2"
+                            onclick="window.location.href='{{route('pharmacy.category',['slug'=>'baby-mothercare'])}}'">View
+                            More</button>
+                        <div class="custom-card-img">
+                            <img width="60" height="60" src="{{ asset('assets/new_frontend/bottom2.png') }}"
+                                alt="Image 1" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-12 card-secondary-div animate__animated animate__fadeInUp"
+                style="animation-delay: 0.4s;">
+                <div class="card-secondary d-flex flex-row align-items-center justify-content-between">
+                    <div>
+                        @php
+                        $section = DB::table('section')
+                        ->where('page_id', $page->id)
+                        ->where('section_name', 'box-6')
+                        ->where('sequence_no', '1')
+                        ->first();
+                        $top_content = DB::table('content')
+                        ->where('section_id', $section->id)
+                        ->first();
+                        $image_content = DB::table('images_content')
+                        ->where('section_id', $section->id)
+                        ->first();
+                        @endphp
+                        @if($top_content)
+                        {!! $top_content->content !!}
+                        @else
+                        <h5>Dermatology</h5>
+                        <p>Lorem ipsum dolor sit amet.</p>
+                        @endif
+                        <button class="btn btn-success custom-btn2"
+                            onclick="window.location.href='{{route('pharmacy.category',['slug'=>'dermatology'])}}'">View
+                            More</button>
+                        <div class="custom-card-img">
+                            <img width="60" height="60" src="{{ asset('assets/new_frontend/bottom3.png') }}"
+                                alt="Image 1" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-12 card-secondary-div animate__animated animate__fadeInUp"
+                style="animation-delay: 0.6s;">
+                <div class="card-secondary d-flex flex-row align-items-center justify-content-between">
+                    <div>
+                        @php
+                        $section = DB::table('section')
+                        ->where('page_id', $page->id)
+                        ->where('section_name', 'box-7')
+                        ->where('sequence_no', '1')
+                        ->first();
+                        $top_content = DB::table('content')
+                        ->where('section_id', $section->id)
+                        ->first();
+                        $image_content = DB::table('images_content')
+                        ->where('section_id', $section->id)
+                        ->first();
+                        @endphp
+                        @if($top_content)
+                        {!! $top_content->content !!}
+                        @else
+                        <h5>Multi-Vitamins</h5>
+                        <p>Lorem ipsum dolor sit amet.</p>
+                        @endif
+                        <button class="btn btn-success custom-btn2"
+                            onclick="window.location.href='{{route('pharmacy.category',['slug'=>'multivitamins'])}}'">View
+                            More</button>
+                        <div class="custom-card-img">
+                            <img width="60" height="60" src="{{ asset('assets/new_frontend/bottom4.png') }}"
+                                alt="Image 1" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
     </section>
 
 
@@ -520,73 +543,86 @@ $page = DB::table('pages')->where('url', '/')->first();
                             <div class="price">
                                 <p>Rs: 200</p>
                             </div>
-                            <div class="med-img"><img src="{{ asset('assets/new_frontend/panadol.png') }}" alt="img"></div>
+                            <div class="med-img"><img src="{{ asset('assets/new_frontend/panadol.png') }}" alt="img">
+                            </div>
                             <h4 class="truncate m-0 p-0">Niacin ER tablet</h4>
                             <h6 class="truncate m-0 p-0">Heart Disease</h6>
                             <div class="pharmacy_btn">
-                                <a class="read-more btn btn-outline-danger" href="#">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
-                                <a class="add-to-cart" href="#">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
+                                <a class="read-more btn btn-outline-danger" href="#">Read More <i
+                                        class="fa-solid fa-sheet-plastic mx-2"></i></a>
+                                <a class="add-to-cart" href="#">Add to Cart <i
+                                        class="fa-solid fa-cart-shopping mx-2"></i></a>
                             </div>
+                        </div>
+                        <div class="card">
+                            <div class="prescription">
+                                <p style="background: #35b518">prescription required</p>
                             </div>
-                            <div class="card">
-                                <div class="prescription">
-                                    <p style="background: #35b518">prescription required</p>
-                                </div>
-                                <div class="med-img"><img src="https://placehold.co/70" alt="img"></div>
-                                <h4 class="truncate">Niacin ER tablet</h4>
-                                <h6 class="truncate">Heart Disease</h6>
-                                <div class="pharmacy_btn">
-                                    <a class="read-more btn btn-outline-danger" href="#">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
-                                    <a class="add-to-cart" href="#">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
-                                </div>
+                            <div class="med-img"><img src="https://placehold.co/70" alt="img"></div>
+                            <h4 class="truncate">Niacin ER tablet</h4>
+                            <h6 class="truncate">Heart Disease</h6>
+                            <div class="pharmacy_btn">
+                                <a class="read-more btn btn-outline-danger" href="#">Read More <i
+                                        class="fa-solid fa-sheet-plastic mx-2"></i></a>
+                                <a class="add-to-cart" href="#">Add to Cart <i
+                                        class="fa-solid fa-cart-shopping mx-2"></i></a>
                             </div>
-                            <div class="card">
-                                <div class="prescription">
-                                    <p>prescription required</p>
-                                </div>
-                                <div class="med-img"><img src="https://placehold.co/70" alt="img"></div>
-                                <h4 class="truncate">Niacin ER tablet</h4>
-                                <h6 class="truncate">Heart Disease</h6>
-                                <div class="pharmacy_btn">
-                                    <a class="read-more btn btn-outline-danger" href="#">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
-                                    <a class="add-to-cart" href="#">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
-                                </div>
+                        </div>
+                        <div class="card">
+                            <div class="prescription">
+                                <p>prescription required</p>
                             </div>
-                            <div class="card">
-                                <div class="prescription">
-                                    <p>prescription required</p>
-                                </div>
-                                <div class="med-img"><img src="https://placehold.co/70" alt="img"></div>
-                                <h4 class="truncate">Niacin ER tablet</h4>
-                                <h6 class="truncate">Heart Disease</h6>
-                                <div class="pharmacy_btn">
-                                    <a class="read-more btn btn-outline-danger" href="#">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
-                                    <a class="add-to-cart" href="#">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
-                                </div>
+                            <div class="med-img"><img src="https://placehold.co/70" alt="img"></div>
+                            <h4 class="truncate">Niacin ER tablet</h4>
+                            <h6 class="truncate">Heart Disease</h6>
+                            <div class="pharmacy_btn">
+                                <a class="read-more btn btn-outline-danger" href="#">Read More <i
+                                        class="fa-solid fa-sheet-plastic mx-2"></i></a>
+                                <a class="add-to-cart" href="#">Add to Cart <i
+                                        class="fa-solid fa-cart-shopping mx-2"></i></a>
                             </div>
-                            <div class="card">
-                                <div class="prescription">
-                                    <p>prescription required</p>
-                                </div>
-                                <div class="med-img"><img src="https://placehold.co/70" alt="img"></div>
-                                <h4 class="truncate">Niacin ER tablet</h4>
-                                <h6 class="truncate">Heart Disease</h6>
-                                <div class="pharmacy_btn">
-                                    <a class="read-more btn btn-outline-danger" href="#">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
-                                    <a class="add-to-cart" href="#">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
-                                </div>
+                        </div>
+                        <div class="card">
+                            <div class="prescription">
+                                <p>prescription required</p>
                             </div>
-                            <div class="card">
-                                <div class="prescription">
-                                    <p>prescription required</p>
-                                </div>
-                                <div class="med-img"><img src="https://placehold.co/70" alt="img"></div>
-                                <h4 class="truncate">Niacin ER tablet</h4>
-                                <h6 class="truncate">Heart Disease</h6>
-                                <div class="pharmacy_btn">
-                                    <a class="read-more btn btn-outline-danger" href="#">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
-                                    <a class="add-to-cart" href="#">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
-                                </div>
+                            <div class="med-img"><img src="https://placehold.co/70" alt="img"></div>
+                            <h4 class="truncate">Niacin ER tablet</h4>
+                            <h6 class="truncate">Heart Disease</h6>
+                            <div class="pharmacy_btn">
+                                <a class="read-more btn btn-outline-danger" href="#">Read More <i
+                                        class="fa-solid fa-sheet-plastic mx-2"></i></a>
+                                <a class="add-to-cart" href="#">Add to Cart <i
+                                        class="fa-solid fa-cart-shopping mx-2"></i></a>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="prescription">
+                                <p>prescription required</p>
+                            </div>
+                            <div class="med-img"><img src="https://placehold.co/70" alt="img"></div>
+                            <h4 class="truncate">Niacin ER tablet</h4>
+                            <h6 class="truncate">Heart Disease</h6>
+                            <div class="pharmacy_btn">
+                                <a class="read-more btn btn-outline-danger" href="#">Read More <i
+                                        class="fa-solid fa-sheet-plastic mx-2"></i></a>
+                                <a class="add-to-cart" href="#">Add to Cart <i
+                                        class="fa-solid fa-cart-shopping mx-2"></i></a>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="prescription">
+                                <p>prescription required</p>
+                            </div>
+                            <div class="med-img"><img src="https://placehold.co/70" alt="img"></div>
+                            <h4 class="truncate">Niacin ER tablet</h4>
+                            <h6 class="truncate">Heart Disease</h6>
+                            <div class="pharmacy_btn">
+                                <a class="read-more btn btn-outline-danger" href="#">Read More <i
+                                        class="fa-solid fa-sheet-plastic mx-2"></i></a>
+                                <a class="add-to-cart" href="#">Add to Cart <i
+                                        class="fa-solid fa-cart-shopping mx-2"></i></a>
+                            </div>
                         </div>
                     </div>
                     <div class="d-flex justify-content-center no-product-loader">
@@ -646,7 +682,7 @@ $page = DB::table('pages')->where('url', '/')->first();
 
                 <h2 class="text-center">Most Popular Labtests</h2>
                 <div class="tests-container" id="load_labtest_item_by_category">
-                {{--   <div class="tests-card">
+                    {{-- <div class="tests-card">
                         <div class="test-card-content">
                             <div class="add_to_cart_container">
                                 <button class="add_to_cart_btn">
@@ -660,7 +696,8 @@ $page = DB::table('pages')->where('url', '/')->first();
                                 disorders, including anemia, infection and leukemia.
                             </p>
                             <div class="test-card-price">Rs. 2000</div>
-                            <button class="learn_btn">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
+                            <button class="learn_btn">Add To Cart <i
+                                    class="fa-solid fa-cart-shopping mx-2"></i></button>
                         </div>
                     </div>
                     <div class="tests-card">
@@ -676,7 +713,8 @@ $page = DB::table('pages')->where('url', '/')->first();
                                 evaluate your overall health and detect a wide range of
                                 disorders, including anemia, infection and leukemia.
                             </p>
-                            <button class="learn_btn">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
+                            <button class="learn_btn">Add To Cart <i
+                                    class="fa-solid fa-cart-shopping mx-2"></i></button>
                         </div>
                     </div>
                     <div class="tests-card">
@@ -692,7 +730,8 @@ $page = DB::table('pages')->where('url', '/')->first();
                                 evaluate your overall health and detect a wide range of
                                 disorders, including anemia, infection and leukemia.
                             </p>
-                            <button class="learn_btn">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
+                            <button class="learn_btn">Add To Cart <i
+                                    class="fa-solid fa-cart-shopping mx-2"></i></button>
                         </div>
                     </div>
                     <div class="tests-card">
@@ -708,7 +747,8 @@ $page = DB::table('pages')->where('url', '/')->first();
                                 evaluate your overall health and detect a wide range of
                                 disorders, including anemia, infection and leukemia.
                             </p>
-                            <button class="learn_btn">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
+                            <button class="learn_btn">Add To Cart <i
+                                    class="fa-solid fa-cart-shopping mx-2"></i></button>
                         </div>
                     </div>
                     <div class="tests-card">
@@ -724,7 +764,8 @@ $page = DB::table('pages')->where('url', '/')->first();
                                 evaluate your overall health and detect a wide range of
                                 disorders, including anemia, infection and leukemia.
                             </p>
-                            <button class="learn_btn">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
+                            <button class="learn_btn">Add To Cart <i
+                                    class="fa-solid fa-cart-shopping mx-2"></i></button>
                         </div>
                     </div> --}}
                     <div class="no-product-text">
@@ -1065,37 +1106,40 @@ $page = DB::table('pages')->where('url', '/')->first();
     </div>
 
     <section id="problems-section" class="py-2">
-    <div class="blob position-absolute">
-        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <path fill="#E8DAFF"
-                d="M37.8,-66.6C45.1,-61.4,44.4,-43.3,47,-30C49.7,-16.8,55.7,-8.4,62.3,3.8C68.8,15.9,75.8,31.9,69.9,39.5C64.1,47.2,45.3,46.6,31.5,46.7C17.7,46.8,8.9,47.5,-0.6,48.7C-10.1,49.8,-20.3,51.2,-28,47.6C-35.8,44,-41.1,35.4,-48.7,26.7C-56.4,17.9,-66.3,8.9,-72.3,-3.5C-78.3,-15.9,-80.5,-31.8,-76,-46C-71.4,-60.2,-60.3,-72.6,-46.5,-74.2C-32.8,-75.7,-16.4,-66.3,-0.5,-65.4C15.3,-64.4,30.6,-71.9,37.8,-66.6Z"
-                transform="translate(100 100)" />
-        </svg>
-    </div>
-    <div class="blob2 position-absolute">
-        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <path fill="#E8DAFF"
-                d="M42.5,-52.1C58.1,-47.2,75.8,-38.8,84.6,-24.5C93.4,-10.1,93.4,10.1,83.4,22.9C73.5,35.8,53.7,41.2,38.1,47.5C22.6,53.9,11.3,61.1,-1.7,63.4C-14.7,65.8,-29.4,63.2,-37.9,54.6C-46.4,46,-48.8,31.3,-54.2,17.1C-59.6,2.8,-68,-11,-68.4,-26C-68.7,-41,-61,-57.1,-48.2,-62.9C-35.5,-68.7,-17.7,-64,-2.1,-61.1C13.5,-58.2,27,-56.9,42.5,-52.1Z"
-                transform="translate(100 100)" />
-        </svg>
-    </div>
-    <div class="container">
-        <div class="row align-items-center w-100">
-            <div class="col-md-5 p-4 border-right">
-                <div>
-                    <h1 class="font-weight-bold partner-heading">Our Collaborating<span class="text-danger">Partners</span></h1>
-                    <div class="underline bg-danger w-25"></div>
+        <div class="blob position-absolute">
+            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#E8DAFF"
+                    d="M37.8,-66.6C45.1,-61.4,44.4,-43.3,47,-30C49.7,-16.8,55.7,-8.4,62.3,3.8C68.8,15.9,75.8,31.9,69.9,39.5C64.1,47.2,45.3,46.6,31.5,46.7C17.7,46.8,8.9,47.5,-0.6,48.7C-10.1,49.8,-20.3,51.2,-28,47.6C-35.8,44,-41.1,35.4,-48.7,26.7C-56.4,17.9,-66.3,8.9,-72.3,-3.5C-78.3,-15.9,-80.5,-31.8,-76,-46C-71.4,-60.2,-60.3,-72.6,-46.5,-74.2C-32.8,-75.7,-16.4,-66.3,-0.5,-65.4C15.3,-64.4,30.6,-71.9,37.8,-66.6Z"
+                    transform="translate(100 100)" />
+            </svg>
+        </div>
+        <div class="blob2 position-absolute">
+            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <path fill="#E8DAFF"
+                    d="M42.5,-52.1C58.1,-47.2,75.8,-38.8,84.6,-24.5C93.4,-10.1,93.4,10.1,83.4,22.9C73.5,35.8,53.7,41.2,38.1,47.5C22.6,53.9,11.3,61.1,-1.7,63.4C-14.7,65.8,-29.4,63.2,-37.9,54.6C-46.4,46,-48.8,31.3,-54.2,17.1C-59.6,2.8,-68,-11,-68.4,-26C-68.7,-41,-61,-57.1,-48.2,-62.9C-35.5,-68.7,-17.7,-64,-2.1,-61.1C13.5,-58.2,27,-56.9,42.5,-52.1Z"
+                    transform="translate(100 100)" />
+            </svg>
+        </div>
+        <div class="container">
+            <div class="row align-items-center w-100">
+                <div class="col-md-5 p-4 border-right">
+                    <div>
+                        <h1 class="font-weight-bold partner-heading">Our Collaborating <br><span
+                                class="text-danger">Partners</span></h1>
+                        <div class="underline bg-danger w-25"></div>
+                    </div>
                 </div>
-            </div>
-            <div class="col-md-7">
-                <div class="d-flex flex-wrap gap-3 justify-content-center align-items-start partners_logos">
-                    <img width="200" height="auto" src="{{ asset('assets/new_frontend/partner2.png') }}" alt="Partner 2 Logo" />
-                    <img width="200" height="auto" src="{{ asset('assets/new_frontend/partner1.png') }}" alt="Partner 1 Logo" />
+                <div class="col-md-7">
+                    <div class="d-flex flex-wrap gap-3 justify-content-center align-items-start partners_logos">
+                        <img width="200" height="auto" src="{{ asset('assets/new_frontend/partner2.png') }}"
+                            alt="Partner 2 Logo" />
+                        <img width="200" height="auto" src="{{ asset('assets/new_frontend/partner1.png') }}"
+                            alt="Partner 1 Logo" />
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
 
     <section id="solution-section" class="image-content">
@@ -1280,8 +1324,7 @@ $page = DB::table('pages')->where('url', '/')->first();
     </div>
 </div>
 <!-- Modal -->
-<div class="modal fade cart-modal" id="afterLogin" tabindex="-1" aria-labelledby="afterLoginLabel"
-    aria-hidden="true">
+<div class="modal fade cart-modal" id="afterLogin" tabindex="-1" aria-labelledby="afterLoginLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -1315,11 +1358,11 @@ $page = DB::table('pages')->where('url', '/')->first();
             <div class="modal-body">
                 <div class="custom-modal1">
                     <div class="succes succes-animation icon-top"><i class="fa fa-check"></i></div>
-                        <div class="content flex-column align-items-center justify-content-center w-100 gap-1">
-                            <p class="type">Item Is Already in Cart</p>
-                            <div class="modal-login-reg-btn"><button data-bs-dismiss="modal" aria-label="Close">
-                                    Continue Shopping
-                                </button></div>
+                    <div class="content flex-column align-items-center justify-content-center w-100 gap-1">
+                        <p class="type">Item Is Already in Cart</p>
+                        <div class="modal-login-reg-btn"><button data-bs-dismiss="modal" aria-label="Close">
+                                Continue Shopping
+                            </button></div>
                     </div>
                 </div>
             </div>
