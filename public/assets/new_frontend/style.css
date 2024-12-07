@@ -1502,6 +1502,18 @@ footer {
     margin-bottom: 20px;
   }
 
+
+.button-section>div>i{
+    font-size: 1.8rem;
+    margin: 5px;
+    text-decoration: none;
+      color: #0048b1;
+  }
+
+  .button-section>.active>i{
+      color: var(--red);
+  }
+
   @media (max-width: 1200px) {
     .card {
       flex: 1 1 calc(33.33% - 15px);
@@ -1523,6 +1535,10 @@ footer {
     .card {
       flex: 1 1 100%;
       max-width: 100%;
+    }
+
+    .tabs_icons{
+        font-size: 1.5rem;
     }
   }
 

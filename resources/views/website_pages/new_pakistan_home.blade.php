@@ -379,26 +379,32 @@ $page = DB::table('pages')->where('url', '/')->first();
         <div class="button-section nav nav-tabs" id="nav-tab" role="tablist">
             <div id="e-visit-tab" class="nav-link active" data-bs-toggle="tab" data-bs-target="#e-visit" type="button"
                 role="tab" aria-controls="e-visit" aria-selected="true">
+                <i class="fa-solid fa-desktop "></i>
                 <div>E-Visit</div>
             </div>
             <div id="pharmacy-tab" class="nav-link pharmacy-penal" data-bs-toggle="tab" data-bs-target="#pharmacy"
                 type="button" role="tab" aria-controls="pharmacy" aria-selected="false">
+                <i class="fa-solid fa-pills "></i>
                 <div>Pharmacy</div>
             </div>
             <div id="tests-tab" class="nav-link labtest-penal" data-bs-toggle="tab" data-bs-target="#tests"
                 type="button" role="tab" aria-controls="tests" aria-selected="false">
+                <i class="fa-solid fa-flask "></i>
                 <div>Lab Tests</div>
             </div>
             <div id="imaging-tab" class="nav-link imaging-penal" data-bs-toggle="tab" data-bs-target="#imaging"
                 type="button" role="tab" aria-controls="imaging" aria-selected="false">
+                <i class="fa-solid fa-flask-vial "></i>
                 <div>Imaging</div>
             </div>
             <div id="primary-care-tab" class="nav-link" data-bs-toggle="tab" data-bs-target="#primary-care"
                 type="button" role="tab" aria-controls="primary-care" aria-selected="false">
+                <i class="fa-solid fa-hand-holding-medical "></i>
                 <div>Primary Care</div>
             </div>
             <div id="psychiatry-tab" class="nav-link" data-bs-toggle="tab" data-bs-target="#psychiatry" type="button"
                 role="tab" aria-controls="psychiatry" aria-selected="false">
+                <i class="fa-solid fa-user-doctor "></i>
                 <div>Psychiatry</div>
             </div>
             {{--<div id="pain-management-tab" class="nav-link" data-bs-toggle="tab" data-bs-target="#pain-management"
@@ -1077,7 +1083,7 @@ $page = DB::table('pages')->where('url', '/')->first();
         <div class="row align-items-center w-100">
             <div class="col-md-5 p-4 border-right">
                 <div>
-                    <h1 class="font-weight-bold partner-heading">Our <span class="text-danger">Partners</span></h1>
+                    <h1 class="font-weight-bold partner-heading">Our Collaborating<span class="text-danger">Partners</span></h1>
                     <div class="underline bg-danger w-25"></div>
                 </div>
             </div>
@@ -1212,7 +1218,7 @@ $page = DB::table('pages')->where('url', '/')->first();
             <div class="modal-body">
                 <div class="modal-e-visit-btn my-3">
                     <div>
-                        <a href="{{ route('e-visit') }}"><button>E-VISIT</button></a>
+                        <a href="{{ route('e-visit') }}"><button> E-VISIT</button></a>
                     </div>
                     <div>
                         <a href="{{ route('pharmacy') }}"> <button>PHARMACY </button></a>
