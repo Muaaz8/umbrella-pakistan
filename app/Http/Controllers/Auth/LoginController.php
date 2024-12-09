@@ -136,7 +136,7 @@ class LoginController extends Controller
         //$information = geoip($_SERVER['REMOTE_ADDR']);
         //$data = $information->toArray();
         //$timeZone=$data['timezone'];
-        $timeZone=$request['timezone'];
+        $timeZone="Asia/Karachi";
 
         \DB::table('users')->where('id',$user->id)->update(['timeZone'=>$timeZone]);
 

@@ -325,7 +325,7 @@
                                 @endif
                                 <input type="hidden" id="timezone" name="timezone" value="" />
                                 <div class="form-floating mb-3">
-                                    <input type="email" class="form-control" name="login" id="floatingInput"
+                                    <input type="text" class="form-control" name="login" id="floatingInput"
                                         placeholder="name@example.com" />
                                     <label for="floatingInput">Email address</label>
                                 </div>
