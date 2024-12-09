@@ -88,6 +88,7 @@ class unAuthController extends Controller
                     DB::raw('MIN(medicine_pricings.sale_price) as sale_price')
                 )
                 ->groupBy('tbl_products.id', 'products_sub_categories.title', 'products_sub_categories.slug') // group by product and category fields
+                ->inRandomOrder()
                 ->limit($request->limit)
                 ->get();
 
@@ -108,7 +109,9 @@ class unAuthController extends Controller
                     'products_sub_categories.slug as category_slug',
                     DB::raw('MIN(medicine_pricings.sale_price) as sale_price')
                 )
+                ->where('tbl_products.featured_image','!=','dummy_medicine.png')
                 ->groupBy('tbl_products.id', 'products_sub_categories.title', 'products_sub_categories.slug') // group by product and category fields
+                ->inRandomOrder()
                 ->limit($request->limit)
                 ->get();
 

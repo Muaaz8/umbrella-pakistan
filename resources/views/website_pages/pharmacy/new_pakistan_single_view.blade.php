@@ -114,7 +114,7 @@
                         @csrf
                         <input type="hidden" name="pro_id" id="product_id" value="{{ $products[0]->id }}">
                             <div class="d-flex justify-content-end ">
-                                <label for="Price" class="form-label medicine-total fw-bold" id="price">Rs. {{ $products[0]->units[0]->sale_price }}</label>
+                                <label for="Price" class="form-label medicine-total fw-bold" id="price">Rs. {{ number_format($products[0]->units[0]->sale_price,2) }}</label>
                             </div>
                             <div>
                                 <label for="quantity" class="form-label fw-bold"><u>Quantity</u></label>
@@ -263,7 +263,7 @@
             const selectedOption = this.options[this.selectedIndex];
             const salePrice = selectedOption.dataset.salePrice;
             var price = salePrice*quantityInput.value;
-            $('#price').html("Rs. "+price);
+            $('#price').html("Rs. "+parseFloat(price).toFixed(2));
         });
 
         const quantityInput = document.getElementById('quantity');

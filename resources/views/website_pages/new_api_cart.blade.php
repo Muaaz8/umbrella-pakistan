@@ -724,6 +724,20 @@
         .text-center {
             text-align: center;
         }
+        .cart-count {
+            position: absolute;
+            top: -45%;
+            right: -50%;
+            background: var(--red);
+            color: white;
+            height: 25px;
+            width: 25px;
+            border-radius: 50%;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
     </style>
 @endsection
 
@@ -1527,6 +1541,11 @@
                         </button>
                         <div onclick="window.location.href='{{ url('/my/cart') }}'">
                             <img src="{{ asset('assets/new_frontend/purchase-icon.svg') }}" alt="shop-icon" />
+                            @if (Auth::check())
+                                <div class="cart-count">
+                                    <span>{{ app('item_count_cart_responsive') }}</span>
+                                </div>
+                            @endif
                         </div>
                     </div>
                     <div class="hamburger_container" onclick="toggleDrawer()">
