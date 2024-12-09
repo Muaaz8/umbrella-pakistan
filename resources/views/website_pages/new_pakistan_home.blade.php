@@ -1131,9 +1131,9 @@ $page = DB::table('pages')->where('url', '/')->first();
                 </div>
                 <div class="col-md-7">
                     <div class="d-flex flex-wrap gap-3 justify-content-center align-items-start partners_logos">
-                        <img width="200" height="auto" src="{{ asset('assets/new_frontend/partner2.png') }}"
+                        <img width="150" height="auto" src="{{ asset('assets/new_frontend/partner2.png') }}"
                             alt="Partner 2 Logo" />
-                        <img width="200" height="auto" src="{{ asset('assets/new_frontend/partner1.png') }}"
+                        <img width="150" height="auto" src="{{ asset('assets/new_frontend/partner1.png') }}"
                             alt="Partner 1 Logo" />
                     </div>
                 </div>

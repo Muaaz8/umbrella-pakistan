@@ -929,13 +929,13 @@ header {
   align-items: center;
   justify-content: center;
   position: relative;
-  height: 350px;
+  min-height: 350px;
 }
 
 .content {
   display: flex;
   align-items: center;
-  width: 90%;
+  width: 95%;
   gap: 50px;
 }
 
@@ -1405,7 +1405,7 @@ footer {
   flex-direction: column;
   gap: 5px;
   align-items: start;
-  padding: 0px 50px;
+  padding: 0px 20px;
 }
 
 #faqs>div>.underline {
@@ -1417,7 +1417,7 @@ footer {
 
 
 #faq-content {
-  max-width: 70%;
+  max-width: 75%;
   margin: 2rem auto;
 }
 
@@ -3191,6 +3191,11 @@ background-color: #08295a;
     .button-section>div>img {
       width: 18px;
     }
+
+
+    .first-content {
+        display: none;
+       }
   }
 
   @media screen and (max-width: 700px) {
@@ -3271,9 +3276,6 @@ background-color: #08295a;
       font-size: 12px;
     }
 
-    .first-content {
-     display: none;
-    }
 
     .card h4{
       margin-top: 14%;
@@ -3317,11 +3319,6 @@ background-color: #08295a;
     #disclaimer-content>div:first-child>h2 {
       font-size: 39px;
     }
-
-    .image-content {
-      height: 64px;
-    }
-
     .faq-question h3 {
       font-size: 1.1rem;
     }
