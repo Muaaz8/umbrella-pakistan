@@ -1,201 +1,407 @@
-@extends('layouts.new_web_login_layout')
+<!DOCTYPE html>
+<html lang="en">
 
-@section('meta_tags')
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="csrf-token" content="{{ csrf_token() }}" />
-    <link rel="icon" href="{{ asset('asset_frontend/images/logo.ico') }}" type="image/x-icon">
-@endsection
-
-
-@section('page_title')
-    <title>Login | Umbrella Health Care Systems</title>
-@endsection
-
-@section('top_import_file')
-@endsection
-
-
-@section('bottom_import_file')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.20.1/moment.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.14/moment-timezone-with-data-2012-2022.min.js"></script>
-<script>
-    <?php header("Access-Control-Allow-Origin: *"); ?>
-$.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-});
-
-$(document).ready(function() {
-  $('#timezone').val(moment.tz.guess())
-});
-
-$('#btn_reset_password').click(function(){
-    var rest_email=$('#reset_email_input').val();
-    var _token=$('#_token').val();
-    $.ajax({
-        type:"POST",
-        url:"{{ route('password.email') }}",
-        data: {
-            email: rest_email,
-            token:_token
-        },
-        success: function(message) {
-            $.each(message.errors, function (key, value) {
-                alert(value);
-            });
-
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css"
+        integrity="sha512-5Hs3dF2AEPkpNAR7UiOHba+lRSJNeM2ECkwxUIxC1Q/FLycGTbNapWXB4tP889k5T5Ju8fs4b1P5z/iB4nMfSQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{{ asset('assets/new_frontend/style.css') }}" />
+    <style>
+        :root {
+            --navy-blue: #082755;
+            --navy-blue-opac: #082755cb;
         }
-    });
-});
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-</script>
-@endsection
+        .login-page {
+            height: 100vh;
+            transition: none;
+        }
 
-@section('content')
+        .content-with-login {
+            height: 100%;
+        }
 
-<!-- ******* LOGIN STARTS ******** -->
-<section>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-12 login-page-wrapper">
-        <div class="row align-items-center">
-          <div class="col-md-6">
-            <div class="col-md-10 col-lg-8 m-auto login-form-wrapper">
-              <button class="login-back" onclick="history.back()">
-                <i class="fa-solid fa-arrow-left"></i>
-              </button>
-              <!-- <a href="{{ url('/') }}"> -->
-              <!-- <button class="login-back" onclick="history.back()" style="float:right">
-              <i class="fa-solid fa-house"></i>
-              </button> -->
-            <!-- </a> -->
-              <div class="text-center">
-                <img src="{{ asset('assets/images/logo_all.png') }}" alt="" width="90%" height="auto" />
-              </div>
-              <h1 class="text-center py-3">Login</h1>
+        .left-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2rem;
+            justify-content: center;
+            position: relative;
+            z-index: 10;
+            color: white;
+            margin-right: 6rem;
+            height: 100%;
+            padding: 3rem;
+        }
 
-              <form action="{{ route('login') }}" method="POST">
-                @csrf
-                <div class="mb-3 login-inp">
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
+        .left-container>img {
+            width: 300px;
+            background-color: white;
+            border-radius: 1rem;
+            padding: 1rem;
+        }
+
+        .login-container {
+            padding: 3rem;
+        }
+
+        .left-container .logo-heading>span {
+            font-size: 3.5rem;
+        }
+
+        .left-container .logo-heading {
+            font-size: 2rem;
+        }
+
+        .login-logo>img {
+            width: 80%;
+        }
+
+        .left-container-para {
+            padding: 0 1.5rem;
+        }
+
+        .login-input {
+            border: none;
+            outline: none;
+        }
+
+        .input-container {
+            border: 2px solid var(--blue);
+            width: max-content;
+            padding: 2px 10px;
+            border-radius: 0.5rem;
+        }
+
+        .left-side {
+            background-image: url("/assets/new_frontend/22035.jpg");
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: 100%;
+            border-radius: 0 50% 50% 0;
+        }
+
+        .left-side::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--navy-blue-opac);
+            border-radius: 0 50% 50% 0;
+        }
+
+        .login-page .form-control {
+            border: none;
+            border-bottom: var(--bs-border-width) solid var(--bs-border-color);
+            border-radius: 0;
+            padding: 1.25rem 3rem 0 0.25rem !important;
+        }
+
+        .login-page .form-control:focus {
+            color: var(--bs-body-color);
+            background-color: var(--bs-body-bg);
+            border-bottom: 2px solid var(--blue);
+            outline: 0;
+            box-shadow: none;
+        }
+
+        .login-page .form-floating>label {
+            padding: 1rem 0;
+        }
+
+        .back-btn i {
+            font-size: 2rem;
+        }
+
+        .login-page a {
+            text-decoration: none;
+        }
+
+        .login-page .password-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .login-input-fields .password-container .checkbox-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .remove-pass {
+            position: absolute;
+            top: 50%;
+            right: 2%;
+            cursor: pointer;
+            z-index: 10;
+            background: white;
+        }
+
+        .remember-check {
+            outline: none;
+        }
+
+        @media screen and (max-width: 992px) {
+            .login-container {
+                padding: 1.5rem;
+            }
+
+            .left-container {
+                padding: 2rem;
+            }
+
+            .left-container>h2 {
+                font-size: 1.5rem;
+            }
+
+            .left-container .logo-heading>span {
+                font-size: 2.5rem;
+            }
+
+            .left-container .logo-heading {
+                font-size: 1.2rem;
+            }
+
+            .left-container .left-container-para {
+                padding: 0 0.8rem;
+                font-size: 0.8rem;
+            }
+
+            .password-container a,
+            .checkbox-container>label {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media screen and (max-width: 768px) {
+            .login-logo>img {
+                width: 100%;
+            }
+
+            .login-container {
+                padding: 0.5rem;
+            }
+
+            .login-section {
+                padding-right: 1rem !important;
+            }
+
+            .left-container {
+                margin-right: 3rem;
+                padding: 1rem;
+            }
+
+            .left-container .left-container-para {
+                padding: 0 0;
+            }
+
+            .register-account {
+                font-size: 0.8rem;
+            }
+
+            .password-container a,
+            .checkbox-container>label {
+                font-size: 0.8rem;
+            }
+
+            .left-container>h2 {
+                font-size: 1.3rem;
+            }
+
+            .left-container .logo-heading>span {
+                font-size: 2rem;
+            }
+
+            .left-container .logo-heading {
+                font-size: 1rem;
+            }
+
+            .back-btn i {
+                font-size: 1.5rem;
+            }
+        }
+
+        @media screen and (max-width: 576px) {
+            .left-container>h2 {
+                display: none;
+            }
+
+            .left-container .left-container-para {
+                display: none;
+            }
+
+            .left-side {
+                top: -5%;
+                height: 30%;
+                border-radius: 0 0 50% 50%;
+            }
+
+            .left-side:after {
+                border-radius: 0 0 50% 50%;
+            }
+
+            .login-section {
+                height: 70%;
+            }
+
+            .left-container {
+                margin-right: 0;
+            }
+
+            .left-container>.logo-heading {
+                font-size: 1.6rem;
+            }
+
+            .left-container>.logo-heading>span {
+                font-size: 3rem;
+            }
+
+            .login-logo>img {
+                width: 90%;
+            }
+
+            .login-container {
+                height: 50%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="login-page container-fluid">
+        <section class="content-with-login row align-items-center justify-content-center">
+            <div class="left-side col-12 col-sm-6 position-relative">
+                <div class="left-container">
+                    <h2>Welcome to</h2>
+                    <h1 class="logo-heading text-center">
+                        <span class="text-center">COMMUNITY</span><br />
+                        HEALTH CARE CLINICS
+                    </h1>
+                    <p class="text-center left-container-para">
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsum
+                        consequatur commodi facere officia aliquam deserunt similique
+                        praesentium vero sed, illum, porro fugit minima magni!
+                    </p>
+                </div>
+            </div>
+            <div class="login-section ps-3 pe-5 position-relative z-3 col-12 col-sm-6">
+                <div class="login-container">
+                    <div class="login d-flex flex-column gap-2">
+                        <div class="login-header d-flex justify-content-between align-items-center">
+                            <div class="login-logo d-flex align-items-center justify-content-center w-100">
+                                <img src="{{ asset('assets/new_frontend/logo.png') }}" alt="logo" />
+                            </div>
                         </div>
-                    @endif
-                  <input type="hidden" id="timezone" name="timezone" value=""/>
-                  <label for="email">Email or Username</label>
-                  <input
-                    type="text"
-                    placeholder="Enter Email or Username"
-                    id="email"
-                    class="form-control"
-                    name="login"
-                    value="{{ old('username') ?: old('email') }}"
-                    placeholder="Email address"
-                    class="form-control"
-                    id="exampleInputEmail1"
-                    aria-describedby="emailHelp"
-                    required
-                  />
+                        <div class="login-heading">
+                            <h1 class="text-center">Login</h1>
+                        </div>
+                        <form action="{{ route('login') }}" method="POST">
+                            @csrf
+                            <div class="login-input-fields d-flex flex-column gap-2">
+                                @if ($errors->any())
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach ($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
+                                <input type="hidden" id="timezone" name="timezone" value="" />
+                                <div class="form-floating mb-3">
+                                    <input type="email" class="form-control" name="login" id="floatingInput"
+                                        placeholder="name@example.com" />
+                                    <label for="floatingInput">Email address</label>
+                                </div>
+                                <div class="form-floating position-relative">
+                                    <input type="password" class="form-control" name="password" id="floatingPassword"
+                                        placeholder="Password" />
+                                    <label for="floatingPassword">Password</label>
+                                    <i class="remove-pass fa-regular fa-eye"></i>
+                                </div>
+                                <div class="password-container">
+                                    <div class="checkbox-container">
+                                        <input type="checkbox" name="remember" id=""
+                                            class="remember-check" /><label for="remember" class="ms-2">Remember
+                                            me</label>
+                                    </div>
+                                    <a href="{{ url('/password/reset') }}">Forgot Password?</a>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Login</button>
+                                <div class="register-account">
+                                    <span>Don't have an account?</span>
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Register
+                                        here</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-
-
-
-                <div class="mb-3 login-inp abc">
-                  <label for="password"
-                    >Password</label
-                  >
-                  <small>Error Message</small>
-                  <input
-                    type="password"
-                    name="password"
-                    placeholder="Password"
-                    class="form-control"
-
-                    id="password"
-                  />
-                  <span toggle="#password" class="fa fa-fw fa-eye-slash field-icon toggle-password"></span>
-                </div>
-
-                <button class="btn btn-primary login-btn">
-                  Login
-                </button>
-                <div class="mb-3 form-check login-remb-div">
-                  <input
-                  {{ old('remember') ? 'checked' : '' }}
-                  name="remember-me"
-                    type="checkbox"
-                    class="form-check-input"
-                    id="exampleCheck1"
-                  />
-                  <label class="form-check-label" for="exampleCheck1"
-                    >Remember me</label
-                  >
-                  <a href="{{ url('/password/reset') }}" >Forgot Password?</a>
-                </div>
-              </form>
-              <div class="login-or-sec">
-                <hr />
-                OR
-                <hr />
-              </div>
-              <h6 class="text-center mt-3">
-                Don&lsquo;t have account ?<a href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop"> Register </a>
-              </h6>
             </div>
-          </div>
-          <div class="col-md-6 p-0">
-            <div class="login-image">
-              <img
-                src="{{ asset('assets/images/Home-Screen-image.jpg')}}"
-                alt=""
-              />
+        </section>
+    </div>
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" tabindex="-1" aria-labelledby="staticBackdropLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Select Registration Type</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-login-reg-btn my-3">
+                            <a href="{{ route('pat_register') }}"> REGISTER AS A PATIENT</a>
+                            <a href="{{ route('doc_register') }}">REGISTER AS A DOCTOR </a>
+                        </div>
+                        <div class="login-or-sec">
+                            <hr />
+                            OR
+                            <hr />
+                        </div>
+                        <div>
+                            <p>Already have account?</p>
+                            <a href="{{ route('login') }}">Login</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous">
+    </script>
+    <script type="text/javascript">
+        const password = document.querySelector("#floatingPassword");
+        const eye = document.querySelector(".fa-eye");
 
-<!-- ******* LOGIN ENDS ******** -->
+        eye.addEventListener("click", () => {
+            if (password.getAttribute("type") === "password") {
+                password.setAttribute("type", "text");
+                eye.classList.remove("fa-eye");
+                eye.classList.add("fa-eye-slash");
+            } else {
+                password.setAttribute("type", "password");
+                eye.classList.remove("fa-eye-slash");
+                eye.classList.add("fa-eye");
+            }
+        });
+    </script>
+</body>
 
-
-<!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-<div class="modal-dialog modal-dialog-centered">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h5 class="modal-title" id="loginModalLabel">Select Registration Type</h5>
-      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-    </div>
-    <div class="modal-body">
-     <div class="modal-login-reg-btn my-3">
-       <a href="{{ route('pat_register') }}"> REGISTER AS A PATIENT</a>
-       <a href="{{ route('doc_register') }}">REGISTER AS A DOCTOR </a>
-      </div>
-      <div class="login-or-sec">
-        <hr />
-        OR
-        <hr />
-      </div>
-      <div>
-        <p>Already have account?</p>
-        <a href="{{ route('login') }}">Login</a>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-<!-- Modal - end -->
-
-
-
-@endsection
+</html>

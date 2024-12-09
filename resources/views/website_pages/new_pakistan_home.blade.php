@@ -26,6 +26,25 @@
         color: #666;
         margin: 0 0 5px 0;
     }
+
+    .tabs-section-container>h1,
+    .tabs-section-container>h2,
+    .tabs-section-container>h3,
+    .tabs-section-container>h4{
+        text-align: left;
+        font-size: 1.7rem;
+        color: #082755;
+        width: max-content;
+    }
+
+    .tabs-section-container>.e-visit-content h1,
+    .tabs-section-container>.e-visit-content h2,
+    .tabs-section-container>.e-visit-content h3,
+    .tabs-section-container>.e-visit-content h4{
+        text-align: left;
+        font-size: 1.7rem;
+        color: #082755;
+    }
 </style>
 @endsection
 
@@ -494,10 +513,6 @@ $page = DB::table('pages')->where('url', '/')->first();
         </section>
         <section class="tab-pane fade" id="pharmacy" role="tabpanel" aria-labelledby="pharmacy-tab" tabindex="0">
             <div class="tabs-section-container">
-                <div class="tabs-section-heading">
-                    <h2>Pharmacy</h2>
-                    <div class="underline"></div>
-                </div>
                 @php
                 $section = DB::table('section')
                 ->where('page_id', $page->id)
@@ -514,6 +529,10 @@ $page = DB::table('pages')->where('url', '/')->first();
                 @if ($top_content)
                 {!! $top_content->content !!}
                 @else
+                <div class="tabs-section-heading">
+                    <h2>Pharmacy</h2>
+                    {{-- <div class="underline"></div> --}}
+                </div>
                 <p class="tabs-section-para">
                     Our Pharmacy Offers prescription drugs at discounted prices
                 </p>
@@ -637,10 +656,6 @@ $page = DB::table('pages')->where('url', '/')->first();
         </section>
         <section class="tab-pane fade" id="tests" role="tabpanel" aria-labelledby="tests-tab" tabindex="0">
             <div class="tabs-section-container">
-                <div class="tabs-section-heading">
-                    <h2>Lab Tests</h2>
-                    <div class="underline"></div>
-                </div>
                 @php
                 $section = DB::table('section')
                 ->where('page_id', $page->id)
@@ -657,6 +672,10 @@ $page = DB::table('pages')->where('url', '/')->first();
                 @if ($top_content)
                 {!! $top_content->content !!}
                 @else
+                <div class="tabs-section-heading">
+                    <h2>Lab Tests</h2>
+                    {{-- <div class="underline"></div> --}}
+                </div>
                 <p class="tabs-section-para">
                     Umbrella Health Care Systems medical labs are state of the art
                     lab services , we several reference labs to bring you best price
@@ -780,10 +799,7 @@ $page = DB::table('pages')->where('url', '/')->first();
         </section>
         <section class="tab-pane fade" id="imaging" role="tabpanel" aria-labelledby="imaging-tab" tabindex="0">
             <div class="tabs-section-container">
-                <div class="tabs-section-heading">
-                    <h2>Imaging</h2>
-                    <div class="underline"></div>
-                </div>
+
                 @php
                 $section = DB::table('section')
                 ->where('page_id', $page->id)
@@ -800,6 +816,10 @@ $page = DB::table('pages')->where('url', '/')->first();
                 @if ($top_content)
                 {!! $top_content->content !!}
                 @else
+                <div class="tabs-section-heading">
+                    <h2>Imaging</h2>
+                    {{-- <div class="underline"></div> --}}
+                </div>
                 <p class="tabs-section-para">
                     Umbrella Health Care Systems medical labs are state of the art
                     lab services , we several reference labs to bring you best price
@@ -968,7 +988,7 @@ $page = DB::table('pages')->where('url', '/')->first();
             <div class="tabs-section-container">
                 <div class="tabs-section-heading">
                     <h2>Psychiatry</h2>
-                    <div class="underline"></div>
+                    {{-- <div class="underline"></div> --}}
                 </div>
                 @php
                 $section = DB::table('section')
