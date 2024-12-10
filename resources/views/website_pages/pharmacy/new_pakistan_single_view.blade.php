@@ -98,11 +98,11 @@
 
         <div class="container my-3 z-3 pharmacy-page-container border border-1 rounded-3">
 
-            <div class="container border border-1 rounded-2 p-3 my-3">
+            <div class="container border border-1 rounded-2 p-3 my-3 medicine_detail_container">
                 <div class="row align-items-center">
 
-                    <div class="col-md-8 d-flex align-items-center justify-content-start">
-                        <img src="{{ $products[0]->featured_image }}" width="150" height="150" alt="Medicine"
+                    <div class="col-md-8 d-flex align-items-start justify-content-start flex-column">
+                        <img src="{{ $products[0]->featured_image }}" width="230" height="150" alt="Medicine"
                             class="img-fluid rounded">
                         <div class="p-3">
                             <h5 class="fw-bold">{{ $products[0]->name }}</h5>
@@ -119,10 +119,10 @@
                             <div>
                                 <label for="quantity" class="form-label fw-bold"><u>Quantity</u></label>
                                 <div class="input-group">
-                                    <button class="btn btn-outline-primary w-25 fs-4 " id="decrement" type="button">-</button>
+                                    <button class="btn btn-outline-primary w-25 fs-4  counter_btn" id="decrement" type="button">-</button>
                                     <input type="number" class="form-control text-center" id="quantity" value="1"
                                         min="1" name="quantity" readonly>
-                                    <button class="btn btn-outline-primary w-25 fs-4" id="increment" type="button">+</button>
+                                    <button class="btn btn-outline-primary w-25 fs-4 counter_btn" id="increment" type="button">+</button>
                                 </div>
                             </div>
                             @if ($products[0]->is_single)

@@ -80,7 +80,7 @@ $page = DB::table('pages')->where('url', '/')->first();
 @endphp
 <main>
 
-    <section class="px-2 mt-4">
+    <section class="px-2 mt-4 main-hero-section">
         <div class="container-fluid parent">
             <div class="div2 order-1 order-md-1 order-lg-2">
                 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
@@ -506,7 +506,7 @@ $page = DB::table('pages')->where('url', '/')->first();
                         </div>
                     </div>
                     <div class="right">
-                        <img width="500px" src=" {{ asset('assets/new_frontend/doc-s.png') }}" alt="" />
+                        <img src=" {{ asset('assets/new_frontend/doc-s.png') }}" alt="" />
                     </div>
                 </div>
             </div>
@@ -1140,20 +1140,20 @@ $page = DB::table('pages')->where('url', '/')->first();
                     transform="translate(100 100)" />
             </svg>
         </div>
-        <div class="container">
+        <div class="container-fluid">
             <div class="row align-items-center w-100">
-                <div class="col-md-5 p-4 border-right">
+                <div class="col-md-5 col-xl-6 p-4 border-right">
                     <div>
                         <h1 class="font-weight-bold partner-heading">Our Collaborating <br><span
                                 class="text-danger">Partners</span></h1>
                         <div class="underline bg-danger w-25"></div>
                     </div>
                 </div>
-                <div class="col-md-7">
+                <div class="col-md-7 col-xl-6">
                     <div class="d-flex flex-wrap gap-3 justify-content-center align-items-start partners_logos">
-                        <img width="150" height="auto" src="{{ asset('assets/new_frontend/partner2.png') }}"
+                        <img src="{{ asset('assets/new_frontend/partner2.png') }}"
                             alt="Partner 2 Logo" />
-                        <img width="150" height="auto" src="{{ asset('assets/new_frontend/partner1.png') }}"
+                        <img src="{{ asset('assets/new_frontend/partner1.png') }}"
                             alt="Partner 1 Logo" />
                     </div>
                 </div>
