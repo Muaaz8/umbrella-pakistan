@@ -240,14 +240,22 @@ class SEOAdminController extends Controller
 
     public function update_image_content(Request $request){
         $image_content = DB::table('images_content')->where('section_id',$request->section_id)->first();
+        if($request->hasFile('file')){
+            $files = $request->file('file');
+            $filename = \Storage::disk('s3')->put('medicine', $files);
+        }else{
+            $filename = $image_content->image;
+        }
         if($image_content){
             DB::table('images_content')->where('section_id',$request->section_id)->update([
+                'image'=>$filename,
                 'alt'=>$request->alt,
                 'updated_at'=>date('Y-m-d H:i:s'),
             ]);
         }else{
             DB::table('images_content')->insert([
                 'section_id'=>$request->section_id,
+                'image'=>$filename,
                 'alt'=>$request->alt,
                 'created_at'=>date('Y-m-d H:i:s'),
                 'updated_at'=>date('Y-m-d H:i:s'),
@@ -274,6 +282,9 @@ class SEOAdminController extends Controller
 
     public function get_image_content_by_section($id){
         $contents = DB::table('images_content')->where('section_id',$id)->first();
+        if($contents->image != null){
+            $contents->image = \App\Helper::check_bucket_files_url($contents->image);
+        }
         return response()->json($contents);
     }
 

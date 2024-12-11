@@ -718,7 +718,7 @@ public function all_doctor_index(Request $req)
                         $doctor->last_visit = Helper::get_date_with_format($session['date']);
                         // $doctor->last_diagnosis=$session['diagnosis'];
                     }
-                    $doctor->state = State::find($doctor->state_id)->name;
+                    // $doctor->state = State::find($doctor->state_id)->name;
                     $cntrcName = 'signed_contract/' . $doctor->nip_number . '_contract.pdf';
                     $doctor->contract = \App\Helper::get_files_url($cntrcName);
                     // dd($doctor->contract);
