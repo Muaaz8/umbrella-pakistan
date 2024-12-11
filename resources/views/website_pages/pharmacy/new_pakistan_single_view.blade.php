@@ -148,7 +148,7 @@
                                 </div>
                             @endif
 
-                            <hr class="py-1 m-0">
+                            <hr class="mt-2 m-0">
                             <div class="row">
                                 <label for="strength" class="form-label fw-bold"><u>Strength</u></label>
                                 <div class="col-lg-12 col-md-12 mb-2">
