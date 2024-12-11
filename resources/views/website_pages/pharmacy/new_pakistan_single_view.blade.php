@@ -101,30 +101,17 @@
             <div class="container border border-1 rounded-2 p-3 my-3 medicine_detail_container">
                 <div class="row align-items-center">
 
-                    <div class="col-md-8 d-flex align-items-start justify-content-start flex-column">
+                    <div class="col-md-3 d-flex align-items-center justify-content-start flex-wrap">
                         <img src="{{ $products[0]->featured_image }}" width="230" height="150" alt="Medicine"
                             class="img-fluid rounded">
-                        <div class="p-3">
-                            <h5 class="fw-bold">{{ $products[0]->name }}</h5>
-                            <p class="text-muted w-75">{{ $products[0]->generic }}</p>
-                        </div>
                     </div>
-                    <div class="col-md-4">
-                    <form action="#" method="post" onsubmit="return false;">
-                        @csrf
-                        <input type="hidden" name="pro_id" id="product_id" value="{{ $products[0]->id }}">
-                            <div class="d-flex justify-content-end ">
-                                <label for="Price" class="form-label medicine-total fw-bold" id="price">Rs. {{ number_format($products[0]->units[0]->sale_price,2) }}</label>
+                    <div class="col-md-5 d-flex align-items-start justify-content-start flex-wrap flex-column">
+                        <div>
+                            <h3 class="fw-bold text-truncate w-100 w-lg-75">{{ $products[0]->name }}</h3>
+                                <p class="text-muted w-100 w-lg-75">{{ $products[0]->generic }}</p>
+                                <hr class="mt-2 m-0">
                             </div>
                             <div>
-                                <label for="quantity" class="form-label fw-bold"><u>Quantity</u></label>
-                                <div class="input-group">
-                                    <button class="btn btn-outline-primary w-25 fs-4  counter_btn" id="decrement" type="button">-</button>
-                                    <input type="number" class="form-control text-center" id="quantity" value="1"
-                                        min="1" name="quantity" readonly>
-                                    <button class="btn btn-outline-primary w-25 fs-4 counter_btn" id="increment" type="button">+</button>
-                                </div>
-                            </div>
                             @if ($products[0]->is_single)
                                 <div class="my-2">
                                     <label class="form-label fw-bold"><u>Options</u></label>
@@ -147,10 +134,9 @@
                                     </div>
                                 </div>
                             @endif
-
-                            <hr class="mt-2 m-0">
-                            <div class="row">
-                                <label for="strength" class="form-label fw-bold"><u>Strength</u></label>
+                        </div>
+                            <div class="w-75 w-md-100">
+                            <label for="strength" class="form-label fw-bold"><u>Strength</u></label>
                                 <div class="col-lg-12 col-md-12 mb-2">
                                     <select id="strength" class="form-select w-100 h-100" name="unit">
                                         @foreach ($products[0]->units as $item)
@@ -160,6 +146,25 @@
                                         @endforeach
                                     </select>
                                 </div>
+                            </div>
+                    </div>
+                    <div class="col-md-4">
+                    <form action="#" method="post" onsubmit="return false;">
+                        @csrf
+                        <input type="hidden" name="pro_id" id="product_id" value="{{ $products[0]->id }}">
+                            <div class="d-flex justify-content-end ">
+                                <label for="Price" class="form-label medicine-total fw-bold" id="price">Rs. {{ number_format($products[0]->units[0]->sale_price,2) }}</label>
+                            </div>
+                            <div class="my-2">
+                                <label for="quantity" class="form-label fw-bold"><u>Quantity</u></label>
+                                <div class="input-group">
+                                    <button class="btn btn-outline-primary w-25 fs-4  counter_btn" id="decrement" type="button">-</button>
+                                    <input type="number" class="form-control text-center" id="quantity" value="1"
+                                        min="1" name="quantity" readonly>
+                                    <button class="btn btn-outline-primary w-25 fs-4 counter_btn" id="increment" type="button">+</button>
+                                </div>
+                            </div>
+                            <div class="row">
                                 <div class="col-lg-12 col-md-12">
                                     @if(Auth::check())
                                         <button class="medicine_btn w-100 fs-6 fw-bold" onclick="addedItem()">Add to Cart</button>

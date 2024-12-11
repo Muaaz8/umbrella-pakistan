@@ -684,8 +684,8 @@ header {
     align-items: center;
     justify-content: center;
     color: var(--navy-);
-    font-size: 1.3rem;
-    font-weight: 600;
+    font-size: 1.8rem;
+    font-weight: 700;
     margin-bottom: 0;
 }
 
@@ -3152,7 +3152,7 @@ footer {
 
 /* media queries  */
 
-@media screen and (min-width: 1400px) {
+@media screen and (min-width: 1420px) {
     .offer-banner > span {
         font-size: 1.3rem;
     }
