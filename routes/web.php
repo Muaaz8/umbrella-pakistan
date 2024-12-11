@@ -54,18 +54,20 @@ Route::get('/app_doc_video/{id}',function($id){
     return view('dashboard_doctor.Video.app_video',compact('session'));
 });
 
-// Route::get('/seed',function(){
-//     for($i=1; $i<=7; $i++){
-//         DB::table('section')->insert([
-//             'page_id'=> 1,
-//             'section_name'=> 'box-'.$i,
-//             'sequence_no'=> 1,
-//             'created_at'=>now(),
-//             'updated_at'=>now(),
-//         ]);
-//     }
-// });
-
+Route::get('/seed',function(){
+    $page = DB::table('pages')->insertGetId([
+        'name' => 'Login',
+        'url' => '/login',
+    ]);
+    DB::table('section')->insert([
+        'page_id'=> $page,
+        'section_name'=> 'side-text',
+        'sequence_no'=> 1,
+        'created_at'=>now(),
+        'updated_at'=>now(),
+    ]);
+});
+Route::post('/upload-image-endpoint','SEOAdminController@upload_image_endpoint')->name('upload_image_endpoint');
 Route::get('/doctor-profile/{id}',function($id){
     // $doctor_details = DB::table('users')
     //                 ->join('doctor_details','doctor_details.doctor_id','users.id')

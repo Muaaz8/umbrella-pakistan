@@ -80,13 +80,21 @@
     <script>
         let editorInstance;
 
-        ClassicEditor.create(document.querySelector("#editors"))
-            .then(editor => {
-                editorInstance = editor;
-            })
-            .catch(error => {
-                console.error(error);
-            });
+        ClassicEditor.create(document.querySelector("#editors"), {
+            ckfinder: {
+                uploadUrl: '/upload-image-endpoint?_token=' + document.querySelector('meta[name="csrf-token"]').content
+            },
+            toolbar: [
+                'heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList', 'blockQuote',
+                '|', 'imageUpload', 'undo', 'redo'
+            ]
+        })
+        .then(editor => {
+            editorInstance = editor;
+        })
+        .catch(error => {
+            console.error(error);
+        });
 
         document.querySelector("form").addEventListener("submit", (e) => {
             e.preventDefault();

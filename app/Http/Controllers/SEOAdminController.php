@@ -178,6 +178,22 @@ class SEOAdminController extends Controller
         return view('dashboard_SEO.website_pages_content',compact('pages','section','contents'));
     }
 
+    public function upload_image_endpoint(Request $request)
+    {
+        if ($request->hasFile('upload')) {
+            $image = $request->file('upload');
+            $filename = time() . '_' . $image->getClientOriginalName();
+            $path = $image->move(public_path('uploads'), $filename);
+            $url = asset('uploads/' . $filename);
+            return response()->json([
+                'uploaded' => true,
+                'url' => $url
+            ]);
+        }
+
+        return response()->json(['error' => 'No file uploaded.'], 400);
+    }
+
     public function pages_image_content()
     {
         $pages = DB::table('pages')->get();

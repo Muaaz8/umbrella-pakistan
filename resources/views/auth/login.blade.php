@@ -157,6 +157,11 @@
             outline: none;
         }
 
+        .left-container>p {
+            text-align: center;
+            padding: 0 1.5rem;
+        }
+
         @media screen and (max-width: 992px) {
             .login-container {
                 padding: 1.5rem;
@@ -293,11 +298,29 @@
                         <span class="text-center">COMMUNITY</span><br />
                         HEALTH CARE CLINICS
                     </h1>
+                    @php
+                    $page = DB::table('pages')->where('url', '/login')->first();
+                    $section = DB::table('section')
+                    ->where('page_id', $page->id)
+                    ->where('section_name', 'side-text')
+                    ->where('sequence_no', '1')
+                    ->first();
+                    $top_content = DB::table('content')
+                    ->where('section_id', $section->id)
+                    ->first();
+                    $image_content = DB::table('images_content')
+                    ->where('section_id', $section->id)
+                    ->first();
+                    @endphp
+                    @if ($top_content)
+                    {!! $top_content->content !!}
+                    @else
                     <p class="text-center left-container-para">
                         Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ipsum
                         consequatur commodi facere officia aliquam deserunt similique
                         praesentium vero sed, illum, porro fugit minima magni!
                     </p>
+                    @endif
                 </div>
             </div>
             <div class="login-section ps-3 pe-5 position-relative z-3 col-12 col-sm-6">

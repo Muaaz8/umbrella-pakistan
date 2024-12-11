@@ -45,6 +45,13 @@
         font-size: 1.7rem;
         color: #082755;
     }
+    #solution-para figure {
+        display: flex;
+    }
+    #solution-para figure img{
+        width: 20px;
+        height: 20px;
+    }
 </style>
 @endsection
 
