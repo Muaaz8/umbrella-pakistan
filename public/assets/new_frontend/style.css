@@ -3152,9 +3152,9 @@ footer {
 
 /* media queries  */
 
-@media screen and (max-width: 1440px) {
+@media screen and (min-width: 1445px) {
     .offer-banner > span {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
     }
 
     .logo>img {
@@ -3162,11 +3162,11 @@ footer {
     }
 
     .dropdown-menu li a {
-        font-size: 1.3rem !important;
+        font-size: 1.2rem !important;
     }
 
     #joinDropdown, #navbar a, .nav_btns > i {
-        font-size: 1.3rem !important;
+        font-size: 1.2rem !important;
     }
 
     #nav-right-side>div:last-child {
@@ -3181,7 +3181,7 @@ footer {
     }
 
     .custom-card-body h1, .custom-card-body h2, .custom-card-body h3, .custom-card-body h4, .custom-card-body h5 {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
     }
 
     .custom-card-body p {
@@ -3206,7 +3206,7 @@ footer {
     }
 
     .card-secondary div h1, .card-secondary div h2, .card-secondary div h3, .card-secondary div h4, .card-secondary div h5 {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
     }
 
     .card-secondary div p {
@@ -3223,11 +3223,11 @@ footer {
     }
 
     .div3 h2 {
-        font-size: 3rem;
+        font-size: 2.2rem;
     }
 
     #step-heading h2 {
-        font-size: 3rem;
+        font-size: 2.2rem;
     }
 
     .step-icon {
@@ -3258,11 +3258,11 @@ footer {
     }
 
     .left > p {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
     }
 
     .doctor-button {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
     }
 
     .right {
@@ -3290,15 +3290,15 @@ footer {
     }
 
     .para>p {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
     }
 
     #solution-para > h4, #solution-para > h5, #solution-para > h6 {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
     }
 
     #solution-para > ul, #solution-para > ol {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
     }
 
     #faqs h2 {
@@ -3306,11 +3306,11 @@ footer {
     }
 
     .faq-question h3 {
-        font-size: 2.5rem;
+        font-size: 2rem;
     }
 
     .faq-answer p {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
     }
 
     #faqs {
@@ -3326,7 +3326,7 @@ footer {
     }
 
     .footer-heading>h3 {
-        font-size: 2.5rem;
+        font-size: 2rem;
     }
 
     .footer-content > p {
@@ -3346,7 +3346,7 @@ footer {
     }
 
     #copyright > p {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
     }
 }
 
