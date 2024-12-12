@@ -82,10 +82,6 @@
 </script>
 @endsection
 @section('content')
-@php
-$locations = DB::table('physical_locations')->get();
-$page = DB::table('pages')->where('url', '/')->first();
-@endphp
 <main>
 
     <section class="px-2 mt-4 main-hero-section">
@@ -115,21 +111,8 @@ $page = DB::table('pages')->where('url', '/')->first();
                     <div class="col-lg-12 col-md-6 col-12 custom-card animate__animated animate__fadeInLeft"
                         style="animation-delay: 0s;">
                         <div class="custom-card-body">
-                            @php
-                            $section = DB::table('section')
-                            ->where('page_id', $page->id)
-                            ->where('section_name', 'box-1')
-                            ->where('sequence_no', '1')
-                            ->first();
-                            $top_content = DB::table('content')
-                            ->where('section_id', $section->id)
-                            ->first();
-                            $image_content = DB::table('images_content')
-                            ->where('section_id', $section->id)
-                            ->first();
-                            @endphp
-                            @if($top_content)
-                            {!! $top_content->content !!}
+                            @if($groupedSections["box-1"]["contents"])
+                                {!! $groupedSections["box-1"]["contents"][0]["content"] !!}
                             @else
                             <h5 class="custom-card-title">Doctor consultation</h5>
                             <p class="custom-card-text">
@@ -147,21 +130,8 @@ $page = DB::table('pages')->where('url', '/')->first();
                     <div class="col-lg-12 col-md-6 col-12 custom-card animate__animated animate__fadeInLeft"
                         style="animation-delay: 0.2s;">
                         <div class="custom-card-body">
-                            @php
-                            $section = DB::table('section')
-                            ->where('page_id', $page->id)
-                            ->where('section_name', 'box-2')
-                            ->where('sequence_no', '1')
-                            ->first();
-                            $top_content = DB::table('content')
-                            ->where('section_id', $section->id)
-                            ->first();
-                            $image_content = DB::table('images_content')
-                            ->where('section_id', $section->id)
-                            ->first();
-                            @endphp
-                            @if($top_content)
-                            {!! $top_content->content !!}
+                            @if($groupedSections["box-2"]["contents"])
+                                {!! $groupedSections["box-2"]["contents"][0]["content"] !!}
                             @else
                             <h5 class="custom-card-title">Pharmacy</h5>
                             <p class="custom-card-text">
@@ -178,21 +148,8 @@ $page = DB::table('pages')->where('url', '/')->first();
                     <div class="col-lg-12 col-md-12 custom-card animate__animated animate__fadeInLeft"
                         style="animation-delay: 0.5s;">
                         <div class="custom-card-body">
-                            @php
-                            $section = DB::table('section')
-                            ->where('page_id', $page->id)
-                            ->where('section_name', 'box-3')
-                            ->where('sequence_no', '1')
-                            ->first();
-                            $top_content = DB::table('content')
-                            ->where('section_id', $section->id)
-                            ->first();
-                            $image_content = DB::table('images_content')
-                            ->where('section_id', $section->id)
-                            ->first();
-                            @endphp
-                            @if($top_content)
-                            {!! $top_content->content !!}
+                            @if($groupedSections["box-3"]["contents"])
+                                {!! $groupedSections["box-3"]["contents"][0]["content"] !!}
                             @else
                             <h5 class="custom-card-title">Online Lab Tests</h5>
                             <p class="custom-card-text">
@@ -228,21 +185,8 @@ $page = DB::table('pages')->where('url', '/')->first();
                 style="animation-delay: 0s;">
                 <div class="card-secondary d-flex flex-row align-items-center justify-content-between">
                     <div>
-                        @php
-                        $section = DB::table('section')
-                        ->where('page_id', $page->id)
-                        ->where('section_name', 'box-4')
-                        ->where('sequence_no', '1')
-                        ->first();
-                        $top_content = DB::table('content')
-                        ->where('section_id', $section->id)
-                        ->first();
-                        $image_content = DB::table('images_content')
-                        ->where('section_id', $section->id)
-                        ->first();
-                        @endphp
-                        @if($top_content)
-                        {!! $top_content->content !!}
+                        @if($groupedSections["box-4"]["contents"])
+                            {!! $groupedSections["box-4"]["contents"][0]["content"] !!}
                         @else
                         <h5>Personal Care</h5>
                         <p>Lorem ipsum dolor sit amet.</p>
@@ -261,21 +205,8 @@ $page = DB::table('pages')->where('url', '/')->first();
                 style="animation-delay: 0.2s;">
                 <div class="card-secondary d-flex flex-row align-items-center justify-content-between">
                     <div>
-                        @php
-                        $section = DB::table('section')
-                        ->where('page_id', $page->id)
-                        ->where('section_name', 'box-5')
-                        ->where('sequence_no', '1')
-                        ->first();
-                        $top_content = DB::table('content')
-                        ->where('section_id', $section->id)
-                        ->first();
-                        $image_content = DB::table('images_content')
-                        ->where('section_id', $section->id)
-                        ->first();
-                        @endphp
-                        @if($top_content)
-                        {!! $top_content->content !!}
+                        @if($groupedSections["box-5"]["contents"])
+                            {!! $groupedSections["box-5"]["contents"][0]["content"] !!}
                         @else
                         <h5>Mother & Baby Care</h5>
                         <p>Lorem ipsum dolor sit amet.</p>
@@ -294,21 +225,8 @@ $page = DB::table('pages')->where('url', '/')->first();
                 style="animation-delay: 0.4s;">
                 <div class="card-secondary d-flex flex-row align-items-center justify-content-between">
                     <div>
-                        @php
-                        $section = DB::table('section')
-                        ->where('page_id', $page->id)
-                        ->where('section_name', 'box-6')
-                        ->where('sequence_no', '1')
-                        ->first();
-                        $top_content = DB::table('content')
-                        ->where('section_id', $section->id)
-                        ->first();
-                        $image_content = DB::table('images_content')
-                        ->where('section_id', $section->id)
-                        ->first();
-                        @endphp
-                        @if($top_content)
-                        {!! $top_content->content !!}
+                        @if($groupedSections["box-6"]["contents"])
+                            {!! $groupedSections["box-6"]["contents"][0]["content"] !!}
                         @else
                         <h5>Dermatology</h5>
                         <p>Lorem ipsum dolor sit amet.</p>
@@ -327,21 +245,8 @@ $page = DB::table('pages')->where('url', '/')->first();
                 style="animation-delay: 0.6s;">
                 <div class="card-secondary d-flex flex-row align-items-center justify-content-between">
                     <div>
-                        @php
-                        $section = DB::table('section')
-                        ->where('page_id', $page->id)
-                        ->where('section_name', 'box-7')
-                        ->where('sequence_no', '1')
-                        ->first();
-                        $top_content = DB::table('content')
-                        ->where('section_id', $section->id)
-                        ->first();
-                        $image_content = DB::table('images_content')
-                        ->where('section_id', $section->id)
-                        ->first();
-                        @endphp
-                        @if($top_content)
-                        {!! $top_content->content !!}
+                        @if($groupedSections["box-7"]["contents"])
+                            {!! $groupedSections["box-7"]["contents"][0]["content"] !!}
                         @else
                         <h5>Multi-Vitamins</h5>
                         <p>Lorem ipsum dolor sit amet.</p>
@@ -471,24 +376,10 @@ $page = DB::table('pages')->where('url', '/')->first();
         <section class="tab-pane fade show active" id="e-visit" role="tabpanel" aria-labelledby="e-visit-tab"
             tabindex="0">
             <div class="tabs-section-container e-visit-section">
-
-                @php
-                $section = DB::table('section')
-                ->where('page_id', $page->id)
-                ->where('section_name', 'E-visit')
-                ->where('sequence_no', '1')
-                ->first();
-                $top_content = DB::table('content')
-                ->where('section_id', $section->id)
-                ->first();
-                $image_content = DB::table('images_content')
-                ->where('section_id', $section->id)
-                ->first();
-                @endphp
                 <div class="e-visit-content">
                     <div class="left">
-                        @if ($top_content)
-                        {!! $top_content->content !!}
+                        @if($groupedSections["E-visit"]["contents"])
+                            {!! $groupedSections["E-visit"]["contents"][0]["content"] !!}
                         @else
                         <p>
                             Umbrella Health Care Systems provide you with facility to
@@ -521,21 +412,8 @@ $page = DB::table('pages')->where('url', '/')->first();
         </section>
         <section class="tab-pane fade" id="pharmacy" role="tabpanel" aria-labelledby="pharmacy-tab" tabindex="0">
             <div class="tabs-section-container">
-                @php
-                $section = DB::table('section')
-                ->where('page_id', $page->id)
-                ->where('section_name', 'Pharmacy')
-                ->where('sequence_no', '1')
-                ->first();
-                $top_content = DB::table('content')
-                ->where('section_id', $section->id)
-                ->first();
-                $image_content = DB::table('images_content')
-                ->where('section_id', $section->id)
-                ->first();
-                @endphp
-                @if ($top_content)
-                {!! $top_content->content !!}
+                @if($groupedSections["Pharmacy"]["contents"])
+                    {!! $groupedSections["Pharmacy"]["contents"][0]["content"] !!}
                 @else
                 <div class="tabs-section-heading">
                     <h2>Pharmacy</h2>
@@ -664,21 +542,8 @@ $page = DB::table('pages')->where('url', '/')->first();
         </section>
         <section class="tab-pane fade" id="tests" role="tabpanel" aria-labelledby="tests-tab" tabindex="0">
             <div class="tabs-section-container">
-                @php
-                $section = DB::table('section')
-                ->where('page_id', $page->id)
-                ->where('section_name', 'lab-test')
-                ->where('sequence_no', '1')
-                ->first();
-                $top_content = DB::table('content')
-                ->where('section_id', $section->id)
-                ->first();
-                $image_content = DB::table('images_content')
-                ->where('section_id', $section->id)
-                ->first();
-                @endphp
-                @if ($top_content)
-                {!! $top_content->content !!}
+                @if($groupedSections["lab-test"]["contents"])
+                    {!! $groupedSections["lab-test"]["contents"][0]["content"] !!}
                 @else
                 <div class="tabs-section-heading">
                     <h2>Lab Tests</h2>
@@ -807,22 +672,8 @@ $page = DB::table('pages')->where('url', '/')->first();
         </section>
         <section class="tab-pane fade" id="imaging" role="tabpanel" aria-labelledby="imaging-tab" tabindex="0">
             <div class="tabs-section-container">
-
-                @php
-                $section = DB::table('section')
-                ->where('page_id', $page->id)
-                ->where('section_name', 'imaging')
-                ->where('sequence_no', '1')
-                ->first();
-                $top_content = DB::table('content')
-                ->where('section_id', $section->id)
-                ->first();
-                $image_content = DB::table('images_content')
-                ->where('section_id', $section->id)
-                ->first();
-                @endphp
-                @if ($top_content)
-                {!! $top_content->content !!}
+                @if($groupedSections["imaging"]["contents"])
+                    {!! $groupedSections["imaging"]["contents"][0]["content"] !!}
                 @else
                 <div class="tabs-section-heading">
                     <h2>Imaging</h2>
@@ -946,23 +797,10 @@ $page = DB::table('pages')->where('url', '/')->first();
         <section class="tab-pane fade" id="primary-care" role="tabpanel" aria-labelledby="primary-care-tab"
             tabindex="0">
             <div class="tabs-section-container">
-                @php
-                $section = DB::table('section')
-                ->where('page_id', $page->id)
-                ->where('section_name', 'primary-care')
-                ->where('sequence_no', '1')
-                ->first();
-                $top_content = DB::table('content')
-                ->where('section_id', $section->id)
-                ->first();
-                $image_content = DB::table('images_content')
-                ->where('section_id', $section->id)
-                ->first();
-                @endphp
                 <div class="e-visit-content">
                     <div class="left">
-                        @if ($top_content)
-                        {!! $top_content->content !!}
+                        @if($groupedSections["primary-care"]["contents"])
+                            {!! $groupedSections["primary-care"]["contents"][0]["content"] !!}
                         @else
                         <p>
                             Umbrella Health Care Systems provide you with facility to
@@ -998,21 +836,8 @@ $page = DB::table('pages')->where('url', '/')->first();
                     <h2>Psychiatry</h2>
                     {{-- <div class="underline"></div> --}}
                 </div>
-                @php
-                $section = DB::table('section')
-                ->where('page_id', $page->id)
-                ->where('section_name', 'psychiatry')
-                ->where('sequence_no', '1')
-                ->first();
-                $top_content = DB::table('content')
-                ->where('section_id', $section->id)
-                ->first();
-                $image_content = DB::table('images_content')
-                ->where('section_id', $section->id)
-                ->first();
-                @endphp
-                @if ($top_content)
-                {!! $top_content->content !!}
+                @if($groupedSections["psychiatry"]["contents"])
+                    {!! $groupedSections["psychiatry"]["contents"][0]["content"] !!}
                 @else
                 <p class="tabs-section-para">
                     Getting the support you need has never been simpler thanks to
@@ -1037,28 +862,16 @@ $page = DB::table('pages')->where('url', '/')->first();
                 </div>
             </div>
         </section>
-        <section class="tab-pane fade" id="pain-management" role="tabpanel" aria-labelledby="pain-management-tab"
+        {{--
+            <section class="tab-pane fade" id="pain-management" role="tabpanel" aria-labelledby="pain-management-tab"
             tabindex="0">
             <div class="tabs-section-container">
                 <div class="tabs-section-heading">
                     <h2>Pain Management</h2>
                     <div class="underline"></div>
                 </div>
-                @php
-                $section = DB::table('section')
-                ->where('page_id', $page->id)
-                ->where('section_name', 'pain-management')
-                ->where('sequence_no', '1')
-                ->first();
-                $top_content = DB::table('content')
-                ->where('section_id', $section->id)
-                ->first();
-                $image_content = DB::table('images_content')
-                ->where('section_id', $section->id)
-                ->first();
-                @endphp
-                @if ($top_content)
-                {!! $top_content->content !!}
+                @if($groupedSections["pain-management"]["contents"])
+                    {!! $groupedSections["pain-management"]["contents"][0]["content"] !!}
                 @else
                 <p class="tabs-section-para">
                     Getting the support you need has never been simpler thanks to
@@ -1083,54 +896,42 @@ $page = DB::table('pages')->where('url', '/')->first();
                     <button class="view_all" onclick="location.href='{{ route('pain.management') }}'">View All</button>
                 </div>
             </div>
-        </section>
-        <section class="tab-pane fade" id="substance-abuse" role="tabpanel" aria-labelledby="substance-abuse-tab"
-            tabindex="0">
-            <div class="tabs-section-container">
-                <div class="tabs-section-heading">
-                    <h2>Substance Abuse</h2>
-                    <div class="underline"></div>
-                </div>
-                @php
-                $section = DB::table('section')
-                ->where('page_id', $page->id)
-                ->where('section_name', 'substance-abuse')
-                ->where('sequence_no', '1')
-                ->first();
-                $top_content = DB::table('content')
-                ->where('section_id', $section->id)
-                ->first();
-                $image_content = DB::table('images_content')
-                ->where('section_id', $section->id)
-                ->first();
-                @endphp
-                @if ($top_content)
-                {!! $top_content->content !!}
-                @else
-                <p class="tabs-section-para">
-                    Getting the support you need has never been simpler thanks to
-                    Umbrella Health Care System’s skilled team of psychiatrists, who
-                    are known for offering their patients compassionate.
-                </p>
-                @endif
-                <hr />
-
-                <div class="substance-abuse-container">
-                    @foreach ($data['substance_categories'] as $item)
-                    <div class="substance-abuse-box">
-                        <img src=" {{ asset('assets/new_frontend/self-pay.png') }}" alt="{{ $item->title }}" />
-                        <p>{{ $item->title }}</p>
+            </section>
+            <section class="tab-pane fade" id="substance-abuse" role="tabpanel" aria-labelledby="substance-abuse-tab"
+                tabindex="0">
+                <div class="tabs-section-container">
+                    <div class="tabs-section-heading">
+                        <h2>Substance Abuse</h2>
+                        <div class="underline"></div>
                     </div>
-                    @endforeach
+                    @if($groupedSections["substance-abuse"]["contents"])
+                        {!! $groupedSections["substance-abuse"]["contents"][0]["content"] !!}
+                    @else
+                    <p class="tabs-section-para">
+                        Getting the support you need has never been simpler thanks to
+                        Umbrella Health Care System’s skilled team of psychiatrists, who
+                        are known for offering their patients compassionate.
+                    </p>
+                    @endif
+                    <hr />
 
-                </div>
+                    <div class="substance-abuse-container">
+                        @foreach ($data['substance_categories'] as $item)
+                        <div class="substance-abuse-box">
+                            <img src=" {{ asset('assets/new_frontend/self-pay.png') }}" alt="{{ $item->title }}" />
+                            <p>{{ $item->title }}</p>
+                        </div>
+                        @endforeach
 
-                <div class="btn-div">
-                    <button class="view_all"
-                        onclick="location.href='{{ route('substance',['slug'=>'first-visit']) }}'">View All</button>
+                    </div>
+
+                    <div class="btn-div">
+                        <button class="view_all"
+                            onclick="location.href='{{ route('substance',['slug'=>'first-visit']) }}'">View All</button>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        --}}
     </div>
 
     <section id="problems-section" class="py-2">
@@ -1173,22 +974,9 @@ $page = DB::table('pages')->where('url', '/')->first();
     <section id="solution-section" class="image-content">
         <div class="content">
             <div id="solution-content" class="last-content">
-                @php
-                $section = DB::table('section')
-                ->where('page_id', $page->id)
-                ->where('section_name', 'last-section-header')
-                ->where('sequence_no', '1')
-                ->first();
-                $top_content = DB::table('content')
-                ->where('section_id', $section->id)
-                ->first();
-                $image_content = DB::table('images_content')
-                ->where('section_id', $section->id)
-                ->first();
-                @endphp
                 <div id="solution-heading" class="heading">
-                    @if ($top_content)
-                    {!! $top_content->content !!}
+                    @if($groupedSections["last-section-header"]["contents"])
+                        {!! $groupedSections["last-section-header"]["contents"][0]["content"] !!}
                     @else
                     <h2>
                         Umbrella Health Care Systems is the
@@ -1197,22 +985,9 @@ $page = DB::table('pages')->where('url', '/')->first();
                     @endif
                     <div class="underline"></div>
                 </div>
-                @php
-                $section = DB::table('section')
-                ->where('page_id', $page->id)
-                ->where('section_name', 'last-section-description')
-                ->where('sequence_no', '1')
-                ->first();
-                $top_content = DB::table('content')
-                ->where('section_id', $section->id)
-                ->first();
-                $image_content = DB::table('images_content')
-                ->where('section_id', $section->id)
-                ->first();
-                @endphp
                 <div id="solution-para" class="para">
-                    @if ($top_content)
-                    {!! $top_content->content !!}
+                    @if($groupedSections["last-section-description"]["contents"])
+                        {!! $groupedSections["last-section-description"]["contents"][0]["content"] !!}
                     @else
                     <p>
                         Get started now! Doctors are ready to help you get the care
@@ -1439,7 +1214,7 @@ $page = DB::table('pages')->where('url', '/')->first();
                             </div>
                             <div class="main_cards_scroll px-3">
                                 <div class="row locations_data">
-                                    @forelse ($locations as $item)
+                                    {{--@forelse ($locations as $item)
                                     <div class="col-md-6 mb-2">
                                         <div class="address_phone_card">
                                             <div class="px-2 mb-2">
@@ -1460,7 +1235,7 @@ $page = DB::table('pages')->where('url', '/')->first();
                                     </div>
                                     @empty
                                     <div class="col-md-12 mb-2"> No Data</div>
-                                    @endforelse
+                                    @endforelse--}}
                                 </div>
                             </div>
                         </div>

@@ -48,92 +48,85 @@ class WelcomeController extends Controller
 
     public function index($slug = '',Request $request)
     {
-        if($request->ajax())
-        {
-            $therapy_events = DB::table('therapy_session')->where('status','started')->orWhere('start_time','>=',date('Y-m-d H:i:s'))->paginate(6,['*'],'events');
-            // dd($therapy_events);
-            foreach($therapy_events as $te)
-            {
-                $user = DB::table('users')->where('id',$te->doctor_id)->first();
-                $te->doc_name = $user->name.' '.$user->last_name;
-                $te->doc_img=\App\Helper::check_bucket_files_url($user->user_image);
-                $te->short_des = DB::table('psychiatrist_info')->where('doctor_id',$te->doctor_id)->where('event_id',$te->event_id)->first();
-                $te->state = DB::table('states')
-                    ->where('id',$te->states)
-                    ->select('states.name')->first();
-                if($te->time_zone == 'CST'){
-                    $te->start_time = date('Y-m-d H:i:s',strtotime('-6 hours',strtotime($te->start_time)));
-                }elseif($te->time_zone == 'EST'){
-                    $te->start_time = date('Y-m-d H:i:s',strtotime('-5 hours',strtotime($te->start_time)));
-                }elseif($te->time_zone == 'PST'){
-                    $te->start_time = date('Y-m-d H:i:s',strtotime('-8 hours',strtotime($te->start_time)));
-                }elseif($te->time_zone == 'MST'){
-                    $te->start_time = date('Y-m-d H:i:s',strtotime('-7 hours',strtotime($te->start_time)));
-                }
-                $te->date = date('M-d-Y',strtotime($te->start_time));
-                // $d = new DateTime($te->date);
-                $te->day = Carbon::parse($te->date)->format('l');
-                $te->start_time = date('h:i A',strtotime($te->start_time));
-                $event = DB::table('therapy_session')->where('event_id',$te->event_id)->first();
-                $te->session_id = $event->id;
-                // dd($te->short_des);
-            }
-            return view('website_pages.therapy_events',compact('therapy_events'));
-        }
-        else
-        {
-            // Get Categories
-            $data['imaging_category'] = $this->Pharmacy->getMainCategoryHomePage('imaging');
-            $data['labtest_category'] = $this->Pharmacy->getMainCategoryHomePage('lab-test');
-            $data['prescribed_medicines_category'] = ProductsSubCategory::select('id', 'slug', 'title')
-                ->where('parent_id', '38')
-                ->whereNotIn('id', ['126', '88', '139', '137'])
-                ->orderBy('is_featured', 'desc')
-                ->limit(5)
-                ->get();
-            $data['pain_categories'] = ProductsSubCategory::select('id', 'slug', 'title', 'thumbnail')
-                ->where('parent_id', '39')
-                ->orderBy('title', 'asc')
-                ->limit(5)
-                ->get();
-            $data['substance_categories'] = ProductsSubCategory::select('id', 'slug', 'title', 'thumbnail')
-                ->where('parent_id', '18')
-                ->orderBy('id', 'asc')
-                ->limit(6)
-                ->get();
-            $data['psychiatrist'] = ProductsSubCategory::select('id', 'slug', 'title', 'thumbnail')
+        // Get Categories
+        $data['imaging_category'] = $this->Pharmacy->getMainCategoryHomePage('imaging');
+        // $data['labtest_category'] = $this->Pharmacy->getMainCategoryHomePage('lab-test');
+        $data['prescribed_medicines_category'] = ProductsSubCategory::select('id', 'slug', 'title')
+            ->where('parent_id', '38')
+            ->whereNotIn('id', ['126', '88', '139', '137'])
+            ->orderBy('is_featured', 'desc')
+            ->limit(5)
+            ->get();
+        // $data['pain_categories'] = ProductsSubCategory::select('id', 'slug', 'title', 'thumbnail')
+        //     ->where('parent_id', '39')
+        //     ->orderBy('title', 'asc')
+        //     ->limit(5)
+        //     ->get();
+        // $data['substance_categories'] = ProductsSubCategory::select('id', 'slug', 'title', 'thumbnail')
+        //    ->where('parent_id', '18')
+        //    ->orderBy('id', 'asc')
+        //    ->limit(6)
+        //    ->get();
+        $data['psychiatrist'] = ProductsSubCategory::select('id', 'slug', 'title', 'thumbnail')
             ->where('parent_id', '44')
             ->orderBy('id', 'asc')
             ->limit(8)
             ->get();
-            $data['therapy'] = ProductsSubCategory::select('id', 'slug', 'title', 'thumbnail')
-            ->where('parent_id', '58')
-            ->orderBy('title', 'asc')
-            ->limit(6)
+        // $data['therapy'] = ProductsSubCategory::select('id', 'slug', 'title', 'thumbnail')
+        //     ->where('parent_id', '58')
+        //     ->orderBy('title', 'asc')
+        //     ->limit(6)
+        //     ->get();
+
+        // Get Products
+        // $data['imaging_products'] = $this->Pharmacy->getProductOrderByDesc('imaging');
+        // $data['labtests_products'] = $this->Pharmacy->getProductOrderByDesc('lab-test');
+        // $data['medicines_products'] = $this->Pharmacy->getProductOrderByDesc('medicine');
+        // $data['substance_products'] = $this->Pharmacy->getProductOrderByDesc('substance-abuse');
+        // $data['labtest-recommended'] = $this->Pharmacy->getLabtestbyCategoryID('43', 16);
+
+        // search for pharmacy
+        // $data['url_type'] = 'pharmacy';
+        // $data['searchDropdown'] = $this->Pharmacy->searchDropdownSubCategory('medicine');
+
+
+        $url = url()->current();
+        $tags = DB::table('meta_tags')->where('url',$url)->get();
+        $title = DB::table('meta_tags')->where('url',$url)->where('name','title')->first();
+        $faqs = DB::table('tbl_faq')->orderby('id','desc')->limit(3)->get();
+        $banners = DB::table('banner')->where('status',1)->orderBy('sequence','asc')->get();
+        $sectionsWithContents = DB::table('section')
+            ->leftJoin('content', 'section.id', '=', 'content.section_id')
+            ->where('section.page_id', 1)
+            ->select(
+                'section.id as section_id',
+                'section.section_name',
+                'content.id as content_id',
+                'content.content as content_content'
+            )
             ->get();
-
-            // Get Products
-            $data['imaging_products'] = $this->Pharmacy->getProductOrderByDesc('imaging');
-            $data['labtests_products'] = $this->Pharmacy->getProductOrderByDesc('lab-test');
-            $data['medicines_products'] = $this->Pharmacy->getProductOrderByDesc('medicine');
-            $data['substance_products'] = $this->Pharmacy->getProductOrderByDesc('substance-abuse');
-            $data['labtest-recommended'] = $this->Pharmacy->getLabtestbyCategoryID('43', 16);
-
-            // search for pharmacy
-            $data['url_type'] = 'pharmacy';
-            $data['searchDropdown'] = $this->Pharmacy->searchDropdownSubCategory('medicine');
-
-
-            $url = url()->current();
-            $tags = DB::table('meta_tags')->where('url',$url)->get();
-            $title = DB::table('meta_tags')->where('url',$url)->where('name','title')->first();
-            $faqs = DB::table('tbl_faq')->orderby('id','desc')->limit(3)->get();
-            $banners = DB::table('banner')->where('status',1)->orderBy('sequence','asc')->get();
-            foreach ($banners as $banner) {
-                $banner->img=\App\Helper::check_bucket_files_url($banner->img);
+        $groupedSections = [];
+        foreach ($sectionsWithContents as $row) {
+            $sectionName = $row->section_name;
+            if (!isset($groupedSections[$sectionName])) {
+                $groupedSections[$sectionName] = [
+                    'id' => $row->section_id,
+                    'section_name' => $row->section_name,
+                    'contents' => [],
+                ];
             }
-            return view('website_pages.new_pakistan_home', compact('data', 'slug', 'title','tags','faqs','banners'));
+            if ($row->content_id) {
+                $groupedSections[$sectionName]['contents'][] = [
+                    'id' => $row->content_id,
+                    'content' => $row->content_content,
+                ];
+            }
         }
+        $groupedSections = collect($groupedSections);
+        foreach ($banners as $banner) {
+            $banner->img=\App\Helper::check_bucket_files_url($banner->img);
+        }
+        return view('website_pages.new_pakistan_home', compact('data', 'slug', 'title','tags','faqs','banners','groupedSections'));
     }
 
     public function therapy_events_search(Request $request)

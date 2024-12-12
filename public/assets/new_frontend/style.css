@@ -3152,7 +3152,7 @@ footer {
 
 /* media queries  */
 
-@media screen and (min-width: 1420px) {
+@media screen and (max-width: 1440px) {
     .offer-banner > span {
         font-size: 1.3rem;
     }
