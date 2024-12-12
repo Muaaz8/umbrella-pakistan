@@ -5,6 +5,8 @@
     --navy-blue: #082755;
     --green: #35b518;
     --lh: 1.4rem;
+    --lightgray: #f5f5f5;
+    --lightblue: #2964BCA3;
 }
 
 * {
@@ -4057,5 +4059,138 @@ footer {
 
     .card h4 {
         margin-top: 10%;
+    }
+}
+
+/* DOCTORS PROFILE PAGE CSS */
+
+
+.profile_main {
+    height: 100vh;
+}
+
+
+.profile_container {
+    background: var(--lightgray);
+    width: 95%;
+    border-radius: 1rem;
+}
+
+
+.ratings > i {
+    color: rgb(206, 206, 26);
+}
+
+
+.ratings > p {
+    color: gray;
+}
+
+
+.profile_pic_container {
+    width: 10rem;
+    height: 10rem;
+    overflow: hidden;
+}
+
+
+.profile_pic_container > img {
+    object-position: top center;
+}
+
+
+.doctor_designation {
+    color: rgb(88, 88, 88);
+    font-size: 1.2rem;
+}
+
+
+.bio_points {
+    color: rgb(88, 88, 88)2;
+}
+
+
+.bio_points > .btn {
+    font-size: 1.1rem !important;
+}
+
+
+.profile_icon .icon_container i {
+    color: white;
+}
+
+
+.profile_service {
+    color: gray;
+}
+
+
+.profile_service > div > div {
+    background: rgb(255, 255, 255);
+    padding: 5px;
+}
+
+
+.doctor_info {
+    border: 1px solid rgba(128, 128, 128, 0.411);
+    border-bottom: 0;
+    background: #ffffff3f;
+}
+
+
+.doctor_exp_text {
+    color: rgb(88, 88, 88)2;
+    line-height: 1rem;
+}
+
+
+@media only screen and (max-width: 576px) {
+    .profile_pic_container {
+        width: 8rem;
+        height: 8rem;
+    }
+
+
+    .doctor_name {
+        font-size: 1.3rem;
+    }
+
+
+    .doctor_designation {
+        font-size: 1rem;
+    }
+}
+
+
+@media only screen and (max-width: 423px) {
+    .doctor_name {
+        font-size: 1.15rem;
+    }
+
+
+    .doctor_degree {
+        font-size: 1rem !important;
+    }
+}
+
+
+@media only screen and (max-width: 373px) {
+    .line_break {
+        display: block !important;
+    }
+
+
+    .ratings {
+        gap: 0.25rem !important;
+    }
+
+
+    .profile_comments {
+        font-size: 0.9rem;
+    }
+
+
+    .ratings > i {
+        font-size: 0.8rem;
     }
 }

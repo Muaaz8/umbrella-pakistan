@@ -1,4 +1,4 @@
-@extends('layouts.new_web_layout')
+@extends('layouts.new_pakistan_layout')
 
 @section('meta_tags')
     <meta charset="utf-8" />
@@ -8,7 +8,7 @@
 @endsection
 
 @section('page_title')
-    <title>Doctor {{ $doctor->name." ".$doctor->last_name }}</title>
+    <title>Doctor {{ $doctor->name . ' ' . $doctor->last_name }}</title>
 @endsection
 
 @section('top_import_file')
@@ -19,108 +19,192 @@
 @endsection
 
 @section('content')
-<section class="container pt-6 pb-8">
-    <div class="row">
-        <div class="col-lg-8">
-            <div class="profile-header mb-5">
-                <h1 class="display-4 color font-weight-bold">Dr. {{ $doctor->name." ".$doctor->last_name }}</h1>
-                <p class="text-muted mb-4">{{ $doctor->specializations->name }} - {{ $doctor->nip_number }}</p>
-            </div>
-            <div class="profile-personal-details mb-4">
-                <h4 class="color font-weight-bold"><u>Personal Details </u></h4>
-                <ul class="list-unstyled">
-                    <li><i class="fa-solid fa-venus-mars color"></i><strong>Gender:</strong> {{ Str::ucfirst($doctor->gender) }}</li>
-                    <li><i class="fa-solid fa-globe color"></i> <strong>Language:</strong> English</li>
-                    <li><i class="fa-solid fa-map-marker-alt color"></i> <strong>Residency:</strong> {{ \App\City::find($doctor->city_id)->name }}, {{ \App\State::find($doctor->state_id)->name }}</li>
-                    <li><i class="fa-solid fa-user-tie color"></i> <strong>Provider Type: </strong>{{ $doctor->specializations->name }}</li>
-                </ul>
-            </div>
-
-            <hr>
-            <div class="profile-about mb-4">
-                <h5 class="text-secondary font-weight-bold">About</h5>
-                <p class="text-justify">{{ $doctor->details!=null?$doctor->details->about:"No Data Available" }}</p>
-            </div>
-            <div class="profile-approach mb-4">
-                <h5 class="text-secondary font-weight-bold">Medical Education</h5>
-
-                    <ul class="text-justify">
-                        <li class="border border-1 p-3">{{$doctor->details!=null?$doctor->details->education:"No Data Available" }}</li>
+    <main class="profile_main d-flex align-items-center justify-content-center w-100 h-100 py-sm-4 py-2">
+        <div class="profile_container row px-sm-3 px-1 py-4">
+            <div class="col-12 col-md-8 d-flex flex-column gap-4">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="profile_pic_container rounded-circle">
+                        <img class="rounded-circle object-fit-cover w-100 h-100" src="{{$doctor->user_image}}" alt="" />
+                    </div>
+                    <div class="lh-1">
+                        <h2 class="doctor_name lh-1 fw-bolder">Dr. {{  }}<br class="line_break d-none"> Chowdhury</h2>
+                        <h5 class="doctor_designation lh-1 fw-normal">
+                            Cardiology Specialist
+                        </h5>
+                        <h5 class="doctor_degree doctor_designation lh-1 fw-normal fs-6">
+                            M.B.B.S, M.C.P.S.
+                        </h5>
+                        <div class="ratings d-flex gap-2 align-items-center">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <p class="profile_comments fw-normal">(356)</p>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <h3>Short Bio</h3>
+                    <ul class="bio_points flex flex-column gap-2 align-items-start">
+                        {{ $doctor->bio }}
+                        {{-- <button class="btn fw-bold text-primary p-0 py-2 border-0">
+                            Read More
+                        </button> --}}
                     </ul>
-
-            </div>
-            <div class="profile-approach mb-4">
-                <h5 class="text-secondary font-weight-bold">Approach to Helping</h5>
-                <p class="text-justify">{{ $doctor->details!=null?$doctor->details->helping:"No Data Available" }}</p>
-            </div>
-            <div class="profile-specialization mb-4">
-                <h5 class="text-secondary font-weight-bold">Specific Issues Skilled at Helping With</h5>
-                <p class="text-justify">{{ $doctor->details!=null?$doctor->details->issue:"No Data Available" }}</p>
-            </div>
-            <div class="profile-specialization mb-4">
-                <h5 class="text-secondary font-weight-bold">Specialties</h5>
-                <p class="text-justify">{{ $doctor->details!=null?$doctor->details->specialties:"No Data Available" }}</p>
-            </div>
-        </div>
-        <!-- Sidebar Section -->
-        <div class="col-lg-4">
-            <div class="position-relative d-flex align-items-center justify-content-center mb-4">
-                <img src="{{ asset('assets/images/brush_color2.png')}}" alt="Profile Image" style="height: 300px; width: 100%;">
-                <div class="doc__img position-absolute">
-                    <img src="{{ $doctor->user_image }}" alt="Dr. Zayan Ahmed">
+                </div>
+                <div class="profile_services">
+                    <div class="profile_icon d-flex align-items-center gap-2">
+                        <div class="icon_container rounded-circle d-flex p-2 x bg-primary">
+                            <i class="fa-solid fa-hospital-user fs-4 p-1"></i>
+                        </div>
+                        <h3>Certifications and Licensing</h3>
+                    </div>
+                    <div class="row gy-3 gx-4 m-3 profile_service">
+                        <div class="col-md-6 col-12">
+                            <div class="d-flex align-items-center gap-3 rounded-5 py-2 px-3">
+                                <i class="fa-solid fa-check text-primary"></i>
+                                <p>Orthopedic Consultation</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <div class="d-flex align-items-center gap-3 rounded-5 py-2 px-3">
+                                <i class="fa-solid fa-check text-primary"></i>
+                                <p>Delivery Blocks</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <div class="d-flex align-items-center gap-3 rounded-5 py-2 px-3">
+                                <i class="fa-solid fa-check text-primary"></i>
+                                <p>Ultrasound Injections</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <div class="d-flex align-items-center gap-3 rounded-5 py-2 px-3">
+                                <i class="fa-solid fa-check text-primary"></i>
+                                <p>Something</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <div class="d-flex align-items-center gap-3 rounded-5 py-2 px-3">
+                                <i class="fa-solid fa-check text-primary"></i>
+                                <p>Something</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <div class="d-flex align-items-center gap-3 rounded-5 py-2 px-3">
+                                <i class="fa-solid fa-check text-primary"></i>
+                                <p>Something</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="licensing">
+                    <div class="profile_icon d-flex align-items-center gap-2">
+                        <div class="icon_container rounded-circle d-flex p-2 x bg-primary">
+                            <i class="fa-solid fa-stamp fs-4 p-1"></i>
+                        </div>
+                        <h3>Conditions Treated</h3>
+                    </div>
+                    <div class="row gy-3 gx-4 m-3 profile_service">
+                        <div class="col-md-6 col-12">
+                            <div class="d-flex align-items-center gap-3 rounded-5 py-2 px-3">
+                                <i class="fa-solid fa-check text-primary"></i>
+                                <p>Lorem, ipsum dolor.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-
-            <div class="profile-services mb-4">
-                <h4 class="color font-weight-bold">Certifications and Licensing</h4>
-                <ul class="list-unstyled">
-                    @if($doctor->details != null)
-                        @forelse ($doctor->details->certificates as $item)
-                            <li><i class="fa-solid fa-check text-success"></i>{{ $item }}</li>
-                        @empty
-                            <li><i class="fa-solid fa-check text-success"></i>No Data</li>
-                        @endforelse
-                    @endif
-                </ul>
-            </div>
-            <hr>
-
-            <div class="profile-services mb-4">
-                <h4 class="color font-weight-bold">Condition Treated</h4>
-                <ul class="list-unstyled">
-                    @if($doctor->details != null)
-                        @forelse ($doctor->details->conditions as $item)
-                            <li><i class="fa-solid fa-check text-success"></i>{{ $item }}</li>
-                        @empty
-                            <li><i class="fa-solid fa-check text-success"></i>No Data</li>
-                        @endforelse
-                    @endif
-
-                </ul>
-            </div>
-            <hr>
-            <div class="profile-concerns mb-4">
-                <h4 class="color font-weight-bold">Procedures Performed</h4>
-                <ul class="list-unstyled">
-                    @if($doctor->details != null)
-                        @forelse ($doctor->details->procedures as $item)
-                            <li><i class="fa-solid fa-check text-success"></i>{{ $item }}</li>
-                        @empty
-                            <li><i class="fa-solid fa-check text-success"></i>No Data</li>
-                        @endforelse
-                    @endif
-                </ul>
-            </div>
-            <hr>
-            <div class="profile-location mb-4">
-                <h4 class="color font-weight-bold">My Location</h4>
-                <p><i class="fa-solid fa-map-marker-alt color"></i>{{ $doctor->details != null ?$doctor->details->location:"No Data Available" }}<br></p>
-                <hr>
-                @if($doctor->details != null)
-                    <iframe src='https://www.google.com/maps/?q={{ $doctor->details->latitude }},{{ $doctor->details->longitude }}&hl=es;z=14&amp;output=embed' width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                @endif
+            <div class="d-flex gap-3 mt-3 mt-md-0 gap-md-5 col-12 col-md-4 flex-md-column flex-column-reverse">
+                <div class="doctor_info rounded-4 d-flex flex-column gap-2">
+                    <h3 class="ps-4 pt-4 pr-4"><u>About the Doctor</u></h3>
+                    <div class="doctor_experience d-flex flex-column gap-3">
+                        <div class="d-flex gap-2 align-items-baseline ps-4 pe-4">
+                            <i class="fa-solid fa-location-dot"></i>
+                            <div class="ps-2">
+                                <h6>10 Years of Experience</h6>
+                                <p class="doctor_exp_text">
+                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                    Sed, earum.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="d-flex gap-2 my-3 align-items-baseline ps-4 pe-4">
+                            <i class="fa-regular fa-comment-dots"></i>
+                            <div class="ps-1">
+                                <h6>85% Recommended</h6>
+                                <p class="doctor_exp_text">
+                                    358 patients would recommend this doctor to their friends
+                                    and family
+                                </p>
+                            </div>
+                        </div>
+                        <div class="d-flex gap-2 align-items-baseline ps-4 pe-4">
+                            <i class="fa-solid fa-user-plus"></i>
+                            <div class="">
+                                <h6>Online Consultations</h6>
+                                <p class="doctor_exp_text">
+                                    The consultation is possible both onsite and online.
+                                </p>
+                            </div>
+                        </div>
+                        <div
+                            class="appointment_btn btn btn-primary d-flex align-items-center gap-2 justify-content-center rounded-top-0 w-100 rounded-bottom-4">
+                            <button class="py-2 bg-transparent border-0 text-white">
+                                Book Appointment Now
+                            </button>
+                            <i class="fa-solid fa-arrow-right-long"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="doctor_services">
+                    <div class="profile_icon d-flex align-items-center gap-2">
+                        <div class="icon_container rounded-circle d-flex p-2 x bg-primary">
+                            <i class="fa-solid fa-hospital-user fs-4 p-1"></i>
+                        </div>
+                        <h3>Services</h3>
+                    </div>
+                    <div class="row gy-3 gx-4 m-3 profile_service">
+                        <div class="col-12">
+                            <div class="d-flex align-items-center gap-3 rounded-5 py-2 px-3">
+                                <i class="fa-solid fa-check text-primary"></i>
+                                <p>Orthopedic Consultation</p>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="d-flex align-items-center gap-3 rounded-5 py-2 px-3">
+                                <i class="fa-solid fa-check text-primary"></i>
+                                <p>Delivery Blocks</p>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="d-flex align-items-center gap-3 rounded-5 py-2 px-3">
+                                <i class="fa-solid fa-check text-primary"></i>
+                                <p>Ultrasound Injections</p>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="d-flex align-items-center gap-3 rounded-5 py-2 px-3">
+                                <i class="fa-solid fa-check text-primary"></i>
+                                <p>Something</p>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="d-flex align-items-center gap-3 rounded-5 py-2 px-3">
+                                <i class="fa-solid fa-check text-primary"></i>
+                                <p>Something</p>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="d-flex align-items-center gap-3 rounded-5 py-2 px-3">
+                                <i class="fa-solid fa-check text-primary"></i>
+                                <p>Something</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </main>
 @endsection
