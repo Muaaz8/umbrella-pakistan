@@ -69,12 +69,6 @@ Route::get('/seed',function(){
 });
 Route::post('/upload-image-endpoint','SEOAdminController@upload_image_endpoint')->name('upload_image_endpoint');
 Route::get('/doctor-profile/{id}',function($id){
-    // $doctor_details = DB::table('users')
-    //                 ->join('doctor_details','doctor_details.doctor_id','users.id')
-    //                 ->join('specializations','specializations.id','users.specialization')
-    //                 ->where('users.id',$id)
-    //                 ->select('users.*','doctor_details.*','specializations.name as spec_name')
-    //                 ->first();
     $doctor = DB::table('users')->where('id',$id)->first();
     if($doctor){
         $doctor->details = DB::table('doctor_details')->where('doctor_id',$id)->first();
@@ -87,6 +81,15 @@ Route::get('/doctor-profile/{id}',function($id){
     }
     $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
     return view('website_pages.doc_profile_page',compact('doctor'));
+});
+
+Route::get('/doctor-profile-list',function(){
+    $doctors = DB::table('users')->where('user_type','doctor')->orderBy('id','desc')->paginate(8);
+    foreach($doctors as $doctor){
+        $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
+        $doctor->specializations = DB::table('specializations')->where('id',$doctor->specialization)->first();
+    }
+    return view('website_pages.doc_profile_page_list',compact('doctors'));
 });
 
 Route::get('/screen_sharing','UserController@sc_share')->name('sc_share');

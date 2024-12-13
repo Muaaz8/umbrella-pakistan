@@ -4202,3 +4202,84 @@ footer {
         font-size: 0.8rem;
     }
 }
+
+    /* Doctor's List Page */
+    .doctor-list-container {
+        width: 85%;
+    }
+
+
+    .search-field {
+        border: none;
+        outline: none;
+    }
+
+
+    [type="search"]::-webkit-search-cancel-button,
+    [type="search"]::-webkit-search-decoration {
+        -webkit-appearance: none;
+        appearance: none;
+    }
+
+
+    .search-btn {
+        border: none;
+        background: none;
+    }
+
+
+    .doctor-list-card-container {
+        min-height: 200px;
+        border-top: 6px solid var(--blue);
+        box-shadow: 1px 1px 2px 0px var(--blue);
+    }
+
+
+    .doctor-list-card-container>h6 {
+        background-color: rgb(189, 189, 255);
+        color: var(--blue);
+        letter-spacing: 0.1rem;
+    }
+
+
+    .doctor-pic-container {
+        width: 120px;
+        height: 120px;
+        box-shadow: 0px 2px 5px 0px var(--blue);
+    }
+
+
+    .doctor-pic-container>img {
+        object-position: top center;
+    }
+
+
+    .doctor-ratings>i {
+        color: rgb(231, 231, 20);
+    }
+
+
+    .search-bar-container {
+        width: 50%;
+    }
+
+
+    @media screen and (min-width: 1200px) {
+        .search-bar-container {
+            width: 40%;
+        }
+    }
+
+
+    @media screen and (min-width: 992px) {
+        .search-bar-container {
+            width: 40%;
+        }
+    }
+
+
+    @media screen and (max-width: 576px) {
+        .search-bar-container {
+            width: 70%;
+        }
+    }

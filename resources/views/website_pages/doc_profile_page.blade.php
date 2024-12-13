@@ -27,19 +27,29 @@
                         <img class="rounded-circle object-fit-cover w-100 h-100" src="{{$doctor->user_image}}" alt="" />
                     </div>
                     <div class="lh-1">
-                        <h2 class="doctor_name lh-1 fw-bolder">Dr. {{  }}<br class="line_break d-none"> Chowdhury</h2>
+                        <h2 class="doctor_name lh-1 fw-bolder">Dr. {{ $doctor->name }}<br class="line_break d-none"> {{ $doctor->last_name }}</h2>
                         <h5 class="doctor_designation lh-1 fw-normal">
-                            Cardiology Specialist
+                            {{ $doctor->specializations->name }}
                         </h5>
                         <h5 class="doctor_degree doctor_designation lh-1 fw-normal fs-6">
-                            M.B.B.S, M.C.P.S.
+                            {!! nl2br(isset($doctor->details->education)?$doctor->details->education:"No data available") !!}
                         </h5>
                         <div class="ratings d-flex gap-2 align-items-center">
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
-                            <i class="fa-solid fa-star"></i>
+                                @php
+                                    $fullStars = floor($doctor->rating / 20); // Number of full stars
+                                    $halfStar = ($doctor->rating % 20 >= 10) ? 1 : 0; // Check if a half-star is needed
+                                    $emptyStars = 5 - ($fullStars + $halfStar); // Remaining stars will be empty
+                                @endphp
+                                @for ($i = 0; $i < $fullStars; $i++)
+                                    <i class="fa-solid fa-star"></i>
+                                @endfor
+                                @if ($halfStar)
+                                    <i class="fa-solid fa-star-half-alt"></i>
+                                @endif
+                                @for ($i = 0; $i < $emptyStars; $i++)
+                                    <i class="fa-regular fa-star"></i>
+                                @endfor
+
                             <p class="profile_comments fw-normal">(356)</p>
                         </div>
                     </div>
@@ -61,42 +71,23 @@
                         <h3>Certifications and Licensing</h3>
                     </div>
                     <div class="row gy-3 gx-4 m-3 profile_service">
-                        <div class="col-md-6 col-12">
-                            <div class="d-flex align-items-center gap-3 rounded-5 py-2 px-3">
-                                <i class="fa-solid fa-check text-primary"></i>
-                                <p>Orthopedic Consultation</p>
+                        @if (isset($doctor->details->certificates))
+                            @foreach ($doctor->details->certificates as $item)
+                                <div class="col-md-6 col-12">
+                                    <div class="d-flex align-items-center gap-3 rounded-5 py-2 px-3">
+                                        <i class="fa-solid fa-check text-primary"></i>
+                                        <p>{{$item}}</p>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @else
+                            <div class="col-md-6 col-12">
+                                <div class="d-flex align-items-center gap-3 rounded-5 py-2 px-3">
+                                    <i class="fa-solid fa-check text-primary"></i>
+                                    <p>No Data Available</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-6 col-12">
-                            <div class="d-flex align-items-center gap-3 rounded-5 py-2 px-3">
-                                <i class="fa-solid fa-check text-primary"></i>
-                                <p>Delivery Blocks</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-12">
-                            <div class="d-flex align-items-center gap-3 rounded-5 py-2 px-3">
-                                <i class="fa-solid fa-check text-primary"></i>
-                                <p>Ultrasound Injections</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-12">
-                            <div class="d-flex align-items-center gap-3 rounded-5 py-2 px-3">
-                                <i class="fa-solid fa-check text-primary"></i>
-                                <p>Something</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-12">
-                            <div class="d-flex align-items-center gap-3 rounded-5 py-2 px-3">
-                                <i class="fa-solid fa-check text-primary"></i>
-                                <p>Something</p>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-12">
-                            <div class="d-flex align-items-center gap-3 rounded-5 py-2 px-3">
-                                <i class="fa-solid fa-check text-primary"></i>
-                                <p>Something</p>
-                            </div>
-                        </div>
+                        @endif
                     </div>
                 </div>
                 <div class="licensing">
@@ -107,12 +98,23 @@
                         <h3>Conditions Treated</h3>
                     </div>
                     <div class="row gy-3 gx-4 m-3 profile_service">
-                        <div class="col-md-6 col-12">
-                            <div class="d-flex align-items-center gap-3 rounded-5 py-2 px-3">
-                                <i class="fa-solid fa-check text-primary"></i>
-                                <p>Lorem, ipsum dolor.</p>
+                        @if (isset($doctor->details->conditions))
+                            @foreach ($doctor->details->conditions as $item)
+                                <div class="col-md-6 col-12">
+                                    <div class="d-flex align-items-center gap-3 rounded-5 py-2 px-3">
+                                        <i class="fa-solid fa-check text-primary"></i>
+                                        <p>{{$item}}</p>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @else
+                            <div class="col-md-6 col-12">
+                                <div class="d-flex align-items-center gap-3 rounded-5 py-2 px-3">
+                                    <i class="fa-solid fa-check text-primary"></i>
+                                    <p>No Data Available</p>
+                                </div>
                             </div>
-                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -121,32 +123,23 @@
                     <h3 class="ps-4 pt-4 pr-4"><u>About the Doctor</u></h3>
                     <div class="doctor_experience d-flex flex-column gap-3">
                         <div class="d-flex gap-2 align-items-baseline ps-4 pe-4">
+                            <i class="fa-solid fa-user-plus"></i>
+                            <div class="">
+                                {{ isset($doctor->details->about)?$doctor->details->about:"No data available" }}
+                            </div>
+                        </div>
+                        <div class="d-flex gap-2 align-items-baseline ps-4 pe-4">
                             <i class="fa-solid fa-location-dot"></i>
                             <div class="ps-2">
-                                <h6>10 Years of Experience</h6>
-                                <p class="doctor_exp_text">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                    Sed, earum.
-                                </p>
+                                {{ isset($doctor->details->location)?$doctor->details->location:"No data available"}}
                             </div>
                         </div>
                         <div class="d-flex gap-2 my-3 align-items-baseline ps-4 pe-4">
                             <i class="fa-regular fa-comment-dots"></i>
                             <div class="ps-1">
-                                <h6>85% Recommended</h6>
-                                <p class="doctor_exp_text">
-                                    358 patients would recommend this doctor to their friends
-                                    and family
-                                </p>
-                            </div>
-                        </div>
-                        <div class="d-flex gap-2 align-items-baseline ps-4 pe-4">
-                            <i class="fa-solid fa-user-plus"></i>
-                            <div class="">
-                                <h6>Online Consultations</h6>
-                                <p class="doctor_exp_text">
-                                    The consultation is possible both onsite and online.
-                                </p>
+                                @if ($doctor->rating != null)
+                                    <h6>{{$doctor->rating}}% Recommended</h6>
+                                @endif
                             </div>
                         </div>
                         <div
@@ -166,42 +159,23 @@
                         <h3>Services</h3>
                     </div>
                     <div class="row gy-3 gx-4 m-3 profile_service">
-                        <div class="col-12">
-                            <div class="d-flex align-items-center gap-3 rounded-5 py-2 px-3">
-                                <i class="fa-solid fa-check text-primary"></i>
-                                <p>Orthopedic Consultation</p>
+                        @if (isset($doctor->details->procedures))
+                            @foreach ($doctor->details->procedures as $item)
+                                <div class="col-12">
+                                    <div class="d-flex align-items-center gap-3 rounded-5 py-2 px-3">
+                                        <i class="fa-solid fa-check text-primary"></i>
+                                        <p>{{$item}}</p>
+                                    </div>
+                                </div>
+                            @endforeach
+                        @else
+                            <div class="col-md-6 col-12">
+                                <div class="d-flex align-items-center gap-3 rounded-5 py-2 px-3">
+                                    <i class="fa-solid fa-check text-primary"></i>
+                                    <p>No Data Available</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="d-flex align-items-center gap-3 rounded-5 py-2 px-3">
-                                <i class="fa-solid fa-check text-primary"></i>
-                                <p>Delivery Blocks</p>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="d-flex align-items-center gap-3 rounded-5 py-2 px-3">
-                                <i class="fa-solid fa-check text-primary"></i>
-                                <p>Ultrasound Injections</p>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="d-flex align-items-center gap-3 rounded-5 py-2 px-3">
-                                <i class="fa-solid fa-check text-primary"></i>
-                                <p>Something</p>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="d-flex align-items-center gap-3 rounded-5 py-2 px-3">
-                                <i class="fa-solid fa-check text-primary"></i>
-                                <p>Something</p>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <div class="d-flex align-items-center gap-3 rounded-5 py-2 px-3">
-                                <i class="fa-solid fa-check text-primary"></i>
-                                <p>Something</p>
-                            </div>
-                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
