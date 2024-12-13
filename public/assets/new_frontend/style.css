@@ -3283,6 +3283,10 @@ footer {
         font-size: 3rem;
     }
 
+    .first-content{
+        width: 50%;
+    }
+
     .first-content>img {
         width: 70%;
     }
@@ -3308,7 +3312,7 @@ footer {
     }
 
     .faq-question h3 {
-        font-size: 1.5rem;
+        font-size: 1.3rem;
     }
 
     .faq-answer p {
@@ -3324,7 +3328,7 @@ footer {
     }
 
     #disclaimer-content>div>p {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
     }
 
     .footer-heading>h3 {
@@ -3332,11 +3336,11 @@ footer {
     }
 
     .footer-content > p {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
     }
 
     .footer-content>div>a {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
     }
 
     #social-icons>div>i {
@@ -3479,6 +3483,10 @@ footer {
 
     .partner-heading {
         font-size: 4rem;
+    }
+
+    .first-content{
+        width: 50%;
     }
 
     .first-content>img {
