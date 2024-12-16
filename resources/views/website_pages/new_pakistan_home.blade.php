@@ -330,6 +330,273 @@
     </section>
 
 
+ {{--
+     <section class="mx-3 my-4 doctor-carousel-container">
+        <div class="d-flex justify-content-between align-items-center">
+          <div class="d-flex flex-column">
+            <h2 class="">
+              List of
+              <span class="red">Doctors</span>
+            </h2>
+            <div class="underline w-50"></div>
+          </div>
+          <div class="d-flex align-items-center justify-content-end gap-3">
+            <a
+              class="carousel-control-prev bg-transparent w-aut"
+              href="#recipeCarousel"
+              role="button"
+              data-bs-slide="prev"
+            >
+              <span
+                class="carousel-control-prev-icon"
+                aria-hidden="true"
+              ></span>
+            </a>
+            <a
+              class="carousel-control-next bg-transparent w-aut"
+              href="#recipeCarousel"
+              role="button"
+              data-bs-slide="next"
+            >
+              <span
+                class="carousel-control-next-icon"
+                aria-hidden="true"
+              ></span>
+            </a>
+          </div>
+        </div>
+        <div class="row mx-auto my-auto justify-content-center">
+          <div
+            id="recipeCarousel"
+            class="carousel slide"
+            data-bs-ride="carousel"
+          >
+            <div class="carousel-inner px-0 py-3 px-0" role="listbox">
+              <div class="carousel-item active">
+                <div class="col-12 col-sm-6 col-md-3 col-lg-2 px-sm-1 px-md-3">
+                  <div
+                    class="doctor-carousel-card-container d-flex flex-column align-items-center justify-content-center text-center rounded-2 py-1"
+                  >
+                    <div class="carousel-pic-container rounded-circle p-1">
+                      <img
+                        src="{{ asset('assets/new_frontend/doctor-3.png') }}"
+                        alt="Doctor Page"
+                        class="rounded-circle object-fit-cover w-100 h-100"
+                      />
+                    </div>
+                    <div class="carousel-doctor-ratings mt-1">
+                      <i class="fa-solid fa-star"></i>
+                      <i class="fa-solid fa-star"></i>
+                      <i class="fa-solid fa-star"></i>
+                      <i class="fa-solid fa-star"></i>
+                      <i class="fa-solid fa-star"></i>
+                    </div>
+                    <div class="d-flex flex-column mt-1">
+                      <h5 class="mb-0">Dr. Allama Iqbal</h5>
+                      <p class="">M.B.B.S, B.D.S.</p>
+                    </div>
+                    <h6 class="mt-1 rounded-5 px-2 py-1">DERMATOLOGY</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="col-12 col-sm-6 col-md-3 col-lg-2 px-sm-1 px-md-3">
+                  <div
+                    class="doctor-carousel-card-container d-flex flex-column align-items-center justify-content-center text-center rounded-2 py-1"
+                  >
+                    <div class="carousel-pic-container rounded-circle p-1">
+                      <img
+                        src="{{ asset('assets/new_frontend/doctor-3.png') }}"
+                        alt="Doctor Page"
+                        class="rounded-circle object-fit-cover w-100 h-100"
+                      />
+                    </div>
+                    <div class="carousel-doctor-ratings mt-1">
+                      <i class="fa-solid fa-star"></i>
+                      <i class="fa-solid fa-star"></i>
+                      <i class="fa-solid fa-star"></i>
+                      <i class="fa-solid fa-star"></i>
+                      <i class="fa-solid fa-star"></i>
+                    </div>
+                    <div class="d-flex flex-column mt-1">
+                      <h5 class="mb-0">Dr. Allama Iqbal</h5>
+                      <p class="">M.B.B.S, B.D.S.</p>
+                    </div>
+                    <h6 class="mt-1 rounded-5 px-2 py-1">DERMATOLOGY</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="col-12 col-sm-6 col-md-3 col-lg-2 px-sm-1 px-md-3">
+                  <div
+                    class="doctor-carousel-card-container d-flex flex-column align-items-center justify-content-center text-center rounded-2 py-1"
+                  >
+                    <div class="carousel-pic-container rounded-circle p-1">
+                      <img
+                        src="{{ asset('assets/new_frontend/doctor-3.png') }}"
+                        alt="Doctor Page"
+                        class="rounded-circle object-fit-cover w-100 h-100"
+                      />
+                    </div>
+                    <div class="carousel-doctor-ratings mt-1">
+                      <i class="fa-solid fa-star"></i>
+                      <i class="fa-solid fa-star"></i>
+                      <i class="fa-solid fa-star"></i>
+                      <i class="fa-solid fa-star"></i>
+                      <i class="fa-solid fa-star"></i>
+                    </div>
+                    <div class="d-flex flex-column mt-1">
+                      <h5 class="mb-0">Dr. Felix Cadreal</h5>
+                      <p class="">M.B.B.S, B.D.S.</p>
+                    </div>
+                    <h6 class="mt-1 rounded-5 px-2 py-1">DERMATOLOGY</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="col-12 col-sm-6 col-md-3 col-lg-2 px-sm-1 px-md-3">
+                  <div
+                    class="doctor-carousel-card-container d-flex flex-column align-items-center justify-content-center text-center rounded-2 py-1"
+                  >
+                    <div class="carousel-pic-container rounded-circle p-1">
+                      <img
+                        src="{{ asset('assets/new_frontend/doctor-3.png') }}"
+                        alt="Doctor Page"
+                        class="rounded-circle object-fit-cover w-100 h-100"
+                      />
+                    </div>
+                    <div class="carousel-doctor-ratings mt-1">
+                      <i class="fa-solid fa-star"></i>
+                      <i class="fa-solid fa-star"></i>
+                      <i class="fa-solid fa-star"></i>
+                      <i class="fa-solid fa-star"></i>
+                      <i class="fa-solid fa-star"></i>
+                    </div>
+                    <div class="d-flex flex-column mt-1">
+                      <h5 class="mb-0">Dr. Allama Iqbal</h5>
+                      <p class="">M.B.B.S, B.D.S.</p>
+                    </div>
+                    <h6 class="mt-1 rounded-5 px-2 py-1">DERMATOLOGY</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="col-12 col-sm-6 col-md-3 col-lg-2 px-sm-1 px-md-3">
+                  <div
+                    class="doctor-carousel-card-container d-flex flex-column align-items-center justify-content-center text-center rounded-2 py-1"
+                  >
+                    <div class="carousel-pic-container rounded-circle p-1">
+                      <img
+                        src="{{ asset('assets/new_frontend/doctor-3.png') }}"
+                        alt="Doctor Page"
+                        class="rounded-circle object-fit-cover w-100 h-100"
+                      />
+                    </div>
+                    <div class="carousel-doctor-ratings mt-1">
+                      <i class="fa-solid fa-star"></i>
+                      <i class="fa-solid fa-star"></i>
+                      <i class="fa-solid fa-star"></i>
+                      <i class="fa-solid fa-star"></i>
+                      <i class="fa-solid fa-star"></i>
+                    </div>
+                    <div class="d-flex flex-column mt-1">
+                      <h5 class="mb-0">Dr. Allama Iqbal</h5>
+                      <p class="">M.B.B.S, B.D.S.</p>
+                    </div>
+                    <h6 class="mt-1 rounded-5 px-2 py-1">DERMATOLOGY</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="col-12 col-sm-6 col-md-3 col-lg-2 px-sm-1 px-md-3">
+                  <div
+                    class="doctor-carousel-card-container d-flex flex-column align-items-center justify-content-center text-center rounded-2 py-1"
+                  >
+                    <div class="carousel-pic-container rounded-circle p-1">
+                      <img
+                        src="{{ asset('assets/new_frontend/doctor-3.png') }}"
+                        alt="Doctor Page"
+                        class="rounded-circle object-fit-cover w-100 h-100"
+                      />
+                    </div>
+                    <div class="carousel-doctor-ratings mt-1">
+                      <i class="fa-solid fa-star"></i>
+                      <i class="fa-solid fa-star"></i>
+                      <i class="fa-solid fa-star"></i>
+                      <i class="fa-solid fa-star"></i>
+                      <i class="fa-solid fa-star"></i>
+                    </div>
+                    <div class="d-flex flex-column mt-1">
+                      <h5 class="mb-0">Dr. Allama Iqbal</h5>
+                      <p class="">M.B.B.S, B.D.S.</p>
+                    </div>
+                    <h6 class="mt-1 rounded-5 px-2 py-1">DERMATOLOGY</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="col-12 col-sm-6 col-md-3 col-lg-2 px-sm-1 px-md-3">
+                  <div
+                    class="doctor-carousel-card-container d-flex flex-column align-items-center justify-content-center text-center rounded-2 py-1"
+                  >
+                    <div class="carousel-pic-container rounded-circle p-1">
+                      <img
+                        src="{{ asset('assets/new_frontend/doctor-3.png') }}"
+                        alt="Doctor Page"
+                        class="rounded-circle object-fit-cover w-100 h-100"
+                      />
+                    </div>
+                    <div class="carousel-doctor-ratings mt-1">
+                      <i class="fa-solid fa-star"></i>
+                      <i class="fa-solid fa-star"></i>
+                      <i class="fa-solid fa-star"></i>
+                      <i class="fa-solid fa-star"></i>
+                      <i class="fa-solid fa-star"></i>
+                    </div>
+                    <div class="d-flex flex-column mt-1">
+                      <h5 class="mb-0">Dr. Allama Iqbal</h5>
+                      <p class="">M.B.B.S, B.D.S.</p>
+                    </div>
+                    <h6 class="mt-1 rounded-5 px-2 py-1">DERMATOLOGY</h6>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="col-12 col-sm-6 col-md-3 col-lg-2 px-sm-1 px-md-3">
+                  <div
+                    class="doctor-carousel-card-container d-flex flex-column align-items-center justify-content-center text-center rounded-2 py-1"
+                  >
+                    <div class="carousel-pic-container rounded-circle p-1">
+                      <img
+                        src="{{ asset('assets/new_frontend/doctor-3.png') }}"
+                        alt="Doctor Page"
+                        class="rounded-circle object-fit-cover w-100 h-100"
+                      />
+                    </div>
+                    <div class="carousel-doctor-ratings mt-1">
+                      <i class="fa-solid fa-star"></i>
+                      <i class="fa-solid fa-star"></i>
+                      <i class="fa-solid fa-star"></i>
+                      <i class="fa-solid fa-star"></i>
+                      <i class="fa-solid fa-star"></i>
+                    </div>
+                    <div class="d-flex flex-column mt-1">
+                      <h5 class="mb-0">Dr. Allama Iqbal</h5>
+                      <p class="">M.B.B.S, B.D.S.</p>
+                    </div>
+                    <h6 class="mt-1 rounded-5 px-2 py-1">DERMATOLOGY</h6>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+     </section>
+     --}}
+
+
+
     <section id="buttons-section" class="container-fluid mt-5">
         <div class="button-section nav nav-tabs" id="nav-tab" role="tablist">
             <div id="e-visit-tab" class="nav-link active" data-bs-toggle="tab" data-bs-target="#e-visit" type="button"
@@ -1285,5 +1552,25 @@
           </div> -->
     </div>
 </div>
+<script>
+      let carouselParent = document.querySelector(".doctor-carousel-container");
+      let newItems = carouselParent.querySelectorAll(".carousel .carousel-item");
+
+      newItems.forEach((el) => {
+        const minPerSlide = 6;
+        let next = el.nextElementSibling;
+        for (var i = 1; i < minPerSlide; i++) {
+          if (!next) {
+            next = newItems[0];
+          }
+          let cloneChild = next.cloneNode(true);
+          el.appendChild(cloneChild.children[0]);
+          next = next.nextElementSibling;
+        }
+      });
+</script>
 <!-- ----------symptoms Checker Modal------- -->
 @endsection
+
+
+

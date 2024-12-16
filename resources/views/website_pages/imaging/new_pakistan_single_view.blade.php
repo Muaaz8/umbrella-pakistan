@@ -63,10 +63,16 @@
 
 
         <div class="container my-3 z-3 pharmacy-page-container border border-1 rounded-3 position-relative">
-            <div class="lab-test-page-price">
-                Rs. {{ $products[0]->sale_price}}
-            </div>
+
             <h3 class="text-center p-2"><u>Detail Description</u></h3>
+            <div class="text-end d-flex align-items-center justify-content-end p-2">
+                <div class="lab-test-page-price">
+                    Rs. {{ $products[0]->sale_price}}
+                </div>
+                <button class="btn btn-outline-danger w-25">
+                Add to Cart
+                </button>
+            </div>
             <div class="med-description p-4">
                 {!! $products[0]->description !!}
             </div>
