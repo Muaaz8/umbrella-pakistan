@@ -4283,3 +4283,157 @@ footer {
             width: 70%;
         }
     }
+
+
+
+/* Doctor Cards Carousel Section */
+
+.doctor-carousel-card-container {
+    min-height: 200px;
+    border-top: 6px solid var(--blue);
+    box-shadow: 1px 1px 2px 0px #d0c0c0;
+}
+
+.doctor-carousel-card-container>h6 {
+    background-color: #ffe4e7;
+    color: var(--red);
+    letter-spacing: 0.1rem;
+}
+
+.carousel-pic-container {
+    width: 100px;
+    height: 100px;
+    box-shadow: 0px 2px 5px 0px var(--blue);
+}
+
+.carousel-pic-container>img {
+    object-position: top center;
+}
+
+.carousel-doctor-ratings>i {
+    color: rgb(231, 231, 20);
+}
+
+.doctor-carousel-container .carousel-control-prev-icon,
+.doctor-carousel-container .carousel-control-next-icon {
+    filter: invert(1);
+}
+
+.doctor-carousel-container .carousel-control-prev,
+.doctor-carousel-container .carousel-control-next {
+    position: static;
+    width: 25%;
+}
+
+.doctor-carousel-container .carousel-control-next-icon,
+.doctor-carousel-container .carousel-control-prev-icon {
+    width: 2rem;
+    height: 2rem;
+}
+
+.doctor-carousel-container .carousel {
+    padding-inline: 0;
+    display: flex;
+    gap: 3px;
+}
+
+.doctor-carousel-card-container h6 {
+    font-size: 0.9rem;
+}
+
+.doctor-carousel-card-container p {
+    font-size: 0.9rem;
+}
+
+.doctor-carousel-container .carousel-item {
+    transition: all 0.5s ease-out;
+}
+
+@media screen and (max-width: 991px) {
+    .doctor-carousel-card-container h6 {
+        font-size: 0.7rem;
+    }
+
+    .doctor-carousel-card-container h5 {
+        font-size: 1rem;
+    }
+
+    .doctor-carousel-card-container p {
+        font-size: 0.8rem;
+    }
+
+    .carousel-pic-container {
+        width: 80px;
+        height: 80px;
+    }
+}
+
+
+@media (max-width: 575px) {
+    .doctor-carousel-container .carousel-inner .carousel-item>div:first-child {
+        display: block;
+    }
+
+    .doctor-carousel-container .carousel-inner .carousel-item-end.active,
+    .doctor-carousel-container .carousel-inner .carousel-item-next {
+        transform: translateX(100%);
+    }
+
+    .doctor-carousel-container .carousel-inner .carousel-item-start.active,
+    .doctor-carousel-container .carousel-inner .carousel-item-prev {
+        transform: translateX(-100%);
+    }
+}
+
+@media screen and (max-width: 375px) {
+    .doctor-carousel-container>h2 {
+        font-size: 1.2rem;
+    }
+}
+
+.doctor-carousel-container .carousel-inner .carousel-item.active,
+.doctor-carousel-container .carousel-inner .carousel-item-next,
+.doctor-carousel-container .carousel-inner .carousel-item-prev {
+    display: flex;
+}
+
+@media (min-width: 576px) {
+    .doctor-carousel-container .carousel-inner .carousel-item-end.active,
+    .doctor-carousel-container .carousel-inner .carousel-item-next {
+        transform: translateX(50%);
+    }
+
+    .doctor-carousel-container .carousel-inner .carousel-item-start.active,
+    .doctor-carousel-container .carousel-inner .carousel-item-prev {
+        transform: translateX(-50%);
+    }
+}
+
+@media (min-width: 768px) {
+    .doctor-carousel-container .carousel-inner .carousel-item-end.active,
+    .doctor-carousel-container .carousel-inner .carousel-item-next {
+        transform: translateX(25%);
+    }
+
+    .doctor-carousel-container .carousel-inner .carousel-item-start.active,
+    .doctor-carousel-container .carousel-inner .carousel-item-prev {
+        transform: translateX(-25%);
+    }
+}
+
+@media (min-width: 992px) {
+    .doctor-carousel-container .carousel-inner .carousel-item-end.active,
+    .doctor-carousel-container .carousel-inner .carousel-item-next {
+        transform: translateX(16.6666667%);
+    }
+
+    .doctor-carousel-container .carousel-inner .carousel-item-start.active,
+    .doctor-carousel-container .carousel-inner .carousel-item-prev {
+        transform: translateX(-16.6666667%);
+    }
+}
+
+.doctor-carousel-container .carousel-inner .carousel-item-end,
+.doctor-carousel-container .carousel-inner .carousel-item-start {
+    transform: translateX(0);
+}
