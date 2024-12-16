@@ -84,7 +84,7 @@
                                     @endif
                                 </div>
                                 <div class="d-flex flex-column gap-1 mt-3">
-                                    <h5 class="mb-0">Dr. {{ $doctor->name." ".$doctor->last_name }}</h5>
+                                    <h5 class="mb-0">Dr. {{ \Str::ucfirst($doctor->name)." ".\Str::ucfirst($doctor->last_name) }}</h5>
                                     {{-- <p class="">M.B.B.S, B.D.S.</p> --}}
                                 </div>
                                 <h6 class="mt-2 rounded-5 px-3 py-1">{{ $doctor->specializations->name }}</h6>

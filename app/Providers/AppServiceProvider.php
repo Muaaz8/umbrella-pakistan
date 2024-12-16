@@ -37,12 +37,12 @@ class AppServiceProvider extends ServiceProvider
             return $countNote;
         });
         $this->app->singleton('item_count_cart', function () {
-            $item_count_cart = DB::table('tbl_cart')->where('user_id', Auth::user()->id)->where('status', 'recommended')->sum('quantity');
+            $item_count_cart = DB::table('tbl_cart')->where('user_id', Auth::user()->id)->where('status', 'recommended')->count();
             Log::info($item_count_cart);
             return $item_count_cart;
         });
         $this->app->singleton('item_count_cart_responsive', function () {
-            $item_count_cart_responsive = DB::table('tbl_cart')->where('user_id', Auth::user()->id)->where('status', 'recommended')->sum('quantity');
+            $item_count_cart_responsive = DB::table('tbl_cart')->where('user_id', Auth::user()->id)->where('status', 'recommended')->count();
             return $item_count_cart_responsive;
         });
         $this->app->singleton('notificationsPopup', function () {

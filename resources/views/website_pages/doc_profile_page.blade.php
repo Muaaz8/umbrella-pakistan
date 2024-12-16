@@ -144,9 +144,22 @@
                         </div>
                         <div
                             class="appointment_btn btn btn-primary d-flex align-items-center gap-2 justify-content-center rounded-top-0 w-100 rounded-bottom-4">
-                            <button class="py-2 bg-transparent border-0 text-white">
-                                Book Appointment Now
-                            </button>
+                            @if (Auth::check())
+                                @if ($doctor->zip_code != "")
+                                    <button class="py-2 bg-transparent border-0 text-white">
+                                        Book Appointment with American Doctor
+                                    </button>
+                                @else
+                                    <button class="py-2 bg-transparent border-0 text-white" onclick="window.location.href='/book/appointment/{{$doctor->specialization}}'">
+                                        Book Appointment Now
+                                    </button>
+                                @endif
+                            @else
+                                <button class="py-2 bg-transparent border-0 text-white" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                    Book Appointment Now
+                                </button>
+
+                            @endif
                             <i class="fa-solid fa-arrow-right-long"></i>
                         </div>
                     </div>
@@ -181,4 +194,30 @@
             </div>
         </div>
     </main>
+     <!-- Modal -->
+     <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Select Registration Type</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="modal-login-reg-btn my-3">
+                        <a href="{{ route('pat_register') }}"> REGISTER AS A PATIENT</a>
+                        <a href="{{ route('doc_register') }}">REGISTER AS A DOCTOR </a>
+                    </div>
+                    <div class="login-or-sec">
+                        <hr />
+                        OR
+                        <hr />
+                    </div>
+                    <div>
+                        <p>Already have account?</p>
+                        <a href="{{ route('login') }}">Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

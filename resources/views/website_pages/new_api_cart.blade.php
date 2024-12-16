@@ -1564,8 +1564,8 @@
                         <a href="{{ route('pharmacy') }}">Pharmacy</a>
                         <a href="{{ route('labs') }}">Lab Tests</a>
                         <a href="{{ route('imaging') }}">Imaging</a>
-                        <a href="{{ route('about_us') }}">About</a>
-                        <a href="{{ route('contact_us') }}">Contact <i class="fa-solid fa-phone-flip"></i></a>
+                        <a href="{{ route('about_us') }}">About Us</a>
+                        <a href="{{ route('contact_us') }}">Contact Us</a>
                         <hr />
                         <a href="#">Join Us</a>
                     </div>
@@ -1605,8 +1605,8 @@
                             </ul>
                     </div> --}}
                     <a href="{{ route('e-visit') }}">E-Visit</a>
-                    <a href="{{ route('about_us') }}">About</a>
-                    <a href="{{ route('contact_us') }}">Contact <i class="fa-solid fa-phone-flip"></i></a>
+                    <a href="{{ route('about_us') }}">About Us </a>
+                    <a href="{{ route('contact_us') }}">Contact Us</a>
                 </div>
             </section>
         </nav>
@@ -1668,9 +1668,15 @@
                                                                     <div class="row main align-items-center"
                                                                         style="position: relative">
                                                                         <div class="col-2 cart-img-div">
-                                                                            <img class="img-fluid"
-                                                                                alt="{{ $item->name }}"
-                                                                                src="{{ url('/uploads/' . $item->product_image) }}" />
+                                                                            @if ($item->product_image != "dummy_medicine.png")
+                                                                                <img class="img-fluid"
+                                                                                    alt="{{ $item->name }}"
+                                                                                    src="{{ \App\Helper::check_bucket_files_url($item->product_image) }}" />
+                                                                            @else
+                                                                                <img class="img-fluid"
+                                                                                    alt="{{ $item->name }}"
+                                                                                    src="{{ url('/uploads/' . $item->product_image) }}" />
+                                                                            @endif
                                                                             @if ($item->product_mode == 'medicine')
                                                                                 <h6
                                                                                     class="item-tag-name tag-name-pharmacy">
@@ -1744,9 +1750,15 @@
                                                                     <div class="row main align-items-center"
                                                                         style="position: relative">
                                                                         <div class="col-2 cart-img-div">
-                                                                            <img class="img-fluid"
-                                                                                alt="{{ $item->name }}"
-                                                                                src="{{ url('/uploads/' . $item->product_image) }}" />
+                                                                            @if ($item->product_image != "dummy_medicine.png" && $item->product_image != "default-labtest.jpg" && $item->product_image != "default-imaging.png")
+                                                                                <img class="img-fluid"
+                                                                                    alt="{{ $item->name }}"
+                                                                                    src="{{ \App\Helper::check_bucket_files_url($item->product_image) }}" />
+                                                                            @else
+                                                                                <img class="img-fluid"
+                                                                                    alt="{{ $item->name }}"
+                                                                                    src="{{ url('/uploads/' . $item->product_image) }}" />
+                                                                            @endif
                                                                             @if ($item->product_mode == 'medicine')
                                                                                 <h6
                                                                                     class="item-tag-name tag-name-pharmacy">

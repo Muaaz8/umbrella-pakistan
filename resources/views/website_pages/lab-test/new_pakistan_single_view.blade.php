@@ -36,6 +36,14 @@
 
 
 @section('bottom_import_file')
+<script type="text/javascript">
+    <?php header('Access-Control-Allow-Origin: *'); ?>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+</script>
 @endsection
 
 @section('content')
@@ -61,16 +69,81 @@
             </div>
         </div>
 
+        <div class="row container-fluid px-5 mt-2">
+            <div class="col-md-8 h-100">
+                <div class="w-100 h-100 p-4 my-3 z-3 pharmacy-page-container border border-1 rounded-3">
+                    <div class="position-relative d-flex align-items-center justify-content-between pt-3">
+                        <h3 class="pt-2 px-2">Detail Description</h3>
+                        <div class="price-tag position-absolute top-0 start-0 translate-middle">
+                            <span class="badge bg-success p-2">Price: Rs. {{ $products[0]->sale_price}}</span>
+                        </div>
+                        @if(Auth::check())
+                            <button class="btn-outline-success {{ $products[0]->id }} lab-test btn" onclick="addedItem(this)">
+                                Add to Cart <i class="fa-solid fa-shopping-cart mx-2"></i>
+                            </button>
+                        @else
+                            <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#loginModal">
+                                Add to Cart <i class="fa-solid fa-shopping-cart mx-2"></i>
+                            </button>
+                        @endif
+                    </div>
+                    <hr class="hr">
+                    {!! $products[0]->description !!}
 
-        <div class="container my-3 z-3 pharmacy-page-container border border-1 rounded-3 position-relative">
-            <div class="lab-test-page-price">
-                Rs. {{ $products[0]->sale_price}}
+                </div>
             </div>
-            <h3 class="text-center p-2"><u>Detail Description</u></h3>
-            <div class="med-description p-4">
-                {!! $products[0]->description !!}
+            <div class="col-md-4 h-100 ">
+                <div class="p-4 my-3 z-3 pharmacy-page-container border border-1 rounded-3 background-secondary">
+                    <h5 class="p-2"><u>Related Labtests</u></h5>
+
+                    <div class="d-flex align-items-center justify-content-between p-2 flex-column">
+                        @forelse ($products[0]->related_products as $item)
+                            <div class="tests-card mb-2">
+                                <div class="test-card-content">
+                                    <h4>{{ $item->TEST_NAME }}</h4>
+                                    <p class="truncate-overflow">{!! $item->DESCRIPTION !!}</p>
+                                    <button class="learn_btn">Learn More</button>
+                                </div>
+                            </div>
+                        @empty
+                            No Related Product Added
+                        @endforelse
+                        {{-- <div class="tests-card mb-2">
+                            <div class="test-card-content">
+                                <div class="add_to_cart_container">
+                                    <button class="add_to_cart_btn">
+                                        <i class="fa-solid fa-cart-shopping"></i>
+                                    </button>
+                                </div>
+                                <h4>Complete Blood Count</h4>
+                                <p class="truncate-overflow">
+                                    Complete Blood Count (CBC) is a blood test used to
+                                    evaluate your overall health and detect a wide range of
+                                    disorders, including anemia, infection and leukemia.
+                                </p>
+                                <button class="learn_btn">Learn More</button>
+                            </div>
+                        </div>
+
+                        <div class="tests-card mb-2">
+                            <div class="test-card-content">
+                                <div class="add_to_cart_container">
+                                    <button class="add_to_cart_btn">
+                                        <i class="fa-solid fa-cart-shopping"></i>
+                                    </button>
+                                </div>
+                                <h4>Complete Blood Count</h4>
+                                <p class="truncate-overflow">
+                                    Complete Blood Count (CBC) is a blood test used to
+                                    evaluate your overall health and detect a wide range of
+                                    disorders, including anemia, infection and leukemia.
+                                </p>
+                                <button class="learn_btn">Learn More</button>
+                            </div>
+                        </div> --}}
+                    </div>
+                </div>
             </div>
-        </div>
     </main>
 
 
@@ -101,4 +174,49 @@
         </div>
     </div>
     <!-- ******* LOGIN-REGISTER-MODAL ENDS ******** -->
+    <!-- Modal -->
+    <div class="modal fade cart-modal" id="alreadyadded" tabindex="-1" aria-labelledby="alreadyaddedLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="alreadyaddedLabel">Item Not Added</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="custom-modal1">
+                        <div class="succes succes-animation icon-top"><i class="fa fa-check"></i></div>
+                            <div class="content flex-column align-items-center justify-content-center w-100 gap-1">
+                                <p class="type">Item Is Already in Cart</p>
+                                <div class="modal-login-reg-btn"><button data-bs-dismiss="modal" aria-label="Close">
+                                        Continue Shopping
+                                    </button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade cart-modal" id="afterLogin" tabindex="-1" aria-labelledby="afterLoginLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="afterLoginLabel">Item Added</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="custom-modal">
+                        <div class="succes succes-animation icon-top"><i class="fa fa-check"></i></div>
+                        <div class="content flex-column align-items-center justify-content-center w-100 gap-1">
+                            <p class="type">Item Added</p>
+                            <div class="modal-login-reg-btn"><button data-bs-dismiss="modal" aria-label="Close">
+                                    Continue Shopping
+                                </button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
