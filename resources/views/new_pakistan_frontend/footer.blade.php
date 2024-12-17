@@ -72,6 +72,9 @@ $page = DB::table('pages')->where('url', '/')->first();
             <div class="logo" id="footer-logo">
                 <img src="{{ asset('assets/new_frontend/logo.png') }}" alt="umbrella-logo" />
             </div>
+
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3620.017148282561!2d67.0743981!3d24.8632639!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33f3f9ba7181d%3A0x99571ff4d3fb7e52!2sCommunity%20Health%20Care%20Clinics!5e0!3m2!1sen!2s!4v1734451314564!5m2!1sen!2s" width="300" height="100" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
             <div class="flex gap-15" id="social-icons">
                 <div><i class="fa-brands fa-facebook"></i></div>
                 <div><i class="fa-brands fa-linkedin"></i></div>
@@ -133,6 +136,7 @@ $page = DB::table('pages')->where('url', '/')->first();
             </div>
         </div>
     </section>
+
     <div class="seperation"></div>
     <section id="copyright">
         <p>
