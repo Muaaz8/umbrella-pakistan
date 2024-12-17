@@ -98,6 +98,7 @@
             <a href="{{ route('labs') }}">Lab Tests</a>
             <a href="{{ route('imaging') }}">Imaging</a>
             <a href="{{ route('e-visit') }}">E-Visit</a>
+            <a href="{{ route('doc_profile_page_list') }}">Our Doctors</a>
             <a href="{{ route('about_us') }}">About Us</a>
             <a href="{{ route('contact_us') }}">Contact Us</a>
             <hr />
@@ -117,6 +118,7 @@
             <a href="{{ route('labs') }}">Lab Tests</a>
             <a href="{{ route('imaging') }}">Imaging</a>
             <a href="{{ route('e-visit') }}">E-Visit</a>
+            <a href="{{ route('doc_profile_page_list') }}">Our Doctors</a>
             <a href="{{ route('about_us') }}">About Us</a>
             <a href="{{ route('contact_us') }}">Contact Us</a>
 

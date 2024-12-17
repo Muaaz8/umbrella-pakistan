@@ -83,14 +83,14 @@ Route::get('/doctor-profile/{id}',function($id){
     return view('website_pages.doc_profile_page',compact('doctor'));
 });
 
-Route::get('/doctor-profile-list',function(){
+Route::get('/our-doctors',function(){
     $doctors = DB::table('users')->where('user_type','doctor')->orderBy('id','desc')->paginate(8);
     foreach($doctors as $doctor){
         $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
         $doctor->specializations = DB::table('specializations')->where('id',$doctor->specialization)->first();
     }
     return view('website_pages.doc_profile_page_list',compact('doctors'));
-});
+})->name('doc_profile_page_list');
 
 Route::get('/screen_sharing','UserController@sc_share')->name('sc_share');
 Route::post('/create/screen_sharing','UserController@create_sc_sh')->name('create_sc_sh');
