@@ -8,7 +8,7 @@
 @endsection
 
 @section('page_title')
-    <title>Doctors List</title>
+    <title>Our Doctors</title>
 @endsection
 
 @section('top_import_file')
@@ -25,7 +25,7 @@
                 <div class="w-100 d-flex align-items-center justify-content-center">
                     <div class="w-50 d-flex flex-column align-items-center">
                         <h2 class="text-center">
-                            List of
+                            Our
                             <span class="red">Doctors</span>
                         </h2>
                         <div class="underline w-25"></div>
@@ -54,7 +54,7 @@
                 </div>
                 <div class="row gy-3 gx-4">
                     @foreach ($doctors as $doctor)
-                        <div class="col-md-6 col-lg-3 col-xxl-2 doctor-list-card" onclick="window.location.href='/doctor-profile/{{$doctor->id}}'">
+                        <div class="col-sm-12 col-md-6 col-xl-6 doctor-list-card" onclick="window.location.href='/doctor-profile/{{$doctor->id}}'">
                             <div
                                 class="doctor-list-card-container d-flex flex-column align-items-center justify-content-center text-center rounded-2 py-2">
                                 <div class="doctor-pic-container rounded-circle p-1 "><img src="{{ $doctor->user_image }}" alt="Doctor Page"
