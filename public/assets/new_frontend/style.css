@@ -4205,11 +4205,10 @@ footer {
 
     /* Doctor's List Page */
     .doctor-list-container {
-        width: 85%;
-
+        width: 92%;
     }
 
-    .doctor-list-section{
+    .doctor-list-section {
         margin-top: 3%;
     }
 
@@ -4218,24 +4217,22 @@ footer {
         outline: none;
     }
 
-
     [type="search"]::-webkit-search-cancel-button,
     [type="search"]::-webkit-search-decoration {
         -webkit-appearance: none;
         appearance: none;
     }
 
-
     .search-btn {
         border: none;
         background: none;
     }
 
-
     .doctor-list-card-container {
         min-height: 200px;
         border-top: 6px solid var(--blue);
-        box-shadow: 1px 1px 2px 0px var(--blue);
+        box-shadow: 1px 1px 2px 0px #d0c0c0;
+        cursor: pointer;
     }
 
 
@@ -4245,28 +4242,41 @@ footer {
         letter-spacing: 0.1rem;
     }
 
-
     .doctor-pic-container {
-        width: 120px;
-        height: 120px;
+        width: 5rem;
+        height: 5rem;
         box-shadow: 0px 2px 5px 0px var(--blue);
     }
-
 
     .doctor-pic-container>img {
         object-position: top center;
     }
 
+    .doctor-ratings {
+        gap: 2px;
+    }
 
     .doctor-ratings>i {
         color: rgb(231, 231, 20);
+        font-size: 0.8rem;
     }
-
 
     .search-bar-container {
         width: 50%;
     }
 
+    .doctor-data-container h5 {
+        font-size: 1.2rem;
+    }
+
+    .doctor-verify {
+        font-size: 0.7rem;
+        color: var(--red);
+    }
+
+    .doctor-data-container p {
+        font-size: 0.8rem;
+    }
 
     @media screen and (min-width: 1200px) {
         .search-bar-container {
@@ -4287,7 +4297,6 @@ footer {
             width: 70%;
         }
     }
-
 
 
 /* Doctor Cards Carousel Section */
