@@ -42,7 +42,7 @@ $page = DB::table('pages')->where('url', '/')->first();
             <p>
                 Never disregard professional medical advice or delay seeking
                 medical treatment because of something you have read on or
-                accessed through this web site. umbrella health care systems not
+                accessed through this web site. Community Health Care Clinics not
                 responsible nor liable for any advice, course of treatment,
                 diagnosis or any other information, services or products that
                 you obtain through this website.

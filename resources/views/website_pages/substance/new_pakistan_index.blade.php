@@ -14,7 +14,7 @@
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.umbrellamd.com" />
-    <meta property="og:site_name" content="Umbrella Health Care Systems | Umbrellamd.com" />
+    <meta property="og:site_name" content="Community Health Care Clinics | Umbrellamd.com" />
     <meta name="twitter:site" content="@umbrellamd	">
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="author" content="Umbrellamd">
@@ -27,7 +27,7 @@
     @if ($title != null)
         <title>{{ $title->content }}</title>
     @else
-        <title>Psychiatry | Umbrella Health Care Systems</title>
+        <title>Psychiatry | Community Health Care Clinics</title>
     @endif
 @endsection
 

@@ -16,7 +16,7 @@
 
 
 @section('page_title')
-    <title>Doctor As Register | Umbrella Health Care Systems</title>
+    <title>Doctor As Register </title>
 @endsection
 
 @section('top_import_file')

@@ -372,8 +372,8 @@
       {{-- <a class="nav-link resp-cart-icon" href="{{ url('/') }}"><i
           class="fa-solid fa-cart-shopping"></i><sup>0</sup> </a> --}}
       <a class="navbar-brand navbar-logo" href="{{ url('/') }}">
-        <img src="{{ asset('assets/images/dashboards_logo.png?n=2')}}" alt="Umbrella Health Care Systems"
-          title="Umbrella Health Care Systems" class="" width="120" height="70" />
+        <img src="{{ asset('assets/images/dashboards_logo.png?n=2')}}" alt="Community Health Care Clinics"
+          title="Community Health Care Clinics" class="" width="120" height="70" />
       </a>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
@@ -761,7 +761,7 @@
                                 Kindly be aware that this tool is not designed to offer medical advice.
                             </p><br>
                             <p style="text-align: justify;">
-                                Our tool is not a substitute for professional medical advice, diagnosis, or treatment. It is crucial to thoroughly review the label of any over-the-counter (OTC) medications you may be considering. The label provides information about active ingredients and includes critical details such as potential drug interactions and side effects. Always consult with your physician or a qualified healthcare provider for any questions regarding a medical condition. Never disregard professional medical advice or delay seeking it due to information found on our website. If you suspect a medical emergency, please contact your doctor or call 911 without delay. Umbrella Health Care Systems does not endorse or recommend specific products or services. Any reliance on information provided by Umbrella Health Care Systems is solely at your discretion and risk.
+                                Our tool is not a substitute for professional medical advice, diagnosis, or treatment. It is crucial to thoroughly review the label of any over-the-counter (OTC) medications you may be considering. The label provides information about active ingredients and includes critical details such as potential drug interactions and side effects. Always consult with your physician or a qualified healthcare provider for any questions regarding a medical condition. Never disregard professional medical advice or delay seeking it due to information found on our website. If you suspect a medical emergency, please contact your doctor or call 911 without delay. Community Health Care Clinics does not endorse or recommend specific products or services. Any reliance on information provided by Community Health Care Clinics is solely at your discretion and risk.
                             </p>
                         </div>
                         <input type="checkbox" id="agree" class="agreeCheckbox" required>

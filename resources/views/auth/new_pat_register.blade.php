@@ -58,7 +58,7 @@
 
 
 @section('page_title')
-    <title>Patient As Register | Umbrella Health Care Systems</title>
+    <title>Patient As Register |  </title>
 @endsection
 
 @section('top_import_file')

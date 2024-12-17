@@ -86,7 +86,7 @@
                         <div class="card-body">
                             <div class="first-card-content">
                                 <p>Welcome to</p>
-                                <h1>Umbrella Health Care Systems</h1>
+                                <h1>Community Health Care Clinics</h1>
                                 <div class="d-flex flex-wrap justify-content-between">
                                 </div>
                             </div>

@@ -96,7 +96,7 @@
                           </div>
                           <ul>
                               <li>Available 07:00 AM to 08:00 PM</li>
-                              <li>Umbrella Health Care Systems</li>
+                              <li>Community Health Care Clinics</li>
                               <li>
                                   <a href="{{ route('about_us') }}">About Us</a>
                               </li>
@@ -169,7 +169,7 @@
                               NEVER DISREGARD PROFESSIONAL MEDICAL ADVICE OR DELAY
                               SEEKING MEDICAL TREATMENT BECAUSE OF SOMETHING YOU
                               HAVE READ ON OR ACCESSED THROUGH THIS WEB SITE.
-                              UMBRELLA HEALTH CARE SYSTEMS NOT RESPONSIBLE NOR
+                              Community Health Care Clinics NOT RESPONSIBLE NOR
                               LIABLE FOR ANY ADVICE, COURSE OF TREATMENT,
                               DIAGNOSIS OR ANY OTHER INFORMATION, SERVICES OR
                               PRODUCTS THAT YOU OBTAIN THROUGH THIS WEB SITE.
@@ -185,7 +185,7 @@
                   <div class="text-center text-lg-left">
                       <div class="copyright-text">
                           <p>
-                              &copy; {{date('Y')}} <b>Umbrella Health Care Systems.</b> All
+                              &copy; {{date('Y')}} <b>Community Health Care Clinics.</b> All
                               Rights Reserved
                           </p>
                       </div>

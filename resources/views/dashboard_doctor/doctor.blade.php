@@ -27,7 +27,7 @@
         <div class="card-body">
           <div class="first-card-content">
             <p>Welcome to</p>
-          <h1>Umbrella Health Care Systems</h1>
+          <h1>Community Health Care Clinics</h1>
       </div>
           <div class="first-card-img-div">
               <img src="{{ asset('assets/images/logo.png') }}" alt="" height="auto" width="200">

@@ -94,7 +94,7 @@
                                         margin: 0;
                                       background: #f9f9f9 !important;
                                       padding: 9px 20px;
-                                      "> A request has been received to change password for your Umbrella Health Care Systems account. </p>
+                                      "> A request has been received to change password for your Community Health Care Clinics account. </p>
                                   </th>
                                 </tr>
                                 <!-- END SECTION: Introduction -->
