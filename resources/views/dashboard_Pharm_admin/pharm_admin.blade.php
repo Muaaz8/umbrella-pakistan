@@ -30,7 +30,7 @@
                                 <p>Welcome to Community Health Care Clinics</p>
                             </div>
                             <div class="first-card-img-div">
-                                <img src="assets/images/logo.png" alt=""  height="auto" width="200">
+                                {{-- <img src="assets/images/logo.png" alt=""  height="auto" width="200"> --}}
                             </div>
                         </div>
 

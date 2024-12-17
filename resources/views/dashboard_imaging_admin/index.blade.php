@@ -34,7 +34,7 @@
             </header> -->
             <div class="nav-info-div-wrapper">
                 <div class="nav-info-img">
-                    <img src="assets/images/logo.png" alt="">
+                    {{-- <img src="assets/images/logo.png" alt=""> --}}
                 </div>
                 <h5 class="text-center py-2">Editors Dashboard</h5>
                 <div class="d-flex">

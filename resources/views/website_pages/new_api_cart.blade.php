@@ -1564,6 +1564,7 @@
                         <a href="{{ route('pharmacy') }}">Pharmacy</a>
                         <a href="{{ route('labs') }}">Lab Tests</a>
                         <a href="{{ route('imaging') }}">Imaging</a>
+                        <a href="{{ route('doc_profile_page_list') }}">Our Doctors</a>
                         <a href="{{ route('about_us') }}">About Us</a>
                         <a href="{{ route('contact_us') }}">Contact Us</a>
                         <hr />
@@ -1605,6 +1606,7 @@
                             </ul>
                     </div> --}}
                     <a href="{{ route('e-visit') }}">E-Visit</a>
+                    <a href="{{ route('doc_profile_page_list') }}">Our Doctors</a>
                     <a href="{{ route('about_us') }}">About Us </a>
                     <a href="{{ route('contact_us') }}">Contact Us</a>
                 </div>
@@ -1668,7 +1670,7 @@
                                                                     <div class="row main align-items-center"
                                                                         style="position: relative">
                                                                         <div class="col-2 cart-img-div">
-                                                                            @if ($item->product_image != "dummy_medicine.png")
+                                                                            @if ($item->product_image != "dummy_medicine.png" && $item->product_image != "default-labtest.jpg" && $item->product_image != "default-imaging.png")
                                                                                 <img class="img-fluid"
                                                                                     alt="{{ $item->name }}"
                                                                                     src="{{ \App\Helper::check_bucket_files_url($item->product_image) }}" />

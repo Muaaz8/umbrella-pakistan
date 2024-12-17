@@ -30,7 +30,7 @@
           <h1>Community Health Care Clinics</h1>
       </div>
           <div class="first-card-img-div">
-              <img src="{{ asset('assets/images/logo.png') }}" alt="" height="auto" width="200">
+              {{-- <img src="{{ asset('assets/images/logo.png') }}" alt="" height="auto" width="200"> --}}
             </div>
         </div>
 

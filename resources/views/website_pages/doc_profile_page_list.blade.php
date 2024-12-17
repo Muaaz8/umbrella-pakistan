@@ -106,7 +106,7 @@
                         </div> --}}
 
 
-                        <div class="col-sm-12 col-md-6 col-xl-4 doctor-list-card" onclick="window.location.href='/doctor-profile/{{$doctor->id}}'">
+                        <div class="col-sm-12 col-md-6 col-xl-4 doctor-list-card">
                             <div class="doctor-list-card-container rounded-2 px-2 pt-3 pb-2">
                                 <div class="d-flex pb-4 gap-3">
 
