@@ -208,6 +208,26 @@ header {
     border-radius: 10px;
 }
 
+.price-tag{
+    position: absolute;
+    top: 3%;
+    left: -4%;
+    font-size: 1.4rem;
+}
+
+.price-tag::before{
+    content: "";
+    height: 40%;
+    width: 35%;
+    background: #dc3545;
+    position: absolute;
+    bottom: -20%;
+    left: -2%;
+    transform: rotate(20deg);
+    border-bottom-left-radius: 10px;
+    z-index: -2;
+}
+
 #hero-section {
     background-image: url("./slider-1.jpeg");
     background-position: 80% center;
@@ -4245,6 +4265,17 @@ footer {
         width: 5rem;
         height: 5rem;
         box-shadow: 0px 2px 5px 0px var(--blue);
+    }
+
+    .doctor-experience-badge{
+        position: absolute;
+        top: 3%;
+        right: 2%;
+        background: var(--green);
+        border-radius: 20px;
+        font-size: 0.7rem;
+        color: white;
+        padding: 0.3rem 0.5rem;
     }
 
     .doctor-pic-container>img {

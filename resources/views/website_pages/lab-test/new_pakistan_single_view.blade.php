@@ -71,18 +71,18 @@
 
         <div class="row container-fluid px-5 mt-2">
             <div class="col-md-8 h-100">
-                <div class="w-100 h-100 p-4 my-3 z-3 pharmacy-page-container border border-1 rounded-3">
-                    <div class="position-relative d-flex align-items-center justify-content-between pt-3">
+                <div class="position-relative  w-100 h-100 p-4 my-3 bg-white pharmacy-page-container border border-1 rounded-3">
+                    <div class="d-flex align-items-center justify-content-between pt-4">
                         <h3 class="pt-2 px-2">Detail Description</h3>
-                        <div class="price-tag position-absolute top-0 start-0 translate-middle">
-                            <span class="badge bg-success p-2">Price: Rs. {{ $products[0]->sale_price}}</span>
+                        <div class="price-tag">
+                            <span class="badge bg-danger px-3 py-2">Price: Rs. {{ $products[0]->sale_price}}</span>
                         </div>
                         @if(Auth::check())
-                            <button class="btn-outline-success {{ $products[0]->id }} lab-test btn" onclick="addedItem(this)">
+                            <button class="btn-outline-primary {{ $products[0]->id }} lab-test btn" onclick="addedItem(this)">
                                 Add to Cart <i class="fa-solid fa-shopping-cart mx-2"></i>
                             </button>
                         @else
-                            <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#loginModal">
+                            <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
                                 Add to Cart <i class="fa-solid fa-shopping-cart mx-2"></i>
                             </button>
                         @endif

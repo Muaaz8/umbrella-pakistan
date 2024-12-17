@@ -107,7 +107,12 @@
 
 
                         <div class="col-sm-12 col-md-6 col-xl-4 doctor-list-card">
-                            <div class="doctor-list-card-container rounded-2 px-2 pt-3 pb-2">
+                            <div class="doctor-list-card-container rounded-2 px-2 pt-3 pb-2 position-relative">
+
+                                <div class="doctor-experience-badge">
+                                    3 Years Experience
+                                </div>
+
                                 <div class="d-flex pb-4 gap-3">
 
                                     <div class="doctor-pic-container rounded-circle p-1 ">
