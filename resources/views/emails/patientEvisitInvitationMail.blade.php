@@ -42,7 +42,7 @@
                                     ">
                                                                     <!-- Logo : BEGIN -->
                                                                     <a href="#">
-                                                                        <img src="https://demo.umbrellamd-video.com/assets/images/logo_small.png"
+                                                                        <img src="https://communityhealthcareclinics.com/assets/new_frontend/logo.png"
                                                                             style="
                                           width: 96px;
                                           display: block;
@@ -123,11 +123,11 @@
                                       ">
                                                                         A new patient Mr./Ms {{ $data['pat_name'] }} wants to have a
                                                                         session with you. Please check your patient
-                                                                        queue on Umbrella Health Care Systems web
+                                                                        queue on Community Health Care Clinics web
                                                                         portal.
                                                                         <br>
                                                                         <br>
-                                                                        Umbrella Health Care Systems
+                                                                        Community Health Care Clinics
                                                                     </p>
 
 

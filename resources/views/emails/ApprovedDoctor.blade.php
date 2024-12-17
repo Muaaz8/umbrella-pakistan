@@ -636,7 +636,7 @@
 																		</tr>
 																		<tr>
 																			<td align="center">
-									<img style="height:100px; width:100px;" src="https://demo.umbrellamd-video.com/assets/images/logo_small.png" alt="img" />
+									<img style="height:100px; width:100px;" src="https://communityhealthcareclinics.com/assets/new_frontend/logo.png" alt="img" />
 																			</td>
 																		</tr>
 																		<tr>
@@ -649,7 +649,7 @@
 																			<td height="18">&nbsp;</td>
 																		</tr>
 																		<tr>
-																			<td align="center" style="font-family:'Josefin Sans', Arial, Helvetica, sans-serif;font-size: 24px;color: #282828;">Hi Dr.{{ $doctorName }}, your  account has been activated, now you can login into your account at<br>Umbrella Health Care Systems, Web-portal.</td>
+																			<td align="center" style="font-family:'Josefin Sans', Arial, Helvetica, sans-serif;font-size: 24px;color: #282828;">Hi Dr.{{ $doctorName }}, your  account has been activated, now you can login into your account at<br>Community Health Care Clinics, Web-portal.</td>
 																		</tr>
 																		<tr>
 																			<td height="30">&nbsp;</td>
@@ -822,7 +822,7 @@
                                                                                     Hi Dr.{{ $doctorName }}, your
                                                                                     account has been activated, now you
                                                                                     can login into your account
-                                                                                    at<br>Umbrella Health Care Systems,
+                                                                                    at<br>Community Health Care Clinics,
                                                                                     Web-portal.</td>
                                                                             </tr>
                                                                             <tr>

@@ -64,7 +64,7 @@
                                     <!-- Logo : BEGIN -->
                                     <a href="#">
                                       <img
-                                      src="https://demo.umbrellamd-video.com/assets/images/logo_small.png"
+                                      src="https://communityhealthcareclinics.com/assets/new_frontend/logo.png"
                                         style="
                                           width: 96px;
                                           display: block;

@@ -64,7 +64,7 @@
                                     <!-- Logo : BEGIN -->
                                     <a href="#">
                                       <img
-                                      src="https://demo.umbrellamd-video.com/assets/images/logo_small.png"
+                                      src="https://communityhealthcareclinics.com/assets/new_frontend/logo.png"
                                         style="
                                           width: 96px;
                                           display: block;
@@ -158,10 +158,10 @@
                                         Dr.{{ $data['ref_from_name'] }} have refered you to Mr./Ms {{ $data['pat_name'] }}.
                                         <br>
                                     @endif
-                                    Please go to the Umbrella Health Care Systems web portal to make an appointment.
+                                    Please go to the Community Health Care Clinics web portal to make an appointment.
                                   <br>
                                   <br>
-                                  Umbrella Health Care Systems
+                                  Community Health Care Clinics
                                   </p>
 
 

@@ -41,7 +41,7 @@
                                       ">
                                     <!-- Logo : BEGIN -->
                                     <a href="#">
-                                      <img src="https://demo.umbrellamd-video.com/assets/images/logo_small.png" style="
+                                      <img src="https://communityhealthcareclinics.com/assets/new_frontend/logo.png" style="
                                             width: 96px;
                                             display: block;
                                             margin: auto;
@@ -114,10 +114,10 @@
                                           background: #f9f9f9;
                                           padding: 9px 20px;
                                         ">
-                                      Your request for refill to Dr.{{ $data['doc_name'] }} has been fulfilled. Go to Umbrella Health Care Systems web-portal and checkout
+                                      Your request for refill to Dr.{{ $data['doc_name'] }} has been fulfilled. Go to Community Health Care Clinics web-portal and checkout
                                       your medications
                                       <br>
-                                      <br> Umbrella Health Care Systems
+                                      <br> Community Health Care Clinics
                                     </p>
 
 

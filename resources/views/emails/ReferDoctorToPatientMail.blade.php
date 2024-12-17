@@ -64,7 +64,7 @@
                                     <!-- Logo : BEGIN -->
                                     <a href="#">
                                       <img
-                                      src="https://demo.umbrellamd-video.com/assets/images/logo_small.png"
+                                      src="https://communityhealthcareclinics.com/assets/new_frontend/logo.png"
                                         style="
                                           width: 96px;
                                           display: block;
@@ -148,10 +148,10 @@
                                         padding: 9px 20px;
                                       "
                                     >
-                                    Your Dr.{{ $data['ref_from_name'] }} has referred you to Dr.{{ $data['ref_to_name'] }}. Please go to the Umbrella Health Care Systems web portal to make an appointment.
+                                    Your Dr.{{ $data['ref_from_name'] }} has referred you to Dr.{{ $data['ref_to_name'] }}. Please go to the Community Health Care Clinics web portal to make an appointment.
                                   <br>
                                   <br>
-                                  Umbrella Health Care Systems
+                                  Community Health Care Clinics
                                   </p>
 
 
