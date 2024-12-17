@@ -112,10 +112,10 @@
                                       padding: 9px 20px;
                                       ">
 
-                                                                        <b> Welcome to Umbrella Health Care Systems
-                                                                            (UHCS)</b>
+                                                                        <b> Welcome to Community Health Care Clinics
+                                                                            (CHCC)</b>
                                                                         <br>
-                                                                        These Terms of Use govern your use of UHCS
+                                                                        These Terms of Use govern your use of CHCC
                                                                         platform and services that we offer,
                                                                         please find Terms And Conditions.pdf file in the
                                                                         attachments.

@@ -124,12 +124,12 @@
                                         padding: 9px 20px;
                                       ">
                                                                         Thank you for registering as a provider with
-                                                                        Umbrella Health Care Systems.
+                                                                        Community Health Care Clinics.
                                                                         You are required to read and agree with provider
                                                                         contract on the next page. To start having
                                                                         sessions with your patients.
                                                                         <br>
-                                                                        <br> Umbrella Health Care Systems
+                                                                        <br> Community Health Care Clinics
                                                                     </p>
 
 

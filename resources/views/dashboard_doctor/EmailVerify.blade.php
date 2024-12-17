@@ -62,7 +62,7 @@
         <div class="row m-auto">
 
           <div class="text-center">
-            <img src="{{ asset('assets/images/logo_all.png') }}" alt="" width="250" height="150" />
+            <img src="{{ asset('assets/images/logo_all.png') }}" alt="" width="50%" />
           </div>
           <div class="reviewed-account-txt">
             <h5>Dr. {{ $user->name }} {{ $user->last_name }} your account is being reviewed</h5>

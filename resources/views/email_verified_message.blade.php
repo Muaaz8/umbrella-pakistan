@@ -1,4 +1,4 @@
-@extends('layouts.new_web_layout')
+@extends('layouts.new_pakistan_layout')
 @section('meta_tags')
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -6,7 +6,7 @@
 
 
 @section('page_title')
-    <title>Umbrella Health Care Systems</title>
+    <title>Community Health Care Clinics</title>
 @endsection
 
 @section('top_import_file')

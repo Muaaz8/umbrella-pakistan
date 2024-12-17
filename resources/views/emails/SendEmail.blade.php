@@ -34,7 +34,7 @@
                                     ">
                                     <!-- Logo : BEGIN -->
                                     <a href="#">
-                                      <img src="https://demo.umbrellamd-video.com/assets/images/logo_small.png" style="
+                                      <img src="https://communityhealthcareclinics.com/assets/new_frontend/logo.png" style="
                                           width: 96px;
                                           display: block;
                                           margin: auto;
@@ -105,7 +105,7 @@
                                         padding: 9px 20px;
                                       ">
                                       {{ $data['body'] }}
-                                      <br> Umbrella Health Care Systems
+                                      <br> Community Health Care Clinics
                                     </p>
                                   </th>
                                 </tr>

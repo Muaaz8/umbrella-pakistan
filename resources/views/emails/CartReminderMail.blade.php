@@ -61,7 +61,7 @@
                                     <!-- Logo : BEGIN -->
                                     <a href="#">
                                       <img
-                                      src="https://demo.umbrellamd-video.com/assets/images/logo_small.png"
+                                      src="https://communityhealthcareclinics.com/assets/new_frontend/logo.png"
                                         style="
                                           width: 96px;
                                           display: block;
@@ -147,7 +147,7 @@
                                     >
                                     This Email is sent to you to remind that you have some items in your cart that is not yet checked out.
                                     <br>Hope to see you there!
-                                     <br> Umbrella Health Care Systems
+                                     <br> Community Health Care Clinics
                                     </p>
 
 

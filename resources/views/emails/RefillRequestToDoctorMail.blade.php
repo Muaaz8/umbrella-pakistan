@@ -41,7 +41,7 @@
                                       ">
                                     <!-- Logo : BEGIN -->
                                     <a href="#">
-                                      <img src="https://demo.umbrellamd-video.com/assets/images/logo_small.png" style="
+                                      <img src="https://communityhealthcareclinics.com/assets/new_frontend/logo.png" style="
                                             width: 96px;
                                             display: block;
                                             margin: auto;
@@ -115,9 +115,9 @@
                                           padding: 9px 20px;
                                         ">
                                       you have a new refill request, please check on your dashboard by logging into
-                                      Umbrella Health Care Systems web-portal
+                                      Community Health Care Clinics web-portal
                                       <br>
-                                      <br> Umbrella Health Care Systems
+                                      <br> Community Health Care Clinics
                                     </p>
 
 

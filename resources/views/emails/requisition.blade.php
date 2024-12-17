@@ -42,7 +42,7 @@
                                     ">
                                   <!-- Logo : BEGIN -->
                                   <a href="#">
-                                    <img src="https://demo.umbrellamd-video.com/assets/images/logo_small.png" style="
+                                    <img src="https://communityhealthcareclinics.com/assets/new_frontend/logo.png" style="
                                           width: 96px;
                                           display: block;
                                           margin: auto;
@@ -144,7 +144,7 @@
                                         margin: 0;
                                         background: #f9f9f9;
                                         padding: 0px 20px  9px ;">
-                                    <br> Umbrella Health Care Systems
+                                    <br> Community Health Care Clinics
                                   </p>
 
 

@@ -64,7 +64,7 @@
                                     <!-- Logo : BEGIN -->
                                     <a href="#">
                                       <img
-                                      src="https://demo.umbrellamd-video.com/assets/images/logo_small.png"
+                                      src="https://communityhealthcareclinics.com/assets/new_frontend/logo.png"
                                         style="
                                           width: 96px;
                                           display: block;
@@ -137,7 +137,7 @@
                                       "
                                     >
 
-                                    A request has been received to change password for your Umbrella Health Care Systems account.
+                                    A request has been received to change password for your Community Health Care Clinics account.
                                     </p>
 
                                   </th>

@@ -62,7 +62,7 @@
                                     <!-- Logo : BEGIN -->
                                     <a href="#">
                                       <img
-                                      src="https://demo.umbrellamd-video.com/assets/images/logo_small.png"
+                                      src="https://communityhealthcareclinics.com/assets/new_frontend/logo.png"
                                         style="
                                           width: 96px;
                                           display: block;
@@ -149,7 +149,7 @@
                                     Your appointment is booked with Dr. <b>{{ $data['doc_name'] }} on {{ $data['date']." ". $data['time'] }} .</b> Please make sure to be on time
                                      <br> Thanks
                                      <br>
-                                     <br> Umbrella Health Care Systems
+                                     <br> Community Health Care Clinics
                                     </p>
 
 
