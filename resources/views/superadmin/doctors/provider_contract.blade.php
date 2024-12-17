@@ -5,8 +5,8 @@
 <head>
     <base href="../../../">
     <meta charset="utf-8" />
-    <title>Provider Contract | Umbrella Health Care Systems</title>
-    <meta name="description" content="Provider Contract | Umbrella Health Care Systems" />
+    <title>Provider Contract</title>
+    <meta name="description" content="Provider Contract" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <!--begin::Fonts-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
@@ -50,7 +50,7 @@
                                     </a> -->
                                     <!--end::Logo-->
                                     <span class="text-white d-flex flex-column align-items-md-end">
-                                        <span>625 School House Road #2,</span> 
+                                        <span>625 School House Road #2,</span>
                                         <span>Lakeland, FL 33813</span>
                                     </span>
                                 </div>
@@ -85,22 +85,22 @@
                                     ?>
                                         {{$newd_o_b}}
                                     </u>
-                                </b> (the &ldquo;<u>Effective Date</u>&rdquo;), by and between Umbrella Healthcare Systems, LLC, a Missouri professional limited
-liability company (“Umbrella”), and <strong>{{$contract->provider_name}}</strong> (“Provider”), and if Provider is a legal entity
+                                </b> (the &ldquo;<u>Effective Date</u>&rdquo;), by and between Community Healthcare Clinics, LLC, a Missouri professional limited
+liability company (“Community”), and <strong>{{$contract->provider_name}}</strong> (“Provider”), and if Provider is a legal entity
 comprised of physicians and/or other qualified practitioners (each, an “Eligible     Professional” and
 collectively, “Eligible     Professionals”), by and on behalf of each individual Eligible Professional of
-Provider.  Umbrella and Provider may be referred to herein individually as a “Party” or collectively, as the
+Provider.  Community and Provider may be referred to herein individually as a “Party” or collectively, as the
 “Parties.”  Any reference to Provider shall be read to include reference to its Eligible Professionals, as
 applicable, whether specifically stated to include Eligible Professionals or not.  All capitalized terms used,
 but not otherwise defined in the Agreement (including Addendum A) shall have the meaning assigned to
 them in the Participating Provider Manual.
                             </p>
                             <p>RECITALS</p>
-                            <p><strong>Whereas</strong>, Umbrella is establishing a network of contracted Participating Providers, whose
+                            <p><strong>Whereas</strong>, Community is establishing a network of contracted Participating Providers, whose
 primary purpose is arranging the provision of telehealth medical care to Members by entering into
 relationships with such Members to arrange for Contracted Services through its Participating Providers;
 and </p>
-                            <p><strong>Whereas</strong>, the Parties desire to enter into this Agreement, whereby Umbrella will arrange for
+                            <p><strong>Whereas</strong>, the Parties desire to enter into this Agreement, whereby Community will arrange for
 Provider to render Contracted Services to its Members.&nbsp;
                             </p>
                             <p><strong>In Witness Whereof</strong>, the Parties hereby execute this Agreement as of the Effective Date
@@ -109,8 +109,8 @@ with the intent to be bound by the terms stated below.</p>
                                 <tbody>
                                     <tr>
                                         <td width="301">
-                                            <p><strong>UMBRELLA</strong>:</p>
-                                            <p>Umbrella Healthcare Systems, LLC </p>
+                                            <p><strong>Community</strong>:</p>
+                                            <p>Community Healthcare Clinics, LLC </p>
                                             <img src="{{$contract->admin_sign}}" style="height: 105px;">
 
                                             <p>By:<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -138,30 +138,30 @@ with the intent to be bound by the terms stated below.</p>
                             <p><strong>Now, Therefore, </strong>in consideration of the foregoing Recitals and the covenants contained
 herein, the Parties hereby agree as follows: </p>
                             <ol>
-                                <li><u>UMBRELLA OBLIGATIONS</u>
+                                <li><u>Community OBLIGATIONS</u>
                                     <ul>
-                                        <li><strong>Platform</strong>. Umbrella may arrange access to, and use of, a Platform to support the
-arranging of Contracted Services, subject to any applicable terms of use and the Umbrella Provider
+                                        <li><strong>Platform</strong>. Community may arrange access to, and use of, a Platform to support the
+arranging of Contracted Services, subject to any applicable terms of use and the Community Provider
 Manual. </li>
-                                        <li><strong>Participating Provider Qualification Standards</strong>. Umbrella shall establish and maintain
+                                        <li><strong>Participating Provider Qualification Standards</strong>. Community shall establish and maintain
 Qualification Standards that adhere to current applicable requirements regarding the credentialing and re-
 credentialing of Participating Providers.  The Qualification Standards may be modified from time to time,
-in the sole discretion of Umbrella. Provider agrees that Provider’s credentialing records may be reviewed
+in the sole discretion of Community. Provider agrees that Provider’s credentialing records may be reviewed
 by authorized representatives.</li>
                                     </ul>
                                 </li>
                                 <li><u>Provider Obligations</u>
                                     <ul>
-                                        <li><strong>Compliance with Umbrella      Provider Manual</strong>. Provider shall comply with the
-Umbrella Provider Manual, and Requirements, any or all of which may be amended from time to time by
-Umbrella in its sole discretion.  The terms and conditions set forth in the Participating Provider Manual
+                                        <li><strong>Compliance with Community      Provider Manual</strong>. Provider shall comply with the
+Community Provider Manual, and Requirements, any or all of which may be amended from time to time by
+Community in its sole discretion.  The terms and conditions set forth in the Participating Provider Manual
 are hereby incorporated into this Agreement.  If there is a conflict between this Agreement and the
-Umbrella Provider Manual, the Umbrella Provider Manual shall control. </li>
+Community Provider Manual, the Community Provider Manual shall control. </li>
                                         <li><strong><u>Platform</u></strong>. Provider agrees to utilize the Platform in accordance with the Terms of Use as
 set forth in Addendum B.  </li>
                                         <li><strong>Provision of Services</strong>. Provider agrees to render Contracted Services within the scope of
 the licensing, training, experience, and qualification of Provider consistent with accepted standards of
-medical and other healthcare practice, and in accordance with the Umbrella Provider Manual. </li>
+medical and other healthcare practice, and in accordance with the Community Provider Manual. </li>
 
 
                                         <li><strong>Non‑Discrimination</strong>. Provider shall not discriminate against any Member whether on the
@@ -174,54 +174,54 @@ necessary to adequately insure Provider and its agents against any claim or clai
 reason of property damage, personal injury, or death occasioned directly or indirectly in connection with
 the performance of any procedure or service provided hereunder, the use of any property and facilities
 provided by Provider, and activities performed by Provider and its agents in connection with this
-Agreement.  Such policies shall provide coverage in the amounts acceptable to Umbrella, but in no event
+Agreement.  Such policies shall provide coverage in the amounts acceptable to Community, but in no event
 shall professional liability insurance be less than One Million Dollars ($1,000,000) per claim and Three
 Million Dollars ($3,000,000) annually in the aggregate, or any such minimum coverage as may be
-required by applicable State law.  Such policies may be increased or decreased by Umbrella in its
-reasonable judgment and consistent with industry standards.  Provider shall require that its professional liability insurance name Umbrella as an additional insured on such policy and a party entitled to thirty
+required by applicable State law.  Such policies may be increased or decreased by Community in its
+reasonable judgment and consistent with industry standards.  Provider shall require that its professional liability insurance name Community as an additional insured on such policy and a party entitled to thirty
 (30) days’ prior written notice of an intent to cancel or terminate such insurance.
                                         </li>
-                                        <li><strong>Notice of Adverse Action</strong>. Provider shall notify Umbrella in writing within fortyeight
+                                        <li><strong>Notice of Adverse Action</strong>. Provider shall notify Community in writing within fortyeight
 (48) hours, or such lesser period of time as required by applicable State or federal law, of receiving any
 written or oral notice of any adverse action (“Adverse    Action”) pertaining to Provider, including, without
-limitation, those Adverse Actions set forth in the Umbrella Provider Manual. </li>
-                                        <li><strong>Provider Qualification</strong>. Provider shall submit to Umbrella in a timely manner the
-Participating Provider Application, as modified from time to time by Umbrella, the current form of which
-will be provided by Umbrella upon request.  Provider shall be responsible for completing the Participating
+limitation, those Adverse Actions set forth in the Community Provider Manual. </li>
+                                        <li><strong>Provider Qualification</strong>. Provider shall submit to Community in a timely manner the
+Participating Provider Application, as modified from time to time by Community, the current form of which
+will be provided by Community upon request.  Provider shall be responsible for completing the Participating
 Provider Application in its entirety, in accordance with the Requirements, and the State. Provider
-authorizes Umbrella to verify any and all credentialing information as well as licensure, accreditations,
+authorizes Community to verify any and all credentialing information as well as licensure, accreditations,
 services and programs offered, specialties, levels of malpractice insurance and experience.  Provider
-agrees to cooperate with a periodic re-evaluation of its credentials conducted by Umbrella. Provider
-acknowledges and agrees that credentialing and appointment to Umbrella, and reappointment to Umbrella
+agrees to cooperate with a periodic re-evaluation of its credentials conducted by Community. Provider
+acknowledges and agrees that credentialing and appointment to Community, and reappointment to Community
 upon recredentialing, is necessary for this Agreement to be effective. The submitted Participating
 Provider Application shall be deemed a part of this Agreement.  In no event shall this Agreement become
 effective, nor shall Provider begin performing his, her, or its obligations under this Agreement, until the
-Participating Provider Application has been accepted and approved in writing by Umbrella. </li>
-<li><strong>Confidentiality.</strong> Provider acknowledges that Umbrella, in connection with its business,
+Participating Provider Application has been accepted and approved in writing by Community. </li>
+<li><strong>Confidentiality.</strong> Provider acknowledges that Community, in connection with its business,
 has developed and will develop certain designs, contracts, procedures, protocols, processes, records, and
 files respecting any customer or services provided to any customer, provider lists, fee schedules,
 compensation data, vendor price lists, outside provider information, provider contracting information,
 documentation relating to the provision of services hereunder, and other copyrighted, patented,
-trademarked, or other legally protectable information that is confidential and proprietary to Umbrella. At
+trademarked, or other legally protectable information that is confidential and proprietary to Community. At
 the outset and during the Term of this Agreement, Provider will gain access to the above, trade secrets, or
 other confidential or privileged information (collectively “Confidential     Information”) regarding
-Umbrella’s customers or business activities.  Provider shall not to use any such Confidential Information
+Community’s customers or business activities.  Provider shall not to use any such Confidential Information
 during the Term of this Agreement or thereafter except in furtherance of Provider’s obligations under this
-Agreement as contemplated herein, without the prior written consent of Umbrella. During the Term of
+Agreement as contemplated herein, without the prior written consent of Community. During the Term of
 this Agreement and forever thereafter, Provider will not release, disclose, or disseminate any Confidential
-Information of Umbrella to any other person or entity except as medically necessary, upon the prior
-written authorization of Umbrella, or as otherwise required by federal or State law. Upon termination of
-this Agreement, Provider will not use Umbrella’s name, address, or telephone number for any
+Information of Community to any other person or entity except as medically necessary, upon the prior
+written authorization of Community, or as otherwise required by federal or State law. Upon termination of
+this Agreement, Provider will not use Community’s name, address, or telephone number for any
 inappropriate purpose and will promptly return any Confidential Information in Provider’s possession or
-control to Umbrella.</li>
+control to Community.</li>
 <li><strong>Non-solicitation.</strong> Provider agrees and covenants that during the Term of this Agreement
 (including any extensions hereof) and for a period of eighteen (18) months after the effective date of
 termination of this Agreement, Provider will not, either (i) directly as a partner, employer, agent,
 independent contractor, or employee, or (ii) indirectly through a corporation, partnership, affiliate,
-subsidiary, or otherwise, unless approved by Umbrella:
-<p>(i)&nbsp; &nbsp; &nbsp;solicit,&nbsp;induce,&nbsp;or&nbsp;attempt&nbsp;to&nbsp;induce,&nbsp;in&nbsp;connection&nbsp;with&nbsp;any&nbsp;business&nbsp;competitive&nbsp;with&nbsp;that&nbsp;of&nbsp;Umbrella,&nbsp;patients&nbsp;of&nbsp;any&nbsp;physician&nbsp;associated&nbsp;with&nbsp;Umbrella&nbsp;to&nbsp;leave&nbsp;the&nbsp;care&nbsp;of&nbsp;physicians&nbsp;associated&nbsp;with&nbsp;Umbrella;&nbsp;or&nbsp;</p>
+subsidiary, or otherwise, unless approved by Community:
+<p>(i)&nbsp; &nbsp; &nbsp;solicit,&nbsp;induce,&nbsp;or&nbsp;attempt&nbsp;to&nbsp;induce,&nbsp;in&nbsp;connection&nbsp;with&nbsp;any&nbsp;business&nbsp;competitive&nbsp;with&nbsp;that&nbsp;of&nbsp;Community,&nbsp;patients&nbsp;of&nbsp;any&nbsp;physician&nbsp;associated&nbsp;with&nbsp;Community&nbsp;to&nbsp;leave&nbsp;the&nbsp;care&nbsp;of&nbsp;physicians&nbsp;associated&nbsp;with&nbsp;Community;&nbsp;or&nbsp;</p>
 
-<p>(ii)&nbsp; &nbsp; solicit,&nbsp;induce,&nbsp;or&nbsp;attempt&nbsp;to&nbsp;induce,&nbsp;any&nbsp;employee,&nbsp;consultant,&nbsp;or&nbsp;other&nbsp;persons&nbsp;associated&nbsp;with&nbsp;Umbrella&nbsp;to&nbsp;leave&nbsp;the&nbsp;employment&nbsp;of,&nbsp;or&nbsp;to&nbsp;discontinue&nbsp;their&nbsp;engagement&nbsp;with&nbsp;Umbrella&nbsp;or&nbsp;any&nbsp;affiliate&nbsp;thereof.&nbsp;</p>
+<p>(ii)&nbsp; &nbsp; solicit,&nbsp;induce,&nbsp;or&nbsp;attempt&nbsp;to&nbsp;induce,&nbsp;any&nbsp;employee,&nbsp;consultant,&nbsp;or&nbsp;other&nbsp;persons&nbsp;associated&nbsp;with&nbsp;Community&nbsp;to&nbsp;leave&nbsp;the&nbsp;employment&nbsp;of,&nbsp;or&nbsp;to&nbsp;discontinue&nbsp;their&nbsp;engagement&nbsp;with&nbsp;Community&nbsp;or&nbsp;any&nbsp;affiliate&nbsp;thereof.&nbsp;</p>
 
 <p>Nothing&nbsp;contained&nbsp;herein&nbsp;will&nbsp;prevent&nbsp;any&nbsp;customer&nbsp;from&nbsp;selecting&nbsp;Provider&nbsp;at&nbsp;the&nbsp;customer&rsquo;s&nbsp;unfettered&nbsp;and&nbsp;sole&nbsp;discretion&nbsp;to&nbsp;provide&nbsp;medical&nbsp;services&nbsp;to&nbsp;the&nbsp;patient.&nbsp;&nbsp;In&nbsp;addition,&nbsp;nothing&nbsp;set&nbsp;forth&nbsp;herein&nbsp;will&nbsp;be&nbsp;construed&nbsp;to&nbsp;prevent&nbsp;Provider&nbsp;from&nbsp;complying&nbsp;with&nbsp;the&nbsp;rules&nbsp;of&nbsp;the&nbsp;Medical&nbsp;Board(s)&nbsp;under&nbsp;which&nbsp;such&nbsp;Provider&nbsp;is&nbsp;licensed&nbsp;requiring&nbsp;Provider&nbsp;to&nbsp;provide&nbsp;notification&nbsp;of&nbsp;discontinuation&nbsp;of&nbsp;practice.&nbsp;</p>
 
@@ -229,15 +229,15 @@ subsidiary, or otherwise, unless approved by Umbrella:
 
 
 <li><strong> Agreement    Not    To    Compete</strong>. In consideration of the mutual promises contained herein
-including, but not limited to, access to Umbrella’s Confidential Information, Provider agrees that, during
-the Term of this Agreement, Provider will not, without the prior written approval of Umbrella’s Board of
+including, but not limited to, access to Community’s Confidential Information, Provider agrees that, during
+the Term of this Agreement, Provider will not, without the prior written approval of Community’s Board of
 Managers, directly or indirectly own, or have any financial interest in, any other entity that provides
-telehealth platform services to Umbrella’s customers.  In its discretion, Umbrella will have the right to
+telehealth platform services to Community’s customers.  In its discretion, Community will have the right to
 unilaterally waive or modify all or any portion of any promise, agreement, or covenant in this Section
 2.10, provided that any such waiver or modification does not impose greater restrictions, obligations, or
 duties on Provider including, but not limited to, reducing the time, geographical, and/or scope of activity
 limitations in this Section    2.10.  Any such waiver or modification must be in writing and signed by
-Umbrella. </li>
+Community. </li>
 
 
 
@@ -249,8 +249,8 @@ Umbrella. </li>
                             <ul>
                                 <li><u>P</u><u>rovision of Excluded Services</u></li>
                             </ul>
-                            <p>Umbrella is not responsible for Provider’s provision of Excluded Services.  Prior to providing any
-Excluded Service to a Member, Provider shall comply with the requirements of the Umbrella Provider
+                            <p>Community is not responsible for Provider’s provision of Excluded Services.  Prior to providing any
+Excluded Service to a Member, Provider shall comply with the requirements of the Community Provider
 Manual. </p>
                             <ol>
                                 <li><u>Compensation and Billing Procedures</u>
@@ -259,9 +259,9 @@ Manual. </p>
 Exhibit    A as payment in full for Contracted Services (including payment for any and all taxes) provided
 through the Platform.
                                         </li>
-                                        <li><strong>Billing and Collection</strong>. Provider shall comply with applicable Umbrella Policies and
-Requirements related to billing and collection.  Umbrella shall have the right to offset against any sums to
-be paid to Provider any amounts owed to Umbrella (as applicable) by Provider, including, but not limited
+                                        <li><strong>Billing and Collection</strong>. Provider shall comply with applicable Community Policies and
+Requirements related to billing and collection.  Community shall have the right to offset against any sums to
+be paid to Provider any amounts owed to Community (as applicable) by Provider, including, but not limited
 to, overpayments or erroneous payments made to Provider. </li>
                                         <li><strong>Member Held Harmless</strong>. When required under Applicable Law, Provider agrees that in
 no event shall Provider bill, charge, collect a deposit from, seek compensation, remuneration, or
@@ -269,9 +269,9 @@ reimbursement from, or have any recourse against Members or persons for Contract
 pursuant to this Agreement. </li>
                                     </ul>
                                 </li>
-                                <li><u>Relationship between Provider and UMBRELLA</u></li>
+                                <li><u>Relationship between Provider and Community</u></li>
                             </ol>
-                            <p>Umbrella and Provider are independent entities.  Nothing in this Agreement shall be construed or
+                            <p>Community and Provider are independent entities.  Nothing in this Agreement shall be construed or
 be deemed to create a relationship of employer and employee, or principal and agent, or any relationship
 other than that of independent entities contracting with each other solely for the purpose of carrying out
 the terms and conditions of this Agreement.  Neither Party shall have any express or implied right or
@@ -281,18 +281,18 @@ Party, except as expressly set forth herein.  </p>
                                 <li><u>Records, Audits, and Regulatory Requirements</u>
                                     <ul>
                                         <li><strong>Maintenance of Records</strong>.Provider shall maintain such financial, administrative, and
-other records as may be necessary for compliance with Applicable Law by Umbrella.  Provider agrees to
+other records as may be necessary for compliance with Applicable Law by Community.  Provider agrees to
 maintain the confidentiality of all information related to fees, charges, expenses, and utilization derived
-from, through, or provided by Umbrella.  Provider shall maintain appropriate health records for each
+from, through, or provided by Community.  Provider shall maintain appropriate health records for each
 Member for which it provides Contracted Services to, including (without limitation) the recording of
 Provider’s services and such other records as may be required by Applicable Law.  Such records shall be
-maintained in accordance with the Requirements established by Umbrella as well as Applicable Law.  All
+maintained in accordance with the Requirements established by Community as well as Applicable Law.  All
 such health records shall be treated as confidential, so as to comply with Applicable Law regarding the
 confidentiality of patient records. </li>
-                                        <li><strong>Access to Records</strong>. Subject to applicable State or federal confidentiality laws, Umbrella
+                                        <li><strong>Access to Records</strong>. Subject to applicable State or federal confidentiality laws, Community
 shall have the right to inspect, review, and make copies of records referenced in Section  6.1.  When
-requested by Umbrella or authorized representatives of local, State or federal regulatory agencies,
-Provider shall provide copies of any such records in accordance with the Umbrella Provider Manual. </li>
+requested by Community or authorized representatives of local, State or federal regulatory agencies,
+Provider shall provide copies of any such records in accordance with the Community Provider Manual. </li>
                                         <li><strong>Protected Health Information (&ldquo;PHI&rdquo;)</strong>. If either Party receives any PHI from the other
 Party, or creates or receives any PHI in the course of its performance under this Agreement, such Party
 shall maintain the security and confidentiality of such PHI in accordance with Applicable Law, including
@@ -305,15 +305,15 @@ applicable State law. </li>
                                 <li><u>Use of Name</u></li>
                             </ul>
                             <p>Neither Party shall use the other Party’s trademarks, name, or symbols without such other Party’s
-express permission; provided, however, that Umbrella may use the name(s), office address(es), telephone
+express permission; provided, however, that Community may use the name(s), office address(es), telephone
 number(s), specialty(ies), and a factual description of Provider’s practice(s) in directories and other
 promotional materials. </p>
                             <ul>
                                 <li><u>Dispute Settlement; Arbitration</u></li>
                             </ul>
-                            <p>All disputes or controversies arising under or related to this Agreement between Umbrella and
+                            <p>All disputes or controversies arising under or related to this Agreement between Community and
 Provider shall be subject to binding confidential arbitration, and the dispute policy set forth in the
-Umbrella Provider Manual. </p>
+Community Provider Manual. </p>
                             <ol>
                                 <li><u>Term and Termination</u>
                                     <ul>
@@ -321,8 +321,8 @@ Umbrella Provider Manual. </p>
 continue for a period of one (1) year.  This Agreement shall automatically renew for successive one (1) year periods on each anniversary of the Effective Date (each, a “Renewal    Date”), unless one Party notifies
 the other in writing of its intent to terminate in accordance with this Agreement at least ninety (90) days
 prior to any Renewal Date. </li>
-                                        <li><strong>Termination Due to Material Breach</strong>. In the event that either Provider or Umbrella
-fails to cure a material breach of this Agreement (other than those listed in the Umbrella Provider
+                                        <li><strong>Termination Due to Material Breach</strong>. In the event that either Provider or Community
+fails to cure a material breach of this Agreement (other than those listed in the Community Provider
 Manual) within thirty (30) days of receipt of written notice of such breach from the nonbreaching Party,
 the nonbreaching Party may terminate this Agreement, effective as of the expiration of said thirty (30)
 day period.  If the breach is cured within such thirty (30) day period, or if the breach is one which cannot
@@ -333,10 +333,10 @@ receipt of written notice, this Agreement shall be automatically terminated.
                                         </li>
                                         <li><strong>Termination without Cause</strong>.
                                             <ul>
-                                                <li><u>By Umbrella</u>. Following twelve (12) months from the Effective Date, Provider
+                                                <li><u>By Community</u>. Following twelve (12) months from the Effective Date, Provider
 may terminate this Agreement without cause upon ninety (90) days’ prior written notice to
-Umbrella, unless another notice period is otherwise agreed to in writing by Umbrella. </li>
-                                                <li><u>By Network</u>. This Agreement may be terminated without cause by Umbrella
+Community, unless another notice period is otherwise agreed to in writing by Community. </li>
+                                                <li><u>By Network</u>. This Agreement may be terminated without cause by Community
 upon ninety (90) days’ prior written notice to Provider, unless another notice period is otherwise
 agreed to in writing by Provider. </li>
                                                 <li><u>By Mutual Agreement</u><strong>.</strong>  The Parties may terminate this Agreement by the mutual
@@ -354,15 +354,15 @@ agreed upon date stated in such writing. </li>
 Parties with respect to the subject matter hereof and supersedes any and all prior agreements or
 understandings between the Parties with respect to the subject matter hereof, and no other agreement,
 statement, or promise relating to the subject matter of this Agreement that is not contained or referenced
-herein shall be valid or binding.  The above notwithstanding, Umbrella shall not be prohibited from
+herein shall be valid or binding.  The above notwithstanding, Community shall not be prohibited from
 pursuing claims against Provider pursuant to a prior agreement between the Parties. </li>
                                         <li><strong>Amendments</strong>. Any amendment to this Agreement, including its Addenda and
-Attachments, proposed by Umbrella shall be effective thirty (30) days after Umbrella has delivered
+Attachments, proposed by Community shall be effective thirty (30) days after Community has delivered
 written notice to Provider of such amendment if Provider has failed within that time period to notify
-Umbrella in writing of Provider’s rejection of the amendment.  Amendments required because of
-legislative, regulatory, or legal requirements do not require the consent of Provider or Umbrella and will
-be effective immediately on the effective date stated in such an amendment.  Further, Umbrella may
-amend the Umbrella Provider Manual in any manner without notice to Provider unless Umbrella
+Community in writing of Provider’s rejection of the amendment.  Amendments required because of
+legislative, regulatory, or legal requirements do not require the consent of Provider or Community and will
+be effective immediately on the effective date stated in such an amendment.  Further, Community may
+amend the Community Provider Manual in any manner without notice to Provider unless Community
 determines, in its sole discretion, that such amendment will materially affect Provider’s performance of its
 duties under this Agreement. </li>
                                         <li><strong>Severability</strong>. If any one (1) or more of the provisions contained in this Agreement shall
@@ -380,8 +380,8 @@ one (1) business day after being sent to the recipient by nationally recognized 
                                 <tbody>
                                     <tr>
                                         <td width="299">
-                                            <p><u>If to Umbrella</u>:</p>
-                                            <p>Umbrella Healthcare Systems, LLC</p>
+                                            <p><u>If to Community</u>:</p>
+                                            <p>Community Healthcare Clinics, LLC</p>
                                             <p>Attention: +1 (407) 693-8484</p>
                                             <p>625 School House Road #2,</p>
                                             <p>Lakeland, FL 33813</p>
@@ -427,7 +427,7 @@ singular or plural of each, shall have the following meanings: </p>
                             <p><u>Applicable Law.</u>&nbsp; All local, State, and federal laws, rules, and regulations applicable to Provider
 by federal and other governmental and regulatory bodies having jurisdiction over Provider. </p>
                             <p><u>Contracted Services.</u>&nbsp; The Contracted Services listed in Addendum D hereto to be rendered by
-Provider to a Member in accordance with this Agreement, and as may be updated by Umbrella from time
+Provider to a Member in accordance with this Agreement, and as may be updated by Community from time
 to time. </p>
                             <p><u>Excluded     Services.</u>&nbsp; Those health care services and supplies that are determined not to be
 Contracted Services. </p>
@@ -438,14 +438,14 @@ to time in accordance with this Agreement. </p>
 other organization that has a direct or indirect contractual relationship with another participating provider
 to provide health care services through the Platform. </p>
 
-                            <p><u>Participating     Provider     Application.</u>&nbsp; The form used by Umbrella for the qualification of
-Participating Providers, which may be amended from time to time as Umbrella deems appropriate. </p>
+                            <p><u>Participating     Provider     Application.</u>&nbsp; The form used by Community for the qualification of
+Participating Providers, which may be amended from time to time as Community deems appropriate. </p>
                             <p><u>Physician     Fee     Schedule.</u>&nbsp; The policies and procedures which describe the manner, terms, and
-conditions under which Provider will be compensated by Umbrella for Contracted Services provided to
+conditions under which Provider will be compensated by Community for Contracted Services provided to
 Members. </p>
-                            <p><u>Platform.</u>&nbsp; All technology services that may be created and/or offered by Umbrella for Provider’s
+                            <p><u>Platform.</u>&nbsp; All technology services that may be created and/or offered by Community for Provider’s
 use in the provision of Contracted Services. </p>
-                            <p><u>Qualification    Standards.</u>&nbsp; The written standards and procedures adopted by Umbrella for the
+                            <p><u>Qualification    Standards.</u>&nbsp; The written standards and procedures adopted by Community for the
 credentialing of Participating Providers.</p>
                             <p><u>Requirements.</u>&nbsp; The rules, procedures, policies, protocols, and other conditions to be followed by
 Participating Providers with respect to providing Contracted Services.
@@ -454,12 +454,12 @@ Participating Providers with respect to providing Contracted Services.
 the time such Contracted Services are received, unless Applicable Law in the state where the Member is
 physically located at such time provides otherwise.
                             </p>
-                            <p><u>Umbrella     Policies.</u>&nbsp; All policies, procedures, standards, programs, criteria, and requirements
-developed by Umbrella, as modified from time to time at Umbrella’s sole discretion, including but not
+                            <p><u>Community     Policies.</u>&nbsp; All policies, procedures, standards, programs, criteria, and requirements
+developed by Community, as modified from time to time at Community’s sole discretion, including but not
 limited to those related to the provision of Contracted Services and use of the Platform.
                             </p>
-                            <p><u>Umbrella    Provider    Manual.</u>&nbsp; Those Umbrella Policies, procedures, and guidelines (as may be
-supplemented from time to time) in writing or available on the Umbrella’s website.
+                            <p><u>Community    Provider    Manual.</u>&nbsp; Those Community Policies, procedures, and guidelines (as may be
+supplemented from time to time) in writing or available on the Community’s website.
                             </p>
                             <p>&nbsp;</p>
                             <p>&nbsp;</p>
@@ -471,7 +471,7 @@ supplemented from time to time) in writing or available on the Umbrella’s webs
                             <p>Contracted Services</p>
                             <p>
                                 Provider agrees to provide professional telehealth medical services to Members, specifically in
-the specialty of <u><b>{{$contract->provider_speciality}}</b></u>, which shall be scheduled using the Umbrella online platform.
+the specialty of <u><b>{{$contract->provider_speciality}}</b></u>, which shall be scheduled using the Community online platform.
 </p>
                             <p>&nbsp;</p>
                             <p>ADDENDUM D</p>

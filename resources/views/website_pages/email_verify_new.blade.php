@@ -1,4 +1,4 @@
-@extends('layouts.new_web_layout')
+@extends('layouts.new_pakistan_layout')
 @section('meta_tags')
 <meta charset="utf-8" />
 <meta name="google-site-verification" content="Zgq0W54U_oOpntcqrKICmQpKyIPsJWhntAVoGqDCqV0" />
@@ -20,7 +20,7 @@
 
 
 @section('page_title')
-    <title>Email Verfication | Umbrella Health Care Systems</title>
+    <title>Email Verfication</title>
 @endsection
 
 @section('top_import_file')
@@ -73,7 +73,7 @@
                 {{ Session::get('message')}}
                 </div>
               @endif
-              <p>Please verify your email address to accesss Umbrella Health Care System web portal.</p>
+              <p>Please verify your email address to accesss Community Health Care Clinics web portal.</p>
              <div>
               <p>If you did not get it.</p>
               <form action="{{ route('resend') }}" id="form_send" method="POST">
