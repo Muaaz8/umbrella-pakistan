@@ -56,12 +56,12 @@ Route::get('/app_doc_video/{id}',function($id){
 
 Route::get('/seed',function(){
     $page = DB::table('pages')->insertGetId([
-        'name' => 'Login',
-        'url' => '/login',
+        'name' => 'Our Doctor',
+        'url' => '/our-doctor',
     ]);
     DB::table('section')->insert([
         'page_id'=> $page,
-        'section_name'=> 'side-text',
+        'section_name'=> 'upper-text',
         'sequence_no'=> 1,
         'created_at'=>now(),
         'updated_at'=>now(),

@@ -31,7 +31,21 @@
                         <div class="underline w-25"></div>
                     </div>
                 </div>
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Consequatur expedita nemo non dolorum quas nam consequuntur officia repellat animi recusandae numquam porro, voluptatibus ab, accusantium cumque consectetur delectus. Sequi, obcaecati?</p>
+                @php
+                    $page = DB::table('pages')->where('url', '/our-doctor')->first();
+                    $section = DB::table('section')
+                        ->where('page_id', $page->id)
+                        ->where('section_name', 'upper-text')
+                        ->where('sequence_no', '1')
+                        ->first();
+                    $top_content = DB::table('content')
+                        ->where('section_id', $section->id)
+                        ->first();
+                    $image_content = DB::table('images_content')
+                        ->where('section_id', $section->id)
+                        ->first();
+                @endphp
+                {!! $top_content->content !!}
                 <div class="d-flex align-items-center justify-content-between  gap-3">
                     <div class="d-flex align-items-center justify-content-between gap-3">
                     <div class="dropdown">
