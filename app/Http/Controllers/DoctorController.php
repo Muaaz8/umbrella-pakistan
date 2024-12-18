@@ -3598,6 +3598,7 @@ class DoctorController extends Controller
                 'helping' => $request->helping,
                 'issue' => $request->issue,
                 'specialties' => $request->specialties,
+                'experience' => $request->experience,
                 'updated_at' => now(),
             ]);
         }else{
@@ -3617,6 +3618,7 @@ class DoctorController extends Controller
                 'helping' => $request->helping,
                 'issue' => $request->issue,
                 'specialties' => $request->specialties,
+                'experience' => $request->experience,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);

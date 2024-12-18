@@ -6,7 +6,7 @@
     <link rel="icon" href="{{ asset('asset_frontend/images/logo.ico') }}" type="image/x-icon">
 @endsection
 @section('page_title')
-    <title>UHCS - Psychiatrist Info</title>
+    <title>Community Health Care Systems</title>
 @endsection
 
 @section('top_import_file')
@@ -72,6 +72,7 @@
                     $('#about').val(response.doctor.about);
                     $('#education').val(response.doctor.education);
                     $('#helping').val(response.doctor.helping);
+                    $('#experience').val(response.doctor.experience);
                     $('#issue').val(response.doctor.issue);
                     $('#specialties').val(response.doctor.specialties);
                 }else{
@@ -159,23 +160,7 @@
                                         <div class="col-md-6">
                                             <label class="fw-bolder" for="selectmedicine">Certifications and
                                                 Licensing</label>
-                                            <select class="js-select2" name="certificates[]" id="certificates" multiple="multiple">
-                                                {{-- <option value="Worthlessness">Worthlessness</option>
-                                                <option value="Worry">Worry</option>
-                                                <option value="Women-Issues">Women's Issues</option>
-                                                <option value="Trust-Issues">Trust Issues</option>
-                                                <option value="Suicidal-Ideation-and-Behavior">Suicidal Ideation and
-                                                    Behavior</option>
-                                                <option value="Stress">Stress</option>
-                                                <option value="Spirituality">Spirituality</option>
-                                                <option value="Social-Anxiety-Phobia">Social Anxiety / Phobia</option>
-                                                <option value="Shame">Shame</option>
-                                                <option value="Self-Love">Self-Love</option>
-                                                <option value="Self-Esteem">Self-Esteem</option>
-                                                <option value="Self-Doubt">Self-Doubt</option>
-                                                <option value="Self-Confidence">Self-Confidence</option>
-                                                <option value="Self-Criticism">Self-Criticism</option> --}}
-                                            </select>
+                                            <select class="js-select2" name="certificates[]" id="certificates" multiple="multiple"></select>
                                         </div>
                                         <div class="col-md-6">
                                             <label class="fw-bolder" for="selectmedicine">Condition Treated</label>
@@ -211,6 +196,12 @@
                                         <div class="col-md-6">
                                             <label class="fw-bolder" for="selectmedicine">Lonigtude</label>
                                             <input type="text" name="longitude" class="form-control" id="longitude" placeholder="Enter Longitude of your Location">
+                                        </div>
+                                    </div>
+                                    <div class="row align-items-center">
+                                        <div class="col-md-6">
+                                            <label class="fw-bolder" for="selectmedicine">Experience</label>
+                                            <input type="text" name="experience" class="form-control" id="experience" placeholder="Enter Work Experience in Years">
                                         </div>
                                     </div>
                                     <div class="row mt-2">

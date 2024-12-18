@@ -672,7 +672,7 @@
                         </div>
                     </div>
                     <div class="right">
-                        <img src=" {{ asset('assets/new_frontend/Evisit.png') }}" alt="" />
+                        <img src=" {{ asset('assets/new_frontend/Evisit.jpg') }}" alt="" />
                     </div>
                 </div>
             </div>

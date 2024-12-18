@@ -15,7 +15,7 @@
         <a href="/pages/section" class="dashboard-nav-item"><i class="fa-solid fa-square-plus"></i> Sections </a> --}}
         <a href="/pages/section/content" class="dashboard-nav-item"><i class="fa-solid fa-square-plus"></i> Website Page Content </a>
         <a href="/pages/image/content" class="dashboard-nav-item"><i class="fa-solid fa-square-plus"></i> Website Page Images </a>
-        <a href="{{ route('admin_doctor_profile_management') }}" class="dashboard-nav-item"><i class="fa-solid fas fa-user-md"></i>Doctor Profile Management</a>
+        <a href="{{ route('seo_doctor_profile_management') }}" class="dashboard-nav-item"><i class="fa-solid fas fa-user-md"></i>Doctor Profile Management</a>
         <a href="{{ route('top_banner') }}" class="dashboard-nav-item"><i class="fa-solid fas fa-user-md"></i>Top Banner</a>
         <div class="dashboard-nav-dropdown">
             <a href="javascript:void(0)" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i

@@ -86,6 +86,7 @@ Route::get('/doctor-profile/{id}',function($id){
 Route::get('/our-doctors',function(){
     $doctors = DB::table('users')->where('user_type','doctor')->orderBy('id','desc')->paginate(8);
     foreach($doctors as $doctor){
+        $doctor->details = DB::table('doctor_details')->where('doctor_id',$doctor->id)->first();
         $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
         $doctor->specializations = DB::table('specializations')->where('id',$doctor->specialization)->first();
     }
@@ -324,7 +325,7 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
     Route::get('/seo/doctor/profile/management','DoctorController@seo_doctor_profile_management')->name('seo_doctor_profile_management');
     Route::get('doctor/profile/management','DoctorController@doctor_profile_management')->name('doctor_profile_management');
     // Route::get('/get_doctor_details','DoctorController@get_doctor_details')->name('get_doctor_details');
-    // Route::get('/get_doctor_details/{doc_id}','DoctorController@get_doctor_details_by_id')->name('get_doctor_details_by_id');
+    Route::get('/get_doctor_details/{doc_id}','DoctorController@get_doctor_details_by_id')->name('get_doctor_details_by_id');
     // Route::get('edit/psychiatrist/info/form/{id}','DoctorController@edit_psychiatrist_form')->name('edit_psychiatrist_form');
     // Route::post('update/psychiatrist/info/form','DoctorController@update_therapy_event')->name('update_therapy_event');
     // Route::get('patient/end/conference/call/{id}','PatientController@end_conference_call')->name('end_conference_call');

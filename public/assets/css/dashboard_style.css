@@ -3916,7 +3916,7 @@ input[type=number] {
 
 .select2-container {
   min-width: 100%;
-  z-index: 2222;
+  /* z-index: 2222; */
 }
 
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
