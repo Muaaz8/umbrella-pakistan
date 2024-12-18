@@ -17,7 +17,7 @@
     transition: all 0.3s ease-out;
 }
 
-.offer-banner > span {
+.offer-banner>span {
     font-size: 16px;
 }
 
@@ -48,11 +48,7 @@ body {
 }
 
 header {
-    height: 85px;
     background-color: white;
-    position: sticky;
-    top: 0;
-    z-index: 10;
 }
 
 #contact-bar {
@@ -63,9 +59,6 @@ header {
 }
 
 #navbar {
-    position: sticky;
-    top: 0;
-    width: 100%;
     background-color: white;
 }
 
@@ -208,18 +201,18 @@ header {
     border-radius: 10px;
 }
 
-.price-tag{
+.price-tag {
     position: absolute;
     top: 3%;
     left: -4%;
     font-size: 1.4rem;
 }
 
-.price-tag::before{
+.price-tag::before {
     content: "";
     height: 40%;
     width: 35%;
-    background: #dc3545;
+    background: #a31f2c;
     position: absolute;
     bottom: -20%;
     left: -2%;
@@ -351,8 +344,7 @@ header {
 }
 
 .carousel-img {
-    width: 800px;
-    height: 350px;
+    height: 355px;
 }
 
 .red {
@@ -696,7 +688,7 @@ header {
     width: 25%;
 }
 
-.right > img {
+.right>img {
     width: 500px;
 }
 
@@ -711,7 +703,7 @@ header {
     margin-bottom: 0;
 }
 
-.counter_btn{
+.counter_btn {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -722,7 +714,7 @@ header {
     cursor: pointer;
 }
 
-.medicine_detail_container{
+.medicine_detail_container {
     background: linear-gradient(to right, #f5f5f5, transparent, transparent);
 }
 
@@ -3152,11 +3144,11 @@ footer {
     opacity: 1;
 }
 
-.partners_logos > img:first-child {
+.partners_logos>img:first-child {
     width: 50%;
 }
 
-.partners_logos > img:last-child {
+.partners_logos>img:last-child {
     width: 40%;
 }
 
@@ -3164,7 +3156,7 @@ footer {
     width: 50%;
 }
 
-.footer-content > p {
+.footer-content>p {
     font-size: 1rem;
 }
 
@@ -3175,35 +3167,38 @@ footer {
 /* media queries  */
 
 @media screen and (min-width: 1445px) {
-    .offer-banner > span {
-        font-size: 1.2rem;
+    .offer-banner>span {
+        font-size: 1rem;
     }
 
     .logo>img {
-        width: 50%;
+        width: 40%;
     }
 
     .dropdown-menu li a {
-        font-size: 1.2rem !important;
+        font-size: 1rem !important;
     }
 
-    #joinDropdown, #navbar a, .nav_btns > i {
-        font-size: 1.2rem !important;
+    #joinDropdown,
+    #navbar a,
+    .nav_btns>i {
+        font-size: 1rem !important;
     }
 
     #nav-right-side>div:last-child {
         width: 6%;
     }
+
     #nav-right-side>div:last-child>img {
         width: 65%;
     }
 
-    .main-hero-section {
-        margin-top: 5%;
-    }
-
-    .custom-card-body h1, .custom-card-body h2, .custom-card-body h3, .custom-card-body h4, .custom-card-body h5 {
-        font-size: 1.2rem;
+    .custom-card-body h1,
+    .custom-card-body h2,
+    .custom-card-body h3,
+    .custom-card-body h4,
+    .custom-card-body h5 {
+        font-size: 1rem;
     }
 
     .custom-card-body p {
@@ -3227,8 +3222,12 @@ footer {
         right: -15%;
     }
 
-    .card-secondary div h1, .card-secondary div h2, .card-secondary div h3, .card-secondary div h4, .card-secondary div h5 {
-        font-size: 1.2rem;
+    .card-secondary div h1,
+    .card-secondary div h2,
+    .card-secondary div h3,
+    .card-secondary div h4,
+    .card-secondary div h5 {
+        font-size: 1rem;
     }
 
     .card-secondary div p {
@@ -3245,21 +3244,21 @@ footer {
     }
 
     .div3 h2 {
-        font-size: 2.2rem;
+        font-size: 1.8rem;
     }
 
     #step-heading h2 {
-        font-size: 2.2rem;
+        font-size: 2.3rem;
     }
 
     .step-icon {
         width: 70px;
         height: 70px;
-        font-size: 2rem;
+        font-size: 1.5rem;
     }
 
     .step-heading>h3 {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 
     .step {
@@ -3268,30 +3267,31 @@ footer {
     }
 
     .button-section>div>div {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 
     .button-section>div>i {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 
-    .left > h1, .left > h2 {
-        font-size: 3rem;
+    .left>h1,
+    .left>h2 {
+        font-size: 2.5rem;
     }
 
-    .left > p {
-        font-size: 1.2rem;
+    .left>p {
+        font-size: 1rem;
     }
 
     .doctor-button {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 
     .right {
         width: 40%;
     }
 
-    .right > img {
+    .right>img {
         width: 100%;
     }
 
@@ -3300,10 +3300,10 @@ footer {
     }
 
     .partner-heading {
-        font-size: 3rem;
+        font-size: 2.3rem;
     }
 
-    .first-content{
+    .first-content {
         width: 50%;
     }
 
@@ -3311,24 +3311,28 @@ footer {
         width: 70%;
     }
 
-    .heading>h2, .heading>h1 {
-        font-size: 3rem;
+    .heading>h2,
+    .heading>h1 {
+        font-size: 2.3rem;
     }
 
     .para>p {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 
-    #solution-para > h4, #solution-para > h5, #solution-para > h6 {
-        font-size: 1.2rem;
+    #solution-para>h4,
+    #solution-para>h5,
+    #solution-para>h6 {
+        font-size: 1rem;
     }
 
-    #solution-para > ul, #solution-para > ol {
+    #solution-para>ul,
+    #solution-para>ol {
         font-size: 1.3rem;
     }
 
     #faqs h2 {
-        font-size: 3rem;
+        font-size: 2.5rem;
     }
 
     .faq-question h3 {
@@ -3336,7 +3340,7 @@ footer {
     }
 
     .faq-answer p {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 
     #faqs {
@@ -3344,23 +3348,23 @@ footer {
     }
 
     #disclaimer-content>div:first-child>h2 {
-        font-size: 3rem;
+        font-size: 2.5rem;
     }
 
     #disclaimer-content>div>p {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 
     .footer-heading>h3 {
-        font-size: 2rem;
+        font-size: 1.5rem;
     }
 
-    .footer-content > p {
-        font-size: 1.2rem;
+    .footer-content>p {
+        font-size: 1rem;
     }
 
     .footer-content>div>a {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 
     #social-icons>div>i {
@@ -3371,41 +3375,44 @@ footer {
         gap: 1.5rem;
     }
 
-    #copyright > p {
-        font-size: 1.2rem;
+    #copyright>p {
+        font-size: 1rem;
     }
 }
 
 @media screen and (min-width: 2000px) {
-    .offer-banner > span {
-        font-size: 2rem;
+    .offer-banner>span {
+        font-size: 1.2rem;
     }
 
     .logo>img {
-        width: 50%;
+        width: 40%;
     }
 
     .dropdown-menu li a {
-        font-size: 2rem !important;
+        font-size: 1.2rem !important;
     }
 
-    #joinDropdown, #navbar a, .nav_btns > i {
-        font-size: 2rem !important;
+    #joinDropdown,
+    #navbar a,
+    .nav_btns>i {
+        font-size: 1.2rem !important;
     }
 
     #nav-right-side>div:last-child {
         width: 6%;
     }
+
     #nav-right-side>div:last-child>img {
         width: 65%;
     }
 
-    .main-hero-section {
-        margin-top: 5%;
-    }
-
-    .custom-card-body h1, .custom-card-body h2, .custom-card-body h3, .custom-card-body h4, .custom-card-body h5 {
-        font-size: 2rem;
+    .custom-card-body h1,
+    .custom-card-body h2,
+    .custom-card-body h3,
+    .custom-card-body h4,
+    .custom-card-body h5 {
+        font-size: 1.2rem;
     }
 
     .custom-card-body p {
@@ -3413,7 +3420,7 @@ footer {
     }
 
     .custom-btn2 {
-        font-size: 2rem;
+        font-size: 1.2rem;
         width: 290px;
     }
 
@@ -3429,8 +3436,12 @@ footer {
         right: 0;
     }
 
-    .card-secondary div h1, .card-secondary div h2, .card-secondary div h3, .card-secondary div h4, .card-secondary div h5 {
-        font-size: 2rem;
+    .card-secondary div h1,
+    .card-secondary div h2,
+    .card-secondary div h3,
+    .card-secondary div h4,
+    .card-secondary div h5 {
+        font-size: 1.2rem;
     }
 
     .card-secondary div p {
@@ -3438,7 +3449,7 @@ footer {
     }
 
     .col-lg-3 .card-secondary button {
-        font-size: 2rem;
+        font-size: 1.2rem;
         width: 290px;
     }
 
@@ -3451,17 +3462,17 @@ footer {
     }
 
     #step-heading h2 {
-        font-size: 4rem;
+        font-size: 3rem;
     }
 
     .step-icon {
         width: 100px;
         height: 100px;
-        font-size: 4rem;
+        font-size: 3rem;
     }
 
     .step-heading>h3 {
-        font-size: 2rem;
+        font-size: 1.4rem;
     }
 
     .step {
@@ -3470,30 +3481,31 @@ footer {
     }
 
     .button-section>div>div {
-        font-size: 2.5rem;
+        font-size: 2rem;
     }
 
     .button-section>div>i {
-        font-size: 2.5rem;
-    }
-
-    .left > h1, .left > h2 {
-        font-size: 4rem;
-    }
-
-    .left > p {
         font-size: 2rem;
+    }
+
+    .left>h1,
+    .left>h2 {
+        font-size: 3rem;
+    }
+
+    .left>p {
+        font-size: 1.2rem;
     }
 
     .doctor-button {
-        font-size: 2rem;
+        font-size: 1.2rem;
     }
 
     .right {
         width: 40%;
     }
 
-    .right > img {
+    .right>img {
         width: 100%;
     }
 
@@ -3502,10 +3514,10 @@ footer {
     }
 
     .partner-heading {
-        font-size: 4rem;
+        font-size: 2.5rem;
     }
 
-    .first-content{
+    .first-content {
         width: 50%;
     }
 
@@ -3513,28 +3525,32 @@ footer {
         width: 70%;
     }
 
-    .heading>h2, .heading>h1 {
-        font-size: 3rem;
+    .heading>h2,
+    .heading>h1 {
+        font-size: 2.5rem;
     }
 
     .para>p {
-        font-size: 2rem;
+        font-size: 1.2rem;
     }
 
-    #solution-para > h4, #solution-para > h5, #solution-para > h6 {
-        font-size: 2rem;
+    #solution-para>h4,
+    #solution-para>h5,
+    #solution-para>h6 {
+        font-size: 1.2rem;
     }
 
-    #solution-para > ul, #solution-para > ol {
-        font-size: 1.5rem;
+    #solution-para>ul,
+    #solution-para>ol {
+        font-size: 1.2rem;
     }
 
     #faqs h2 {
-        font-size: 4rem;
+        font-size: 2.5rem;
     }
 
     .faq-question h3 {
-        font-size: 2.3rem;
+        font-size: 1.8rem;
     }
 
     .faq-answer p {
@@ -3546,18 +3562,18 @@ footer {
     }
 
     #disclaimer-content>div:first-child>h2 {
-        font-size: 4rem;
+        font-size: 2.5rem;
     }
 
     #disclaimer-content>div>p {
-        font-size: 2rem;
+        font-size: 1.5rem;
     }
 
     .footer-heading>h3 {
-        font-size: 2.3rem;
+        font-size: 2rem;
     }
 
-    .footer-content > p {
+    .footer-content>p {
         font-size: 1.3rem;
     }
 
@@ -3566,15 +3582,19 @@ footer {
     }
 
     #social-icons>div>i {
-        font-size: 2rem;
+        font-size: 1.5rem;
     }
 
     #social-icons {
         gap: 1.3rem;
     }
 
-    #copyright > p {
+    #copyright>p {
         font-size: 1.3rem;
+    }
+
+    #footer-logo > img {
+        width: 50%;
     }
 }
 
@@ -4105,12 +4125,12 @@ footer {
 }
 
 
-.ratings > i {
+.ratings>i {
     color: rgb(206, 206, 26);
 }
 
 
-.ratings > p {
+.ratings>p {
     color: gray;
 }
 
@@ -4122,7 +4142,7 @@ footer {
 }
 
 
-.profile_pic_container > img {
+.profile_pic_container>img {
     object-position: top center;
 }
 
@@ -4138,7 +4158,7 @@ footer {
 }
 
 
-.bio_points > .btn {
+.bio_points>.btn {
     font-size: 1.1rem !important;
 }
 
@@ -4153,7 +4173,7 @@ footer {
 }
 
 
-.profile_service > div > div {
+.profile_service>div>div {
     background: rgb(255, 255, 255);
     padding: 5px;
 }
@@ -4218,130 +4238,130 @@ footer {
     }
 
 
-    .ratings > i {
+    .ratings>i {
         font-size: 0.8rem;
     }
 }
 
-    /* Doctor's List Page */
-    .doctor-list-container {
-        width: 92%;
-    }
+/* Doctor's List Page */
+.doctor-list-container {
+    width: 92%;
+}
 
-    .doctor-list-section {
-        margin-top: 3%;
-    }
+.doctor-list-section {
+    margin-top: 3%;
+}
 
-    .search-field {
-        border: none;
-        outline: none;
-    }
+.search-field {
+    border: none;
+    outline: none;
+}
 
-    [type="search"]::-webkit-search-cancel-button,
-    [type="search"]::-webkit-search-decoration {
-        -webkit-appearance: none;
-        appearance: none;
-    }
+[type="search"]::-webkit-search-cancel-button,
+[type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none;
+    appearance: none;
+}
 
-    .search-btn {
-        border: none;
-        background: none;
-    }
+.search-btn {
+    border: none;
+    background: none;
+}
 
-    .doctor-list-card-container {
-        min-height: 200px;
-        border-top: 6px solid var(--blue);
-        box-shadow: 1px 1px 2px 0px #d0c0c0;
-        background: white;
-    }
+.doctor-list-card-container {
+    min-height: 200px;
+    border-top: 6px solid var(--blue);
+    box-shadow: 1px 1px 2px 0px #d0c0c0;
+    background: white;
+}
 
 
-    .doctor-list-card-container>h6 {
-        background-color: rgb(189, 189, 255);
-        color: var(--blue);
-        letter-spacing: 0.1rem;
-    }
+.doctor-list-card-container>h6 {
+    background-color: rgb(189, 189, 255);
+    color: var(--blue);
+    letter-spacing: 0.1rem;
+}
 
-    .doctor-pic-container {
-        width: 5rem;
-        height: 5rem;
-        box-shadow: 0px 2px 5px 0px var(--blue);
-    }
+.doctor-pic-container {
+    width: 5rem;
+    height: 5rem;
+    box-shadow: 0px 2px 5px 0px var(--blue);
+}
 
-    .doctor-experience-badge{
-        position: absolute;
-        top: 3%;
-        right: -3%;
-        background: var(--green);
-        border-radius: 8px;
-        font-size: 0.7rem;
-        color: white;
-        padding: 0.3rem 0.5rem;
+.doctor-experience-badge {
+    position: absolute;
+    top: 3%;
+    right: -3%;
+    background: var(--green);
+    border-radius: 8px;
+    font-size: 0.7rem;
+    color: white;
+    padding: 0.3rem 0.5rem;
 
-    }
+}
 
-    .doctor-experience-badge::before {
-        content: '';
-        position: absolute;
-        width: 40%;
-        height: 50%;
-        background: var(--green);
-        top: 75%;
-        right: -1px;
-        border-bottom-right-radius: 10px;
-        transform: rotate(331deg);
-        z-index: -1;
-    }
+.doctor-experience-badge::before {
+    content: '';
+    position: absolute;
+    width: 40%;
+    height: 50%;
+    background: #219408;
+    top: 75%;
+    right: -1px;
+    border-bottom-right-radius: 10px;
+    transform: rotate(331deg);
+    z-index: -1;
+}
 
-    .doctor-pic-container>img {
-        object-position: top center;
-    }
+.doctor-pic-container>img {
+    object-position: top center;
+}
 
-    .doctor-ratings {
-        gap: 2px;
-    }
+.doctor-ratings {
+    gap: 2px;
+}
 
-    .doctor-ratings>i {
-        color: rgb(231, 231, 20);
-        font-size: 0.8rem;
-    }
+.doctor-ratings>i {
+    color: rgb(231, 231, 20);
+    font-size: 0.8rem;
+}
 
+.search-bar-container {
+    width: 50%;
+}
+
+.doctor-data-container h5 {
+    font-size: 1.2rem;
+}
+
+.doctor-verify {
+    font-size: 0.7rem;
+    color: var(--red);
+}
+
+.doctor-data-container p {
+    font-size: 0.8rem;
+}
+
+@media screen and (min-width: 1200px) {
     .search-bar-container {
-        width: 50%;
+        width: 40%;
     }
+}
 
-    .doctor-data-container h5 {
-        font-size: 1.2rem;
+
+@media screen and (min-width: 992px) {
+    .search-bar-container {
+        width: 40%;
     }
+}
 
-    .doctor-verify {
-        font-size: 0.7rem;
-        color: var(--red);
+
+@media screen and (max-width: 576px) {
+    .search-bar-container {
+        width: 70%;
     }
-
-    .doctor-data-container p {
-        font-size: 0.8rem;
-    }
-
-    @media screen and (min-width: 1200px) {
-        .search-bar-container {
-            width: 40%;
-        }
-    }
-
-
-    @media screen and (min-width: 992px) {
-        .search-bar-container {
-            width: 40%;
-        }
-    }
-
-
-    @media screen and (max-width: 576px) {
-        .search-bar-container {
-            width: 70%;
-        }
-    }
+}
 
 
 /* Doctor Cards Carousel Section */
@@ -4456,6 +4476,7 @@ footer {
 }
 
 @media (min-width: 576px) {
+
     .doctor-carousel-container .carousel-inner .carousel-item-end.active,
     .doctor-carousel-container .carousel-inner .carousel-item-next {
         transform: translateX(50%);
@@ -4468,6 +4489,7 @@ footer {
 }
 
 @media (min-width: 768px) {
+
     .doctor-carousel-container .carousel-inner .carousel-item-end.active,
     .doctor-carousel-container .carousel-inner .carousel-item-next {
         transform: translateX(25%);
@@ -4480,6 +4502,7 @@ footer {
 }
 
 @media (min-width: 992px) {
+
     .doctor-carousel-container .carousel-inner .carousel-item-end.active,
     .doctor-carousel-container .carousel-inner .carousel-item-next {
         transform: translateX(16.6666667%);

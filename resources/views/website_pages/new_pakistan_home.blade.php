@@ -168,7 +168,7 @@
                 </div>
             </div>
 
-            <div class="div3 row order-3 py-4">
+            <div class="div3 row order-3 py-3">
                 <div class="w-50 fw-bold">
                     <h2>
                         Featured
