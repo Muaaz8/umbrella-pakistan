@@ -200,7 +200,7 @@
                     <div class="reviewed_card_content">
                     <div class="reviewed_card_icon ">
                         <img src="{{ asset('assets/images/credit-card.png') }}" alt="" />
-                        <h6>Driver' License</h6>
+                        <h6>National Identity Card</h6>
                     </div>
 
                     <div class="reviewed_card_title">

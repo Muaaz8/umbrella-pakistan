@@ -672,7 +672,7 @@
                         </div>
                     </div>
                     <div class="right">
-                        <img src=" {{ asset('assets/new_frontend/doc-s.png') }}" alt="" />
+                        <img src=" {{ asset('assets/new_frontend/Evisit.png') }}" alt="" />
                     </div>
                 </div>
             </div>
@@ -1092,7 +1092,7 @@
                         </div>
                     </div>
                     <div class="right">
-                        <img width="500px" src=" {{ asset('assets/new_frontend/doc-s.png') }}" alt="" />
+                        <img width="500px" src=" {{ asset('assets/new_frontend/primary-care.jpg') }}" alt="" />
                     </div>
                 </div>
             </div>
@@ -1267,7 +1267,7 @@
                 <a href="">TALK TO DOCTORS</a>
             </div>
             <aside id="solution-image" class="first-content">
-                <img src=" {{ asset('assets/new_frontend/side-content.webp') }}" alt="conference-image" />
+                <img src=" {{ asset('assets/new_frontend/AmericanDoc.jpg') }}" alt="conference-image" />
             </aside>
         </div>
         <div class="image-bg"></div>
