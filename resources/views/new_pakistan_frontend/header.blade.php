@@ -29,7 +29,7 @@
     </div>
   </div>
 
-<header>
+<header class="py-2">
     <nav>
       <section id="navbar">
         <div class="wrap flex gap-15 between">

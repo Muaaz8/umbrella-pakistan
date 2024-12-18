@@ -84,7 +84,7 @@
 @section('content')
 <main>
 
-    <section class="px-2 mt-4 main-hero-section">
+    <section class="px-2 main-hero-section">
         <div class="container-fluid parent">
             <div class="div2 order-1 order-md-1 order-lg-2">
                 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">

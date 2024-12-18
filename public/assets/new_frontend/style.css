@@ -3157,11 +3157,11 @@ footer {
 }
 
 .footer-content>p {
-    font-size: 1rem;
+    font-size: 0.9rem;
 }
 
 .footer-content>div>a {
-    font-size: 1rem;
+    font-size: 0.9rem;
 }
 
 /* media queries  */
@@ -3360,11 +3360,11 @@ footer {
     }
 
     .footer-content>p {
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
 
     .footer-content>div>a {
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
 
     #social-icons>div>i {
