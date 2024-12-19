@@ -93,6 +93,21 @@ Route::get('/our-doctors',function(){
     return view('website_pages.doc_profile_page_list',compact('doctors'));
 })->name('doc_profile_page_list');
 
+Route::get('/our-doctors/{name}',function($name){
+    $doctors = DB::table('users')
+        ->where('user_type','doctor')
+        ->where('name','LIKE','%'.$name.'%')
+        ->orWhere('last_name','LIKE','%'.$name.'%')
+        ->orderBy('id','desc')
+        ->get();
+    foreach($doctors as $doctor){
+        $doctor->details = DB::table('doctor_details')->where('doctor_id',$doctor->id)->first();
+        $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
+        $doctor->specializations = DB::table('specializations')->where('id',$doctor->specialization)->first();
+    }
+    return json_encode($doctors);
+});
+
 Route::get('/screen_sharing','UserController@sc_share')->name('sc_share');
 Route::post('/create/screen_sharing','UserController@create_sc_sh')->name('create_sc_sh');
 Route::get('/host/join/video/{id}','UserController@host_join_vid')->name('host_join_vid');

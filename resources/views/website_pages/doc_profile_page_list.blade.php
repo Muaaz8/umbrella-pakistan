@@ -16,6 +16,70 @@
 
 
 @section('bottom_import_file')
+    <script>
+        <?php
+        header('Access-Control-Allow-Origin: *');
+        ?>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $("#search").keyup(function(e) {
+            var name = e.target.value;
+            if (name.length == 0) {
+                $(".doctor-cont").removeClass("d-none");
+                $(".doctor-cont2").addClass("d-none");
+            }
+            else if (name.length > 2) {
+                $.ajax({
+                    type: "get",
+                    url: "/our-doctors/" + name,
+                    success: function(response) {
+                        $(".doctor-cont2").removeClass("d-none");
+                        $(".doctor-cont").addClass("d-none");
+                        $(".doctor-cont2").html("");
+                        $.each(JSON.parse(response), function (indexInArray, element) {
+                            console.log(element)
+                            if (element.details) {
+                                $(".doctor-cont2").append(
+                                    `<div class="col-sm-12 col-md-6 col-xl-4 doctor-list-card">
+                                    <div class="doctor-list-card-container rounded-2 px-2 pt-3 pb-2 position-relative">
+                                    <div class="doctor-experience-badge">${element.details.experience } Years Experience</div>
+                                    <div class="d-flex pb-4 gap-3"><div class="doctor-pic-container rounded-circle p-1 ">
+                                    <img src="${element.user_image}" alt="Doctor Page" class="rounded-circle object-fit-cover w-100 h-100"></div>
+                                    <div class="doctor-data-container"><div class="d-flex flex-column gap-1">
+                                    <h5 class="mb-0">Dr.${element.name} ${element.last_name}</h5>
+                                    <h6 class="doctor-verify">PMDC Verified</h6></div>
+                                    <p class="">${element.specializations.name}</p>
+                                    <p>${element.details.education.substring(0,45)}</p>
+                                    <div class="doctor-ratings d-flex align-items-center mt-2"></div></div>
+                                    </div><div class="d-flex align-items-center justify-content-center w-100"><button
+                                    class="btn btn-outline-primary w-100" onclick="window.location.href='/doctor-profile/${element.id}'">View Profile</button></div></div></div>`
+                                );
+                            } else {
+                                $(".doctor-cont2").append(
+                                    `<div class="col-sm-12 col-md-6 col-xl-4 doctor-list-card">
+                                    <div class="doctor-list-card-container rounded-2 px-2 pt-3 pb-2 position-relative">
+                                    <div class="d-flex pb-4 gap-3"><div class="doctor-pic-container rounded-circle p-1 ">
+                                    <img src="${element.user_image}" alt="Doctor Page" class="rounded-circle object-fit-cover w-100 h-100"></div>
+                                    <div class="doctor-data-container"><div class="d-flex flex-column gap-1">
+                                    <h5 class="mb-0">Dr.${element.name} ${element.last_name}</h5>
+                                    <h6 class="doctor-verify">PMDC Verified</h6></div>
+                                    <p class="">${element.specializations.name}</p>
+                                    <p>MBBS</p>
+                                    <div class="doctor-ratings d-flex align-items-center mt-2"></div></div>
+                                    </div><div class="d-flex align-items-center justify-content-center w-100"><button
+                                    class="btn btn-outline-primary w-100" onclick="window.location.href='/doctor-profile/${element.id}'">View Profile</button></div></div></div>`
+                                );
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    </script>
 @endsection
 
 @section('content')
@@ -45,11 +109,13 @@
                 @if ($top_content)
                     {!! $top_content->content !!}
                 @else
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit, consequuntur, reiciendis consequatur nostrum vitae perspiciatis quasi illum ab accusantium, commodi aut nam sit error molestias. Beatae earum nihil quam blanditiis?
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit, consequuntur, reiciendis consequatur
+                    nostrum vitae perspiciatis quasi illum ab accusantium, commodi aut nam sit error molestias. Beatae earum
+                    nihil quam blanditiis?
                 @endif
                 <div class="d-flex align-items-center justify-content-between  gap-3">
                     <div class="d-flex align-items-center justify-content-between gap-3">
-                    {{-- <div class="dropdown">
+                        {{-- <div class="dropdown">
                         <button class="btn btn-danger dropdown-toggle" type="button" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             Dropdown
@@ -71,23 +137,23 @@
                             <li><button class="dropdown-item" type="button">Something else here</button></li>
                         </ul>
                     </div> --}}
-                </div>
+                    </div>
                     <div class="search-bar-container form-control px-2 py-2">
                         <form class="d-flex align-items-center justify-content-between">
-                            <input type="search" name="search" placeholder="Search Doctor Name"
-                                class="search-field w-100">
-                            <button type="submit" class="search-btn px-2"><i
+                            <input type="search" name="search" placeholder="Search Doctor Name" class="search-field w-100"
+                                id="search">
+                            <button type="button" class="search-btn px-2"><i
                                     class="fa-solid fa-magnifying-glass"></i></button>
                         </form>
                     </div>
                 </div>
-                <div class="row gy-3 gx-4">
+                <div class="row gy-3 gx-4 doctor-cont">
                     @foreach ($doctors as $doctor)
                         <div class="col-sm-12 col-md-6 col-xl-4 doctor-list-card">
                             <div class="doctor-list-card-container rounded-2 px-2 pt-3 pb-2 position-relative">
                                 @if ($doctor->details)
                                     <div class="doctor-experience-badge">
-                                        {{$doctor->details->experience}} Years Experience
+                                        {{ $doctor->details->experience }} Years Experience
                                     </div>
                                 @else
                                     {{-- <div class="doctor-experience-badge">
@@ -104,48 +170,54 @@
 
                                     <div class="doctor-data-container">
                                         <div class="d-flex flex-column gap-1">
-                                            <h5 class="mb-0">Dr. {{ \Str::ucfirst($doctor->name)." ".\Str::ucfirst($doctor->last_name) }}</h5>
+                                            <h5 class="mb-0">Dr.
+                                                {{ \Str::ucfirst($doctor->name) . ' ' . \Str::ucfirst($doctor->last_name) }}
+                                            </h5>
                                             <h6 class="doctor-verify">PMDC Verified</h6>
                                         </div>
                                         <p class="">{{ $doctor->specializations->name }}</p>
-                                        <p>{!! nl2br(isset($doctor->details->education)?\Str::limit($doctor->details->education,40):"MBBS") !!}</p>
+                                        <p>{!! nl2br(isset($doctor->details->education) ? \Str::limit($doctor->details->education, 40) : 'MBBS') !!}</p>
                                         <div class="doctor-ratings d-flex align-items-center  mt-2">
-                                        @if ($doctor->rating != null)
-                                            @php
-                                                $fullStars = floor($doctor->rating / 20); // Number of full stars
-                                                $halfStar = ($doctor->rating % 20 >= 10) ? 1 : 0; // Check if a half-star is needed
-                                                $emptyStars = 5 - ($fullStars + $halfStar); // Remaining stars will be empty
-                                            @endphp
-                                            @for ($i = 0; $i < $fullStars; $i++)
+                                            @if ($doctor->rating != null)
+                                                @php
+                                                    $fullStars = floor($doctor->rating / 20); // Number of full stars
+                                                    $halfStar = $doctor->rating % 20 >= 10 ? 1 : 0; // Check if a half-star is needed
+                                                    $emptyStars = 5 - ($fullStars + $halfStar); // Remaining stars will be empty
+                                                @endphp
+                                                @for ($i = 0; $i < $fullStars; $i++)
+                                                    <i class="fa-solid fa-star"></i>
+                                                @endfor
+                                                @if ($halfStar)
+                                                    <i class="fa-solid fa-star-half-alt"></i>
+                                                @endif
+                                                @for ($i = 0; $i < $emptyStars; $i++)
+                                                    <i class="fa-regular fa-star"></i>
+                                                @endfor
+                                            @else
                                                 <i class="fa-solid fa-star"></i>
-                                            @endfor
-                                            @if ($halfStar)
-                                                <i class="fa-solid fa-star-half-alt"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
+                                                <i class="fa-solid fa-star"></i>
                                             @endif
-                                            @for ($i = 0; $i < $emptyStars; $i++)
-                                                <i class="fa-regular fa-star"></i>
-                                            @endfor
-                                        @else
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                        @endif
                                         </div>
                                     </div>
 
 
                                 </div>
-                                <div class="d-flex align-items-center justify-content-center w-100"><button class="btn btn-outline-primary w-100" onclick="window.location.href='/doctor-profile/{{$doctor->id}}'">View Profile</button></div>
+                                <div class="d-flex align-items-center justify-content-center w-100"><button
+                                        class="btn btn-outline-primary w-100"
+                                        onclick="window.location.href='/doctor-profile/{{ $doctor->id }}'">View
+                                        Profile</button></div>
                             </div>
-                    </div>
-
-
+                        </div>
                     @endforeach
                     <div class="d-flex justify-content-center">
-                        {{$doctors->links('pagination::bootstrap-4')}}
+                        {{ $doctors->links('pagination::bootstrap-4') }}
                     </div>
+                </div>
+                <div class="row gy-3 gx-4 doctor-cont2">
+
                 </div>
             </div>
         </section>

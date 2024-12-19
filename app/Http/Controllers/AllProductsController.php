@@ -1474,11 +1474,8 @@ class AllProductsController extends AppBaseController
     {
 
         $input = $request->all();
-        // dd($input);
-
         $validateData = $request->validate([
             'description' => ['required'],
-            'short_description' => ['required'],
         ]);
         if($request->hasFile('image'))
         {
@@ -1491,8 +1488,8 @@ class AllProductsController extends AppBaseController
                 ->where('id', $input['medicine'])
                 ->update(
                     [
-                        'description' => $validateData['description'],
-                        'short_description' => $validateData['short_description'],
+                        'description' => $input['description'],
+                        'short_description' => $input['short_description'],
                         'featured_image' => $filename,
                     ]
                 );
@@ -1501,14 +1498,12 @@ class AllProductsController extends AppBaseController
                 ->where('id', $input['medicine'])
                 ->update(
                     [
-                        'description' => $validateData['description'],
-                        'short_description' => $validateData['short_description'],
+                        'description' => $input['description'],
+                        'short_description' => $input['short_description'],
                     ]
                 );
 
         }
-
-
         Flash::success('Description saved successfully.');
         return redirect()->back();
     }

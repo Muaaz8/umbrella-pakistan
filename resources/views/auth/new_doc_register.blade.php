@@ -202,15 +202,14 @@
         }
     });
     $(".toggle-password").click(function() {
-
-$(this).toggleClass("fa-eye fa-eye-slash");
-var input = $($(this).attr("toggle"));
-if (input.attr("type") == "password") {
-  input.attr("type", "text");
-} else {
-  input.attr("type", "password");
-}
-});
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        var input = $($(this).attr("toggle"));
+        if (input.attr("type") == "password") {
+            input.attr("type", "text");
+        } else {
+            input.attr("type", "password");
+        }
+    });
 </script>
 <script>
 var input = document.querySelector("#phone_number");
@@ -410,7 +409,7 @@ window.intlTelInput(input, {
                                         <label for="confirmPassword" class="form-label">Confirm Password: *</label>
                                         <div class="position-relative">
                                         <input type="password" class="form-control abcd" name="password_confirmation" placeholder="Confirm Password" id="password_confirmation" maxlength="16"/>
-                                        <i class="fa-solid fa-eye-slash eye__pass_ toggle-password" toggle=".abcd"></i>
+                                        <i class="fa-solid fa-eye-slash eye__pass_ toggle-password" toggle=".abcd" onclick="showPassword()"></i>
                                     </div>
                                     <small id="confirm_password_error" class="text-danger"></small>
 
@@ -432,8 +431,8 @@ window.intlTelInput(input, {
                                                 </div>
                                                 <div class="col-md-3">
                                                     <div class="signature_btns">
-                                                        <button class="signature_btns_styles" onclick="javascript:void(0)" id="clearBtn">Retake Signature</button>
-                                                        <button class="signature_btns_styles" onclick="javascript:void(0)" id="btnSave">Save Signature</button>
+                                                        <button type="button" class="signature_btns_styles" onclick="javascript:void(0)" id="clearBtn">Retake Signature</button>
+                                                        <button type="button" class="signature_btns_styles" onclick="javascript:void(0)" id="btnSave">Save Signature</button>
                                                     </div>
                                                 </div>
 
@@ -523,7 +522,7 @@ window.intlTelInput(input, {
                 <div class="modal-body text-start">
                     <div class="form-card" id="success_load">
                         <h2 class="purple-text text-center"><strong>Please wait...!!!</strong></h2>
-                        <div id="loader" style="height: auto;">
+                        <div id="loader" class="d-flex justify-content-center" style="height: auto;">
                         <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_zwauaf7y.json"
                             background="transparent" speed="1" style="width: 300px; height: 200px"
                             loop autoplay>
