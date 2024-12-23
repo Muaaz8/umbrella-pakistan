@@ -84,7 +84,12 @@ Route::get('/doctor-profile/{id}',function($id){
 });
 
 Route::get('/our-doctors',function(){
-    $doctors = DB::table('users')->where('user_type','doctor')->orderBy('id','desc')->paginate(8);
+    $doctors = DB::table('users')
+        ->where('user_type','doctor')
+        ->where('active','1')
+        ->where('status','!=',null)
+        ->orderBy('id','desc')
+        ->paginate(8);
     foreach($doctors as $doctor){
         $doctor->details = DB::table('doctor_details')->where('doctor_id',$doctor->id)->first();
         $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
@@ -1279,4 +1284,5 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
     Route::post('/generate-doc_paidcsv',"FinanceController@generate_doc_paid_csv");
     Route::post('/generate-doc_paidpdf',"FinanceController@generate_doc_paid_pdf");
     Route::post('/generate-all_imaging_record_csv', [AllProductsController::class, 'generate_all_imaging_record_csv']);
+    Route::post('/generate_all_medicine_record_csv', [AllProductsController::class, 'generate_all_medicine_record_csv']);
 });

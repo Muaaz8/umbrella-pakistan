@@ -2051,6 +2051,59 @@ class AllProductsController extends AppBaseController
         fclose($handle);
         return response()->download($filename, "Imaging_All_Records.csv", $headers);
     }
+    public function generate_all_medicine_record_csv(Request $request)
+    {
+        $data = DB::table('medicine_pricings')
+            ->leftJoin('tbl_products', 'tbl_products.id', '=', 'medicine_pricings.product_id')
+            ->leftJoin('medicine_units', 'medicine_units.id', '=', 'medicine_pricings.unit_id')
+            ->leftJoin('medicine_days', 'medicine_days.id', '=', 'medicine_pricings.days_id')
+            ->leftJoin('products_sub_categories', 'tbl_products.sub_category', '=', 'products_sub_categories.id')
+            ->select(
+                'medicine_pricings.id',
+                'medicine_pricings.product_id',
+                'tbl_products.name',
+                'tbl_products.short_description',
+                'tbl_products.updated_at',
+                'medicine_pricings.unit_id',
+                'medicine_units.unit',
+                'medicine_pricings.days_id',
+                'medicine_days.days',
+                'medicine_pricings.price',
+                'medicine_pricings.sale_price',
+                'products_sub_categories.title as sub_category',
+                'percentage',
+                DB::raw("CASE WHEN (product_status = '0' && is_approved = '0' ) THEN 'Deactive' ELSE 'Active' END AS statusProduct"),
+            )
+            ->orderBy('tbl_products.name', 'asc')
+            ->get();
+
+        $headers = array(
+            'Content-Type' => 'text/csv'
+        );
+        $filename =  public_path('Medicine_All_Records.xlxs');
+        $handle = fopen($filename,'w');
+        fputcsv($handle, [
+            "Id",
+            "Name",
+            "Unit",
+            "Sub Category",
+            "Price",
+        ]);
+
+        foreach($data as $record)
+        {
+            fputcsv($handle, [
+                $record->id,
+                $record->name,
+                $record->unit,
+                $record->sub_category,
+                $record->price,
+            ]);
+        }
+
+        fclose($handle);
+        return response()->download($filename, "Medicine_All_Records.csv", $headers);
+    }
 
     public function e_prescription()
     {
