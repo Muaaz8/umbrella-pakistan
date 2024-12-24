@@ -531,7 +531,7 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
         Route::get('/mark/invoice/paid/{id}','FinanceController@mark_invoice_paid')->name('mark_invoice_paid');
 
     });
-
+    Route::get('/doctor/in/clinics', 'PatientController@doctor_in_clinic')->name('doctor_in_clinic');
     Route::post('patient/health/store','DoctorController@patient_health_store')->name('patient_health_store');
     Route::post('mood/disorder/store','DoctorController@mood_disorder_store')->name('mood_disorder_store');
     Route::post('anxiety/scale/store','DoctorController@anxiety_scale_store')->name('anxiety_scale_store');

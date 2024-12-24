@@ -6984,3 +6984,196 @@ span.avtr figure {
 
 
 /* =======================finance-dashboard-end============== */
+
+
+
+/* new css */
+
+:root {
+    --red: #c80919;
+    --blue: #2964bc;
+    --maroon: #c80919;
+    --navy-blue: #082755;
+    --green: #35b518;
+    --lh: 1.4rem;
+    --lightgray: #f5f5f5;
+    --lightblue: #2964BCA3;
+    --lightred: #ef0b1e;
+}
+
+.waiting-room-container {
+    min-height: 100vh;
+    height: 100vh;
+}
+
+/* utilities */
+
+.bg-gray {
+    background-color: var(--lightgray);
+}
+
+.red {
+    color: var(--red);
+}
+
+.underline {
+    background-color: var(--red);
+    height: 2px;
+    border-radius: 20px;
+}
+
+/* waiting patients section */
+
+.waiting-patients-accordion {
+    max-height: 80vh;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.patient-detail h5 {
+    font-size: 1rem;
+}
+
+.patient-detail h6 {
+    font-size: 0.75rem;
+}
+
+.waiting-patients-accordion .accordion-button {
+    background: linear-gradient(to bottom, var(--blue), var(--navy-blue));
+    color: white;
+    padding: 0.5rem 1rem;
+}
+
+.toggle-buttons > li > button {
+    border-radius: 3rem !important;
+    border-top: 2px solid var(--red) !important;
+    box-shadow: 0px 2px 0px 1px var(--blue);
+    color: var(--navy-blue);
+}
+
+.toggle-buttons .nav-link {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+}
+
+.toggle-buttons > li > button > i {
+    color: var(--red);
+}
+
+.toggle-buttons .nav-link.active, .toggle-buttons .show>.nav-link, .toggle-buttons .nav-link:hover {
+    color: #fff;
+    background: linear-gradient(to bottom, var(--red), #ef0b1e);
+    border-top: 2px solid transparent;
+    box-shadow: 0px 2px 3px 0px gray;
+}
+
+.toggle-buttons .nav-link.active i, .toggle-buttons .show>.nav-link i, .toggle-buttons .nav-link:hover i {
+    color: white;
+}
+
+.accordion-button::after {
+    flex-shrink: 0;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-left: auto;
+    content: "";
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-size: 1.25rem;
+    transition: transform .2s ease-in-out;
+}
+
+.shadow-hide{
+    box-shadow: none !important;
+}
+
+.accordion-button:not(.collapsed)::after {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+
+.patient-info label {
+    color: gray;
+    font-size: 0.8rem;
+}
+
+.patient-info p {
+    font-size: 0.8rem;
+}
+
+.search-field {
+    border: none;
+    outline: none;
+}
+
+.search-btn {
+    border: none;
+    background: none;
+}
+
+.search-bar-container input[type="search"]::-webkit-search-cancel-button {
+    display: none;
+}
+
+.tabs-medicine {
+    max-height: calc(70vh - 7.5rem);
+    overflow-y: auto;
+}
+
+#next-patient-collapse .accordion-body {
+    padding: 0.5rem 0;
+}
+
+.prescription-section {
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+.prescription-container {
+    overflow-y: auto;
+    height: 100%;
+}
+
+.prescription-section .w-100 {
+    height: auto !important;
+    object-fit: none;
+}
+
+.tabs-medicine button {
+    background-color: var(--lightgray);
+    box-shadow: 0px 1px 3px 1px gray;
+}
+
+.tabs-medicine button:hover {
+    background: linear-gradient(to bottom, var(--blue), var(--navy-blue));
+    color: white;
+}
+
+@media screen and (max-width: 768px) {
+    .toggle-buttons .nav-link {
+        padding: 0.25rem 0.5rem;
+        font-size: 0.8rem;
+    }
+
+    .tabs-medicine button {
+        font-size: 0.8rem;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .toggle-buttons .nav-link {
+        padding: 0.15rem 0.3rem;
+        font-size: 0.7rem;
+    }
+
+    .tabs-medicine button {
+        font-size: 0.7rem;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .waiting-room-container {
+        height: auto;
+    }
+}

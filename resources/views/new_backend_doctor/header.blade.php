@@ -76,6 +76,8 @@ use Carbon\Carbon;
             </div>
             <a href="{{ route('doctor_queue') }}" class="dashboard-nav-item"><i
                 class="fa-regular fa-square-plus"></i>Waiting Room</a>
+            <a href="{{ route('doctor_in_clinic') }}" class="dashboard-nav-item"><i
+                class="fa-regular fa-square-plus"></i>In Clinic</a>
             <a href="{{ route('patient_refill_requests') }}" class="dashboard-nav-item"><i
                     class="fa-solid fa-user-doctor"></i> Refill Requests </a>
 

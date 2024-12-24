@@ -2320,4 +2320,8 @@ class PatientController extends Controller
             return redirect()->route('therapy_events')->with('message','Session is over, Doctor ended the call...!!!');
         }
     }
+
+    public function doctor_in_clinic(){
+        return view('dashboard_doctor.in_clinic.index');
+    }
 }
