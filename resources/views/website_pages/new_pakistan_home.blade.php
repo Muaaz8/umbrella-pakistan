@@ -30,7 +30,7 @@
     .tabs-section-container>h1,
     .tabs-section-container>h2,
     .tabs-section-container>h3,
-    .tabs-section-container>h4{
+    .tabs-section-container>h4 {
         text-align: left;
         font-size: 1.7rem;
         color: #082755;
@@ -40,15 +40,17 @@
     .tabs-section-container>.e-visit-content h1,
     .tabs-section-container>.e-visit-content h2,
     .tabs-section-container>.e-visit-content h3,
-    .tabs-section-container>.e-visit-content h4{
+    .tabs-section-container>.e-visit-content h4 {
         text-align: left;
         font-size: 1.7rem;
         color: #082755;
     }
+
     #solution-para figure {
         display: flex;
     }
-    #solution-para figure img{
+
+    #solution-para figure img {
         width: 20px;
         height: 20px;
         margin-right: 10px;
@@ -112,7 +114,7 @@
                         style="animation-delay: 0s;">
                         <div class="custom-card-body">
                             @if($groupedSections["box-1"]["contents"])
-                                {!! $groupedSections["box-1"]["contents"][0]["content"] !!}
+                            {!! $groupedSections["box-1"]["contents"][0]["content"] !!}
                             @else
                             <h5 class="custom-card-title">Doctor consultation</h5>
                             <p class="custom-card-text">
@@ -131,7 +133,7 @@
                         style="animation-delay: 0.2s;">
                         <div class="custom-card-body">
                             @if($groupedSections["box-2"]["contents"])
-                                {!! $groupedSections["box-2"]["contents"][0]["content"] !!}
+                            {!! $groupedSections["box-2"]["contents"][0]["content"] !!}
                             @else
                             <h5 class="custom-card-title">Pharmacy</h5>
                             <p class="custom-card-text">
@@ -149,7 +151,7 @@
                         style="animation-delay: 0.5s;">
                         <div class="custom-card-body">
                             @if($groupedSections["box-3"]["contents"])
-                                {!! $groupedSections["box-3"]["contents"][0]["content"] !!}
+                            {!! $groupedSections["box-3"]["contents"][0]["content"] !!}
                             @else
                             <h5 class="custom-card-title">Online Lab Tests</h5>
                             <p class="custom-card-text">
@@ -186,7 +188,7 @@
                 <div class="card-secondary d-flex flex-row align-items-center justify-content-between">
                     <div>
                         @if($groupedSections["box-4"]["contents"])
-                            {!! $groupedSections["box-4"]["contents"][0]["content"] !!}
+                        {!! $groupedSections["box-4"]["contents"][0]["content"] !!}
                         @else
                         <h5>Personal Care</h5>
                         <p>Lorem ipsum dolor sit amet.</p>
@@ -206,7 +208,7 @@
                 <div class="card-secondary d-flex flex-row align-items-center justify-content-between">
                     <div>
                         @if($groupedSections["box-5"]["contents"])
-                            {!! $groupedSections["box-5"]["contents"][0]["content"] !!}
+                        {!! $groupedSections["box-5"]["contents"][0]["content"] !!}
                         @else
                         <h5>Mother & Baby Care</h5>
                         <p>Lorem ipsum dolor sit amet.</p>
@@ -226,7 +228,7 @@
                 <div class="card-secondary d-flex flex-row align-items-center justify-content-between">
                     <div>
                         @if($groupedSections["box-6"]["contents"])
-                            {!! $groupedSections["box-6"]["contents"][0]["content"] !!}
+                        {!! $groupedSections["box-6"]["contents"][0]["content"] !!}
                         @else
                         <h5>Dermatology</h5>
                         <p>Lorem ipsum dolor sit amet.</p>
@@ -246,7 +248,7 @@
                 <div class="card-secondary d-flex flex-row align-items-center justify-content-between">
                     <div>
                         @if($groupedSections["box-7"]["contents"])
-                            {!! $groupedSections["box-7"]["contents"][0]["content"] !!}
+                        {!! $groupedSections["box-7"]["contents"][0]["content"] !!}
                         @else
                         <h5>Multi-Vitamins</h5>
                         <p>Lorem ipsum dolor sit amet.</p>
@@ -330,270 +332,220 @@
     </section>
 
 
- {{--
-     <section class="mx-3 my-4 doctor-carousel-container">
+    {{--
+    <section class="mx-3 my-4 doctor-carousel-container">
         <div class="d-flex justify-content-between align-items-center">
-          <div class="d-flex flex-column">
-            <h2 class="">
-              List of
-              <span class="red">Doctors</span>
-            </h2>
-            <div class="underline w-50"></div>
-          </div>
-          <div class="d-flex align-items-center justify-content-end gap-3">
-            <a
-              class="carousel-control-prev bg-transparent w-aut"
-              href="#recipeCarousel"
-              role="button"
-              data-bs-slide="prev"
-            >
-              <span
-                class="carousel-control-prev-icon"
-                aria-hidden="true"
-              ></span>
-            </a>
-            <a
-              class="carousel-control-next bg-transparent w-aut"
-              href="#recipeCarousel"
-              role="button"
-              data-bs-slide="next"
-            >
-              <span
-                class="carousel-control-next-icon"
-                aria-hidden="true"
-              ></span>
-            </a>
-          </div>
+            <div class="d-flex flex-column">
+                <h2 class="">
+                    List of
+                    <span class="red">Doctors</span>
+                </h2>
+                <div class="underline w-50"></div>
+            </div>
+            <div class="d-flex align-items-center justify-content-end gap-3">
+                <a class="carousel-control-prev bg-transparent w-aut" href="#recipeCarousel" role="button"
+                    data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                </a>
+                <a class="carousel-control-next bg-transparent w-aut" href="#recipeCarousel" role="button"
+                    data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                </a>
+            </div>
         </div>
         <div class="row mx-auto my-auto justify-content-center">
-          <div
-            id="recipeCarousel"
-            class="carousel slide"
-            data-bs-ride="carousel"
-          >
-            <div class="carousel-inner px-0 py-3 px-0" role="listbox">
-              <div class="carousel-item active">
-                <div class="col-12 col-sm-6 col-md-3 col-lg-2 px-sm-1 px-md-3">
-                  <div
-                    class="doctor-carousel-card-container d-flex flex-column align-items-center justify-content-center text-center rounded-2 py-1"
-                  >
-                    <div class="carousel-pic-container rounded-circle p-1">
-                      <img
-                        src="{{ asset('assets/new_frontend/doctor-3.png') }}"
-                        alt="Doctor Page"
-                        class="rounded-circle object-fit-cover w-100 h-100"
-                      />
+            <div id="recipeCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner px-0 py-3 px-0" role="listbox">
+                    <div class="carousel-item active">
+                        <div class="col-12 col-sm-6 col-md-3 col-lg-2 px-sm-1 px-md-3">
+                            <div
+                                class="doctor-carousel-card-container d-flex flex-column align-items-center justify-content-center text-center rounded-2 py-1">
+                                <div class="carousel-pic-container rounded-circle p-1">
+                                    <img src="{{ asset('assets/new_frontend/doctor-3.png') }}" alt="Doctor Page"
+                                        class="rounded-circle object-fit-cover w-100 h-100" />
+                                </div>
+                                <div class="carousel-doctor-ratings mt-1">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                                <div class="d-flex flex-column mt-1">
+                                    <h5 class="mb-0">Dr. Allama Iqbal</h5>
+                                    <p class="">M.B.B.S, B.D.S.</p>
+                                </div>
+                                <h6 class="mt-1 rounded-5 px-2 py-1">DERMATOLOGY</h6>
+                            </div>
+                        </div>
                     </div>
-                    <div class="carousel-doctor-ratings mt-1">
-                      <i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
+                    <div class="carousel-item">
+                        <div class="col-12 col-sm-6 col-md-3 col-lg-2 px-sm-1 px-md-3">
+                            <div
+                                class="doctor-carousel-card-container d-flex flex-column align-items-center justify-content-center text-center rounded-2 py-1">
+                                <div class="carousel-pic-container rounded-circle p-1">
+                                    <img src="{{ asset('assets/new_frontend/doctor-3.png') }}" alt="Doctor Page"
+                                        class="rounded-circle object-fit-cover w-100 h-100" />
+                                </div>
+                                <div class="carousel-doctor-ratings mt-1">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                                <div class="d-flex flex-column mt-1">
+                                    <h5 class="mb-0">Dr. Allama Iqbal</h5>
+                                    <p class="">M.B.B.S, B.D.S.</p>
+                                </div>
+                                <h6 class="mt-1 rounded-5 px-2 py-1">DERMATOLOGY</h6>
+                            </div>
+                        </div>
                     </div>
-                    <div class="d-flex flex-column mt-1">
-                      <h5 class="mb-0">Dr. Allama Iqbal</h5>
-                      <p class="">M.B.B.S, B.D.S.</p>
+                    <div class="carousel-item">
+                        <div class="col-12 col-sm-6 col-md-3 col-lg-2 px-sm-1 px-md-3">
+                            <div
+                                class="doctor-carousel-card-container d-flex flex-column align-items-center justify-content-center text-center rounded-2 py-1">
+                                <div class="carousel-pic-container rounded-circle p-1">
+                                    <img src="{{ asset('assets/new_frontend/doctor-3.png') }}" alt="Doctor Page"
+                                        class="rounded-circle object-fit-cover w-100 h-100" />
+                                </div>
+                                <div class="carousel-doctor-ratings mt-1">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                                <div class="d-flex flex-column mt-1">
+                                    <h5 class="mb-0">Dr. Felix Cadreal</h5>
+                                    <p class="">M.B.B.S, B.D.S.</p>
+                                </div>
+                                <h6 class="mt-1 rounded-5 px-2 py-1">DERMATOLOGY</h6>
+                            </div>
+                        </div>
                     </div>
-                    <h6 class="mt-1 rounded-5 px-2 py-1">DERMATOLOGY</h6>
-                  </div>
-                </div>
-              </div>
-              <div class="carousel-item">
-                <div class="col-12 col-sm-6 col-md-3 col-lg-2 px-sm-1 px-md-3">
-                  <div
-                    class="doctor-carousel-card-container d-flex flex-column align-items-center justify-content-center text-center rounded-2 py-1"
-                  >
-                    <div class="carousel-pic-container rounded-circle p-1">
-                      <img
-                        src="{{ asset('assets/new_frontend/doctor-3.png') }}"
-                        alt="Doctor Page"
-                        class="rounded-circle object-fit-cover w-100 h-100"
-                      />
+                    <div class="carousel-item">
+                        <div class="col-12 col-sm-6 col-md-3 col-lg-2 px-sm-1 px-md-3">
+                            <div
+                                class="doctor-carousel-card-container d-flex flex-column align-items-center justify-content-center text-center rounded-2 py-1">
+                                <div class="carousel-pic-container rounded-circle p-1">
+                                    <img src="{{ asset('assets/new_frontend/doctor-3.png') }}" alt="Doctor Page"
+                                        class="rounded-circle object-fit-cover w-100 h-100" />
+                                </div>
+                                <div class="carousel-doctor-ratings mt-1">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                                <div class="d-flex flex-column mt-1">
+                                    <h5 class="mb-0">Dr. Allama Iqbal</h5>
+                                    <p class="">M.B.B.S, B.D.S.</p>
+                                </div>
+                                <h6 class="mt-1 rounded-5 px-2 py-1">DERMATOLOGY</h6>
+                            </div>
+                        </div>
                     </div>
-                    <div class="carousel-doctor-ratings mt-1">
-                      <i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
+                    <div class="carousel-item">
+                        <div class="col-12 col-sm-6 col-md-3 col-lg-2 px-sm-1 px-md-3">
+                            <div
+                                class="doctor-carousel-card-container d-flex flex-column align-items-center justify-content-center text-center rounded-2 py-1">
+                                <div class="carousel-pic-container rounded-circle p-1">
+                                    <img src="{{ asset('assets/new_frontend/doctor-3.png') }}" alt="Doctor Page"
+                                        class="rounded-circle object-fit-cover w-100 h-100" />
+                                </div>
+                                <div class="carousel-doctor-ratings mt-1">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                                <div class="d-flex flex-column mt-1">
+                                    <h5 class="mb-0">Dr. Allama Iqbal</h5>
+                                    <p class="">M.B.B.S, B.D.S.</p>
+                                </div>
+                                <h6 class="mt-1 rounded-5 px-2 py-1">DERMATOLOGY</h6>
+                            </div>
+                        </div>
                     </div>
-                    <div class="d-flex flex-column mt-1">
-                      <h5 class="mb-0">Dr. Allama Iqbal</h5>
-                      <p class="">M.B.B.S, B.D.S.</p>
+                    <div class="carousel-item">
+                        <div class="col-12 col-sm-6 col-md-3 col-lg-2 px-sm-1 px-md-3">
+                            <div
+                                class="doctor-carousel-card-container d-flex flex-column align-items-center justify-content-center text-center rounded-2 py-1">
+                                <div class="carousel-pic-container rounded-circle p-1">
+                                    <img src="{{ asset('assets/new_frontend/doctor-3.png') }}" alt="Doctor Page"
+                                        class="rounded-circle object-fit-cover w-100 h-100" />
+                                </div>
+                                <div class="carousel-doctor-ratings mt-1">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                                <div class="d-flex flex-column mt-1">
+                                    <h5 class="mb-0">Dr. Allama Iqbal</h5>
+                                    <p class="">M.B.B.S, B.D.S.</p>
+                                </div>
+                                <h6 class="mt-1 rounded-5 px-2 py-1">DERMATOLOGY</h6>
+                            </div>
+                        </div>
                     </div>
-                    <h6 class="mt-1 rounded-5 px-2 py-1">DERMATOLOGY</h6>
-                  </div>
-                </div>
-              </div>
-              <div class="carousel-item">
-                <div class="col-12 col-sm-6 col-md-3 col-lg-2 px-sm-1 px-md-3">
-                  <div
-                    class="doctor-carousel-card-container d-flex flex-column align-items-center justify-content-center text-center rounded-2 py-1"
-                  >
-                    <div class="carousel-pic-container rounded-circle p-1">
-                      <img
-                        src="{{ asset('assets/new_frontend/doctor-3.png') }}"
-                        alt="Doctor Page"
-                        class="rounded-circle object-fit-cover w-100 h-100"
-                      />
+                    <div class="carousel-item">
+                        <div class="col-12 col-sm-6 col-md-3 col-lg-2 px-sm-1 px-md-3">
+                            <div
+                                class="doctor-carousel-card-container d-flex flex-column align-items-center justify-content-center text-center rounded-2 py-1">
+                                <div class="carousel-pic-container rounded-circle p-1">
+                                    <img src="{{ asset('assets/new_frontend/doctor-3.png') }}" alt="Doctor Page"
+                                        class="rounded-circle object-fit-cover w-100 h-100" />
+                                </div>
+                                <div class="carousel-doctor-ratings mt-1">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                                <div class="d-flex flex-column mt-1">
+                                    <h5 class="mb-0">Dr. Allama Iqbal</h5>
+                                    <p class="">M.B.B.S, B.D.S.</p>
+                                </div>
+                                <h6 class="mt-1 rounded-5 px-2 py-1">DERMATOLOGY</h6>
+                            </div>
+                        </div>
                     </div>
-                    <div class="carousel-doctor-ratings mt-1">
-                      <i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
+                    <div class="carousel-item">
+                        <div class="col-12 col-sm-6 col-md-3 col-lg-2 px-sm-1 px-md-3">
+                            <div
+                                class="doctor-carousel-card-container d-flex flex-column align-items-center justify-content-center text-center rounded-2 py-1">
+                                <div class="carousel-pic-container rounded-circle p-1">
+                                    <img src="{{ asset('assets/new_frontend/doctor-3.png') }}" alt="Doctor Page"
+                                        class="rounded-circle object-fit-cover w-100 h-100" />
+                                </div>
+                                <div class="carousel-doctor-ratings mt-1">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                                <div class="d-flex flex-column mt-1">
+                                    <h5 class="mb-0">Dr. Allama Iqbal</h5>
+                                    <p class="">M.B.B.S, B.D.S.</p>
+                                </div>
+                                <h6 class="mt-1 rounded-5 px-2 py-1">DERMATOLOGY</h6>
+                            </div>
+                        </div>
                     </div>
-                    <div class="d-flex flex-column mt-1">
-                      <h5 class="mb-0">Dr. Felix Cadreal</h5>
-                      <p class="">M.B.B.S, B.D.S.</p>
-                    </div>
-                    <h6 class="mt-1 rounded-5 px-2 py-1">DERMATOLOGY</h6>
-                  </div>
-                </div>
-              </div>
-              <div class="carousel-item">
-                <div class="col-12 col-sm-6 col-md-3 col-lg-2 px-sm-1 px-md-3">
-                  <div
-                    class="doctor-carousel-card-container d-flex flex-column align-items-center justify-content-center text-center rounded-2 py-1"
-                  >
-                    <div class="carousel-pic-container rounded-circle p-1">
-                      <img
-                        src="{{ asset('assets/new_frontend/doctor-3.png') }}"
-                        alt="Doctor Page"
-                        class="rounded-circle object-fit-cover w-100 h-100"
-                      />
-                    </div>
-                    <div class="carousel-doctor-ratings mt-1">
-                      <i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                    </div>
-                    <div class="d-flex flex-column mt-1">
-                      <h5 class="mb-0">Dr. Allama Iqbal</h5>
-                      <p class="">M.B.B.S, B.D.S.</p>
-                    </div>
-                    <h6 class="mt-1 rounded-5 px-2 py-1">DERMATOLOGY</h6>
-                  </div>
-                </div>
-              </div>
-              <div class="carousel-item">
-                <div class="col-12 col-sm-6 col-md-3 col-lg-2 px-sm-1 px-md-3">
-                  <div
-                    class="doctor-carousel-card-container d-flex flex-column align-items-center justify-content-center text-center rounded-2 py-1"
-                  >
-                    <div class="carousel-pic-container rounded-circle p-1">
-                      <img
-                        src="{{ asset('assets/new_frontend/doctor-3.png') }}"
-                        alt="Doctor Page"
-                        class="rounded-circle object-fit-cover w-100 h-100"
-                      />
-                    </div>
-                    <div class="carousel-doctor-ratings mt-1">
-                      <i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                    </div>
-                    <div class="d-flex flex-column mt-1">
-                      <h5 class="mb-0">Dr. Allama Iqbal</h5>
-                      <p class="">M.B.B.S, B.D.S.</p>
-                    </div>
-                    <h6 class="mt-1 rounded-5 px-2 py-1">DERMATOLOGY</h6>
-                  </div>
-                </div>
-              </div>
-              <div class="carousel-item">
-                <div class="col-12 col-sm-6 col-md-3 col-lg-2 px-sm-1 px-md-3">
-                  <div
-                    class="doctor-carousel-card-container d-flex flex-column align-items-center justify-content-center text-center rounded-2 py-1"
-                  >
-                    <div class="carousel-pic-container rounded-circle p-1">
-                      <img
-                        src="{{ asset('assets/new_frontend/doctor-3.png') }}"
-                        alt="Doctor Page"
-                        class="rounded-circle object-fit-cover w-100 h-100"
-                      />
-                    </div>
-                    <div class="carousel-doctor-ratings mt-1">
-                      <i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                    </div>
-                    <div class="d-flex flex-column mt-1">
-                      <h5 class="mb-0">Dr. Allama Iqbal</h5>
-                      <p class="">M.B.B.S, B.D.S.</p>
-                    </div>
-                    <h6 class="mt-1 rounded-5 px-2 py-1">DERMATOLOGY</h6>
-                  </div>
-                </div>
-              </div>
-              <div class="carousel-item">
-                <div class="col-12 col-sm-6 col-md-3 col-lg-2 px-sm-1 px-md-3">
-                  <div
-                    class="doctor-carousel-card-container d-flex flex-column align-items-center justify-content-center text-center rounded-2 py-1"
-                  >
-                    <div class="carousel-pic-container rounded-circle p-1">
-                      <img
-                        src="{{ asset('assets/new_frontend/doctor-3.png') }}"
-                        alt="Doctor Page"
-                        class="rounded-circle object-fit-cover w-100 h-100"
-                      />
-                    </div>
-                    <div class="carousel-doctor-ratings mt-1">
-                      <i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                    </div>
-                    <div class="d-flex flex-column mt-1">
-                      <h5 class="mb-0">Dr. Allama Iqbal</h5>
-                      <p class="">M.B.B.S, B.D.S.</p>
-                    </div>
-                    <h6 class="mt-1 rounded-5 px-2 py-1">DERMATOLOGY</h6>
-                  </div>
-                </div>
-              </div>
-              <div class="carousel-item">
-                <div class="col-12 col-sm-6 col-md-3 col-lg-2 px-sm-1 px-md-3">
-                  <div
-                    class="doctor-carousel-card-container d-flex flex-column align-items-center justify-content-center text-center rounded-2 py-1"
-                  >
-                    <div class="carousel-pic-container rounded-circle p-1">
-                      <img
-                        src="{{ asset('assets/new_frontend/doctor-3.png') }}"
-                        alt="Doctor Page"
-                        class="rounded-circle object-fit-cover w-100 h-100"
-                      />
-                    </div>
-                    <div class="carousel-doctor-ratings mt-1">
-                      <i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                      <i class="fa-solid fa-star"></i>
-                    </div>
-                    <div class="d-flex flex-column mt-1">
-                      <h5 class="mb-0">Dr. Allama Iqbal</h5>
-                      <p class="">M.B.B.S, B.D.S.</p>
-                    </div>
-                    <h6 class="mt-1 rounded-5 px-2 py-1">DERMATOLOGY</h6>
-                  </div>
-                </div>
-              </div>
 
+                </div>
             </div>
-          </div>
         </div>
-     </section>
-     --}}
+    </section>
+    --}}
 
 
 
@@ -646,7 +598,7 @@
                 <div class="e-visit-content">
                     <div class="left">
                         @if($groupedSections["E-visit"]["contents"])
-                            {!! $groupedSections["E-visit"]["contents"][0]["content"] !!}
+                        {!! $groupedSections["E-visit"]["contents"][0]["content"] !!}
                         @else
                         <p>
                             Umbrella Health Care Systems provide you with facility to
@@ -680,7 +632,7 @@
         <section class="tab-pane fade" id="pharmacy" role="tabpanel" aria-labelledby="pharmacy-tab" tabindex="0">
             <div class="tabs-section-container">
                 @if($groupedSections["Pharmacy"]["contents"])
-                    {!! $groupedSections["Pharmacy"]["contents"][0]["content"] !!}
+                {!! $groupedSections["Pharmacy"]["contents"][0]["content"] !!}
                 @else
                 <div class="tabs-section-heading">
                     <h2>Pharmacy</h2>
@@ -810,7 +762,7 @@
         <section class="tab-pane fade" id="tests" role="tabpanel" aria-labelledby="tests-tab" tabindex="0">
             <div class="tabs-section-container">
                 @if($groupedSections["lab-test"]["contents"])
-                    {!! $groupedSections["lab-test"]["contents"][0]["content"] !!}
+                {!! $groupedSections["lab-test"]["contents"][0]["content"] !!}
                 @else
                 <div class="tabs-section-heading">
                     <h2>Lab Tests</h2>
@@ -940,7 +892,7 @@
         <section class="tab-pane fade" id="imaging" role="tabpanel" aria-labelledby="imaging-tab" tabindex="0">
             <div class="tabs-section-container">
                 @if($groupedSections["imaging"]["contents"])
-                    {!! $groupedSections["imaging"]["contents"][0]["content"] !!}
+                {!! $groupedSections["imaging"]["contents"][0]["content"] !!}
                 @else
                 <div class="tabs-section-heading">
                     <h2>Imaging</h2>
@@ -1067,7 +1019,7 @@
                 <div class="e-visit-content">
                     <div class="left">
                         @if($groupedSections["primary-care"]["contents"])
-                            {!! $groupedSections["primary-care"]["contents"][0]["content"] !!}
+                        {!! $groupedSections["primary-care"]["contents"][0]["content"] !!}
                         @else
                         <p>
                             Umbrella Health Care Systems provide you with facility to
@@ -1104,7 +1056,7 @@
                     {{-- <div class="underline"></div> --}}
                 </div>
                 @if($groupedSections["psychiatry"]["contents"])
-                    {!! $groupedSections["psychiatry"]["contents"][0]["content"] !!}
+                {!! $groupedSections["psychiatry"]["contents"][0]["content"] !!}
                 @else
                 <p class="tabs-section-para">
                     Getting the support you need has never been simpler thanks to
@@ -1130,7 +1082,7 @@
             </div>
         </section>
         {{--
-            <section class="tab-pane fade" id="pain-management" role="tabpanel" aria-labelledby="pain-management-tab"
+        <section class="tab-pane fade" id="pain-management" role="tabpanel" aria-labelledby="pain-management-tab"
             tabindex="0">
             <div class="tabs-section-container">
                 <div class="tabs-section-heading">
@@ -1138,7 +1090,7 @@
                     <div class="underline"></div>
                 </div>
                 @if($groupedSections["pain-management"]["contents"])
-                    {!! $groupedSections["pain-management"]["contents"][0]["content"] !!}
+                {!! $groupedSections["pain-management"]["contents"][0]["content"] !!}
                 @else
                 <p class="tabs-section-para">
                     Getting the support you need has never been simpler thanks to
@@ -1163,41 +1115,41 @@
                     <button class="view_all" onclick="location.href='{{ route('pain.management') }}'">View All</button>
                 </div>
             </div>
-            </section>
-            <section class="tab-pane fade" id="substance-abuse" role="tabpanel" aria-labelledby="substance-abuse-tab"
-                tabindex="0">
-                <div class="tabs-section-container">
-                    <div class="tabs-section-heading">
-                        <h2>Substance Abuse</h2>
-                        <div class="underline"></div>
-                    </div>
-                    @if($groupedSections["substance-abuse"]["contents"])
-                        {!! $groupedSections["substance-abuse"]["contents"][0]["content"] !!}
-                    @else
-                    <p class="tabs-section-para">
-                        Getting the support you need has never been simpler thanks to
-                        Umbrella Health Care System’s skilled team of psychiatrists, who
-                        are known for offering their patients compassionate.
-                    </p>
-                    @endif
-                    <hr />
-
-                    <div class="substance-abuse-container">
-                        @foreach ($data['substance_categories'] as $item)
-                        <div class="substance-abuse-box">
-                            <img src=" {{ asset('assets/new_frontend/self-pay.png') }}" alt="{{ $item->title }}" />
-                            <p>{{ $item->title }}</p>
-                        </div>
-                        @endforeach
-
-                    </div>
-
-                    <div class="btn-div">
-                        <button class="view_all"
-                            onclick="location.href='{{ route('substance',['slug'=>'first-visit']) }}'">View All</button>
-                    </div>
+        </section>
+        <section class="tab-pane fade" id="substance-abuse" role="tabpanel" aria-labelledby="substance-abuse-tab"
+            tabindex="0">
+            <div class="tabs-section-container">
+                <div class="tabs-section-heading">
+                    <h2>Substance Abuse</h2>
+                    <div class="underline"></div>
                 </div>
-            </section>
+                @if($groupedSections["substance-abuse"]["contents"])
+                {!! $groupedSections["substance-abuse"]["contents"][0]["content"] !!}
+                @else
+                <p class="tabs-section-para">
+                    Getting the support you need has never been simpler thanks to
+                    Umbrella Health Care System’s skilled team of psychiatrists, who
+                    are known for offering their patients compassionate.
+                </p>
+                @endif
+                <hr />
+
+                <div class="substance-abuse-container">
+                    @foreach ($data['substance_categories'] as $item)
+                    <div class="substance-abuse-box">
+                        <img src=" {{ asset('assets/new_frontend/self-pay.png') }}" alt="{{ $item->title }}" />
+                        <p>{{ $item->title }}</p>
+                    </div>
+                    @endforeach
+
+                </div>
+
+                <div class="btn-div">
+                    <button class="view_all"
+                        onclick="location.href='{{ route('substance',['slug'=>'first-visit']) }}'">View All</button>
+                </div>
+            </div>
+        </section>
         --}}
     </div>
 
@@ -1227,10 +1179,8 @@
                 </div>
                 <div class="col-md-7 col-xl-6">
                     <div class="d-flex flex-wrap gap-3 justify-content-center align-items-start partners_logos">
-                        <img src="{{ asset('assets/new_frontend/partner2.png') }}"
-                            alt="Partner 2 Logo" />
-                        <img src="{{ asset('assets/new_frontend/partner1.png') }}"
-                            alt="Partner 1 Logo" />
+                        <img src="{{ asset('assets/new_frontend/partner2.png') }}" alt="Partner 2 Logo" />
+                        <img src="{{ asset('assets/new_frontend/partner1.png') }}" alt="Partner 1 Logo" />
                     </div>
                 </div>
             </div>
@@ -1243,7 +1193,7 @@
             <div id="solution-content" class="last-content">
                 <div id="solution-heading" class="heading">
                     @if($groupedSections["last-section-header"]["contents"])
-                        {!! $groupedSections["last-section-header"]["contents"][0]["content"] !!}
+                    {!! $groupedSections["last-section-header"]["contents"][0]["content"] !!}
                     @else
                     <h2>
                         Umbrella Health Care Systems is the
@@ -1254,7 +1204,7 @@
                 </div>
                 <div id="solution-para" class="para">
                     @if($groupedSections["last-section-description"]["contents"])
-                        {!! $groupedSections["last-section-description"]["contents"][0]["content"] !!}
+                    {!! $groupedSections["last-section-description"]["contents"][0]["content"] !!}
                     @else
                     <p>
                         Get started now! Doctors are ready to help you get the care
@@ -1264,7 +1214,10 @@
                     </p>
                     @endif
                 </div>
-                <a href="">TALK TO DOCTORS</a>
+                <a class="doctor-button" href="{{ route('american-doctors') }}">
+                    <i class="fa-solid fa-user-doctor"></i>
+                    <span style="color: black">American Doctors</span>
+                </a>
             </div>
             <aside id="solution-image" class="first-content">
                 <img src=" {{ asset('assets/new_frontend/AmericanDoc.jpg') }}" alt="conference-image" />
@@ -1553,7 +1506,7 @@
     </div>
 </div>
 <script>
-      let carouselParent = document.querySelector(".doctor-carousel-container");
+    let carouselParent = document.querySelector(".doctor-carousel-container");
       let newItems = carouselParent.querySelectorAll(".carousel .carousel-item");
 
       newItems.forEach((el) => {
@@ -1571,6 +1524,3 @@
 </script>
 <!-- ----------symptoms Checker Modal------- -->
 @endsection
-
-
-

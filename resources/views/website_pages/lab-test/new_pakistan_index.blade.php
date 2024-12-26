@@ -297,16 +297,16 @@
             </div>
         </div>--}}
 
-        <div class="container">
+        <div class="container-fluid px-5">
             <h3>Community Health Care Clinics - Labtests</h3>
             <p>
                 Community Health Care Clinics offers a wide range of lab tests and diagnostic services.
             </p>
         </div>
 
-        <div class="container mt-3 pharmacy-page-container">
+        <div class="container-fluid px-5 mt-3 pharmacy-page-container">
             <div
-                class="container-fluid background-secondary d-flex align-items-center justify-content-between flex-column rounded-4">
+                class="p-4 background-secondary d-flex align-items-center justify-content-between flex-column rounded-4">
                 <div class="d-flex align-items-center justify-content-between custom-search-container">
                     <div class="category-dropdown">
                         {{--<select class="form-select custom-select" name="category" id="category">

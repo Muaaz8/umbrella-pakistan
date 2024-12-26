@@ -72,9 +72,6 @@ $page = DB::table('pages')->where('url', '/')->first();
             <div class="logo" id="footer-logo">
                 <img src="{{ asset('assets/new_frontend/logo.png') }}" alt="umbrella-logo" />
             </div>
-
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3620.017148282561!2d67.0743981!3d24.8632639!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33f3f9ba7181d%3A0x99571ff4d3fb7e52!2sCommunity%20Health%20Care%20Clinics!5e0!3m2!1sen!2s!4v1734451314564!5m2!1sen!2s" width="300" height="150" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-
             <div class="flex gap-15" id="social-icons">
                 <div><i class="fa-brands fa-facebook"></i></div>
                 <div><i class="fa-brands fa-linkedin"></i></div>
@@ -91,7 +88,16 @@ $page = DB::table('pages')->where('url', '/')->first();
                 <p class="d-flex align-items-center"><i class="fa-solid mx-2 fa-envelope"></i> <span>contact@communityhealthcareclinics.com</span></p>
                 <p class="d-flex align-items-center"><i class="fa-solid mx-2 fa-envelope"></i> <span>support@communityhealthcareclinics.com</span></p>
                 <p class="d-flex align-items-center"><i class="fa-solid mx-2 fa-location-dot"></i>  <span>Progressive Center, 4th Floor Suite#410, Main Shahrah Faisal, Karachi</span></p>
+
+                <div class="footer-highlight">
+                    <i class="fa-solid fa-phone"></i>
+                    <a href="">+1 (407) 693-8484</a>
             </div>
+            <div class="footer-highlight">
+                <i class="fa-brands fa-whatsapp"></i>
+                <a href="">0337-2350684</a>
+            </div>
+        </div>
         </div>
         <div id="footer-3" class="footer">
             <div class="footer-heading">
@@ -121,20 +127,17 @@ $page = DB::table('pages')->where('url', '/')->first();
         </div>
         <div id="footer-4" class="footer">
             <div class="footer-heading">
-                <h3>For Queries</h3>
+                <h3>Find Us</h3>
                 <div class="underline"></div>
             </div>
+
             <div class="footer-content">
 
-                <div class="footer-highlight">
-                    <i class="fa-solid fa-phone"></i>
-                    <a href="">+1 (407) 693-8484</a>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3620.017148282561!2d67.0743981!3d24.8632639!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33f3f9ba7181d%3A0x99571ff4d3fb7e52!2sCommunity%20Health%20Care%20Clinics!5e0!3m2!1sen!2s!4v1734451314564!5m2!1sen!2s" width="300" height="150" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
             </div>
-            <div class="footer-highlight">
-                <i class="fa-brands fa-whatsapp"></i>
-                <a href="">0337-2350684</a>
-            </div>
-        </div>
+
+
     </section>
 
     <div class="seperation"></div>

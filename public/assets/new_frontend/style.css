@@ -203,7 +203,7 @@ header {
 
 .price-tag {
     position: absolute;
-    top: 3%;
+    top: 1%;
     left: -4%;
     font-size: 1.4rem;
 }
@@ -3161,7 +3161,7 @@ footer {
 }
 
 .footer-content>div>a {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
 }
 
 /* media queries  */
@@ -4517,4 +4517,184 @@ footer {
 .doctor-carousel-container .carousel-inner .carousel-item-end,
 .doctor-carousel-container .carousel-inner .carousel-item-start {
     transform: translateX(0);
+}
+
+
+
+/* american doctors page   */
+
+
+
+.hero-section-doctor {
+    background-image: url("./american-doc-hero-img.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    min-height: 80vh;
+    position: relative;
+}
+
+.hero-doctor-heading {
+    font-size: 3.5rem;
+    width: 70%;
+    font-weight: 700;
+}
+
+.hero-doctor-para {
+    width: 40%;
+}
+
+.hero-small-heading {
+    color: var(--red);
+}
+
+.specialization-container {
+    width: 85%;
+}
+
+.specialized-column {
+    background: white;
+    overflow: hidden;
+    min-height: 4rem;
+    height: 200px;
+    position: relative;
+}
+
+.specialized-column > h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+.specialized-column > p {
+    font-size: 0.9rem;
+}
+
+.specialized-column:hover {
+    background: var(--blue);
+    color: white;
+    scale: 1.05;
+}
+
+.specialized-column:hover .specialized-icons > i, .specialized-column:hover .specialized-icons > p {
+    color: var(--blue);
+}
+
+.specialized-icons > i {
+    position: absolute;
+    font-size: 2rem;
+    background: #f5f5f5;
+    border-radius: 50%;
+    padding: 1.2rem;
+    right: -0.6rem;
+    bottom: -0.6rem;
+}
+
+.work-headings > h3 {
+font-size: 1rem;
+}
+
+.work-headings > p {
+    font-size: 0.75rem;
+}
+
+.work-icons {
+    height: 100%;
+    width: 30%;
+    padding: 1.5rem 3.3rem;
+    background: var(--red);
+    color: white;
+    border-radius: 0.5rem;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.work-icons > i {
+    font-size: 2rem;
+}
+
+.healthcare-small-heading {
+    color: var(--red);
+    border: 2px solid rgba(128, 128, 128, 0.538);
+}
+
+.healthcare-section {
+    width: 85%;
+}
+
+.healthcare-section h4 {
+    font-size: 1.2rem;
+    width: max-content;
+}
+
+.healthcare-large-heading {
+    border-left: 5px solid var(--red);
+    padding-left: 1rem;
+    padding-block: 0.5rem;
+    border-radius: 0.3rem;
+    color: var(--navy-blue);
+}
+
+.image-container-virtual > img {
+    width: 100%;
+    height: auto;
+    border-radius: 1rem;
+}
+
+@media screen and (max-width: 1010px) {
+
+}
+
+@media screen and (max-width: 900px) {
+    .hero-small-heading {
+        font-size: 1.2rem;
+    }
+
+    .hero-doctor-heading {
+        font-size: 2.5rem;
+    }
+
+    .hero-doctor-para {
+        font-size: 0.9rem;
+    }
+
+    .healthcare-section h4 {
+        font-size: 1rem;
+    }
+
+    .healthcare-large-heading {
+        font-size: 1.5rem;
+    }
+
+    .healthcare-section p {
+        font-size: 0.8rem;
+    }
+
+    .healthcare-section li {
+        font-size: 0.8rem;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .work-column {
+        justify-content: center !important;
+        background: none !important;
+        width: max-content !important;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    .hero-small-heading {
+        font-size: 1rem;
+    }
+
+    .hero-doctor-heading {
+        font-size: 2rem;
+        width: 80%;
+    }
+
+    .hero-doctor-para {
+        font-size: 0.9rem;
+        width: 80%;
+    }
 }

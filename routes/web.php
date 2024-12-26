@@ -113,6 +113,12 @@ Route::get('/our-doctors/{name}',function($name){
     return json_encode($doctors);
 });
 
+Route::get('/american-doctors', function(){
+    return view('website_pages.american_docs_page');
+}
+)->name('american-doctors');
+
+
 Route::get('/screen_sharing','UserController@sc_share')->name('sc_share');
 Route::post('/create/screen_sharing','UserController@create_sc_sh')->name('create_sc_sh');
 Route::get('/host/join/video/{id}','UserController@host_join_vid')->name('host_join_vid');

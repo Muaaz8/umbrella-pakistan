@@ -22,7 +22,6 @@
     <link rel="icon" href="{{ asset('asset_frontend/images/logo.ico') }}" type="image/x-icon">
 @endsection
 
-
 @section('page_title')
     @if ($title != null)
         <title>{{ $title->content }}</title>
@@ -33,7 +32,6 @@
 
 @section('top_import_file')
 @endsection
-
 
 @section('bottom_import_file')
 <script type="text/javascript">
@@ -192,9 +190,9 @@
             $alpha = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z'];
             $len = count($alpha);
         @endphp
-        <div class="container">
+        <div class="container-fluid px-5">
             <h3>Categories By Alphabets</h3>
-            <div class="container-fluid">
+            <div class="container-fluid ">
                 <div class="alphabetical-categories">
                     <div class="alphabets">
                         @for ($i = 0; $i < $len; $i++)
@@ -221,16 +219,16 @@
             </div>
         </div>
 
-        <div class="container">
+        <div class="container-fluid px-5">
             <h3>Community Health Care Clinics - Medicines</h3>
             <p>
                 Our pharmacy offers prescription drugs at discounted prices.
             </p>
         </div>
 
-        <div class="container mt-3 pharmacy-page-container">
+        <div class="container-fluid px-5 mt-3 pharmacy-page-container">
             <div
-                class="container-fluid background-secondary d-flex align-items-center justify-content-between flex-column rounded-4">
+                class="p-4 background-secondary d-flex align-items-center justify-content-between flex-column rounded-4">
                 <div class="d-flex align-items-center justify-content-between custom-search-container">
                     <div class="category-dropdown">
                         <select class="form-select custom-select" name="category" id="category" onchange="changed(this)">
