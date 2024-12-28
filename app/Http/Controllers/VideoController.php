@@ -288,37 +288,13 @@ class VideoController extends Controller
         foreach ($all_sessions as $session) {
             $user_obj = new User();
             $date = User::convert_utc_to_user_timezone(Auth::user()->id, $session->created_at);
-            // $symtems = DB::table('symptoms')->where('id', $session->symptom_id)->first();
-
-            // $symtems->description = '';
-            // $symtemsText = '';
-            // if ($symtems->headache == 1) {
-            //     $symtemsText .= 'headache';
-            // }
-            // if ($symtems->fever == 1) {
-            //     $symtemsText .= ',fever';
-            // }
-            // if ($symtems->flu == 1) {
-            //     $symtemsText .= ',flu';
-            // }
-            // if ($symtems->nausea == 1) {
-            //     $symtemsText .= ',nausea';
-            // }
-            // if ($symtems->others == 1) {
-            //     $symtemsText .= ',others';
-            // }
-
-            // $final_symtems = $symtemsText . ', ' . $symtems->description;
             $all_pres = DB::table('prescriptions')->where('session_id', $session->id)->get();
             $doctor = User::find($session->doctor_id);
             $array = [];
             if (count($all_pres) > 0) {
-
                 foreach ($all_pres as $pres) {
-                    if ($pres->type == 'lab-test') {
-
+                    if ($pres->type == 'lab-test' || $pres->type == 'imaging') {
                         $item = DB::table('quest_data_test_codes')->where('TEST_CD', $pres->test_id)->first();
-
                         $buyItem = DB::table('lab_orders')->where('pres_id', $pres->id)->first();
                         if ($buyItem != null) {
                             array_push($array, ['pro_name' => $item->DESCRIPTION, 'status' => 'Purchased']);
@@ -327,23 +303,22 @@ class VideoController extends Controller
                         }
                     } else if ($pres->type == 'medicine') {
                         $item = DB::table('tbl_products')->where('id', $pres->medicine_id)->first();
-
                         $buyItem = DB::table('medicine_order')->where('order_product_id', $pres->medicine_id)->where('session_id', $session->id)->first();
-
-                        if ($buyItem != null) {
-                            array_push($array, ['pro_name' => $item->name, 'status' => 'Purchased']);
-                        } else {
-                            array_push($array, ['pro_name' => $item->name, 'status' => 'Recommend']);
-                        }
-                    } else if ($pres->type == 'imaging') {
-                        $item = DB::table('tbl_products')->where('id', $pres->imaging_id)->first();
-                        $buyItem = DB::table('imaging_orders')->where('pres_id', $pres->id)->first();
                         if ($buyItem != null) {
                             array_push($array, ['pro_name' => $item->name, 'status' => 'Purchased']);
                         } else {
                             array_push($array, ['pro_name' => $item->name, 'status' => 'Recommend']);
                         }
                     }
+                    // else if ($pres->type == 'imaging') {
+                    //     $item = DB::table('tbl_products')->where('id', $pres->imaging_id)->first();
+                    //     $buyItem = DB::table('imaging_orders')->where('pres_id', $pres->id)->first();
+                    //     if ($buyItem != null) {
+                    //         array_push($array, ['pro_name' => $item->name, 'status' => 'Purchased']);
+                    //     } else {
+                    //         array_push($array, ['pro_name' => $item->name, 'status' => 'Recommend']);
+                    //     }
+                    // }
                 }
                 $session_record[] = ['date' => $date['date'], 'provider' => $doctor->name . ' ' . $doctor->last_name, 'note' => $session->provider_notes ?? 'none', 'diagnois' => $session->diagnosis ?? 'none', 'prescriptions' => $array];
             } else {

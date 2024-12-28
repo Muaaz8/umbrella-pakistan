@@ -64,7 +64,7 @@ header {
 
 #left-side>div>div,
 #right-side>div,
-#social-icons>div {
+#social-icons>a {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -115,6 +115,7 @@ header {
     font-size: 15px;
     padding: 5px;
     font-weight: 600;
+    width: max-content;
 }
 
 #nav-left-side>a:hover {
@@ -1021,10 +1022,10 @@ header {
 
 .image-bg {
     position: absolute;
-    top: -10%;
+    top: 10%;
     right: 0;
     width: 50%;
-    height: 120%;
+    height: 80%;
     background-color: #f3ecff;
     z-index: -2;
 }
@@ -1200,13 +1201,15 @@ footer {
     justify-content: space-between;
 }
 
-#social-icons>div {
+#social-icons>a {
     background-color: var(--red);
     border: none;
     padding: 8px;
+    color: white;
+    text-decoration: none;
 }
 
-#social-icons>div>i {
+#social-icons>a>i {
     font-size: 17px;
 }
 
@@ -1429,8 +1432,8 @@ footer {
 /* ///////////////////////////////////// */
 
 #faqs {
-    margin-top: 2rem;
-    padding: 4rem 10px 0;
+    margin-top: 1rem;
+    padding: 2rem 11px  0;
     min-height: 50vh;
 }
 
@@ -3190,7 +3193,7 @@ footer {
     }
 
     #nav-right-side>div:last-child>img {
-        width: 65%;
+        /* width: 65%; */
     }
 
     .custom-card-body h1,
@@ -3367,7 +3370,7 @@ footer {
         font-size: 0.9rem;
     }
 
-    #social-icons>div>i {
+    #social-icons>a>i {
         font-size: 1.3rem;
     }
 
@@ -3581,7 +3584,7 @@ footer {
         font-size: 1.3rem;
     }
 
-    #social-icons>div>i {
+    #social-icons>a>i {
         font-size: 1.5rem;
     }
 

@@ -1161,13 +1161,13 @@
                     transform="translate(100 100)" />
             </svg>
         </div>
-        <div class="blob2 position-absolute">
+        {{--<div class="blob2 position-absolute">
             <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
                 <path fill="#E8DAFF"
                     d="M42.5,-52.1C58.1,-47.2,75.8,-38.8,84.6,-24.5C93.4,-10.1,93.4,10.1,83.4,22.9C73.5,35.8,53.7,41.2,38.1,47.5C22.6,53.9,11.3,61.1,-1.7,63.4C-14.7,65.8,-29.4,63.2,-37.9,54.6C-46.4,46,-48.8,31.3,-54.2,17.1C-59.6,2.8,-68,-11,-68.4,-26C-68.7,-41,-61,-57.1,-48.2,-62.9C-35.5,-68.7,-17.7,-64,-2.1,-61.1C13.5,-58.2,27,-56.9,42.5,-52.1Z"
                     transform="translate(100 100)" />
             </svg>
-        </div>
+        </div>--}}
         <div class="container-fluid">
             <div class="row align-items-center w-100">
                 <div class="col-md-5 col-xl-6 p-4 border-right">

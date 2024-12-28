@@ -1056,6 +1056,37 @@ class AllProductsController extends AppBaseController
         return $products;
     }
 
+    public function inclinic_new_get_products_by_category(Request $request)
+    {
+        if($request->name=='')
+        {
+            $products = DB::table('tbl_products')
+            ->where('sub_category', $request->med_id)
+            ->where('product_status', 1)
+            ->where('is_approved', 1)
+            ->get();
+        }
+        else
+        {
+            $products = DB::table('tbl_products')
+            ->where('sub_category', $request->med_id)
+            ->where('name','LIKE', "%{$request->name}%")
+            ->where('product_status', 1)
+            ->where('is_approved', 1)
+            ->get();
+        }
+
+        foreach ($products as $product) {
+            $res = DB::table('prescriptions')->where('medicine_id', $product->id)->first();
+            if ($res != null) {
+                $product->added = 'yes';
+            } else {
+                $product->added = 'no';
+            }
+        }
+        return $products;
+    }
+
     public function get_med_filtered_category(Request $request)
     {
         $med_cat = DB::table('products_sub_categories')->where('parent_id', '38')
@@ -1163,6 +1194,34 @@ class AllProductsController extends AppBaseController
             //     $lab->aoes = 0;
             //     $lab->aoeQuestions = '';
             // }
+        }
+
+        return $labs;
+    }
+
+    public function inclinic_new_get_lab_products_video_page(Request $request)
+    {
+        if ($request->name == '') {
+            $labs = QuestDataTestCode::where('mode', 'lab-test')
+                ->where('TEST_NAME','!=', null)
+                ->where('PRICE', '!=', null)
+                ->get();
+        } else {
+            $labs = QuestDataTestCode::where('TEST_NAME', 'LIKE', "%{$request->name}%")
+                ->where('mode', 'lab-test')
+                ->where('TEST_NAME','!=', null)
+                ->where('PRICE', '!=', null)
+                ->get();
+        }
+
+        foreach ($labs as $lab) {
+
+            $res = DB::table('prescriptions')->where('test_id', $lab->TEST_CD)->first();
+            if ($res != null) {
+                $lab->added = 'yes';
+            } else {
+                $lab->added = 'no';
+            }
         }
 
         return $labs;

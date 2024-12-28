@@ -50,7 +50,7 @@
     .eye__pass_{
         position: absolute;
     top: 11px;
-    right: 0;
+    right: 10px;
     cursor: pointer;
     }
     </style>
@@ -297,7 +297,7 @@ if (input.attr("type") == "password") {
                                         <div class="position-relative">
                                         <input type="password" class="form-control abcd" name="password_confirmation"
                                             id="password_confirmation" placeholder="Confirm Password">
-                                            <i class="fa-solid fa-eye-slash eye__pass_ toggle-password" toggle=".abcd"></i>
+                                            <i class="fa-solid fa-eye-slash eye__pass_ toggle-password" toggle=".abcd" onclick="showPassword()"></i>
                                         </div>
                                         <small id="confirm_password_error" class="text-danger"></small>
 

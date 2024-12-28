@@ -538,6 +538,8 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
 
     });
     Route::get('/doctor/in/clinics', 'PatientController@doctor_in_clinic')->name('doctor_in_clinic');
+    Route::post('/inclinic_new_get_products_by_category', 'AllProductsController@inclinic_new_get_products_by_category');
+    Route::post('/inclinic_new_get_lab_products_video_page', 'AllProductsController@inclinic_new_get_lab_products_video_page');
     Route::post('patient/health/store','DoctorController@patient_health_store')->name('patient_health_store');
     Route::post('mood/disorder/store','DoctorController@mood_disorder_store')->name('mood_disorder_store');
     Route::post('anxiety/scale/store','DoctorController@anxiety_scale_store')->name('anxiety_scale_store');
@@ -875,6 +877,9 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
         Route::get('/get_wallet_graph_values', 'PaymentController@wallet_graph_values')->name('wallet_graph_values');
         Route::get('/get_filtered_values', 'PaymentController@filtered_values')->name('filtered_values');
         Route::get('/admin/walletPay', 'PaymentController@Wallet_Pay')->name('admin_wallet_pay')->middleware('admin_auth');
+        Route::get('/inclinic_patient', 'AdminController@inclinic_patient')->name('inclinic_patient');
+        Route::get('/in_clinics_create', 'AdminController@in_clinics_create')->name('in_clinics_create');
+        Route::post('/in_clinics_store', 'AdminController@in_clinics_store')->name('in_clinics_store');
         //Route::post('/admin/walletPay', 'PaymentController@Wallet_Pay')->name('admin_wallet_pay');
         // Route::get('/new_item',function(){return view('new_item');})->name('new_item');
 

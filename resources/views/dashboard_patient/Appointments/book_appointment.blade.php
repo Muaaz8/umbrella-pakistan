@@ -740,13 +740,13 @@
                                         <h4 class="fs-5">Dr. {{ $doc->name }} {{ $doc->last_name }}</h4>
                                         <h6 class="m-0">{{ $doc->sp_name }}</h6>
                                         <h6 class="m-0 all__doc__ini_pr pt-2"><span>Initial Price:</span>
-                                            ${{ $price->initial_price }}</h6>
+                                            Rs. {{ $price->initial_price }}</h6>
                                         @if ($price->follow_up_price != null)
                                             <h6 class="m-0 all__doc__ini_pr"><span>Follow-up Price:</span>
-                                                ${{ $price->follow_up_price }}</h6>
+                                                Rs. {{ $price->follow_up_price }}</h6>
                                         @else
                                             <h6 class="m-0 all__doc__ini_pr"><span>Follow-up Price:</span>
-                                                ${{ $price->initial_price }}</h6>
+                                                Rs. {{ $price->initial_price }}</h6>
                                         @endif
                                         @if ($doc->rating > 0)
                                             <div class="star-ratings">

@@ -397,7 +397,7 @@ class SEOAdminController extends Controller
         $data = DB::table('meta_tags')->where('id',$id)->first();
         if($data!=null)
         {
-            DB::table('meta_tags')->where('url',$data->url)->delete();
+            DB::table('meta_tags')->where('id',$id)->delete();
         }
         return redirect()->back();
     }

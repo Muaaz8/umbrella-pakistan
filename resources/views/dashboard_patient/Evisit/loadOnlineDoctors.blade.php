@@ -22,11 +22,11 @@
                     {{ ucfirst($doctor->name) . ' ' . ucfirst($doctor->last_name) }}
                 </h4>
                 <h6 class="m-0">{{ $doctor->sp_name }}</h6>
-                <h6 class="m-0 all__doc__ini_pr pt-2"><span>Initial Price:</span> ${{ $price->initial_price }}</h6>
+                <h6 class="m-0 all__doc__ini_pr pt-2"><span>Initial Price:</span> Rs. {{ $price->initial_price }}</h6>
                 @if ($price->follow_up_price != null)
-                    <h6 class="m-0 all__doc__ini_pr"><span>Follow-up Price:</span> ${{ $price->follow_up_price }}</h6>
+                    <h6 class="m-0 all__doc__ini_pr"><span>Follow-up Price:</span> Rs. {{ $price->follow_up_price }}</h6>
                 @else
-                    <h6 class="m-0 all__doc__ini_pr"><span>Follow-up Price:</span> ${{ $price->initial_price }}</h6>
+                    <h6 class="m-0 all__doc__ini_pr"><span>Follow-up Price:</span> Rs. {{ $price->initial_price }}</h6>
                 @endif
                 <input type="hidden" id="sp_id{{ $doctor->id }}" value="{{ $doctor->specialization }}">
                 @if ($doctor->rating > 0)

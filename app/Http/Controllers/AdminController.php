@@ -7,6 +7,7 @@ use Illuminate\Pagination\CursorPaginator;
 use App\ActivityLog;
 use App\DoctorLicense;
 use App\DoctorSchedule;
+use App\Models\InClinics;
 use App\Helper;
 use App\Http\Controllers\Controller;
 use App\Mail\ApprovedDoctor;
@@ -3771,5 +3772,41 @@ public function store_policy(Request $request){
             }
             return redirect()->back()->with('success','Medicines purchased successfully');
         }
+    }
+
+    public function inclinic_patient(){
+        $data = InClinics::with('user')->paginate(10);
+        return view('dashboard_admin.inclinic.index',compact('data'));
+    }
+
+    public function in_clinics_create(){
+        return view('dashboard_admin.inclinic.create');
+    }
+
+    public function in_clinics_store(Request $request){
+        $user_id = User::create([
+            'name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'username' => $request->first_name.'_'.$request->last_name,
+            'phone_number' => $request->phone,
+            'user_type' => 'patient',
+            'email' => $request->email,
+            'date_of_birth' => $request->dob,
+            'password' => Hash::make('uhcs@1234'),
+            'created_by' => auth()->user()->id,
+        ])->id;
+        DB::table('users_email_verification')->insert([
+            'user_id'=>$user_id,
+            'status'=>0,
+        ]);
+        if($request->payment == "easypaisa" || $request->payment == "cash"){
+            $pat = InClinics::create([
+                'user_id'=> $user_id,
+                'reason'=> $request->reason,
+                'status'=> 'paid'
+            ]);
+            event(new \App\Events\InClinicPatientUpdate($pat->id));
+        }
+        return redirect()->route('inclinic_patient');
     }
 }

@@ -16,6 +16,14 @@
 <meta name="author" content="Umbrellamd">
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="icon" href="{{ asset('asset_frontend/images/logo.ico') }}" type="image/x-icon">
+<style>
+    #resendMail{
+        border: 2px solid var(--green);
+        border-radius: 30px;
+        background: #ffff;
+        padding: 3px 15px;
+    }
+</style>
 @endsection
 
 
@@ -38,7 +46,7 @@
     }
 
     document.getElementById("resendMail").disabled = true;
-    var emailCounter=120;
+    var emailCounter=60;
     var emailResendInterval=setInterval(() => {
     emailCounter--;
 
@@ -65,7 +73,7 @@
     <section class="Email-confirm-sec">
         <div class="container">
             <div class="row my-5">
-              <div class="col-md-6  Email-confirm-wrap">
+              <div class="col-md-12 Email-confirm-wrap text-center">
                 <lottie-player src="https://assets9.lottiefiles.com/packages/lf20_1jbmcfmf.json"  background="transparent"  speed="1"  style="width: auto; height: 200px;margin-bottom: -70px;    margin-top: -40px; " loop autoplay></lottie-player>
               <h1>Email Verification</h1>
               @if(Session::has('message'))

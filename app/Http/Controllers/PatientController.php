@@ -16,6 +16,7 @@ use App\Mail\UserVerificationEmail;
 use App\Mail\EvisitBookMail;
 use App\Mail\TherapyPatientEnrolled;
 use App\MedicalProfile;
+use App\Models\InClinics;
 use App\Models\AllProducts;
 use App\Models\TblOrders;
 use App\Models\TblTransaction;
@@ -2321,7 +2322,19 @@ class PatientController extends Controller
         }
     }
 
-    public function doctor_in_clinic(){
-        return view('dashboard_doctor.in_clinic.index');
+    public function doctor_in_clinic(Request $request){
+        if($request->ajax()){
+            $patients = InClinics::with('user')->where('id',$request->id)->where('status','paid')->first();
+            return response()->json($patients, 200);
+        }else{
+            $patients = InClinics::with('user')->where('status','paid')->orderBy('id','asc')->get();
+            $med = DB::table('products_sub_categories')->where('parent_id', '38')
+                ->join('tbl_products','products_sub_categories.id','tbl_products.sub_category')
+                ->select('products_sub_categories.*')
+                ->groupBy('tbl_products.sub_category')
+                ->get();
+            $img = DB::table('product_categories')->where('category_type', 'imaging')->get();
+            return view('dashboard_doctor.in_clinic.index',compact('patients','med','img'));
+        }
     }
 }

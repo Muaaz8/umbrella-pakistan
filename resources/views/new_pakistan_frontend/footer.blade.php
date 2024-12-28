@@ -73,10 +73,9 @@ $page = DB::table('pages')->where('url', '/')->first();
                 <img src="{{ asset('assets/new_frontend/logo.png') }}" alt="umbrella-logo" />
             </div>
             <div class="flex gap-15" id="social-icons">
-                <div><i class="fa-brands fa-facebook"></i></div>
-                <div><i class="fa-brands fa-linkedin"></i></div>
-                <div><i class="fa-brands fa-instagram"></i></div>
-                <div><i class="fa-brands fa-pinterest"></i></div>
+                <a href="https://www.facebook.com/share/15m4ofYggZ/" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://www.linkedin.com/company/community-health-care-clinics/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="https://www.instagram.com/community_healthcare_clinics?igsh=MXh6aHRzM2NrNThlMw==" target="_blank"><i class="fa-brands fa-instagram"></i></a>
             </div>
         </div>
         <div id="footer-2" class="footer">

@@ -340,7 +340,7 @@
                             <img id="D" src="{{ asset('assets/images/discover.png') }}" class="pay-image" alt=""> --}}
                                 </div>
                                 <div class="fs-5">
-                                    <p class="fw-bold fs-4 text-end">${{ $price }}</p>
+                                    <p class="fw-bold fs-4 text-end">Rs. {{ $price }}</p>
                                     <p class="fw-bold text-nowrap">Total Amount</p>
                                 </div>
                             </div>
@@ -369,7 +369,7 @@
                                         alt="">
                                 </div>
                                 <div style="font-size: 17px;">
-                                    <p class="fw-bold text-end">${{ $price }}</p>
+                                    <p class="fw-bold text-end">Rs. {{ $price }}</p>
                                     <p class="fw-bold text-nowrap">Total Amount</p>
                                 </div>
                             </div>

@@ -54,7 +54,7 @@
                     <h3 class="sess-title">Session with Dr.<b>{{ $session->doctor_name }} </b> Ended</h3>
                     <div>
                         <input type="hidden" id="session_id" value="{{ $session->id }}">
-                        <img src="{{ asset('assets/images/logo.png') }}" alt="" style="width:10% ; margin:20px 0;">
+                        <img src="{{ asset('assets/new_frontend/logo.png') }}" alt="" style="width:10% ; margin:20px 0;">
                     </div>
                     <div class="mt-2">
                         <h3>Please Wait!</h3>
