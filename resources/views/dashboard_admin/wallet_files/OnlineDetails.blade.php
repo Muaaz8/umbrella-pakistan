@@ -48,7 +48,7 @@
 
         @foreach($OnlineItems as $ot)
         <div class="main-div" style="    border: 1px solid #d5d5d585;
-      
+
         width: 100%;
         height: 95px;
 white-space: nowrap;
@@ -63,8 +63,8 @@ white-space: nowrap;
             </div>
             <div class="payment-div" style="  margin-top:35px  padding: 10px;
             border: 1px solid #d5d5d585; width: 50%; float: right;">
-                <div><span>Selling Price:</span>&nbsp; &nbsp; <span class=" fw-bold float-end">${{$ot->sale_price}}</span></div>
-                <div><span>Price:</span> &nbsp; &nbsp;<span class=" fw-bold float-end">${{$ot->price}}</span></div>
+                <div><span>Selling Price:</span>&nbsp; &nbsp; <span class=" fw-bold float-end">Rs. {{$ot->sale_price}}</span></div>
+                <div><span>Price:</span> &nbsp; &nbsp;<span class=" fw-bold float-end">Rs. {{$ot->price}}</span></div>
             </div>
         </div>
 @endforeach

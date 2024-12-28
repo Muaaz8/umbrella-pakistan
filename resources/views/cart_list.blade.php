@@ -70,10 +70,10 @@
 
                                 <div class="right-cart">
                                     <h4 id="cart_product_id_1" class="font-weight-bold">
-                                        ${{ number_format($item['price'], 2) }}</h4>
+                                        Rs. {{ number_format($item['price'], 2) }}</h4>
                                     {{-- @if ($item['quantity'] > 1)
                                         <h4 class="cart_product" id="cart_product_id_1_cut">
-                                            Total: ${{ number_format($item['update_price'], 2) }} </h4>
+                                            Total: Rs. {{ number_format($item['update_price'], 2) }} </h4>
                                     @endif --}}
 
                                     @if ($item['item_type'] != 'prescribed')
@@ -123,14 +123,14 @@
                                 <ul>
                                     <li class="border-bottom">Total Cost</li>
                                     <li class="border-bottom" id="total_product_cost">
-                                        ${{ isset($forCart['itemTotal']) ? number_format($forCart['itemTotal'], 2) : '00.00' }}
+                                        Rs. {{ isset($forCart['itemTotal']) ? number_format($forCart['itemTotal'], 2) : '00.00' }}
                                     </li>
                                     {{-- <li class="border-bottom">Shipping Tax</li>
                                     <li class="border-bottom" id="shipping_cost">$200.00</li> --}}
                                     <li class="border-bottom">To be Paid</li>
                                     <li class="border-bottom font-weight-bold" style="font-size:20px"
                                         id="grand_total_amount">
-                                        ${{ isset($forCart['itemTotal']) ? number_format($forCart['itemTotal'], 2) : '00.00' }}
+                                        Rs. {{ isset($forCart['itemTotal']) ? number_format($forCart['itemTotal'], 2) : '00.00' }}
                                     </li>
                                 </ul>
                             </div>

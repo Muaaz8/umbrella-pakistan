@@ -59,7 +59,7 @@
                                                 <li class="list-group-item"><b>Service Name :</b> {{ $img_order->name }} </li>
                                                 <li class="list-group-item"><b>Name :</b>
                                                     {{ $img_order->first_name . ' ' . $img_order->last_name }}</li>
-                                                <li class="list-group-item"><b>Product Price :</b> ${{ $img_order->update_price }}</li>
+                                                <li class="list-group-item"><b>Product Price :</b> Rs. {{ $img_order->update_price }}</li>
                                                 {{-- <li class="list-group-item"><b>Username :</b> {{ $order->name }}</li> --}}
                                                 <li class="list-group-item"><b>Order State :</b> {{ $img_order->order_state }}
                                                 </li>

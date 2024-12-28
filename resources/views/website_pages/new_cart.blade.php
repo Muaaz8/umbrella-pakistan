@@ -381,7 +381,7 @@
                                                                             </div>
                                                                         @endif
                                                                     </div>
-                                                                    <div class="col price_{{ $counter }}" style="color: white;">${{ number_format($item['price'], 2) }}
+                                                                    <div class="col price_{{ $counter }}" style="color: white;">Rs. {{ number_format($item['price'], 2) }}
                                                                         <span class="close">
                                                                             <input type="checkbox" checked id="item_{{ $counter }}" value="0" onclick="checkboxFunction(this)">
                                                                             @if ($item['item_type'] == 'counter')
@@ -432,7 +432,7 @@
                                                                             </div>
                                                                         @endif
                                                                     </div>
-                                                                    <div class="col price_{{ $counter }}">${{ number_format($item['price'], 2) }}
+                                                                    <div class="col price_{{ $counter }}">Rs. {{ number_format($item['price'], 2) }}
                                                                         <span class="close">
                                                                             <input type="checkbox" id="item_{{ $counter }}" value="0" onclick="checkboxFunction(this)">
                                                                             @if ($item['item_type'] == 'counter')
@@ -466,12 +466,12 @@
 
                                                         <li class="list-group-item">Provider Fee<span id="provider_fee">
 
-                                                                ${{ number_format($providerFee,2) ?? '' }}
+                                                                Rs. {{ number_format($providerFee,2) ?? '' }}
 
                                                         </span></li>
 
-                                                <li class="list-group-item">Total Cost <span id="totalCast">${{ number_format($itemSum,2) }}</span></li>
-                                                    <li class="list-group-item">To be Paid <span id="totalPaid">${{ number_format($totalPrice,2) }}</span></li>
+                                                <li class="list-group-item">Total Cost <span id="totalCast">Rs. {{ number_format($itemSum,2) }}</span></li>
+                                                    <li class="list-group-item">To be Paid <span id="totalPaid">Rs. {{ number_format($totalPrice,2) }}</span></li>
                                                 </ul>
                                             </div>
                                             <input type="button" name="next" class="next action-button m-0 mt-1" value="PROCEED TO CHECKOUT"/>

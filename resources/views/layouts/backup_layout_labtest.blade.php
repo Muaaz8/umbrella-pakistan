@@ -223,7 +223,7 @@
         <div class="col-md-4">
             <div class="content-area">
                 <h1 style="margin-bottom:0px;margin-top:0px;font-size: 22px;color:#08295a;">{{ $item->name}}</h1>
-                {{-- 
+                {{--
                         <p>CPT CODE:<span> {{ }</span></p>
                         --}}
                 @if (!empty($item->cpt_code))
@@ -276,7 +276,7 @@
                         <div class="price-box">
                             <div class="cut-price"></div>
                             <div class="price-reg" id="price_product" style=" font-size: 16px; font-weight: bold; ">
-                                <b>${{ number_format($item->sale_price, 2)}}</b>
+                                <b>Rs. {{ number_format($item->sale_price, 2)}}</b>
                             </div>
                         </div>
                         <button class="positive ui blue button proceedBtn nextBtn" id="proceed_to_address"
@@ -471,7 +471,7 @@
                         <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-5" role="tab"
                             aria-controls="nav-profile" aria-selected="false">FAQ's</a>
                         {{-- @if (!empty($item->medicine_ingredients) || !empty($item->medicine_directions) || !empty($item->medicine_warnings))
-                                        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-4" role="tab" aria-controls="nav-profile" aria-selected="false">Test Results</a>    
+                                        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-4" role="tab" aria-controls="nav-profile" aria-selected="false">Test Results</a>
                                         @endif --}}
                         <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-6" role="tab"
                             aria-controls="nav-profile" aria-selected="false">Test Results</a>

@@ -167,7 +167,7 @@
                                             <h4 class=" mt-2">Session History
                                                 @if($user_type=='admin')
                                                 <small class="pull-right mr-4"><b>Total Session
-                                                        Earnings:${{count($sessionss)*30}}</b></small>
+                                                        Earnings:Rs. {{count($sessionss)*30}}</b></small>
                                                 @endif
                                             </h4>
                                             <hr>

@@ -19,53 +19,53 @@ setTimeout(function() {
 </style>
 <section class="content profile-page">
     <div class="container-fluid">
-        <div class="block-header">  
-              
+        <div class="block-header">
+
         @isset($message)
-    
+
 
             <div class="messageDiv">
                 <div class="alert alert-danger">
-                    {{$message}}                    
+                    {{$message}}
                 </div>
             </div>
-        
+
             @endisset
         </div>
         <div class="card">
             <div class="body">
                 <h4>Find Paitent Record By Order Tracking ID</h4>
-                
-                
+
+
                 <div class="row">
                     <div class="col-sm-12">
                         <form action="{{route('find_patient_record')}}" method="post">
                               @csrf
                               <div class="row">
                                    <div class="col-sm-4">
-                                        <input class="form-control" placeholder="Search..." id="findSearch" name="search" type="text">   
-                                   </div>                 
-                                   <div class="col-sm-2 ">                 
-                                        <input class="form-control" type="submit" id="findBtn" value="Find" >                    
+                                        <input class="form-control" placeholder="Search..." id="findSearch" name="search" type="text">
+                                   </div>
+                                   <div class="col-sm-2 ">
+                                        <input class="form-control" type="submit" id="findBtn" value="Find" >
                                    </div>
                               </div>
-                        </form>                    
-                    </div>               
-                </div> 
+                        </form>
+                    </div>
+                </div>
                 @isset($userID)
                     <div class="row clearfix">
                         <div class="col-lg-12 col-md-12 col-sm-12">
-                           
+
                             <div class="card">
                                 <div class="row" style="padding-left: 20px">
-                                
+
                                     <style>
                                     .heading p {
                                         /* margin: 5px 0px; */
                                         font-weight: bold;
                                     }
                                     .heading_row{
-                                    padding: 10px; border-bottom: 1px solid #eee; 
+                                    padding: 10px; border-bottom: 1px solid #eee;
                                     }
                                     </style>
                                     <div class="row col-md-12">
@@ -75,9 +75,9 @@ setTimeout(function() {
                                             <div class="card-body">
                                             <div class="row heading_row">
                                                     <div class="col heading">
-                                                        <p>Order State</p>                                                      
+                                                        <p>Order State</p>
                                                     </div>
-                                                   
+
                                                     <div class="col answer">
                                                     <p>
                                                     <?php
@@ -85,22 +85,22 @@ setTimeout(function() {
                                                          {
                                                             echo ucwords($orderState);
                                                          }
-                                                      ?>   
+                                                      ?>
                                                           </p>
                                                     </div>
                                                 </div>
-                                            
-                                            
+
+
                                             @foreach($order_sub_id as $key => $item)
-                                              
+
                                                 <div class="row heading_row">
                                                     <div class="col heading">
                                                         <p>
 
-                                                            <?php 
+                                                            <?php
                                                             if( $key === 'UMB' ){
                                                                 echo 'Umbrella Master ID ';
-                                                            }                               
+                                                            }
                                                             else if( $key === 'PHAR'){
                                                                 echo 'Pharmacy ';
                                                             }else if( $key === 'LBT'){
@@ -120,9 +120,9 @@ setTimeout(function() {
                                                 @endforeach
                                                 <div class="row heading_row">
                                                     <div class="col heading">
-                                                        <p>Order Status</p>                                                      
+                                                        <p>Order Status</p>
                                                     </div>
-                                                   
+
                                                     <div class="col answer">
                                                     <p>
                                                     <?php
@@ -130,20 +130,20 @@ setTimeout(function() {
                                                          {
                                                             echo ucwords($order_status);
                                                          }
-                                                      ?>   
+                                                      ?>
                                                           </p>
                                                     </div>
                                                 </div>
                                                 <div class="row heading_row">
                                                     <div class="col heading">
-                                                        
-                                                    @if($userID=="GUEST")                    
-                                                        <p>Order As</p>  
+
+                                                    @if($userID=="GUEST")
+                                                        <p>Order As</p>
                                                         @else
-                                                        <p>User ID</p> 
-                                                   @endif                                                    
+                                                        <p>User ID</p>
+                                                   @endif
                                                     </div>
-                                                    
+
                                                     <div class="col answer">
                                                     <p>
                                                     <?php
@@ -151,7 +151,7 @@ setTimeout(function() {
                                                          {
                                                             echo ucwords($userID);
                                                          }
-                                                      ?>   
+                                                      ?>
                                                           </p>
                                                     </div>
                                                 </div>
@@ -171,7 +171,7 @@ setTimeout(function() {
                                                         <p>{{ ucwords(str_replace("_", " ", str_replace("'", '', $vals[0])))  }}</p>
                                                     </div>
                                                     <div class="col answer">
-                                                       
+
                                                     </div>
                                                 </div>
                                                 @endforeach
@@ -193,7 +193,7 @@ setTimeout(function() {
                                                         <p>{{ ucwords(str_replace("_", " ", str_replace("'", '', $vals[0])))  }}</p>
                                                     </div>
                                                     <div class="col answer">
-                                                      
+
                                                     </div>
                                                 </div>
                                                 @endforeach
@@ -213,7 +213,7 @@ setTimeout(function() {
                                                         <p>{{ ucwords(str_replace("_", " ", str_replace("'", '', $vals[0])))  }}</p>
                                                     </div>
                                                     <div class="col answer">
-                                                      
+
                                                     </div>
                                                 </div>
                                                 @endforeach
@@ -239,8 +239,8 @@ setTimeout(function() {
                                                     <tr>
                                                         <td>{{ $item['product_name'] }}</td>
                                                         <td>{{ $item['quantity'] }}</td>
-                                                        <td>${{ number_format($item['sale_price'], 2) }}</td>
-                                                        <td>${{ number_format($item['cost'], 2) }}</td>
+                                                        <td>Rs. {{ number_format($item['sale_price'], 2) }}</td>
+                                                        <td>Rs. {{ number_format($item['cost'], 2) }}</td>
                                                     </tr>
                                                     @endforeach
                                                     </tbody>
@@ -248,7 +248,7 @@ setTimeout(function() {
                                                 <tr style=" font-weight: bold; ">
                                                     <td colspan="2"></td>
                                                     <td colspan="1">SUBTOTAL</td>
-                                                    <td>${{ number_format(array_sum($cart_data['total']), 2) }}</td>
+                                                    <td>Rs. {{ number_format(array_sum($cart_data['total']), 2) }}</td>
                                                 </tr>
                                                 <tr style=" font-weight: bold; ">
                                                     <td colspan="2"></td>
@@ -258,19 +258,19 @@ setTimeout(function() {
                                                 <tr style=" font-weight: bold; ">
                                                     <td colspan="2"></td>
                                                     <td colspan="1">GRAND TOTAL</td>
-                                                    <td>${{ number_format(array_sum($cart_data['total']), 2) }}</td>
+                                                    <td>Rs. {{ number_format(array_sum($cart_data['total']), 2) }}</td>
                                                 </tr>
                                                 </tfoot>
                                             </table>
                                         </div>
                                     </div>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                         </div>
                     </div>
-                
+
                 @endisset
 
             </div>

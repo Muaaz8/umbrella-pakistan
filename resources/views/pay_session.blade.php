@@ -191,7 +191,7 @@
                                     <label><b>Total Amount</b></label>
                                 </div>
                                 <div class="col-md-9">
-                                    <b>${{ $price }}</b>
+                                    <b>Rs. {{ $price }}</b>
                                 </div>
                             </div>
                             <!-- <center> -->

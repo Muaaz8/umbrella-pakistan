@@ -341,7 +341,7 @@
         <div class="row page-header" style="height:110px !important">
             <div class="col-md-6">
                 <h3 style="font-size: 2rem; "><b>Price:
-                        ${{ number_format($item->sale_price, 2) }}</b></h3>
+                        Rs. {{ number_format($item->sale_price, 2) }}</b></h3>
             </div>
             <div class="col-md-6">
                 @if (Auth::check())
@@ -411,7 +411,7 @@
                                                     <td><a style="color:#000;"
                                                             href="/product/lab-test/{{ $panel_test->slug }}">{{ $panel_test->test_name }}</a>
                                                     </td>
-                                                    {{-- <td>${{ number_format($panel_test->price, 2) }}</td> --}}
+                                                    {{-- <td>Rs. {{ number_format($panel_test->price, 2) }}</td> --}}
                                                     <td>{{ empty($panel_test->cpt_code) ? '-' : $panel_test->cpt_code }}
                                                     </td>
                                                 </tr>

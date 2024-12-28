@@ -65,9 +65,9 @@
                         <td>{{ $tblOrders->address }}</td>
                         <td>{{ $tblOrders->name }}</td>
                         <td>{{ $tblOrders->created_at }}</td>
-                        <td>${{ $tblOrders->price }}</td>
+                        <td>Rs. {{ $tblOrders->price }}</td>
                     @else
-                        <td>${{ $tblOrders->total }}</td>
+                        <td>Rs. {{ $tblOrders->total }}</td>
                     @endif
                     <!-- <td>{{-- $tblOrders->shipping_total --}}</td>
                         <td>{{-- $tblOrders->total_tax --}}</td>

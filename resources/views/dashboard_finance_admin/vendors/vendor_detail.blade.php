@@ -83,19 +83,19 @@
                                 <i class="fa-solid fa-dollar-sign"></i><span class="tot-font">&nbsp; Payments</span>
                                 <div class="second-box mt-2">
                                     <div class="total tot-font d-flex justify-content-between px-2">
-                                        <span> Total Earning</span> <span>${{ $Total_earning }}</span>
+                                        <span> Total Earning</span> <span>Rs. {{ $Total_earning }}</span>
                                     </div>
                                     <div class="total tot-font d-flex justify-content-between px-2">
-                                        <span> Total Prescription Earning</span> <span>${{ $pres_earning }}</span>
+                                        <span> Total Prescription Earning</span> <span>Rs. {{ $pres_earning }}</span>
                                     </div>
                                     <div class="total tot-font d-flex justify-content-between px-2">
-                                        <span> Total Online Earning</span> <span>${{ $on_earning }}</span>
+                                        <span> Total Online Earning</span> <span>Rs. {{ $on_earning }}</span>
                                     </div>
                                     <div class="total tot-font d-flex justify-content-between px-2">
-                                        <span> Total Amount Payable</span> <span>${{ $Amount_payable }}</span>
+                                        <span> Total Amount Payable</span> <span>Rs. {{ $Amount_payable }}</span>
                                     </div>
                                     <div class="total tot-font d-flex justify-content-between px-2">
-                                        <span> Total Amount Paid</span> <span>${{ $Amount_paid }}</span>
+                                        <span> Total Amount Paid</span> <span>Rs. {{ $Amount_paid }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -109,7 +109,7 @@
                                             <span>$ &nbsp;849.00</span>
                                           </h6>
                                           <hr>
-                            
+
                                           <h6>
                                             <span class="text-danger details-bold">
                                               Precription Earning</span
@@ -118,7 +118,7 @@
                                             <span>$ &nbsp;849.00</span>
                                           </h6>
                                           <hr>
-                            
+
                                           <h6>
                                             <span class="text-success details-bold"> Online Earning</span>
                                             <br />
@@ -169,7 +169,7 @@
                                                 <td data-label="Type of Earning">{{ $ot->name }}</td>
                                                 <td data-label="Date">{{ $ot->datetime['date'] }}</td>
                                                 <td data-label="Time">{{ $ot->datetime['time'] }}</td>
-                                                <td data-label="Earning">${{ $ot->price }}</td>
+                                                <td data-label="Earning">Rs. {{ $ot->price }}</td>
 
                                             </tr>
                                         @empty
@@ -202,7 +202,7 @@
                                                 <td data-label="Type of Earning">{{ $pres->name }}</td>
                                                 <td data-label="Date">{{ $pres->datetime['date'] }}</td>
                                                 <td data-label="Time">{{ $pres->datetime['time'] }}</td>
-                                                <td data-label="Earning">${{ $pres->price }}</td>
+                                                <td data-label="Earning">Rs. {{ $pres->price }}</td>
                                             </tr>
                                         @empty
                                             <tr>
@@ -236,7 +236,7 @@
                                                 <td data-label="Type of Earning">{{ $pay['Type'] }}</td>
                                                 <td data-label="Date">{{ $pay['date'] }}</td>
                                                 <td data-label="Time">{{ $pay['time'] }}</td>
-                                                <td data-label="Earning">${{ $pay['Earning'] }}</td>
+                                                <td data-label="Earning">Rs. {{ $pay['Earning'] }}</td>
                                                 <td data-label="Earning">
                                                     <a href="/pay/{{$vendor->category}}/{{$pay['id']}}"><button class="btn btn-success">Mark as Paid</button></a>
                                                 </td>
@@ -272,7 +272,7 @@
                                                 <td data-label="Type of Earning">{{ $pa['Type'] }}</td>
                                                 <td data-label="Date">{{ $pa['date'] }}</td>
                                                 <td data-label="Time">{{ $pa['time'] }}</td>
-                                                <td data-label="Earning">${{ $pa['Earning'] }}</td>
+                                                <td data-label="Earning">Rs. {{ $pa['Earning'] }}</td>
                                             </tr>
                                         @empty
                                             <tr>

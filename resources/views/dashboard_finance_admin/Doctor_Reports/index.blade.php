@@ -99,14 +99,14 @@ var input = document.getElementById("search");
                             <tr>
                                 <td data-label="NPI">{{$doc->nip_number}}</td>
                                 <td data-label="Name">{{$doc->name}} {{$doc->last_name}}</td>
-                                <td data-label="Payable">${{$doc->payable}}</td>
+                                <td data-label="Payable">Rs. {{$doc->payable}}</td>
                                 <td data-label="Actions">
                                     <div class="dropdown">
                                     <button class="btn option-view-btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                       OPTIONS
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                      
+
                                       <li><a class="dropdown-item" href="/doctors/online/lab/{{$doc->id}}">Online Labs Approved</a></li>
                                       <li><a class="dropdown-item" href="/doctors/evisit/{{$doc->id}}">E-visit</a></li>
                                       <li><a class="dropdown-item" href="/doctors/payable/{{$doc->id}}">Payable Amounts</a></li>
@@ -161,7 +161,7 @@ var input = document.getElementById("search");
 
 
       <!-- ------------------Edit-Quest-labtest-Categories-Modal-start------------------ -->
-  
+
             <!-- Modal -->
             <div class="modal fade" id="edit_quest_labtests" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -171,7 +171,7 @@ var input = document.getElementById("search");
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        
+
                           <form action="">
                             <div class="p-3">
                             <div class="row">
@@ -214,10 +214,10 @@ var input = document.getElementById("search");
                                     <textarea class="form-control" rows="5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente ullam ducimus reiciendis quia eos veniam animi porro placeat corrupti dolore dignissimos excepturi numquam illum quas sunt recusandae dolorem quisquam odit explicabo, nulla saepe corporis exercitationem? Hic accusamus eius non incidunt aperiam esse, cupiditate fugit voluptas officia beatae molestiae atque velit?</textarea>
                                 </div>
                             </div>
-    
+
                           </div>
                           </form>
-                        
+
                     </div>
                     <div class="modal-footer">
                       <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>

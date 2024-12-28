@@ -8,7 +8,7 @@
                                                     <div>Order id : &nbsp;<span>{{$press->order_id}}</span></div>
                                                     <div>Session ID : &nbsp;<span> UEV-{{$press->ses_id}}</span></div>
                                                     <div>{{$press->datetime['time']}},{{$press->datetime['date']}} &nbsp;<a class="btn process-pay" href="#" role="button">Details&nbsp;<i class="fa fa-arrow-down"></i></a></div>
-                                                    
+
                                                   </div>
                                             </button>
                                           </h2>
@@ -22,15 +22,15 @@
                                                 <div class="col-md-4"><b>Product Name:</b> {{$pres->name}}</div>
                                                 <div class="col-md-4"><b>Product ID:</b> {{$pres->pro_id}}</div>
                                                 <div class="col-md-4"><b>Product type:</b> {{$pres->type}}</div>
-                                                
+
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-4"><b>Dosage Days:</b> {{$pres->usage}}</div>
-                                                <div class="col-md-4"><b>Selling Price:</b> ${{$pres->sale_price}}</div>
-                                                <div class="col-md-4"><b>Price:</b> ${{$pres->price}}</div>
-       
+                                                <div class="col-md-4"><b>Selling Price:</b> Rs. {{$pres->sale_price}}</div>
+                                                <div class="col-md-4"><b>Price:</b> Rs. {{$pres->price}}</div>
+
                                             </div>
-                      
+
                                           </div>
                                           @endforeach
                                         </div>
@@ -38,5 +38,5 @@
                                     </div>
                                     </div>
                                     @endif
-                                  @endforeach 
+                                  @endforeach
                                   {{ $prescriptions->links('pagination::bootstrap-4') }}

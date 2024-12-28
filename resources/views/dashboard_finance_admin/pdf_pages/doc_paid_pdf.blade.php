@@ -48,7 +48,7 @@
 
         @foreach($payable as $ot)
         <div class="main-div" style="    border: 1px solid #d5d5d585;
-      
+
         width: 100%;
         height: 120px;
 white-space: nowrap;
@@ -59,7 +59,7 @@ white-space: nowrap;
             <div><strong>Type Of Earning:</strong> &nbsp;<span>{{$ot['type']}}</span></div>
             <div><strong>Date:</strong>&nbsp;{{$ot['date']}}</div>
             <div><strong>Time:</strong>&nbsp;{{$ot['time']}}</div>
-            <div><strong>Amount:</strong>${{$ot['earning']}}</div>
+            <div><strong>Amount:</strong>Rs. {{$ot['earning']}}</div>
 
             </div>
         </div>

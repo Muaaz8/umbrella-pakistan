@@ -143,7 +143,7 @@
                                                                   <td data-label="Order Status"><label class="order-progress">{{ ucfirst($order->order_status) }}</label></td>
                                                               @endif
                                                               <td data-label="Created At">{{ $order->created_at }}</td>
-                                                              <td data-label="Amount">${{ $order->price }}</td>
+                                                              <td data-label="Amount">Rs. {{ $order->price }}</td>
                                                               @if($order->order_status=='reported')
                                                               <td data-label="Action">
                                                                   <a target="_blank"href="{{$order->report}}">

@@ -1,5 +1,5 @@
 {{-- Hi <strong>{{ $customer_name }}</strong>,
- 
+
 <p>Your Invoice #<strong>{{ $invoice_no }}</strong></p>
 
 <p><strong>{{ $body }}</strong></p> --}}
@@ -60,9 +60,9 @@
             @foreach($order_items as $item)
             <tr>
             <td style="width: 100%; text-align: center;">{{ $item['name'] }}</td>
-            <td style="width: 100%; text-align: center;">${{ number_format($item['price'], 2) }}</td>
+            <td style="width: 100%; text-align: center;">Rs. {{ number_format($item['price'], 2) }}</td>
             <td style="width: 100%; text-align: center;">{{ $item['quantity'] }} </td>
-            <td style="width: 100%; text-align: center;">${{ number_format($item['update_price'], 2) }}</td>
+            <td style="width: 100%; text-align: center;">Rs. {{ number_format($item['update_price'], 2) }}</td>
             </tr>
             @endforeach
             </tbody>

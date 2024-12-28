@@ -316,7 +316,7 @@
                                                                 color: #666363;
                                                                 margin: 0;
                                                               " align="right">
-                                                                                                                        ${{
+                                                                                                                        Rs. {{
                                                                                                                         $test->update_price
                                                                                                                         }}
                                                                                                                     </p>
@@ -391,7 +391,7 @@
                                                       padding: 6px 0;
                                                       text-align: right;
                                                     ">
-                                                                                                    ${{$providerfee}}
+                                                                                                    Rs. {{$providerfee}}
                                                                                                 </th>
                                                                                             </tr>
 
@@ -414,7 +414,7 @@
                                                       padding: 6px 0;
                                                       text-align: right;
                                                     ">
-                                                                                                    ${{
+                                                                                                    Rs. {{
                                                                                                     $userDetails['order_total']
                                                                                                     }}
                                                                                                 </th>
@@ -439,7 +439,7 @@
                                                       padding: 6px 0;
                                                       text-align: right;
                                                     ">
-                                                                                                    ${{
+                                                                                                    Rs. {{
                                                                                                    $userDetails['order_total']
                                                                                                     }}
                                                                                                 </th>
@@ -574,7 +574,7 @@
                                               padding: 13px 0;
                                               text-align: right;
                                             ">
-                                                                                    ${{ $userDetails['order_total'] }}
+                                                                                    Rs. {{ $userDetails['order_total'] }}
                                                                                 </th>
                                                                             </tr>
                                                                         </tbody>

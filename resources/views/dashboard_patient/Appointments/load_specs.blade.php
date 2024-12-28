@@ -6,14 +6,14 @@
                     <div class="e-visit-price-box">
                         <p class="third"><b>Service Type:</b> Appointment</p>
                         <div>
-                            <h6 class="m-0"><b>Initial Price: </b>${{ $specialization->initial_price }}</h6>
-                            <h6 class="m-0"><b>Follow-up Price: </b> ${{ $specialization->follow_up_price }}</h6>
+                            <h6 class="m-0"><b>Initial Price: </b>Rs. {{ $specialization->initial_price }}</h6>
+                            <h6 class="m-0"><b>Follow-up Price: </b> Rs. {{ $specialization->follow_up_price }}</h6>
                         </div>
                     </div>
                     @else
                     <div class="e-visit-price-box">
                         <p class="third"><b>Service Type:</b> Appointment</p>
-                        <h6 class="m-0"><b>Price: </b> ${{ $specialization->initial_price }}</h6>
+                        <h6 class="m-0"><b>Price: </b> Rs. {{ $specialization->initial_price }}</h6>
                     </div>
                     @endif
                     </div>

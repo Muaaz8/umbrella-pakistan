@@ -177,7 +177,7 @@
                                 <label><b>Total Amount</b></label>
                             </div>
                             <div class="col-md-9">
-                                <b>${{ $session_data->price }}</b>
+                                <b>Rs. {{ $session_data->price }}</b>
                             </div>
                         </div>
                         <!-- <center> -->

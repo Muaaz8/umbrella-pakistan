@@ -66,7 +66,7 @@
                         <tbody>
                           <tr>
                             <td data-label="Session ID" scope="row">UEV-{{ $session->session_id }}</td>
-                            <td data-label="Earning">${{ number_format($session->price,2) }}</td>
+                            <td data-label="Earning">Rs. {{ number_format($session->price,2) }}</td>
                             @if ($session->refered != null)
                                 <td data-label="Referred Doctor">{{ $session->refered }}</td>
                             @endif

@@ -101,8 +101,8 @@
                         @endif
                     </div>
                     <div class="product-price">
-                        <h4>${{ number_format($item->sale_price, 2) }}
-                            {{-- <span>${{ $item->regular_price }}</span> --}}
+                        <h4>Rs. {{ number_format($item->sale_price, 2) }}
+                            {{-- <span>Rs. {{ $item->regular_price }}</span> --}}
                         </h4>
                     </div>
                     <div class="product-short-desc">

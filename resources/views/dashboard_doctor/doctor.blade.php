@@ -90,7 +90,7 @@
                   <i class="fa-solid fa-sack-dollar"></i>
                       <div>
                           <h6>Total Earnings</h6>
-                          <p>$ {{ $totalEarning }}</p>
+                          <p>Rs. {{ $totalEarning }}</p>
                       </div>
 
                   </div>

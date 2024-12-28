@@ -296,23 +296,23 @@
                                 <div class="ml-3">
                                     <h6 class="my-2 cart-name">{{ $cart_item['name'] }}</h6>
                                     <small class="text-muted">Price:
-                                        ${{ number_format($cart_item['price'], 2) }}</small> | <small
+                                        Rs. {{ number_format($cart_item['price'], 2) }}</small> | <small
                                         class="text-muted">Qty: {{ $cart_item['quantity'] }}</small>
                                 </div>
                             </div>
-                            <span class="my-2 font-weight-bold cart_pr">${{ number_format($cart_item['update_price'], 2) }}</span>
+                            <span class="my-2 font-weight-bold cart_pr">Rs. {{ number_format($cart_item['update_price'], 2) }}</span>
                         </li>
                     @endforeach
                     {{-- <li class="list-group-item d-flex justify-content-between">
                         <span style="font-size:16px">Total Shipping Tax (USD)</span>
                         <strong class="font-weight-bold" style="font-size:18px">
-                            ${{ number_format(200, 2) }}
+                            Rs. {{ number_format(200, 2) }}
                         </strong>
                     </li> --}}
                     <li class="list-group-item d-flex justify-content-between">
                         <span style="font-size:16px">Total (USD)</span>
                         <strong class="font-weight-bold" style="font-size:18px">
-                            ${{ number_format($data['itemTotal'], 2) }}
+                            Rs. {{ number_format($data['itemTotal'], 2) }}
                         </strong>
                     </li>
                 </ul>

@@ -56,7 +56,7 @@
                               <li class="list-group-item"><b>Tracking ID : </b> {{ $tblOrders->order_id }} </li>
                               <li class="list-group-item"><b>Service Name :</b> {{ $tblOrders->name }} </li>
                               <li class="list-group-item"><b>Name :</b> {{ $tblOrders->fname." ".$tblOrders->lname }}</li>
-                              <li class="list-group-item"><b>Product Price :</b> ${{ $tblOrders->price }}</li>
+                              <li class="list-group-item"><b>Product Price :</b> Rs. {{ $tblOrders->price }}</li>
                               {{-- <li class="list-group-item"><b>Username :</b> {{ $tblOrders->name }}</li> --}}
                               <li class="list-group-item"><b>Order State	 :</b> {{ $tblOrders->order_state }}</li>
                               <li class="list-group-item"><b>Payment Title	 :</b> {{ $tblOrders->payment_title }}</li>

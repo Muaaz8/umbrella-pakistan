@@ -5,7 +5,7 @@
         <div class="block-header">
             <h1 style="font-size: 2.0rem; line-height: 2em;">Online Doctors</h1>
             @if($session!=null)
-            <h5 style="font-size: 1.0rem; line-height: 1em;color:red">Since you previously visited {{ $session->sp_name }}, charges will be ${{ $session->price }}.00 only</h5>
+            <h5 style="font-size: 1.0rem; line-height: 1em;color:red">Since you previously visited {{ $session->sp_name }}, charges will be Rs. {{ $session->price }}.00 only</h5>
             @endif
         </div>
         <div class="row clearfix" id="loadOnlineDoctor">

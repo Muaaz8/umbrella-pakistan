@@ -117,7 +117,7 @@
                                 @endif
                             </div>
                             <div class="d-flex justify-content-between align-items-end detail-cart-btn">
-                                <h4>$ {{ number_format($item->sale_price, 2) }}</h4>
+                                <h4>Rs. {{ number_format($item->sale_price, 2) }}</h4>
                                 @if (Auth::check())
                                     <button class="btn btn-primary" type="button"
                                         onclick="addToCart({{ $item->id }},'lab-test',1)"><i
@@ -128,7 +128,7 @@
                                 @endif
                             </div>
 
-                            
+
                         </div>
                     </div>
                     <div class="col-md-3 p-md-0 d-none d-md-block ">

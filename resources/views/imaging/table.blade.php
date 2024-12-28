@@ -44,7 +44,7 @@
                         <td>Dr. {{ $tblOrders->doc_fname.' '.$tblOrders->doc_lname }}</td>
                         <td>{{ ucfirst($tblOrders->order_status) }}</td>
                         <td>{{ $tblOrders->created_at }}</td>
-                        <td>${{ $tblOrders->price }}</td>
+                        <td>Rs. {{ $tblOrders->price }}</td>
                         @if($tblOrders->order_status=='reported')
                         <td>
                             <a target="_blank"href="{{$tblOrders->report}}">
@@ -56,7 +56,7 @@
                         @endif
                         {{-- <td>{{ $tblOrders->name }}</td> --}}
                         {{-- <td>{{ $tblOrders->created_at }}</td> --}}
-                        {{-- <td>${{ $tblOrders->price }}</td> --}}
+                        {{-- <td>Rs. {{ $tblOrders->price }}</td> --}}
                         <!-- <td>{{-- $tblOrders->shipping_total --}}</td>
                         <td>{{-- $tblOrders->total_tax --}}</td>
                         <td>{{-- $tblOrders->billing --}}</td>

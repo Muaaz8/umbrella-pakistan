@@ -26,7 +26,7 @@
                         @foreach ($items as $item)
                         <tr>
                             <td>{{ $item['product_name']  }}</td>
-                            <td>$ {{ number_format($item['price'],2)  }}</td>
+                            <td>Rs. {{ number_format($item['price'],2)  }}</td>
                             <td>{{ $item['quantity']  }}</td>
                             <td>{{ $item['created_at']  }}</td>
                         </tr>

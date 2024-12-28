@@ -98,15 +98,15 @@
                                                 <!-- <div class="col-md-12"> -->
                                                 @if($user_type=='patient')
                                                 <td class="col-md-1"><b>Cost: </b></td>
-                                                <td class="col-md-3">${{ number_format($session->price,2) }}</td>
+                                                <td class="col-md-3">Rs. {{ number_format($session->price,2) }}</td>
                                                 @elseif($user_type=='doctor')
                                                 <td class="col-md-1"><b>Earning: </b></td>
                                                 <td class="col-md-3">
-                                                    ${{ number_format((80 / 100) * $session->price,2) }}</td>
+                                                    Rs. {{ number_format((80 / 100) * $session->price,2) }}</td>
                                                 @elseif($user_type=='admin')
                                                 <td class="col-md-1"><b>Payment: </b></td>
                                                 <td class="col-md-3">
-                                                    ${{ number_format((20 / 100) * $session->price,2) }}</td>
+                                                    Rs. {{ number_format((20 / 100) * $session->price,2) }}</td>
                                                 @endif
                                                 <td class="col-md-2"><b>Start Time: </b></td>
                                                 <td class="col-md-3">{{$session->start_time}}</td>
@@ -160,7 +160,7 @@
                                                                 value="{{ucfirst($session->provider_notes)}}">
                                                             <td id="notes"></td>
                                                             @endif
-                                                            <td>${{ number_format($session->price,2) }}</td>
+                                                            <td>Rs. {{ number_format($session->price,2) }}</td>
                                                             @if ($session->refered != null)
                                                             <td> {{ $session->refered }} </td>
                                                             @endif

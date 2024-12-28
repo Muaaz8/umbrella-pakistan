@@ -109,7 +109,7 @@
                     <!-- <th><i class="fa-solid fa fa-flask fs-4"></i></th> -->
                     <td data-label="Product Name">{{ $med->name }}</td>
                     <td data-label="Quantity">{{ $med->usage }}</td>
-                    <td data-label="Price">${{ $med->update_price }}</td>
+                    <td data-label="Price">Rs. {{ $med->update_price }}</td>
                     @php
                         $priceTotal = $priceTotal + $med->update_price;
                         $itemCount += 1;
@@ -122,7 +122,7 @@
                     <!-- <th><i class="fa-solid fa fa-flask fs-4"></i></th> -->
                     <td data-label="Product Name">{{ $labs->DESCRIPTION }}</td>
                     <td data-label="Quantity"></td>
-                    <td data-label="Price">${{ $labs->SALE_PRICE }}</td>
+                    <td data-label="Price">Rs. {{ $labs->SALE_PRICE }}</td>
                     @php
                         $priceTotal = $priceTotal + $labs->SALE_PRICE;
                         $itemCount += 1;
@@ -135,7 +135,7 @@
                         <!-- <th><i class="fa-solid fa fa-flask fs-4"></i></th> -->
                         <td data-label="Product Name">{{ $labs->DESCRIPTION }}</td>
                         <td data-label="Quantity"></td>
-                        <td data-label="Price">${{ $labs->SALE_PRICE }}</td>
+                        <td data-label="Price">Rs. {{ $labs->SALE_PRICE }}</td>
                         @php
                             $priceTotal = $priceTotal + $labs->SALE_PRICE;
                             $itemCount += 1;
@@ -149,7 +149,7 @@
                     <!-- <th><i class="fa-solid fa fa-flask fs-4"></i></th> -->
                     <td data-label="Product Name">{{ $image->name }}</td>
                     <td data-label="Quantity">{{ $image->location }}</td>
-                    <td data-label="Price">${{ $image->price }}</td>
+                    <td data-label="Price">Rs. {{ $image->price }}</td>
                     @php
                         $priceTotal = $priceTotal + $image->price;
                         $itemCount += 1;
@@ -162,7 +162,7 @@
                     <tr style=" font-weight: bold; ">
                         <td colspan="2"></td>
                         <td colspan="1">SUBTOTAL</td>
-                        <td>${{ $priceTotal }}</td>
+                        <td>Rs. {{ $priceTotal }}</td>
                     </tr>
                     <tr style=" font-weight: bold; ">
                         <td colspan="2"></td>
@@ -172,7 +172,7 @@
                     <tr style=" font-weight: bold; ">
                         <td colspan="2"></td>
                         <td colspan="1">GRAND TOTAL</td>
-                        <td>${{ (int)$priceTotal+(int)$providerFee }}</td>
+                        <td>Rs. {{ (int)$priceTotal+(int)$providerFee }}</td>
                     </tr>
                 </tfoot>
             </table>

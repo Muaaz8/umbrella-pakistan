@@ -71,14 +71,14 @@ $(document).ready(function() {
                   yAxes: [{ticks: {min: 0, max:data.yaxis[3]}}],
                 }
               }
-          });         
+          });
         }
     });
 
 });
 
 $(document).on('click', '.pagination a', function(event){
-  event.preventDefault(); 
+  event.preventDefault();
   var text = $(this).attr('href').split('?');
   var mode = text[1].split('=');
   var page = mode[1];
@@ -132,7 +132,7 @@ function sessions(){
   var date = $('#session_date').val();
   var ses_id = $('#session_search_id').val();
   var msg = 'session';
-  
+
   $.ajax({
         type: 'GET',
         url: "{{URL('/get_filtered_values')}}",
@@ -177,7 +177,7 @@ function sessions(){
             +'</div></button><div><div>'
             );
 
-                   
+
         }
     });
 }
@@ -284,7 +284,7 @@ function generate_pdf(mode)
     var url = '/generate-onlinepdf';
     $('#fdate').val(date);
     $('#filter').attr('action',url);
-    $('#filter').submit() 
+    $('#filter').submit()
   }
 }
 
@@ -322,7 +322,7 @@ function generate_csv(mode)
     var url = '/generate-onlinecsv';
     $('#fdate').val(date);
     $('#filter').attr('action',url);
-    $('#filter').submit() 
+    $('#filter').submit()
   }
 }
 
@@ -461,13 +461,13 @@ $(function() {
                                 ><span class="tot-font">&nbsp; Earnings</span>
                                 <div class="second-box mt-2">
                                   <div class="total tot-font d-flex justify-content-between px-2">
-                                    <span> Total</span> <span>${{$totalBalance}}</span>
+                                    <span> Total</span> <span>Rs. {{$totalBalance}}</span>
                                   </div>
                                   <div class="total d-flex justify-content-between px-2 py-1">
-                                    This Month <span class="">${{$totalMonthBalance}}</span>
+                                    This Month <span class="">Rs. {{$totalMonthBalance}}</span>
                                   </div>
                                   <div class="d-flex justify-content-between px-2 py-1">
-                                    Today<span class="">${{$totalTodayBalance}}</span>
+                                    Today<span class="">Rs. {{$totalTodayBalance}}</span>
                                   </div>
                                 </div>
                               </div>
@@ -482,7 +482,7 @@ $(function() {
                                   </h6>
                                   <hr>
                                   <!-- <p>$ &nbsp;849.00</p> -->
-                    
+
                                   <h6>
                                     <span class="text-danger details-bold">
                                       Prescription Earning</span
@@ -491,7 +491,7 @@ $(function() {
                                     <span id="pres_ear"></span>
                                   </h6>
                                   <hr>
-                    
+
                                   <h6>
                                     <span class="text-success details-bold"> Online Earning</span>
                                     <br />
@@ -504,7 +504,7 @@ $(function() {
                               </div>
                             </div>
                           </div>
-                    
+
                           <section class="sec-2">
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs">
@@ -524,12 +524,12 @@ $(function() {
                                 >
                               </li>
                             </ul>
-                    
+
                             <!-- Tab panes -->
                             <div class="tab-content">
 
 
-                              <div class="tab-pane container active tab-pad" id="eVisits"> 
+                              <div class="tab-pane container active tab-pad" id="eVisits">
                                 <div class="row mb-2">
                                   <div class="col-md-6 d-flex">
                                       <div class="row">
@@ -540,7 +540,7 @@ $(function() {
                                           <input type="text" class="form-control mb-2" name="session_search_id" id="session_search_id" onchange="sessions()" placeholder="Search By SessionID">
                                         </div>
                                       </div>
-                                  
+
                                   </div>
                                   <div class="col-md-6 text-end">
                                       <div class="dropdown">
@@ -554,18 +554,18 @@ $(function() {
                                         </div>
                                   </div>
                                 </div>
-                              
+
                                 <!-- -------------Accordion--------------- -->
-                                <div id="eVisit">  
+                                <div id="eVisit">
                                 @foreach($getSessionTotalSessions as $sessions)
-                                                             
+
                                   <div class="accordion accordion-flush " id="accordionFlushExample_{{$sessions->id}}">
                                     <div class="accordion-item mb-2">
                                       <h2 class="accordion-header" id="flush-heading_{{$sessions->id}}">
                                           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse_{{$sessions->id}}" aria-expanded="false" aria-controls="flush-collapse_{{$sessions->id}}">
                                               <div class="accord-data">
                                                   <div><i class="fa fa-users"></i>&nbsp; Session ID &nbsp;<span>UEV-{{$sessions->session_id}}</span></div>
-                                                  <div>Earning <strong>${{$sessions->Net_profit}}</strong></div>
+                                                  <div>Earning <strong>Rs. {{$sessions->Net_profit}}</strong></div>
                                                   <div>{{$sessions->datetime['time']}},{{$sessions->datetime['date']}} &nbsp;</div>
                                                   <a class="btn process-pay d-flex align-items-baseline" href="#" role="button">Details&nbsp;<i class="fa fa-arrow-down"></i></a>
                                                 </div>
@@ -577,7 +577,7 @@ $(function() {
                                             <div><i class="fa fa-users"></i>&nbsp; Session ID &nbsp;<span>UEV-326</span></div>
                                             <div>Earning <strong>$80.00</strong></div>
                                             <div>11am,Aug 19th 2022 &nbsp;<a class="btn process-pay" href="#" role="button">Details&nbsp;<i class="fa fa-arrow-down"></i></a></div>
-                                            
+
                                           </div>
                                         </button>
                                       </h2> -->
@@ -590,21 +590,21 @@ $(function() {
                                               <div>Doctor {{$sessions->doc_percent}}%<span class="text-danger">-$ &nbsp;{{$sessions->doc_price}}</span></div>
                                               <div>Credit card Fee <span class="text-danger">-$ &nbsp;{{$sessions->card_fee}}</span></div>
                                               <div>Net Profit <span>+$ &nbsp;{{$sessions->Net_profit}}</span></div>
-                      
-                      
+
+
                                             </div>
-                      
+
                                           </div>
                                         </div>
                                       </div>
                                     </div>
-                      
+
                                   </div>
-                               
+
                                 @endforeach
                                 {{ $getSessionTotalSessions->links('pagination::bootstrap-4') }}
                                 </div>
-                              
+
                               </div>
 
                               <div class="tab-pane container fade" id="precriptionItems">
@@ -619,8 +619,8 @@ $(function() {
                                         </div>
                                       </div>
                                         <input type="text" class="form-control me-1" name="" id="" placeholder="Search" hidden="">
-                                        
-                                    
+
+
                                     </div>
                                     <div class="col-md-6 text-end">
                                         <div class="dropdown">
@@ -633,7 +633,7 @@ $(function() {
                                             </ul>
                                           </div>
                                     </div>
-    
+
                                   </div>
                                 <!-- -------------Accordion--------------- -->
                                 <div id="precriptionItem">
@@ -661,15 +661,15 @@ $(function() {
                                                 <div class="col-md-4"><b>Product Name:</b> {{$pres->name}}</div>
                                                 <div class="col-md-4"><b>Product ID:</b> {{$pres->pro_id}}</div>
                                                 <div class="col-md-4"><b>Product type:</b> {{$pres->type}}</div>
-                                                
+
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-4"><b>Dosage Days:</b> {{$pres->usage}}</div>
-                                                <div class="col-md-4"><b>Selling Price:</b> ${{$pres->sale_price}}</div>
-                                                <div class="col-md-4"><b>Price:</b> ${{$pres->price}}</div>
-       
+                                                <div class="col-md-4"><b>Selling Price:</b> Rs. {{$pres->sale_price}}</div>
+                                                <div class="col-md-4"><b>Price:</b> Rs. {{$pres->price}}</div>
+
                                             </div>
-                      
+
                                           </div>
                                           @endforeach
                                         </div>
@@ -682,7 +682,7 @@ $(function() {
                                   </div>
                                 <!-- -------------AccordionEND--------------- -->
                               </div>
-                              
+
                               <div class="tab-pane container fade" id="onlineItems">
                                 <div class="row mb-2">
                                     <div class="col-md-3 d-flex">
@@ -700,7 +700,7 @@ $(function() {
                                             </ul>
                                           </div>
                                     </div>
-    
+
                                   </div>
                                 <!-- -------------Accordion--------------- -->
                                 <div id="onlineItem">
@@ -726,19 +726,19 @@ $(function() {
                                             <div class="row mb-1">
                                                 <div class="col-md-6"><b>Order ID:</b> {{$ot->order_id}}</div>
                                                 <div class="col-md-6"><b>Product ID:</b> {{$ot->product_id}}</div>
-                                                
+
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-6"><b>Selling Price:</b> ${{$ot->sale_price}}</div>
-                                                <div class="col-md-6"><b>Price:</b> ${{$ot->price}}</div>
-       
+                                                <div class="col-md-6"><b>Selling Price:</b> Rs. {{$ot->sale_price}}</div>
+                                                <div class="col-md-6"><b>Price:</b> Rs. {{$ot->price}}</div>
+
                                             </div>
-                      
+
                                           </div>
                                         </div>
                                       </div>
                                     </div>
-                      
+
                                   </div>
                                   @endforeach
                                   {{ $OnlineItems->links('pagination::bootstrap-4') }}

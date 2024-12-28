@@ -25,7 +25,7 @@
         </div>
         <div class=" col-lg-3 col-md-5 single-item-block">
             <h4>Price</h4>
-            <p>${{ number_format($allProducts->sale_price, 2) }}</p>
+            <p>Rs. {{ number_format($allProducts->sale_price, 2) }}</p>
         </div>
         <div class=" col-lg-3 col-md-5 single-item-block">
             <h4>Keyword</h4>
@@ -74,7 +74,7 @@
                 @forelse (json_decode($allProducts->including_test) as $item)
                 <tr>
                     <td>{{ $item->test_name }}</td>
-                    <td>${{ number_format($item->price, 2) }}</td>
+                    <td>Rs. {{ number_format($item->price, 2) }}</td>
                     <td>{{ $item->cpt_code }}</td>
                 </tr>
                 @empty
@@ -135,7 +135,7 @@
     padding: 15px !important;
 
 } */
-/* 
+/*
 table,
 th,
 td {

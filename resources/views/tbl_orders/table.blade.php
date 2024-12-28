@@ -88,7 +88,7 @@
                     @endif -->
 
                 <!-- @else --}}
-                        {{-- <td>${{ $tblOrders->total }}</td> --}}
+                        {{-- <td>Rs. {{ $tblOrders->total }}</td> --}}
                     {{-- @endif --}}
                      <td>{{-- $tblOrders->shipping_total --}}</td>
                         <td>{{-- $tblOrders->total_tax --}}</td>
@@ -107,7 +107,7 @@
                         <td>{{ $tblOrders->address }}</td>
                         <td>{{ $tblOrders->name }}</td>
                         <td>{{ $tblOrders->location }}</td>
-                        <td>${{ $tblOrders->price }}</td>
+                        <td>Rs. {{ $tblOrders->price }}</td>
                         <td>{{ ucfirst($tblOrders->order_status) }}</td>
                     @else
                         <td>{{ ucfirst($tblOrders->order_status) }}</td>

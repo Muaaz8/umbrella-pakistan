@@ -187,7 +187,7 @@
                                         <div class="middle aligned content">
                                             <a class="header" href="/products/pharmacy/{{ $item->slug }}">{{ $item->name }}</a>
                                             <div class="description">
-                                                <p>${{ number_format($item->sale_price, 2) }}</p>
+                                                <p>Rs. {{ number_format($item->sale_price, 2) }}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -212,7 +212,7 @@
                                         <div class="middle aligned content">
                                             <a class="header" href="/products/lab-test/{{ $item->slug }}">{{ $item->name }}</a>
                                             <div class="description">
-                                                <p>${{ number_format($item->sale_price, 2) }}</p>
+                                                <p>Rs. {{ number_format($item->sale_price, 2) }}</p>
                                             </div>
                                         </div>
                                     </div>
@@ -265,7 +265,7 @@
                                 <div class="content middle aligned">
                                     <a href="{{ $url }}" class="header">{{ $item->name }}</a>
                                     <div class="meta">
-                                        <span class="cinema">${{ number_format($item->sale_price, 2) }}</span>
+                                        <span class="cinema">Rs. {{ number_format($item->sale_price, 2) }}</span>
                                     </div>
                                     <div class="description">
 

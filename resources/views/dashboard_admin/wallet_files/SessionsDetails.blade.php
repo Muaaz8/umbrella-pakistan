@@ -41,14 +41,14 @@
 
 
     <div class="container">
-        <div class="logo-style" style="    
+        <div class="logo-style" style="
         margin-bottom: 10px;
         text-align:center;">
             <img src="{{ public_path('asset_admin/images/logo.png') }}" alt="" style="width: 100px; height: 100px;">
         </div>
         @foreach($getSessionTotalSessions as $sessions)
         <div class="main-div" style="    border: 1px solid #d5d5d585;
-      
+
         width: 100%;
         height: 115px;
 white-space: nowrap;
@@ -56,17 +56,17 @@ white-space: nowrap;
         margin-bottom: 10px;">
             <div style="width: 50%;  float: left;">
             <div><strong>Session ID:</strong> &nbsp;<span>UEV-{{$sessions->session_id}}</span></div>
-            <div><strong>Earning:</strong>&nbsp;${{$sessions->Net_profit}}</div>
+            <div><strong>Earning:</strong>&nbsp;Rs. {{$sessions->Net_profit}}</div>
             <div><strong>Date:</strong> {{$sessions->datetime['time']}},{{$sessions->datetime['date']}} </div>
             <div><strong>Session with:</strong> &nbsp;<span>Dr.{{$sessions->doc_name}}</span></div>
             <div><strong>Patient:</strong>&nbsp;<span>{{$sessions->pat_name}}</span> </div>
             </div>
             <div class="payment-div" style="    padding: 10px;
             border: 1px solid #d5d5d585; width: 50%; float: right;">
-                <div><span>Patient Paid:</span>&nbsp; &nbsp;<span class="text-success fw-bold float-end">+${{$sessions->price}}</span></div>
-                <div><span>Doctor 55%:</span>&nbsp; &nbsp; <span class="text-danger fw-bold float-end">-${{$sessions->doc_price}}</span></div>
-                <div><span>Credit card Fee:</span> &nbsp; &nbsp;<span class="text-danger fw-bold float-end">-${{$sessions->card_fee}}</span></div>
-                <div><span>Net Profit:</span> &nbsp; &nbsp;<span class="fw-bold float-end">+${{$sessions->Net_profit}}</span></div>
+                <div><span>Patient Paid:</span>&nbsp; &nbsp;<span class="text-success fw-bold float-end">+Rs. {{$sessions->price}}</span></div>
+                <div><span>Doctor 55%:</span>&nbsp; &nbsp; <span class="text-danger fw-bold float-end">-Rs. {{$sessions->doc_price}}</span></div>
+                <div><span>Credit card Fee:</span> &nbsp; &nbsp;<span class="text-danger fw-bold float-end">-Rs. {{$sessions->card_fee}}</span></div>
+                <div><span>Net Profit:</span> &nbsp; &nbsp;<span class="fw-bold float-end">+Rs. {{$sessions->Net_profit}}</span></div>
             </div>
         </div>
 @endforeach

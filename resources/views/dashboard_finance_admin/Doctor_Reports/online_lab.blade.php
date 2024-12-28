@@ -122,7 +122,7 @@ function createfile(type)
                                   Download Data
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                  
+
                                   <li><a class="dropdown-item" href="#" onclick="createfile('csv')">Download As CSV</a></li>
                                   <li><a class="dropdown-item" href="#" onclick="createfile('pdf')">Download As PDF</a></li>
 
@@ -145,7 +145,7 @@ function createfile(type)
                                 <td data-label="Order ID">{{$order->order_id}}</td>
                                 <td data-label="Date">{{$order->created_at['date']}}</td>
                                 <td data-label="Time">{{$order->created_at['time']}}</td>
-                                <td data-label="Earning">${{$order->earning}}</td>
+                                <td data-label="Earning">Rs. {{$order->earning}}</td>
                               </tr>
                               @empty
                               <tr>

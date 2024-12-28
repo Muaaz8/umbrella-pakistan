@@ -81,7 +81,7 @@
                                     {{-- <i class="fa-solid fa-cart-shopping"></i> --}}
                                     <div>
                                         <h6>Total Pharmacy</h6>
-                                        <p>$ {{ $box['med_price'] }}</p>
+                                        <p>Rs. {{ $box['med_price'] }}</p>
                                     </div>
 
                                 </div>
@@ -93,7 +93,7 @@
                                     {{-- <i class="fa-solid fa-vials"></i> --}}
                                     <div>
                                         <h6>Total Lab Test</h6>
-                                        <p>$ {{ $box['lab_price'] }}</p>
+                                        <p>Rs. {{ $box['lab_price'] }}</p>
                                     </div>
 
                                 </div>
@@ -105,7 +105,7 @@
                                     {{-- <i class="fa-solid fa-prescription-bottle-medical"></i> --}}
                                     <div>
                                         <h6>Total Imaging</h6>
-                                        <p>$ {{ $box['imaging_price'] }}</p>
+                                        <p>Rs. {{ $box['imaging_price'] }}</p>
                                     </div>
 
                                 </div>

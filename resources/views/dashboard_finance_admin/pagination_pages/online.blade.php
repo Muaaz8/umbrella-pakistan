@@ -8,7 +8,7 @@
                                                 <div>Product Name: &nbsp;<span>{{$ot->name}}</span></div>
                                                 <!-- <div>Selling Price: <strong>$80.00</strong></div> -->
                                                 <div>{{$ot->datetime['time']}},{{$ot->datetime['date']}} &nbsp;<a class="btn process-pay" href="#" role="button">Details&nbsp;<i class="fa fa-arrow-down"></i></a></div>
-                                                
+
                                               </div>
                                         </button>
                                       </h2>
@@ -20,19 +20,19 @@
                                             <div class="row mb-1">
                                                 <div class="col-md-6"><b>Order ID:</b> {{$ot->order_id}}</div>
                                                 <div class="col-md-6"><b>Product ID:</b> {{$ot->product_id}}</div>
-                                                
+
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-6"><b>Selling Price:</b> ${{$ot->sale_price}}</div>
-                                                <div class="col-md-6"><b>Price:</b> ${{$ot->price}}</div>
-       
+                                                <div class="col-md-6"><b>Selling Price:</b> Rs. {{$ot->sale_price}}</div>
+                                                <div class="col-md-6"><b>Price:</b> Rs. {{$ot->price}}</div>
+
                                             </div>
-                      
+
                                           </div>
                                         </div>
                                       </div>
                                     </div>
-                      
+
                                   </div>
                                   @endforeach
                                   {{ $OnlineItems->links('pagination::bootstrap-4') }}

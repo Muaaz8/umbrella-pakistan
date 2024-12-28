@@ -57,8 +57,8 @@
                                                         <h4 class="textOneLine">
                                                             {{ strip_tags($item->short_description) }}</h4>
                                                     @else
-                                                        <h4>${{ number_format($item->sale_price, 2) }}
-                                                            {{-- <span>${{ number_format($item->regular_price,2) }}</span> --}}
+                                                        <h4>Rs. {{ number_format($item->sale_price, 2) }}
+                                                            {{-- <span>Rs. {{ number_format($item->regular_price,2) }}</span> --}}
                                                         </h4>
                                                     @endif
                                                 </div>

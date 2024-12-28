@@ -1,12 +1,12 @@
 @foreach($getSessionTotalSessions as $sessions)
-                                                             
+
                                   <div class="accordion accordion-flush " id="accordionFlushExample_{{$sessions->id}}">
                                     <div class="accordion-item mb-2">
                                       <h2 class="accordion-header" id="flush-heading_{{$sessions->id}}">
                                           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse_{{$sessions->id}}" aria-expanded="false" aria-controls="flush-collapse_{{$sessions->id}}">
                                               <div class="accord-data">
                                                   <div><i class="fa fa-users"></i>&nbsp; Session ID &nbsp;<span>UEV-{{$sessions->session_id}}</span></div>
-                                                  <div>Earning <strong>${{$sessions->Net_profit}}</strong></div>
+                                                  <div>Earning <strong>Rs. {{$sessions->Net_profit}}</strong></div>
                                                   <div>{{$sessions->datetime['time']}},{{$sessions->datetime['date']}} &nbsp;</div>
                                                   <a class="btn process-pay d-flex align-items-baseline" href="#" role="button">Details&nbsp;<i class="fa fa-arrow-down"></i></a>
                                                 </div>
@@ -18,7 +18,7 @@
                                             <div><i class="fa fa-users"></i>&nbsp; Session ID &nbsp;<span>UEV-326</span></div>
                                             <div>Earning <strong>$80.00</strong></div>
                                             <div>11am,Aug 19th 2022 &nbsp;<a class="btn process-pay" href="#" role="button">Details&nbsp;<i class="fa fa-arrow-down"></i></a></div>
-                                            
+
                                           </div>
                                         </button>
                                       </h2> -->
@@ -31,16 +31,16 @@
                                               <div>Doctor {{$sessions->doc_percent}}%<span class="text-danger">-$ &nbsp;{{$sessions->doc_price}}</span></div>
                                               <div>Credit card Fee <span class="text-danger">-$ &nbsp;{{$sessions->card_fee}}</span></div>
                                               <div>Net Profit <span>+$ &nbsp;{{$sessions->Net_profit}}</span></div>
-                      
-                      
+
+
                                             </div>
-                      
+
                                           </div>
                                         </div>
                                       </div>
                                     </div>
-                      
+
                                   </div>
-                               
+
                                 @endforeach
                                 {{ $getSessionTotalSessions->links('pagination::bootstrap-4') }}

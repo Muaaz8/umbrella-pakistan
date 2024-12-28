@@ -153,7 +153,7 @@ function createfile(type)
                                 <td data-label="Mode of Payment">{{$pa['type']}}</td>
                                 <td data-label="Date">{{$pa['date']}}</td>
                                 <td data-label="Time">{{$pa['time']}}</td>
-                                <td data-label="Paid">${{$pa['earning']}}</td>
+                                <td data-label="Paid">Rs. {{$pa['earning']}}</td>
 
                               </tr>
                               @empty

@@ -134,7 +134,7 @@
                                             <tr>
                                                 <td data-label="Session ID">UEV-{{ $session->session_id }}</td>
                                                 @if ($user_type == 'doctor')
-                                                   <td data-label="Referred Doctor">${{ number_format($session->price, 2) }}</td>
+                                                   <td data-label="Referred Doctor">Rs. {{ number_format($session->price, 2) }}</td>
                                                 @endif
                                                 @if ($session->refered != null)
                                                     {{-- <th scope="col">Referred Doctor</th> --}}

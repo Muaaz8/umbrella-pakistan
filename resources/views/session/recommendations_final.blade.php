@@ -43,7 +43,7 @@
                                     <td>{{ucfirst($session->diagnosis)}}</td>
                                     <input id="notes_text" hidden="" value="{{ucfirst($session->provider_notes)}}">
                                     <td id="notes"></td>
-                                    <td>${{ number_format($session->price,2) }}</td>
+                                    <td>Rs. {{ number_format($session->price,2) }}</td>
                                     <td>{{$session->date}}</td>
                                     <td>{{$session->start_time}}</td>
                                     <td>{{$session->end_time}}</td>

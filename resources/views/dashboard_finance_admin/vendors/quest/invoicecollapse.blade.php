@@ -33,7 +33,7 @@
                               <div>
                                 <h3>{{$pagename}}</h3>
                               </div>
-       
+
                             </div>
                             <div class="d-flex justify-content-between p-0">
                               <form action="/quest/amount/{{$pagename}}" method="POST">
@@ -44,10 +44,10 @@
                                 </div>
                               </form>
                           <div>
-                            
+
                           </div>
                           </div>
-      
+
                         <div class="wallet-table">
                           <!-- -------------Accordion--------------- -->
                           <div class="finance-screen-wrapper">
@@ -59,9 +59,9 @@
                                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse_{{$entry->Order_id}}" aria-expanded="false" aria-controls="flush-collapse_{{$entry->Order_id}}">
                                         <div class="accord-data">
                                             <div>Order id : &nbsp;<span>{{$entry->Order_id}}</span></div>
-                                            <div>Amount : &nbsp;<span>${{$entry->amount}}</span></div>
-                                            <div>Draw Fee : &nbsp;<span>${{$entry->draw_fee}}</span></div>
-                                            <div>Profit : &nbsp;<span>${{$entry->profit}}</span></div>
+                                            <div>Amount : &nbsp;<span>Rs. {{$entry->amount}}</span></div>
+                                            <div>Draw Fee : &nbsp;<span>Rs. {{$entry->draw_fee}}</span></div>
+                                            <div>Profit : &nbsp;<span>Rs. {{$entry->profit}}</span></div>
                                             <div>Incomplete : &nbsp;<span>{{$entry->incomp}}</span></div>
                                             <div> &nbsp;<a class="btn process-pay" href="#" role="button">Details&nbsp;<i class="fa fa-arrow-down"></i></a></div>
                                           </div>
@@ -69,7 +69,7 @@
                                   </h2>
                               <div id="flush-collapse_{{$entry->Order_id}}" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                                 <div class="accordion-body" id="accorbody_{{$entry->Order_id}}">
-                                  
+
                                 <table class="table">
                                   <thead>
                                     <tr>
@@ -93,9 +93,9 @@
                                     <td>{{$ent->Services}}</td>
                                     <td>{{$ent->CPT}}</td>
                                     <td>{{$ent->Service_code}}</td>
-                                    <td>${{$ent->Amount}}</td>
-                                    <td>${{$ent->Draw_fee}}</td>
-                                    <td>${{$ent->Profit}}</td>
+                                    <td>Rs. {{$ent->Amount}}</td>
+                                    <td>Rs. {{$ent->Draw_fee}}</td>
+                                    <td>Rs. {{$ent->Profit}}</td>
                                     <td>{{$ent->Status}}</td>
                                     @if($ent->Status=='incomplete')
                                     <td>

@@ -69,7 +69,7 @@
                                 <!-- <th><i class="fa-solid fa fa-flask fs-4"></i></th> -->
                                 <td data-label="Product Name">{{ $med->name }}</td>
                                 <td data-label="Quantity">1</td>
-                                <td data-label="Price">${{ $med->update_price }}</td>
+                                <td data-label="Price">Rs. {{ $med->update_price }}</td>
                                 <td data-label="Status">{{ $med->status }}</td>
                                 @php
                                     $priceTotal = $priceTotal + $med->update_price;
@@ -84,7 +84,7 @@
                                 <!-- <th><i class="fa-solid fa fa-flask fs-4"></i></th> -->
                                 <td data-label="Product Name">{{ $labs->DESCRIPTION }}</td>
                                 <td data-label="Quantity">1</td>
-                                <td data-label="Price">${{ $labs->SALE_PRICE }}</td>
+                                <td data-label="Price">Rs. {{ $labs->SALE_PRICE }}</td>
                                 <td data-label="Status">{{ $labs->status }}</td>
                                 @php
                                     $priceTotal = $priceTotal + $labs->SALE_PRICE;
@@ -99,7 +99,7 @@
                                 <!-- <th><i class="fa-solid fa fa-flask fs-4"></i></th> -->
                                 <td data-label="Product Name">{{ $image->name }}</td>
                                 <td data-label="Quantity">1</td>
-                                <td data-label="Price">${{ $image->price }}</td>
+                                <td data-label="Price">Rs. {{ $image->price }}</td>
                                 <td data-label="Status">{{ $image->status }}</td>
                                 @php
                                     $priceTotal = $priceTotal + $image->price;
@@ -122,16 +122,16 @@
                               Total Item <span>{{ $itemCount }}</span>
                             </li>
                             <li class="list-group-item">
-                              Total Cost <span>${{ $priceTotal }}</span>
+                              Total Cost <span>Rs. {{ $priceTotal }}</span>
                             </li>
                             <li class="list-group-item">
-                              Tax <span>${{ $data['order_data']->total_tax }}</span>
+                              Tax <span>Rs. {{ $data['order_data']->total_tax }}</span>
                             </li>
                             <li class="list-group-item">
-                              Provider Fee <span>${{ (int)$providerFee }}</span>
+                              Provider Fee <span>Rs. {{ (int)$providerFee }}</span>
                             </li>
                             <li class="list-group-item">
-                              To be Paid <span>${{ (int)$priceTotal+(int)$data['order_data']->total_tax+(int)$providerFee }}</span>
+                              To be Paid <span>Rs. {{ (int)$priceTotal+(int)$data['order_data']->total_tax+(int)$providerFee }}</span>
                             </li>
                           </ul>
                         </div>

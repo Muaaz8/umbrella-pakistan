@@ -105,8 +105,8 @@
                                                 href="/pharmacy/{{ $item->sub_category_slug }}">{{ $item->sub_category_name }}</a></small>
                                     </div>
                                     <div class="description">
-                                        <h4>${{ number_format($item->sale_price, 2) }}
-                                            {{-- <span>${{ number_format($item->regular_price,2) }}</span> --}}
+                                        <h4>Rs. {{ number_format($item->sale_price, 2) }}
+                                            {{-- <span>Rs. {{ number_format($item->regular_price,2) }}</span> --}}
                                         </h4>
                                     </div>
 

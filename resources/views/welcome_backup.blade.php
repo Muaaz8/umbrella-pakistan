@@ -505,7 +505,7 @@
                                     <h3>{{ $item->name }}</h3>
                                 </div>
                                 <div class="description">
-                                    <h4>${{ number_format($item->sale_price, 2) }}
+                                    <h4>Rs. {{ number_format($item->sale_price, 2) }}
                                     </h4>
                                 </div>
                                 <a href="/product/pharmacy/{{ $item->slug }}"
@@ -713,7 +713,7 @@
 
                         <div class="product-price">
                             <h4 style="color:#a333c8 !important">
-                                ${{ number_format($item->sale_price, 2) }}</h4>
+                                Rs. {{ number_format($item->sale_price, 2) }}</h4>
                         </div>
 
                         <span class="thumb-info-social-icons text-center btn-panel-lab">

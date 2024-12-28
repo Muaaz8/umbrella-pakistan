@@ -20,7 +20,7 @@
                             <div class="icon"> <i class="zmdi zmdi-account col-blue"></i> </div>
                             <div class="content">
                                 <div class="text">Lab Total </div>
-                                <div class="number">$ {{ number_format($lab,2) }}</div>
+                                <div class="number">Rs. {{ number_format($lab,2) }}</div>
                                 <a href="{{ route('order.details',['type'=>'lab','id'=>$patient->id]) }}">
                                     <div class="text">View Details</div>
                                 </a>
@@ -34,7 +34,7 @@
                             <div class="icon"> <i class="zmdi zmdi-account col-green"></i> </div>
                             <div class="content">
                                 <div class="text">Pharmacy Total</div>
-                                <div class="number">$ {{ number_format($medicien,2) }}</div>
+                                <div class="number">Rs. {{ number_format($medicien,2) }}</div>
                                 <a href="{{ route('order.details',['type'=>'medicine','id'=>$patient->id]) }}">
                                     <div class="text">View Details</div>
                                 </a>
@@ -47,7 +47,7 @@
                             <div class="icon"> <i class="zmdi zmdi-bug col-blush"></i> </div>
                             <div class="content">
                                 <div class="text">Imging Total</div>
-                                <div class="number">$ {{ number_format($imaging,2) }}</div>
+                                <div class="number">Rs. {{ number_format($imaging,2) }}</div>
                                 <a href="{{ route('order.details',['type'=>'imaging','id'=>$patient->id]) }}">
                                     <div class="text">View Details</div>
                                 </a>

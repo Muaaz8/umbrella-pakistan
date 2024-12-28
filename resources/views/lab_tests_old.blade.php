@@ -84,7 +84,7 @@
                   <a href="{{ url('product/lab-test/' . $item->slug) }}"> {{ $item->name }}</a>
                 </div>
                 <div class="description">
-                  ${{ number_format($item->sale_price, 2) }}
+                  Rs. {{ number_format($item->sale_price, 2) }}
                 </div>
                 <div class="extra" align="right">
                   <div style=" background: #08295a; " onclick="add_to_cart(event, {{ $item->id }}, 'lab-test')" class="ui right mini floated primary button btn-carts">
@@ -244,7 +244,7 @@
               </div>
               <div class="product-price">
                 <h4 style="color:#08295a !important">
-                  ${{ number_format($item->sale_price, 2) }}
+                  Rs. {{ number_format($item->sale_price, 2) }}
                 </h4>
               </div>
               <span class="thumb-info-social-icons text-center ">

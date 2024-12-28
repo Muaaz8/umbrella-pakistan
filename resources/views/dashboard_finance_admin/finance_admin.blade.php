@@ -501,13 +501,13 @@
                                         <i class="fa-solid fa-dollar-sign"></i><span class="tot-font">&nbsp; Earnings</span>
                                         <div class="second-box mt-2">
                                             <div class="total tot-font d-flex justify-content-between px-2">
-                                                <span> Total</span> <span>${{ $totalBalance }}</span>
+                                                <span> Total</span> <span>Rs. {{ $totalBalance }}</span>
                                             </div>
                                             <div class="total d-flex justify-content-between px-2 py-1">
-                                                This Month <span class="">${{ $totalMonthBalance }}</span>
+                                                This Month <span class="">Rs. {{ $totalMonthBalance }}</span>
                                             </div>
                                             <div class="d-flex justify-content-between px-2 py-1">
-                                                Today<span class="">${{ $totalTodayBalance }} </span>
+                                                Today<span class="">Rs. {{ $totalTodayBalance }} </span>
                                             </div>
                                         </div>
                                     </div>
@@ -615,7 +615,7 @@
                                                                         &nbsp;<span>UEV-{{ $sessions->session_id }}</span>
                                                                     </div>
                                                                     <div>Earning
-                                                                        <strong>${{ $sessions->Net_profit }}</strong></div>
+                                                                        <strong>Rs. {{ $sessions->Net_profit }}</strong></div>
                                                                     <div>
                                                                         {{ $sessions->datetime['time'] }},{{ $sessions->datetime['date'] }}
                                                                         &nbsp;</div>
@@ -765,9 +765,9 @@
                                                                                 <div class="col-md-4"><b>Dosage Days:</b>
                                                                                     {{ $pres->usage }}</div>
                                                                                 <div class="col-md-4"><b>Selling Price:</b>
-                                                                                    ${{ $pres->sale_price }}</div>
+                                                                                    Rs. {{ $pres->sale_price }}</div>
                                                                                 <div class="col-md-4"><b>Price:</b>
-                                                                                    ${{ $pres->price }}</div>
+                                                                                    Rs. {{ $pres->price }}</div>
 
                                                                             </div>
 
@@ -853,9 +853,9 @@
                                                                     </div>
                                                                     <div class="row">
                                                                         <div class="col-md-6"><b>Selling Price:</b>
-                                                                            ${{ $ot->sale_price }}</div>
+                                                                            Rs. {{ $ot->sale_price }}</div>
                                                                         <div class="col-md-6"><b>Price:</b>
-                                                                            ${{ $ot->price }}</div>
+                                                                            Rs. {{ $ot->price }}</div>
 
                                                                     </div>
 

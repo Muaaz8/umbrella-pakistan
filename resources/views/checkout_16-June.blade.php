@@ -211,7 +211,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="row mt-2">
-                                                            
+
                                                             <div class="col-md-3">
                                                                 <div class="mt-3 mr-2 pl-2">
                                                                     <input type="hidden" name="shipping[state]"
@@ -311,23 +311,23 @@
                                 <div class="ml-3">
                                     <h6 class="my-2 cart-name">{{ $cart_item['name'] }}</h6>
                                     <small class="text-muted">Price:
-                                        ${{ number_format($cart_item['price'], 2) }}</small> | <small
+                                        Rs. {{ number_format($cart_item['price'], 2) }}</small> | <small
                                         class="text-muted">Qty: {{ $cart_item['quantity'] }}</small>
                                 </div>
                             </div>
-                            <span class="text-muted my-2">${{ number_format($cart_item['update_price'], 2) }}</span>
+                            <span class="text-muted my-2">Rs. {{ number_format($cart_item['update_price'], 2) }}</span>
                         </li>
                     @endforeach
                     {{-- <li class="list-group-item d-flex justify-content-between">
                         <span style="font-size:16px">Total Shipping Tax (USD)</span>
                         <strong class="font-weight-bold" style="font-size:18px">
-                            ${{ number_format(200, 2) }}
+                            Rs. {{ number_format(200, 2) }}
                         </strong>
                     </li> --}}
                     <li class="list-group-item d-flex justify-content-between">
                         <span style="font-size:16px">Total (USD)</span>
                         <strong class="font-weight-bold" style="font-size:18px">
-                            ${{ number_format($data['itemTotal'], 2) }}
+                            Rs. {{ number_format($data['itemTotal'], 2) }}
                         </strong>
                     </li>
                 </ul>

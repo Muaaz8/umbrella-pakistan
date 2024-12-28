@@ -111,7 +111,7 @@
                             </div>
                             <div class="product-price">
                                 <h4 class="pt-2 pb-2" style="color:#08295a !important">
-                                    ${{ number_format($item->sale_price, 2) }}
+                                    Rs. {{ number_format($item->sale_price, 2) }}
                                 </h4>
                             </div>
                             <span class="thumb-info-social-icons text-center ">
@@ -180,7 +180,7 @@
                             </div>
                             <div class="product-price">
                                 <h4 class="pt-2 pb-2" style="color:#08295a !important">
-                                    ${{ number_format($item->sale_price, 2) }}
+                                    Rs. {{ number_format($item->sale_price, 2) }}
                                 </h4>
                             </div>
                             <span class="thumb-info-social-icons text-center ">

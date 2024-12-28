@@ -47,7 +47,7 @@
         </div>
         @foreach($prescriptions as $pres)
         <div class="main-div" style="    border: 1px solid #d5d5d585;
-      
+
         width: 100%;
         height: 115px;
 white-space: nowrap;
@@ -64,8 +64,8 @@ white-space: nowrap;
             <div class="payment-div" style=" margin-top:30px   padding: 10px;
             border: 1px solid #d5d5d585; width: 50%; float: right;">
                 <div><span>Dosage Days:</span>&nbsp; &nbsp;<span class=" fw-bold float-end">{{$pres->usage}}</span></div>
-                <div><span>Selling Price:</span>&nbsp; &nbsp; <span class=" fw-bold float-end">${{$pres->sale_price}}</span></div>
-                <div><span>Price:</span> &nbsp; &nbsp;<span class=" fw-bold float-end">${{$pres->price}}</span></div>
+                <div><span>Selling Price:</span>&nbsp; &nbsp; <span class=" fw-bold float-end">Rs. {{$pres->sale_price}}</span></div>
+                <div><span>Price:</span> &nbsp; &nbsp;<span class=" fw-bold float-end">Rs. {{$pres->price}}</span></div>
             </div>
         </div>
 @endforeach

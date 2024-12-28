@@ -186,7 +186,7 @@ function createfile(type)
                                 <td data-label="Session ID">UEV-{{$ses->session_id}}</td>
                                 <td data-label="Date">{{$ses->created_at['date']}}</td>
                                 <td data-label="Time">{{$ses->created_at['time']}}</td>
-                                <td data-label="Earning">${{$ses->doc_fee}}</td>
+                                <td data-label="Earning">Rs. {{$ses->doc_fee}}</td>
 
                               </tr>
                               @empty
