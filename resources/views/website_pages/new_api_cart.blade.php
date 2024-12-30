@@ -1677,7 +1677,7 @@
                                                                             @else
                                                                                 <img class="img-fluid"
                                                                                     alt="{{ $item->name }}"
-                                                                                    src="{{ url('/uploads/' . $item->product_image) }}" />
+                                                                                    src="{{ asset('assets/images/'.$item->product_image) }}" />
                                                                             @endif
                                                                             @if ($item->product_mode == 'medicine')
                                                                                 <h6
@@ -1759,7 +1759,7 @@
                                                                             @else
                                                                                 <img class="img-fluid"
                                                                                     alt="{{ $item->name }}"
-                                                                                    src="{{ url('/uploads/' . $item->product_image) }}" />
+                                                                                    src="{{ asset('assets/images/'.$item->product_image) }}" />
                                                                             @endif
                                                                             @if ($item->product_mode == 'medicine')
                                                                                 <h6
