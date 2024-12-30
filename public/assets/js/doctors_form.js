@@ -30,17 +30,27 @@ $(window).scroll(function() {
 function showPassword() {
   var x = document.getElementById("password");
   var y = document.getElementById("password_confirmation");
+
+$(this).toggleClass("fa-eye fa-eye-slash");
   if (x.type === "password") {
     x.type = "text";
+    $(".eye__pass_").addClass("fa-eye");
+    $(".eye__pass_").removeClass("fa-eye-slash");
     // y.type = "text";
   } else {
     x.type = "password";
+    $(".eye__pass_").addClass("fa-eye-slash");
+    $(".eye__pass_").removeClass("fa-eye");
     // y.type = "password";
   }
   if (y.type === "password") {
     y.type = "text";
+    $(".eye__pass_").addClass("fa-eye");
+    $(".eye__pass_").removeClass("fa-eye-slash");
   } else {
     y.type = "password";
+    $(".eye__pass_").addClass("fa-eye-slash");
+    $(".eye__pass_").removeClass("fa-eye");
   }
 
 }

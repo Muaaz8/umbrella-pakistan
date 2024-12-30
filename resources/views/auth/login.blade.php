@@ -285,6 +285,17 @@
                 height: 50%;
             }
         }
+        .back-btn {
+            position: absolute;
+            top: 3%;
+            left: 3%;
+            z-index: 100;
+            cursor: pointer;
+        }
+        .back_white{
+            color: white;
+            z-index: 101;
+        }
     </style>
 </head>
 
@@ -292,6 +303,11 @@
     <main class="login-page container-fluid">
         <section class="content-with-login row align-items-center justify-content-center">
             <div class="left-side col-12 col-sm-6 position-relative">
+                <div class="goBackBtn">
+                    <div onclick="window.history.back()"class="back-btn">
+                        <i class="fas fa-arrow-left back_white"></i>
+                    </div>
+                </div>
                 <div class="left-container">
                     <h2>Welcome to</h2>
                     <h1 class="logo-heading text-center">
@@ -356,7 +372,7 @@
                                     <input type="password" class="form-control" name="password" id="floatingPassword"
                                         placeholder="Password" />
                                     <label for="floatingPassword">Password</label>
-                                    <i class="remove-pass fa-regular fa-eye"></i>
+                                    <i class="remove-pass fa-regular fa-eye-slash"></i>
                                 </div>
                                 <div class="password-container">
                                     <div class="checkbox-container">
@@ -411,17 +427,17 @@
     </script>
     <script type="text/javascript">
         const password = document.querySelector("#floatingPassword");
-        const eye = document.querySelector(".fa-eye");
+        const eye = document.querySelector(".remove-pass");
 
         eye.addEventListener("click", () => {
             if (password.getAttribute("type") === "password") {
                 password.setAttribute("type", "text");
-                eye.classList.remove("fa-eye");
-                eye.classList.add("fa-eye-slash");
+                eye.classList.add("fa-eye");
+                eye.classList.remove("fa-eye-slash");
             } else {
                 password.setAttribute("type", "password");
-                eye.classList.remove("fa-eye-slash");
-                eye.classList.add("fa-eye");
+                eye.classList.add("fa-eye-slash");
+                eye.classList.remove("fa-eye");
             }
         });
     </script>

@@ -120,12 +120,15 @@
 
         $(".toggle-password").click(function() {
 
-$(this).toggleClass("fa-eye fa-eye-slash");
 var input = $($(this).attr("toggle"));
 if (input.attr("type") == "password") {
   input.attr("type", "text");
+  $(".eye__pass_").addClass("fa-eye");
+    $(".eye__pass_").removeClass("fa-eye-slash");
 } else {
   input.attr("type", "password");
+    $(".eye__pass_").addClass("fa-eye-slash");
+    $(".eye__pass_").removeClass("fa-eye");
 }
 });
     </script>
@@ -385,7 +388,7 @@ if (input.attr("type") == "password") {
                 <div class="modal-body text-start">
                     <div class="form-card" id="success_load">
                         <h2 class="purple-text text-center"><strong>Please wait...!!!</strong></h2>
-                        <div id="loader" style="height: auto;">
+                        <div id="loader" style="height: auto;" class="d-flex align-items-center justify-content-center">
                         <lottie-player src="https://assets8.lottiefiles.com/packages/lf20_zwauaf7y.json"
                             background="transparent" speed="1" style="width: 300px; height: 200px"
                             loop autoplay>

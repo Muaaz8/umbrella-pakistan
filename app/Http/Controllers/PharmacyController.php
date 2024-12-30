@@ -219,6 +219,7 @@ class PharmacyController extends Controller
                 if($product->featured_image == env('APP_URL')."/assets/images/user.png"){
                     $product->featured_image = asset('assets/new_frontend/panadol2.png');
                 }
+                
                 return view('website_pages.pharmacy.new_pakistan_single_view', compact('products','meta_tags','title'));
                 // return view('single_product_details', compact('products'));
             } else if ($product->mode == 'lab-test') {

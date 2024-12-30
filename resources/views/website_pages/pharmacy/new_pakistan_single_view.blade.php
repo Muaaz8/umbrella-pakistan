@@ -98,6 +98,8 @@
 
         <div class="container my-3 z-3 pharmacy-page-container border border-1 rounded-3">
 
+            @if($products[0]->is_otc == 1)
+
             <div class="container border border-1 rounded-2 p-3 my-3 medicine_detail_container">
                 <div class="row align-items-center">
 
@@ -177,6 +179,9 @@
                     </div>
                 </div>
             </div>
+
+            @endif
+
 
             <h3 class="text-center p-2"><u>Detail Description</u></h3>
             <div class="med-description p-4">

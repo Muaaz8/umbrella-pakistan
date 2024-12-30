@@ -7177,3 +7177,12 @@ span.avtr figure {
         height: auto;
     }
 }
+
+.modal{
+    z-index: 1050 !important;
+}
+
+.select2-container--open .select2-dropdown--below
+{
+    width: 350px !important;
+}
