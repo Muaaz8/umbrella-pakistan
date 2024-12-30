@@ -17,7 +17,7 @@ $('.search_lab_btn').click(function(){
             if(res.products=="" || res.products==null)
             {
                 $('#load_lab_test_item').append(
-                    '<div class="no-product-text">'+
+                    '<div class="no-product-text d-flex justify-content-center align-items-center flex-column w-100">'+
                         '<img src="/assets/images/exclamation.png" alt="">'+
                         '<h1>NO ITEM Found</h1>'+
                         '<p>There are no item that match your current filters. Try removing some of them to get better results.</p>'+
@@ -93,7 +93,7 @@ input.addEventListener("keypress", function(event) {
             if(res.products=="" || res.products==null)
             {
                     $('#load_lab_test_item').append(
-                    '<div class="no-product-text">'+
+                    '<div class="no-product-text d-flex justify-content-center align-items-center flex-column w-100">'+
                         '<img src="/assets/images/exclamation.png" alt="">'+
                         '<h1>NO ITEM Found</h1>'+
                         '<p>There are no item that match your current filters. Try removing some of them to get better results.</p>'+

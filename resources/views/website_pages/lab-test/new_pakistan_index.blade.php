@@ -61,7 +61,7 @@
                         $('#loadSearchPharmacyItemByCategory').html('');
                         if (res == "" || res == null) {
                             $('#loadSearchPharmacyItemByCategory').append(
-                                '<div class="no-product-text py-4">' +
+                                '<div class="no-product-text d-flex justify-content-center align-items-center flex-column w-100 py-4">' +
                                 '<img src="/assets/images/exclamation.png" alt="">' +
                                 '<h1>NO ITEM Found</h1>' +
                                 '<p>There are no item that match your current filters. Try removing some of them to get better results.</p>' +
@@ -133,7 +133,7 @@
                         $('#loadSearchPharmacyItemByCategory').html('');
                         if (res == "" || res == null) {
                             $('#loadSearchPharmacyItemByCategory').append(
-                                '<div class="no-product-text py-4">' +
+                                '<div class="no-product-text d-flex justify-content-center align-items-center flex-column w-100 py-4">' +
                                 '<img src="/assets/images/exclamation.png" alt="">' +
                                 '<h1>NO ITEM Found</h1>' +
                                 '<p>There are no item that match your current filters. Try removing some of them to get better results.</p>' +

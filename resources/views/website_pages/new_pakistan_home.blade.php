@@ -749,7 +749,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="d-flex justify-content-center no-product-loader">
+                    <div class="d-flex justify-content-center align-items-center no-product-loader">
                         <i class="fa fa-spinner fa-spin fs-1"></i>
                     </div>
 
@@ -879,7 +879,7 @@
                                     class="fa-solid fa-cart-shopping mx-2"></i></button>
                         </div>
                     </div> --}}
-                    <div class="no-product-text">
+                    <div class="no-product-text d-flex justify-content-center align-items-center flex-column">
                         <i class="fa fa-spinner fa-spin fs-1"></i>
                         <p>Loading</p>
                     </div>
@@ -1002,7 +1002,7 @@
                             <button class="learn_btn">Learn More</button>
                         </div>
                     </div>--}}
-                    <div class="no-product-text">
+                    <div class="no-product-text d-flex justify-content-center align-items-center flex-column">
                         <i class="fa fa-spinner fa-spin fs-1"></i>
                         <p>Loading</p>
                     </div>

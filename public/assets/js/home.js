@@ -26,7 +26,7 @@ function getPharmacyProductByCategory(sub_cat_id,limit)
             if(res=="" || res==null)
                 {
                     $('#load_pharmacy_item_by_category').append(
-                        '<div class="no-product-text">'+
+                        '<div class="no-product-text d-flex justify-content-center align-items-center flex-column w-100">'+
                             '<img src="/assets/images/exclamation.png" alt="">'+
                             '<h1>NO ITEM Found</h1>'+
                             '<p>There are no item that match your current filters. Try removing some of them to get better results.</p>'+
@@ -84,7 +84,7 @@ function getLabtestProductByCategory(cat_id,limit)
             $('#load_more_btn_lab').html('');
             if(res.products=="" || res.products==null){
                 $('#load_labtest_item_by_category').append(
-                    '<div class="no-product-text" style="width=100%;">'+
+                    '<div class="no-product-text d-flex justify-content-center align-items-center flex-column w-100">'+
                         '<img src="/assets/images/exclamation.png" alt="">'+
                         '<h1>NO ITEM Found</h1>'+
                         '<p>There are no item that match your current filters. Try removing some of them to get better results.</p>'+
@@ -161,7 +161,7 @@ function getImagingProductByCategory(cat_id,limit)
             if(res.products=="" || res.products==null)
                 {
                     $('#load_imaging_item_by_category').append(
-                        '<div class="no-product-text">'+
+                        '<div class="no-product-text d-flex justify-content-center align-items-center flex-column w-100">'+
                             '<img src="/assets/images/exclamation.png" alt="">'+
                             '<h1>NO ITEM Found</h1>'+
                             '<p>There are no item that match your current filters. Try removing some of them to get better results.</p>'+
