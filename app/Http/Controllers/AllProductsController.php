@@ -778,6 +778,24 @@ class AllProductsController extends AppBaseController
         }
     }
 
+    public function inclinic_add_imging_pro(Request $request)
+    {
+        $pres = DB::table('prescriptions')->where('session_id','0')->where('imaging_id',$request['id'])->where('parent_id',$request['session_id'])->get();
+        $test = DB::table('quest_data_test_codes')->where('TEST_CD',$request['id'])->first();
+        if(count($pres)==0){
+            Prescription::insert([
+                'session_id' => '0',
+                'imaging_id' => $request['id'],
+                'type' => 'imaging',
+                'quantity' => 1,
+                'parent_id' => $request['session_id'],
+                'created_at' => Carbon::now(),
+            ]);
+
+            event(new LoadPrescribeItemList($request['session_id'], $request['user_id']));
+        }
+    }
+
     public function get_product_details(Request $request)
     {
         $id = $request['id'];
@@ -811,6 +829,27 @@ class AllProductsController extends AppBaseController
 
         return "ok";
     }
+
+    public function inclinic_get_product_details(Request $request)
+    {
+        $id = $request['id'];
+        if ($request['type'] == 'med') {
+            $pres = DB::table('prescriptions')->where('session_id',"0")->where('parent_id',$request['session_id'])->where('medicine_id',$id)->get();
+            if(count($pres)==0){
+                Prescription::insert([
+                    'session_id' => "inclinic",
+                    'medicine_id' => $id,
+                    'type' => 'medicine',
+                    'quantity' => 1,
+                    'parent_id' => $request['session_id'],
+                    'created_at' => Carbon::now(),
+                ]);
+                event(new LoadPrescribeItemList($request['session_id'], $request['user_id']));
+            }
+        }
+
+        return "ok";
+    }
     public function get_lab_details(Request $request)
     {
         // dd($request);
@@ -826,7 +865,25 @@ class AllProductsController extends AppBaseController
             ]);
             event(new LoadPrescribeItemList($request['session_id'], $request['user_id']));
         }
-    return "ok";
+        return "ok";
+    }
+
+    public function inclinic_get_lab_details(Request $request)
+    {
+        $pres = DB::table('prescriptions')->where('session_id','0')->where('test_id',$request['id'])->where('parent_id',$request['session_id'])->get();
+        $test = DB::table('quest_data_test_codes')->where('TEST_CD',$request['id'])->first();
+        if(count($pres)==0){
+            Prescription::insert([
+                'session_id' => "0",
+                'test_id' => $request['id'],
+                'type' => $test->mode,
+                'quantity' => 1,
+                'parent_id' => $request['session_id'],
+                'created_at' => Carbon::now(),
+            ]);
+            event(new LoadPrescribeItemList($request['session_id'], $request['user_id']));
+        }
+        return "ok";
     }
     public function get_prescribe_item_list(Request $request)
     {
@@ -882,6 +939,52 @@ class AllProductsController extends AppBaseController
         $product = collect($items);
         return $product;
     }
+
+    public function inclinic_get_prescribe_item_list(Request $request)
+    {
+        $items = [];
+        $pro_lists = Prescription::where('session_id', '0')->where('parent_id', $request['session_id'])->get();
+        foreach ($pro_lists as $pro_list) {
+            if ($pro_list->type == "lab-test") {
+
+                $labData = \App\QuestDataTestCode::where('TEST_CD', $pro_list->test_id)->first();
+
+                $getTestAOE = QuestDataAOE::select("TEST_CD AS TestCode", "AOE_QUESTION AS QuestionShort", "AOE_QUESTION_DESC AS QuestionLong")
+                    ->where('TEST_CD', $pro_list->test_id)
+                    ->groupBy('AOE_QUESTION_DESC')
+                    ->get();
+                $count = count($getTestAOE);
+                if ($count > 0) {
+                    $labData->aoes = 1;
+                } else {
+                    $labData->aoes = 0;
+                }
+                $items[] = $labData;
+            } else if ($pro_list->type == "imaging") {
+
+                $labData = \App\QuestDataTestCode::where('TEST_CD', $pro_list->imaging_id)->first();
+
+                $getTestAOE = QuestDataAOE::select("TEST_CD AS TestCode", "AOE_QUESTION AS QuestionShort", "AOE_QUESTION_DESC AS QuestionLong")
+                    ->where('TEST_CD', $pro_list->imaging_id)
+                    ->groupBy('AOE_QUESTION_DESC')
+                    ->get();
+                $count = count($getTestAOE);
+                $items[] = $labData;
+            } else if ($pro_list->type == "medicine") {
+                if ($pro_list->usage != null) {
+                    $getRes = $this->allProductsRepository->find($pro_list->medicine_id);
+                    $getRes->usage = $pro_list->usage;
+                    $items[] = $getRes;
+                } else {
+                    $getRes = $this->allProductsRepository->find($pro_list->medicine_id);
+                    $getRes->usage = "";
+                    $items[] = $getRes;
+                }
+            }
+        }
+        $product = collect($items);
+        return $product;
+    }
     public function deletePrescribeItemFromSession(Request $request)
     {
         // dd($request);
@@ -894,6 +997,18 @@ class AllProductsController extends AppBaseController
         } else if ($request['type'] == "medicine") {
             Prescription::where('session_id', $request['session_id'])->where('medicine_id', $request['pro_id'])->delete();
             // return redirect(url()->previous());
+        }
+        event(new LoadPrescribeItemList($request->session_id, $request->user_id));
+    }
+
+    public function inclinicdeletePrescribeItemFromSession(Request $request)
+    {
+        if ($request['type'] == "lab-test") {
+            Prescription::where('session_id', '0')->where('parent_id', $request['session_id'])->where('test_id', $request['pro_id'])->delete();
+        } else if ($request['type'] == "imaging") {
+            Prescription::where('session_id', '0')->where('parent_id', $request['session_id'])->where('imaging_id', $request['pro_id'])->delete();
+        } else if ($request['type'] == "medicine") {
+            Prescription::where('session_id', '0')->where('parent_id', $request['session_id'])->where('medicine_id', $request['pro_id'])->delete();
         }
         event(new LoadPrescribeItemList($request->session_id, $request->user_id));
     }
@@ -1077,7 +1192,7 @@ class AllProductsController extends AppBaseController
         }
 
         foreach ($products as $product) {
-            $res = DB::table('prescriptions')->where('medicine_id', $product->id)->first();
+            $res = DB::table('prescriptions')->where('session_id', '0')->where('parent_id', $request->session_id)->where('medicine_id', $product->id)->first();
             if ($res != null) {
                 $product->added = 'yes';
             } else {
@@ -1199,6 +1314,31 @@ class AllProductsController extends AppBaseController
         return $labs;
     }
 
+    public function inclinic_new_get_imaging_products_by_category(Request $request)
+    {
+        if ($request->name == '') {
+            $labs = QuestDataTestCode::where('mode', 'imaging')
+                ->where('PARENT_CATEGORY', $request->cat_id)
+                ->get();
+        } else {
+            $labs = QuestDataTestCode::where('TEST_NAME', 'LIKE', "%{$request->name}%")
+                ->where('mode', 'imaging')
+                ->where('PARENT_CATEGORY', $request->cat_id)
+                ->get();
+        }
+
+        foreach ($labs as $lab) {
+            $res = DB::table('prescriptions')->where('imaging_id', $lab->TEST_CD)->where('session_id', '0')->where('parent_id', $request->session_id)->first();
+            if ($res != null) {
+                $lab->added = 'yes';
+            } else {
+                $lab->added = 'no';
+            }
+        }
+
+        return $labs;
+    }
+
     public function inclinic_new_get_lab_products_video_page(Request $request)
     {
         if ($request->name == '') {
@@ -1215,8 +1355,7 @@ class AllProductsController extends AppBaseController
         }
 
         foreach ($labs as $lab) {
-
-            $res = DB::table('prescriptions')->where('test_id', $lab->TEST_CD)->first();
+            $res = DB::table('prescriptions')->where('test_id', $lab->TEST_CD)->where('session_id', '0')->where('parent_id', $request->session_id)->first();
             if ($res != null) {
                 $lab->added = 'yes';
             } else {

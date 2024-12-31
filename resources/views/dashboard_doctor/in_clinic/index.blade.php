@@ -6,6 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <link rel="icon" href="{{ asset('asset_frontend/images/logo.ico') }}" type="image/x-icon">
+    <style>
+        .selected_medi{
+            background: linear-gradient(to bottom, #2964bc, #082755);
+            color: white !important;
+        }
+        .selected-value-bydoc{
+            border: 1px solid #16de81;
+            border-radius: 30px;
+            font-size: 14px;
+            padding: 2px 13px;
+            position: relative;
+            margin:0 10px 5px 0 ;
+        }
+            .selected-value-bydoc i{
+            position: absolute;
+            right: -11px;
+            font-size: 18px;
+            color: red;
+            cursor: pointer;
+            top: -5px;
+        }
+    </style>
 @endsection
 @section('top_import_file')
 @endsection
@@ -22,13 +44,19 @@
         });
 
         function start(id) {
+            var user_id = $('#id-' + id).html()
             var name = $('#name-' + id).html()
             var reason = $('#reason-' + id).html()
+            var age = $('#age-' + id).html()
+            $('#session-id').html(id)
+            $('#patient-id').html(user_id)
             $('#consulation-name').html(name)
             $('#patient-name').html(name)
-            $('#patient-age').html()
+            $('#patient-age').html(age)
             $('#patient-reason').html(reason)
             $('.consultation-side').removeClass('d-none');
+            $('.start-button').attr('disabled','true');
+            onPageLoadPrescribeItemLoad();
         }
 
         Echo.channel('inclinic-patient-update')
@@ -72,34 +100,146 @@
                 });
         });
 
+        Echo.channel('load-prescribe-item-list')
+        .listen('LoadPrescribeItemList', (e) => {
+            var session_id =  $('#session-id').html();
+            var user_id = $('#patient-id').html();
+
+            if (session_id == e.session_id && user_id == e.user_id) {
+                $(".prescribed_items").html("");
+                $.ajax({
+                    type: "POST",
+                    url: "{{URL('/inclinic_get_prescribe_item_list')}}",
+                    data: {
+                        session_id: session_id,
+                    },
+                    success: function (products) {
+                        $(".prescribed_items").html("");
+                        if (products.length > 0) {
+                            $.each(products, function (key, product) {
+                                if (product.mode == "medicine") {
+                                    $(".prescribed_items").append(
+                                        '<span class="selected-value-bydoc">' +
+                                        product.name +
+                                        '<a onclick="med_remove(' + product.id + ')">' +
+                                        '<i class="fa-solid fa-circle-xmark"></i>' +
+                                        "</a>" +
+                                        "</span>"
+                                    );
+                                } else if (product.mode == "lab-test") {
+                                    $(".prescribed_items").append(
+                                        '<span class="selected-value-bydoc">' +
+                                        product.TEST_NAME +
+                                        '<a onclick="lab_remove(' + product.TEST_CD + ')">' +
+                                        '<i class="fa-solid fa-circle-xmark"></i>' +
+                                        "</a>" +
+                                        "</span>"
+                                    );
+                                } else if (product.mode == "imaging") {
+                                    $(".prescribed_items").append(
+                                        '<span class="selected-value-bydoc">' +
+                                        product.TEST_NAME +
+                                        '<a onclick="img_remove(' + product.TEST_CD + ')">' +
+                                        '<i class="fa-solid fa-circle-xmark"></i>' +
+                                        "</a>" +
+                                        "</span>"
+                                    );
+                                }
+                            });
+                        } else {
+                            $(".prescribed_items").append(
+                                '<span class="selected-value-bydoc">Not Found Any Prescribed Item !!</span>'
+                            );
+                        }
+                    },
+                });
+            }
+        });
+
+        function onPageLoadPrescribeItemLoad() {
+            $(".prescribed_items").html("");
+            var session_id =  $('#session-id').html();
+            $.ajax({
+                type: "POST",
+                url: "{{URL('/inclinic_get_prescribe_item_list')}}",
+                data: {
+                    session_id: session_id,
+                },
+                success: function (products) {
+                    if (products.length > 0) {
+                        $.each(products, function (key, product) {
+
+                            if (product.mode == "medicine") {
+                                $(".prescribed_items").append(
+                                    '<span class="selected-value-bydoc">' +
+                                    product.name +
+                                    '<a onclick="med_remove(' + product.id + ')">' +
+                                    '<i class="fa-solid fa-circle-xmark"></i>' +
+                                    "</a>" +
+                                    "</span>"
+                                );
+                            } else if (product.mode == "lab-test") {
+                                $(".prescribed_items").append(
+                                    '<span class="selected-value-bydoc">' +
+                                    product.TEST_NAME +
+                                    '<a onclick="lab_remove(' + product.TEST_CD + ')">' +
+                                    '<i class="fa-solid fa-circle-xmark"></i>' +
+                                    "</a>" +
+                                    "</span>"
+                                );
+                            } else if (product.mode == "imaging") {
+                                $(".prescribed_items").append(
+                                    '<span class="selected-value-bydoc">' +
+                                    product.TEST_NAME +
+                                    '<a onclick="img_remove(' + product.TEST_CD + ')">' +
+                                    '<i class="fa-solid fa-circle-xmark"></i>' +
+                                    "</a>" +
+                                    "</span>"
+                                );
+                            }
+                        });
+                    } else {
+                        $(".prescribed_items").append(
+                            '<span class="selected-value-bydoc">Not Found Any Prescribed Item !!</span>'
+                        );
+                    }
+                },
+            });
+        }
+        // Medicine
         function getMedicienByCategory(med_id) {
             $('.loadMedicienProduct').html('');
             $('.medicine_category').addClass('d-none');
+            $('.back-button-medicine').removeClass('d-none');
             $('.loadMedicienProduct').removeClass('d-none');
+            var session_id = $('#session-id').html();
             $('#selected_med_cat').val(med_id);
+
             var name = '';
             $.ajax({
                 type: 'POST',
                 url: "{{URL('/inclinic_new_get_products_by_category')}}",
                 data: {
                     med_id: med_id,
+                    session_id: session_id,
                     name: name,
                     type: 'medicine'
                 },
                 success: function (response) {
+                    console.log(response);
                     if (response.length != 0) {
                         var type = 'med';
                         $.each(response, function (key, value) {
                             if (value.added == 'yes') {
                                 $('.loadMedicienProduct').append(
-                                    `<div class="col-4"><button class="btn w-100" onclick="javascript:void(0)"
-                                        title="${value.name }"> ${value.name} </button>
+                                    `<div class="col-4"><button class="btn w-100 selected_medi" onclick="javascript:void(0)"
+                                        title="${value.name}"> ${(value.name).length > 12 ? (value.name).substring(0,12)+"..." : value.name} </button>
                                     </div>`
                                 );
                             } else {
                                 $('.loadMedicienProduct').append(
-                                    `<div class="col-4"><button class="btn w-100" onclick="javascript:void(0)"
-                                        title="${value.name }"> ${value.name} </button>
+                                    `<div class="col-4"><button class="btn w-100" title="${value.name}"
+                                        onclick="add_med(${value.id})" id="med_${value.id}">${(value.name).length > 12 ? (value.name).substring(0,12)+"..." : value.name}</button>
                                     </div>`
                                 );
                             }
@@ -116,8 +256,56 @@
             });
         }
 
+        $('.back-button-medicine').click(function (e) {
+            e.preventDefault();
+            $('.loadMedicienProduct').html('');
+            $('.medicine_category').removeClass('d-none');
+            $('.back-button-medicine').addClass('d-none');
+            $('.loadMedicienProduct').addClass('d-none');
+        });
+
+        function add_med(product_id) {
+            var user_id = $('#patient-id').html();
+            var session_id = $('#session-id').html();
+            console.log(user_id);
+            $.ajax({
+                type: 'POST',
+                url: "{{URL('/inclinic_get_product_details')}}",
+                data: {
+                    id: product_id,
+                    type: 'med',
+                    user_id: user_id,
+                    session_id: session_id,
+                },
+                success: function (product) {
+                    $('#med_' + product_id).addClass('selected_medi');
+                }
+            });
+        }
+
+        function med_remove(pro_id) {
+            var user_id = $('#patient-id').html();
+            var session_id = $('#session-id').html();
+            $.ajax({
+                type: 'POST',
+                url: "{{URL('/inclinic_delete_prescribe_item_from_session')}}",
+                data: {
+                    pro_id: pro_id,
+                    type: 'medicine',
+                    session_id: session_id,
+                    user_id: user_id
+                },
+                success: function (result) {
+                    $('#med_' + pro_id).removeClass('selected_medi');
+                }
+            });
+        }
+        // Lab
+
         function loadLabItems() {
             var name = $('#Lab_search').val();
+            var user_id = $('#patient-id').html();
+            var session_id = $('#session-id').html();
             $('#loadLabItems').html('');
             if (name == null || name == '') {
                 name = '';
@@ -127,21 +315,19 @@
                 url: "{{URL('/inclinic_new_get_lab_products_video_page')}}",
                 data: {
                     name: name,
+                    session_id:session_id,
                 },
                 success: function (response) {
                     $('#loadLabItems').html('');
                     if (response.length != 0) {
-
                         $.each(response, function (key, value) {
-
-
                             if (value.added == 'yes') {
                                 $('#loadLabItems').append(
-                                    `<div class="col-4"><button class="btn w-100" onclick="javascript:void(0)" title="${value.TEST_NAME}">${value.TEST_NAME}</button></div>`
+                                    `<div class="col-4"><button class="btn w-100 selected_medi" onclick="javascript:void(0)" title="${value.TEST_NAME}">${(value.TEST_NAME).length > 12 ? (value.TEST_NAME).substring(0,12)+"..." : value.TEST_NAME}</button></div>`
                                 );
                             } else {
                                 $('#loadLabItems').append(
-                                    `<div class="col-4"><button class="btn w-100" onclick="javascript:void(0)" title="${value.TEST_NAME}">${(value.TEST_NAME).substring(0,12)+"..."}</button></div>`
+                                    `<div class="col-4"><button class="btn w-100" id="lab_${value.TEST_CD}" onclick="add_lab(${value.TEST_CD})" title="${value.TEST_NAME}">${(value.TEST_NAME).length > 12 ? (value.TEST_NAME).substring(0,12)+"..." : value.TEST_NAME}</button></div>`
                                 );
                             }
 
@@ -156,6 +342,135 @@
                             '</div>'
                         );
                     }
+                }
+            });
+        }
+
+        function lab_remove(pro_id) {
+            var user_id = $('#patient-id').html();
+            var session_id = $('#session-id').html();
+            $.ajax({
+                type: 'POST',
+                url: "{{URL('/inclinic_delete_prescribe_item_from_session')}}",
+                data: {
+                    pro_id: pro_id,
+                    type: 'lab-test',
+                    session_id: session_id,
+                    user_id: user_id
+                },
+                success: function (result) {
+                    $("#" + pro_id).removeClass('selected_medi');
+                }
+            });
+        }
+
+        function add_lab(product_id) {
+            var user_id = $('#patient-id').html();
+            var session_id = $('#session-id').html();
+            $.ajax({
+                type: 'POST',
+                url: "{{URL('/inclinic_get_lab_details')}}",
+                data: {
+                    id: product_id,
+                    session_id: session_id,
+                    user_id: user_id,
+                },
+                success: function (product) {
+                    $('#lab_' + product_id).addClass('selected_medi');
+
+                }
+            });
+        }
+
+
+        // Imaging
+        function getImagingProduct(cat_id) {
+            var name = '';
+            var session_id = $('#session-id').html();
+            $('#load_imaging_product').html('');
+            $('.imaging_category').addClass('d-none');
+            $('.back-button-imaging').removeClass('d-none');
+            $('#load_imaging_product').removeClass('d-none');
+            $.ajax({
+                type: 'POST',
+                url: "{{URL('/inclinic_new_get_imaging_products_by_category')}}",
+                data: {
+                    cat_id: cat_id,
+                    name: name,
+                    session_id: session_id,
+                },
+                success: function (response) {
+                    if (response == 'notfound') {
+                        $('#load_imaging_product').append(
+                            `<div class="col-4"><button class="btn w-100" onclick="javascript:void(0)">No Products Found</button></div>`
+                        );
+                    } else {
+                        if (response.length != 0) {
+                            console.log(response);
+                            $.each(response, function (key, value) {
+                                if (value.added == 'yes') {
+                                    $('#load_imaging_product').append(
+                                        `<div class="col-4">
+                                        <button title="${value.TEST_NAME}" class="btn w-100 selected_medi" onclick="javascript:void(0)"> ${(value.TEST_NAME).length > 12 ? (value.TEST_NAME).substring(0,12)+"..." : value.TEST_NAME} </button>
+                                        </div>`
+                                    );
+                                } else {
+                                    $('#load_imaging_product').append(
+                                        `<div class="col-4">
+                                        <button title="${value.TEST_NAME}" class="btn w-100" id="img_${value.TEST_CD}" onclick="add_img(${value.TEST_CD})"> ${(value.TEST_NAME).length > 12 ? (value.TEST_NAME).substring(0,12)+"..." : value.TEST_NAME} </button>
+                                        </div>`
+                                    );
+                                }
+                            });
+                        } else {
+                            $('#load_imaging_product').append(
+                                `<div class="col-4"><button class="btn w-100" onclick="javascript:void(0)">No Products Found</button></div>`
+                            );
+                        }
+                    }
+                }
+            });
+        }
+
+        $('.back-button-imaging').click(function (e) {
+            e.preventDefault();
+            $('.imaging_category').removeClass('d-none');
+            $('.back-button-imaging').addClass('d-none');
+            $('#load_imaging_product').addClass('d-none');
+        });
+
+        function add_img(product_id) {
+            var user_id = $('#patient-id').html();
+            var session_id = $('#session-id').html();
+            $.ajax({
+                type: 'POST',
+                url: "{{URL('/inclinic_add_imging_pro')}}",
+                data: {
+                    id: product_id,
+                    type: 'img',
+                    session_id: session_id,
+                    user_id: user_id,
+                },
+                success: function (product) {
+                    $('#img_' + product_id).addClass('selected_medi');
+                }
+            });
+        }
+
+        function img_remove(pro_id) {
+            var user_id = $('#patient-id').html();
+            var session_id = $('#session-id').html();
+            $.ajax({
+                type: 'POST',
+                url: "{{URL('/inclinic_delete_prescribe_item_from_session')}}",
+                data: {
+                    pro_id: pro_id,
+                    type: 'imaging',
+                    session_id: session_id,
+                    user_id: user_id
+                },
+                success: function (result) {
+                    $('#img_' + pro_id).removeClass('selected_medi');
                 }
             });
         }
@@ -180,6 +495,9 @@
                                             <span class="key">{{ ++$key }})</span>
                                             <h5 id="name-{{ $pat->id }}">
                                                 {{ $pat->user->name . ' ' . $pat->user->last_name }}</h5>
+                                            <h5 class="d-none" id="age-{{ $pat->id }}">{{$pat->user->get_age($pat->user->id)}}</h5>
+                                            <h5 class="d-none" id="id-{{ $pat->id }}">{{$pat->user->id}}</h5>
+                                            <h5 class="d-none" id="session_id-{{ $pat->id }}">{{$pat->id}}</h5>
                                         </div>
                                     </div>
                                 </h2>
@@ -190,7 +508,7 @@
                                         <p id="reason-{{ $pat->id }}">{{ $pat->reason }}</p>
 
                                         <div class="d-flex gap-2 justify-content-center align-items-center">
-                                            <button class="btn btn-outline-success w-100"
+                                            <button class="btn btn-outline-success w-100 start-button"
                                                 onclick="start({{ $pat->id }})">Start Consultation</button>
                                         </div>
                                     </div>
@@ -223,6 +541,8 @@
                                         aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                                         <div class="accordion-body d-flex flex-column gap-1 p-2">
                                             <div class="d-flex justify-content-between align-items-center gap-1">
+                                                    <h6 class="d-none" id="patient-id">John Doe</h6>
+                                                    <h6 class="d-none" id="session-id">John Doe</h6>
                                                 <div>
                                                     <label for="patient-name">Name:</label>
                                                     <h6 id="patient-name">John Doe</h6>
@@ -301,11 +621,13 @@
                                             <div class="col-4"><button class="btn w-100"
                                                     title="{{ $cat->title }}" onclick="getMedicienByCategory('{{ $cat->id }}')">{{ \Str::limit($cat->title, 12, '...') }}</button>
                                             </div>
-                                            {{-- onclick="getMedicienByCategory('{{ $cat->id }}')"> --}}
                                         @endforeach
                                     </div>
+                                    <div class="d-none back-button-medicine">
+                                        <i class="fa-solid fa-circle-arrow-left toggleSubCategory"></i>
+                                        <h6 class="m-auto"></h6>
+                                    </div>
                                     <div class="row gx-3 gy-2 d-none loadMedicienProduct">
-
                                     </div>
                                 </div>
                                 <div class="tab-pane fade" id="pills-profile" role="tabpanel"
@@ -357,14 +679,31 @@
                                 </div>
                                 <div class="tab-pane fade" id="pills-contact" role="tabpanel"
                                     aria-labelledby="pills-contact-tab">
-                                    <div class="row gx-3 gy-2">
+                                    <div class="row gx-3 gy-2 imaging_category">
                                         @foreach ($img as $cat)
                                             <div class="col-4"><button class="btn w-100"
-                                                    title="{{ $cat->name }}">{{ \Str::limit($cat->name,12,'...') }}</button>
+                                                    title="{{ $cat->name }}" onclick="getImagingProduct('{{$cat->id}}')">{{ \Str::limit($cat->name,12,'...') }}</button>
                                             </div>
-                                            {{-- onclick="getImagingProduct('{{$cat->id}}')">{{$cat->name}} --}}
                                         @endforeach
                                     </div>
+                                    <div class="d-none back-button-imaging">
+                                        <i class="fa-solid fa-circle-arrow-left toggleSubCategory"></i>
+                                        <h6 class="m-auto"></h6>
+                                    </div>
+                                    <div class="row gx-3 gy-2 d-none" id="load_imaging_product">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="selected-value-div-wrap">
+                                    <h5>Selected items:</h5>
+                                    <div class="prescribed_items_main">
+                                        <div class="pt-3 d-flex flex-wrap prescribed_items">
+                                            <span class="selected-value-bydoc">Not Found Any Prescribed Item
+                                                !!</span>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>

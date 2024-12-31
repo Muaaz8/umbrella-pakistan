@@ -539,8 +539,8 @@
                     <p class="fs-6">
                         Never disregard professional medical advice or delay
                         seeking medical treatment because of something you have
-                        read on or accessed through this web site. umbrella
-                        health care systems not responsible nor liable for any
+                        read on or accessed through this web site. Community
+                        health care clinics not responsible nor liable for any
                         advice, course of treatment, diagnosis or any other
                         information, services or products that you obtain
                         through this web site.

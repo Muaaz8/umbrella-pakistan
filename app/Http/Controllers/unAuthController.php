@@ -616,35 +616,41 @@ class unAuthController extends Controller
     }
 
     public function done(Request $request){
-        $curl = curl_init();
+        try {
+            $curl = curl_init();
 
-        curl_setopt_array($curl, array(
-        CURLOPT_URL => 'chatbot.umbrellamd-video.com/done',
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => '',
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 0,
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => 'POST',
-        CURLOPT_CUSTOMREQUEST => 'POST',
-          CURLOPT_POSTFIELDS => json_encode(array('session_id'=>$request->session_id)),
-          CURLOPT_HTTPHEADER => array(
-            'Content-Type: application/json'
-          ),
-        ));
-        $response = curl_exec($curl);
-        $dcode_response = json_decode($response,true);
-        if($request->evisit == 1){
+            curl_setopt_array($curl, array(
+            CURLOPT_URL => 'chatbot.umbrellamd-video.com/done',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => json_encode(array('session_id'=>$request->session_id)),
+            CURLOPT_HTTPHEADER => array(
+                'Content-Type: application/json'
+            ),
+            ));
+            $response = curl_exec($curl);
+            $dcode_response = json_decode($response,true);
             curl_close($curl);
+        } catch (\Throwable $th) {
+        }
+        if($request->evisit == 1){
             if(Auth::check()){
-               $syschecker_id=  Symptoms_Checker::create([
-                    'user_id' => auth()->user()->id,
-                    'clinical_evaluation' => $dcode_response['clinical_evaluation'],
-                    'hypothesis_report' => $dcode_response['hypothesis_report'],
-                    'intake_notes' => $dcode_response['intake_notes'],
-                    'referrals_and_tests' => $dcode_response['referrals_and_tests'],
-                ]);
+                try{
+                    $syschecker_id=  Symptoms_Checker::create([
+                        'user_id' => auth()->user()->id,
+                        'clinical_evaluation' => $dcode_response['clinical_evaluation'],
+                        'hypothesis_report' => $dcode_response['hypothesis_report'],
+                        'intake_notes' => $dcode_response['intake_notes'],
+                        'referrals_and_tests' => $dcode_response['referrals_and_tests'],
+                    ]);
+                } catch (\Throwable $th) {
+                }
                 $doc_id = $request->doctorId;
                 $check_session_already_have = DB::table('sessions')
                     ->where('doctor_id', $doc_id)
@@ -691,7 +697,7 @@ class unAuthController extends Controller
                     'date' =>  $date,
                     'status' => 'pending',
                     'queue' => $queue,
-                    'symptom_id' => $syschecker_id->id,
+                    'symptom_id' => '',
                     'remaining_time' => 'full',
                     'channel' => $channelName,
                     'price' => $session_price,
@@ -707,14 +713,12 @@ class unAuthController extends Controller
                 // return redirect()->route('session_payment_page', ['id' => $session_id]);
             }
         } else if($request->evisit == 2){
-            curl_close($curl);
             $user = auth()->user();
             $responseData['user'] = $user;
             $responseData['doc_id'] = $request->doctorId;
             return Response::json($responseData);
         } else{
             Cookie::queue(Cookie::make('chat_done_cookie', $response, 180));
-            curl_close($curl);
             if(Auth::check()){
                 $requestData['auth'] = 1;
                 $requestData['response_api'] = json_decode($response,true);

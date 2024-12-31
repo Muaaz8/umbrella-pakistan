@@ -538,8 +538,16 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
 
     });
     Route::get('/doctor/in/clinics', 'PatientController@doctor_in_clinic')->name('doctor_in_clinic');
+
     Route::post('/inclinic_new_get_products_by_category', 'AllProductsController@inclinic_new_get_products_by_category');
     Route::post('/inclinic_new_get_lab_products_video_page', 'AllProductsController@inclinic_new_get_lab_products_video_page');
+    Route::post('/inclinic_get_product_details', 'AllProductsController@inclinic_get_product_details');
+    Route::post('/inclinic_get_prescribe_item_list', 'AllProductsController@inclinic_get_prescribe_item_list');
+    Route::post('/inclinic_delete_prescribe_item_from_session', 'AllProductsController@inclinicdeletePrescribeItemFromSession');
+    Route::post('/inclinic_get_lab_details', 'AllProductsController@inclinic_get_lab_details');
+    Route::post('/inclinic_add_imging_pro', 'AllProductsController@inclinic_add_imging_pro');
+    Route::post('/inclinic_new_get_imaging_products_by_category', 'AllProductsController@inclinic_new_get_imaging_products_by_category');
+
     Route::post('patient/health/store','DoctorController@patient_health_store')->name('patient_health_store');
     Route::post('mood/disorder/store','DoctorController@mood_disorder_store')->name('mood_disorder_store');
     Route::post('anxiety/scale/store','DoctorController@anxiety_scale_store')->name('anxiety_scale_store');
