@@ -125,7 +125,7 @@ $(window).scroll(function() {
                         <div class="card-body">
                             <div class="first-card-content">
                                 <p>Welcome to</p>
-                                <h1>Community Health Care Clinics</h1>
+                                <h1>Community Healthcare Clinics</h1>
                             </div>
                             <div class="first-card-img-div">
                                 {{--<img src="{{ asset('assets/images/logoAll.png') }}" alt="" height="auto" width="200">--}}
