@@ -90,11 +90,11 @@ $page = DB::table('pages')->where('url', '/')->first();
 
                 <div class="footer-highlight">
                     <i class="fa-solid fa-phone"></i>
-                    <a href="">+1 (407) 693-8484</a>
+                    <a href="tel:+14076938484">+1 (407) 693-8484</a>
             </div>
             <div class="footer-highlight">
                 <i class="fa-brands fa-whatsapp"></i>
-                <a href="">0337-2350684</a>
+                <a href="https://wa.me/923372350684" target="_blank">0337-2350684</a>
             </div>
         </div>
         </div>

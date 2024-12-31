@@ -155,7 +155,7 @@
 
         #right-side>div,
 
-        #social-icons>div {
+        #social-icons>a {
 
             display: flex;
 
@@ -167,7 +167,8 @@
 
             border-radius: 30px;
 
-            padding: 6px;
+            color: white;
+            text-decoration: none;
 
         }
 
@@ -522,14 +523,19 @@
             justify-content: space-between;
         }
 
-        #social-icons>div {
+        #social-icons>a {
             background-color: var(--red);
             border: none;
-            padding: 8px;
+            width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+            justify-content: center;
         }
 
-        #social-icons>div>i {
+        #social-icons>a>i {
             font-size: 17px;
+            width: 25%;
         }
 
         #footer-4>div>h4 {
@@ -638,6 +644,13 @@
             margin: 5px 0;
             transition: 0.4s;
         }
+
+        .underline {
+    width: 75%;
+    background-color: var(--red);
+    height: 2px;
+    border-radius: 20px;
+}
 
         .drawer {
             position: fixed;
@@ -2659,10 +2672,9 @@
                     <img src="{{ asset('assets/new_frontend/logo.png') }}" alt="umbrella-logo" />
                 </div>
                 <div class="flex gap-15" id="social-icons">
-                    <div><i class="fa-brands fa-facebook"></i></div>
-                    <div><i class="fa-brands fa-linkedin"></i></div>
-                    <div><i class="fa-brands fa-instagram"></i></div>
-                    <div><i class="fa-brands fa-pinterest"></i></div>
+                    <a href="https://www.facebook.com/share/15m4ofYggZ/" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.linkedin.com/company/community-health-care-clinics/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="https://www.instagram.com/community_healthcare_clinics?igsh=MXh6aHRzM2NrNThlMw==" target="_blank"><i class="fa-brands fa-instagram"></i></a>
                 </div>
             </div>
             <div id="footer-2" class="footer">
@@ -2671,14 +2683,19 @@
                     <div class="underline"></div>
                 </div>
                 <div class="footer-content">
+                    <p class="d-flex align-items-center"><i class="fa-solid mx-2 fa-envelope"></i> <span>contact@communityhealthcareclinics.com</span></p>
+                    <p class="d-flex align-items-center"><i class="fa-solid mx-2 fa-envelope"></i> <span>support@communityhealthcareclinics.com</span></p>
+                    <p class="d-flex align-items-center"><i class="fa-solid mx-2 fa-location-dot"></i>  <span>Progressive Center, 4th Floor Suite#410, Main Shahrah Faisal, Karachi</span></p>
+
                     <div class="footer-highlight">
-                        <i class="fa-solid fa-location-dot"></i>
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#locationModal">Find Location</a>
-                    </div>
-                    <p>contact@communityhealthcareclinics.com</p>
-                    <p>support@communityhealthcareclinics.com</p>
-                    <p>Progressive Center, Main Shahrah Faisal, Karachi</p>
+                        <i class="fa-solid fa-phone"></i>
+                        <a href="tel:+14076938484">+1 (407) 693-8484</a>
                 </div>
+                <div class="footer-highlight">
+                    <i class="fa-brands fa-whatsapp"></i>
+                    <a href="https://wa.me/923372350684" target="_blank">0337-2350684</a>
+                </div>
+            </div>
             </div>
             <div id="footer-3" class="footer">
                 <div class="footer-heading">
@@ -2700,25 +2717,27 @@
                         <i class="fa-solid fa-chevron-right"></i>
                         <a href="{{ route('faq') }}">FAQs</a>
                     </div>
-                    <div class="footer-info">
+                    {{-- <div class="footer-info">
                         <i class="fa-solid fa-chevron-right"></i>
                         <a href="{{ route('privacy_policy') }}">Privacy Policy</a>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
             <div id="footer-4" class="footer">
                 <div class="footer-heading">
-                    <h3>Emergency Contact</h3>
+                    <h3>Find Us</h3>
                     <div class="underline"></div>
                 </div>
+
                 <div class="footer-content">
-                    <div class="footer-highlight">
-                        <i class="fa-brands fa-whatsapp"></i>
-                        <a href="">0337-2350684</a>
-                    </div>
+
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3620.017148282561!2d67.0743981!3d24.8632639!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33f3f9ba7181d%3A0x99571ff4d3fb7e52!2sCommunity%20Health%20Care%20Clinics!5e0!3m2!1sen!2s!4v1734451314564!5m2!1sen!2s" width="300" height="150" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
                 </div>
-            </div>
+
+
         </section>
+
         <div class="seperation"></div>
         <section id="copyright">
             <p>
