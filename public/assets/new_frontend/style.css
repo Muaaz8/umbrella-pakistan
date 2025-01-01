@@ -3149,11 +3149,11 @@ footer {
 }
 
 .partners_logos>img:first-child {
-    width: 50%;
+    width: 40%;
 }
 
 .partners_logos>img:last-child {
-    width: 40%;
+    width: 25%;
 }
 
 .last-content {
@@ -3262,16 +3262,16 @@ footer {
     }
 
     .step-heading>h3 {
-        font-size: 1rem;
+        font-size: 1.2rem;
     }
 
     .step {
         width: 24%;
-        padding: 30px 10px;
+        padding: 10px;
     }
 
     .button-section>div>div {
-        font-size: 1rem;
+        font-size: 1.2rem;
     }
 
     .button-section>div>i {
@@ -3304,7 +3304,7 @@ footer {
     }
 
     .partner-heading {
-        font-size: 2.3rem;
+        font-size: 3.3rem;
     }
 
     .first-content {
@@ -3340,7 +3340,7 @@ footer {
     }
 
     .faq-question h3 {
-        font-size: 1.3rem;
+        font-size: 1.4rem;
     }
 
     .faq-answer p {
@@ -3356,7 +3356,7 @@ footer {
     }
 
     #disclaimer-content>div>p {
-        font-size: 1rem;
+        font-size: 1.2rem;
     }
 
     .footer-heading>h3 {

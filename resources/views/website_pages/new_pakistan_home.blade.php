@@ -1178,7 +1178,7 @@
                     </div>
                 </div>
                 <div class="col-md-7 col-xl-6">
-                    <div class="d-flex flex-wrap gap-3 justify-content-center align-items-start partners_logos">
+                    <div class="d-flex flex-wrap gap-3 justify-content-center align-items-center partners_logos">
                         <img src="{{ asset('assets/new_frontend/partner2.png') }}" alt="Partner 2 Logo" />
                         <img src="{{ asset('assets/new_frontend/partner1.png') }}" alt="Partner 1 Logo" />
                     </div>
