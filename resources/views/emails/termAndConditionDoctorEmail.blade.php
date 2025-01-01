@@ -112,7 +112,7 @@
                                       padding: 9px 20px;
                                       ">
 
-                                                                        <b> Welcome to Community Health Care Clinics
+                                                                        <b> Welcome to Community Healthcare Clinics
                                                                             (CHCC)</b>
                                                                         <br>
                                                                         These Terms of Use govern your use of CHCC

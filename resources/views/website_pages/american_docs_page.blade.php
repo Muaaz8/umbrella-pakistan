@@ -218,7 +218,7 @@
               solutions tailored to your unique needs.
             </p>
             <p>
-              At Community Health Care Clinics, we understand the importance
+              At Community Healthcare Clinics, we understand the importance
               of accessing quality healthcare, regardless of your geographical
               location. That's why we've bridged the gap between you and top
               American doctors, providing a seamless and secure

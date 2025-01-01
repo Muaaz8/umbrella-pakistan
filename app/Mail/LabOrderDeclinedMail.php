@@ -29,7 +29,7 @@ class LabOrderDeclinedMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Community Health Care Clinics')
+        return $this->subject('Community Healthcare Clinics')
                     ->markdown('emails.lab_order_declined')
                     ->with('lab_order_approval' ,$this->lab_order_approval );
 

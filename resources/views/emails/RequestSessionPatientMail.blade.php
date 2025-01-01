@@ -120,7 +120,7 @@
                                     {{ $data['refill_comment'] }}
                                     <br>
                                     <br>
-                                    Community Health Care Clinics
+                                    Community Healthcare Clinics
                                   </p>
 
 

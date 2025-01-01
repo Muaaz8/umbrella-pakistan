@@ -42,7 +42,7 @@ $page = DB::table('pages')->where('url', '/')->first();
             <p>
                 Never disregard professional medical advice or delay seeking
                 medical treatment because of something you have read on or
-                accessed through this web site. Community Health Care Clinics not
+                accessed through this web site. Community Healthcare Clinics not
                 responsible nor liable for any advice, course of treatment,
                 diagnosis or any other information, services or products that
                 you obtain through this website.
@@ -105,7 +105,7 @@ $page = DB::table('pages')->where('url', '/')->first();
             </div>
             <div class="footer-content">
                 <p>07:00 am - 08:00 pm</p>
-                <p>Community Health Care Clinics</p>
+                <p>Community Healthcare Clinics</p>
                 <div class="footer-info">
                     <i class="fa-solid fa-chevron-right"></i>
                     <a href="{{ route('about_us') }}">About Us</a>
@@ -143,7 +143,7 @@ $page = DB::table('pages')->where('url', '/')->first();
     <section id="copyright">
         <p>
             Copyright &copy; {{ date('Y') }}.
-            <span>Community Health Care Clinics. All Rights Reserved</span>
+            <span>Community Healthcare Clinics. All Rights Reserved</span>
         </p>
     </section>
 </footer>

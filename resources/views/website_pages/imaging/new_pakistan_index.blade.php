@@ -14,7 +14,7 @@
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.umbrellamd.com" />
-    <meta property="og:site_name" content="Community Health Care Clinics | Umbrellamd.com" />
+    <meta property="og:site_name" content="Community Healthcare Clinics | Umbrellamd.com" />
     <meta name="twitter:site" content="@umbrellamd	">
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="author" content="Umbrellamd">
@@ -245,7 +245,7 @@
         </div>
 
         <div class="container-fluid px-5">
-            <h3>Community Health Care Clinics - Imaging</h3>
+            <h3>Community Healthcare Clinics - Imaging</h3>
             <p>
                 Our pharmacy offers prescription drugs at discounted prices.
             </p>

@@ -158,10 +158,10 @@
                                         Dr.{{ $data['ref_from_name'] }} have refered you to Mr./Ms {{ $data['pat_name'] }}.
                                         <br>
                                     @endif
-                                    Please go to the Community Health Care Clinics web portal to make an appointment.
+                                    Please go to the Community Healthcare Clinics web portal to make an appointment.
                                   <br>
                                   <br>
-                                  Community Health Care Clinics
+                                  Community Healthcare Clinics
                                   </p>
 
 

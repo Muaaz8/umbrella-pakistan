@@ -105,7 +105,7 @@
                                         padding: 9px 20px;
                                       ">
                                       {{ $data['body'] }}
-                                      <br> Community Health Care Clinics
+                                      <br> Community Healthcare Clinics
                                     </p>
                                   </th>
                                 </tr>

@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 @endsection
 @section('page_title')
-    <title>Community Health Care Clinics</title>
+    <title>Community Healthcare Clinics</title>
 @endsection
 @section('top_import_file')
 <style>
@@ -41,8 +41,8 @@
     <section>
         <div class="card_style col-md-6 col-11 my-5">
             <img src="{{ asset('./assets/images/contracts.png') }}" alt="">
-            <h5 class="fw-bold mb-2">Community Health Care Clinics</h5>
-            <h6>You have Signed the Contract with Community Health Care Clinics</h6>
+            <h5 class="fw-bold mb-2">Community Healthcare Clinics</h5>
+            <h6>You have Signed the Contract with Community Healthcare Clinics</h6>
             <p class="my-2">You can now have sessions with your patients</p>
             <button class="view-pat-btn" onclick="location.href='{{ route('home') }}'">View Online Patients</button>
         </div>

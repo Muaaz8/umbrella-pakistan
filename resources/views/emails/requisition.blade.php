@@ -144,7 +144,7 @@
                                         margin: 0;
                                         background: #f9f9f9;
                                         padding: 0px 20px  9px ;">
-                                    <br> Community Health Care Clinics
+                                    <br> Community Healthcare Clinics
                                   </p>
 
 

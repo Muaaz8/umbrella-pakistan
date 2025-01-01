@@ -148,10 +148,10 @@
                                         padding: 9px 20px;
                                       "
                                     >
-                                    Your Dr.{{ $data['ref_from_name'] }} has referred you to Dr.{{ $data['ref_to_name'] }}. Please go to the Community Health Care Clinics web portal to make an appointment.
+                                    Your Dr.{{ $data['ref_from_name'] }} has referred you to Dr.{{ $data['ref_to_name'] }}. Please go to the Community Healthcare Clinics web portal to make an appointment.
                                   <br>
                                   <br>
-                                  Community Health Care Clinics
+                                  Community Healthcare Clinics
                                   </p>
 
 

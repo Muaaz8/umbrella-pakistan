@@ -27,7 +27,7 @@
     @if ($title != null)
         <title>{{ $title->content }}</title>
     @else
-        <title>Faqs | Community Health Care Clinics</title>
+        <title>Faqs | Community Healthcare Clinics</title>
     @endif
 @endsection
 

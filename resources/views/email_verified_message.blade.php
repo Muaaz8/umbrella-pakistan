@@ -6,7 +6,7 @@
 
 
 @section('page_title')
-    <title>Community Health Care Clinics</title>
+    <title>Community Healthcare Clinics</title>
 @endsection
 
 @section('top_import_file')

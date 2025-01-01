@@ -81,7 +81,7 @@
                 {{ Session::get('message')}}
                 </div>
               @endif
-              <p>Please verify your email address to accesss Community Health Care Clinics web portal.</p>
+              <p>Please verify your email address to accesss Community Healthcare Clinics web portal.</p>
              <div>
               <p>If you did not get it.</p>
               <form action="{{ route('resend') }}" id="form_send" method="POST">

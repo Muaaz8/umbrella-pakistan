@@ -114,10 +114,10 @@
                                           background: #f9f9f9;
                                           padding: 9px 20px;
                                         ">
-                                      Your request for refill to Dr.{{ $data['doc_name'] }} has been fulfilled. Go to Community Health Care Clinics web-portal and checkout
+                                      Your request for refill to Dr.{{ $data['doc_name'] }} has been fulfilled. Go to Community Healthcare Clinics web-portal and checkout
                                       your medications
                                       <br>
-                                      <br> Community Health Care Clinics
+                                      <br> Community Healthcare Clinics
                                     </p>
 
 

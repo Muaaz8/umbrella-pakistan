@@ -122,7 +122,7 @@
 
                                     <br>
                                     <br>
-                                    Community Health Care Clinics
+                                    Community Healthcare Clinics
                                   </p>
 
 

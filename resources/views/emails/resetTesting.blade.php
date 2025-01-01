@@ -137,7 +137,7 @@
                                       "
                                     >
 
-                                    A request has been received to change password for your Community Health Care Clinics account.
+                                    A request has been received to change password for your Community Healthcare Clinics account.
                                     </p>
 
                                   </th>

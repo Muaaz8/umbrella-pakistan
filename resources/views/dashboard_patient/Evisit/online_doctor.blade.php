@@ -943,9 +943,9 @@
                                                                 professional medical advice or delay seeking it due to
                                                                 information found on our website. If you suspect a medical
                                                                 emergency, please contact your doctor or call 911 without
-                                                                delay. Community Health Care Clinics does not endorse or
+                                                                delay. Community Healthcare Clinics does not endorse or
                                                                 recommend specific products or services. Any reliance on
-                                                                information provided by Community Health Care Clinics is
+                                                                information provided by Community Healthcare Clinics is
                                                                 solely at your discretion and risk.
                                                             </p>
                                                         </div>

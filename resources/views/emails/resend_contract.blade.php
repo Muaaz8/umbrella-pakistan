@@ -120,7 +120,7 @@
                                       ">
                                                                         Your Contract has been revised..
                                                                         <br>
-                                                                        <br> Community Health Care Clinics
+                                                                        <br> Community Healthcare Clinics
                                                                     </p>
 
 

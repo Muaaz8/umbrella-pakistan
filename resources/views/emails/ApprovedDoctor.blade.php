@@ -649,7 +649,7 @@
 																			<td height="18">&nbsp;</td>
 																		</tr>
 																		<tr>
-																			<td align="center" style="font-family:'Josefin Sans', Arial, Helvetica, sans-serif;font-size: 24px;color: #282828;">Hi Dr.{{ $doctorName }}, your  account has been activated, now you can login into your account at<br>Community Health Care Clinics, Web-portal.</td>
+																			<td align="center" style="font-family:'Josefin Sans', Arial, Helvetica, sans-serif;font-size: 24px;color: #282828;">Hi Dr.{{ $doctorName }}, your  account has been activated, now you can login into your account at<br>Community Healthcare Clinics, Web-portal.</td>
 																		</tr>
 																		<tr>
 																			<td height="30">&nbsp;</td>
@@ -822,7 +822,7 @@
                                                                                     Hi Dr.{{ $doctorName }}, your
                                                                                     account has been activated, now you
                                                                                     can login into your account
-                                                                                    at<br>Community Health Care Clinics,
+                                                                                    at<br>Community Healthcare Clinics,
                                                                                     Web-portal.</td>
                                                                             </tr>
                                                                             <tr>

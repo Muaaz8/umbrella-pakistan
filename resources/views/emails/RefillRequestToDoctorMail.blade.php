@@ -115,9 +115,9 @@
                                           padding: 9px 20px;
                                         ">
                                       you have a new refill request, please check on your dashboard by logging into
-                                      Community Health Care Clinics web-portal
+                                      Community Healthcare Clinics web-portal
                                       <br>
-                                      <br> Community Health Care Clinics
+                                      <br> Community Healthcare Clinics
                                     </p>
 
 

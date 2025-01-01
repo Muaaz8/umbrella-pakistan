@@ -147,7 +147,7 @@
                                     >
                                     This Email is sent to you to remind that you have some items in your cart that is not yet checked out.
                                     <br>Hope to see you there!
-                                     <br> Community Health Care Clinics
+                                     <br> Community Healthcare Clinics
                                     </p>
 
 

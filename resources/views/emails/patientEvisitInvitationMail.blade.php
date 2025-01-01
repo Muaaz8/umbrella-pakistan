@@ -123,11 +123,11 @@
                                       ">
                                                                         A new patient Mr./Ms {{ $data['pat_name'] }} wants to have a
                                                                         session with you. Please check your patient
-                                                                        queue on Community Health Care Clinics web
+                                                                        queue on Community Healthcare Clinics web
                                                                         portal.
                                                                         <br>
                                                                         <br>
-                                                                        Community Health Care Clinics
+                                                                        Community Healthcare Clinics
                                                                     </p>
 
 

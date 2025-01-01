@@ -147,7 +147,7 @@
                                     >
                                     A new appointment has been booked with patient Mr./Ms {{ $data['pat_name'] }}, on {{ $data['date']." ".$data['time'] }}
                                     <br>Hope to see you there!
-                                     <br> Community Health Care Clinics
+                                     <br> Community Healthcare Clinics
                                     </p>
 
 

@@ -29,7 +29,7 @@ class SendContract extends Mailable
      */
     public function build()
     {
-        return $this->subject('Community Health Care Clinics Provider Contract')->markdown('emails.send_contract')
+        return $this->subject('Community Healthcare Clinics Provider Contract')->markdown('emails.send_contract')
                     ->with('contract' ,$this->contract )
                     ->with('url' ,$this->url );
     }

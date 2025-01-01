@@ -149,7 +149,7 @@
                                     Your appointment is booked with Dr. <b>{{ $data['doc_name'] }} on {{ $data['date']." ". $data['time'] }} .</b> Please make sure to be on time
                                      <br> Thanks
                                      <br>
-                                     <br> Community Health Care Clinics
+                                     <br> Community Healthcare Clinics
                                     </p>
 
 

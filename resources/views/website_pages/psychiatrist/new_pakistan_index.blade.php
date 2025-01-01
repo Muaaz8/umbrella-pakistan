@@ -14,7 +14,7 @@
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.umbrellamd.com" />
-    <meta property="og:site_name" content="Community Health Care Clinics | Umbrellamd.com" />
+    <meta property="og:site_name" content="Community Healthcare Clinics | Umbrellamd.com" />
     <meta name="twitter:site" content="@umbrellamd	">
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="author" content="Umbrellamd">
@@ -27,7 +27,7 @@
     @if ($title != null)
         <title>{{ $title->content }}</title>
     @else
-        <title>Psychiatry | Community Health Care Clinics</title>
+        <title>Psychiatry | Community Healthcare Clinics</title>
     @endif
 @endsection
 
@@ -62,9 +62,9 @@
         </div>
 
         <div class="container">
-            <h3>Community Health Care Clinics - Psychiatry</h3>
+            <h3>Community Healthcare Clinics - Psychiatry</h3>
             <p>
-                Community Health Care Clinics is a leading provider of mental health services in Pakistan.
+                Community Healthcare Clinics is a leading provider of mental health services in Pakistan.
             </p>
         </div>
 

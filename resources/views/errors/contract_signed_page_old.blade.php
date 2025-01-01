@@ -10,7 +10,7 @@
                 <!-- <h4>Inactive User</h4> -->
 
                 <div class="col-md-12 col-sm-12 text-center" style="margin:10% 1%">
-                    <h2 >Community Health Care Clinics</h2>
+                    <h2 >Community Healthcare Clinics</h2>
                     <h4 >You Signed Contract with Community Healthcare Clinics.</h4>
                     @auth
                     <p  style="font-size: 15px;">You can now have sessions with your patients </p>
