@@ -52,7 +52,7 @@
                                         </div>
                                         <div class="col-md-6 sub_cat">
                                             <label class="fw-bolder mb-2" for="selectmedicine">Patient Date of Birth</label>
-                                            <input type="text" name="dob" class="form-control" required placeholder="Enter DOB...">
+                                            <input type="date" name="dob" class="form-control" required placeholder="Enter DOB...">
                                         </div>
                                         <div class="col-md-12 sub_cat">
                                             <label class="fw-bolder mb-2" for="selectmedicine">Reason</label>

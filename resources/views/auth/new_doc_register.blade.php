@@ -553,7 +553,7 @@ window.intlTelInput(input, {
                         <h2 class="purple-text text-center"><strong>SUCCESS</strong></h2>
                         <div class="row justify-content-center">
                             <div class="col-3">
-                                <img src="{{ asset('assets/images/GwStPmg.png') }}" class="fit-image">
+                                <img src="{{ asset('assets/images/GwStPmg.png') }}" width="100%">
                             </div>
                         </div>
                         <div class="row justify-content-center">

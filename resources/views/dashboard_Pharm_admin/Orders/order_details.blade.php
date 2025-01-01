@@ -68,7 +68,7 @@
                                                 <li class="list-group-item"><b>Payment Method :</b>
                                                     {{ $img_order->payment_method }}</li>
                                                 <li class="list-group-item"><b>Currency :</b> {{ $img_order->currency }}</li>
-                                                <li class="list-group-item"><b>E-Prescription :</b><a class="btn process-pay m-3" href="{{ $file->filename }}" target="_blank"> View </a></li>
+                                                {{-- <li class="list-group-item"><b>E-Prescription :</b><a class="btn process-pay m-3" href="{{ $file->filename }}" target="_blank"> View </a></li> --}}
                                             </ul>
                                         </div>
                                     </div>

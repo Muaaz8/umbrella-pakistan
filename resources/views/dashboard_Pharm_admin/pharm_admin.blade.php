@@ -26,8 +26,8 @@
                     <div class="card first-card-wrap">
                         <div class="card-body">
                             <div class="first-card-content">
-                                <h1>Community Health Care Clinics</h1>
-                                <p>Welcome to Community Health Care Clinics</p>
+                                <h1>Community Healthcare Clinics</h1>
+                                <p>Welcome to Community Healthcare Clinics</p>
                             </div>
                             <div class="first-card-img-div">
                                 {{-- <img src="assets/images/logo.png" alt=""  height="auto" width="200"> --}}

@@ -116,6 +116,34 @@ class DoctorController extends Controller
         }
         return $error;
     }
+
+    public function inclinic_check_prescription_completed(Request $request)
+    {
+        $items = DB::table('prescriptions')->where('session_id', "0")->where('parent_id', $request->session_id)->get();
+        $error = "success";
+        foreach ($items as $item) {
+            if ($item->type == 'lab-test' || $item->type == 'imaging') {
+                $getTestAOE = QuestDataAOE::select("TEST_CD AS TestCode", "AOE_QUESTION AS QuestionShort", "AOE_QUESTION_DESC AS QuestionLong")
+                    ->where('TEST_CD', $item->test_id)
+                    ->groupBy('AOE_QUESTION_DESC')
+                    ->get();
+                $count = count($getTestAOE);
+                if ($count > 0) {
+                    $res = DB::table('patient_lab_recomend_aoe')->where('testCode', $item->test_id)->where('session_id', $request->id)->first();
+                    if ($res == null) {
+                        $product = \App\QuestDataTestCode::where('TEST_CD', $item->test_id)->first();
+                        $error = "lab-error_" . $product->DESCRIPTION;
+                    }
+                }
+            }else if($item->type == 'medicine'){
+                if($item->usage == null){
+                    $product = DB::table('tbl_products')->where('id', $item->medicine_id)->first();
+                    $error = $product->name;
+                }
+            }
+        }
+        return $error;
+    }
     public function dash_all()
     {
         $user = Auth::user();

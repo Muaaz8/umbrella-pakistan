@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Session;
+use App\Models\InClinics;
 use App\User;
 use App\Helper;
 use App\ActivityLog;
@@ -776,6 +777,17 @@ class SessionController extends Controller
         Log::info('run que update event');
         return "done";
     }
+
+    public function inclinic_doctor_end_session(Request $request)
+    {
+        InClinics::where('id', $request['session_id'])->update([
+            'status' => 'ended',
+        ]);
+        $sessionData = InClinics::where('id', $request['session_id'])->first();
+        return "done";
+    }
+
+
     public function record(Request $request)
     {
         $user = auth()->user();
@@ -1318,6 +1330,30 @@ class SessionController extends Controller
             return "ok";
         }
     }
+
+    public function inclinic_add_dosage(Request $request)
+    {
+        $res = Prescription::where('session_id', '0')->where('medicine_id', $request['pro_id'])->where('parent_id', $request['session_id'])->update([
+            'med_days' => $request['days'],
+            'med_unit' => $request['units'],
+            'med_time' => $request['med_time'],
+            'price' => $request['price'],
+            'comment' => $request['instructions'],
+            'usage' => $request['med_time'] . ' Times a day for ' . $request['days'] . ' days',
+        ]);
+        if ($res) {
+            return "ok";
+        }
+    }
+
+    public function inclinic_pharmacy_payment(Request $request){
+        $payment = InClinics::find($request->session_id);
+        DB::table('prescriptions')->where('parent_id',$request->session_id)->where('type','medicine')->update([
+            'title'=>'paid',
+        ]);
+        return redirect()->back();
+    }
+
     public function get_medicine_price(Request $request)
     {
         return \DB::table('medicine_pricings')

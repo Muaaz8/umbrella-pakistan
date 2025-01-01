@@ -3082,6 +3082,26 @@ public function store_policy(Request $request){
         }
     }
 
+    public function inclinic_pharmacy_editor_orders()
+    {
+        $tblOrders = InClinics::with(['user','prescriptions'])
+            ->where('in_clinics.status','ended')
+            ->whereHas('prescriptions', function ($query) {
+                $query->where('type', 'medicine');
+            })->paginate(2);    
+        $data = InClinics::with(['user','prescriptions'])
+            ->where('in_clinics.status','ended')
+            ->whereHas('prescriptions', function ($query) {
+                $query->where('type', 'medicine');
+            })->get();
+        $user_type = Auth::user()->user_type;
+        if($user_type == 'admin_pharm'){
+            return view('dashboard_Pharm_admin.inclinic.orders',compact('tblOrders','data'));
+        }elseif($user_type == 'editor_pharmacy'){
+            return view('dashboard_Pharm_editor.Orders.orders',compact('tblOrders','data'));
+        }
+    }
+
 
 
     public function pharmacy_editor_setting()

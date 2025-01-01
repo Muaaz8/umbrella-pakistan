@@ -38,6 +38,16 @@
     .nav-link {
         width: 100%;
     }
+    .videoLoaderDiv{
+        width: 100%;
+        height: 100vh;
+        position: fixed;
+        z-index: 999999;
+        background-color: black;
+        opacity: 0.8;
+        align-items: center;
+        justify-content: center;"
+    }
 </style>
 @endsection
 @section('top_import_file')
@@ -130,13 +140,12 @@
                             $.each(products, function (key, product) {
                                 if (product.mode == "medicine") {
                                     $(".prescribed_items").append(
-'<span class="selected-value-bydoc " onclick="dosage(' + product.id + ')">' +
-    product.name +
-    '<a class="position-absolute top-0 end-0 " style="z-index:100;" onclick="med_remove(' + product.id + '); event.stopPropagation();">' +
-        '<i class="fa-solid fa-circle-xmark"></i>' +
-    '</a>' +
-'</span>'
-
+                                        '<span class="selected-value-bydoc " onclick="dosage(' + product.id + ')">' +
+                                            product.name +
+                                            '<a class="position-absolute top-0 end-0 " style="z-index:100;" onclick="med_remove(' + product.id + '); event.stopPropagation();">' +
+                                                '<i class="fa-solid fa-circle-xmark"></i>' +
+                                            '</a>' +
+                                        '</span>'
                                     );
                                 } else if (product.mode == "lab-test") {
                                     $(".prescribed_items").append(
@@ -160,7 +169,7 @@
                             });
                         } else {
                             $(".prescribed_items").append(
-                                '<span class="selected-value-bydoc">Not Found Any Prescribed Item !!</span>'
+                                '<span class="selected-value-bydoc">Not Found Any Prescribed Item!!</span>'
                             );
                         }
                     },
@@ -182,13 +191,12 @@
                         $.each(products, function (key, product) {
                             if (product.mode == "medicine") {
                                 $(".prescribed_items").append(
-'<span class="selected-value-bydoc " onclick="dosage(' + product.id + ')">' +
-    product.name +
-    '<a class="position-absolute top-0 end-0 " style="z-index:100;" onclick="med_remove(' + product.id + '); event.stopPropagation();">' +
-        '<i class="fa-solid fa-circle-xmark"></i>' +
-    '</a>' +
-'</span>'
-
+                                    '<span class="selected-value-bydoc " onclick="dosage(' + product.id + ')">' +
+                                        product.name +
+                                        '<a class="position-absolute top-0 end-0 " style="z-index:100;" onclick="med_remove(' + product.id + '); event.stopPropagation();">' +
+                                            '<i class="fa-solid fa-circle-xmark"></i>' +
+                                        '</a>' +
+                                    '</span>'
                                 );
                             } else if (product.mode == "lab-test") {
                                 $(".prescribed_items").append(
@@ -212,7 +220,7 @@
                         });
                     } else {
                         $(".prescribed_items").append(
-                            '<span class="selected-value-bydoc">Not Found Any Prescribed Item !!</span>'
+                            '<span class="selected-value-bydoc">Not Found Any Prescribed Item!!</span>'
                         );
                     }
                 },
@@ -313,7 +321,6 @@
             });
         }
         // Lab
-
         function loadLabItems() {
             var name = $('#Lab_search').val();
             var user_id = $('#patient-id').html();
@@ -487,6 +494,7 @@
             });
         }
 
+        //Dosage
         function dosage(a) {
             $('#days').prop('selectedIndex', 0);
             $('#units').prop('selectedIndex', 0);
@@ -495,13 +503,7 @@
             $('#med_current_price').val('');
             $('#med_id').val('');
             var session_id = $('#session-id').html();
-
-            id = a;
-            med_id = id;
-
-            console.log("med_id", med_id);
-            console.log("session_id", session_id);
-
+            med_id = a;
             $.ajax({
                 type: 'POST',
                 url: '/get_med_detail',
@@ -522,14 +524,9 @@
                         } else if (splitTime[0] == 24) {
                             $('#dose').prop('selectedIndex', 4);
                         }
-
-
                         $('#med_name').text(response.product.name);
-
                         $('#instructions').val(response.update['comment']);
-
                         $('#med_current_price').val(response.product.sale_price);
-
                         $('#units').text('');
                         $('#units').append('<option value="">Choose Unit</option>');
                         $.each(response.units, function(key, value) {
@@ -537,43 +534,69 @@
                                 '</option>')
                         });
                         $('#units option[value=' + response.update['units'] + ']').attr('selected', 'selected');
-
-                        $('#days').text('');
-                        $('#days').val(response.update['days']);
-                        // $('#days').append('<option value="">Choose Number of Days</option>')
-                        // $.each(response.days, function(key, value) {
-                        //     $('#days').append('<option value="' + value.days + '">' + value.days + '</option>')
-                        // });
-                        // $('#days option[value="'+response.update['days']+'"]').attr('selected','selected');
-
+                        $('#days').val('');
                     } else {
                         $('#med_name').text(response.product.name);
                         $('#med_current_price').val(response.product.sale_price);
-
                         $('#units').text('');
                         $('#units').append('<option value="">Choose Unit</option>');
                         $.each(response.units, function(key, value) {
                             $('#units').append('<option value="' + value.unit + '">' + value.unit +
                                 '</option>')
                         });
-
-                        $('#days').text('');
-                        $('#days').append('<option value="">Choose Number of Days</option>')
-                        $.each(response.days, function(key, value) {
-                            $('#days').append('<option value="' + value.days + '">' + value.days +
-                                '</option>')
-                        });
+                        $('#days').val('');
                     }
-
                 }
             });
-            // console.log(med_id[1]);
             $('#med_id').val(med_id);
             $('#session_id_modal').val(session_id);
             $('#pro_id_modal').val(med_id);
             $('#type_modal').val('medicine');
             $('#dosage_modal').modal('show');
 
+        }
+
+        $('#add_dose_form').on('submit', function (event) {
+            event.preventDefault();
+            let formData = $(this).serialize(); // Get form data as a query string
+            $.ajax({
+                type: "post",
+                url: "/inclinic_add_dosage",
+                data: formData,
+                success: function (response) {
+                    $('#dosage_modal').modal('hide');
+                }
+            });
+        })
+
+        function end(){
+            var session_id = $('#session-id').html();
+            $.ajax({
+                type: 'POST',
+                url: '/inclinic_check_prescription_completed',
+                data: {
+                    session_id: session_id,
+                },
+                success: function (status) {
+                    if(status == "success"){
+                        $.ajax({
+                            type: 'POST',
+                            url: '/inclinic_doctor_end_session',
+                            data: {
+                                session_id: session_id,
+                            },
+                            beforeSend: function () {
+                                $(".end-consultation").html('<i class="fas fa-spinner fa-spin"></i>');
+                            },
+                            success: function (status) {
+                                location.reload();
+                            }
+                        });
+                    }else{
+                        alert("Add Dosage for "+status);
+                    }
+                }
+            });
         }
 
 </script>
@@ -626,8 +649,8 @@
                 <section class="shadow-sm rounded-3 next-patient-section bg-white">
                     <div class="bg-white rounded-3 p-3 d-flex flex-column gap-1 patient-info">
                         <h4>Current Patient</h4>
-                        <div class="accordion accordion-flush waiting-patients-accordion rounded-3 d-flex flex-column gap-2 pe-2"
-                            id="accordionFlushExample">
+                        <div class="accordion waiting-patients-accordion rounded-3 d-flex flex-column gap-2 pe-2"
+                            id="accordionFlushExample1">
                             <div class="accordion-item rounded-3  shadow-hide">
                                 <h2 class="accordion-header rounded-3" id="flush-headingOne">
                                     <div class="accordion-button collapsed rounded-3" type="button"
@@ -639,7 +662,7 @@
                                         </div>
                                     </div>
                                 </h2>
-                                <div id="next-patient-collapse" class="accordion-collapse collapse"
+                                <div id="next-patient-collapse" class="accordion-collapse collapse show"
                                     aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
                                     <div class="accordion-body d-flex flex-column gap-1 p-2">
                                         <div class="d-flex justify-content-between align-items-center gap-1">
@@ -670,14 +693,13 @@
                                         <div class="row">
                                             <div class="selected-value-div-wrap">
                                                 <div class="d-flex align-items-center justify-content-between">
-                                                    <h5>Prescribed items:</h5>
+                                                    <h6>Prescribed items:</h6>
                                                     <p>(click on medicine to add dose)</p>
                                                 </div>
                                                 <div class="prescribed_items_main">
                                                     <div class="pt-1 d-flex flex-wrap prescribed_items">
                                                         <span class="selected-value-bydoc ">Not Found Any Prescribed
-                                                            Item
-                                                            !!</span>
+                                                            Item!!</span>
                                                     </div>
                                                 </div>
 
@@ -686,7 +708,7 @@
 
                                     </div>
                                     <div class="d-flex gap-2 justify-content-center align-items-center">
-                                        <button class="btn btn-outline-danger w-50 rounded-3">End Consultation</button>
+                                        <button class="btn btn-outline-danger w-50 rounded-3 mb-3 end-consultation" onclick="end()">End Consultation</button>
                                     </div>
                                 </div>
                             </div>
@@ -838,7 +860,8 @@
             </div>
             <div class="modal-body">
                 <div class="dosage-body">
-                    <form action="{{ url('/add_dosage') }}" method="POST">
+                    {{--<form id="add_dose_form" action="{{ url('/inclinic_add_dosage') }}" method="POST">--}}
+                    <form id="add_dose_form" action="" method="POST">
                         @csrf
                         <input id="med_id" hidden="">
                         <input id="med_current_price" name="price" hidden="">
@@ -880,7 +903,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button onclick="add_dose()" data-dismiss="modal" class="btn con-recomm-btn">DONE</button>
+                            <button type="submit" class="btn btn-primary">DONE</button>
                         </div>
                     </form>
                 </div>

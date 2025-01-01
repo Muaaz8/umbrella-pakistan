@@ -1661,18 +1661,18 @@ header("Access-Control-Allow-Origin: *"); @endphp
     });
 </script>
 @endsection @section('content')
-<div class="videoLoaderDiv" style="display: none;
-    width: 100%;
-    height: 100vh;
-    position: fixed;
-    z-index: 999999;
-    background-color: black;
-    opacity: 0.8;
-    align-items: center;
-    justify-content: center;">
-    <i class="fas fa-spinner fa-spin" style="color: white;font-size: 150px;"></i>
-</div>
 <section>
+    <div class="videoLoaderDiv" style="display: none;
+        width: 100%;
+        height: 100vh;
+        position: fixed;
+        z-index: 999999;
+        background-color: black;
+        opacity: 0.8;
+        align-items: center;
+        justify-content: center;">
+        <i class="fas fa-spinner fa-spin" style="color: white;font-size: 150px;"></i>
+    </div>
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">

@@ -448,6 +448,7 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
         //New Pharmacy Editor Routes
         Route::get('/pharmacy/account/setting','AdminController@pharmacy_editor_setting')->name('pharmacy_editor_setting');
         Route::get('/pharmacy/all/orders','AdminController@pharmacy_editor_orders')->name('pharmacy_editor_orders');
+        Route::get('/inclinic/pharmacy/all/orders','AdminController@inclinic_pharmacy_editor_orders')->name('inclinic_pharmacy_editor_orders');
         Route::get('/pharmacy/product/categories', 'ProductCategoryController@dash_index')->name('pharmacy_editor_prod_cat');
         Route::post('/pharmacy/product/update', 'ProductCategoryController@dash_main_cat_update')->name('pharmacy_editor_prod_cat_update');
         Route::post('/pharmacy/product/delete', 'ProductCategoryController@dash_main_cat_delete')->name('pharmacy_editor_prod_cat_delete');
@@ -547,6 +548,10 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
     Route::post('/inclinic_get_lab_details', 'AllProductsController@inclinic_get_lab_details');
     Route::post('/inclinic_add_imging_pro', 'AllProductsController@inclinic_add_imging_pro');
     Route::post('/inclinic_new_get_imaging_products_by_category', 'AllProductsController@inclinic_new_get_imaging_products_by_category');
+    Route::post('/inclinic_add_dosage', 'SessionController@inclinic_add_dosage');
+    Route::post('/inclinic_check_prescription_completed', 'DoctorController@inclinic_check_prescription_completed');
+    Route::post('/inclinic_doctor_end_session', 'SessionController@inclinic_doctor_end_session');
+    Route::post('/inclinic_pharmacy_payment', 'SessionController@inclinic_pharmacy_payment')->name('inclinic_pharmacy_payment');
 
     Route::post('patient/health/store','DoctorController@patient_health_store')->name('patient_health_store');
     Route::post('mood/disorder/store','DoctorController@mood_disorder_store')->name('mood_disorder_store');
@@ -1248,6 +1253,7 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
         Route::get('/imaging_order/{id}', 'TblOrdersController@imaging_order')->name('imaging_order');
         Route::get('/pharmacy_order/{id}', 'TblOrdersController@pharmacy_order')->name('pharmacy_order');
         Route::get('/pharmacy/order/{id}', 'TblOrdersController@dash_pharmacy_order')->name('dash_pharmacy_order');
+        Route::get('/inclinic/pharmacy/order/{id}', 'TblOrdersController@dash_inclinic_pharmacy_order')->name('dash_inclinic_pharmacy_order');
         Route::post('/upload_imaging_report/{id}', 'TblOrdersController@upload_imaging_report')->name('upload_imaging_report');
         Route::get('patient/order/detail/{id}', 'TblOrdersController@dash_show')->name('patient_order_detail');
 

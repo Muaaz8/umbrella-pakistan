@@ -29,6 +29,7 @@ use Illuminate\Support\Facades\Mail;
 use Response;
 use App\User;
 use App\Models\TblOrders;
+use App\Models\InClinics;
 use App\State;
 
 class TblOrdersController extends AppBaseController
@@ -1143,8 +1144,23 @@ class TblOrdersController extends AppBaseController
         $img_order->date = User::convert_utc_to_user_timezone($user->id, $img_order->created_at)['date'];
         $img_order->time = User::convert_utc_to_user_timezone($user->id, $img_order->created_at)['time'];
         $file = DB::table('prescriptions_files')->where('order_id',$img_order->order_sub_id)->first();
-        $file->filename =\App\Helper::get_files_url($file->filename);
+        // $file->filename =\App\Helper::get_files_url($file->filename);
         return view('dashboard_Pharm_admin.Orders.order_details', compact('img_order','file'));
+    }
+
+    public function dash_inclinic_pharmacy_order(Request $request)
+    {
+        $user = Auth()->user();
+        $img_order = InClinics::find($request['id'])->with(['user','prescriptions'])->first();
+        $sum = 0;
+        foreach($img_order->prescriptions as $pres){
+            if($pres->type == "medicine"){
+                $pres->med_details = DB::table('tbl_products')->where('id',$pres->medicine_id)->first();
+                $sum += $pres->price;
+            }
+        }
+        $img_order->sum = $sum;
+        return view('dashboard_Pharm_admin.inclinic.order_detail', compact('img_order'));
     }
 
     public function upload_imaging_report(Request $request)
