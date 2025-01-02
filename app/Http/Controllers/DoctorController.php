@@ -132,7 +132,7 @@ class DoctorController extends Controller
                     $res = DB::table('patient_lab_recomend_aoe')->where('testCode', $item->test_id)->where('session_id', $request->id)->first();
                     if ($res == null) {
                         $product = \App\QuestDataTestCode::where('TEST_CD', $item->test_id)->first();
-                        $error = "lab-error_" . $product->DESCRIPTION;
+                        $error = "lab-error_" . $product->TEST_NAME;
                     }
                 }
             }else if($item->type == 'medicine'){

@@ -99,17 +99,18 @@
         <div class="container mt-3 pharmacy-page-container">
             <div
                 class="container-fluid background-secondary d-flex align-items-center justify-content-between flex-column rounded-4">
-
-                <div class="psychiatry-container">
-                    @foreach ($data["sidebar"]["sideMenus"]["Psychiatrist|psychiatry"] as $item)
-                        <div class="psychiatry-box">
-                            <img src="{{ asset('assets/new_frontend/depression.png') }}" alt="Depression" />
-                            <p>{{ (explode('|',$item)[1]) }}</p>
-                        </div>
-                    @endforeach
-                </div>
-
-
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <div class="psychiatry-container">
+                        @foreach ($data["sidebar"]["sideMenus"]["Psychiatrist|psychiatry"] as $item)
+                            <div class="psychiatry-box" id="{{ (explode('|',$item)[2]) }}-tab" data-bs-toggle="tab"
+                                data-bs-target="#{{ (explode('|',$item)[2]) }}-tab-pane" type="button" role="tab"
+                                aria-controls="{{ (explode('|',$item)[2]) }}-tab-pane" aria-selected="true">
+                                <img src="{{ asset('assets/new_frontend/depression.png') }}" alt="Depression" />
+                                <p>{{ (explode('|',$item)[1]) }}</p>
+                            </div>
+                        @endforeach
+                    </div>
+                </ul>
             </div>
 
         </div>

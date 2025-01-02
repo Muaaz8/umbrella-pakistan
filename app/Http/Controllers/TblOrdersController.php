@@ -1148,10 +1148,10 @@ class TblOrdersController extends AppBaseController
         return view('dashboard_Pharm_admin.Orders.order_details', compact('img_order','file'));
     }
 
-    public function dash_inclinic_pharmacy_order(Request $request)
+    public function dash_inclinic_pharmacy_order($id,Request $request)
     {
         $user = Auth()->user();
-        $img_order = InClinics::find($request['id'])->with(['user','prescriptions'])->first();
+        $img_order = InClinics::where('id',$id)->with(['user','prescriptions'])->first();
         $sum = 0;
         foreach($img_order->prescriptions as $pres){
             if($pres->type == "medicine"){
