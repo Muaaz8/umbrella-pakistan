@@ -44,7 +44,7 @@
                                         </div>
                                         <div class="col-md-6 sub_cat">
                                             <label class="fw-bolder mb-2" for="selectmedicine">Patient Phone Number</label>
-                                            <input type="text" name="phone" class="form-control" required placeholder="Enter Phone Number...">
+                                            <input type="text" name="phone" class="form-control" required placeholder="Enter Phone Number..." pattern="\d{10}|\d{13}" title="Phone number must be 10 or 13 digits">
                                         </div>
                                         <div class="col-md-6 sub_cat">
                                             <label class="fw-bolder mb-2" for="selectmedicine">Patient Email</label>
@@ -52,7 +52,7 @@
                                         </div>
                                         <div class="col-md-6 sub_cat">
                                             <label class="fw-bolder mb-2" for="selectmedicine">Patient Date of Birth</label>
-                                            <input type="date" name="dob" class="form-control" required placeholder="Enter DOB...">
+                                            <input type="date" name="dob" class="form-control" required placeholder="Enter DOB..." value="1990-01-01">
                                         </div>
                                         <div class="col-md-12 sub_cat">
                                             <label class="fw-bolder mb-2" for="selectmedicine">Reason</label>

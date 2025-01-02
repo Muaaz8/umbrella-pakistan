@@ -3088,7 +3088,7 @@ public function store_policy(Request $request){
             ->where('in_clinics.status','ended')
             ->whereHas('prescriptions', function ($query) {
                 $query->where('type', 'medicine');
-            })->paginate(2);    
+            })->paginate(2);
         $data = InClinics::with(['user','prescriptions'])
             ->where('in_clinics.status','ended')
             ->whereHas('prescriptions', function ($query) {
@@ -3796,7 +3796,8 @@ public function store_policy(Request $request){
 
     public function inclinic_patient(){
         $data = InClinics::with('user')->paginate(10);
-        return view('dashboard_admin.inclinic.index',compact('data'));
+        $patients = User::where('user_type','patient')->get();
+        return view('dashboard_admin.inclinic.index',compact('data' , 'patients'));
     }
 
     public function in_clinics_create(){
@@ -3804,21 +3805,25 @@ public function store_policy(Request $request){
     }
 
     public function in_clinics_store(Request $request){
-        $user_id = User::create([
-            'name' => $request->first_name,
-            'last_name' => $request->last_name,
-            'username' => $request->first_name.'_'.$request->last_name,
-            'phone_number' => $request->phone,
-            'user_type' => 'patient',
-            'email' => $request->email,
-            'date_of_birth' => $request->dob,
-            'password' => Hash::make('uhcs@1234'),
-            'created_by' => auth()->user()->id,
-        ])->id;
-        DB::table('users_email_verification')->insert([
-            'user_id'=>$user_id,
-            'status'=>0,
-        ]);
+        if(!isset($request->user_id)){
+            $user_id = User::create([
+                'name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'username' => $request->first_name.'_'.$request->last_name,
+                'phone_number' => $request->phone,
+                'user_type' => 'patient',
+                'email' => $request->email,
+                'date_of_birth' => $request->dob,
+                'password' => Hash::make('uhcs@1234'),
+                'created_by' => auth()->user()->id,
+            ])->id;
+            DB::table('users_email_verification')->insert([
+                'user_id'=>$user_id,
+                'status'=>0,
+            ]);
+        }else{
+            $user_id = $request->user_id;
+        }
         if($request->payment == "easypaisa" || $request->payment == "cash"){
             $pat = InClinics::create([
                 'user_id'=> $user_id,
