@@ -85,10 +85,9 @@
 }
 
 .footer-underline {
-    width: 75%;
+    width: 10%;
     background-color: #c80919;
     height: 2px;
-    border-radius: 20px;
 }
 
 .email-container>header {
@@ -115,7 +114,7 @@
     margin: 0 auto;
 }
 
-.email-logo>img {
+.email-logo img {
     max-width: 400px;
     width: 70%;
     margin: auto;
@@ -146,7 +145,6 @@
 .email-body-info {
     background-color: #f5f5f5;
     padding: 0.25rem 0.5rem;
-    border-radius: 0.25rem;
     font-weight: 500;
     margin-top: 0.1rem;
     font-style: italic;
@@ -218,7 +216,7 @@
     border-bottom-right-radius: 1rem;
 }
 
-.email-footer>p {
+.email-footer p {
     margin: 0 1rem;
 }
 
@@ -241,17 +239,17 @@
 }
 
 .footer-highlight {
-    width: max-content;
-    background-color: #c80919;
-    padding: 10px 15px;
+    background: #c80919;
+    padding: 10px;
     border-radius: 20px;
+    color: white;
 }
 
 .contact-div a {
     color: blue;
 }
 
-.footer-highlight > a {
+.footer-highlight a {
     color: white;
     text-decoration: none;
 }
@@ -283,7 +281,6 @@ th {
 .border-top-bottom {
     border-top: 2px solid #c80919;
     border-bottom: 2px solid #c80919;
-    border-radius: 0.15rem;
     vertical-align: top;
 }
 
@@ -292,97 +289,7 @@ th {
     font-weight: normal;
 }
 
-@media screen and (max-width: 665px) {
-    .contact-section-big {
-        display: none;
-    }
-
-    .contact-section-small {
-        display: block;
-    }
-
-    .footer-highlight {
-        margin: 0.5rem 0;
-    }
-
-    .contact-div a, .contact-div p, .footer-highlight:not(a) {
-        margin: 0.25rem 0;
-    }
-
-    .contact-section-small hr {
-        margin-bottom: 1rem;
-    }
-}
-
-@media screen and (max-width: 550px) {
-
-    .patient thead,
-    .prescription thead {
-        font-size: 0.8rem;
-    }
-
-    .patient tbody,
-    .prescription tbody {
-        font-size: 0.8rem;
-    }
-
-    .patient-heading {
-        font-size: 1.2rem;
-    }
-
-    .footer-contact-head {
-        font-size: 1.2rem;
-    }
-
-    .footer-highlight {
-        font-size: 0.8rem;
-    }
-
-    .contact-div a, .contact-div p, .footer-highlight:not(a) {
-       font-size: 0.8rem;
-    }
-
-    .email-copyright {
-        font-size: 0.8rem;
-    }
-}
-
-@media screen and (max-width: 455px) {
-    .patient th,
-    .prescription th,
-    .patient td,
-    .prescription td {
-        padding: 0.25rem;
-        font-size: 0.7rem;
-    }
-
-    .patient,
-    .prescription {
-        border: 1px solid black;
-    }
-
-    .patient th,
-    .patient td, .prescription th, .prescription td {
-        border: 1px solid black;
-    }
-
-    .email-container main {
-        padding: 0.5rem;
-    }
-
-    .email-footer {
-        padding: 0.5rem 0.5rem 0 0.5rem;
-    }
-
-    .patient-heading {
-        font-size: 1rem;
-    }
-
-    .footer-contact-head {
-        font-size: 1rem;
-    }
-}
-    </style>
+</style>
 
   </head>
   <body>
@@ -639,12 +546,10 @@ th {
                 <div class="footer-underline"></div>
               </div>
               <div class="footer-highlight">
-                <a href="tel:+14076938484">+1 (407) 693-8484</a>
+                +1 (407) 693-8484
               </div>
               <div class="footer-highlight">
-                <a href="https://wa.me/923372350684" target="_blank"
-                  >0337-2350684</a
-                >
+                  0337-2350684
               </div>
             </div>
             <div class="contact-div border-top-bottom">
