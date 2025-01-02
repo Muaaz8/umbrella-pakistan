@@ -72,8 +72,8 @@
                 <div class="col-12">
                     <div class="card mt-3">
                         <h5 class="card-header d-flex justify-content-md-between">
-                            <span>Pharmacy Order</span>
-                            <span>Total Amount: {{$img_order->sum}}</span>
+                            <span>Order</span>
+                            <span>Total Amount: {{$img_order->medicine_sum+$img_order->lab_sum+$img_order->imaging_sum}}</span>
                         </h5>
                         <div class="card-body">
                             @foreach ($img_order->prescriptions as $pres)
@@ -86,6 +86,32 @@
                                                     </li>
                                                     <li class="list-group-item"><b>Product Price: </b> Rs.{{ $pres->price }}</li>
                                                     <li class="list-group-item"><b>Dosage: </b> {{ $pres->usage }}</li>
+                                                    {{-- <li class="list-group-item"><b>E-Prescription :</b><a class="btn process-pay m-3" href="{{ $file->filename }}" target="_blank"> View </a></li> --}}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @elseif($pres->type == "lab-test")
+                                    <div class="row mb-3">
+                                        <div class="col-md-12">
+                                            <div class="card" style="width: 100%">
+                                                <ul class="list-group list-group-flush">
+                                                    <li class="list-group-item"><b>Product: </b>{{ $pres->lab_details->TEST_NAME }}
+                                                    </li>
+                                                    <li class="list-group-item"><b>Product Price: </b> Rs.{{ $pres->lab_details->SALE_PRICE }}</li>
+                                                    {{-- <li class="list-group-item"><b>E-Prescription :</b><a class="btn process-pay m-3" href="{{ $file->filename }}" target="_blank"> View </a></li> --}}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @elseif($pres->type == "imaging")
+                                    <div class="row mb-3">
+                                        <div class="col-md-12">
+                                            <div class="card" style="width: 100%">
+                                                <ul class="list-group list-group-flush">
+                                                    <li class="list-group-item"><b>Product: </b>{{ $pres->imaging_details->TEST_NAME }}
+                                                    </li>
+                                                    <li class="list-group-item"><b>Product Price: </b> Rs.{{ $pres->imaging_details->SALE_PRICE }}</li>
                                                     {{-- <li class="list-group-item"><b>E-Prescription :</b><a class="btn process-pay m-3" href="{{ $file->filename }}" target="_blank"> View </a></li> --}}
                                                 </ul>
                                             </div>

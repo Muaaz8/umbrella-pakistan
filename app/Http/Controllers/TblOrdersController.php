@@ -1152,14 +1152,24 @@ class TblOrdersController extends AppBaseController
     {
         $user = Auth()->user();
         $img_order = InClinics::where('id',$id)->with(['user','prescriptions'])->first();
-        $sum = 0;
+        $medicine_sum = 0;
+        $lab_sum = 0;
+        $imaging_sum = 0;
         foreach($img_order->prescriptions as $pres){
             if($pres->type == "medicine"){
                 $pres->med_details = DB::table('tbl_products')->where('id',$pres->medicine_id)->first();
-                $sum += $pres->price;
+                $medicine_sum += $pres->price;
+            }elseif($pres->type == "lab-test"){
+                $pres->lab_details = DB::table('quest_data_test_codes')->where('TEST_CD',$pres->test_id)->first();
+                $lab_sum += $pres->lab_details->SALE_PRICE;
+            }elseif($pres->type == "imaging"){
+                $pres->imaging_details = DB::table('quest_data_test_codes')->where('TEST_CD',$pres->imaging_id)->first();
+                $imaging_sum += $pres->imaging_details->SALE_PRICE;
             }
         }
-        $img_order->sum = $sum;
+        $img_order->medicine_sum = $medicine_sum;
+        $img_order->lab_sum = $lab_sum;
+        $img_order->imaging_sum = $imaging_sum;
         return view('dashboard_Pharm_admin.inclinic.order_detail', compact('img_order'));
     }
 
