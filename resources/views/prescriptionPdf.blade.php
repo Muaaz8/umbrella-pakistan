@@ -6,16 +6,6 @@
     <title>Email</title>
 
     <style>
-        :root {
-    --red: #c80919;
-    --blue: #2964bc;
-    --maroon: #c80919;
-    --navy-blue: #082755;
-    --green: #35b518;
-    --lh: 1.4rem;
-    --lightgray: #f5f5f5;
-    --lightblue: #2964BCA3;
-}
 
 * {
     margin: 0;
@@ -23,21 +13,12 @@
     box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-
-body {
-    background-color: var(--lightgray);
-}
-
 .contact-section-small {
     display: none;
 }
 
 .email-container {
     background-color: white;
-    /* width: 60%;
-    margin: 1rem auto; */
-    border-radius: 1rem;
-    box-shadow: 1px 1px 2px 0px black;
 }
 
 .email-container main {
@@ -66,7 +47,7 @@ body {
 
 .patient thead,
 .prescription thead {
-    background-color: var(--lightgray);
+    background-color: #f5f5f5;
 }
 
 .patient tbody,
@@ -92,7 +73,7 @@ body {
 }
 
 .border-red {
-    border-color: var(--red);
+    border-color: #c80919;
 }
 
 .footer-head {
@@ -105,7 +86,7 @@ body {
 
 .footer-underline {
     width: 75%;
-    background-color: var(--red);
+    background-color: #c80919;
     height: 2px;
     border-radius: 20px;
 }
@@ -163,7 +144,7 @@ body {
 }
 
 .email-body-info {
-    background-color: var(--lightgray);
+    background-color: #f5f5f5;
     padding: 0.25rem 0.5rem;
     border-radius: 0.25rem;
     font-weight: 500;
@@ -177,15 +158,15 @@ body {
 }
 
 .dosage {
-    color: var(--red);
+    color: #c80919;
 }
 
 .unit {
-    color: var(--blue);
+    color: #2964bc;
 }
 
 .number-of-days {
-    color: var(--green);
+    color: #35b518;
 }
 
 .dosage,
@@ -196,7 +177,7 @@ body {
 
 .spec-instructions {
     margin: 1rem;
-    color: var(--red);
+    color: #c80919;
 }
 
 .patient-detail {
@@ -229,8 +210,8 @@ body {
 }
 
 .email-footer {
-    /* background-color: var(--navy-blue); */
-    background: linear-gradient(to bottom, var(--blue), var(--navy-blue));
+    background-color: #082755;
+    /* background: linear-gradient(to bottom, #2964bc), #082755; */
     color: white;
     text-align: center;
     border-bottom-left-radius: 1rem;
@@ -242,12 +223,12 @@ body {
 }
 
 .label {
-    color: var(--blue);
+    color: #2964bc;
     font-weight: normal;
 }
 
 .underline {
-    border-bottom: 1px solid var(--red);
+    border-bottom: 1px solid #c80919;
     padding-left: 0;
     font-style: italic;
     font-weight: 500;
@@ -261,7 +242,7 @@ body {
 
 .footer-highlight {
     width: max-content;
-    background-color: var(--red);
+    background-color: #c80919;
     padding: 10px 15px;
     border-radius: 20px;
 }
@@ -300,8 +281,8 @@ th {
 }
 
 .border-top-bottom {
-    border-top: 2px solid var(--red);
-    border-bottom: 2px solid var(--red);
+    border-top: 2px solid #c80919;
+    border-bottom: 2px solid #c80919;
     border-radius: 0.15rem;
     vertical-align: top;
 }
@@ -408,7 +389,7 @@ th {
     <div class="email-container">
       <header>
         <div class="email-logo">
-          <img src="logo.png" alt="logo" />
+          <img src="{{ public_path('assets/new_frontend/logo.png') }}" alt="logo" />
         </div>
       </header>
       <main>
@@ -434,9 +415,28 @@ th {
             </tbody>
           </table>
         </section>
+
+        @php
+            $medicines = [];
+            $labtests = [];
+            $imaging = [];
+
+            foreach ($inclinic_data->prescriptions as $items) {
+                if ($items->type == 'medicine') {
+                    array_push($medicines, $items);
+                } elseif ($items->type == 'lab-test') {
+                    array_push($labtests, $items);
+                } elseif ($items->type == 'imaging') {
+                    array_push($imaging, $items);
+                }
+            };
+        @endphp
+
         <section class="prescription-details patient-details">
           <h1 class="patient-heading">Prescription Details</h1>
           <!-- <hr class="border-red" /> -->
+
+          @if (count($medicines) > 0)
           <div>
             <div class="footer-head">
               <h2 class="footer-contact-head">PHARMACY</h2>
@@ -445,27 +445,35 @@ th {
             <table class="prescription">
               <thead>
                 <tr>
-                  <th>SN</th>
-                  <th>Pharmacy</th>
+                  <th>Medicine Name</th>
                   <th>Dosage</th>
                   <th>Unit</th>
-                  <th>No. of Days</th>
+                  <th>No. of Times/Day</th>
                   <th>Special Instructions</th>
                 </tr>
               </thead>
               <tbody>
+                @foreach ($medicines as $medicine)
                 <tr>
-                  <td>01</td>
-                  <td>Paracetamol</td>
-                  <td>2 Times</td>
-                  <td>500 mg</td>
-                  <td>3</td>
-                  <td>Take it carefully or else you will die</td>
+                    <td>{{ $medicine->med_details->name }}</td>
+                    <td>{{ $medicine->usage }}</td>
+                    <td>{{ $medicine->med_unit }}</td>
+                    <td>{{ $medicine->med_time }}</td>
+                    <td>
+                        @if ($medicine->comment)
+                            {{ $medicine->comment }}
+                        @else
+                            -
+                        @endif
+                    </td>
                 </tr>
+                @endforeach
               </tbody>
             </table>
           </div>
+          @endif
 
+            @if (count($labtests) > 0)
           <div>
             <div class="footer-head">
               <h2 class="footer-contact-head">LABTESTS</h2>
@@ -474,27 +482,21 @@ th {
             <table class="prescription">
               <thead>
                 <tr>
-                  <th>SN</th>
-                  <th>Labtest</th>
-                  <th>Dosage</th>
-                  <th>Unit</th>
-                  <th>No. of Days</th>
-                  <th>Special Instructions</th>
+                  <th>Test Name</th>
                 </tr>
               </thead>
               <tbody>
+                  @foreach ($labtests as $labtest)
                 <tr>
-                  <td>01</td>
-                  <td>Paracetamol</td>
-                  <td>2 Times</td>
-                  <td>500 mg</td>
-                  <td>3</td>
-                  <td>Take it carefully or else you will die</td>
+                    <td>{{ $labtest->lab_details->TEST_NAME }}</td>
                 </tr>
+                @endforeach
               </tbody>
             </table>
           </div>
+            @endif
 
+            @if (count($imaging) > 0)
           <div>
             <div class="footer-head">
               <h2 class="footer-contact-head">IMAGING</h2>
@@ -503,26 +505,19 @@ th {
             <table class="prescription">
               <thead>
                 <tr>
-                  <th>SN</th>
-                  <th>Imaging</th>
-                  <th>Dosage</th>
-                  <th>Unit</th>
-                  <th>No. of Days</th>
-                  <th>Special Instructions</th>
+                  <th>Imaging Name</th>
                 </tr>
               </thead>
               <tbody>
+                @foreach ($imaging as $image)
                 <tr>
-                  <td>01</td>
-                  <td>Paracetamol</td>
-                  <td>2 Times</td>
-                  <td>500 mg</td>
-                  <td>3</td>
-                  <td>Take it carefully or else you will die</td>
+                    <td>{{ $image->imaging_details->TEST_NAME }}</td>
                 </tr>
+                @endforeach
               </tbody>
             </table>
           </div>
+            @endif
 
         </section>
         <section class="contact-section-big patient-details">
