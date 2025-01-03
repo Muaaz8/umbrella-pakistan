@@ -54,7 +54,7 @@ Route::get('testing/mail',function(){
     }
     $pdf = PDF::loadView('prescriptionPdf',compact('inclinic_data'));
     Mail::send('emails.prescriptionEmail', [], function ($message) use ($pdf) {
-        $message->to('zayan@yopmail.com')->subject('patient prescription')->attachData($pdf->output(), "prescription.pdf");
+        $message->to('uuuuhhhh@yopmail.com')->subject('patient prescription')->attachData($pdf->output(), "prescription.pdf");
     });
 
     dd('ok');

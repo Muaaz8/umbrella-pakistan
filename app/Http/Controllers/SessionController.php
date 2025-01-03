@@ -40,6 +40,7 @@ use App\Specialization;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use PDF;
 
 class SessionController extends Controller
 {
@@ -783,7 +784,20 @@ class SessionController extends Controller
         InClinics::where('id', $request['session_id'])->update([
             'status' => 'ended',
         ]);
-        $sessionData = InClinics::where('id', $request['session_id'])->first();
+        $inclinic_data = \App\Models\InClinics::with(['user','prescriptions'])->where('id',  $request['session_id'])->first();
+        foreach($inclinic_data->prescriptions as $pres){
+            if($pres->type == "medicine"){
+                $pres->med_details = DB::table('tbl_products')->where('id',$pres->medicine_id)->first();
+            }elseif($pres->type == "lab-test"){
+                $pres->lab_details = DB::table('quest_data_test_codes')->where('TEST_CD',$pres->test_id)->first();
+            }elseif($pres->type == "imaging"){
+                $pres->imaging_details = DB::table('quest_data_test_codes')->where('TEST_CD',$pres->imaging_id)->first();
+            }
+        }
+        $pdf = PDF::loadView('prescriptionPdf',compact('inclinic_data'));
+        Mail::send('emails.prescriptionEmail', [], function ($message) use ($inclinic_data,$pdf) {
+            $message->to($inclinic_data->user->email)->subject('patient prescription')->attachData($pdf->output(), "prescription.pdf");
+        });
         return "done";
     }
 
