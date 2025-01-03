@@ -44,6 +44,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Collection;
 use App\Models\PurchaseOrderDetail;
 use App\Models\PurchaseOrder;
+use Str;
 use Validator;
 
 class AdminController extends Controller
@@ -3801,6 +3802,7 @@ public function store_policy(Request $request){
     }
 
     public function in_clinics_store(Request $request){
+        $random_password = Str::random(8);
         if(!isset($request->user_id)){
             $user_id = User::create([
                 'name' => $request->first_name,
@@ -3810,7 +3812,8 @@ public function store_policy(Request $request){
                 'user_type' => 'patient',
                 'email' => $request->email,
                 'date_of_birth' => $request->dob,
-                'password' => Hash::make('uhcs@1234'),
+                'password' => Hash::make($random_password),
+                'temp_password' => $random_password,
                 'created_by' => auth()->user()->id,
             ])->id;
             DB::table('users_email_verification')->insert([

@@ -794,8 +794,11 @@ class SessionController extends Controller
                 $pres->imaging_details = DB::table('quest_data_test_codes')->where('TEST_CD',$pres->imaging_id)->first();
             }
         }
+
+        $user_data = $inclinic_data->user;
+
         $pdf = PDF::loadView('prescriptionPdf',compact('inclinic_data'));
-        Mail::send('emails.prescriptionEmail', [], function ($message) use ($inclinic_data,$pdf) {
+        Mail::send('emails.prescriptionEmail', ['user_data'=>$user_data], function ($message) use ($inclinic_data,$pdf) {
             $message->to($inclinic_data->user->email)->subject('patient prescription')->attachData($pdf->output(), "prescription.pdf");
         });
         return "done";

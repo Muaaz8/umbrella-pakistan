@@ -34,7 +34,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'user_type', 'name', 'last_name', 'status',
+        'user_type', 'name', 'last_name', 'status', 'temp_password',
         'email', 'password', 'date_of_birth', 'phone_number',
         'office_address', 'zip_code',
         'nip_number', 'upin', 'specialization', 'id_card_front', 'id_card_back', 'terms_and_cond', 'signature',

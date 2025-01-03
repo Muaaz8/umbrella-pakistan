@@ -107,6 +107,7 @@
 
                                                                     </p>
 
+
                                                                     <p style="
                                         font-size: 16px;
 
@@ -116,13 +117,28 @@
                                         background: #f9f9f9;
                                         padding: 9px 20px;
                                       ">
-I hope this email finds you well. Please find your prescription attached to this email.
-<br>
-If you have any questions or need further assistance, don't hesitate to contact us. We're here to help!
-<br>
-Thank you for trusting Community Healthcare Clinics with your care.
+                                                                        I hope this email finds you well. Please find
+                                                                        your prescription attached to this email.
+                                                                        <br>
+                                                                        If you have any questions or need further
+                                                                        assistance, don't hesitate to contact us. We're
+                                                                        here to help!
+                                                                        <br>
+                                                                        Thank you for trusting Community Healthcare
+                                                                        Clinics with your care.
+                                                                    </p>
+                                                                    <br>
+                                                                    <br>
+                                                                    <p>
+                                                                        Thank you for choosing community healthcare clinics! To complete your order at home or access our online platform, please use the following credentials to log in to our website:
                                                                     </p>
 
+                                                                    <h5 style="text-align: left"><u>Login Details:</u></h5>
+
+                                                                    <div style="text-align: left">
+                                                                        <h6 style="text-align: left; margin:0;">Username: {{ $user_data->username }}</h6>
+                                                                        <h6 style="text-align: left; margin:0;">Password: {{ $user_data->temp_password }}</h6>
+                                                                    </div>
 
                                                                 </th>
                                                             </tr>
@@ -187,7 +203,8 @@ Thank you for trusting Community Healthcare Clinics with your care.
                                       ">
                                                                         If you need help with anything please
                                                                         don't hesitate to drop us an email:
-                                                                        <a href=""> support@communityhealthcareclinics.com</a>
+                                                                        <a href="">
+                                                                            support@communityhealthcareclinics.com</a>
                                                                     </p>
                                                                 </th>
                                                             </tr>
@@ -360,10 +377,14 @@ Thank you for trusting Community Healthcare Clinics with your care.
                                                       color: #a3a1a1;
                                                       text-transform: none;
                                                     ">
-                                                                                                    Progressive Center, 4th Floor Suite#410, Main Shahrah Faisal, Karachi
+                                                                                                    Progressive Center,
+                                                                                                    4th Floor Suite#410,
+                                                                                                    Main Shahrah Faisal,
+                                                                                                    Karachi
                                                                                                     <br
                                                                                                         style="text-align: center" />
-                                                                                                    Copyright © {{ date('Y')}}
+                                                                                                    Copyright © {{
+                                                                                                    date('Y')}}
                                                                                                 </th>
                                                                                             </tr>
                                                                                             <!-- Store Address : END -->

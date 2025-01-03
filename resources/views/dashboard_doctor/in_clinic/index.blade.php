@@ -48,6 +48,9 @@
         align-items: center;
         justify-content: center;"
     }
+    p{
+        word-wrap: break-word;
+    }
 </style>
 @endsection
 @section('top_import_file')
