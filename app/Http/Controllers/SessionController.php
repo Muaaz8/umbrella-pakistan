@@ -788,10 +788,71 @@ class SessionController extends Controller
         foreach($inclinic_data->prescriptions as $pres){
             if($pres->type == "medicine"){
                 $pres->med_details = DB::table('tbl_products')->where('id',$pres->medicine_id)->first();
+                $med_unit = DB::table('medicine_units')->where('unit',$pres->med_unit)->first();
+                $price = DB::table('medicine_pricings')
+                    ->where('product_id', $pres->medicine_id)
+                    ->where('unit_id',$med_unit->id)
+                    ->first();
+                if($pres->med_details->is_single){
+                    $pres->price = ($pres->med_time*$pres->med_days)*$price->sale_price;
+                }else{
+                    $pres->price = $price->sale_price;
+                }
+                Cart::create([
+                    'product_id' => $pres->medicine_id,
+                    'name' => $pres->med_details->name,
+                    'quantity' => $pres->quantity,
+                    'price' => $pres->price,
+                    'update_price' => $pres->price * $pres->quantity,
+                    'product_mode' => $pres->type,
+                    'user_id' => $inclinic_data->user_id,
+                    'doc_id' => 254,
+                    'doc_session_id' => $request['session_id'],
+                    'pres_id' => $pres->id,
+                    'item_type' => 'prescribed',
+                    'status' => 'recommended',
+                    'checkout_status' => 1,
+                    'purchase_status' => 1,
+                    'product_image' => $pres->med_details->featured_image
+                ]);
             }elseif($pres->type == "lab-test"){
                 $pres->lab_details = DB::table('quest_data_test_codes')->where('TEST_CD',$pres->test_id)->first();
+                Cart::create([
+                    'product_id' => $pres->test_id,
+                    'name' =>  $pres->lab_details->TEST_NAME,
+                    'quantity' => $pres->quantity,
+                    'price' =>  $pres->lab_details->SALE_PRICE,
+                    'update_price' =>  $pres->lab_details->SALE_PRICE,
+                    'product_mode' => $pres->type,
+                    'user_id' =>  $inclinic_data->user_id,
+                    'doc_id' => 254,
+                    'doc_session_id' => $request['session_id'],
+                    'pres_id' => $pres->id,
+                    'item_type' => 'prescribed',
+                    'status' => 'recommended',
+                    'checkout_status' => 1,
+                    'purchase_status' => 1,
+                    'product_image' =>  $pres->lab_details->featured_image,
+                ]);
             }elseif($pres->type == "imaging"){
                 $pres->imaging_details = DB::table('quest_data_test_codes')->where('TEST_CD',$pres->imaging_id)->first();
+                Cart::create([
+                    'product_id' => $pres->imaging_id,
+                    'name' =>  $pres->imaging_details->TEST_NAME,
+                    'quantity' => $pres->quantity,
+                    'price' =>  $pres->imaging_details->SALE_PRICE,
+                    'update_price' =>  $pres->imaging_details->SALE_PRICE,
+                    'product_mode' => $pres->type,
+                    'user_id' =>  $inclinic_data->user_id,
+                    'doc_id' => 254,
+                    'doc_session_id' => $request['session_id'],
+                    'pres_id' => $pres->id,
+                    'item_type' => 'prescribed',
+                    'status' => 'recommended',
+                    'checkout_status' => 1,
+                    'purchase_status' => 1,
+                    'product_image' =>  $pres->imaging_details->featured_image,
+                ]);
             }
         }
 
