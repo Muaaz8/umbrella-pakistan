@@ -35,6 +35,8 @@
             <a href="{{ url('admin/dash') }}" class="dashboard-nav-item"><i class="fa-solid fa-house"></i> Dashboard
             </a>
             <a href="{{ route('inclinic_patient') }}" class="dashboard-nav-item"><i class="fa-solid fa-house-chimney-medical"></i>In Clinic</a>
+            <a href="{{ route('inclinic_pharmacy_editor_orders') }}" class="dashboard-nav-item"><i
+                class="fa-solid fa-calendar-check"></i>Inclinic Orders</a>
             <a href="{{ route('admin_wallet_pay') }}" class="dashboard-nav-item"><i
                     class="fa fa-dollar-sign"></i>Finance</a>
             <div class="dashboard-nav-dropdown">

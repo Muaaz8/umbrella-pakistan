@@ -49,8 +49,8 @@
             </div>
             <a href="{{ route('pharmacy_editor_orders') }}" class="dashboard-nav-item"><i
                 class="fa-solid fa-calendar-check"></i>Orders</a>
-            <a href="{{ route('inclinic_pharmacy_editor_orders') }}" class="dashboard-nav-item"><i
-                class="fa-solid fa-calendar-check"></i>Inclinic Orders</a>
+            {{-- <a href="{{ route('inclinic_pharmacy_editor_orders') }}" class="dashboard-nav-item"><i
+                class="fa-solid fa-calendar-check"></i>Inclinic Orders</a> --}}
             <a href="{{ route('pharmacy_admin_manage_editors') }}" class="dashboard-nav-item"><i
                 class="fa-solid fa-calendar-check"></i>Manage Editors</a>
             <a href="{{ route('pharmacy_editor_setting') }}" class="dashboard-nav-item"><i

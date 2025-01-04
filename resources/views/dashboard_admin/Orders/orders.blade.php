@@ -1,4 +1,4 @@
-@extends('layouts.dashboard_Pharm_admin')
+@extends('layouts.dashboard_admin')
 
 @section('meta_tags')
     <meta charset="utf-8" />

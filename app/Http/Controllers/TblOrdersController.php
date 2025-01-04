@@ -1170,7 +1170,12 @@ class TblOrdersController extends AppBaseController
         $img_order->medicine_sum = $medicine_sum;
         $img_order->lab_sum = $lab_sum;
         $img_order->imaging_sum = $imaging_sum;
-        return view('dashboard_Pharm_admin.inclinic.order_detail', compact('img_order'));
+        if ($user->user_type == "admin") {
+            return view('dashboard_Pharm_admin.Orders.inclinic_order_detail', compact('img_order'));
+        } else if ($user->user_type == "admin_pharm"){
+            return view('dashboard_Pharm_admin.inclinic.order_detail', compact('img_order'));
+        }
+
     }
 
     public function upload_imaging_report(Request $request)

@@ -3087,15 +3087,19 @@ public function store_policy(Request $request){
     {
         $tblOrders = InClinics::with(['user','prescriptions'])
             ->where('in_clinics.status','ended')
-            ->paginate(2);
+            ->orderBy('in_clinics.id','desc')
+            ->paginate(8);
         $data = InClinics::with(['user','prescriptions'])
             ->where('in_clinics.status','ended')
+            ->orderBy('in_clinics.id','desc')
             ->get();
         $user_type = Auth::user()->user_type;
         if($user_type == 'admin_pharm'){
             return view('dashboard_Pharm_admin.inclinic.orders',compact('tblOrders','data'));
         }elseif($user_type == 'editor_pharmacy'){
             return view('dashboard_Pharm_editor.Orders.orders',compact('tblOrders','data'));
+        }elseif($user_type == 'admin'){
+            return view('dashboard_admin.Orders.orders',compact('tblOrders','data'));
         }
     }
 

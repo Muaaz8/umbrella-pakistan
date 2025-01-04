@@ -462,11 +462,12 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
         Route::get('lab/editor/dash','ProductCategoryController@lab_test_categories')->name('lab_editor_dash');
         Route::get('/lab/editor/account/setting','AdminController@lab_editor_setting')->name('lab_editor_setting');
     });
+    Route::get('/inclinic/pharmacy/all/orders','AdminController@inclinic_pharmacy_editor_orders')->name('inclinic_pharmacy_editor_orders');
+
     Route::group(['middleware' => ['phar_auth']], function () {
         //New Pharmacy Editor Routes
         Route::get('/pharmacy/account/setting','AdminController@pharmacy_editor_setting')->name('pharmacy_editor_setting');
         Route::get('/pharmacy/all/orders','AdminController@pharmacy_editor_orders')->name('pharmacy_editor_orders');
-        Route::get('/inclinic/pharmacy/all/orders','AdminController@inclinic_pharmacy_editor_orders')->name('inclinic_pharmacy_editor_orders');
         Route::get('/pharmacy/product/categories', 'ProductCategoryController@dash_index')->name('pharmacy_editor_prod_cat');
         Route::post('/pharmacy/product/update', 'ProductCategoryController@dash_main_cat_update')->name('pharmacy_editor_prod_cat_update');
         Route::post('/pharmacy/product/delete', 'ProductCategoryController@dash_main_cat_delete')->name('pharmacy_editor_prod_cat_delete');
