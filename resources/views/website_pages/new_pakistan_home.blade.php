@@ -1223,7 +1223,7 @@
                 <img src=" {{ asset('assets/new_frontend/AmericanDoc.jpg') }}" alt="conference-image" />
             </aside>
         </div>
-        <div class="image-bg"></div>
+        {{-- <div class="image-bg"></div> --}}
     </section>
     <section id="faqs">
         <div>

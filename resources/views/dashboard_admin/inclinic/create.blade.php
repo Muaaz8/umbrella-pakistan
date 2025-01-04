@@ -44,7 +44,7 @@
                                         </div>
                                         <div class="col-md-6 sub_cat">
                                             <label class="fw-bolder mb-2" for="selectmedicine">Patient Phone Number</label>
-                                            <input type="text" name="phone" class="form-control" required placeholder="Enter Phone Number..." pattern="\d{10}|\d{13}" title="Phone number must be 10 or 13 digits">
+                                            <input type="text" id="phone_number" name="phone" class="form-control" required placeholder="Enter Phone Number..." pattern="\d{11}" title="Phone number must be 11 digits">
                                         </div>
                                         <div class="col-md-6 sub_cat">
                                             <label class="fw-bolder mb-2" for="selectmedicine">Patient Email</label>
@@ -94,4 +94,15 @@
             </div>
         </div>
     </div>
+
+    <script>
+        
+        document.getElementById('phone_number').addEventListener('input', function (e) {
+            if (this.value.length > 11) {
+                this.value = this.value.slice(0, 11);
+            }
+        });
+
+    </script>
+
 @endsection
