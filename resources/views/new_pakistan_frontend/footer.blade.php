@@ -104,7 +104,7 @@ $page = DB::table('pages')->where('url', '/')->first();
                 <div class="underline"></div>
             </div>
             <div class="footer-content">
-                <p><b>Inclinic:</b> hours 9am - 9pm</p>
+                <p><b>Inclinic:</b> 9am - 9pm</p>
                 <p><b>Online:</b> 24 hours</p>
                 <p>Community Healthcare Clinics</p>
                 <div class="footer-info">
