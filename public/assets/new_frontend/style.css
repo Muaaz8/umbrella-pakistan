@@ -1244,6 +1244,8 @@ footer {
 
 #copyright>p {
     color: gainsboro;
+    text-align: center;
+    padding: 0 0.5rem;
 }
 
 #copyright>span {
@@ -1825,9 +1827,9 @@ footer {
     position: absolute;
     top: 0;
     border-top-right-radius: 10px;
-    left: -39%;
-    width: 30%;
-    height: 40%;
+    left: -49px;
+    width: 40px;
+    height: 10px;
     background: transparent;
     box-shadow: 5px -5px 0px 3px #f5f5f5;
 }
@@ -2173,14 +2175,14 @@ footer {
 .tablets {
     position: absolute;
     left: 10%;
-    top: 40%;
+    bottom: 20%;
     background-image: url('./tablets.svg');
 }
 
 .medkit {
     position: absolute;
     right: 10%;
-    top: 40%;
+    bottom: 20%;
     background-image: url('./medkit.svg');
 }
 
@@ -3379,6 +3381,79 @@ footer {
         font-size: 1.1rem;
     }
 
+    .card {
+        min-height: 320px;
+    }
+
+    .price p {
+        font-size: 1.05rem !important;
+    }
+
+    .prescription p {
+        padding: 0.5rem;
+    }
+
+    .card p {
+        font-size: 0.95rem;
+    }
+
+    .card h4 {
+        font-size: 1.25rem;
+    }
+
+    .card h6 {
+        font-size: 1rem;
+    }
+
+    .read-more, .add-to-cart {
+        font-size: 1rem;
+    }
+
+    .read-more > i, .add-to-cart > i {
+        font-size: 1.25rem;
+    }
+
+    .test-card-price {
+        font-size: 1.15rem;
+    }
+
+    .add_to_cart_btn {
+        font-size: 0.95rem;
+    }
+
+    .truncate-overflow {
+        --max-lines: 3.5;
+    }
+
+    .tests-card h4 {
+        font-size: 1.25rem;
+    }
+
+    .tests-card p {
+        font-size: 0.9rem;
+    }
+
+    .learn_btn {
+        font-size: 1rem;
+    }
+
+    .learn_btn i {
+        font-size: 1.25rem;
+    }
+
+    .psychiatry-box {
+        min-width: 300px;
+        max-width: none;
+    }
+
+    .psychiatry-box img {
+        width: 20%;
+    }
+
+    .psychiatry-box p {
+        font-size: 1.15rem;
+    }
+
     .pharmacy-category {
         font-size: 1.05rem;
     }
@@ -3443,6 +3518,99 @@ footer {
     #footer-logo>img {
         width: 100%;
         min-width: 225px;
+    }
+
+    .pagination {
+        margin-top: 1rem;
+        scale: 1.1;
+    }
+
+    /* Pharmacy Page */
+
+    .alphabet {
+        font-size: 1.25rem;
+    }
+
+    .container-fluid > h3 {
+        font-size: 2.25rem;
+    }
+
+    .container-fluid > p {
+        font-size: 1.2rem;
+    }
+
+    .searchbar {
+        min-width: 500px;
+    }
+
+    /* Our Doctors Page */
+
+    .doctor-list-container h2 {
+        font-size: 2.5rem !important;
+    }
+
+    .doctor-list-container > p {
+        font-size: 1.15rem !important;
+    }
+
+    .doctor-pic-container {
+        width: 6rem !important;
+        height: 6rem !important;
+    }
+
+    .doctor-data-container h5 {
+        font-size: 1.4rem !important;
+    }
+
+    .doctor-verify {
+        font-size: 0.9rem !important;
+    }
+
+    .doctor-data-container p {
+        font-size: 1rem !important;
+    }
+
+    .doctor-ratings > i {
+        font-size: 1.2rem !important;
+    }
+
+    .doctor-experience-badge {
+        font-size: 0.9rem !important;
+    }
+
+    .doctor-list-card-container button {
+        font-size: 1.15rem;
+    }
+
+    /* About Us Page */
+
+    .about_heading_inner_div>h1 {
+        font-size: 2.5rem;
+    }
+
+    .about-main-heading {
+        font-size: 2.75rem;
+    }
+
+    .about-content p {
+        font-size: 1rem;
+    }
+
+    .desc-container h2 { 
+        font-size: 2.75rem;
+    }
+
+    .desc-container p {
+        font-size: 1.15rem;
+        width: 55%;
+    }
+
+    .about-image {
+        bottom: 0;
+    }
+
+    .about-image img {
+        min-width: 800px;
     }
 }
 
@@ -3805,10 +3973,6 @@ footer {
 }
 
 @media (max-width: 900px) {
-    .medicines-container {
-        justify-content: center;
-    }
-
     .card {
         flex: 1 1 calc(50% - 15px);
         max-width: calc(50% - 15px);
@@ -4050,6 +4214,20 @@ footer {
         z-index: -2;
         opacity: 0.5;
     }
+
+    .custom-search-container {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .custom-search-container > div {
+        width: 100% !important;
+    }
+
+    .category-dropdown {
+        max-width: none;
+    }
 }
 
 @media screen and (max-width: 650px) {
@@ -4119,6 +4297,10 @@ footer {
         flex: 1 1 100%;
         max-width: 100%;
     }
+
+    .card h6 {
+        margin-bottom: 1rem !important;
+    }
 }
 
 @media screen and (max-width: 540px) {
@@ -4149,6 +4331,7 @@ footer {
 
     .faq-question h3 {
         font-size: 1.1rem;
+        margin-right: 0.5rem;
     }
 
     .button-section>div {
@@ -4213,6 +4396,22 @@ footer {
     
     .button-section>div>i {
         font-size: 1.4rem;
+    }
+
+    .faq-question h3 {
+        font-size: 0.9rem;
+    }
+
+    .footer-content i {
+        margin-left: 0 !important;
+    }
+
+    .footer-content iframe {
+        width: 280px !important;
+    }
+
+    .pharmacy-page-container {
+        padding: 0 1rem !important;
     }
 }
 
@@ -4635,11 +4834,7 @@ footer {
     transform: translateX(0);
 }
 
-
-
 /* american doctors page   */
-
-
 
 .hero-section-doctor {
     background-image: url("./american-doc-hero-img.jpg");
