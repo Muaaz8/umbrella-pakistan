@@ -376,7 +376,7 @@
                                 </div>
                                 <div class="password-container">
                                     <div class="checkbox-container">
-                                        <input type="checkbox" name="remember" id=""
+                                        <input type="checkbox" name="remember" id="remember"
                                             class="remember-check" /><label for="remember" class="ms-2">Remember
                                             me</label>
                                     </div>
