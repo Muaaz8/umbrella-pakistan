@@ -151,6 +151,7 @@
             cursor: pointer;
             z-index: 10;
             background: white;
+            color: gray;
         }
 
         .remember-check {
@@ -160,6 +161,54 @@
         .left-container>p {
             text-align: center;
             padding: 0 1.5rem;
+        }
+
+        @media (min-width: 1400px) {
+            .form-floating>.form-control-plaintext~label, .form-floating>.form-control:focus~label, .form-floating>.form-control:not(:placeholder-shown)~label, .form-floating>.form-select~label {
+                color: rgba(var(--bs-body-color-rgb), .65);
+                transform: scale(.9) translateY(-1.1rem) translateX(.15rem);
+            }
+
+            .login-input-fields input {
+                font-size: 1.25rem;
+            }
+
+            .left-container > h2 {
+               font-size: 2.25rem;
+            }
+            
+            .left-container .logo-heading>span {
+                font-size: 3.75rem;
+            }
+
+            .left-container .logo-heading {
+                font-size: 2.2rem;
+            }
+
+            .left-container>p {
+                font-size: 1.1rem;
+            }
+
+            .login-logo>img {
+                width: 90%;
+                max-width: 900px;
+            }
+
+            .login label {
+                font-size: 1.15rem;
+            }
+
+            .login-heading > h1 {
+                font-size: 2.75rem;
+            }
+
+            .register-account > span, .register-account > a, .password-container > a {
+                font-size: 1.15rem;
+            }
+
+            .login-input-fields i {
+                font-size: 1.2rem;
+            }
         }
 
         @media screen and (max-width: 992px) {
@@ -247,12 +296,12 @@
                 display: none;
             }
 
-            .left-container .left-container-para {
+            .left-container {
                 display: none;
             }
 
             .left-side {
-                top: -5%;
+                top: 0;
                 height: 30%;
                 border-radius: 0 0 50% 50%;
             }

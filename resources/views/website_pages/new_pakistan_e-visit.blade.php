@@ -121,7 +121,7 @@
             @endif
             <hr>
 
-            <div class="row mt-3">
+            <div class="row gy-2 gy-md-0 mt-3">
                 <div class="col-md-4 d-flex align-items-center justify-content-center">
                     <div class="e_visit_btns w-100">
                         @if (Auth::check())
@@ -153,7 +153,7 @@
 
             <div class="container">
                 <div class="row mt-5">
-                    <div class="col-lg-6 col-md-12">
+                    <div class="col-lg-6 col-md-12 gallery-container">
                         <div class="gallery">
                             <img src="{{ asset("assets/new_frontend/e-pic9.png") }}" alt="a forest after an apocalypse">
                             <img src="{{ asset("assets/new_frontend/e-pic6.png") }}" alt="a waterfall and many rocks">

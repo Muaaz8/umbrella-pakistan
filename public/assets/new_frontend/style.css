@@ -2402,7 +2402,8 @@ footer {
     display: flex;
     align-items: center;
     justify-content: start;
-    padding-left: 20px;
+    padding: 0 10px;
+    word-wrap: normal;
 }
 
 .contact-info p {
@@ -2448,6 +2449,7 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-top: 3rem;
 }
 
 .contact-icons a {
@@ -2458,6 +2460,10 @@ footer {
     border-right: 1px solid white;
     color: white;
     text-decoration: none;
+}
+
+.contact-email-para {
+    word-break: break-word;
 }
 
 .contact-icons a:last-child {
@@ -3217,7 +3223,7 @@ footer {
 
 /* media queries  */
 
-@media screen and (min-width: 1440px) {
+@media screen and (min-width: 1400px) {
     .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
         max-width: 1340px;
     }
@@ -3392,7 +3398,7 @@ footer {
 
     #solution-para>ul,
     #solution-para>ol {
-        font-size: 1.35rem;
+        font-size: 1.15rem;
     }
 
     .tabs-section-container > h4 {
@@ -3669,53 +3675,10 @@ footer {
         font-size: 1.15rem;
     }
 
-    /* Login Page */
-
-    .left-container > h2 {
-        font-size: 2.25rem;
-    }
-
-    .left-container .logo-heading>span {
-        font-size: 3.75rem !important;
-    }
-
-    .left-container .logo-heading {
-        font-size: 2.2rem !important;
-    }
-
-    .left-container>p {
-        font-size: 1.1rem;
-    }
-
-    .login-logo>img {
-        width: 90% !important;
-        max-width: 900px;
-    }
-
-    .login label {
-        font-size: 1.15rem;
-    }
-
-    .login-heading > h1 {
-        font-size: 2.75rem;
-    }
-
-    .register-account > span, .register-account > a, .password-container > a {
-        font-size: 1.15rem;
-    }
-
-    .login-input-fields i {
-        font-size: 1.2rem;
-    }
-
     /* E-Visit Page */
 
     .gallery {
         width: auto;
-    }
-
-    .pharmacy-page-container p {
-        font-size: 1.1rem;
     }
 
     .pharmacy-page-container .container p {
@@ -3959,6 +3922,27 @@ footer {
         flex: 1 1 calc(33.33% - 15px);
         max-width: calc(33.33% - 15px);
     }
+
+    .gallery {
+        width: auto;
+        margin: auto;
+    }
+
+    .pharmacy-page-container h2 {
+        font-size: 1.5rem;
+    }
+
+    .pharmacy-page-container p {
+        font-size: 0.9rem;
+    }
+
+    .gallery-container {
+        margin: auto;
+    }
+
+    .pharmacy-page-container h2:first-child {
+        margin-top: 1rem;
+    }
 }
 
 @media screen and (max-width: 1024px) {
@@ -4086,6 +4070,11 @@ footer {
 
     .add-to-cart {
         font-size: 10px;
+    }
+
+    .contact-info {
+        word-wrap: normal;
+        padding: 0 10px;
     }
 }
 
@@ -4418,6 +4407,10 @@ footer {
     .card h6 {
         margin-bottom: 1rem !important;
     }
+
+    .gallery {
+        width: auto;
+    }
 }
 
 @media screen and (max-width: 540px) {
@@ -4461,6 +4454,10 @@ footer {
 }
 
 @media screen and (max-width: 480px) {
+    #disclaimer-content>div>p {
+        padding: 0 1.5rem;
+    }
+
     #hero-content {
         padding-top: 40px;
         padding-bottom: 70px;
@@ -4528,7 +4525,19 @@ footer {
     }
 
     .pharmacy-page-container {
-        padding: 0 1rem !important;
+        padding: 0 0.75rem !important;
+    }
+
+    .pharmacy-page-container p {
+        font-size: 0.75rem;
+    }
+
+    .doctor-list-card-container {
+        padding-top: 2rem !important;
+    }
+
+    .doctor-list-container > p {
+        font-size: 0.85rem;
     }
 }
 

@@ -61,11 +61,11 @@
             </div>
         </div>
 
-        <div class="container pt-4 px-5 bg-white rounded">
-            <div class="row">
+        <div class="container px-3 px-sm-5 bg-white rounded">
+            <div class="row px-2">
                 <!-- Left Side -->
-                <div class="col-md-4 contact-left py-5">
-                    <div class="w-100 px-2">
+                <div class="col-md-5 col-lg-4 contact-left py-5">
+                    <div class="w-100 px-lg-2">
                         <div class="text-center contact-info">
                             <i class="fa-solid fa-location-dot"></i>
                             <div class="d-flex flex-column align-items-start justify-content-center px-3">
@@ -86,7 +86,7 @@
                             <i class="fa-regular fa-envelope-open"></i>
                             <div class="d-flex flex-column align-items-start justify-content-center px-3">
                                 <div class="fw-bold">Email</div>
-                                <p>contact@communityhealthcareclinics.com</p>
+                                <p class="contact-email-para">contact@communityhealthcareclinics.com</p>
                             </div>
                         </div>
                     </div>
@@ -101,13 +101,13 @@
 
                 </div>
                 <!-- Right Side -->
-                <div class="col-md-8 p-5 contact-right">
+                <div class="col-md-7 col-lg-8 p-3 p-lg-5 contact-right">
                     <h4 class="fw-bold">Have a Question? Contact Us.</h4>
                     <p class="py-2">Give us a call or send an email. Our team is always ready to provide customer care
                         help. For more information, visit us.</p>
                     <form class="row form" action="/contact" method="POST">
                         @csrf
-                        <div class="row g-4">
+                        <div class="row gx-4 gy-2">
                             <!-- First Name and Last Name -->
                             <div class="col-md-6">
                                 <input type="text" class="form-control" name="fname" placeholder="First Name">
