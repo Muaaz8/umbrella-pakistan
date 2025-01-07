@@ -2157,7 +2157,7 @@ footer {
 
 .about-image {
     position: relative;
-    bottom: -4px;
+    bottom: 0;
     /* mix-blend-mode: overlay; */
 }
 
@@ -2169,7 +2169,7 @@ footer {
     width: 200px;
     height: 200px;
     opacity: 0.3;
-    z-index: 5;
+    z-index: -1;
 }
 
 .tablets {
@@ -2200,8 +2200,8 @@ footer {
     align-items: center;
     justify-content: center;
     transform: rotate(-3deg);
-    width: 101vw;
-    margin-left: -10px;
+    width: 102.5vw;
+    margin-left: -5px;
     position: relative;
     z-index: 2;
 }
@@ -2296,7 +2296,7 @@ footer {
 
 .about_heading_img {
     background: url('./background-about.jpg') no-repeat center;
-    height: 30vh;
+    min-height: 30vh;
     background-attachment: fixed;
     display: flex;
     align-items: center;
@@ -3200,6 +3200,10 @@ footer {
 /* media queries  */
 
 @media screen and (min-width: 1440px) {
+    .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+        max-width: 1340px;
+    }
+    
     .offer-banner>span {
         font-size: 1.1rem;
     }
@@ -3611,6 +3615,79 @@ footer {
 
     .about-image img {
         min-width: 800px;
+    }
+
+    .about-content p {
+        width: 62%;
+    }
+
+    /* Contact Page */
+
+    .contact-right h4 {
+        font-size: 2.25rem;
+    }
+
+    .contact-right p {
+        font-size: 1rem;
+    }
+
+    .contact-info > div > div {
+        font-size: 1.25rem;
+    }
+
+    .contact-info > div > p {
+        font-size: 0.9rem;
+    }
+
+    .contact-icons i {
+        font-size: 1.35rem;
+    }
+
+    .contact-right .form-control {
+        font-size: 1.15rem;
+    }
+
+    .contact-btn {
+        font-size: 1.15rem;
+    }
+
+    /* Login Page */
+
+    .left-container > h2 {
+        font-size: 2.25rem;
+    }
+
+    .left-container .logo-heading>span {
+        font-size: 3.75rem !important;
+    }
+
+    .left-container .logo-heading {
+        font-size: 2.2rem !important;
+    }
+
+    .left-container>p {
+        font-size: 1.1rem;
+    }
+
+    .login-logo>img {
+        width: 90% !important;
+        max-width: 900px;
+    }
+
+    .login label {
+        font-size: 1.15rem;
+    }
+
+    .login-heading > h1 {
+        font-size: 2.75rem;
+    }
+
+    .register-account > span, .register-account > a, .password-container > a {
+        font-size: 1.15rem;
+    }
+
+    .login-input-fields i {
+        font-size: 1.2rem;
     }
 }
 
