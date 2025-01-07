@@ -880,6 +880,24 @@ header {
     cursor: pointer;
 }
 
+.doctor-button:hover {
+    background-color: var(--red);
+    color: white;
+    border: 2px solid transparent;
+}
+
+.doctor-button:hover > a {
+    color: white;
+}
+
+.doctor-button:hover > i {
+    color: white;
+}
+
+.doctor-button:hover > span {
+    color: white !important;
+}
+
 .doctor-button>a {
     text-decoration: none;
     color: black;
@@ -3688,6 +3706,28 @@ footer {
 
     .login-input-fields i {
         font-size: 1.2rem;
+    }
+
+    /* E-Visit Page */
+
+    .gallery {
+        width: auto;
+    }
+
+    .pharmacy-page-container p {
+        font-size: 1.1rem;
+    }
+
+    .pharmacy-page-container .container p {
+        margin-bottom: 1.5rem;
+    }
+
+    .e_visit_btns button {
+        font-size: 1.15rem;
+    }
+
+    .contact-content h1 {
+        font-size: 2.5rem;
     }
 }
 
