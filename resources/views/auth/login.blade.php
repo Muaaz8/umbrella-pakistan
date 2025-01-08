@@ -176,7 +176,7 @@
             .left-container > h2 {
                font-size: 2.25rem;
             }
-            
+
             .left-container .logo-heading>span {
                 font-size: 3.75rem;
             }
@@ -361,7 +361,7 @@
                     <h2>Welcome to</h2>
                     <h1 class="logo-heading text-center">
                         <span class="text-center">COMMUNITY</span><br />
-                        HEALTH CARE CLINICS
+                        HEALTHCARE CLINICS
                     </h1>
                     @php
                     $page = DB::table('pages')->where('url', '/login')->first();
