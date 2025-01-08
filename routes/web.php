@@ -105,7 +105,7 @@ Route::get('/our-doctors',function(){
     $doctors = DB::table('users')
         ->where('user_type','doctor')
         ->where('active','1')
-        ->where('status','!=',null)
+        ->where('status','!=','ban')
         ->orderBy('id','desc')
         ->paginate(8);
     foreach($doctors as $doctor){
@@ -119,37 +119,57 @@ Route::get('/our-doctors',function(){
 })->name('doc_profile_page_list');
 
 Route::get('/our-doctors/{name}',function($name){
-
-    if($name == 0){
+    if($name == "0"){
         $doctors = DB::table('users')
         ->where('user_type','doctor')
+        ->where('active','1')
+        ->where('status','!=','ban')
         ->whereNull('zip_code')
         ->orderBy('id','desc')
         ->get();
-    foreach($doctors as $doctor){
-        $doctor->details = DB::table('doctor_details')->where('doctor_id',$doctor->id)->first();
-        $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
-        $doctor->specializations = DB::table('specializations')->where('id',$doctor->specialization)->first();
-    }
+        foreach($doctors as $doctor){
+            $doctor->details = DB::table('doctor_details')->where('doctor_id',$doctor->id)->first();
+            $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
+            $doctor->specializations = DB::table('specializations')->where('id',$doctor->specialization)->first();
+        }
         return json_encode($doctors);
-      }
+    }
 
-      if($name == 1){
-          $doctors = DB::table('users')
+    if($name == "1"){
+        $doctors = DB::table('users')
         ->where('user_type','doctor')
+        ->where('active','1')
+        ->where('status','!=','ban')
         ->whereNotNull('zip_code')
         ->orderBy('id','desc')
         ->get();
-    foreach($doctors as $doctor){
-        $doctor->details = DB::table('doctor_details')->where('doctor_id',$doctor->id)->first();
-        $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
-        $doctor->specializations = DB::table('specializations')->where('id',$doctor->specialization)->first();
-    }
-        return json_encode($doctors);
+        foreach($doctors as $doctor){
+            $doctor->details = DB::table('doctor_details')->where('doctor_id',$doctor->id)->first();
+            $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
+            $doctor->specializations = DB::table('specializations')->where('id',$doctor->specialization)->first();
         }
+        return json_encode($doctors);
+    }
+
+    if($name == "2"){
+        $doctors = DB::table('users')
+        ->where('user_type','doctor')
+        ->where('active','1')
+        ->where('status','!=','ban')
+        ->orderBy('id','desc')
+        ->get();
+        foreach($doctors as $doctor){
+            $doctor->details = DB::table('doctor_details')->where('doctor_id',$doctor->id)->first();
+            $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
+            $doctor->specializations = DB::table('specializations')->where('id',$doctor->specialization)->first();
+        }
+        return json_encode($doctors);
+    }
 
     $doctors = DB::table('users')
         ->where('user_type','doctor')
+        ->where('active','1')
+        ->where('status','!=','ban')
         ->where('name','LIKE','%'.$name.'%')
         ->orWhere('last_name','LIKE','%'.$name.'%')
         ->orderBy('id','desc')

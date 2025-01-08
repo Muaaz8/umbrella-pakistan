@@ -31,9 +31,12 @@
             $.ajax({
                     type: "get",
                     url: "/our-doctors/" + value,
-                    success: function(response) {
+                    beforeSend: function() {
                         $(".doctor-cont2").removeClass("d-none");
                         $(".doctor-cont").addClass("d-none");
+                        $(".doctor-cont2").html('<div class="d-flex flex-col align-items-center justify-content-center h-100"><i class="fa fa-spin fa-spinner fs-1"></i> </div>');
+                    },
+                    success: function(response) {
                         $(".doctor-cont2").html("");
                         $.each(JSON.parse(response), function (indexInArray, element) {
                             console.log(element)
@@ -90,6 +93,7 @@
                         $(".doctor-cont2").removeClass("d-none");
                         $(".doctor-cont").addClass("d-none");
                         $(".doctor-cont2").html("");
+                        $("#select_doc").val(2);
                         $.each(JSON.parse(response), function (indexInArray, element) {
                             console.log(element)
                             if (element.details) {
@@ -168,6 +172,7 @@
                          <div class="dropdown">
                         <select id="select_doc" class="form-select" aria-label="Default select example">
                             <option selected disabled>Find Doctors</option>
+                            <option value="2">All</option>
                             <option value="0">From Pakistan</option>
                             <option value="1">From America</option>
                         </select>
