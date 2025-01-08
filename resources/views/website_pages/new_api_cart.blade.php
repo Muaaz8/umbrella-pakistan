@@ -1485,21 +1485,16 @@
     <!-- header  -->
     <div id="offerBanner" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner">
-            <div class="carousel-item active">
-                <div class="offer-banner primary-bg text-white text-center py-2">
-                    <span>Get 20% off on your first purchase! Use code: FIRST20</span>
+            @php
+                $top_banners = DB::table('services')->where('name','ticker')->get();
+            @endphp
+            @foreach ($top_banners as $key => $banner)
+                <div class="carousel-item {{$key==0?'active':''}}">
+                    <div class="offer-banner primary-bg text-white text-center py-2">
+                        <span>{{ $banner->status }}</span>
+                    </div>
                 </div>
-            </div>
-            <div class="carousel-item">
-                <div class="offer-banner primary-bg text-white text-center py-2">
-                    <span>Free delivery on orders above $50!</span>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="offer-banner primary-bg text-white text-center py-2">
-                    <span>Limited Time Offer: Buy 1 Get 1 Free!</span>
-                </div>
-            </div>
+            @endforeach
         </div>
     </div>
 
@@ -2703,7 +2698,8 @@
                     <div class="underline"></div>
                 </div>
                 <div class="footer-content">
-                    <p>07:00 am - 08:00 pm</p>
+                    <p><b>Inclinic:</b> 9am - 9pm</p>
+                    <p><b>Online:</b> 24 hours</p>
                     <p>Community Healthcare Clinics</p>
                     <div class="footer-info">
                         <i class="fa-solid fa-chevron-right"></i>
