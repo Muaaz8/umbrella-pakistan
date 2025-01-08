@@ -353,7 +353,7 @@
         <section class="content-with-login row align-items-center justify-content-center">
             <div class="left-side col-12 col-sm-6 position-relative">
                 <div class="goBackBtn">
-                    <div onclick="window.history.back()"class="back-btn">
+                    <div onclick="window.location.href='/'" class="back-btn">
                         <i class="fas fa-arrow-left back_white"></i>
                     </div>
                 </div>
