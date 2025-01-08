@@ -108,7 +108,7 @@
 
             <div class="div1 order-2 order-md-2 order-lg-1">
 
-                <div class="row g-2 h-98">
+                <div class="row g-2 h-100">
 
                     <div class="col-lg-12 col-md-6 col-12 custom-card animate__animated animate__fadeInLeft"
                         style="animation-delay: 0s;">
