@@ -22,8 +22,8 @@
 <main class="profile_main d-flex align-items-center justify-content-center w-100 h-100 py-sm-4 py-2">
     <div class="profile_container row px-sm-3 px-1 py-4">
         <div class="col-12 col-md-8 d-flex flex-column gap-4">
-            <div class="d-flex align-items-center gap-3">
-                <div class="profile_pic_container rounded-circle">
+            <div class="d-flex flex-column flex-sm-row gap-3">
+                <div class="profile_pic_container rounded-circle align-self-center align-self-sm-start">
                     <img class="rounded-circle object-fit-cover w-100 h-100" src="{{$doctor->user_image}}" alt="" />
                 </div>
                 <div class="lh-1">

@@ -3221,6 +3221,10 @@ footer {
     margin-top: 0.25rem;
 }
 
+.doctor_degree {
+    line-height: 1.25 !important;
+}
+
 /* media queries  */
 
 @media screen and (min-width: 1400px) {
@@ -4255,13 +4259,24 @@ footer {
         width: 18px;
     }
 
-
     .first-content {
         display: none;
     }
 
     .last-content {
         width: 100%;
+    }
+
+    .doctor_name {
+        font-size: 1.75rem;
+    }
+
+    .doctor_designation {
+        font-size: 1rem !important;
+    }
+
+    .doctor_degree {
+        font-size: 0.8rem !important;
     }
 }
 
@@ -4569,6 +4584,8 @@ footer {
 .profile_pic_container {
     width: 10rem;
     height: 10rem;
+    min-width: 10rem;
+    min-height: 10rem;
     overflow: hidden;
 }
 
@@ -4627,11 +4644,13 @@ footer {
     .profile_pic_container {
         width: 8rem;
         height: 8rem;
+        min-width: 8rem;
+        min-height: 8rem;
     }
 
 
     .doctor_name {
-        font-size: 1.3rem;
+        font-size: 1.5rem !important;
     }
 
 
@@ -4658,11 +4677,6 @@ footer {
 
 
 @media only screen and (max-width: 373px) {
-    .line_break {
-        display: block !important;
-    }
-
-
     .ratings {
         gap: 0.25rem !important;
     }
@@ -4726,6 +4740,8 @@ footer {
 .doctor-pic-container {
     width: 5rem;
     height: 5rem;
+    min-width: 5rem;
+    min-height: 5rem;
     box-shadow: 0px 2px 5px 0px var(--blue);
 }
 
