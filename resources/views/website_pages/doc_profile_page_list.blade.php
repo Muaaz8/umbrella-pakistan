@@ -26,6 +26,56 @@
             }
         });
 
+        $('#select_doc').change(function(){
+            var value = $(this).val();
+            $.ajax({
+                    type: "get",
+                    url: "/our-doctors/" + value,
+                    success: function(response) {
+                        $(".doctor-cont2").removeClass("d-none");
+                        $(".doctor-cont").addClass("d-none");
+                        $(".doctor-cont2").html("");
+                        $.each(JSON.parse(response), function (indexInArray, element) {
+                            console.log(element)
+                            if (element.details) {
+                                $(".doctor-cont2").append(
+                                    `<div class="col-sm-12 col-md-6 col-xl-4 doctor-list-card">
+                                    <div class="doctor-list-card-container rounded-2 px-2 pt-3 pb-2 position-relative">
+                                    <div class="doctor-experience-badge">${element.details.experience } Years Experience</div>
+                                    <div class="d-flex pb-4 gap-3"><div class="doctor-pic-container rounded-circle p-1 ">
+                                    <img src="${element.user_image}" alt="Doctor Page" class="rounded-circle object-fit-cover w-100 h-100"></div>
+                                    <div class="doctor-data-container"><div class="d-flex flex-column gap-1">
+                                    <h5 class="mb-0">Dr.${element.name} ${element.last_name}</h5>
+                                    <h6 class="doctor-verify">PMDC Verified</h6></div>
+                                    <p class="">${element.specializations.name}</p>
+                                    <p>${element.details.education.substring(0,45)}</p>
+                                    <div class="doctor-ratings d-flex align-items-center mt-2"></div></div>
+                                    </div><div class="d-flex align-items-center justify-content-center w-100"><button
+                                    class="btn btn-outline-primary w-100" onclick="window.location.href='/doctor-profile/${element.id}'">View Profile</button></div></div></div>`
+                                );
+                            } else {
+                                $(".doctor-cont2").append(
+                                    `<div class="col-sm-12 col-md-6 col-xl-4 doctor-list-card">
+                                    <div class="doctor-list-card-container rounded-2 px-2 pt-3 pb-2 position-relative">
+                                    <div class="d-flex pb-4 gap-3"><div class="doctor-pic-container rounded-circle p-1 ">
+                                    <img src="${element.user_image}" alt="Doctor Page" class="rounded-circle object-fit-cover w-100 h-100"></div>
+                                    <div class="doctor-data-container"><div class="d-flex flex-column gap-1">
+                                    <h5 class="mb-0">Dr.${element.name} ${element.last_name}</h5>
+                                    <h6 class="doctor-verify">PMDC Verified</h6></div>
+                                    <p class="">${element.specializations.name}</p>
+                                    <p>MBBS</p>
+                                    <div class="doctor-ratings d-flex align-items-center mt-2"></div></div>
+                                    </div><div class="d-flex align-items-center justify-content-center w-100"><button
+                                    class="btn btn-outline-primary w-100" onclick="window.location.href='/doctor-profile/${element.id}'">View Profile</button></div></div></div>`
+                                );
+                            }
+                        });
+                    }
+                });
+
+        })
+
+
         $("#search").keyup(function(e) {
             var name = e.target.value;
             if (name.length == 0) {
@@ -109,34 +159,19 @@
                 @if ($top_content)
                     {!! $top_content->content !!}
                 @else
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit, consequuntur, reiciendis consequatur
-                    nostrum vitae perspiciatis quasi illum ab accusantium, commodi aut nam sit error molestias. Beatae earum
-                    nihil quam blanditiis?
+                    <p class="text-center">
+                        We have top doctors from Pakistan and some doctors from America. Find the best doctors and book an appointment with them.
+                    </p>
                 @endif
                 <div class="d-flex align-items-center justify-content-between  gap-3">
                     <div class="d-flex align-items-center justify-content-between gap-3">
-                        {{-- <div class="dropdown">
-                        <button class="btn btn-danger dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Dropdown
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><button class="dropdown-item" type="button">Action</button></li>
-                            <li><button class="dropdown-item" type="button">Another action</button></li>
-                            <li><button class="dropdown-item" type="button">Something else here</button></li>
-                        </ul>
+                         <div class="dropdown">
+                        <select id="select_doc" class="form-select" aria-label="Default select example">
+                            <option selected disabled>Find Doctors</option>
+                            <option value="0">From Pakistan</option>
+                            <option value="1">From America</option>
+                        </select>
                     </div>
-                    <div class="dropdown">
-                        <button class="btn btn-danger dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                            aria-expanded="false">
-                            Dropdown
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><button class="dropdown-item" type="button">Action</button></li>
-                            <li><button class="dropdown-item" type="button">Another action</button></li>
-                            <li><button class="dropdown-item" type="button">Something else here</button></li>
-                        </ul>
-                    </div> --}}
                     </div>
                     <div class="search-bar-container form-control px-2 py-2">
                         <form class="d-flex align-items-center justify-content-between">

@@ -109,14 +109,45 @@ Route::get('/our-doctors',function(){
         ->orderBy('id','desc')
         ->paginate(8);
     foreach($doctors as $doctor){
-        $doctor->details = DB::table('doctor_details')->where('doctor_id',$doctor->id)->first();
-        $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
-        $doctor->specializations = DB::table('specializations')->where('id',$doctor->specialization)->first();
+        if ($doctor) {
+            $doctor->details = DB::table('doctor_details')->where('doctor_id',$doctor->id)->first();
+            $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
+            $doctor->specializations = DB::table('specializations')->where('id',$doctor->specialization)->first();
+        }
     }
     return view('website_pages.doc_profile_page_list',compact('doctors'));
 })->name('doc_profile_page_list');
 
 Route::get('/our-doctors/{name}',function($name){
+
+    if($name == 0){
+        $doctors = DB::table('users')
+        ->where('user_type','doctor')
+        ->whereNull('zip_code')
+        ->orderBy('id','desc')
+        ->get();
+    foreach($doctors as $doctor){
+        $doctor->details = DB::table('doctor_details')->where('doctor_id',$doctor->id)->first();
+        $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
+        $doctor->specializations = DB::table('specializations')->where('id',$doctor->specialization)->first();
+    }
+        return json_encode($doctors);
+      }
+
+      if($name == 1){
+          $doctors = DB::table('users')
+        ->where('user_type','doctor')
+        ->whereNotNull('zip_code')
+        ->orderBy('id','desc')
+        ->get();
+    foreach($doctors as $doctor){
+        $doctor->details = DB::table('doctor_details')->where('doctor_id',$doctor->id)->first();
+        $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
+        $doctor->specializations = DB::table('specializations')->where('id',$doctor->specialization)->first();
+    }
+        return json_encode($doctors);
+        }
+
     $doctors = DB::table('users')
         ->where('user_type','doctor')
         ->where('name','LIKE','%'.$name.'%')
