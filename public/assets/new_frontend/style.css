@@ -3231,7 +3231,7 @@ footer {
     .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
         max-width: 1340px;
     }
-    
+
     .offer-banner>span {
         font-size: 1.1rem;
     }
@@ -3628,7 +3628,7 @@ footer {
         font-size: 1rem;
     }
 
-    .desc-container h2 { 
+    .desc-container h2 {
         font-size: 2.75rem;
     }
 
@@ -4522,7 +4522,7 @@ footer {
     .button-section>div>div {
         font-size: 0.75rem;
     }
-    
+
     .button-section>div>i {
         font-size: 1.4rem;
     }
@@ -5150,4 +5150,8 @@ font-size: 1rem;
         font-size: 0.9rem;
         width: 80%;
     }
+}
+
+.pointer {
+    cursor: pointer !important; 
 }

@@ -70,7 +70,7 @@
                             <i class="fa-solid fa-location-dot"></i>
                             <div class="d-flex flex-column align-items-start justify-content-center px-3">
                                 <div class="fw-bold">Address</div>
-                                <p>Progressive Center, Main Shahrah Faisal, Karachi</p>
+                                <p>Progressive Center, 4th Floor Suite#410, Main Shahrah Faisal, Karachi</p>
                             </div>
                         </div>
                         <hr class="hr">
