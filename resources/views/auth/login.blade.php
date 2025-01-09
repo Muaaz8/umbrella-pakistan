@@ -55,7 +55,7 @@
         }
 
         .login-container {
-            padding: 3rem;
+            padding: 1.5rem;
         }
 
         .left-container .logo-heading>span {

@@ -4717,6 +4717,10 @@ footer {
         width: 70%;
         font-size: 13px;
     }
+
+    .faq-answer p, .faq-answer span {
+        font-size: 0.8rem !important;
+    }
 }
 
 
