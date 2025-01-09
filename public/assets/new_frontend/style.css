@@ -2538,7 +2538,7 @@ footer {
 
 
 .alphabetical-categories {
-    padding: 1rem;
+    padding: 1rem 0;
     border-radius: 8px;
     margin: auto;
     text-align: center;
@@ -2561,7 +2561,8 @@ footer {
     display: inline-block;
     background-color: var(--navy-blue);
     color: white;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem;
+    min-width: 40px;
     border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
@@ -2600,6 +2601,7 @@ footer {
     margin: 0;
     position: absolute;
     max-height: 300px;
+    min-height: 0;
     overflow-y: auto;
     top: 114%;
     left: 0;
@@ -2608,7 +2610,7 @@ footer {
     border-radius: 4px;
     display: none;
     /* Initially hidden */
-    min-width: 200px;
+    min-width: 0;
     z-index: 1000;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -4641,6 +4643,15 @@ footer {
 
 
 @media only screen and (max-width: 576px) {
+    .alphabet {
+        font-size: 0.8rem;
+    }
+
+    .page-link {
+        font-size: 0.8rem;
+        padding: 0.5rem;
+    }
+
     .profile_pic_container {
         width: 8rem;
         height: 8rem;
@@ -4648,11 +4659,9 @@ footer {
         min-height: 8rem;
     }
 
-
     .doctor_name {
         font-size: 1.5rem !important;
     }
-
 
     .doctor_designation {
         font-size: 1rem;
@@ -4677,6 +4686,15 @@ footer {
 
 
 @media only screen and (max-width: 373px) {
+    .logo>img {
+        width: 225px;
+    }
+
+    .page-link {
+        font-size: 0.7rem;
+        padding: 0.35rem;
+    }
+
     .ratings {
         gap: 0.25rem !important;
     }
