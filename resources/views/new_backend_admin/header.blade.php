@@ -64,6 +64,7 @@
                         class="fa-solid fas fa-user-md"></i> Doctors </a>
                 <div class="dashboard-nav-dropdown-menu">
                     <a href="{{ route('all_doctors') }}" class="dashboard-nav-dropdown-item">All Doctors </a>
+                    <a href="{{ route('online_docs') }}" class="dashboard-nav-dropdown-item">Online Doctors </a>
                     <a href="{{ route('all_doctor_schedule') }}" class="dashboard-nav-dropdown-item"> Doctor
                         Schedule</a>
                     <a href="{{ route('pending_doctor_requests') }}" class="dashboard-nav-dropdown-item"> Pending

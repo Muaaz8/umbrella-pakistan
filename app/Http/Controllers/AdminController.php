@@ -66,7 +66,16 @@ class AdminController extends Controller
         return view("superadmin.doctor_calendar", compact('doctors', 'events'));
     }
 
-
+    public function online_docs(){
+        $doctors = User::where('user_type', 'doctor')
+        ->where('active', '1')
+        ->where('status', 'online')
+        ->paginate(8);
+        foreach($doctors as $doctor){
+            $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
+        }
+        return view('dashboard_admin.doctors.online_doctors.index',compact('doctors'));
+    }
 
 //doctor_schedule
 public function doctor_schedule($id)
