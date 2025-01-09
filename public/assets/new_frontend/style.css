@@ -4792,9 +4792,6 @@ footer {
     width: 92%;
 }
 
-.doctor-list-section {
-    margin-top: 3%;
-}
 
 .search-field {
     border: none;
@@ -5264,6 +5261,7 @@ font-size: 1rem;
     line-height: 2;
     cursor: pointer;
     display: inline-flex;
+    font-size: 1.4rem;
 }
 
 .checkbox-wrapper-47 label:before {

@@ -26,31 +26,9 @@
             }
         });
 
+        ///////////////////////////
+
         function select_doc(value){
-            if (value == 2) {
-                $("#all-doc").removeClass("btn-outline-primary");
-                $("#ame-doc").removeClass("btn-primary");
-                $("#pak-doc").removeClass("btn-primary");
-                $("#pak-doc").addClass("btn-outline-primary");
-                $("#ame-doc").addClass("btn-outline-primary");
-                $("#all-doc").addClass("btn-primary");
-            }
-            else if (value == 0) {
-                $("#all-doc").addClass("btn-outline-primary");
-                $("#ame-doc").addClass("btn-outline-primary");
-                $("#pak-doc").addClass("btn-primary");
-                $("#pak-doc").removeClass("btn-outline-primary");
-                $("#all-doc").removeClass("btn-primary");
-                $("#ame-doc").removeClass("btn-primary");
-            }
-            else if (value == 1) {
-                $("#ame-doc").removeClass("btn-outline-primary");
-                $("#all-doc").removeClass("btn-primary");
-                $("#pak-doc").removeClass("btn-primary");
-                $("#all-doc").addClass("btn-outline-primary");
-                $("#pak-doc").addClass("btn-outline-primary");
-                $("#ame-doc").addClass("btn-primary");
-            }
             $.ajax({
                     type: "get",
                     url: "/our-doctors/" + value,
@@ -101,9 +79,11 @@
 
         }
 
+        ///////////////////////////
 
         $("#search").keyup(function(e) {
             var name = e.target.value;
+            $('#cb-47').prop('checked', true);
             if (name.length == 0) {
                 $(".doctor-cont").removeClass("d-none");
                 $(".doctor-cont2").addClass("d-none");
@@ -113,12 +93,6 @@
                     type: "get",
                     url: "/our-doctors/" + name,
                     success: function(response) {
-                        $("#all-doc").removeClass("btn-outline-primary");
-                        $("#ame-doc").removeClass("btn-primary");
-                        $("#pak-doc").removeClass("btn-primary");
-                        $("#pak-doc").addClass("btn-outline-primary");
-                        $("#ame-doc").addClass("btn-outline-primary");
-                        $("#all-doc").addClass("btn-primary");
                         $(".doctor-cont2").removeClass("d-none");
                         $(".doctor-cont").addClass("d-none");
                         $(".doctor-cont2").html("");
@@ -196,19 +170,23 @@
                         We have top doctors from Pakistan and some doctors from America. Find the best doctors and book an appointment with them.
                     </p>
                 @endif
+                <hr>
                 <div class="d-flex align-items-center justify-content-between  gap-3">
                     <div class="d-flex align-items-center justify-content-between gap-3">
-                        {{--<div class="dropdown">
-                            <select id="select_doc" class="form-select" aria-label="Default select  example">
-                                <option selected disabled>Select Specialization</option>
-                                <option value="2">All</option>
-                                <option value="0">From Pakistan</option>
-                                <option value="1">From America</option>
-                            </select>
-                        </div> --}}
-                    <button id="all-doc" onclick="select_doc(2)" class="btn btn-primary all-doctors">All Doctors</button>
-                    <button id="pak-doc" onclick="select_doc(0)" class="btn btn-outline-primary pakistani-doctors">Pakistani Doctors</button>
-                    <button id="ame-doc" onclick="select_doc(1)" class="btn btn-outline-primary american-doctors">American Doctors</button>
+                        <div class="dropdown d-flex gap-4">
+                          <div onclick="select_doc('2')" class="checkbox-wrapper-47">
+                            <input checked type="radio" name="cb" id="cb-47" value="2"/>
+                            <label for="cb-47">All Doctors</label>
+                          </div>
+                          <div onclick="select_doc('0')" class="checkbox-wrapper-47">
+                            <input type="radio" name="cb" id="cb-48" value="0"/>
+                            <label for="cb-48">Pakistani Doctors</label>
+                          </div>
+                          <div onclick="select_doc('1')" class="checkbox-wrapper-47">
+                            <input type="radio" name="cb" id="cb-49" value="1"/>
+                            <label for="cb-49">American Doctors</label>
+                          </div>
+                        </div>
                     </div>
                     <div class="search-bar-container form-control px-2 py-2">
                         <form class="d-flex align-items-center justify-content-between">
