@@ -190,7 +190,7 @@
             $alpha = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z'];
             $len = count($alpha);
         @endphp
-        <div class="container-fluid px-5">
+        <div class="container-fluid px-3 px-sm-5">
             <h3>Categories By Alphabets</h3>
             <div class="container-fluid ">
                 <div class="alphabetical-categories">
@@ -219,7 +219,7 @@
             </div>
         </div>
 
-        <div class="container-fluid px-5">
+        <div class="container-fluid px-3 px-sm-5">
             <h3>Community Healthcare Clinics - Medicines</h3>
             <p>
                 Our pharmacy offers prescription drugs at discounted prices.

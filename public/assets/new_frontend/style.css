@@ -1248,6 +1248,8 @@ footer {
     padding: 8px;
     color: white;
     text-decoration: none;
+    min-width: 33px;
+    min-height: 33px;
 }
 
 #social-icons>a>i {
@@ -1321,6 +1323,7 @@ footer {
 #disclaimer-content>div:first-child>h2 {
     color: var(--red);
     font-size: 2.5rem;
+    margin-top: 1rem;
 }
 
 #disclaimer-content>div:last-child {
@@ -1692,6 +1695,9 @@ footer {
 
 .med-img img {
     width: 50%;
+    max-width: 100px;
+    margin: 1rem 0;
+    margin-top: 2rem;
     height: auto;
     object-fit: cover;
 }
@@ -2481,7 +2487,7 @@ footer {
 }
 
 .custom-search-container {
-    padding: 1rem;
+    padding: 0.75rem;
     border-radius: 8px;
     color: white;
     width: 100%;
@@ -4107,6 +4113,15 @@ footer {
 }
 
 @media screen and (max-width: 768px) {
+    .doctor-list-container div:nth-child(3) {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .search-bar-container {
+        width: 100% !important;
+    }
+
     #footer-logo>img {
         max-width: 400px;
     }
@@ -4453,7 +4468,7 @@ footer {
     }
 
     #disclaimer-content>div:first-child>h2 {
-        font-size: 39px;
+        font-size: 32px;
     }
 
     .faq-question h3 {
@@ -4473,6 +4488,10 @@ footer {
 @media screen and (max-width: 480px) {
     #disclaimer-content>div>p {
         padding: 0 1.5rem;
+    }
+
+    .healthcare-section h4 {
+        font-size: 0.8rem !important;
     }
 
     #hero-content {
@@ -4652,6 +4671,24 @@ footer {
         padding: 0.5rem;
     }
 
+    .container-fluid > p {
+        font-size: 0.8rem;
+    }
+
+    .tablets, .medkit {
+        display: none;
+    }
+
+    .about-content {
+        width: 90%;
+    }
+
+    .about-content p {
+        text-align: center;
+        width: 80%;
+        font-size: 13px;
+    }
+
     .profile_pic_container {
         width: 8rem;
         height: 8rem;
@@ -4665,6 +4702,20 @@ footer {
 
     .doctor_designation {
         font-size: 1rem;
+    }
+
+    .about-image > img {
+        width: 100%;
+    }
+
+    .desc-container h2 {
+        width: 85%;
+        font-size: 28px;
+    }
+
+    .desc-container p {
+        width: 70%;
+        font-size: 13px;
     }
 }
 
@@ -4690,6 +4741,12 @@ footer {
         width: 225px;
     }
 
+    .healthcare-section {
+        --bs-gutter-x: 0;
+    }
+
+
+
     .page-link {
         font-size: 0.7rem;
         padding: 0.35rem;
@@ -4708,11 +4765,25 @@ footer {
     .ratings>i {
         font-size: 0.8rem;
     }
+
+
 }
 
 @media only screen and (max-width: 335px) {
     .offer-banner>span {
         font-size: 12px;
+    }
+
+    .tests-card {
+        min-width: auto;
+    }
+
+    .background-secondary {
+        padding: 0.5rem !important;
+    }
+
+    .healthcare-section h4 {
+        font-size: 0.75rem !important;
     }
 }
 
@@ -4835,6 +4906,11 @@ footer {
 @media screen and (max-width: 576px) {
     .search-bar-container {
         width: 70%;
+    }
+
+    .gallery > img:hover {
+        width: 120px;
+        height: 75px;
     }
 }
 
@@ -5172,4 +5248,52 @@ font-size: 1rem;
 
 .pointer {
     cursor: pointer !important;
+}
+
+/* Checkbox Design */
+
+.checkbox-wrapper-47 input[type="radio"] {
+    display: none;
+    visibility: hidden;
+}
+
+.checkbox-wrapper-47 label {
+    position: relative;
+    padding-left: 2em;
+    padding-right: 1em;
+    line-height: 2;
+    cursor: pointer;
+    display: inline-flex;
+}
+
+.checkbox-wrapper-47 label:before {
+    box-sizing: border-box;
+    content: " ";
+    position: absolute;
+    top: 0.3em;
+    left: 0;
+    display: block;
+    width: 1.4em;
+    height: 1.4em;
+    border: 2px solid #9098A9;
+    border-radius: 6px;
+    z-index: -1;
+}
+
+.checkbox-wrapper-47 input[type=radio]:checked+label {
+    padding-left: 1em;
+    color: #0f5229;
+}
+
+.checkbox-wrapper-47 input[type=radio]:checked+label:before {
+    top: 0;
+    width: 100%;
+    height: 2em;
+    background: #b7e6c9;
+    border-color: #2cbc63;
+}
+
+.checkbox-wrapper-47 label,
+.checkbox-wrapper-47 label::before {
+    transition: 0.25s all ease;
 }

@@ -182,7 +182,7 @@
 
         </div>
 
-        <div class="row px-3">
+        <div class="row px-3 gy-2">
             <div class="col-lg-3 col-md-6 col-12 card-secondary-div animate__animated animate__fadeInUp"
                 style="animation-delay: 0s;">
                 <div class="card-secondary d-flex flex-row align-items-center justify-content-between">
