@@ -1,35 +1,33 @@
-
-	</div>
+</div>
 </div>
 <!-- ------------------Delete-Button-Modal-start------------------ -->
 
-            <!-- Modal -->
-            <div class="modal fade" id="ask_change_status" tabindex="-1" aria-labelledby="ask_change_statusLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                    <h5 class="modal-title" id="ask_change_statusLabel">Status Changed</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="ask_change_status-modal-body text-dark p-5">
-                            Because you were not active for last 15 minutes that's why we have changed your status to offline
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Ok</button>
-                    </div>
-                </div>
+<!-- Modal -->
+<div class="modal fade" id="ask_change_status" tabindex="-1" aria-labelledby="ask_change_statusLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="ask_change_statusLabel">Status Changed</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="ask_change_status-modal-body text-dark p-5">
+                    Because you were not active for last 15 minutes that's why we have changed your status to offline
                 </div>
             </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
-    <!-- ------------------Delete-Button-Modal-start------------------ -->
-<script
-  src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-  integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-  crossorigin="anonymous"
-></script>
+<!-- ------------------Delete-Button-Modal-start------------------ -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+</script>
 <script src="{{ asset('assets/js/dashboard_custom.js') }}"></script>
 <script src="{{ asset('/js/app.js') }}"></script>
 <script type="text/javascript">
@@ -80,116 +78,116 @@
             $('#cart_counter').text(e.cart_conunt);
         }
     });
-    Echo.channel('events')
-    .listen('RealTimeMessage',(e)=> {
-        var user_id="{{ Auth::user()->id ?? '0'}}";
-        if(e.user_id==user_id)
-        {
-            if(e.getNote!='' || e.getNote!=null)
-            {
+
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+
+
+Echo.channel('events')
+.listen('RealTimeMessage', (e) => {
+        let ringtone;
+        var user_id = "{{ Auth::user()->id ?? '0'}}";
+        if (e.user_id == user_id) {
+            if (e.getNote != '' || e.getNote != null) {
                 $('#notif').html('');
 
-                $.each (e.getNote, function (key, note) {
-
+                $.each(e.getNote, function (key, note) {
                     var today = new Date();
-
+                    var diffMs = (today - Christmas);
                     var Christmas = new Date(note.created_at);
+                    var diffDays = Math.floor(diffMs / 86400000);
+                    var diffHrs = Math.floor((diffMs % 86400000) / 3600000);
+                    var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);
+                    var noteTime = '';
 
-                    var diffMs = (today-Christmas); // milliseconds between now & Christmas
-                    var diffDays = Math.floor(diffMs / 86400000); // days
-                    var diffHrs = Math.floor((diffMs % 86400000) / 3600000); // hours
-                    var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000); // minutes
-                    var noteTime='';
-
-                    if(diffDays<=0)
-                    {
-
-                        if(diffHrs<=0)
-                        {
-                            if(diffMins<=0)
-                            {
-                                noteTime='0 mint ago';
+                    if (diffDays <= 0) {
+                        if (diffHrs <= 0) {
+                            if (diffMins <= 0) {
+                                noteTime = '0 mint ago';
+                            } else {
+                                noteTime = diffMins + ' mints ago';
                             }
-                            else
-                            {
-                                noteTime=diffMins+' mints ago';
-                            }
+                        } else {
+                            noteTime = diffHrs + ' hours ago';
                         }
-                        else
-                        {
-                            noteTime=diffHrs +' hours ago';
+                    } else {
+                        if (diffDays == 1) {
+                            noteTime = diffDays + ' day ago';
+                        } else {
+                            noteTime = diffDays + ' days ago';
                         }
                     }
-                    else{
-
-                        if(diffDays==1)
-                        {
-                            noteTime=diffDays+' day ago';
-                        }else{
-                            noteTime=diffDays+' day ago';
-                        }
-                    }
-                    if(note.status=='new')
-                    {
+                    if (note.status == 'new') {
                         $('#notif').append(
-                          '<div class = "sec new">'+
-                            '<a href="/ReadNotification/'+note.id+'" >'+
-                                '<div class = "profCont">'+
-                                    '<img class = "profile" src = "{{asset("assets/images/notifyuser.png")}}">'+
-                                  '</div>'+
-                                  '<div class="txt">'+note.text+'</div>'+
-                                  '<div class = "txt sub">'+noteTime+'</div>'+
-                            '</a>'+
-                          '</div>'
+                            '<div class = "sec new">' +
+                            '<a href="/ReadNotification/' + note.id + '" >' +
+                            '<div class = "profCont">' +
+                            '<img class = "profile" src = "{{asset("assets/images/notifyuser.png")}}">' +
+                            '</div>' +
+                            '<div class="txt">' + note.text + '</div>' +
+                            '<div class = "txt sub">' + noteTime + '</div>' +
+                            '</a>' +
+                            '</div>'
+                        );
+                    } else {
+                        $('#notif').append(
+                            '<div class = "sec">' +
+                            '<a href="/ReadNotification/' + note.id + '" >' +
+                            '<div class = "profCont">' +
+                            '<img class = "profile" src = "{{asset("assets/images/notifyuser.png")}}">' +
+                            '</div>' +
+                            '<div class="txt">' + note.text + '</div>' +
+                            '<div class = "txt sub">' + noteTime + '</div>' +
+                            '</a>' +
+                            '</div>'
                         );
                     }
-                    else
-                    {
-                        $('#notif').append(
-                          '<div class = "sec">'+
-                            '<a href="/ReadNotification/'+note.id+'" >'+
-                                '<div class = "profCont">'+
-                                    '<img class = "profile" src = "{{asset("assets/images/notifyuser.png")}}">'+
-                                  '</div>'+
-                                  '<div class="txt">'+note.text+'</div>'+
-                                  '<div class = "txt sub">'+noteTime+'</div>'+
-                            '</a>'+
-                          '</div>'
-                        );
-                    }
-
                 });
             }
-            if(e.countNote!='' || e.countNote!=null)
-            {
+            if (e.countNote != '' || e.countNote != null) {
                 $('#countNote').text(e.countNote);
             }
-            if(e.toastShow!='' || e.toastShow!=null)
-            {
-                $.each (e.toastShow, function (key, toast) {
+            if (e.toastShow != '' || e.toastShow != null) {
+                $.each(e.toastShow, function (key, toast) {
+                    ringtone = new Audio("{{ asset('assets/new_frontend/notify.mp3') }}");
                     $.notify(
                         {
-                            title: "<strong>1 New Notification</strong>",
-                            message: "<br>"+toast.text,
+                            title: "<strong>New Notification</strong>",
+                            message: "<br>" + toast.text,
                             icon: 'fas fa-bell',
                         },
                         {
                             type: "info",
                             allow_dismiss: true,
-                            delay: 3000,
+                            clickToHide: true,
+                            delay: 25000,
                             placement: {
-                            from: "bottom",
-                            align: "right"
+                                from: "bottom",
+                                align: "right"
                             },
+                            onClosed: function () {
+                                if (ringtone) {
+                                    ringtone.pause();
+                                    ringtone.currentTime = 0;
+                                }
+                            }
                         }
                     );
-                });
 
+                    ringtone.play().catch(error => {
+                        console.error('Error playing ringtone:', error);
+                    });
+                });
             }
         }
-});
+    });
 
 
+
+////////////////////////////////////////////////
+////////////////////////////////////////////////
+////////////////////////////////////////////////
 
     $(document).ready(function(){
         var user_id="{{ Auth::user()->id ?? '0' }}";
@@ -414,5 +412,3 @@ $('#flexSwitchCheckChecked').click(function()
 
 </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mouse0270-bootstrap-notify/3.1.5/bootstrap-notify.min.js"></script>
-
-

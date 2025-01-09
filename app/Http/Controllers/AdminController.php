@@ -36,6 +36,8 @@ use Auth;
 use DateTime;
 use DateTimeZone;
 use DB;
+use App\Notification;
+use App\Events\RealTimeMessage;
 use PDF;
 use Flash;
 use Illuminate\Http\Request;
@@ -3833,6 +3835,12 @@ public function store_policy(Request $request){
                 'reason'=> $request->reason,
                 'status'=> 'paid'
             ]);
+            $notification_id = Notification::create([
+                'user_id' =>  254,
+                'type' => '/doctor/in/clinics',
+                'text' => 'New Patient.',
+            ]);
+            event(new RealTimeMessage(254));
             event(new \App\Events\InClinicPatientUpdate($pat->id));
         }
         return redirect()->route('inclinic_patient');
