@@ -173,7 +173,7 @@
                 <hr>
                 <div class="d-flex align-items-center justify-content-between  gap-3">
                     <div class="d-flex align-items-center justify-content-between gap-3">
-                        <div class="dropdown d-flex gap-4">
+                        <div class="dropdown doctor-filter d-flex gap-2 gap-sm-4">
                           <div onclick="select_doc('2')" class="checkbox-wrapper-47">
                             <input checked type="radio" name="cb" id="cb-47" value="2"/>
                             <label for="cb-47">All Doctors</label>
