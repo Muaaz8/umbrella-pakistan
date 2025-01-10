@@ -1,3 +1,9 @@
+<style>
+    .activetab {
+        border-bottom: 2px solid #c80919 !important;
+    }
+</style>
+
 
 <!-- header  -->
 <div id="offerBanner" class="carousel slide" data-bs-ride="carousel">
@@ -697,7 +703,7 @@
         $('#nav-left-side a').each(function() {
             var linkPage = this.href;
             if (activePage == linkPage) {
-                $(this).closest("a").addClass("active");
+                $(this).closest("a").addClass("activetab");
             }
         });
     });
