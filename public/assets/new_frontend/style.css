@@ -4113,7 +4113,7 @@ footer {
 }
 
 @media screen and (max-width: 768px) {
-    .doctor-list-container div:nth-child(3) {
+    .doctor-list-container div:nth-child(4) {
         flex-direction: column;
         width: 100%;
     }
@@ -5262,7 +5262,9 @@ font-size: 1rem;
     position: relative;
     padding-left: 2em;
     padding-right: 1em;
-    line-height: 2;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    /* line-height: 2; */
     cursor: pointer;
     display: inline-flex;
     font-size: 1rem;
@@ -5272,7 +5274,7 @@ font-size: 1rem;
     box-sizing: border-box;
     content: " ";
     position: absolute;
-    top: 0.3em;
+    top: 0.6rem;
     left: 0;
     display: block;
     width: 1.4em;
