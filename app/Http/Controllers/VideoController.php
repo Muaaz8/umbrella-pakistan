@@ -393,8 +393,12 @@ class VideoController extends Controller
 
         if ($userTypeCheck->user_type == 'doctor') {
             Session::where('id', $id)->update(['status' => 'doctor joined']);
-            try {
+            $queue = Session::where('id', $id)->first();
+            if ($queue->queue < 2) {
+                Session::where('id', $id)->update(['response_time' => now()]);
+            }
 
+            try {
                 $firebase_session = DB::table('sessions')->where('id',$id)->first();
                 $firebase_session->received = false;
                 // \App\Helper::firebase($firebase_session->patient_id,'DoctorJoinedVideoSession',$firebase_session->id,$firebase_session);

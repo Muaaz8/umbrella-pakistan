@@ -109,6 +109,14 @@
                                             <div class="col-md-4 doctor_info"><p><span>Email: </span>&nbsp; <span>{{ucwords($doctor->email)}}</span></p></div>
 
                                         </div>
+                                        <div class="col-md-4 doctor_info mt-3"><p><span>Average Response Time:</span>&nbsp; <span>
+                                        @if ($averageResponseTime !== null)
+                                            {{$averageResponseTime}} Min.
+                                        @else
+                                            No data found
+                                        @endif
+                                        </span></p>
+                                        </div>
 
                                         <div class="row mt-3">
                                             <div class="col-md-12 doctor_info">
