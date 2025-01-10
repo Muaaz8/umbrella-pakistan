@@ -82,14 +82,16 @@
                         <div class="p-3">
                             <nav>
                                 <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                                    <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Personal Information</button>
-                                    <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Doctor Certificate</button>
-                                    <button class="nav-link " id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="false">Activity Log</button>
-                                    <button class="nav-link {{ ($doctor->id== 6)? active : ''  }}" id="nav-payment-tab" data-bs-toggle="tab" data-bs-target="#nav-payment" type="button" role="tab" aria-controls="nav-payment" aria-selected="false">Payment History</button>
+                                    <button class="nav-link {{ request('tab') == null ? 'active' : '' }}" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="{{ request('tab') == null ? 'true' : 'false' }}">Personal Information</button>
+                                    <button class="nav-link {{ request('tab') == 'certificate' ? 'active' : '' }}" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="{{ request('tab') == 'certificate' ? 'true' : 'false' }}">Doctor Certificate</button>
+                                    <button class="nav-link {{ request('tab') == 'activity' ? 'active' : '' }}" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="{{ request('tab') == 'activity' ? 'true' : 'false' }}">Activity Log</button>
+                                    <button class="nav-link {{ request('tab') == 'payment' ? 'active' : '' }}" id="nav-payment-tab" data-bs-toggle="tab" data-bs-target="#nav-payment" type="button" role="tab" aria-controls="nav-payment" aria-selected="{{ request('tab') == 'payment' ? 'true' : 'false' }}">Payment History</button>
                                 </div>
                             </nav>
                             <div class="tab-content tab-style px-3 py-2" id="nav-tabContent">
-                                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                <div  id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab"
+                                class="tab-pane fade {{ request('tab') == 'activity' ? '' : (request('tab') ? '' : 'show active') }}"
+                                >
                                     <div class="view-personal-info-tab">
                                         <div class="row mt-3">
                                             <div class="col-md-4 doctor_info"><p><span>Name:</span>&nbsp; <span>{{ucwords($doctor->name." ".$doctor->last_name)}}</span></p></div>
@@ -153,7 +155,7 @@
                                     </div>
                                 </div>
                                 </div>
-                                <div class="tab-pane fade " id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+                                <div class="tab-pane fade {{ request('tab') == 'activity' ? 'show active' : '' }}" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
                                     <div class="widget">
                                         <div class="widget-content">
                                             <div class="column-wrap">

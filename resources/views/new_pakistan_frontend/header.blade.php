@@ -1,3 +1,10 @@
+<style>
+    .active {
+        border-bottom: 2px solid #c80919 !important;
+    }
+</style>
+
+
 <!-- header  -->
 <div id="offerBanner" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
@@ -687,6 +694,17 @@
                     }
                 }
             });
+        });
+    });
+
+    $(document).ready(function() {
+        var url = window.location.href;
+        var activePage = url;
+        $('#nav-left-side a').each(function() {
+            var linkPage = this.href;
+            if (activePage == linkPage) {
+                $(this).closest("a").addClass("active");
+            }
         });
     });
 </script>

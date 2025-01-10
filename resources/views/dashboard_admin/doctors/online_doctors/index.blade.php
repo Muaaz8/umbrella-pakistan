@@ -62,6 +62,14 @@
                               </div>
                             </div>
                             @endif
+                            <div class="appoint-btn">
+                                <a href="{{ route('all_doctor_view', ['id' => $doctor->id]) }}" class="btn btn-primary">
+                                    View Profile
+                                </a>
+                                <a href="{{ route('all_doctor_view', ['id' => $doctor->id, 'tab' => 'activity']) }}" class="btn btn-primary">
+                                    View Activity
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

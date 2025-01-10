@@ -1971,6 +1971,17 @@ div.datedropper.primary .pick-lg-h {
   font-size: 14px;
 }
 
+.all-doc-wrap .card .general .appoint-btn a {
+  border: none;
+  padding: 2px 13px;
+  color: white;
+  background: linear-gradient(to top, #08295a, #165dc8);
+  border-radius: 20px;
+  font-weight: 500;
+  margin-top: 6px;
+  font-size: 14px;
+}
+
 .all-doc-wrap .user-card {
   width: 104px;
 }
