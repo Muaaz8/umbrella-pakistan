@@ -1,9 +1,3 @@
-<style>
-    .active {
-        border-bottom: 2px solid #c80919 !important;
-    }
-</style>
-
 
 <!-- header  -->
 <div id="offerBanner" class="carousel slide" data-bs-ride="carousel">
