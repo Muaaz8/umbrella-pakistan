@@ -85,6 +85,7 @@
                                     <button class="nav-link {{ request('tab') == null ? 'active' : '' }}" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="{{ request('tab') == null ? 'true' : 'false' }}">Personal Information</button>
                                     <button class="nav-link {{ request('tab') == 'certificate' ? 'active' : '' }}" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="{{ request('tab') == 'certificate' ? 'true' : 'false' }}">Doctor Certificate</button>
                                     <button class="nav-link {{ request('tab') == 'activity' ? 'active' : '' }}" id="nav-contact-tab" data-bs-toggle="tab" data-bs-target="#nav-contact" type="button" role="tab" aria-controls="nav-contact" aria-selected="{{ request('tab') == 'activity' ? 'true' : 'false' }}">Activity Log</button>
+                                    <button class="nav-link {{ request('tab') == 'sessions' ? 'active' : '' }}" id="nav-sessions-tab" data-bs-toggle="tab" data-bs-target="#nav-sessions" type="button" role="tab" aria-controls="nav-sessions" aria-selected="{{ request('tab') == 'sessions' ? 'true' : 'false' }}">Sessions History</button>
                                     <button class="nav-link {{ request('tab') == 'payment' ? 'active' : '' }}" id="nav-payment-tab" data-bs-toggle="tab" data-bs-target="#nav-payment" type="button" role="tab" aria-controls="nav-payment" aria-selected="{{ request('tab') == 'payment' ? 'true' : 'false' }}">Payment History</button>
                                 </div>
                             </nav>
@@ -111,7 +112,7 @@
                                         </div>
                                         <div class="col-md-4 doctor_info mt-3"><p><span>Average Response Time:</span>&nbsp; <span>
                                         @if ($averageResponseTime !== null)
-                                            {{$averageResponseTime}} Min.
+                                        {{ number_format($averageResponseTime, 1) }} Min.
                                         @else
                                             No data found
                                         @endif
@@ -179,6 +180,57 @@
                                         </div>
                                     </div>
                                 </div>
+                                {{-- /////////////////////////// --}}
+                                <div class="tab-pane fade" id="nav-sessions" role="tabpanel" aria-labelledby="nav-sessions-tab">
+                                    <div class="row m-auto mt-3">
+                                        <div class="wallet-table">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                    <th scope="col">Patient Name</th>
+                                                    <th scope="col">Date</th>
+                                                    <th scope="col">Duration</th>
+                                                    <th scope="col">Invite Time</th>
+                                                    <th scope="col">Join Invite Time</th>
+                                                    <th scope="col">No. Queue Patients</th>
+                                                    <th scope="col">Response time</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    @forelse($sessions as $session)
+                                                    <tr>
+                                                        <td data-label="Patient Name">{{ ucwords($session->patient_name) }} {{ ucwords($session->patient_last_name) }}</td>
+                                                        <td data-label="Date">{{ date('m-d-Y', strtotime($session->date)) }}</td>
+                                                        <td data-label="Duration">
+                                                            @php
+                                                                $duration = strtotime($session->end_time) - strtotime($session->start_time);
+                                                                echo $duration > 0 ? sprintf('%02d:%02d', intdiv($duration, 60), $duration % 60) : '-';
+                                                            @endphp
+                                                        </td>
+                                                        <td data-label="Time">{{ date('h:i A', strtotime($session->invite_time)) }}</td>
+                                                        <td data-label="Confirm Time">{{ date('h:i A', strtotime($session->response_time)) }}</td>
+                                                        <td data-label="Queue Patients">{{ $session->queue }}</td>
+                                                        <td data-label="Response time">
+                                                            @php
+                                                                $response_time = strtotime($session->response_time) - strtotime($session->invite_time);
+                                                                echo $response_time > 0 ? sprintf('%02d:%02d', intdiv($response_time, 60), $response_time % 60) : '-';
+                                                            @endphp
+                                                        </td>
+                                                    </tr>
+                                                    @empty
+                                                    <tr>
+                                                        <td colspan="7" class="text-center bg-grey">No Session History</td>
+                                                    </tr>
+                                                    @endforelse
+
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {{-- /////////////// --}}
                                 <div class="tab-pane fade" id="nav-payment" role="tabpanel" aria-labelledby="nav-payment-tab">
                                     <div class="row m-auto">
                                         @if($doctor->id=='6')

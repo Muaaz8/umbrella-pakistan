@@ -1248,6 +1248,16 @@ public function lab_approval_doctor(Request $req)
                 $doctor->spec = DB::table('specializations')->where('id',$doctor->specialization)->select('name')->first();
                 $doctor->spec = $doctor->spec->name;
                 $certificate = DB::table('doctor_certificates')->where('doc_id', $id)->get();
+
+                $sessions = DB::table('sessions')
+                ->where('sessions.doctor_id', $id)
+                ->where('sessions.status', 'ended')
+                ->join('users', 'users.id', '=', 'sessions.patient_id')
+                ->select('sessions.*', 'users.name as patient_name', 'users.last_name as patient_last_name')
+                ->orderBy('sessions.id', 'DESC')
+                ->get();
+
+
                 $doctor->state = State::find($doctor->state_id)->name;
                 foreach ($certificate as $cert) {
                     if ($cert->certificate_file != "") {
@@ -1286,7 +1296,7 @@ public function lab_approval_doctor(Request $req)
 
             $averageResponseTime = $averageResponseTime ? $averageResponseTime->average_response_time_minutes : null;
 
-                return view('dashboard_admin.doctors.all_doctors.view', compact('doctor', 'activities', 'certificate', 'averageResponseTime'));
+                return view('dashboard_admin.doctors.all_doctors.view', compact('doctor', 'activities', 'certificate', 'averageResponseTime' , 'sessions'));
             } else {
                 return redirect('/home');
             }
