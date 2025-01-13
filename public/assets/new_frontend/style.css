@@ -118,6 +118,10 @@ header {
     width: max-content;
 }
 
+#drawer a {
+    margin-left: 0.5rem;
+}
+
 #nav-left-side>a:hover {
     border-bottom: 2px solid var(--red);
 }
