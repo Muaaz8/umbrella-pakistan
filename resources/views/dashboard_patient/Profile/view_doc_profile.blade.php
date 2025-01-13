@@ -202,29 +202,6 @@ $.ajaxSetup({
                             </div>
                         </div>
 
-                        <div class="py-2">
-                            <h5>Certification and Licensing</h5>
-                            <div class="row gy-1 gx-2 m-3 profile_service">
-                                @if (isset($doc->details->certificates))
-                                @foreach ($doc->details->certificates as $item)
-                                <div class="col-md-6 col-12">
-                                    <div class="d-flex align-items-center gap-3 rounded-5 py-2 px-3">
-                                        <i class="fa-solid fa-check text-primary"></i>
-                                        <p>{{$item}}</p>
-                                    </div>
-                                </div>
-                                @endforeach
-                                @else
-                                <div class="col-md-6 col-12">
-                                    <div class="d-flex align-items-center gap-3 rounded-5 py-2 px-3">
-                                        <i class="fa-solid fa-check text-primary"></i>
-                                        <p>No Data Available</p>
-                                    </div>
-                                </div>
-                                @endif
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>
