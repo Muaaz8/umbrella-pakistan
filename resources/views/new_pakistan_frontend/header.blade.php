@@ -109,8 +109,11 @@
             <a href="{{ route('about_us') }}">About Us</a>
             <a href="{{ route('contact_us') }}">Contact Us</a>
             <hr />
+            <a class="drawer-item" href="{{ route('login') }}">Login</a>
+            <a class="drawer-item" href="{{ route('doc_register') }}" >Register as Doctor</a>
+            <a class="drawer-item" href="{{ route('pat_register') }}" >Register as Patient</a>
             {{-- <a href="#">Symptoms Checker</a> --}}
-            <a href="#">Join Us</a>
+      
           </div>
 
           <div

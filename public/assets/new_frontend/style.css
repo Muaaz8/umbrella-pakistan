@@ -1364,6 +1364,10 @@ footer {
     transition: 0.4s;
 }
 
+.drawer-item {
+    color: var(--blue);
+}
+
 .drawer {
     position: fixed;
     top: 0;
@@ -4295,6 +4299,10 @@ footer {
     .doctor_degree {
         font-size: 0.8rem !important;
     }
+
+    .nav-tabs {
+        --bs-nav-tabs-border-color: none;
+    }
 }
 
 @media screen and (max-width: 700px) {
@@ -4486,6 +4494,10 @@ footer {
 }
 
 @media screen and (max-width: 480px) {
+    #faq-content {
+        max-width: 90%;
+    }
+
     #disclaimer-content>div>p {
         padding: 0 1.5rem;
     }
@@ -4574,6 +4586,10 @@ footer {
 
     .doctor-list-container > p {
         font-size: 0.85rem;
+    }
+
+    .content {
+        width: 90%;
     }
 }
 
@@ -5301,8 +5317,8 @@ font-size: 1rem;
 
 .checkbox-wrapper-47 input[type="radio"]:checked+label {
     /* background: #506EEC; */
-    color: var(--blue);
-    border: 2px solid var(--blue);
+    color: #506EEC;
+    border: 2px solid #506EEC;
     transition: all 0.2s ease-in;
 }
 
@@ -5326,7 +5342,7 @@ font-size: 1rem;
     content: "";
     width: 100%;
     height: 100%;
-    background: var(--blue);
+    background: #506EEC;
     display: block;
     transform: scale(0);
     opacity: 1;
@@ -5338,12 +5354,12 @@ font-size: 1rem;
 }
 
 .checkbox-wrapper-47 .cbx:hover span:first-child {
-    border-color: var(--blue);
+    border-color: #506EEC;
 }
 
 .checkbox-wrapper-47 .inp-cbx:checked+.cbx span:first-child {
-    background: var(--blue);
-    border-color: var(--blue);
+    background: #506EEC;
+    border-color: #506EEC;
     animation: wave-46 0.4s ease;
 }
 
