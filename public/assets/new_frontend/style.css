@@ -4847,6 +4847,10 @@ footer {
         flex-direction: column;
         align-items: center;
     }
+
+    #faq-content {
+        padding: 0 10px !important;
+    }
 }
 
 
@@ -5139,6 +5143,19 @@ footer {
 
     .checkbox-wrapper-47 label {
         font-size: 0.9rem !important;
+    }
+
+    #faqs {
+        margin-top: 0.25rem !important;
+        padding: 0 11px !important;
+    }
+
+    #faq-content {
+        margin: 0 auto;
+    }
+
+    .faq:last-child {
+        border-bottom: 1px solid #ddd;
     }
 }
 
