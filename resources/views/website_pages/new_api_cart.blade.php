@@ -1513,7 +1513,7 @@
 
                         @if (Auth::check())
                             <div class="dropdown">
-                                <button class="dropdown-toggle w-100" type="button" id="joinDropdown"
+                                <button class="dropdown-toggle w-100 h-100" type="button" id="joinDropdown"
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fa-solid fa-user-group"></i> Hi {{ Auth::user()->name }}
                                 </button>
@@ -1530,7 +1530,7 @@
                             </div>
                         @else
                             <div class="dropdown">
-                                <button class="dropdown-toggle w-100" type="button" id="joinDropdown"
+                                <button class="dropdown-toggle w-100 h-100" type="button" id="joinDropdown"
                                     data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fa-solid fa-user-group"></i> Join Us
                                 </button>
