@@ -1382,7 +1382,7 @@ footer {
     color: #202020;
     transform: translateX(-100%);
     transition: transform 0.4s ease;
-    padding-top: 60px;
+    padding-top: 40px;
     z-index: 999;
     border-right: 1px solid #ff5757;
 }
@@ -1413,7 +1413,7 @@ footer {
 
 .close-btn {
     position: absolute;
-    top: 20px;
+    top: 10px;
     right: 20px;
     font-size: 24px;
     cursor: pointer;
