@@ -66,10 +66,10 @@ $page = DB::table('pages')->where('url', '/')->first();
         </svg>
     </div>
 </section>
-<footer>
+<footer class="new-footer-cont">
     <section id="footer-section">
-        <div id="footer-1" class="footer">
-            <div class="logo" id="footer-logo">
+        <div id="footer-1" class="footer-new">
+            <div class="logo" id="footer-logo-new">
                 <img src="{{ asset('assets/new_frontend/logo.png') }}" alt="umbrella-logo" />
             </div>
             <div class="flex gap-15" id="social-icons">
@@ -78,12 +78,12 @@ $page = DB::table('pages')->where('url', '/')->first();
                 <a href="https://www.instagram.com/community_healthcare_clinics?igsh=MXh6aHRzM2NrNThlMw==" target="_blank"><i class="fa-brands fa-instagram"></i></a>
             </div>
         </div>
-        <div id="footer-2" class="footer">
+        <div id="footer-2" class="footer-new">
             <div class="footer-heading">
                 <h3>Contact Us</h3>
                 <div class="underline"></div>
             </div>
-            <div class="footer-content">
+            <div class="footer-content-new">
                 <p class="d-flex align-items-center"><i class="fa-solid mx-2 fa-envelope"></i> <span>contact@communityhealthcareclinics.com</span></p>
                 <p class="d-flex align-items-center"><i class="fa-solid mx-2 fa-envelope"></i> <span>support@communityhealthcareclinics.com</span></p>
                 <p class="d-flex align-items-center"><i class="fa-solid mx-2 fa-location-dot"></i>  <span>Progressive Center, 4th Floor Suite#410, Main Shahrah Faisal, Karachi</span></p>
@@ -98,12 +98,12 @@ $page = DB::table('pages')->where('url', '/')->first();
             </div>
         </div>
         </div>
-        <div id="footer-3" class="footer">
+        <div id="footer-3" class="footer-new">
             <div class="footer-heading">
                 <h3>Working Hours</h3>
                 <div class="underline"></div>
             </div>
-            <div class="footer-content">
+            <div class="footer-content-new">
                 <p><b>Inclinic:</b> 9am - 9pm</p>
                 <p><b>Online:</b> 24 hours</p>
                 <p>Community Healthcare Clinics</p>
@@ -125,13 +125,13 @@ $page = DB::table('pages')->where('url', '/')->first();
                 </div> --}}
             </div>
         </div>
-        <div id="footer-4" class="footer">
+        <div id="footer-4" class="footer-new">
             <div class="footer-heading">
                 <h3>Find Us</h3>
                 <div class="underline"></div>
             </div>
 
-            <div class="footer-content">
+            <div class="footer-content-new">
 
                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3620.017148282561!2d67.0743981!3d24.8632639!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33f3f9ba7181d%3A0x99571ff4d3fb7e52!2sCommunity%20Health%20Care%20Clinics!5e0!3m2!1sen!2s!4v1734451314564!5m2!1sen!2s" width="300" height="150" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 
