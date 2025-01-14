@@ -137,7 +137,6 @@ $page = DB::table('pages')->where('url', '/')->first();
 
             </div>
 
-
     </section>
 
     <div class="seperation"></div>

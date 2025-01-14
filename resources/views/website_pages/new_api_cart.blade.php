@@ -17,741 +17,6 @@
     <meta name="author" content="Umbrellamd">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="{{ asset('asset_frontend/images/logo.ico') }}" type="image/x-icon">
-    <style>
-        :root {
-
-            --red: #c80919;
-
-            --blue: #2964bc;
-
-            --maroon: #c80919;
-
-            --navy-blue: #082755;
-
-            --green: #35b518;
-
-            --lh: 1.4rem;
-
-        }
-
-
-
-        * {
-
-            margin: 0;
-
-            padding: 0;
-
-            box-sizing: border-box;
-
-            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-
-            transition: all 0.3s ease-out;
-
-        }
-
-
-
-        p {
-
-            margin-bottom: 0;
-
-        }
-
-
-
-        ::-webkit-scrollbar {
-
-            width: 6px;
-
-        }
-
-
-
-        ::-webkit-scrollbar-track {
-
-            background: #c7c7c7;
-
-        }
-
-
-
-        ::-webkit-scrollbar-thumb {
-
-            background: #3b35ac;
-
-        }
-
-
-
-        ::-webkit-scrollbar-thumb:hover {
-
-            background: #082755;
-
-        }
-
-
-
-        html,
-
-        body {
-
-            width: 100%;
-
-            overflow-x: hidden;
-
-        }
-
-
-
-        header {
-
-            height: 85px;
-
-            background-color: white;
-
-            position: sticky;
-
-            top: 0;
-
-            z-index: 10;
-
-        }
-
-        .primary-bg {
-            background: #0048b1;
-        }
-
-
-        #contact-bar {
-
-            height: 50px;
-
-            background-color: var(--red);
-
-            color: white;
-
-            font-size: small;
-
-        }
-
-
-
-        #navbar {
-
-            position: sticky;
-
-            top: 0;
-
-            width: 100%;
-
-            background-color: white;
-
-        }
-
-
-
-        #left-side>div>div,
-
-        #right-side>div,
-
-        #social-icons>a {
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-            border: 2px solid white;
-
-            border-radius: 30px;
-
-            color: white;
-            text-decoration: none;
-
-        }
-
-
-
-        #contact-bar img {
-
-            width: 15px;
-
-        }
-
-        .wrap {
-
-            height: 100%;
-
-            width: 90%;
-
-            margin: 0 auto;
-
-            border-bottom: 1px solid #e0e0e0;
-
-        }
-
-
-
-        .logo {
-
-            border-radius: 100%;
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: center;
-
-        }
-
-
-
-        .logo>img {
-
-            width: 250px;
-
-        }
-
-
-
-        #nav-left-side,
-
-        #nav-right-side {
-
-            gap: 20px;
-
-        }
-
-
-
-        #nav-left-side {
-
-            justify-content: center;
-
-        }
-
-
-
-        #navbar a {
-
-            text-decoration: none;
-
-            color: black;
-
-            border-bottom: 2px solid transparent;
-
-            font-size: 15px;
-
-            padding: 5px;
-
-            font-weight: 600;
-
-        }
-
-
-
-        #nav-left-side>a:hover {
-
-            border-bottom: 2px solid var(--red);
-
-        }
-
-
-
-        #checker,
-
-        #joinDropdown {
-
-            border: 2px solid var(--green);
-
-            padding: 5px 15px;
-
-            border-radius: 30px;
-
-            background: #ffff;
-
-            font-weight: 600;
-
-        }
-
-
-
-        .background-secondary {
-
-            background: #f5f5f5;
-
-            height: 100%;
-
-        }
-
-
-
-        #checker>img,
-
-        #joinDropdown>img {
-
-            width: 25px;
-
-        }
-
-
-
-        #checker:hover,
-
-        #joinDropdown:hover {
-
-            border: 2px solid var(--red);
-
-        }
-
-
-
-        .nav_btns {
-
-            display: flex;
-
-            align-items: center;
-
-            justify-content: between;
-
-            border: 2px solid var(--green);
-
-            border-radius: 30px;
-
-            background: #ffff;
-
-            padding: 5px 15px;
-
-        }
-
-
-
-        .nav_btns>a {
-
-            font-size: 16px !important;
-
-            text-decoration: none;
-
-            color: black;
-
-            padding: 0px !important;
-
-            margin-bottom: 0 !important;
-
-            margin-left: 5px;
-
-            font-weight: 500;
-
-        }
-
-
-
-        .nav_btns:hover {
-
-            border: 2px solid var(--red);
-
-        }
-
-
-
-        #nav-right-side>div:last-child>img {
-
-            width: 30px;
-
-        }
-
-
-
-        #checker,
-
-        #joinDropdown {
-
-            display: flex;
-
-            align-items: center;
-
-            gap: 5px;
-
-        }
-
-        .text-center {
-            text-align: center;
-        }
-
-
-        .flex {
-            display: flex;
-            align-items: center;
-        }
-
-
-        .gap-5 {
-            gap: 5px;
-        }
-
-
-        .gap-10 {
-            gap: 10px;
-        }
-
-
-        .gap-15 {
-            gap: 10px;
-        }
-
-
-        .between {
-            justify-content: space-between;
-        }
-
-
-
-
-        footer {
-            max-width: 100vw;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--navy-blue);
-            padding: 40px 0 20px 0;
-            gap: 20px;
-        }
-
-        #footer-section {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            align-items: flex-start;
-            width: 90%;
-            gap: 20px;
-            color: white;
-        }
-
-        .footer {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-            align-items: start;
-        }
-
-        #footer-1 {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .footer-content {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            align-items: start;
-        }
-
-        .footer-heading {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .footer-heading>h3 {
-            font-size: 24px;
-        }
-
-        .footer-content>h4 {
-            font-weight: 400;
-            color: gainsboro;
-        }
-
-        .footer-content>div>a {
-            text-decoration: none;
-            color: gainsboro;
-        }
-
-        .footer-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .footer-info>img {
-            width: 10px;
-        }
-
-        .footer-info>a {
-            border-bottom: 1px solid transparent;
-        }
-
-        .footer-info>a:hover {
-            border-bottom: 1px solid var(--red);
-            color: white;
-        }
-
-        .footer-highlight {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background-color: var(--red);
-            padding: 10px 15px;
-            border-radius: 20px;
-        }
-
-        .footer-highlight>img {
-            width: 20px;
-        }
-
-        .footer-highlight>a:hover {
-            color: gainsboro;
-        }
-
-        #footer-logo {
-            display: block;
-            background-color: white;
-            border-radius: 5px;
-        }
-
-        #footer-logo>img {
-            width: 230px;
-        }
-
-        #footer-2>.footer-content>h4 {
-            text-decoration: 1px solid underline;
-        }
-
-        #social-icons {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        #social-icons>a {
-            background-color: var(--red);
-            border: none;
-            width: 32px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-            justify-content: center;
-        }
-
-        #social-icons>a>i {
-            font-size: 17px;
-            width: 25%;
-        }
-
-        #footer-4>div>h4 {
-            font-weight: 500;
-            color: white;
-            font-size: 18px;
-        }
-
-        #copyright>p {
-            color: gainsboro;
-        }
-
-        #copyright>span {
-            font-weight: bold;
-        }
-
-        .seperation {
-            width: 100%;
-            height: 1px;
-            background-color: gainsboro;
-        }
-
-        #disclaimer {
-            background-position: cover center;
-            background-repeat: no-repeat;
-            background-size: 100vw;
-            position: relative;
-            min-height: 410px;
-            padding-bottom: 30px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .disclaimer-box {
-            width: 100%;
-            height: 400px;
-            position: absolute;
-            background-color: white;
-            opacity: 0.82;
-        }
-
-        #disclaimer-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            position: relative;
-            z-index: 2;
-        }
-
-        #disclaimer-content>div:first-child>.underline {
-            background-color: var(--navy-blue);
-        }
-
-        #disclaimer-content>div:first-child {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            align-items: center;
-            font-size: 40px;
-            color: var(--red);
-        }
-
-        #disclaimer-content>div:first-child>h2 {
-            color: var(--red);
-            font-size: 2.5rem;
-        }
-
-        #disclaimer-content>div:last-child {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        #disclaimer-content>div>p {
-            font-size: 16px;
-            padding: 0 50px;
-            color: var(--navy-blue);
-            text-align: justify;
-            text-align-last: center;
-            font-weight: 400;
-        }
-
-        .disclaimer-blob {
-            position: absolute;
-            left: -300px;
-            top: -100px;
-            opacity: 0.2;
-            width: 700px;
-            z-index: -1;
-        }
-
-        .hamburger_container {
-            cursor: pointer;
-            display: none;
-            z-index: 1000;
-        }
-
-        .hamburger div {
-            width: 30px;
-            height: 3px;
-            background-color: #333;
-            margin: 5px 0;
-            transition: 0.4s;
-        }
-
-        .underline {
-    width: 75%;
-    background-color: var(--red);
-    height: 2px;
-    border-radius: 20px;
-}
-
-        .drawer {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 250px;
-            height: 100%;
-            background-color: #ffffff;
-            color: #202020;
-            transform: translateX(-100%);
-            transition: transform 0.4s ease;
-            padding-top: 60px;
-            z-index: 999;
-            border-right: 1px solid #ff5757;
-        }
-
-        .drawer a {
-            padding: 15px 30px;
-            text-decoration: none;
-            font-size: 16px;
-            color: #fff;
-            display: block;
-            transition: 0.3s;
-        }
-
-        .drawer hr {
-            width: 90%;
-            margin: 0 auto;
-            border: 1px solid #ff5757;
-        }
-
-        .drawer a:hover {
-            background-color: #575757;
-            color: #ffffff;
-        }
-
-        .drawer.active {
-            transform: translateX(0);
-        }
-
-        .close-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 24px;
-            cursor: pointer;
-            color: #202020;
-            transition: 0.3s;
-        }
-
-        .close-btn:hover {
-            color: #ff5757;
-        }
-
-        .blur-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 998;
-            display: none;
-        }
-
-        .blur-overlay.active {
-            display: block;
-        }
-
-        .hamburger.active div:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
-        }
-
-        .hamburger.active div:nth-child(2) {
-            opacity: 0;
-        }
-
-        .hamburger.active div:nth-child(3) {
-            transform: rotate(-45deg) translate(5px, -5px);
-        }
-
-        /* utility.css  */
-
-        .text-center {
-            text-align: center;
-        }
-        .cart-count {
-            position: absolute;
-            top: -45%;
-            right: -50%;
-            background: var(--red);
-            color: white;
-            height: 25px;
-            width: 25px;
-            border-radius: 50%;
-            font-size: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-    </style>
 @endsection
 
 
@@ -776,6 +41,690 @@
             /* Some padding */
 
         }
+    </style>
+        <style>
+        :root {
+    --red: #c80919;
+    --blue: #2964bc;
+    --maroon: #c80919;
+    --navy-blue: #082755;
+    --green: #35b518;
+    --lh: 1.4rem;
+    --lightgray: #f5f5f5;
+    --lightblue: #2964BCA3;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    transition: all 0.3s ease-out;
+}
+
+.offer-banner>span {
+    font-size: 16px;
+}
+
+p {
+    margin-bottom: 0;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #c7c7c7;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #3b35ac;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #082755;
+}
+
+html,
+body {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+header {
+    background-color: white;
+}
+
+#contact-bar {
+    height: 50px;
+    background-color: var(--red);
+    color: white;
+    font-size: small;
+}
+
+#navbar {
+    background-color: white;
+}
+
+#left-side>div>div,
+#right-side>div,
+#social-icons>a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid white;
+    border-radius: 30px;
+    padding: 6px;
+}
+
+#contact-bar img {
+    width: 15px;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+    color: white !important;
+    text-decoration: none;
+    background-color: var(--navy-blue);
+}
+
+.wrap {
+    height: 100%;
+    width: 90%;
+    margin: 0 auto;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.logo {
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: start;
+}
+
+.logo>img {
+    width: 250px;
+}
+
+#nav-right-side {
+    justify-content: flex-end;
+}
+
+#nav-left-side,
+#nav-right-side {
+    gap: 20px;
+}
+
+#nav-left-side {
+    justify-content: center;
+}
+
+#navbar a {
+    text-decoration: none;
+    color: black;
+    border-bottom: 2px solid transparent;
+    font-size: 15px;
+    padding: 3px 0;
+    font-weight: 600;
+    width: max-content;
+}
+
+#drawer a {
+    margin-left: 1rem;
+}
+
+#nav-left-side>a:hover {
+    border-bottom: 2px solid var(--red);
+}
+
+#checker,
+#joinDropdown {
+    border: 2px solid var(--green);
+    padding: 5px 15px;
+    border-radius: 30px;
+    background: #ffff;
+    font-weight: 600;
+}
+
+#checker>img,
+#joinDropdown>img {
+    width: 25px;
+}
+
+#checker:hover,
+#joinDropdown:hover {
+    border: 2px solid var(--red);
+}
+
+.nav_btns {
+    display: flex;
+    align-items: center;
+    justify-content: between;
+    border: 2px solid var(--green);
+    border-radius: 30px;
+    background: #ffff;
+    padding: 3px 15px;
+}
+
+.nav_btns>a {
+    font-size: 16px !important;
+    text-decoration: none;
+    color: black;
+    padding: 0px !important;
+    margin-bottom: 0 !important;
+    margin-left: 5px;
+    font-weight: 500;
+}
+
+.nav_btns:hover {
+    border: 2px solid var(--red);
+}
+
+
+#nav-right-side>div:last-child>img {
+    width: 30px;
+}
+
+#checker,
+#joinDropdown {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.primary-bg {
+    background: #0048b1;
+}
+
+.cart-count {
+    position: absolute;
+    top: -45%;
+    right: -50%;
+    background: var(--red);
+    color: white;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.new-footer-cont {
+    max-width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--navy-blue);
+    padding: 40px 0 20px 0;
+    gap: 20px;
+}
+
+#footer-section {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    align-items: flex-start;
+    width: 90%;
+    gap: 20px;
+    color: white;
+}
+
+.footer-new {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    align-items: start;
+}
+
+#footer-1 {
+    display: flex;
+    justify-content: space-between;
+}
+
+.footer-content-new {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: start;
+}
+
+.footer-heading {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.footer-heading>h3 {
+    font-size: 24px;
+}
+
+.footer-content-new>h4 {
+    font-weight: 400;
+    color: gainsboro;
+}
+
+.footer-content-new>div>a {
+    text-decoration: none;
+    color: gainsboro;
+}
+
+.footer-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.footer-info>img {
+    width: 10px;
+}
+
+.footer-info>a {
+    border-bottom: 1px solid transparent;
+}
+
+.footer-info>a:hover {
+    border-bottom: 1px solid var(--red);
+    color: white;
+}
+
+.footer-highlight {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background-color: var(--red);
+    padding: 10px 15px;
+    border-radius: 20px;
+}
+
+.footer-highlight>img {
+    width: 20px;
+}
+
+.footer-highlight>a:hover {
+    color: gainsboro;
+}
+
+#footer-logo-new {
+    display: block;
+}
+
+#footer-logo-new>img {
+    width: 80%;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 0.5rem;
+    min-width: 220px;
+}
+
+#footer-2>.footer-content-new>h4 {
+    text-decoration: 1px solid underline;
+}
+
+#social-icons {
+    display: flex;
+    justify-content: space-between;
+}
+
+#social-icons>a {
+    background-color: var(--red);
+    border: none;
+    padding: 8px;
+    color: white;
+    text-decoration: none;
+    min-width: 33px;
+    min-height: 33px;
+}
+
+#social-icons>a>i {
+    font-size: 17px;
+}
+
+#footer-4>div>h4 {
+    font-weight: 500;
+    color: white;
+    font-size: 18px;
+}
+
+#copyright>p {
+    color: gainsboro;
+    text-align: center;
+    padding: 0 0.5rem;
+}
+
+#copyright>span {
+    font-weight: bold;
+}
+
+.seperation {
+    width: 100%;
+    height: 1px;
+    background-color: gainsboro;
+}
+
+.hamburger_container {
+    cursor: pointer;
+    display: none;
+    z-index: 1000;
+}
+
+.hamburger div {
+    width: 30px;
+    height: 3px;
+    background-color: #333;
+    margin: 5px 0;
+    transition: 0.4s;
+}
+
+.drawer-item {
+    color: var(--blue);
+}
+
+.drawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 250px;
+    height: 100%;
+    background-color: #ffffff;
+    color: #202020;
+    transform: translateX(-100%);
+    transition: transform 0.4s ease;
+    padding-top: 40px;
+    z-index: 999;
+    border-right: 1px solid #ff5757;
+}
+
+.drawer a {
+    padding: 15px 30px;
+    text-decoration: none;
+    font-size: 16px;
+    color: #fff;
+    display: block;
+    transition: 0.3s;
+    border-bottom: 1px solid transparent;
+}
+
+.drawer hr {
+    width: 90%;
+    margin: 0 auto;
+    border: 1px solid #ff5757;
+}
+
+.drawer a:hover {
+    border-bottom: 1px solid var(--red) !important;
+}
+
+.drawer.active {
+    transform: translateX(0);
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+    color: #202020;
+    transition: 0.3s;
+}
+
+.close-btn:hover {
+    color: #ff5757;
+}
+
+.blur-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+    display: none;
+}
+
+.blur-overlay.active {
+    display: block;
+}
+
+.hamburger.active div:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active div:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active div:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+.dropdown-menu li a {
+    color: #000;
+    font-size: 14px !important;
+    padding: 10px !important;
+    display: block;
+    font-weight: 500 !important;
+    text-decoration: none !important;
+    color: #000 !important;
+    font-size: 14px !important;
+    padding: 8px !important;
+    text-decoration: none;
+    width: 100% !important;
+}
+
+.footer-content-new>p {
+    font-size: 0.9rem;
+}
+
+.footer-content-new>div>a {
+    font-size: 0.8rem;
+}
+
+/* utility.css  */
+
+.text-center {
+    text-align: center;
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+}
+
+.gap-5 {
+    gap: 5px;
+}
+
+.gap-10 {
+    gap: 10px;
+}
+
+.gap-15 {
+    gap: 10px;
+}
+
+.between {
+    justify-content: space-between;
+}
+
+@media screen and (min-width: 1400px) {
+	.offer-banner>span {
+        font-size: 1.1rem;
+    }
+	
+	.logo>img {
+        width: 40%;
+    }
+
+    .dropdown-menu li a {
+        font-size: 1.1rem !important;
+    }
+
+    #joinDropdown,
+    #navbar a,
+    .nav_btns>i {
+        font-size: 1.1rem !important;
+    }
+
+    #nav-right-side>div:last-child>img {
+        width: 35px;
+    }
+
+    #nav-right-side>div:last-child {
+        width: 6%;
+    }
+
+    .footer-heading>h3 {
+        font-size: 1.75rem;
+    }
+
+    .footer-content-new>p {
+        font-size: 1.1rem;
+    }
+
+    .footer-content-new>div>a {
+        font-size: 1.1rem;
+    }
+
+    #social-icons>a>i {
+        font-size: 1.3rem;
+    }
+
+    #social-icons {
+        gap: 1.5rem;
+    }
+
+    #copyright>p {
+        font-size: 1.15rem;
+    }
+
+    .footer-content-new > iframe {
+        width: 400px !important;
+        height: 200px;
+    }
+
+    #footer-logo-new>img {
+        width: 100%;
+        min-width: 225px;
+    }
+
+}
+
+@media screen and (min-width: 2000px) {
+    .offer-banner>span {
+        font-size: 1.2rem;
+    }
+
+    .logo>img {
+        width: 40%;
+    }
+
+    .dropdown-menu li a {
+        font-size: 1.2rem !important;
+    }
+
+    #joinDropdown,
+    #navbar a,
+    .nav_btns>i {
+        font-size: 1.2rem !important;
+    }
+
+    #nav-right-side>div:last-child {
+        width: 6%;
+    }
+
+    #nav-right-side>div:last-child>img {
+        width: 65%;
+    }
+
+    .footer-heading>h3 {
+        font-size: 2rem;
+    }
+
+    .footer-content-new>p {
+        font-size: 1.3rem;
+    }
+
+    .footer-content-new>div>a {
+        font-size: 1.3rem;
+    }
+
+    #social-icons>a>i {
+        font-size: 1.5rem;
+    }
+
+    #social-icons {
+        gap: 1.3rem;
+    }
+
+    #copyright>p {
+        font-size: 1.3rem;
+    }
+
+    #footer-logo-new > img {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .w-100 {
+        height: auto !important;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+
+#footer-section {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+#navbar a {
+        font-size: 12px;
+    }
+
+}
+
+@media screen and (max-width: 980px) {
+
+#nav-left-side,
+    #nav-right-side {
+        display: none;
+    }
+
+    .hamburger_container {
+        display: block;
+    }
+
+}
+
+@media screen and (max-width: 768px) {
+	#footer-logo-new>img {
+        max-width: 400px;
+    }
+
+	#footer-section {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media screen and (max-width: 480px) {
+	.footer-content-new i {
+        margin-left: 0 !important;
+    }
+
+    .footer-content-new iframe {
+        width: 280px !important;
+    }
+}
+
+@media only screen and (max-width: 373px) {
+    .logo>img {
+        width: 225px;
+    }
+}
     </style>
 @endsection
 
@@ -1482,145 +1431,134 @@
 
 @section('content')
 
-    <!-- header  -->
-    <div id="offerBanner" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            @php
-                $top_banners = DB::table('services')->where('name','ticker')->get();
-            @endphp
-            @foreach ($top_banners as $key => $banner)
-                <div class="carousel-item {{$key==0?'active':''}}">
-                    <div class="offer-banner primary-bg text-white text-center py-2">
-                        <span>{{ $banner->status }}</span>
-                    </div>
+<header class="py-2">
+    <nav>
+      <section id="navbar">
+        <div class="wrap flex gap-15 between">
+          <div id="nav-logo" class="logo" onclick="window.location.href='{{ url('/') }}'" style="cursor: pointer;">
+            <img src="{{ asset('assets/new_frontend/logo.png') }}" alt="umbrella-logo" />
+          </div>
+          <div class="flex gap-15" id="nav-right-side">
+            <div id="checker" class="d-none">
+                <i class="fa-regular fa-user"></i>
+                <a href="#" class="pe-none">Symptoms Checker</a>
+            </div>
+
+            @if (Auth::check())
+            <div class="dropdown" >
+                <button class="dropdown-toggle w-100" type="button" id="joinDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="fa-solid fa-user-group"></i> Hi {{ Auth::user()->name}}
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="joinDropdown">
+                    <li><a class="dropdown-item" href="{{ route('home') }}">Go to Dashboard</a></li>
+                    <li><a class="dropdown-item"  href="{{ route('logout') }}"
+                        onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a></li>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                </ul>
+              </div>
+              @else
+                <div class="dropdown" >
+                    <button class="dropdown-toggle w-100" type="button" id="joinDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="fa-solid fa-user-group"></i> Join Us
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="joinDropdown">
+                        <li><a class="dropdown-item" href="{{ route('login') }}">Login</a></li>
+                        <li><a class="dropdown-item" href="{{ route('doc_register') }}" >Register as Doctor</a></li>
+                        <li><a class="dropdown-item" href="{{ route('pat_register') }}" >Register as Patient</a></li>
+                    </ul>
                 </div>
-            @endforeach
+              @endif
+              <button class="nav_btns">
+                <i class="fa-brands fa-whatsapp"></i>
+                <a href="https://wa.me/923372350684" target="_blank">0337-2350684</a>
+              </button>
+            <div class="position-relative" onclick="window.location.href='{{ url('/my/cart') }}'">
+              <img src="{{ asset('assets/new_frontend/purchase-icon.svg') }}" alt="shop-icon" />
+              @if (Auth::check())
+                <div class="cart-count">
+                    <span>{{ app('item_count_cart_responsive') }}</span>
+                </div>
+              @endif
+            </div>
+          </div>
+          <div class="hamburger_container" onclick="toggleDrawer()">
+            <div class="hamburger">
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
+
+          <div class="drawer" id="drawer">
+            <span class="close-btn" onclick="toggleDrawer()">×</span>
+            <img width="220px" src="{{ asset('assets/new_frontend/logo.png') }}" alt="" />
+            <hr />
+            <a href="{{ url('/') }}">Home</a>
+            <a href="{{ route('pharmacy') }}">Pharmacy</a>
+            <a href="{{ route('labs') }}">Lab Tests</a>
+            <a href="{{ route('imaging') }}">Imaging</a>
+            <a href="{{ route('e-visit') }}">E-Visit</a>
+            <a href="{{ route('doc_profile_page_list') }}">Our Doctors</a>
+            <a href="{{ route('about_us') }}">About Us</a>
+            <a href="{{ route('contact_us') }}">Contact Us</a>
+            <hr />
+            <a class="drawer-item" href="{{ route('login') }}">Login</a>
+            <a class="drawer-item" href="{{ route('doc_register') }}" >Register as Doctor</a>
+            <a class="drawer-item" href="{{ route('pat_register') }}" >Register as Patient</a>
+            {{-- <a href="#">Symptoms Checker</a> --}}
+      
+          </div>
+
+          <div
+            class="blur-overlay"
+            id="blurOverlay"
+            onclick="toggleDrawer()"
+          ></div>
         </div>
-    </div>
-
-    <header>
-        <nav>
-            <section id="navbar">
-                <div class="wrap flex gap-15 between">
-                    <div id="nav-logo" class="logo">
-                        <img src="{{ asset('assets/new_frontend/logo.png') }}" alt="umbrella-logo" />
-                    </div>
-                    <div class="flex gap-15" id="nav-right-side">
-                        {{-- <div id="checker">
-                            <i class="fa-regular fa-user"></i>
-                            <a href="#" class="pe-none">Symptoms Checker</a>
-                        </div> --}}
-
-                        @if (Auth::check())
-                            <div class="dropdown">
-                                <button class="dropdown-toggle w-100 h-100" type="button" id="joinDropdown"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fa-solid fa-user-group"></i> Hi {{ Auth::user()->name }}
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="joinDropdown">
-                                    <li><a class="dropdown-item" href="{{ route('home') }}">Go to Dashboard</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('logout') }}"
-                                            onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
-                                    </li>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                        style="display: none;">
-                                        @csrf
-                                    </form>
-                                </ul>
-                            </div>
-                        @else
-                            <div class="dropdown">
-                                <button class="dropdown-toggle w-100 h-100" type="button" id="joinDropdown"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fa-solid fa-user-group"></i> Join Us
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="joinDropdown">
-                                    <li><a class="dropdown-item" href="{{ route('login') }}">Login</a></li>
-                                    <li><a class="dropdown-item" href="{{ route('doc_register') }}">Register as Doctor</a>
-                                    </li>
-                                    <li><a class="dropdown-item" href="{{ route('pat_register') }}">Register as Patient</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        @endif
-                        <button class="nav_btns">
-                            <i class="fa-brands fa-whatsapp"></i>
-                            <a href="https://wa.me/923372350684" target="_blank">0337-2350684</a>
-                        </button>
-                        <div onclick="window.location.href='{{ url('/my/cart') }}'">
-                            <img src="{{ asset('assets/new_frontend/purchase-icon.svg') }}" alt="shop-icon" />
-                            @if (Auth::check())
-                                <div class="cart-count">
-                                    <span>{{ app('item_count_cart_responsive') }}</span>
-                                </div>
-                            @endif
-                        </div>
-                    </div>
-                    <div class="hamburger_container" onclick="toggleDrawer()">
-                        <div class="hamburger">
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                        </div>
-                    </div>
-
-                    <div class="drawer" id="drawer">
-                        <span class="close-btn" onclick="toggleDrawer()">×</span>
-                        <img width="220px" src="{{ asset('assets/new_frontend/logo.png') }}" alt="" />
-                        <hr />
-                        <a href="{{ url('/') }}">Home</a>
-                        <a href="{{ route('pharmacy') }}">Pharmacy</a>
-                        <a href="{{ route('labs') }}">Lab Tests</a>
-                        <a href="{{ route('imaging') }}">Imaging</a>
-                        <a href="{{ route('doc_profile_page_list') }}">Our Doctors</a>
-                        <a href="{{ route('about_us') }}">About Us</a>
-                        <a href="{{ route('contact_us') }}">Contact Us</a>
-                        <hr />
-                        <a href="#">Join Us</a>
-                    </div>
-
-                    <div class="blur-overlay" id="blurOverlay" onclick="toggleDrawer()"></div>
-                </div>
-                <div class="flex gap-15" id="nav-left-side">
-                    <a href="{{ url('/') }}">Home</a>
-                    <a href="{{ route('pharmacy') }}">Pharmacy</a>
-                    <a href="{{ route('labs') }}">Lab Tests</a>
-                    <a href="{{ route('imaging') }}">Imaging</a>
+        <div class="flex gap-15" id="nav-left-side">
+            <a href="{{ url('/') }}">Home</a>
+            <a href="{{ route('pharmacy') }}">Pharmacy</a>
+            <a href="{{ route('labs') }}">Lab Tests</a>
+            <a href="{{ route('imaging') }}">Imaging</a>
+            <a href="{{ route('e-visit') }}">E-Visit</a>
+            <a href="{{ route('doc_profile_page_list') }}">Our Doctors</a>
+            <a href="{{ route('about_us') }}">About Us</a>
+            <a href="{{ route('contact_us') }}">Contact Us</a>
 
 
 
-                    {{--<div class="dropdown">
-                            <a
-                            class="dropdown-toggle"
-                            href="#"
-                            role="button"
-                            id="servicesDropdown"
-                            data-bs-toggle="dropdown"
-                            aria-expanded="false"
-                            >
-                            Services
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
-                            <li><a class="dropdown-item" href="{{ route('pharmacy') }}">Pharmacy</a></li>
-                            <li><a class="dropdown-item" href="{{ route('labs') }}">Lab Tests</a></li>
-                            <li><a class="dropdown-item" href="{{ route('imaging') }}">Imaging</a></li>
-                            <li><a class="dropdown-item" href="{{ route('psychiatry',['slug'=>'anxiety']) }}">Psychiatry</a></li>
-                            <li>
-                                <a class="dropdown-item" href="{{ route('pain.management') }}">Pain Management</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="{{ route('substance',['slug'=>'first-visit']) }}">Substance Abuse</a>
-                            </li>
-                            </ul>
-                    </div> --}}
-                    <a href="{{ route('e-visit') }}">E-Visit</a>
-                    <a href="{{ route('doc_profile_page_list') }}">Our Doctors</a>
-                    <a href="{{ route('about_us') }}">About Us </a>
-                    <a href="{{ route('contact_us') }}">Contact Us</a>
-                </div>
-            </section>
-        </nav>
-    </header>
+            {{--            <div class="dropdown">
+                <a
+                  class="dropdown-toggle"
+                  href="#"
+                  role="button"
+                  id="servicesDropdown"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Services
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
+                  <li><a class="dropdown-item" href="{{ route('pharmacy') }}">Pharmacy</a></li>
+                  <li><a class="dropdown-item" href="{{ route('labs') }}">Lab Tests</a></li>
+                  <li><a class="dropdown-item" href="{{ route('imaging') }}">Imaging</a></li>
+                  <li><a class="dropdown-item" href="{{ route('psychiatry',['slug'=>'anxiety']) }}">Psychiatry</a></li>
+                  <li>
+                    <a class="dropdown-item" href="{{ route('pain.management') }}">Pain Management</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="{{ route('substance',['slug'=>'first-visit']) }}">Substance Abuse</a>
+                  </li>
+                </ul>
+              </div> --}}
+          </div>
+      </section>
+    </nav>
+  </header>
+
+{{-- after registration and login modal --}}
 
     <div class="container pt-4">
         <div>
@@ -2660,87 +2598,86 @@
             </div>
         @endif
     </div>
-    <footer>
-        <section id="footer-section">
-            <div id="footer-1" class="footer">
-                <div class="logo" id="footer-logo">
-                    <img src="{{ asset('assets/new_frontend/logo.png') }}" alt="umbrella-logo" />
-                </div>
-                <div class="flex gap-15" id="social-icons">
-                    <a href="https://www.facebook.com/share/15m4ofYggZ/" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="https://www.linkedin.com/company/community-health-care-clinics/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
-                    <a href="https://www.instagram.com/community_healthcare_clinics?igsh=MXh6aHRzM2NrNThlMw==" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-                </div>
+    <footer class="new-footer-cont">
+    <section id="footer-section">
+        <div id="footer-1" class="footer-new">
+            <div class="logo" id="footer-logo-new">
+                <img src="{{ asset('assets/new_frontend/logo.png') }}" alt="umbrella-logo" />
             </div>
-            <div id="footer-2" class="footer">
-                <div class="footer-heading">
-                    <h3>Contact Us</h3>
-                    <div class="underline"></div>
-                </div>
-                <div class="footer-content">
-                    <p class="d-flex align-items-center"><i class="fa-solid mx-2 fa-envelope"></i> <span>contact@communityhealthcareclinics.com</span></p>
-                    <p class="d-flex align-items-center"><i class="fa-solid mx-2 fa-envelope"></i> <span>support@communityhealthcareclinics.com</span></p>
-                    <p class="d-flex align-items-center"><i class="fa-solid mx-2 fa-location-dot"></i>  <span>Progressive Center, 4th Floor Suite#410, Main Shahrah Faisal, Karachi</span></p>
+            <div class="flex gap-15" id="social-icons">
+                <a href="https://www.facebook.com/share/15m4ofYggZ/" target="_blank"><i class="fa-brands fa-facebook"></i></a>
+                <a href="https://www.linkedin.com/company/community-health-care-clinics/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="https://www.instagram.com/community_healthcare_clinics?igsh=MXh6aHRzM2NrNThlMw==" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+        </div>
+        <div id="footer-2" class="footer-new">
+            <div class="footer-heading">
+                <h3>Contact Us</h3>
+                <div class="underline"></div>
+            </div>
+            <div class="footer-content-new">
+                <p class="d-flex align-items-center"><i class="fa-solid mx-2 fa-envelope"></i> <span>contact@communityhealthcareclinics.com</span></p>
+                <p class="d-flex align-items-center"><i class="fa-solid mx-2 fa-envelope"></i> <span>support@communityhealthcareclinics.com</span></p>
+                <p class="d-flex align-items-center"><i class="fa-solid mx-2 fa-location-dot"></i>  <span>Progressive Center, 4th Floor Suite#410, Main Shahrah Faisal, Karachi</span></p>
 
-                    <div class="footer-highlight">
-                        <i class="fa-solid fa-phone"></i>
-                        <a href="tel:+14076938484">+1 (407) 693-8484</a>
-                </div>
                 <div class="footer-highlight">
-                    <i class="fa-brands fa-whatsapp"></i>
-                    <a href="https://wa.me/923372350684" target="_blank">0337-2350684</a>
-                </div>
+                    <i class="fa-solid fa-phone"></i>
+                    <a href="tel:+14076938484">+1 (407) 693-8484</a>
             </div>
+            <div class="footer-highlight">
+                <i class="fa-brands fa-whatsapp"></i>
+                <a href="https://wa.me/923372350684" target="_blank">0337-2350684</a>
             </div>
-            <div id="footer-3" class="footer">
-                <div class="footer-heading">
-                    <h3>Working Hours</h3>
-                    <div class="underline"></div>
-                </div>
-                <div class="footer-content">
-                    <p><b>Inclinic:</b> 9am - 9pm</p>
-                    <p><b>Online:</b> 24 hours</p>
-                    <p>Community Healthcare Clinics</p>
-                    <div class="footer-info">
-                        <i class="fa-solid fa-chevron-right"></i>
-                        <a href="{{ route('about_us') }}">About Us</a>
-                    </div>
-                    <div class="footer-info">
-                        <i class="fa-solid fa-chevron-right"></i>
-                        <a href="{{ route('contact_us') }}">Contact Us</a>
-                    </div>
-                    <div class="footer-info">
-                        <i class="fa-solid fa-chevron-right"></i>
-                        <a href="{{ route('faq') }}">FAQs</a>
-                    </div>
-                    {{-- <div class="footer-info">
-                        <i class="fa-solid fa-chevron-right"></i>
-                        <a href="{{ route('privacy_policy') }}">Privacy Policy</a>
-                    </div> --}}
-                </div>
+        </div>
+        </div>
+        <div id="footer-3" class="footer-new">
+            <div class="footer-heading">
+                <h3>Working Hours</h3>
+                <div class="underline"></div>
             </div>
-            <div id="footer-4" class="footer">
-                <div class="footer-heading">
-                    <h3>Find Us</h3>
-                    <div class="underline"></div>
+            <div class="footer-content-new">
+                <p><b>Inclinic:</b> 9am - 9pm</p>
+                <p><b>Online:</b> 24 hours</p>
+                <p>Community Healthcare Clinics</p>
+                <div class="footer-info">
+                    <i class="fa-solid fa-chevron-right"></i>
+                    <a href="{{ route('about_us') }}">About Us</a>
                 </div>
-
-                <div class="footer-content">
-
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3620.017148282561!2d67.0743981!3d24.8632639!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33f3f9ba7181d%3A0x99571ff4d3fb7e52!2sCommunity%20Health%20Care%20Clinics!5e0!3m2!1sen!2s!4v1734451314564!5m2!1sen!2s" width="300" height="150" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-
+                <div class="footer-info">
+                    <i class="fa-solid fa-chevron-right"></i>
+                    <a href="{{ route('contact_us') }}">Contact Us</a>
                 </div>
+                <div class="footer-info">
+                    <i class="fa-solid fa-chevron-right"></i>
+                    <a href="{{ route('faq') }}">FAQs</a>
+                </div>
+                {{-- <div class="footer-info">
+                    <i class="fa-solid fa-chevron-right"></i>
+                    <a href="{{ route('privacy_policy') }}">Privacy Policy</a>
+                </div> --}}
+            </div>
+        </div>
+        <div id="footer-4" class="footer-new">
+            <div class="footer-heading">
+                <h3>Find Us</h3>
+                <div class="underline"></div>
+            </div>
 
+            <div class="footer-content-new">
 
-        </section>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3620.017148282561!2d67.0743981!3d24.8632639!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33f3f9ba7181d%3A0x99571ff4d3fb7e52!2sCommunity%20Health%20Care%20Clinics!5e0!3m2!1sen!2s!4v1734451314564!5m2!1sen!2s" width="300" height="150" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 
-        <div class="seperation"></div>
-        <section id="copyright">
-            <p>
-                Copyright &copy; {{ date('Y') }}.
-                <span>Community Healthcare Clinics. All Rights Reserved</span>
-            </p>
-        </section>
-    </footer>
+            </div>
+
+    </section>
+
+    <div class="seperation"></div>
+    <section id="copyright">
+        <p>
+            Copyright &copy; {{ date('Y') }}.
+            <span>Community Healthcare Clinics. All Rights Reserved</span>
+        </p>
+    </section>
+</footer>
 
 @endsection
