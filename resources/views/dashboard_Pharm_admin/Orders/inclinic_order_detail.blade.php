@@ -18,54 +18,76 @@
 
 @section('bottom_import_file')
 @endsection
+
+<style>
+    .pres_checkbox {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 10px;
+        padding: 10px;
+        z-index: 10;
+
+    }
+    .pointer{
+        cursor: pointer;
+    }
+    .border-none{
+        border: none;
+    }
+</style>
 @section('content')
     <div class="dashboard-content">
         <div class="container-fluid">
             <div class="row m-auto">
                 <div class="col-md-6">
                     <div class="card" style="width: 100%">
-                        <ul class="list-group list-group-flush">
+                        <ul class="list-group list-group-flush border-none">
                             <li class="list-group-item d-flex justify-content-between">Name
                                 :<label>{{ $img_order->user->name . ' ' . $img_order->user->last_name }}</label></li>
                             <li class="list-group-item d-flex justify-content-between">Phone Number
                                 :<label>{{ $img_order->user->phone_number }}</label></li>
                             <li class="list-group-item d-flex justify-content-between">Reason
                                 :<label>{{ $img_order->reason }}</label></li>
-                            <li class="list-group-item d-flex justify-content-between">Payment :<label>{{ \Str::ucfirst($img_order->prescriptions[0]->title) }}</label></li>
+                            @if (count($img_order->prescriptions) > 0)
+                                <li class="list-group-item d-flex justify-content-between">Payment :<label>{{ \Str::ucfirst($img_order->prescriptions[0]->title) }}</label></li>
+                            @endif
                         </ul>
                     </div>
                 </div>
-                @if ($img_order->prescriptions[0]->title == "pending")
-                    <div class="col-md-6">
-                        <div class="card" style="width: 100%">
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item d-flex justify-content-between">Payment:</li>
-                                <form action="{{ route('inclinic_pharmacy_payment') }}" method="POST">
-                                @csrf
-                                <li class="list-group-item">
-                                    <div class="d-flex justify-content-around">
-                                        <input type="hidden" name="session_id" value="{{ $img_order->id }}">
-                                        <div>
-                                            <input type="radio" name="payment" id="card" value="card" disabled>
-                                            <label for="card">Card</label>
+                @if (count($img_order->prescriptions) > 0)
+                    @if ($img_order->prescriptions[0]->title == "pending")
+                        <div class="col-md-6">
+                            <div class="card" style="width: 100%">
+                                <ul class="list-group list-group-flush border-none">
+                                    <li class="list-group-item d-flex justify-content-between">Payment:</li>
+                                    <form action="{{ route('inclinic_pharmacy_payment') }}" method="POST">
+                                    @csrf
+                                    <li class="list-group-item">
+                                        <div class="d-flex justify-content-around">
+                                            <input type="hidden" name="session_id" value="{{ $img_order->id }}">
+                                            <div>
+                                                <input type="radio" name="payment" id="card" value="card" disabled>
+                                                <label for="card">Card</label>
+                                            </div>
+                                            <div>
+                                                <input type="radio" name="payment" id="easypaisa" value="easypaisa">
+                                                <label for="easypaisa">Easy Paisa</label>
+                                            </div>
+                                            <div>
+                                                <input type="radio" name="payment" id="cash" value="cash">
+                                                <label for="cash">Cash</label>
+                                            </div>
                                         </div>
-                                        <div>
-                                            <input type="radio" name="payment" id="easypaisa" value="easypaisa">
-                                            <label for="easypaisa">Easy Paisa</label>
-                                        </div>
-                                        <div>
-                                            <input type="radio" name="payment" id="cash" value="cash">
-                                            <label for="cash">Cash</label>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="list-group-item d-flex justify-content-end">
-                                        <button class="btn btn-primary">Submit</button>
-                                </li>
-                                </form>
-                            </ul>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-end">
+                                            <button class="btn btn-primary">Submit</button>
+                                    </li>
+                                    </form>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
+                    @endif
                 @endif
             </div>
             <div class="row m-auto">
@@ -73,15 +95,16 @@
                     <div class="card mt-3">
                         <h5 class="card-header d-flex justify-content-md-between">
                             <span>Order</span>
-                            <span>Total Amount: {{$img_order->medicine_sum+$img_order->lab_sum+$img_order->imaging_sum}}</span>
+                            <span>Total Amount:  <span id="total_price">0</span></span>
                         </h5>
                         <div class="card-body">
                             @foreach ($img_order->prescriptions as $pres)
                                 @if ($pres->type == "medicine")
-                                    <div class="row mb-3">
-                                        <div class="col-md-12">
-                                            <div class="card" style="width: 100%">
-                                                <ul class="list-group list-group-flush">
+                                    <div class="row mb-3 pointer">
+                                        <label for="{{ $pres->id }}" class="col-md-12 position-relative">
+                                            <div class="card" style="width: 100%; border-color: #082755 !important;">
+                                                <input type="checkbox" class="pres_checkbox" name="selected-med[]" value="{{ $pres->price }}" id="{{ $pres->id }}" class="form-check-input">
+                                                <ul class="list-group list-group-flush border-none">
                                                     <li class="list-group-item"><b>Product: </b>{{ $pres->med_details->name }}
                                                     </li>
                                                     <li class="list-group-item"><b>Product Price: </b> Rs.{{ $pres->price }}</li>
@@ -89,33 +112,35 @@
                                                     {{-- <li class="list-group-item"><b>E-Prescription :</b><a class="btn process-pay m-3" href="{{ $file->filename }}" target="_blank"> View </a></li> --}}
                                                 </ul>
                                             </div>
-                                        </div>
+                                        </label>
                                     </div>
                                 @elseif($pres->type == "lab-test")
                                     <div class="row mb-3">
-                                        <div class="col-md-12">
-                                            <div class="card" style="width: 100%">
-                                                <ul class="list-group list-group-flush">
+                                        <label for="{{ $pres->id }}" class="col-md-12">
+                                            <div class="card" style="width: 100%; border-color: #35b518 !important;">
+                                                <input type="checkbox" class="pres_checkbox" name="selected-med[]" value="{{ $pres->price }}" id="{{ $pres->id }}" class="form-check-input">
+                                                <ul class="list-group list-group-flush border-none">
                                                     <li class="list-group-item"><b>Product: </b>{{ $pres->lab_details->TEST_NAME }}
                                                     </li>
                                                     <li class="list-group-item"><b>Product Price: </b> Rs.{{ $pres->lab_details->SALE_PRICE }}</li>
                                                     {{-- <li class="list-group-item"><b>E-Prescription :</b><a class="btn process-pay m-3" href="{{ $file->filename }}" target="_blank"> View </a></li> --}}
                                                 </ul>
                                             </div>
-                                        </div>
+                                        </label>
                                     </div>
                                 @elseif($pres->type == "imaging")
                                     <div class="row mb-3">
-                                        <div class="col-md-12">
-                                            <div class="card" style="width: 100%">
-                                                <ul class="list-group list-group-flush">
+                                        <label for="{{ $pres->id }}" class="col-md-12">
+                                            <div class="card" style="width: 100%; border-color: #c80919 !important;">
+                                                <input type="checkbox" class="pres_checkbox" name="selected-med[]" value="{{ $pres->price }}" id="{{ $pres->id }}" class="form-check-input">
+                                                <ul class="list-group list-group-flush border-none">
                                                     <li class="list-group-item"><b>Product: </b>{{ $pres->imaging_details->TEST_NAME }}
                                                     </li>
                                                     <li class="list-group-item"><b>Product Price: </b> Rs.{{ $pres->imaging_details->SALE_PRICE }}</li>
                                                     {{-- <li class="list-group-item"><b>E-Prescription :</b><a class="btn process-pay m-3" href="{{ $file->filename }}" target="_blank"> View </a></li> --}}
                                                 </ul>
                                             </div>
-                                        </div>
+                                        </label>
                                     </div>
                                 @endif
                             @endforeach
@@ -126,4 +151,16 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $($('input[type="checkbox"]')).change(function() {
+            var total = 0;
+            $('input[type="checkbox"]:checked').each(function() {
+                total += parseInt($(this).val());
+            });
+            $('#total_price').text(total);
+        });
+    </script>
+
+
     @endsection
