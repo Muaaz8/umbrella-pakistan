@@ -1013,11 +1013,7 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
         Route::get('assign/doctor/for/lab/{id}', 'AdminController@assign_doctor_for_lab')->name('assign_doctor_for_lab');
         Route::get('deactive/doctor/for/lab/{id}', 'AdminController@deactive_doctor_for_lab')->name('deactive_doctor_for_lab');
         Route::get('/doctors/all/doctors', 'AdminController@all_doctor_index')->name('all_doctors');
-        ////////////////////////
-        ////////////////////////
         Route::get('/doctors/online/doctors', 'AdminController@online_docs')->name('online_docs');
-        ////////////////////////
-        ////////////////////////
         Route::get('/doctors/all/pending/contract', 'AdminController@pending_contract')->name('pending_contract');
         Route::post('/doctors/all/doctors', 'AdminController@all_doctor_index')->name('all_doctors');
         Route::get('/doctors/all/doctors/view/{id}', 'AdminController@all_doctor_view')->name('all_doctor_view');

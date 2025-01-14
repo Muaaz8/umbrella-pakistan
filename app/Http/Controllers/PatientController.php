@@ -1929,11 +1929,16 @@ class PatientController extends Controller
     public function view_doctor($id)
     {
         $id = \Crypt::decrypt($id);
-        $doc = DB::table('users')
-        ->join('specializations','users.specialization','specializations.id')
-        ->where('users.id',$id)
-        ->select('users.*','specializations.name as sp_name')
-        ->first();
+        $doc = DB::table('users')->where('id',$id)->first();
+        if($doc){
+            $doc->details = DB::table('doctor_details')->where('doctor_id',$id)->first();
+            $doc->specializations = DB::table('specializations')->where('id',$doc->specialization)->first();
+            if($doc->details){
+                $doc->details->certificates = json_decode($doc->details->certificates);
+                $doc->details->conditions = json_decode($doc->details->conditions);
+                $doc->details->procedures = json_decode($doc->details->procedures);
+            }
+        }
         $doc->user_image = \App\Helper::check_bucket_files_url($doc->user_image);
         return view('dashboard_patient.Profile.view_doc_profile',compact('doc'));
     }

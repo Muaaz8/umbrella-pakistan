@@ -175,16 +175,28 @@
                     <div class="d-flex align-items-center justify-content-between gap-3">
                         <div class="dropdown doctor-filter d-flex gap-2 gap-sm-4">
                           <div onclick="select_doc('2')" class="checkbox-wrapper-47">
-                            <input checked type="radio" name="cb" id="cb-47" value="2"/>
-                            <label for="cb-47">All Doctors</label>
+                            <input checked class="inp-cbx" name="cb" id="cb-47" type="radio" value="2" />
+                            <label class="cbx" for="cb-47"><span>
+                              <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                              </svg></span><span>All Doctors</span>
+                            </label>
                           </div>
                           <div onclick="select_doc('0')" class="checkbox-wrapper-47">
-                            <input type="radio" name="cb" id="cb-48" value="0"/>
-                            <label for="cb-48">Pakistani Doctors</label>
+                            <input class="inp-cbx" name="cb" id="cb-48" type="radio" value="0" />
+                            <label class="cbx" for="cb-48"><span>
+                              <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                              </svg></span><span>Pakistani Doctors</span>
+                            </label>
                           </div>
                           <div onclick="select_doc('1')" class="checkbox-wrapper-47">
-                            <input type="radio" name="cb" id="cb-49" value="1"/>
-                            <label for="cb-49">American Doctors</label>
+                            <input class="inp-cbx" name="cb" id="cb-49" type="radio" value="1" />
+                            <label class="cbx" for="cb-49"><span>
+                              <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                              </svg></span><span>American Doctors</span>
+                            </label>
                           </div>
                         </div>
                     </div>

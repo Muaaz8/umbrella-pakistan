@@ -18,6 +18,8 @@ class Session extends Model
         'remaining_time',
         'sequence',
         'less_min_flag',
+        'invite_time',
+        'response_time',
         'created_at',
         'updated_at',
         'que_message',

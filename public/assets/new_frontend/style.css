@@ -77,6 +77,12 @@ header {
     width: 15px;
 }
 
+.dropdown-item.active, .dropdown-item:active {
+    color: white !important;
+    text-decoration: none;
+    background-color: var(--navy-blue);
+}
+
 .wrap {
     height: 100%;
     width: 90%;
@@ -113,9 +119,13 @@ header {
     color: black;
     border-bottom: 2px solid transparent;
     font-size: 15px;
-    padding: 5px;
+    padding: 3px 0;
     font-weight: 600;
     width: max-content;
+}
+
+#drawer a {
+    margin-left: 1rem;
 }
 
 #nav-left-side>a:hover {
@@ -1364,6 +1374,10 @@ footer {
     transition: 0.4s;
 }
 
+.drawer-item {
+    color: var(--blue);
+}
+
 .drawer {
     position: fixed;
     top: 0;
@@ -1374,7 +1388,7 @@ footer {
     color: #202020;
     transform: translateX(-100%);
     transition: transform 0.4s ease;
-    padding-top: 60px;
+    padding-top: 40px;
     z-index: 999;
     border-right: 1px solid #ff5757;
 }
@@ -1386,6 +1400,7 @@ footer {
     color: #fff;
     display: block;
     transition: 0.3s;
+    border-bottom: 1px solid transparent;
 }
 
 .drawer hr {
@@ -1395,8 +1410,7 @@ footer {
 }
 
 .drawer a:hover {
-    background-color: #575757;
-    color: #ffffff;
+    border-bottom: 1px solid var(--red) !important;
 }
 
 .drawer.active {
@@ -1405,7 +1419,7 @@ footer {
 
 .close-btn {
     position: absolute;
-    top: 20px;
+    top: 10px;
     right: 20px;
     font-size: 24px;
     cursor: pointer;
@@ -2419,6 +2433,7 @@ footer {
 }
 
 .contact-info i {
+    min-width: 2rem;
     font-size: 2rem;
 }
 
@@ -3065,9 +3080,9 @@ footer {
 }
 
 .custom-btn2 {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     margin-top: 8px;
-    width: 100px;
+    width: 120px;
 }
 
 .custom-card-img {
@@ -4113,9 +4128,8 @@ footer {
 }
 
 @media screen and (max-width: 768px) {
-    .doctor-list-container div:nth-child(4) {
+    .doctor-list-container > div {
         flex-direction: column;
-        width: 100%;
     }
 
     .search-bar-container {
@@ -4294,6 +4308,10 @@ footer {
 
     .doctor_degree {
         font-size: 0.8rem !important;
+    }
+
+    .nav-tabs {
+        --bs-nav-tabs-border-color: none;
     }
 }
 
@@ -4486,6 +4504,10 @@ footer {
 }
 
 @media screen and (max-width: 480px) {
+    #faq-content {
+        max-width: 90%;
+    }
+
     #disclaimer-content>div>p {
         padding: 0 1.5rem;
     }
@@ -4574,6 +4596,111 @@ footer {
 
     .doctor-list-container > p {
         font-size: 0.85rem;
+    }
+
+    .content {
+        width: 90%;
+    }
+}
+
+/* new design */
+
+.checkbox-wrapper-47 input[type="radio"] {
+    display: none;
+    visibility: hidden;
+}
+
+.checkbox-wrapper-47 .cbx {
+    margin: auto;
+    -webkit-user-select: none;
+    user-select: none;
+    cursor: pointer;
+}
+
+.checkbox-wrapper-47 .cbx span {
+    display: inline-block;
+    vertical-align: middle;
+    transform: translate3d(0, 0, 0);
+}
+
+.checkbox-wrapper-47 .cbx span:first-child {
+    position: relative;
+    width: 18px;
+    height: 18px;
+    border-radius: 3px;
+    transform: scale(1);
+    vertical-align: middle;
+    border: 1px solid #9098A9;
+    transition: all 0.2s ease;
+}
+
+.checkbox-wrapper-47 input[type="radio"] + label {
+    padding: 0.25rem 0.5rem;
+    border: 2px solid transparent;
+    border-radius: 0.25rem;
+}
+
+.checkbox-wrapper-47 input[type="radio"]:checked+label {
+    /* background: #506EEC; */
+    color: #506EEC;
+    border: 2px solid #506EEC;
+    transition: all 0.2s ease-in;
+}
+
+.checkbox-wrapper-47 .cbx span:first-child svg {
+    position: absolute;
+    top: 3px;
+    left: 2px;
+    fill: none;
+    stroke: #FFFFFF;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 16px;
+    stroke-dashoffset: 16px;
+    transition: all 0.3s ease;
+    transition-delay: 0.1s;
+    transform: translate3d(0, 0, 0);
+}
+
+.checkbox-wrapper-47 .cbx span:first-child:before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    background: #506EEC;
+    display: block;
+    transform: scale(0);
+    opacity: 1;
+    border-radius: 50%;
+}
+
+.checkbox-wrapper-47 .cbx span:last-child {
+    padding-left: 8px;
+}
+
+.checkbox-wrapper-47 .cbx:hover span:first-child {
+    border-color: #506EEC;
+}
+
+.checkbox-wrapper-47 .inp-cbx:checked+.cbx span:first-child {
+    background: #506EEC;
+    border-color: #506EEC;
+    animation: wave-46 0.4s ease;
+}
+
+.checkbox-wrapper-47 .inp-cbx:checked+.cbx span:first-child svg {
+    stroke-dashoffset: 0;
+}
+
+.checkbox-wrapper-47 .inp-cbx:checked+.cbx span:first-child:before {
+    transform: scale(3.5);
+    opacity: 0;
+    transition: all 0.6s ease;
+}
+
+@keyframes wave-46 {
+    50% {
+        transform: scale(0.9);
     }
 }
 
@@ -4721,6 +4848,15 @@ footer {
     .faq-answer p, .faq-answer span {
         font-size: 0.8rem !important;
     }
+
+    .doctor-filter {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #faq-content {
+        padding: 0 10px !important;
+    }
 }
 
 
@@ -4799,10 +4935,13 @@ footer {
 }
 
 /* Doctor's List Page */
+.doctor-filter {
+    min-width: 500px;
+}
+
 .doctor-list-container {
     width: 92%;
 }
-
 
 .search-field {
     border: none;
@@ -4920,6 +5059,10 @@ footer {
         width: 120px;
         height: 75px;
     }
+
+    .main-hero-section .order-3 .w-50 {
+        width: 100% !important;
+    }
 }
 
 
@@ -5006,6 +5149,19 @@ footer {
 
     .checkbox-wrapper-47 label {
         font-size: 0.9rem !important;
+    }
+
+    #faqs {
+        margin-top: 0.25rem !important;
+        padding: 0 11px !important;
+    }
+
+    #faq-content {
+        margin: 0 auto;
+    }
+
+    .faq:last-child {
+        border-bottom: 1px solid #ddd;
     }
 }
 
@@ -5260,55 +5416,4 @@ font-size: 1rem;
 
 .pointer {
     cursor: pointer !important;
-}
-
-/* Checkbox Design */
-
-.checkbox-wrapper-47 input[type="radio"] {
-    display: none;
-    visibility: hidden;
-}
-
-.checkbox-wrapper-47 label {
-    position: relative;
-    padding-left: 2em;
-    padding-right: 1em;
-    padding-top: 0.5rem;
-    padding-bottom: 0.5rem;
-    /* line-height: 2; */
-    cursor: pointer;
-    display: inline-flex;
-    font-size: 1rem;
-}
-
-.checkbox-wrapper-47 label:before {
-    box-sizing: border-box;
-    content: " ";
-    position: absolute;
-    top: 0.6rem;
-    left: 0;
-    display: block;
-    width: 1.4em;
-    height: 1.4em;
-    border: 2px solid #9098A9;
-    border-radius: 6px;
-    z-index: -1;
-}
-
-.checkbox-wrapper-47 input[type=radio]:checked+label {
-    padding-left: 1em;
-    color: #0f5229;
-}
-
-.checkbox-wrapper-47 input[type=radio]:checked+label:before {
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: #b7e6c9;
-    border-color: #2cbc63;
-}
-
-.checkbox-wrapper-47 label,
-.checkbox-wrapper-47 label::before {
-    transition: 0.25s all ease;
 }

@@ -52,7 +52,7 @@ class SessionController extends Controller
     public function sendInvite(Request $request)
     {
         // update session status
-        $res = Session::where('id', $request->session_id)->update(['status' => 'invitation sent']);
+        $res = Session::where('id', $request->session_id)->update(['status' => 'invitation sent', 'invite_time' => now()]);
         if ($res == 1) {
             //get patient session record
             $sessionData = Session::where('id', $request->session_id)->first();

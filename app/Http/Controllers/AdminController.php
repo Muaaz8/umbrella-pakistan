@@ -1248,6 +1248,16 @@ public function lab_approval_doctor(Request $req)
                 $doctor->spec = DB::table('specializations')->where('id',$doctor->specialization)->select('name')->first();
                 $doctor->spec = $doctor->spec->name;
                 $certificate = DB::table('doctor_certificates')->where('doc_id', $id)->get();
+
+                $sessions = DB::table('sessions')
+                ->where('sessions.doctor_id', $id)
+                ->where('sessions.status', 'ended')
+                ->join('users', 'users.id', '=', 'sessions.patient_id')
+                ->select('sessions.*', 'users.name as patient_name', 'users.last_name as patient_last_name')
+                ->orderBy('sessions.id', 'DESC')
+                ->get();
+
+
                 $doctor->state = State::find($doctor->state_id)->name;
                 foreach ($certificate as $cert) {
                     if ($cert->certificate_file != "") {
@@ -1263,8 +1273,30 @@ public function lab_approval_doctor(Request $req)
                     $act->date = Helper::get_date_with_format($date->format('Y-m-d H:i:s'));
                     $act->time = Helper::get_time_with_format($date->format('Y-m-d H:i:s'));
                 }
-                // dd($doctor);
-                return view('dashboard_admin.doctors.all_doctors.view', compact('doctor', 'activities', 'certificate'));
+
+                $averageResponseTimeQuery = DB::table('sessions as s')
+                ->select(
+                    DB::raw('s.doctor_id'),
+                    DB::raw('TIMESTAMPDIFF(MINUTE, s.invite_time, s.response_time) - COALESCE(SUM(TIMESTAMPDIFF(MINUTE, GREATEST(q.start_time, s.invite_time), LEAST(q.end_time, s.response_time))), 0) AS adjusted_response_time_minutes')
+                )
+                ->leftJoin('sessions as q', function ($join) {
+                    $join->on('s.doctor_id', '=', 'q.doctor_id')
+                        ->whereRaw('q.start_time < s.response_time')
+                        ->whereRaw('q.end_time > s.invite_time')
+                        ->whereColumn('q.id', '!=', 's.id');
+                })
+                ->where('s.doctor_id', $id)
+                ->groupBy('s.id', 's.invite_time', 's.response_time');
+
+            $averageResponseTime = DB::table(DB::raw("({$averageResponseTimeQuery->toSql()}) as session_adjustments"))
+                ->mergeBindings($averageResponseTimeQuery)
+                ->select('doctor_id', DB::raw('AVG(adjusted_response_time_minutes) as average_response_time_minutes'))
+                ->groupBy('doctor_id')
+                ->first();
+
+            $averageResponseTime = $averageResponseTime ? $averageResponseTime->average_response_time_minutes : null;
+
+                return view('dashboard_admin.doctors.all_doctors.view', compact('doctor', 'activities', 'certificate', 'averageResponseTime' , 'sessions'));
             } else {
                 return redirect('/home');
             }
