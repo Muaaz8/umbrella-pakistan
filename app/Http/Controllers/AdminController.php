@@ -1213,7 +1213,7 @@ public function lab_approval_doctor(Request $req)
                 $id = $request['id'];
                 $doctor = User::find($id);
                 $certificate = DB::table('doctor_certificates')->where('doc_id', $id)->get();
-                $doctor->state = State::find($doctor->state_id)->name;
+                // $doctor->state = State::find($doctor->state_id)->name;
                 foreach ($certificate as $cert) {
                     if ($cert->certificate_file != "") {
                         $cert->certificate_file = \App\Helper::get_files_url($cert->certificate_file);
@@ -1258,7 +1258,7 @@ public function lab_approval_doctor(Request $req)
                 ->get();
 
 
-                $doctor->state = State::find($doctor->state_id)->name;
+                // $doctor->state = State::find($doctor->state_id)->name;
                 foreach ($certificate as $cert) {
                     if ($cert->certificate_file != "") {
                         $cert->certificate_file = \App\Helper::get_files_url($cert->certificate_file);
