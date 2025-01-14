@@ -72,12 +72,14 @@
             var name = $('#name-' + id).html()
             var reason = $('#reason-' + id).html()
             var age = $('#age-' + id).html()
+            var phone = $('#phone-' + id).html()
             $('#session-id').html(id)
             $('#patient-id').html(user_id)
             $('#consulation-name').html(name)
             $('#patient-name').html(name)
             $('#patient-age').html(age)
             $('#patient-reason').html(reason)
+            $('#patient-phone').html(phone)
             $('.consultation-side').removeClass('d-none');
             $('.start-button').attr('disabled','true');
             onPageLoadPrescribeItemLoad();
@@ -620,11 +622,12 @@
                                 data-bs-target="#flush-collapse{{ $pat->id }}" aria-expanded="false"
                                 aria-controls="flush-collapse{{ $pat->id }}">
                                 <div class="patient-detail d-flex gap-2 align-items-start justify-content-center">
-                                    <span class="key">{{ ++$key }})</span>
+                                    <span class="key">{{ ++$key }}</span>
                                     <h5 id="name-{{ $pat->id }}">
                                         {{ $pat->user->name . ' ' . $pat->user->last_name }}</h5>
                                     <h5 class="d-none" id="age-{{ $pat->id }}">{{$pat->user->get_age($pat->user->id)}}
                                     </h5>
+                                    <h5 class="d-none" id="phone-{{ $pat->id }}">{{$pat->user->phone_number}}</h5>
                                     <h5 class="d-none" id="id-{{ $pat->id }}">{{$pat->user->id}}</h5>
                                     <h5 class="d-none" id="session_id-{{ $pat->id }}">{{$pat->id}}</h5>
                                 </div>
@@ -682,6 +685,10 @@
                                             <div>
                                                 <label for="patient-city">City:</label>
                                                 <h6 id="patient-city">Karachi</h6>
+                                            </div>
+                                            <div>
+                                                <label for="patient-phone">Phone:</label>
+                                                <h6 id="patient-phone">+923001234567</h6>
                                             </div>
                                         </div>
                                         <div>
