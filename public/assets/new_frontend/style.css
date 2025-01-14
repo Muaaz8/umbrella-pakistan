@@ -226,7 +226,7 @@ header {
     background: #a31f2c;
     position: absolute;
     bottom: -20%;
-    left: -2%;
+    left: -1%;
     transform: rotate(20deg);
     border-bottom-left-radius: 10px;
     z-index: -2;
@@ -2399,6 +2399,7 @@ header {
     height: 100%;
     color: white;
     z-index: 3;
+    text-align: center;
     padding-top: 20px;
 }
 
@@ -4854,6 +4855,11 @@ header {
 
     #faq-content {
         padding: 0 10px !important;
+    }
+
+    .contact-content {
+        padding-top: 0;
+        align-items: center;
     }
 }
 
