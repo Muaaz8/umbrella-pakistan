@@ -66,6 +66,10 @@
     font-size: 16px;
 }
 
+i {
+    margin-right: auto !important;
+}
+
 p {
     margin-bottom: 0;
 }
