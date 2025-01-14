@@ -77,6 +77,12 @@ header {
     width: 15px;
 }
 
+.dropdown-item.active, .dropdown-item:active {
+    color: white !important;
+    text-decoration: none;
+    background-color: var(--navy-blue);
+}
+
 .wrap {
     height: 100%;
     width: 90%;
@@ -113,13 +119,13 @@ header {
     color: black;
     border-bottom: 2px solid transparent;
     font-size: 15px;
-    padding: 5px;
+    padding: 3px 0;
     font-weight: 600;
     width: max-content;
 }
 
 #drawer a {
-    margin-left: 0.5rem;
+    margin-left: 1rem;
 }
 
 #nav-left-side>a:hover {
@@ -1394,6 +1400,7 @@ footer {
     color: #fff;
     display: block;
     transition: 0.3s;
+    border-bottom: 1px solid transparent;
 }
 
 .drawer hr {
@@ -1403,8 +1410,7 @@ footer {
 }
 
 .drawer a:hover {
-    background-color: #575757;
-    color: #ffffff;
+    border-bottom: 1px solid var(--red) !important;
 }
 
 .drawer.active {
