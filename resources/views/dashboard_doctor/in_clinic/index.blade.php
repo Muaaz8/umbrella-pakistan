@@ -18,7 +18,7 @@
         font-size: 0.8rem;
         padding: 2px 13px;
         position: relative;
-        /* margin: 0 10px 5px 0; */
+        margin: 0 10px 5px 0;
         cursor: pointer;
     }
 
@@ -54,6 +54,10 @@
 
     .prescription-container .nav-link {
         padding: 0.25rem 0.5rem;
+    }
+
+    .dashboard {
+        overflow-y: hidden;
     }
 </style>
 @endsection

@@ -7050,29 +7050,6 @@ span.avtr figure {
   font-weight: bold;
 }
 
-.custom-input {
-  border: 2px solid gray;
-  border-right: none;
-  border-radius: 5px 0 0 5px;
-  padding: 0.25rem 0.5rem;
-  margin-bottom: 0.35rem;
-}
-
-.custom-btn {
-  background: linear-gradient(to bottom, var(--blue), var(--navy-blue));
-  color: white;
-  border: none;
-  border-radius: 0 5px 5px 0;
-  padding: 0.25rem 1rem !important;
-  font-size: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  box-shadow: none !important;
-  margin-bottom: 0.35rem;
-}
-
 .waiting-patients-accordion {
     max-height: 80vh;
     overflow-y: auto;
@@ -7181,6 +7158,29 @@ span.avtr figure {
 
 #next-patient-collapse .accordion-body {
     padding: 0.25rem 0;
+}
+
+.custom-input {
+  border: 2px solid gray;
+  border-right: none;
+  border-radius: 5px 0 0 5px;
+  padding: 0.25rem 0.5rem;
+  margin-bottom: 0.35rem;
+}
+
+.custom-btn {
+  background: linear-gradient(to bottom, var(--blue), var(--navy-blue));
+  color: white;
+  border: none;
+  border-radius: 0 5px 5px 0;
+  padding: 0.25rem 1rem !important;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: none !important;
+  margin-bottom: 0.35rem;
 }
 
 .prescription-section {
