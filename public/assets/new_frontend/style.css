@@ -77,7 +77,8 @@ header {
     width: 15px;
 }
 
-.dropdown-item.active, .dropdown-item:active {
+.dropdown-item.active,
+.dropdown-item:active {
     color: white !important;
     text-decoration: none;
     background-color: var(--navy-blue);
@@ -226,7 +227,7 @@ header {
     background: #a31f2c;
     position: absolute;
     bottom: -20%;
-    left: -2%;
+    left: -1%;
     transform: rotate(20deg);
     border-bottom-left-radius: 10px;
     z-index: -2;
@@ -653,7 +654,7 @@ header {
     padding: 10px 0;
 }
 
-.tabs-section-container > h4 {
+.tabs-section-container>h4 {
     width: auto;
 }
 
@@ -896,15 +897,15 @@ header {
     border: 2px solid transparent;
 }
 
-.doctor-button:hover > a {
+.doctor-button:hover>a {
     color: white;
 }
 
-.doctor-button:hover > i {
+.doctor-button:hover>i {
     color: white;
 }
 
-.doctor-button:hover > span {
+.doctor-button:hover>span {
     color: white !important;
 }
 
@@ -1493,7 +1494,7 @@ header {
 
 #faqs {
     margin-top: 1rem;
-    padding: 2rem 11px  0;
+    padding: 2rem 11px 0;
     min-height: 50vh;
 }
 
@@ -2399,6 +2400,7 @@ header {
     height: 100%;
     color: white;
     z-index: 3;
+    text-align: center;
     padding-top: 20px;
 }
 
@@ -3249,7 +3251,13 @@ header {
 /* media queries  */
 
 @media screen and (min-width: 1400px) {
-    .container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+
+    .container,
+    .container-lg,
+    .container-md,
+    .container-sm,
+    .container-xl,
+    .container-xxl {
         max-width: 1340px;
     }
 
@@ -3371,11 +3379,11 @@ header {
         font-size: 1.1rem;
     }
 
-    .doctor-button > a {
+    .doctor-button>a {
         font-size: 1.1rem;
     }
 
-    .doctor-button > i {
+    .doctor-button>i {
         font-size: 1.5rem;
     }
 
@@ -3426,7 +3434,7 @@ header {
         font-size: 1.15rem;
     }
 
-    .tabs-section-container > h4 {
+    .tabs-section-container>h4 {
         font-size: 2rem;
     }
 
@@ -3458,11 +3466,13 @@ header {
         font-size: 1rem;
     }
 
-    .read-more, .add-to-cart {
+    .read-more,
+    .add-to-cart {
         font-size: 1rem;
     }
 
-    .read-more > i, .add-to-cart > i {
+    .read-more>i,
+    .add-to-cart>i {
         font-size: 1.25rem;
     }
 
@@ -3563,7 +3573,7 @@ header {
         font-size: 1.15rem;
     }
 
-    .footer-content-new > iframe {
+    .footer-content-new>iframe {
         width: 400px !important;
         height: 200px;
     }
@@ -3584,11 +3594,11 @@ header {
         font-size: 1.25rem;
     }
 
-    .container-fluid > h3 {
+    .container-fluid>h3 {
         font-size: 2.25rem;
     }
 
-    .container-fluid > p {
+    .container-fluid>p {
         font-size: 1.2rem;
     }
 
@@ -3602,7 +3612,7 @@ header {
         font-size: 2.5rem !important;
     }
 
-    .doctor-list-container > p {
+    .doctor-list-container>p {
         font-size: 1.15rem !important;
     }
 
@@ -3623,7 +3633,7 @@ header {
         font-size: 1rem !important;
     }
 
-    .doctor-ratings > i {
+    .doctor-ratings>i {
         font-size: 1.2rem !important;
     }
 
@@ -3680,11 +3690,11 @@ header {
         font-size: 1rem;
     }
 
-    .contact-info > div > div {
+    .contact-info>div>div {
         font-size: 1.25rem;
     }
 
-    .contact-info > div > p {
+    .contact-info>div>p {
         font-size: 0.9rem;
     }
 
@@ -3932,7 +3942,7 @@ header {
         font-size: 1.3rem;
     }
 
-    #footer-logo-new > img {
+    #footer-logo-new>img {
         width: 50%;
     }
 }
@@ -4126,7 +4136,7 @@ header {
 }
 
 @media screen and (max-width: 768px) {
-    .doctor-list-container > div {
+    .doctor-list-container>div {
         flex-direction: column;
     }
 
@@ -4375,7 +4385,7 @@ header {
         width: 100%;
     }
 
-    .custom-search-container > div {
+    .custom-search-container>div {
         width: 100% !important;
     }
 
@@ -4552,7 +4562,7 @@ header {
         font-size: 0.7rem;
     }
 
-    .doctor-button > i {
+    .doctor-button>i {
         font-size: 1.2rem;
     }
 
@@ -4592,7 +4602,7 @@ header {
         padding-top: 2rem !important;
     }
 
-    .doctor-list-container > p {
+    .doctor-list-container>p {
         font-size: 0.85rem;
     }
 
@@ -4632,7 +4642,7 @@ header {
     transition: all 0.2s ease;
 }
 
-.checkbox-wrapper-47 input[type="radio"] + label {
+.checkbox-wrapper-47 input[type="radio"]+label {
     padding: 0.25rem 0.5rem;
     border: 2px solid transparent;
     border-radius: 0.25rem;
@@ -4796,11 +4806,12 @@ header {
         padding: 0.5rem;
     }
 
-    .container-fluid > p {
+    .container-fluid>p {
         font-size: 0.8rem;
     }
 
-    .tablets, .medkit {
+    .tablets,
+    .medkit {
         display: none;
     }
 
@@ -4829,7 +4840,7 @@ header {
         font-size: 1rem;
     }
 
-    .about-image > img {
+    .about-image>img {
         width: 100%;
     }
 
@@ -4843,7 +4854,8 @@ header {
         font-size: 13px;
     }
 
-    .faq-answer p, .faq-answer span {
+    .faq-answer p,
+    .faq-answer span {
         font-size: 0.8rem !important;
     }
 
@@ -4854,6 +4866,15 @@ header {
 
     #faq-content {
         padding: 0 10px !important;
+    }
+
+    .contact-content {
+        padding-top: 0;
+        align-items: center;
+    }
+
+    .underline3 {
+        width: 55%;
     }
 }
 
@@ -4872,7 +4893,6 @@ header {
         font-size: 14px;
     }
 }
-
 
 @media only screen and (max-width: 373px) {
     .logo>img {
@@ -5053,7 +5073,7 @@ header {
         width: 70%;
     }
 
-    .gallery > img:hover {
+    .gallery>img:hover {
         width: 120px;
         height: 75px;
     }
@@ -5061,8 +5081,26 @@ header {
     .main-hero-section .order-3 .w-50 {
         width: 100% !important;
     }
-}
 
+    .modal-header .btn-close {
+        opacity: 1;
+        position: absolute;
+        right: 0;
+        top: -10px;
+        background-color: beige;
+        border-radius: 50%;
+        font-size: 16px;
+        padding: 8px;
+    }
+
+    .modal-login-reg-btn {
+        gap: 5px;
+    }
+
+    .modal-login-reg-btn a {
+        min-width: 12.5rem;
+    }
+}
 
 /* Doctor Cards Carousel Section */
 
@@ -5274,12 +5312,12 @@ header {
     position: relative;
 }
 
-.specialized-column > h3 {
+.specialized-column>h3 {
     font-size: 1.3rem;
     font-weight: 700;
 }
 
-.specialized-column > p {
+.specialized-column>p {
     font-size: 0.9rem;
 }
 
@@ -5289,11 +5327,12 @@ header {
     scale: 1.05;
 }
 
-.specialized-column:hover .specialized-icons > i, .specialized-column:hover .specialized-icons > p {
+.specialized-column:hover .specialized-icons>i,
+.specialized-column:hover .specialized-icons>p {
     color: var(--blue);
 }
 
-.specialized-icons > i {
+.specialized-icons>i {
     position: absolute;
     font-size: 2rem;
     background: #f5f5f5;
@@ -5303,11 +5342,11 @@ header {
     bottom: -0.6rem;
 }
 
-.work-headings > h3 {
-font-size: 1rem;
+.work-headings>h3 {
+    font-size: 1rem;
 }
 
-.work-headings > p {
+.work-headings>p {
     font-size: 0.75rem;
 }
 
@@ -5322,7 +5361,7 @@ font-size: 1rem;
     border-bottom-right-radius: 0;
 }
 
-.work-icons > i {
+.work-icons>i {
     font-size: 2rem;
 }
 
@@ -5348,7 +5387,7 @@ font-size: 1rem;
     color: var(--navy-blue);
 }
 
-.image-container-virtual > img {
+.image-container-virtual>img {
     width: 100%;
     height: auto;
     border-radius: 1rem;

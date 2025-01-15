@@ -150,6 +150,7 @@ $page = DB::table('pages')->where('url', '/')->first();
 <div class="modal fade" id="callingNewModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
+        
         <input type="hidden" id="session_user_id" />
         <div class="modal-content calling-modal">
             <div class="">
