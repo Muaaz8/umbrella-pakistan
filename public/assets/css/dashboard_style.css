@@ -7035,6 +7035,21 @@ span.avtr figure {
 
 /* waiting patients section */
 
+.waiting-patients-section h4, .patient-info h4, .prescription-container h4 {
+  font-size: 1.25rem;
+  margin-bottom: 0.2rem;
+}
+
+.waiting-room-container section {
+  padding-bottom: 0.25rem;
+}
+
+.dose-para {
+  text-transform: uppercase;
+  color: #dc3545;
+  font-weight: bold;
+}
+
 .custom-input {
   border: 2px solid gray;
   border-right: none;
@@ -7065,7 +7080,7 @@ span.avtr figure {
 }
 
 .waiting-patients-accordion .accordion-body {
-  padding: 0.5rem;
+  padding: 0.25rem;
 }
 
 .patient-detail h5 {
@@ -7160,14 +7175,12 @@ span.avtr figure {
     overflow-y: auto;
 }
 
-
-
 .tabs-medicine .btn {
   padding: 0.1rem 0.5rem;
 }
 
 #next-patient-collapse .accordion-body {
-    padding: 0.5rem 0;
+    padding: 0.25rem 0;
 }
 
 .prescription-section {

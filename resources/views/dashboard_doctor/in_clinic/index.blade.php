@@ -15,10 +15,10 @@
     .selected-value-bydoc {
         border: 1px solid #16de81;
         border-radius: 30px;
-        font-size: 14px;
+        font-size: 0.8rem;
         padding: 2px 13px;
         position: relative;
-        margin: 0 10px 5px 0;
+        /* margin: 0 10px 5px 0; */
         cursor: pointer;
     }
 
@@ -614,7 +614,7 @@
 <section class="d-flex align-items-center justify-content-center">
     <div
         class="row px-2 w-100 d-flex flex-wrap flex-column-reverse flex-sm-row  flex-sm-nowrap waiting-room-container align-items-start justify-content-center">
-        <section class="col-12 col-sm-4 d-flex flex-column bg-white px-2 py-1 rounded-3 shadow-sm">
+        <section class="col-12 col-sm-4 d-flex flex-column bg-white px-2 rounded-3 shadow-sm">
             <div class="d-flex flex-column waiting-patients-section">
                 <h4>Waiting Patients</h4>
                 <div class="accordion accordion-flush waiting-patients-accordion rounded-3 d-flex flex-column gap-2 waiting-patients"
@@ -657,7 +657,7 @@
         <aside class="col-12 col-sm-7 ps-sm-2 pe-sm-2 ps-0 pe-0 d-none consultation-side">
             <div class="d-flex flex-column gap-2 w-100 h-100">
                 <section class="shadow-sm rounded-3 next-patient-section bg-white">
-                    <div class="bg-white rounded-3 px-2 py-1 d-flex flex-column patient-info">
+                    <div class="bg-white rounded-3 px-2 d-flex flex-column patient-info">
                         <h4>Current Patient</h4>
                         <div class="accordion waiting-patients-accordion rounded-3 d-flex flex-column gap-2 pe-2"
                             id="accordionFlushExample1">
@@ -708,7 +708,7 @@
                                             <div class="selected-value-div-wrap">
                                                 <div class="d-flex align-items-center justify-content-between pt-1">
                                                     <h6>Prescribed items:</h6>
-                                                    <p>(click on medicine to add dose)</p>
+                                                    <p class="dose-para">(click on medicine to add dose)</p>
                                                 </div>
                                                 <div class="prescribed_items_main">
                                                     <div class="d-flex flex-wrap prescribed_items">
@@ -731,7 +731,7 @@
                 </section>
                 <section class="prescription-section rounded-3 bg-white shadow-sm h-100">
                     <div
-                        class="prescription-container bg-white rounded-3 px-2 py-1 d-flex flex-column gap-1 h-100 overflow-y-auto">
+                        class="prescription-container bg-white rounded-3 px-2 d-flex flex-column gap-1 h-100 overflow-y-auto">
                         <h4>Prescription</h4>
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                                     <li class="col-12 col-sm-4 nav-item" role="presentation">
