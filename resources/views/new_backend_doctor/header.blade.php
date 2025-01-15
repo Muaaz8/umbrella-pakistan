@@ -46,6 +46,12 @@ use Carbon\Carbon;
         <nav class="dashboard-nav-list">
             <a href="{{route('doctor_dashboard')}}" class="dashboard-nav-item"><i class="fa-solid fa-house"></i>
                 Dashboard </a>
+            <a href="{{ route('doctor_queue') }}" class="dashboard-nav-item"><i
+                class="fa-regular fa-square-plus"></i>Online Waiting Room</a>
+            @if (Auth::user()->email == 'rama.siddiqui@gmail.com' || Auth::user()->email == 'Dr.RabiaAjaz@gmail.com' || Auth::user()->email == 'zaidtahir@yopmail.com')'
+                <a href="{{ route('doctor_in_clinic') }}" class="dashboard-nav-item"><i
+                    class="fa-regular fa-square-plus"></i>In-Clinic Waiting Room</a>
+            @endif
             <a href="{{ route('doc_appointments') }}" class="dashboard-nav-item"><i
                 class="fa-regular fa-calendar-check"></i>Appointments</a>
             <a href="{{ route('add_doctor_schedule') }}" class="dashboard-nav-item"><i
@@ -62,7 +68,7 @@ use Carbon\Carbon;
                     </div>
                 </div>
             @endif
-            <div class="dashboard-nav-dropdown">
+            {{-- <div class="dashboard-nav-dropdown">
                 <a href="javascript:void(0)" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
                         class="fa-solid fa-vial"></i> Labs </a>
                 <div class="dashboard-nav-dropdown-menu">
@@ -73,13 +79,9 @@ use Carbon\Carbon;
                     <a href="{{ route('Doctor_lab_pending_requisition') }}" class="dashboard-nav-dropdown-item">My Pending Requisitions</a>
                     <a href="{{ route('doctor_Lab_requisition') }}" class="dashboard-nav-dropdown-item">My Requisitions</a>
                 </div>
-            </div>
-            <a href="{{ route('doctor_queue') }}" class="dashboard-nav-item"><i
-                class="fa-regular fa-square-plus"></i>Waiting Room</a>
-            <a href="{{ route('doctor_in_clinic') }}" class="dashboard-nav-item"><i
-                class="fa-regular fa-square-plus"></i>In Clinic</a>
-            <a href="{{ route('patient_refill_requests') }}" class="dashboard-nav-item"><i
-                    class="fa-solid fa-user-doctor"></i> Refill Requests </a>
+            </div> --}}
+            {{-- <a href="{{ route('patient_refill_requests') }}" class="dashboard-nav-item"><i
+                    class="fa-solid fa-user-doctor"></i> Refill Requests </a> --}}
 
             <a href="{{ route('user_profile',['username'=>Auth::user()->username]) }}" class="dashboard-nav-item"><i
                 class="fa-regular fa-user"></i>My Profile</a>
@@ -92,7 +94,7 @@ use Carbon\Carbon;
             <!-- <a href="{{ route('doctors_all') }}" class="dashboard-nav-item"><i class="fa-solid fa-user-doctor"></i> Doctors </a> -->
             <a href="{{ route('doctors_orders') }}" class="dashboard-nav-item"><i
                     class="fa-solid fa-calendar-check"></i> Orders</a>
-            <a href="/doctor/wallet" class="dashboard-nav-item"><i class="fa-solid fa-wallet"></i> Wallet</a>
+            {{-- <a href="/doctor/wallet" class="dashboard-nav-item"><i class="fa-solid fa-wallet"></i> Wallet</a> --}}
             <a href="/doctor/account_settings" class="dashboard-nav-item"><i class="fa-solid fa-gear"></i> Account
                 Settings</a>
         </nav>

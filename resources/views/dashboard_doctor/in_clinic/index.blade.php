@@ -103,6 +103,7 @@
                         id:e.session_id,
                     },
                     success: function (response) {
+                        $('.for-empty-div').addClass('d-none');
                         $('.waiting-patients').append(
                             `<div class="accordion-item rounded-3">
                                 <h2 class="accordion-header rounded-3" id="flush-heading${response.id }">
@@ -620,41 +621,47 @@
         class="row px-2 w-100 d-flex flex-wrap flex-column-reverse flex-sm-row  flex-sm-nowrap waiting-room-container align-items-start justify-content-center">
         <section class="col-12 col-sm-4 d-flex flex-column bg-white px-2 rounded-3 shadow-sm">
             <div class="d-flex flex-column waiting-patients-section">
-                <h4>Waiting Patients</h4>
+                <h4>Inclinic Patients</h4>
                 <div class="accordion accordion-flush waiting-patients-accordion rounded-3 d-flex flex-column gap-2 waiting-patients"
                     id="accordionFlushExample">
-                    @foreach ($patients as $key => $pat)
-                    <div class="accordion-item rounded-3">
-                        <h2 class="accordion-header rounded-3" id="flush-heading{{ $pat->id }}">
-                            <div class="accordion-button collapsed rounded-3" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#flush-collapse{{ $pat->id }}" aria-expanded="false"
-                                aria-controls="flush-collapse{{ $pat->id }}">
-                                <div class="patient-detail d-flex gap-2 align-items-start justify-content-center">
-                                    <span class="key">{{ ++$key }}</span>
-                                    <h5 id="name-{{ $pat->id }}">
-                                        {{ $pat->user->name . ' ' . $pat->user->last_name }}</h5>
-                                    <h5 class="d-none" id="age-{{ $pat->id }}">{{$pat->user->get_age($pat->user->id)}}
-                                    </h5>
-                                    <h5 class="d-none" id="phone-{{ $pat->id }}">{{$pat->user->phone_number}}</h5>
-                                    <h5 class="d-none" id="id-{{ $pat->id }}">{{$pat->user->id}}</h5>
-                                    <h5 class="d-none" id="session_id-{{ $pat->id }}">{{$pat->id}}</h5>
+                    @if (count($patients) <= 0)
+                        <div class="m-auto text-center for-empty-div">
+                            <img src="http://127.0.0.1:8000/assets/images/for-empty.png" alt="">
+                            <h6>No Patients in Waiting Room</h6>
+                        </div>
+                    @else
+                        @forelse ($patients as $key => $pat)
+                        <div class="accordion-item rounded-3">
+                            <h2 class="accordion-header rounded-3" id="flush-heading{{ $pat->id }}">
+                                <div class="accordion-button collapsed rounded-3" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#flush-collapse{{ $pat->id }}" aria-expanded="false"
+                                    aria-controls="flush-collapse{{ $pat->id }}">
+                                    <div class="patient-detail d-flex gap-2 align-items-start justify-content-center">
+                                        <span class="key">{{ ++$key }}</span>
+                                        <h5 id="name-{{ $pat->id }}">
+                                            {{ $pat->user->name . ' ' . $pat->user->last_name }}</h5>
+                                        <h5 class="d-none" id="age-{{ $pat->id }}">{{$pat->user->get_age($pat->user->id)}}
+                                        </h5>
+                                        <h5 class="d-none" id="phone-{{ $pat->id }}">{{$pat->user->phone_number}}</h5>
+                                        <h5 class="d-none" id="id-{{ $pat->id }}">{{$pat->user->id}}</h5>
+                                        <h5 class="d-none" id="session_id-{{ $pat->id }}">{{$pat->id}}</h5>
+                                    </div>
                                 </div>
-                            </div>
-                        </h2>
-                        <div id="flush-collapse{{ $pat->id }}" class="accordion-collapse collapse"
-                            aria-labelledby="flush-heading{{ $pat->id }}" data-bs-parent="#accordionFlushExample">
-                            <div class="accordion-body">
-                                <p id="reason-{{ $pat->id }}">{{ $pat->reason }}</p>
+                            </h2>
+                            <div id="flush-collapse{{ $pat->id }}" class="accordion-collapse collapse"
+                                aria-labelledby="flush-heading{{ $pat->id }}" data-bs-parent="#accordionFlushExample">
+                                <div class="accordion-body">
+                                    <p id="reason-{{ $pat->id }}">{{ $pat->reason }}</p>
 
-                                <div class="d-flex gap-2 justify-content-center align-items-center">
-                                    <button class="btn btn-outline-success w-100 start-button"
-                                        onclick="start({{ $pat->id }})">Start Consultation</button>
+                                    <div class="d-flex gap-2 justify-content-center align-items-center">
+                                        <button class="btn btn-outline-success w-100 start-button"
+                                            onclick="start({{ $pat->id }})">Start Consultation</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    @endforeach
-
+                        @endforeach
+                    @endif
                 </div>
             </div>
         </section>

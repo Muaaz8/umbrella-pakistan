@@ -12,6 +12,7 @@ class InClinics extends Model
 
     protected $fillable = [
         'user_id',
+        'doctor_id',
         'doctor_note',
         'reason',
         'status'
@@ -19,6 +20,10 @@ class InClinics extends Model
 
     public function user(){
         return $this->belongsTo(\App\User::class);
+    }
+
+    public function doctor(){
+        return $this->belongsTo(\App\User::class, 'doctor_id', 'id');
     }
 
     public function prescriptions(){

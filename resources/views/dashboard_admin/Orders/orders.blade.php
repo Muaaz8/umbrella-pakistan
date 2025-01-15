@@ -25,16 +25,17 @@
         });
 
         function search(array) {
-            var val = $('#search').val();
+            var val = $('#search').val().toLowerCase();
             if (val == '') {
                 window.location.href = '/inclinic/pharmacy/all/orders';
             } else {
-                console.log('hre')
                 $('#bodies').empty();
                 $('#pag').html('');
                 $.each(array, function(key, arr) {
+                        fullname = arr.user.name+" "+arr.user.last_name
                         if ((arr.id != null && arr.id.toString().match(val))
-                            || (arr.user.name != null && arr.user.name.toString().match(val))
+                            || (arr.user.name != null && arr.user.name.toLowerCase().toString().match(val))
+                            || (fullname != null && fullname.toLowerCase().toString().match(val))
                             || (arr.user.phone_number != null && arr.user.phone_number.toString().match(val))) {
                         $('#bodies').append(
                             `<tr>

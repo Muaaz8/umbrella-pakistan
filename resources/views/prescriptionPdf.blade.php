@@ -495,8 +495,10 @@
                                 </span>
                             </td>
                             <td class="border-top-bottom">
-                                <h3 class="doctor-name">Dr. Rama Siddiqui</h3>
-                                <h5 class="qualification">M.B.B.S, B.D.S</h5>
+                                <h3 class="doctor-name">Dr.
+                                    {{ $inclinic_data->doctor->name }} {{ $inclinic_data->doctor->last_name }}
+                                </h3>
+                                {{-- <h5 class="qualification">M.B.B.S, B.D.S</h5> --}}
                             </td>
                         </tr>
                     </tbody>
@@ -505,7 +507,7 @@
         </main>
         <footer class="email-footer">
             <p class="email-copyright">
-                Copyright &copy; 2025. Community Health Care Clinics. All Rights
+                Copyright &copy; {{date('Y')}}. Community Healthcare Clinics. All Rights
                 Reserved
             </p>
         </footer>

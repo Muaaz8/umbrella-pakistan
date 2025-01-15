@@ -36,7 +36,7 @@
                                 id="search"
                                 name="name"
                                 class="form-control"
-                                placeholder="Search By name or NPI number"
+                                placeholder="Search By name or PMDC number"
                                 aria-label="Username"
                                 aria-describedby="basic-addon1"/>
                             </form>

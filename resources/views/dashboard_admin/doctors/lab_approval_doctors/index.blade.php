@@ -40,7 +40,7 @@
                                         <th scope="col">Email</th>
                                         <th scope="col">State</th>
                                         <th scope="col">UPIN</th>
-                                        <th scope="col">NPI</th>
+                                        <th scope="col">PMDC</th>
                                         <th scope="col">Status</th>
                                         <th scope="col">Action</th>
                                     </tr>
@@ -53,7 +53,7 @@
                                             <td data-label="Email">{{ $doctor->email }}</td>
                                             <td data-label="State">{{ $doctor->state }}</td>
                                             <td data-label="UPIN">{{ $doctor->upin }}</td>
-                                            <td data-label="NPI">{{ $doctor->nip_number }}</td>
+                                            <td data-label="PMDC">{{ $doctor->nip_number }}</td>
                                             <td data-label="Status">{{ ucwords($doctor->lab_status) }}</td>
                                             <td data-label="Action">
                                                 <a class="btn process-pay" href="{{ route('deactive_doctor_for_lab',['id' => $doctor->id]) }}" id="{{ $doctor->id }}" >Deactivate</a>

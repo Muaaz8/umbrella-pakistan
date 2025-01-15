@@ -816,9 +816,10 @@ class SessionController extends Controller
     public function inclinic_doctor_end_session(Request $request)
     {
         InClinics::where('id', $request['session_id'])->update([
+            'doctor_id' => Auth::user()->id,
             'status' => 'ended',
         ]);
-        $inclinic_data = \App\Models\InClinics::with(['user','prescriptions'])->where('id',  $request['session_id'])->first();
+        $inclinic_data = \App\Models\InClinics::with(['user','prescriptions','doctor'])->where('id',  $request['session_id'])->first();
         foreach($inclinic_data->prescriptions as $pres){
             if($pres->type == "medicine"){
                 $pres->med_details = DB::table('tbl_products')->where('id',$pres->medicine_id)->first();
@@ -892,10 +893,12 @@ class SessionController extends Controller
 
         $user_data = $inclinic_data->user;
 
-        $pdf = PDF::loadView('prescriptionPdf',compact('inclinic_data'));
-        Mail::send('emails.prescriptionEmail', ['user_data'=>$user_data], function ($message) use ($inclinic_data,$pdf) {
-            $message->to($inclinic_data->user->email)->subject('patient prescription')->attachData($pdf->output(), "prescription.pdf");
-        });
+        if($user_data->email != null){
+            $pdf = PDF::loadView('prescriptionPdf',compact('inclinic_data'));
+            Mail::send('emails.prescriptionEmail', ['user_data'=>$user_data], function ($message) use ($inclinic_data,$pdf) {
+                $message->to($inclinic_data->user->email)->subject('patient prescription')->attachData($pdf->output(), "prescription.pdf");
+            });
+        }
         return "done";
     }
 

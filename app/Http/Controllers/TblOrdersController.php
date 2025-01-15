@@ -1151,7 +1151,7 @@ class TblOrdersController extends AppBaseController
     public function dash_inclinic_pharmacy_order($id,Request $request)
     {
         $user = Auth()->user();
-        $img_order = InClinics::where('id',$id)->with(['user','prescriptions'])->first();
+        $img_order = InClinics::where('id',$id)->with(['user','prescriptions','doctor'])->first();
         $medicine_sum = 0;
         $lab_sum = 0;
         $imaging_sum = 0;

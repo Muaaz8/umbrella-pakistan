@@ -47,7 +47,7 @@
                       <th scope="col">Quest Patient ID</th>
                       <th scope="col">Referred Physician ID</th>
                       <th scope="col">UPIN</th>
-                      <th scope="col">NPI</th>
+                      <th scope="col">PMDC</th>
                       <th scope="col">Test Names</th>
                       <th scope="col">Date</th>
                       <th scope="col">Time</th>
@@ -61,7 +61,7 @@
                         <td data-label="Quest Patient ID">{{ $requisition->quest_patient_id }}</td>
                         <td data-label="Referred Physician ID">{{ $requisition->ref_physician_id }}</td>
                         <td data-label="UPIN">{{ $requisition->upin }}</td>
-                        <td data-label="NPI">{{ $requisition->npi }}</td>
+                        <td data-label="PMDC">{{ $requisition->npi }}</td>
                         <td data-label="Test Names">@foreach($requisition->names as $names)
                             {{$names->testName }}</br>
                             @endforeach</td>

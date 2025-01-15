@@ -48,7 +48,7 @@
                                         </div>
                                         <div class="col-md-6 sub_cat">
                                             <label class="fw-bolder mb-2" for="selectmedicine">Patient Email</label>
-                                            <input type="email" name="email" class="form-control" required placeholder="Enter Email...">
+                                            <input type="email" name="email" class="form-control" placeholder="Enter Email...">
                                         </div>
                                         <div class="col-md-6 sub_cat">
                                             <label class="fw-bolder mb-2" for="selectmedicine">Patient Date of Birth</label>
@@ -96,7 +96,7 @@
     </div>
 
     <script>
-        
+
         document.getElementById('phone_number').addEventListener('input', function (e) {
             if (this.value.length > 11) {
                 this.value = this.value.slice(0, 11);

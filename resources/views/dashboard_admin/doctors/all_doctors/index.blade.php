@@ -67,7 +67,7 @@
                                   id="search"
                                   name="name"
                                   class="form-control mb-1"
-                                  placeholder="Search By Name, Email, NPI number or State"
+                                  placeholder="Search By Name, Email, PMDC number or State"
                                   aria-label="Username"
                                   aria-describedby="basic-addon1"/>
                               </form>
@@ -86,9 +86,7 @@
                               <th scope="col">First Name</th>
                               <th scope="col">Last Name</th>
                               <th scope="col">Email</th>
-                              <th scope="col">State</th>
-                              <th scope="col">UPIN</th>
-                              <th scope="col">NPI</th>
+                              <th scope="col">PMDC</th>
                               <th scope="col">Percentage</th>
                               <th scope="col">Specialization</th>
                               <th scope="col">Registration Date</th>
@@ -101,9 +99,7 @@
                                 <td data-label="First Name">{{ $doctor->name }} </td>
                                 <td data-label="Last Name">{{ $doctor->last_name }} </td>
                                 <td data-label="Email">{{ $doctor->email }}</td>
-                                <td data-label="State">{{ $doctor->state }}</td>
-                                <td data-label="UPIN">{{ $doctor->upin }}</td>
-                                <td data-label="NPI">{{ $doctor->nip_number }}</td>
+                                <td data-label="PMDC">{{ $doctor->nip_number }}</td>
                                 <td data-label="Percentage">{{ $doctor->percentage_doctor  }}</td>
                                 <td data-label="Specialization">{{ $doctor->spec_name }}</td>
                                 <td data-label="Join Date">{{ date('m-d-Y',strtotime($doctor->created_at)) }}</td>

@@ -90,7 +90,7 @@
                                             </div>
                                         @endif
                                         <div class="d-flex align-items-center justify-content-between border-bottom">
-                                            <p class="py-2">NPI Number</p>
+                                            <p class="py-2">PMDC Number</p>
                                             <p class="py-2 text-muted">{{ $doctor->nip_number }}</p>
                                         </div>
                                         <div class="d-flex align-items-center justify-content-between border-bottom">

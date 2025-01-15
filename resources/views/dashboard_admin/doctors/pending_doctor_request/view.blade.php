@@ -86,7 +86,7 @@ document.addEventListener("wheel", function(event){
                 </li>
               </ul>
               <ul class="col-md-6 list-group list-group-flush">
-                <li class="list-group-item"><b> NPI : </b> {{ $doctor->nip_number }}</li>
+                <li class="list-group-item"><b> PMDC : </b> {{ $doctor->nip_number }}</li>
                 <li class="list-group-item">
                   <b> Specalization : </b> {{ucwords($doctor->specialization)}}
                 </li>

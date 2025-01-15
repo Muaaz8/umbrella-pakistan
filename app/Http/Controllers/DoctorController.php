@@ -1930,6 +1930,7 @@ class DoctorController extends Controller
                     $doc_joined_pat['user_image'] = $pat->user_image;
                     array_push($sessions, $doc_joined_pat);
                     try {
+                        //code...
                         $firebase_ses = Session::where('id', $doc_joined_pat['session_id'])->first();
                         $firebase_ses->received = false;
                         // \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
@@ -2003,7 +2004,6 @@ class DoctorController extends Controller
                 $single_session['user_image'] = $pat->user_image;
                 array_push($sessions, $single_session);
                 try {
-                    //code...
                     $firebase_ses = Session::where('id', $single_session['session_id'])->first();
                     $firebase_ses->received = false;
                     // \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
@@ -2058,7 +2058,6 @@ class DoctorController extends Controller
                     $single_session['user_image'] = $pat->user_image;
                     array_push($sessions, $single_session);
                     try {
-                        //code...
                         $firebase_ses = Session::where('id', $single_session['session_id'])->first();
                         $firebase_ses->received = false;
                         // \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
@@ -2089,7 +2088,6 @@ class DoctorController extends Controller
                     $single_session['user_image'] = $pat->user_image;
                     array_push($sessions, $single_session);
                     try {
-                        //code...
                         $firebase_ses = Session::where('id', $single_session['session_id'])->first();
                         $firebase_ses->received = false;
                         // \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
@@ -2171,7 +2169,6 @@ class DoctorController extends Controller
                 $single_session['user_image'] = $pat->user_image;
                 array_push($sessions, $single_session);
                 try {
-                    //code...
                     $firebase_ses = Session::where('id', $single_session['session_id'])->first();
                     $firebase_ses->received = false;
                     // \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
@@ -2538,7 +2535,7 @@ class DoctorController extends Controller
 
                         $pat->user_image = \App\Helper::check_bucket_files_url($pat->user_image);
 
-                        $patient_full_name = $pat->name . " " . $pat->last_name;
+                        $patient_full_name = $pat->name . " " . $pat['last_name'];
                         $single_session['patient_full_name'] = $patient_full_name;
                         $single_session['user_image'] = $pat->user_image;
                         array_push($sessions, $single_session);
@@ -2726,40 +2723,28 @@ class DoctorController extends Controller
     public function dash_all_patients(Request $request)
     {
         $user = auth()->user();
-        // dd($user);
-        $patients = DB::table('sessions')
+        $session_patients = DB::table('sessions')
             ->join('users', 'sessions.patient_id', '=', 'users.id')
             ->where('sessions.doctor_id', $user->id)
             ->where('sessions.status', '!=', 'pending')
             ->orderBy('sessions.date', 'DESC')
             ->groupBy('sessions.patient_id')
             ->select('sessions.*', 'users.user_image', DB::raw('MAX(sessions.id) as last_id'))
-            ->paginate(12);
-        // if ($user->specialization != '1') {
-        //     $patients = DB::table('referals')
-        //         ->where('sp_doctor_id', $user->id)
-        //         ->where('referals.status', 'accepted')
-        //         ->join('users', 'referals.patient_id', '=', 'users.id')
-        //         ->join('sessions', 'sessions.patient_id', '=', 'users.id')
-        //         ->select('*', 'referals.doctor_id as doc_id', 'users.user_image', DB::raw('MAX(sessions.id) as last_id'))
-        //         ->orderBy('sessions.date', 'DESC')
-        //         ->groupBy('sessions.patient_id')
-        //         ->paginate(12);
-        //     //  dd($patients);
-        // } else {
-        //     $patients = DB::table('sessions')
-        //         ->join('users', 'sessions.patient_id', '=', 'users.id')
-        //         ->where('doctor_id', $user->id)
-        //         ->orderBy('date', 'DESC')
-        //         ->groupBy('patient_id')
-        //         ->select('sessions.*', 'users.user_image', DB::raw('MAX(sessions.id) as last_id'))
-        //         ->paginate(12);
-        //     // dd($patients);
+            ->get();
 
-        // }
+        $inclinic_patients = DB::table('in_clinics')
+            ->join('users', 'in_clinics.user_id', 'users.id')
+            ->where('in_clinics.doctor_id', $user->id)
+            ->where('in_clinics.status', 'ended')
+            ->orderBy('in_clinics.created_at', 'DESC')
+            ->groupBy('in_clinics.user_id')
+            ->select('in_clinics.*','in_clinics.user_id as patient_id', 'users.user_image', DB::raw('MAX(in_clinics.id) as last_id'))
+            ->get();
+
+        $patients = collect($session_patients->toArray())->merge($inclinic_patients->toArray());
+
         foreach ($patients as $patient) {
-            // dd($user['specialization']);
-            $user = User::where('id', $patient->doctor_id)->first();
+            $user = User::where('id', $user->id)->first();
             $patient->doc_name = $user['name'] . " " . $user['last_name'];
             $user_details = User::where('id', $patient->patient_id)->first();
             $patient->pat_name = $user_details['name'] . " " . $user_details['last_name'];
@@ -2768,10 +2753,8 @@ class DoctorController extends Controller
             $patient->last_visit = Helper::get_date_with_format($session->date);
             $patient->last_diagnosis = $session->diagnosis;
             $patient->user_image = \App\Helper::check_bucket_files_url($patient->user_image);
-            // die();
-
         }
-        $all_patients = $patients;
+        $all_patients = collect($patients);
         return view('dashboard_doctor.All_patient.index', compact('all_patients'));
     }
     public function doc_pay_details(Request $request)

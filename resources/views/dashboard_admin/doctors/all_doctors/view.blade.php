@@ -101,7 +101,7 @@
                                         </div>
                                         <div class="row mt-3">
                                             <div class="col-md-4 doctor_info"><p><span>Phone:</span>&nbsp; <span>{{ucwords($doctor->phone_number)}}</span></p></div>
-                                            <div class="col-md-4 doctor_info"><p><span>NPI:</span>&nbsp; <span>{{ucwords($doctor->nip_number)}}</span></p></div>
+                                            <div class="col-md-4 doctor_info"><p><span>PMDC:</span>&nbsp; <span>{{ucwords($doctor->nip_number)}}</span></p></div>
                                             <div class="col-md-4 doctor_info"><p><span>UPIN:</span>&nbsp; <span>{{ucwords($doctor->upin)}}</span></p></div>
                                         </div>
                                         <div class="row mt-3">
