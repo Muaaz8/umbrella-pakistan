@@ -249,7 +249,10 @@
             var session_id = $('#session-id').html();
             $('#selected_med_cat').val(med_id);
 
-            var name = '';
+            var name = $('#pharmacySearchText').val();
+            $('#pharmacySearchText').val('');
+
+            console.log(name);
             $.ajax({
                 type: 'POST',
                 url: "{{URL('/inclinic_new_get_products_by_category')}}",
@@ -334,11 +337,24 @@
                 }
             });
         }
+
+        document.getElementById("pharmacySearchText").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                $(".searchPharmacyProduct").click();
+            }
+        });
+
+        $(".searchPharmacyProduct").click(function (e) {
+            getMedicienByCategory(0);
+        });
+
         // Lab
         function loadLabItems() {
-            var name = $('#Lab_search').val();
+            var name = $('#labSearchText').val();
+            $('#labSearchText').val('');
             var user_id = $('#patient-id').html();
             var session_id = $('#session-id').html();
+            $('.back-button-lab').removeClass('d-none');
             $('#loadLabItems').html('');
             if (name == null || name == '') {
                 name = '';
@@ -415,10 +431,25 @@
             });
         }
 
+        document.getElementById("labSearchText").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                $(".searchLabProduct").click();
+            }
+        });
 
+        $(".searchLabProduct").click(function (e) {
+            loadLabItems();
+        });
+
+        $('.back-button-lab').click(function (e) {
+            e.preventDefault();
+            $('.back-button-lab').addClass('d-none');
+            loadLabItems();
+        });
         // Imaging
         function getImagingProduct(cat_id) {
-            var name = '';
+            var name = $('#imagingSearchText').val();
+            $('#imagingSearchText').val("");
             var session_id = $('#session-id').html();
             $('#load_imaging_product').html('');
             $('.imaging_category').addClass('d-none');
@@ -439,7 +470,6 @@
                         );
                     } else {
                         if (response.length != 0) {
-                            console.log(response);
                             $.each(response, function (key, value) {
                                 if (value.added == 'yes') {
                                     $('#load_imaging_product').append(
@@ -507,6 +537,17 @@
                 }
             });
         }
+
+        document.getElementById("imagingSearchText").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                $(".searchImagingProduct").click();
+            }
+        });
+
+        $(".searchImagingProduct").click(function (e) {
+            getImagingProduct(0);
+        });
+
 
         //Dosage
         function dosage(a) {
@@ -801,9 +842,9 @@
                             <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
                                 aria-labelledby="pills-home-tab">
                                 <div class="searchbar d-flex">
-                        <input type="text" class="form-control custom-input" placeholder="Search for products" id="pharmacySearchText">
-                        <button class="btn custom-btn searchPharmacyProduct"><i class="fa-solid fa-search"></i></button>
-                    </div>
+                                    <input type="text" class="form-control custom-input" placeholder="Search for medicine products" id="pharmacySearchText">
+                                    <button class="btn custom-btn searchPharmacyProduct"><i class="fa-solid fa-search"></i></button>
+                                </div>
                                 <div class="row gx-3 gy-2 medicine_category">
                                     @foreach ($med as $cat)
                                     <div class="col-4"><button class="btn w-100" title="{{ $cat->title }}"
@@ -822,60 +863,23 @@
                             <div class="tab-pane fade" id="pills-profile" role="tabpanel"
                                 aria-labelledby="pills-profile-tab">
                                 <div class="searchbar d-flex">
-                        <input type="text" class="form-control custom-input" placeholder="Search for products" id="pharmacySearchText">
-                        <button class="btn custom-btn searchPharmacyProduct"><i class="fa-solid fa-search"></i></button>
-                    </div>
+                                    <input type="text" class="form-control custom-input" placeholder="Search for lab products" id="labSearchText">
+                                    <button class="btn custom-btn searchLabProduct"><i class="fa-solid fa-search"></i></button>
+                                </div>
+                                <div class="d-none back-button-lab">
+                                    <i class="fa-solid fa-circle-arrow-left toggleSubCategory"></i>
+                                    <h6 class="m-auto"></h6>
+                                </div>
                                 <div class="row gx-3 gy-2" id="loadLabItems">
-                                    <div class="col-4"><button class="btn w-100">Pain & Fever</button></div>
-                                    <div class="col-4"><button class="btn w-100">Pain & Fever</button></div>
-                                    <div class="col-4"><button class="btn w-100">Pain & Fever</button></div>
-                                    <div class="col-4"><button class="btn w-100">Pain & Fever</button></div>
-                                    <div class="col-4"><button class="btn w-100">Pain & Fever</button></div>
-                                    <div class="col-4"><button class="btn w-100">Pain & Fever</button></div>
-                                    <div class="col-4"><button class="btn w-100">Pain & Fever</button></div>
-                                    <div class="col-4"><button class="btn w-100">Pain & Fever</button></div>
-                                    <div class="col-4"><button class="btn w-100">Pain & Fever</button></div>
-                                    <div class="col-4"><button class="btn w-100">Pain & Fever</button></div>
-                                    <div class="col-4"><button class="btn w-100">Pain & Fever</button></div>
-                                    <div class="col-4"><button class="btn w-100">Pain & Fever</button></div>
-                                    <div class="col-4"><button class="btn w-100">Pain & Fever</button></div>
-                                    <div class="col-4"><button class="btn w-100">Pain & Fever</button></div>
-                                    <div class="col-4"><button class="btn w-100">Pain & Fever</button></div>
-                                    <div class="col-4"><button class="btn w-100">Pain & Fever</button></div>
-                                    <div class="col-4"><button class="btn w-100">Pain & Fever</button></div>
-                                    <div class="col-4"><button class="btn w-100">Pain & Fever</button></div>
-                                    <div class="col-4"><button class="btn w-100">Pain & Fever</button></div>
-                                    <div class="col-4"><button class="btn w-100">Pain & Fever</button></div>
-                                    <div class="col-4"><button class="btn w-100">Pain & Fever</button></div>
-                                    <div class="col-4"><button class="btn w-100">Pain & Fever</button></div>
-                                    <div class="col-4"><button class="btn w-100">Pain & Fever</button></div>
-                                    <div class="col-4"><button class="btn w-100">Pain & Fever</button></div>
-                                    <div class="col-4"><button class="btn w-100">Pain & Fever</button></div>
-                                    <div class="col-4"><button class="btn w-100">Pain & Fever</button></div>
-                                    <div class="col-4"><button class="btn w-100">Pain & Fever</button></div>
-                                    <div class="col-4"><button class="btn w-100">Pain & Fever</button></div>
-                                    <div class="col-4"><button class="btn w-100">Pain & Fever</button></div>
-                                    <div class="col-4"><button class="btn w-100">Pain & Fever</button></div>
-                                    <div class="col-4"><button class="btn w-100">Pain & Fever</button></div>
-                                    <div class="col-4"><button class="btn w-100">Pain & Fever</button></div>
-                                    <div class="col-4"><button class="btn w-100">Pain & Fever</button></div>
-                                    <div class="col-4"><button class="btn w-100">Pain & Fever</button></div>
-                                    <div class="col-4"><button class="btn w-100">Pain & Fever</button></div>
-                                    <div class="col-4"><button class="btn w-100">Pain & Fever</button></div>
-                                    <div class="col-4"><button class="btn w-100">Pain & Fever</button></div>
-                                    <div class="col-4"><button class="btn w-100">Pain & Fever</button></div>
-                                    <div class="col-4"><button class="btn w-100">Pain & Fever</button></div>
-                                    <div class="col-4"><button class="btn w-100">Pain & Fever</button></div>
-                                    <div class="col-4"><button class="btn w-100">Pain & Fever</button></div>
                                     <div class="col-4"><button class="btn w-100">Pain & Fever</button></div>
                                 </div>
                             </div>
                             <div class="tab-pane fade" id="pills-contact" role="tabpanel"
                                 aria-labelledby="pills-contact-tab">
                                 <div class="searchbar d-flex">
-                        <input type="text" class="form-control custom-input" placeholder="Search for products" id="pharmacySearchText">
-                        <button class="btn custom-btn searchPharmacyProduct"><i class="fa-solid fa-search"></i></button>
-                    </div>
+                                    <input type="text" class="form-control custom-input" placeholder="Search for imaging products" id="imagingSearchText">
+                                    <button class="btn custom-btn searchImagingProduct"><i class="fa-solid fa-search"></i></button>
+                                </div>
                                 <div class="row gx-3 gy-2 imaging_category">
                                     @foreach ($img as $cat)
                                     <div class="col-4"><button class="btn w-100" title="{{ $cat->name }}"

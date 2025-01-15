@@ -1189,7 +1189,6 @@ class AllProductsController extends AppBaseController
         else
         {
             $products = DB::table('tbl_products')
-            ->where('sub_category', $request->med_id)
             ->where('name','LIKE', "%{$request->name}%")
             ->where('product_status', 1)
             ->where('is_approved', 1)
@@ -1328,7 +1327,7 @@ class AllProductsController extends AppBaseController
         } else {
             $labs = QuestDataTestCode::where('TEST_NAME', 'LIKE', "%{$request->name}%")
                 ->where('mode', 'imaging')
-                ->where('PARENT_CATEGORY', $request->cat_id)
+                // ->where('PARENT_CATEGORY', $request->cat_id)
                 ->get();
         }
 

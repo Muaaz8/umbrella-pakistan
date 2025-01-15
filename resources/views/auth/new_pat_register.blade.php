@@ -144,17 +144,7 @@ if (input.attr("type") == "password") {
             <div class="main_reg_box">
                 <h3 class="regis_pat_heading">REGISTER AS A PATIENT</h3>
                 <form id="pat_reg_form" method="POST" enctype="multipart/form-data" action="javascript:void(0)">
-                    <div class="form-check form-check-inline form_check_size">
-                        <input class="form-check-input" type="radio" name="rep_radio" id="radio1"
-                            value="patient" checked>
-                        <label class="form-check-label ms-3" for="inlineRadio1">I am the Patient</label>
-                    </div>
-                    <div class="form-check form-check-inline form_check_size">
-                        <input class="form-check-input" type="radio" name="rep_radio" id="radio2"
-                            value="representative">
-                        <label class="form-check-label ms-3" for="inlineRadio2">I am Patient‘s Representative</label>
-                    </div>
-                    <div id="rep_div">
+                    {{--                    <div id="rep_div">
                         <div class="d-flex justify-content-evenly my-2">
                             </div>
                             <h5 class="patient_det_head mb-2">I am Patient‘s Representative:</h5>
@@ -183,7 +173,7 @@ if (input.attr("type") == "password") {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>--}}
                     <input type="hidden" name="url_type" value="{{ isset($_GET['url_type']) ? $_GET['url_type'] : '' }}" />
                     <input type="hidden" name="user_type" value="patient">
                     <input type="hidden" id="timezone" name="timezone" value="">
