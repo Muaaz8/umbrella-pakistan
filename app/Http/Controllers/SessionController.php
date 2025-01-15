@@ -49,6 +49,40 @@ class SessionController extends Controller
         $sessionStatus = Session::where('id', $request->session_id)->first();
         return response()->json(['data' => $sessionStatus]);
     }
+
+
+    public function inclinic_pharmacy_payment(Request $request)
+    {
+        $selectedMedIds = $request->input('selected_med');
+        $selectedItems = explode(',', $selectedMedIds);
+        $prescription = DB::table('prescriptions')->where('session_id', '0')
+            ->whereIn('id', $selectedItems)->get();
+
+        foreach ($prescription as $item) {
+            // DB::table('prescriptions')->where('id', $item->id)->where('session_id', '0')->update(['title' => 'paid']);
+            // DB::table('tbl_cart')->where('pres_id', $item->id)->update(['purchase_status' => '0', 'checkout_status' => '0', 'status' => 'purchased']);
+
+            if ($item->type == "medicine") {
+                $item->product = AllProducts::find($item->medicine_id);
+            } elseif ($item->type == "lab-test") {
+                $item->product = QuestDataTestCode::where('TEST_CD', $item->test_id)->first();
+            } elseif ($item->type == "imaging") {
+                $item->product = QuestDataTestCode::where('TEST_CD', $item->imaging_id)->first();
+            }
+        }
+
+        $pdf = PDF::loadView('receipt_pdf', compact('prescription'));
+        $filePath = storage_path('receipt.pdf');
+        $pdf->save($filePath);
+
+
+        $output = shell_exec( 'print /D:\"\\\\EPSON\" $filePath');
+
+        \Log::info($output);
+        return redirect()->back();
+    }
+
+
     public function sendInvite(Request $request)
     {
         // update session status
@@ -1433,14 +1467,6 @@ class SessionController extends Controller
         if ($res) {
             return "ok";
         }
-    }
-
-    public function inclinic_pharmacy_payment(Request $request){
-        $payment = InClinics::find($request->session_id);
-        DB::table('prescriptions')->where('parent_id',$request->session_id)->where('type','medicine')->update([
-            'title'=>'paid',
-        ]);
-        return redirect()->back();
     }
 
     public function get_medicine_price(Request $request)
