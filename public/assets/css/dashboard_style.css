@@ -7013,8 +7013,8 @@ span.avtr figure {
 }
 
 .waiting-room-container {
-    min-height: 100vh;
-    height: 100vh;
+    min-height: calc(95vh - 65px);
+    height: calc(95vh - 65px);
 }
 
 /* utilities */
@@ -7035,14 +7035,42 @@ span.avtr figure {
 
 /* waiting patients section */
 
+.custom-input {
+  border: 2px solid gray;
+  border-right: none;
+  border-radius: 5px 0 0 5px;
+  padding: 0.25rem 0.5rem;
+  margin-bottom: 0.35rem;
+}
+
+.custom-btn {
+  background: linear-gradient(to bottom, var(--blue), var(--navy-blue));
+  color: white;
+  border: none;
+  border-radius: 0 5px 5px 0;
+  padding: 0.25rem 1rem !important;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: none !important;
+  margin-bottom: 0.35rem;
+}
+
 .waiting-patients-accordion {
     max-height: 80vh;
     overflow-y: auto;
     padding-right: 5px;
 }
 
+.waiting-patients-accordion .accordion-body {
+  padding: 0.5rem;
+}
+
 .patient-detail h5 {
     font-size: 1rem;
+    margin-bottom: 0;
 }
 
 .patient-detail h6 {
@@ -7084,15 +7112,15 @@ span.avtr figure {
     color: white;
 }
 
-.accordion-button::after {
+.waiting-room-container .accordion-button::after {
     flex-shrink: 0;
-    width: 1.25rem;
-    height: 1.25rem;
+    width: 1rem;
+    height: 1rem;
     margin-left: auto;
     content: "";
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='white'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
     background-repeat: no-repeat;
-    background-size: 1.25rem;
+    background-size: 1rem;
     transition: transform .2s ease-in-out;
 }
 
@@ -7130,6 +7158,12 @@ span.avtr figure {
 .tabs-medicine {
     max-height: calc(70vh - 7.5rem);
     overflow-y: auto;
+}
+
+
+
+.tabs-medicine .btn {
+  padding: 0.1rem 0.5rem;
 }
 
 #next-patient-collapse .accordion-body {

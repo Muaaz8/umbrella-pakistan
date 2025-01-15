@@ -51,6 +51,10 @@
     p{
         word-wrap: break-word;
     }
+
+    .prescription-container .nav-link {
+        padding: 0.25rem 0.5rem;
+    }
 </style>
 @endsection
 @section('top_import_file')
@@ -609,11 +613,11 @@
 @section('content')
 <section class="d-flex align-items-center justify-content-center">
     <div
-        class="row p-3 w-100 d-flex flex-wrap flex-column-reverse flex-sm-row  flex-sm-nowrap gap-2 waiting-room-container align-items-start justify-content-center">
-        <section class="col-12 col-sm-4 d-flex flex-column bg-white p-3 rounded-3 shadow-sm">
-            <div class="d-flex flex-column gap-3 waiting-patients-section">
+        class="row px-2 w-100 d-flex flex-wrap flex-column-reverse flex-sm-row  flex-sm-nowrap waiting-room-container align-items-start justify-content-center">
+        <section class="col-12 col-sm-4 d-flex flex-column bg-white px-2 py-1 rounded-3 shadow-sm">
+            <div class="d-flex flex-column waiting-patients-section">
                 <h4>Waiting Patients</h4>
-                <div class="accordion accordion-flush waiting-patients-accordion rounded-3 d-flex flex-column gap-2 pe-2 waiting-patients"
+                <div class="accordion accordion-flush waiting-patients-accordion rounded-3 d-flex flex-column gap-2 waiting-patients"
                     id="accordionFlushExample">
                     @foreach ($patients as $key => $pat)
                     <div class="accordion-item rounded-3">
@@ -653,11 +657,11 @@
         <aside class="col-12 col-sm-7 ps-sm-2 pe-sm-2 ps-0 pe-0 d-none consultation-side">
             <div class="d-flex flex-column gap-2 w-100 h-100">
                 <section class="shadow-sm rounded-3 next-patient-section bg-white">
-                    <div class="bg-white rounded-3 p-3 d-flex flex-column gap-1 patient-info">
+                    <div class="bg-white rounded-3 px-2 py-1 d-flex flex-column patient-info">
                         <h4>Current Patient</h4>
                         <div class="accordion waiting-patients-accordion rounded-3 d-flex flex-column gap-2 pe-2"
                             id="accordionFlushExample1">
-                            <div class="accordion-item rounded-3  shadow-hide">
+                            <div class="accordion-item rounded-3 shadow-hide">
                                 <h2 class="accordion-header rounded-3" id="flush-headingOne">
                                     <div class="accordion-button collapsed rounded-3" type="button"
                                         data-bs-toggle="collapse" data-bs-target="#next-patient-collapse"
@@ -670,8 +674,8 @@
                                 </h2>
                                 <div id="next-patient-collapse" class="accordion-collapse collapse show"
                                     aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                                    <div class="accordion-body d-flex flex-column gap-1 p-2">
-                                        <div class="d-flex justify-content-between align-items-center gap-1">
+                                    <div class="accordion-body d-flex flex-column px-2">
+                                        <div class="d-flex justify-content-between align-items-center gap-3">
                                             <h6 class="d-none" id="patient-id">John Doe</h6>
                                             <h6 class="d-none" id="session-id">John Doe</h6>
                                             <div>
@@ -702,12 +706,12 @@
 
                                         <div class="row">
                                             <div class="selected-value-div-wrap">
-                                                <div class="d-flex align-items-center justify-content-between">
+                                                <div class="d-flex align-items-center justify-content-between pt-1">
                                                     <h6>Prescribed items:</h6>
                                                     <p>(click on medicine to add dose)</p>
                                                 </div>
                                                 <div class="prescribed_items_main">
-                                                    <div class="pt-1 d-flex flex-wrap prescribed_items">
+                                                    <div class="d-flex flex-wrap prescribed_items">
                                                         <span class="selected-value-bydoc ">Not Found Any Prescribed
                                                             Item!!</span>
                                                     </div>
@@ -718,7 +722,7 @@
 
                                     </div>
                                     <div class="d-flex gap-2 justify-content-center align-items-center">
-                                        <button class="btn btn-outline-danger w-50 rounded-3 mb-3 end-consultation" onclick="end()">End Consultation</button>
+                                        <button class="btn btn-outline-danger w-50 rounded-3 mb-1 end-consultation" onclick="end()">End Consultation</button>
                                     </div>
                                 </div>
                             </div>
@@ -727,9 +731,26 @@
                 </section>
                 <section class="prescription-section rounded-3 bg-white shadow-sm h-100">
                     <div
-                        class="prescription-container bg-white rounded-3 p-3 d-flex flex-column gap-2 h-100 overflow-y-auto">
+                        class="prescription-container bg-white rounded-3 px-2 py-1 d-flex flex-column gap-1 h-100 overflow-y-auto">
                         <h4>Prescription</h4>
-                        <ul class="nav nav-pills toggle-buttons d-flex gap-2 justify-content-around" id="pills-tab"
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                    <li class="col-12 col-sm-4 nav-item" role="presentation">
+                                        <button class="nav-link active" id="home-tab" data-bs-toggle="pill"
+                                    data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
+                                    aria-selected="true">Medicines</button>
+                                    </li>
+                                    <li class="col-12 col-sm-4 nav-item" role="presentation">
+                                        <button class="nav-link" id="profile-tab" data-bs-toggle="pill"
+                                    data-bs-target="#pills-profile" type="button" role="tab"
+                                    aria-controls="pills-profile" aria-selected="false" onclick="loadLabItems()">Lab tests</button>
+                                    </li>
+                                    <li class="col-12 col-sm-4 nav-item" role="presentation">
+                                        <button class="nav-link" id="contact-tab" data-bs-toggle="pill"
+                                    data-bs-target="#pills-contact" type="button" role="tab"
+                                    aria-controls="pills-contact" aria-selected="false">Imaging</button>
+                                    </li>
+                                </ul>
+                        <!-- <ul class="nav nav-pills toggle-buttons d-flex gap-2 justify-content-around" id="pills-tab"
                             role="tablist">
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill"
@@ -755,7 +776,7 @@
                                     <span>Imaging</span>
                                 </button>
                             </li>
-                        </ul>
+                        </ul> -->
                         {{-- <div class="search-bar-container w-100 form-control px-2 mt-1">
                             <form class="d-flex align-items-center justify-content-between">
                                 <input type="search" name="search" placeholder="Search Doctor Name"
@@ -765,9 +786,13 @@
                                 </button>
                             </form>
                         </div> --}}
-                        <div class="tabs-medicine tab-content px-3 py-2" id="pills-tabContent">
+                        <div class="tabs-medicine tab-content px-2 py-1" id="pills-tabContent">
                             <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
                                 aria-labelledby="pills-home-tab">
+                                <div class="searchbar d-flex">
+                        <input type="text" class="form-control custom-input" placeholder="Search for products" id="pharmacySearchText">
+                        <button class="btn custom-btn searchPharmacyProduct"><i class="fa-solid fa-search"></i></button>
+                    </div>
                                 <div class="row gx-3 gy-2 medicine_category">
                                     @foreach ($med as $cat)
                                     <div class="col-4"><button class="btn w-100" title="{{ $cat->title }}"
@@ -785,6 +810,10 @@
                             </div>
                             <div class="tab-pane fade" id="pills-profile" role="tabpanel"
                                 aria-labelledby="pills-profile-tab">
+                                <div class="searchbar d-flex">
+                        <input type="text" class="form-control custom-input" placeholder="Search for products" id="pharmacySearchText">
+                        <button class="btn custom-btn searchPharmacyProduct"><i class="fa-solid fa-search"></i></button>
+                    </div>
                                 <div class="row gx-3 gy-2" id="loadLabItems">
                                     <div class="col-4"><button class="btn w-100">Pain & Fever</button></div>
                                     <div class="col-4"><button class="btn w-100">Pain & Fever</button></div>
@@ -832,6 +861,10 @@
                             </div>
                             <div class="tab-pane fade" id="pills-contact" role="tabpanel"
                                 aria-labelledby="pills-contact-tab">
+                                <div class="searchbar d-flex">
+                        <input type="text" class="form-control custom-input" placeholder="Search for products" id="pharmacySearchText">
+                        <button class="btn custom-btn searchPharmacyProduct"><i class="fa-solid fa-search"></i></button>
+                    </div>
                                 <div class="row gx-3 gy-2 imaging_category">
                                     @foreach ($img as $cat)
                                     <div class="col-4"><button class="btn w-100" title="{{ $cat->name }}"

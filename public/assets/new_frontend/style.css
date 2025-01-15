@@ -4861,6 +4861,10 @@ header {
         padding-top: 0;
         align-items: center;
     }
+
+    .underline3 {
+        width: 55%;
+    }
 }
 
 
