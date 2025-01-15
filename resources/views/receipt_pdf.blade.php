@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Receipt</title>
     <style>
-      * {
+       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
@@ -59,7 +59,7 @@
         margin-bottom: 10px;
       }
 
-      .details div {
+      .details span {
         font-size: 14px;
         margin-top: 20px;
       }
@@ -99,7 +99,7 @@
         margin-bottom: 5px;
       }
 
-      .totals .row div {
+      .totals .row span {
         width: 48%;
       }
 
@@ -121,10 +121,6 @@
 
       .right {
         text-align: right;
-        font-size: 15px;
-      }
-      .to-lower {
-        text-transform: lowercase;
       }
     </style>
   </head>
@@ -140,9 +136,9 @@
       <div class="center receipt-title">*** RECEIPT ***</div>
 
       <div class="details">
-        <div>Cashier #1</div>
+        <span>Cashier #1</span>
 
-        <div class="right">{{now()->format('d-m-Y') }} &nbsp; {{ now()->format('h:i A') }}</div>
+        <span class="right">{{now()->format('d-m-Y') }} &nbsp; {{ now()->format('h:i A') }}</span>
       </div>
 
       <div class="dotted-line"></div>
@@ -183,10 +179,10 @@
       <div class="totals">
         <div class="dotted-line"></div>
         <div class="row">
-          <div>Total Amount</div>
-          <div class="right">
+          <span>Total Amount</span>
+          <span class="right">
             Rs. {{ $prescription->sum('price') }}
-          </div>
+          </span>
         </div>
         <div class="dotted-line"></div>
         {{-- <div class="row">
