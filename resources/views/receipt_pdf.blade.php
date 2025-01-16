@@ -13,12 +13,13 @@
 
       body {
         font-family: Arial, sans-serif;
-        width: 100%;
+        width: 80mm;
       }
 
       .receipt {
-        width: 80mm;
+        width: 72mm;
         height: 270mm;
+        margin: 0 auto;
       }
 
       .center {
@@ -136,9 +137,17 @@
       <div class="center receipt-title">*** RECEIPT ***</div>
 
       <div class="details">
-        <span>Cashier #1</span>
+        {{-- <span>Cashier #1</span>
 
-        <span class="right">{{now()->format('d-m-Y') }} &nbsp; {{ now()->setTimezone('Asia/Karachi')->format('h:i A') }}</span>
+        <span class="right">{{now()->format('d-m-Y') }} &nbsp; {{ now()->setTimezone('Asia/Karachi')->format('h:i A') }}</span> --}}
+        <table style="width: 100%;">
+            <tbody>
+                <tr>
+                    <td>Cashier #1</td>
+                    <td class="right">{{now()->format('d-m-Y') }} &nbsp; {{ now()->setTimezone('Asia/Karachi')->format('h:i A') }}</td>
+                </tr>
+            </tbody>
+        </table>
       </div>
 
       <div class="dotted-line"></div>
@@ -177,12 +186,35 @@
       </table>
 
       <div class="totals">
+        <table style="width: 100%">
+            <tbody>
+                <tr>
+                    <td>Payment:</td>
+                    <td class="right">{{ $payment }}</td>
+                <tr>
+            </tbody>
+        </table>
         <div class="dotted-line"></div>
-        <div class="row">
-          <span>Total Amount</span>
-          <span class="right">
+        <div class="row price_div" >
+          {{-- <span style="width: 50%;">Total Amount</span>
+          <span class="right" style="text-align: right; width: 50%;">
             Rs. {{ $prescription->sum('price') }}
-          </span>
+          </span> --}}
+          <table style="width: 100%">
+            <tbody>
+                    <td>SubTotal:</td>
+                    <td class="right">Rs. {{ $prescription->sum('price') }}</td>
+                </tr>
+                <tr>
+                    <td>Discount:</td>
+                    <td class="right">Rs. -{{ $discount }}</td>
+                </tr>
+                <tr>
+                    <td>Total Amount:</td>
+                    <td class="right">Rs. {{ $total }}</td>
+                </tr>
+            </tbody>
+          </table>
         </div>
         <div class="dotted-line"></div>
         {{-- <div class="row">

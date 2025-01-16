@@ -42,9 +42,9 @@
                             </div>
                             <ul
                                 class="social-links d-flex align-items-center justify-content-around list-unstyled w-100 fs-5 m-0 p-0">
-                                <li>
+                                {{-- <li>
                                     <h6>Last Diagnosis: {{ $patient->last_diagnosis }}</h6>
-                                </li>
+                                </li> --}}
                                 <li><a href="{{route('patient_detailed',$patient->patient_id)}}"><button>view</button></a></li>
                             </ul>
                         </div>

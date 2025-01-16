@@ -100,10 +100,16 @@
         <div class="row m-auto">
             <div class="col-12">
                 <div class="card mt-3">
-                    <h5 class="card-header d-flex justify-content-md-between">
+                    <h5 class="card-header d-flex justify-content-md-between align-items-center">
                         <span>Order</span>
-                        <span>Total Amount: <input class="total_price" name="total_price" value="0"
-                                id="total_price" readonly></input></span>
+                        <span>
+                            <div>Subtotal: <input class="total_price" name="total_price" value="0"
+                            id="total_price" readonly></input>
+                            </div>
+                            <div>Total Amount: <input class="total_price" name="discount" value="0"
+                            id="discount" readonly></input>
+                            </div>
+                        </span>
                     </h5>
                     <div class="card-body">
                         @foreach ($img_order->prescriptions as $pres)
@@ -190,12 +196,14 @@
 <script>
     $($('input[type="checkbox"]')).change(function() {
         var total = 0;
+        var discount = 0.05;
         var selectedIds = [];
         $('input[type="checkbox"]:checked').each(function() {
             total += parseInt($(this).val());
             selectedIds.push($(this).attr('id'));
         });
         $('#total_price').val(total);
+        $('#discount').val(total-(total*discount));
         $('#selected-med-ids').val(selectedIds.join(','));
     });
 </script>
