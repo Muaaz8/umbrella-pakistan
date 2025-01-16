@@ -138,7 +138,7 @@
       <div class="details">
         <span>Cashier #1</span>
 
-        <span class="right">{{now()->format('d-m-Y') }} &nbsp; {{ now()->format('h:i A') }}</span>
+        <span class="right">{{now()->format('d-m-Y') }} &nbsp; {{ now()->setTimezone('Asia/Karachi')->format('h:i A') }}</span>
       </div>
 
       <div class="dotted-line"></div>
