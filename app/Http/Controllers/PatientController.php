@@ -818,7 +818,7 @@ class PatientController extends Controller
         $pat_name = Helper::get_name($id);
         $pat_info = User::patient_info($id);
         $sessions = User::get_full_session_details($id);
-        $inclinic = Inclinics::with(['user','prescriptions','doctor'])->where('user_id',$id)->paginate(10);
+        $inclinic = Inclinics::with(['user','prescriptions','doctor'])->where('user_id',$id)->orderBy('id','desc')->paginate(10);
         $user_obj = new User();
         $tblOrders = $this->tblOrdersRepository->getOrdersByUserID($id);
         foreach ($tblOrders as $order) {

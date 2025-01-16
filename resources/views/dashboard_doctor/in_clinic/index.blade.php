@@ -59,6 +59,11 @@
     .dashboard {
         overflow-y: hidden;
     }
+
+    #final_patient_reason{
+        word-wrap: break-word;
+        width: 100%;
+    }
 </style>
 @endsection
 @section('top_import_file')
@@ -85,6 +90,10 @@
             $('#patient-id').html(user_id)
             $('#consulation-name').html(name)
             $('#patient-name').html(name)
+            $('#final_patient_name').html(name)
+            $('#final_patient_age').html(age)
+            $('#final_patient_reason').html(reason)
+            $('#final_patient_phone').html(phone)
             $('#patient-age').html(age)
             $('#patient-reason').html(reason)
             $('#patient-phone').html(phone)
@@ -625,6 +634,24 @@
             });
         })
 
+        function finalPres(){
+            var session_id = $('#session-id').html();
+            $.ajax({
+                type: 'POST',
+                url: '/inclinic_check_prescription_completed',
+                data: {
+                    session_id: session_id,
+                },
+                success: function (status) {
+                    if(status == "success"){
+                        $('#final_prescription_modal').modal('show');
+                    }else{
+                        alert("Add Dosage for "+status);
+                    }
+                }
+            });
+        }
+
         function end(){
             var session_id = $('#session-id').html();
             $.ajax({
@@ -640,9 +667,10 @@
                             url: '/inclinic_doctor_end_session',
                             data: {
                                 session_id: session_id,
+                                doctor_note: $('#note').val(),
                             },
                             beforeSend: function () {
-                                $(".end-consultation").html('<i class="fas fa-spinner fa-spin"></i>');
+                                $(".end-consultation2").html('<i class="fas fa-spinner fa-spin"></i>');
                             },
                             success: function (status) {
                                 location.reload();
@@ -775,7 +803,7 @@
 
                                     </div>
                                     <div class="d-flex gap-2 justify-content-center align-items-center">
-                                        <button class="btn btn-outline-danger w-50 rounded-3 mb-1 end-consultation" onclick="end()">End Consultation</button>
+                                        <button class="btn btn-outline-primary w-50 rounded-3 mb-1 end-consultation" onclick="finalPres()">Final Prescription</button>
                                     </div>
                                 </div>
                             </div>
@@ -972,4 +1000,58 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="final_prescription_modal" tabindex="-1" aria-labelledby="final_prescription_modal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header d-flex justify-content-between">
+                <h5 class="modal-title">Final Prescription</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body d-flex flex-column gap-2 m-3">
+                <table border="1">
+                    <thead>
+                        <th>
+                            Patient Name
+                        </th>
+                        <th>
+                            Age
+                        </th>
+                        <th>
+                            Phone
+                        </th>
+                        <th colspan="3">
+                            Reason
+                        </th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td id="final_patient_name"></td>
+                            <td id="final_patient_age"></td>
+                            <td id="final_patient_phone"></td>
+                            <td id="final_patient_reason" colspan="3"></td>
+                        </tr>
+                </table>
+                <div class="d-flex gap-2 justify-content-between align-items-center">
+                    <h6 class="m-0">Prescribed items:</h6>
+                </div>
+                <div class="prescribed items">
+                    <div class="d-flex flex-wrap prescribed_items">
+                        <span class="selected-value-bydoc ">Not Found Any Prescribed Item!!</span>
+                    </div>
+                </div>
+                <div class="d-flex flex-column gap-2 justify-content-center align-items-start">
+                    <h6 class="m-0">Doctor Note:</h6>
+                    <textarea name="note" id="note" class="form-control" rows="5" placeholder="Write Doctor Note"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary end-consultation2" onclick="end()">End consultation</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <!-- ------------------Dosage-Modal-end------------------ -->
