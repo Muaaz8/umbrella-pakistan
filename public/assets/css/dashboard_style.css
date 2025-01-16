@@ -2175,7 +2175,6 @@ div.datedropper.primary .pick-lg-h {
   padding-left: 20px;
 }
 
-
 .reviewed_card_area {
   position: relative;
   margin-bottom: 30px;
@@ -7153,7 +7152,7 @@ span.avtr figure {
 }
 
 .tabs-medicine {
-    max-height: calc(70vh - 7.5rem);
+    max-height: calc(78vh - 7.5rem);
     overflow-y: auto;
 }
 
