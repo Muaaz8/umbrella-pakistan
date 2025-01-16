@@ -15,7 +15,7 @@
     .selected-value-bydoc {
         border: 1px solid #16de81;
         border-radius: 30px;
-        font-size: 0.8rem;
+        font-size: 0.9rem;
         padding: 2px 13px;
         position: relative;
         margin: 0 10px 5px 0;

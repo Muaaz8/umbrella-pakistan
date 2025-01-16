@@ -2181,6 +2181,11 @@ div.datedropper.primary .pick-lg-h {
   margin-bottom: 30px;
 }
 
+.back-button-medicine > i, .back-button-lab > i, .back-button-imaging > i {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
 .single_reviewed_card {
   /* border:1px solid #efefef; */
   -webkit-transition: all 0.3s linear;
