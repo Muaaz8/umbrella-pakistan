@@ -1702,6 +1702,7 @@ header {
 
 .med-img {
     width: 85%;
+    min-height: 156px;
     display: flex;
     align-items: end;
     justify-content: center;
