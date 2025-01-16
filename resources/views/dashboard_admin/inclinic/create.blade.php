@@ -26,7 +26,7 @@
                     <div class="row m-auto">
                         <div class="d-flex align-items-baseline justify-content-between flex-wrap p-0">
                             <div>
-                                <h3>Add In Clinics Patient</h3>
+                                <h3>Add In-clinics Patient</h3>
                             </div>
                         </div>
                         <div class="wallet-table " style="border-radius: 18px;">

@@ -48,7 +48,7 @@ use Carbon\Carbon;
                 Dashboard </a>
             <a href="{{ route('doctor_queue') }}" class="dashboard-nav-item"><i
                 class="fa-regular fa-square-plus"></i>Online Waiting Room</a>
-            @if (Auth::user()->email == 'rama.siddiqui@gmail.com' || Auth::user()->email == 'Dr.RabiaAjaz@gmail.com' || Auth::user()->email == 'zaidtahir@yopmail.com')'
+            @if (Auth::user()->email == 'rama.siddiqui@gmail.com' || Auth::user()->email == 'Dr.RabiaAjaz@gmail.com' || Auth::user()->email == 'zaidtahir@yopmail.com')
                 <a href="{{ route('doctor_in_clinic') }}" class="dashboard-nav-item"><i
                     class="fa-regular fa-square-plus"></i>In-Clinic Waiting Room</a>
             @endif

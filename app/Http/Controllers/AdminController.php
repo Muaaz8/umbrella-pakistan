@@ -3839,7 +3839,7 @@ public function store_policy(Request $request){
     }
 
     public function inclinic_patient(){
-        $data = InClinics::with('user')->paginate(10);
+        $data = InClinics::with('user')->orderby('id','desc')->paginate(10);
         $patients = User::where('user_type','patient')->get();
         return view('dashboard_admin.inclinic.index',compact('data' , 'patients'));
     }

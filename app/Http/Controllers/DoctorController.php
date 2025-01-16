@@ -2750,7 +2750,23 @@ class DoctorController extends Controller
             $patient->pat_name = $user_details['name'] . " " . $user_details['last_name'];
 
             $session = Session::find($patient->last_id);
-            $patient->last_visit = Helper::get_date_with_format($session->date);
+            $inclinic = \App\Models\Inclinics::where('user_id',$patient->patient_id)->orderBy('id','desc')->first();
+            if($session != null && $inclinic != null){
+                if($session->date > $inclinic->created_at){
+                    $patient->last_visit = Helper::get_date_with_format($session->date);
+                }else{
+                    $patient->last_visit = Helper::get_date_with_format($inclinic->created_at);
+                }
+            }else if($session != null){
+                $patient->last_visit = Helper::get_date_with_format($session->date);
+            }else if($inclinic != null){
+                $patient->last_visit = Helper::get_date_with_format($inclinic->created_at);
+            }
+            if(isset($patient->reason)){
+                $patient->inclinic = true;
+            }else{
+                $patient->inclinic = false;
+            }
             $patient->last_diagnosis = $session->diagnosis;
             $patient->user_image = \App\Helper::check_bucket_files_url($patient->user_image);
         }

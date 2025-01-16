@@ -33,8 +33,12 @@
                                         alt="" class="rounded-circle">
                                 </div>
                                 <div class="h3">{{ $patient->pat_name }}</div>
-                                <p class="designation text-muted text-uppercase">Last Visit: {{ $patient->last_visit }}
-                                </p>
+                                <p class="designation text-muted text-uppercase">Last Visit: {{ $patient->last_visit }}</p>
+                                @if ($patient->inclinic)
+                                    <p class="designation text-muted text-uppercase">Inclinic Patient</p>
+                                @else
+                                    <p class="designation text-muted text-uppercase">Online Patient</p>
+                                @endif
                             </div>
                             <ul
                                 class="social-links d-flex align-items-center justify-content-around list-unstyled w-100 fs-5 m-0 p-0">

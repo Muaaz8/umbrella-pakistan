@@ -570,13 +570,14 @@
                     var res = response.hasOwnProperty("update");
                     if (res == true) {
                         var splitTime = response.update['time'].split("hrs");
-                        if (splitTime[0] == 6) {
+                        console.log(response)
+                        if (splitTime[0] == 4) {
                             $('#dose').prop('selectedIndex', 1);
-                        } else if (splitTime[0] == 8) {
+                        } else if (splitTime[0] == 3) {
                             $('#dose').prop('selectedIndex', 2);
-                        } else if (splitTime[0] == 12) {
+                        } else if (splitTime[0] == 2) {
                             $('#dose').prop('selectedIndex', 3);
-                        } else if (splitTime[0] == 24) {
+                        } else if (splitTime[0] == 1) {
                             $('#dose').prop('selectedIndex', 4);
                         }
                         $('#med_name').text(response.product.name);
@@ -589,7 +590,7 @@
                                 '</option>')
                         });
                         $('#units option[value=' + response.update['units'] + ']').attr('selected', 'selected');
-                        $('#days').val('');
+                        $('#days').val(response.update['days']);
                     } else {
                         $('#med_name').text(response.product.name);
                         $('#med_current_price').val(response.product.sale_price);
