@@ -72,14 +72,7 @@ class SessionController extends Controller
         }
 
         $pdf = PDF::loadView('receipt_pdf', compact('prescription'));
-        $filePath = storage_path('receipt.pdf');
-        $pdf->save($filePath);
-
-
-        $output = shell_exec( 'print /D:\"\\\\EPSON\" $filePath');
-
-        \Log::info($output);
-        return redirect()->back();
+        return $pdf->stream('receipt.pdf');
     }
 
 

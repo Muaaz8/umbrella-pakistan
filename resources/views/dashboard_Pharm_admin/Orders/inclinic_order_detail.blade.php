@@ -46,7 +46,7 @@
 </style>
 @section('content')
 <div class="dashboard-content">
-    <form class="container-fluid" action="{{ route('inclinic_pharmacy_payment') }}" method="POST">
+    <form class="container-fluid" id="pdfForm" action="{{ route('inclinic_pharmacy_payment') }}" method="POST">
         <div class="row m-auto">
             <div class="col-md-6">
                 <div class="card" style="width: 100%">
@@ -103,7 +103,7 @@
                     <h5 class="card-header d-flex justify-content-md-between">
                         <span>Order</span>
                         <span>Total Amount: <input class="total_price" name="total_price" value="0"
-                                id="total_price"></input></span>
+                                id="total_price" readonly></input></span>
                     </h5>
                     <div class="card-body">
                         @foreach ($img_order->prescriptions as $pres)
@@ -114,7 +114,7 @@
                                     <input @if ($pres->title == "paid")
                                     disabled
                                     @endif
-                                    type="checkbox" class="pres_checkbox" name="selected-med[]"
+                                    type="checkbox" class="pres_checkbox" name="med-price[]"
                                     value="{{ $pres->price }}" id="{{ $pres->id }}" class="form-check-input">
                                     <ul class="list-group list-group-flush border-none">
                                         <li class="list-group-item"><b>Product: </b>{{ $pres->med_details->name }}
@@ -136,7 +136,7 @@
                                     <input @if ($pres->title == "paid")
                                     disabled
                                     @endif
-                                    type="checkbox" class="pres_checkbox" name="selected-med[]"
+                                    type="checkbox" class="pres_checkbox" name="med-price[]"
                                     value="{{ $pres->price }}" id="{{ $pres->id }}" class="form-check-input">
                                     <ul class="list-group list-group-flush border-none">
                                         <li class="list-group-item"><b>Product: </b>{{ $pres->lab_details->TEST_NAME }}
@@ -158,7 +158,7 @@
                                     <input @if ($pres->title == "paid")
                                     disabled
                                     @endif
-                                    type="checkbox" class="pres_checkbox" name="selected-med[]"
+                                    type="checkbox" class="pres_checkbox" name="med-price[]"
                                     value="{{ $pres->price }}" id="{{ $pres->id }}" class="form-check-input">
                                     <ul class="list-group list-group-flush border-none">
                                         <li class="list-group-item"><b>Product: </b>{{ $pres->imaging_details->TEST_NAME
@@ -189,15 +189,15 @@
 
 <script>
     $($('input[type="checkbox"]')).change(function() {
-                var total = 0;
-                var selectedIds = [];
-                $('input[type="checkbox"]:checked').each(function() {
-                    total += parseInt($(this).val());
-                    selectedIds.push($(this).attr('id'));
-                });
-                $('#total_price').val(total);
-                $('#selected-med-ids').val(selectedIds.join(','));
-            });
+        var total = 0;
+        var selectedIds = [];
+        $('input[type="checkbox"]:checked').each(function() {
+            total += parseInt($(this).val());
+            selectedIds.push($(this).attr('id'));
+        });
+        $('#total_price').val(total);
+        $('#selected-med-ids').val(selectedIds.join(','));
+    });
 </script>
 
 
