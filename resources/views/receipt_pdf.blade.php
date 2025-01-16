@@ -17,7 +17,7 @@
       }
 
       .receipt {
-        width: 72mm;
+        width: 70mm;
         height: 270mm;
         margin: 0 auto;
       }
