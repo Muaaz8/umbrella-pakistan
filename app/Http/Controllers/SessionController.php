@@ -58,7 +58,6 @@ class SessionController extends Controller
         $selectedItems = explode(',', $selectedMedIds);
         $prescription = DB::table('prescriptions')->where('session_id', '0')
             ->whereIn('id', $selectedItems)->get();
-
         foreach ($prescription as $item) {
             // DB::table('prescriptions')->where('id', $item->id)->where('session_id', '0')->update(['title' => 'paid']);
             // DB::table('tbl_cart')->where('pres_id', $item->id)->update(['purchase_status' => '0', 'checkout_status' => '0', 'status' => 'purchased']);
@@ -72,8 +71,11 @@ class SessionController extends Controller
             }
         }
 
-        $discount = $prescription->sum('price')*0.05;
-        $total = $prescription->sum('price') - $discount;
+        // $discount = $request->sum('price')*0.05;
+        // $total = $request->sum('price') - $discount;
+
+        $discount = $request->discount;
+        $total = $request->total_price;
         $pdf = PDF::loadView('receipt_pdf', compact('prescription' , 'discount' , 'total' , 'payment'));
         return $pdf->stream('receipt.pdf');
     }

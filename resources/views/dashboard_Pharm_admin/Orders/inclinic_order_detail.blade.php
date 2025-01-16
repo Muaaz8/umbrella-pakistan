@@ -41,7 +41,7 @@
     .total_price {
         border: none;
         background-color: transparent;
-        width: 50px;
+        width: 80px;
     }
 </style>
 @section('content')
@@ -121,7 +121,7 @@
                                     disabled
                                     @endif
                                     type="checkbox" class="pres_checkbox" name="med-price[]"
-                                    value="{{ $pres->price }}" id="{{ $pres->id }}" class="form-check-input">
+                                    value="{{ $pres->price }}" id="{{ $pres->id }}" attr-type="{{ $pres->type }}" class="form-check-input">
                                     <ul class="list-group list-group-flush border-none">
                                         <li class="list-group-item"><b>Product: </b>{{ $pres->med_details->name }}
                                         </li>
@@ -143,7 +143,7 @@
                                     disabled
                                     @endif
                                     type="checkbox" class="pres_checkbox" name="med-price[]"
-                                    value="{{ $pres->price }}" id="{{ $pres->id }}" class="form-check-input">
+                                    value="{{ $pres->price }}" id="{{ $pres->id }}" attr-type="{{ $pres->type }}" class="form-check-input">
                                     <ul class="list-group list-group-flush border-none">
                                         <li class="list-group-item"><b>Product: </b>{{ $pres->lab_details->TEST_NAME }}
                                         </li>
@@ -165,7 +165,7 @@
                                     disabled
                                     @endif
                                     type="checkbox" class="pres_checkbox" name="med-price[]"
-                                    value="{{ $pres->price }}" id="{{ $pres->id }}" class="form-check-input">
+                                    value="{{ $pres->price }}" id="{{ $pres->id }}" attr-type="{{ $pres->type }}" class="form-check-input">
                                     <ul class="list-group list-group-flush border-none">
                                         <li class="list-group-item"><b>Product: </b>{{ $pres->imaging_details->TEST_NAME
                                             }}
@@ -197,14 +197,20 @@
     $($('input[type="checkbox"]')).change(function() {
         var total = 0;
         var discount = 0.05;
+        var totalDiscount = 0;
         var selectedIds = [];
+        var type;
         $('input[type="checkbox"]:checked').each(function() {
             total += parseInt($(this).val());
             selectedIds.push($(this).attr('id'));
+            type = $(this).attr('attr-type');
+            if(type == 'medicine'){
+                totalDiscount += $(this).val()*discount;
+            }
         });
-        $('#total_price').val(total);
-        $('#discount').val(total-(total*discount));
         $('#selected-med-ids').val(selectedIds.join(','));
+        $('#total_price').val(total.toFixed(2));
+        $('#discount').val((total-totalDiscount).toFixed(2));
     });
 </script>
 

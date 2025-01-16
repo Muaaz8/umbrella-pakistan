@@ -162,7 +162,13 @@
         </thead>
         <tbody>
             @foreach ($prescription as $item)
+            @php
+                $flag = false;
+            @endphp
                 @if ($item->type == 'medicine')
+                    @php
+                        $flag = true;
+                    @endphp
                     <tr>
                         <td class="item to-lower">{{ $item->product->name }}</td>
                         <td>{{ $item->quantity }}</td>
@@ -202,16 +208,19 @@
           </span> --}}
           <table style="width: 100%">
             <tbody>
-                    <td>SubTotal:</td>
-                    <td class="right">Rs. {{ $prescription->sum('price') }}</td>
-                </tr>
                 <tr>
-                    <td>Discount:</td>
-                    <td class="right">Rs. -{{ $discount }}</td>
+                    <td>SubTotal:</td>
+                    <td class="right">Rs. {{ number_format($prescription->sum('price'),2) }}</td>
                 </tr>
+                @if ($flag)
+                    <tr>
+                        <td>Discount (5%):</td>
+                        <td class="right">Rs. -{{ number_format($prescription->sum('price')-$discount,2) }}</td>
+                    </tr>
+                @endif
                 <tr>
                     <td>Total Amount:</td>
-                    <td class="right">Rs. {{ $total }}</td>
+                    <td class="right">Rs. {{ number_format($discount,2) }}</td>
                 </tr>
             </tbody>
           </table>
