@@ -2750,7 +2750,7 @@ class DoctorController extends Controller
             $patient->pat_name = $user_details['name'] . " " . $user_details['last_name'];
 
             $session = Session::find($patient->last_id);
-            $inclinic = \App\Models\Inclinics::where('user_id',$patient->patient_id)->orderBy('id','desc')->first();
+            $inclinic = \App\Models\InClinics::where('user_id',$patient->patient_id)->orderBy('id','desc')->first();
             if($session != null && $inclinic != null){
                 if($session->date > $inclinic->created_at){
                     $patient->last_visit = Helper::get_date_with_format($session->date);
