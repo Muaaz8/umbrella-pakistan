@@ -89,7 +89,7 @@ use Carbon\Carbon;
                 All Patients</a>
             <a href="{{ route('sessions_all') }}" class="dashboard-nav-item"><i
                     class="fas fa-file-upload"></i>Sessions</a>
-
+            <a href="{{ route('inclinic_sessions') }}" class="dashboard-nav-item"><i class="fa-solid fa-home"></i> Inclinic Sessions</a>
 
             <!-- <a href="{{ route('doctors_all') }}" class="dashboard-nav-item"><i class="fa-solid fa-user-doctor"></i> Doctors </a> -->
             <a href="{{ route('doctors_orders') }}" class="dashboard-nav-item"><i

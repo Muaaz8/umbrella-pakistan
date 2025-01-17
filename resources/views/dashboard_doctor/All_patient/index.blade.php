@@ -35,9 +35,9 @@
                                 <div class="h3">{{ $patient->pat_name }}</div>
                                 <p class="designation text-muted text-uppercase">Last Visit: {{ $patient->last_visit }}</p>
                                 @if ($patient->inclinic)
-                                    <p class="designation text-muted text-uppercase">Inclinic Patient</p>
+                                    <p class="designation text-white" style="background: green; border-radius: 20px; padding: 5px; font-size: 12px !important; border:1px solid white;">Inclinic Patient</p>
                                 @else
-                                    <p class="designation text-muted text-uppercase">Online Patient</p>
+                                    <p class="designation text-white" style="background: rgb(0, 81, 255); border-radius: 20px; padding: 5px; font-size: 12px !important; border:1px solid white;">Online Patient</p>
                                 @endif
                             </div>
                             <ul

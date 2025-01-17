@@ -898,6 +898,7 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
         Route::post('/session_store', 'RecommendationController@store')->name('recommendations.store');
         Route::get('all/doctors', 'DoctorController@dash_all')->name('doctors_all');
         Route::get('all/sessions', 'SessionController@dash_record')->name('sessions_all');
+        Route::get('doctor/inclinic/sessions', 'SessionController@inclinic_sessions')->name('inclinic_sessions');
         Route::get('all/patients', 'DoctorController@dash_all_patients')->name('patient_all');
         Route::get('patient/detail/{id}', 'PatientController@dash_view_patient_record')->name('patient_detailed');
         Route::get('pagination/fetch_pending_labs/{id}', 'PatientController@fetch_pending_labs');
@@ -1058,6 +1059,7 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
         Route::post('admin/all/sessions/record', 'SessionController@all_sessions_record')->name('all_sessions_record');
         Route::post('admin/all/sessions/record/spec', 'SessionController@all_sessions_record_with_spec')->name('all_sessions_record_with_spec');
         Route::get('admin/all/sessions/view/recording/{id}', 'SessionController@VideoRecordSession')->name('VideoRecordSession');
+        Route::get('admin/inclinic/sessions', 'SessionController@inclinic_sessions')->name('admin_inclinic_sessions');
 
         //Manage Users
         Route::get('admin/manage/all/users/{id}', 'AdminController@manage_all_users')->name('manage_all_users')->middleware('admin_auth');

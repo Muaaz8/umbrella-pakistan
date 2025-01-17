@@ -50,6 +50,18 @@ class SessionController extends Controller
         return response()->json(['data' => $sessionStatus]);
     }
 
+    public function inclinic_sessions()
+    {
+        if (auth()->user()->user_type == 'doctor') {
+            $id = auth()->user()->id;
+            $inclinic = InClinics::with(['user','prescriptions','doctor'])->where('doctor_id',$id)->orderBy('id','desc')->paginate(10);
+            return view('dashboard_doctor.All_Session.inlcinic_sessions', compact( 'inclinic'));
+        }
+        if (auth()->user()->user_type == 'admin') {
+            $inclinic = InClinics::with(['user','prescriptions','doctor'])->orderBy('id','desc')->paginate(10);
+            return view('dashboard_admin.inclinic.sessions', compact( 'inclinic'));
+        }
+    }
 
     public function inclinic_pharmacy_payment(Request $request)
     {

@@ -103,6 +103,8 @@
                 States</a>
             <a href="{{ route('all_sessions_record') }}" class="dashboard-nav-item"><i
                     class="fa-solid fa-hand-holding-medical"></i>All Sessions</a>
+            <a href="{{ route('admin_inclinic_sessions') }}" class="dashboard-nav-item"><i
+                    class="fa-solid fa-calendar-check"></i>Inclinic Sessions</a>
             <a href="{{ route('admin_all_appointments') }}" class="dashboard-nav-item"><i
                     class="fa-solid fa-calendar-check"></i>All Appointments</a>
             <a href="{{ route('manage_all_users', ['id', 'all']) }}" class="dashboard-nav-item"><i
