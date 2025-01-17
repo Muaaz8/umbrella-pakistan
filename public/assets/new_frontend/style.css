@@ -120,7 +120,7 @@ header {
     color: black;
     border-bottom: 2px solid transparent;
     font-size: 15px;
-    padding: 3px 0;
+    padding: 3px 0 2px 0;
     font-weight: 600;
     width: max-content;
 }
@@ -1716,6 +1716,24 @@ header {
     margin-top: 2rem;
     height: auto;
     object-fit: cover;
+}
+
+.drawer img[alt="shop-icon"] {
+    width: 25px;
+    margin-left: 1rem;
+}
+
+.drawer div {
+    margin-top: 0.35rem;
+}
+
+.drawer .cart-count {
+    top: -8px;
+    left: 32px;
+    color: white;
+    height: 15px;
+    width: 15px;
+    font-size: 8px;
 }
 
 .read_more {

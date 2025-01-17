@@ -48,7 +48,6 @@
                 <i class="fa-regular fa-user"></i>
                 <a href="#" class="pe-none">Symptoms Checker</a>
             </div>
-
             @if (Auth::check())
             <div class="dropdown" >
                 <button class="dropdown-toggle w-100" type="button" id="joinDropdown" data-bs-toggle="dropdown" aria-expanded="false">
@@ -109,13 +108,28 @@
             <a href="{{ route('about_us') }}">About Us</a>
             <a href="{{ route('contact_us') }}">Contact Us</a>
             <hr />
+            @if (Auth::check())
+              <a href="{{ route('home') }}">Go to Dashboard</a></li>
+              <a href="{{ route('logout') }}"
+              onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
+              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+              </form>
+            @else
             <a class="drawer-item" href="{{ route('login') }}">Login</a>
             <a class="drawer-item" href="{{ route('doc_register') }}" >Register as Doctor</a>
             <a class="drawer-item" href="{{ route('pat_register') }}" >Register as Patient</a>
-            {{-- <a href="#">Symptoms Checker</a> --}}
-      
+            @endif
+            <a href="https://wa.me/923372350684" target="_blank">0337-2350684</a>
+            <div class="position-relative" onclick="window.location.href='{{ url('/my/cart') }}'">
+              <img src="{{ asset('assets/new_frontend/purchase-icon.svg') }}" alt="shop-icon" />
+              @if (Auth::check())
+                <div class="cart-count">
+                  <span>{{ app('item_count_cart_responsive') }}</span>
+                </div>
+              @endif
+            </div>
           </div>
-
           <div
             class="blur-overlay"
             id="blurOverlay"
