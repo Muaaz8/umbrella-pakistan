@@ -1406,8 +1406,8 @@ header {
 
 .drawer hr {
     width: 90%;
-    margin: 0 auto;
     border: 1px solid #ff5757;
+    margin: 0.25rem auto;
 }
 
 .drawer a:hover {
