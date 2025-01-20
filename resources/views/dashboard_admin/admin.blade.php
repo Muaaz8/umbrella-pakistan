@@ -222,9 +222,9 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">Name</th>
-                                        <th scope="col">State</th>
+                                        {{-- <th scope="col">State</th> --}}
                                         <th scope="col">Registered On</th>
-                                        <th scope="col">UPIN</th>
+                                        {{-- <th scope="col">UPIN</th> --}}
                                         <th scope="col">PMDC</th>
                                         <th scope="col">Action</th>
                                     </tr>
@@ -235,9 +235,9 @@
                                             <td data-label="Name">
                                                 {{ 'Dr. ' . ucfirst($doc->name) . ' ' . ucfirst($doc->last_name) }}
                                             </td>
-                                            <td data-label="State">{{ $doc->state_name }}</td>
+                                            {{-- <td data-label="State">{{ $doc->state_name }}</td> --}}
                                             <td data-label="Registered On">{{ $doc->created_at }}</td>
-                                            <td data-label="UPIN">{{ $doc->upin }}</td>
+                                            {{-- <td data-label="UPIN">{{ $doc->upin }}</td> --}}
                                             <td data-label="PMDC">{{ $doc->nip_number }}</td>
                                             <td data-label="Action">
                                                 <center>
@@ -250,7 +250,7 @@
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="6">
+                                            <td colspan="4">
                                                 <center>No Pending Requests</center>
                                             </td>
                                         </tr>

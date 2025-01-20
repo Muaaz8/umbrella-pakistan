@@ -702,8 +702,7 @@ class HomeController extends Controller
         $pending_doctors_count = DB::table('users')->where('user_type','doctor')->where('users.active','=','0')->where('users.status','!=','declined')->count();
         // dd($doctors);
         $doctors = DB::table('users')
-        ->select('users.*','states.name as state_name')
-        ->join('states', 'users.state_id', '=', 'states.id')
+        ->select('users.*')
         ->leftjoin('contracts','contracts.provider_id','users.id')
         ->where('user_type','=','doctor')
         ->where('users.active','=','0')
