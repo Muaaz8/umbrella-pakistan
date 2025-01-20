@@ -119,7 +119,6 @@ class RegisterController extends Controller
                 'name' => ['required'],
                 'last_name' => ['required'],
                 'email' => ['required'],
-                'username' => ['required'],
                 'password' => ['required'],
             ]);
             // }
@@ -128,7 +127,6 @@ class RegisterController extends Controller
             'name' => ['required'],
             'last_name' => ['required'],
             'email' => ['required'],
-            'username' => ['required'],
             'password' => ['required'],
         ]);
         }
