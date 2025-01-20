@@ -105,16 +105,16 @@ class RegisterController extends Controller
     {
         // dd($data);
         if($data['user_type'] == 'patient'){
-            if($data['rep_radio'] == 'representative'){
-                return Validator::make($data, [
-                    'rep_fullname' => ['required'],
-                    'name' => ['required'],
-                    'last_name' => ['required'],
-                    'email' => ['required'],
-                    'username' => ['required'],
-                    'password' => ['required'],
-                ]);
-            } else {
+            // if($data['rep_radio'] == 'representative'){
+            //     return Validator::make($data, [
+            //         'rep_fullname' => ['required'],
+            //         'name' => ['required'],
+            //         'last_name' => ['required'],
+            //         'email' => ['required'],
+            //         'username' => ['required'],
+            //         'password' => ['required'],
+            //     ]);
+            // } else {
                 return Validator::make($data, [
                 'name' => ['required'],
                 'last_name' => ['required'],
@@ -122,7 +122,7 @@ class RegisterController extends Controller
                 'username' => ['required'],
                 'password' => ['required'],
             ]);
-            }
+            // }
          }else {
             return Validator::make($data, [
             'name' => ['required'],
@@ -169,84 +169,84 @@ class RegisterController extends Controller
             $user_type = $data['user_type'];
             if ($user_type == 'patient')
             {
-                if ($data['rep_radio'] == 'representative')
-                {
-                    $datecheck = $data['date_of_birth'];
-                    //  dd($datecheck);
-                    $date = str_replace('-', '/', $datecheck);
-                    $newd_o_b = date("Y-m-d", strtotime($date));
-                    if (str_contains($datecheck, "/")) {
-                        $newd_o_b;
-                    }
-                    $user = User::create([
-                        'user_type' => $data['user_type'],
-                        'name' => $data['name'],
-                        'last_name' => $data['last_name'],
-                        'email' => $data['email'],
-                        'username' => $data['username'],
-                        'country_id' => $data['country'],
-                        'city_id' => $data['city'],
-                        'state_id' => '',
-                        'password' => Hash::make($data['password']),
-                        'date_of_birth' => $newd_o_b,
-                        'phone_number' => $data['phone_number'],
-                        'office_address' => $data['address'],
-                        'zip_code' => '',
-                        'gender' => $data['gender'],
-                        'terms_and_cond' => $data['terms_and_cond'],
-                        'timeZone' => $data['timezone'],
-                        'representative_name' => $data['rep_fullname'],
-                        'representative_relation' => $data['rep_relation'],
-                    ]);
+                // if ($data['rep_radio'] == 'representative')
+                // {
+                //     $datecheck = $data['date_of_birth'];
+                //     //  dd($datecheck);
+                //     $date = str_replace('-', '/', $datecheck);
+                //     $newd_o_b = date("Y-m-d", strtotime($date));
+                //     if (str_contains($datecheck, "/")) {
+                //         $newd_o_b;
+                //     }
+                //     $user = User::create([
+                //         'user_type' => $data['user_type'],
+                //         'name' => $data['name'],
+                //         'last_name' => $data['last_name'],
+                //         'email' => $data['email'],
+                //         'username' => $data['username'],
+                //         'country_id' => $data['country'],
+                //         'city_id' => $data['city'],
+                //         'state_id' => '',
+                //         'password' => Hash::make($data['password']),
+                //         'date_of_birth' => $newd_o_b,
+                //         'phone_number' => $data['phone_number'],
+                //         'office_address' => $data['address'],
+                //         'zip_code' => '',
+                //         'gender' => $data['gender'],
+                //         'terms_and_cond' => $data['terms_and_cond'],
+                //         'timeZone' => $data['timezone'],
+                //         'representative_name' => $data['rep_fullname'],
+                //         'representative_relation' => $data['rep_relation'],
+                //     ]);
 
-                    $x = rand(10e12, 10e16);
-                    $hash_to_verify = base_convert($x, 10, 36);
-                    $data1 = [
-                        'hash' => $hash_to_verify,
-                        'user_id' => $user->id,
-                        'to_mail' => $user->email,
-                    ];
-                    try {
-                        Mail::to($user->email)->send(new UserVerificationEmail($data1));
-                    } catch (Exception $e) {
-                        Log::error($e);
-                    }
-                    DB::table('users_email_verification')->insert([
-                        'verification_hash_code' => $hash_to_verify,
-                        'user_id' => $user->id,
-                    ]);
+                //     $x = rand(10e12, 10e16);
+                //     $hash_to_verify = base_convert($x, 10, 36);
+                //     $data1 = [
+                //         'hash' => $hash_to_verify,
+                //         'user_id' => $user->id,
+                //         'to_mail' => $user->email,
+                //     ];
+                //     try {
+                //         Mail::to($user->email)->send(new UserVerificationEmail($data1));
+                //     } catch (Exception $e) {
+                //         Log::error($e);
+                //     }
+                //     DB::table('users_email_verification')->insert([
+                //         'verification_hash_code' => $hash_to_verify,
+                //         'user_id' => $user->id,
+                //     ]);
 
-                    $data_email["email"] = $user->email;
-                    $data_email["title"] = "Terms And Conditions";
-                    $time = DB::table('documents')->where('name','term of use')->select('updated_at')->first();
-                    $data_email["revised"] = date('m-d-Y',strtotime($time->updated_at));
-                    $pdf = app()->make(PDF::class);
-                    $pdf = $pdf->loadView('terms.index', $data_email);
-                    \Storage::disk('s3')->put('term_and_conditions/' . $user->name . '_term_and_conditions.pdf', $pdf->output());
-                    DB::table('user_term_and_condition_status')->insert([
-                        'term_and_condition_file' => 'term_and_conditions/' . $user->name . '_term_and_conditions.pdf',
-                        'user_id' => $user->id,
-                        'status' => 1,
-                    ]);
-                    try {
-                        $adminUsers = DB::table('users')->where('user_type', 'admin')->get();
-                        foreach ($adminUsers as $adminUser) {
-                            $admin_data_email["email"] =  $adminUser->email;
-                            $admin_data_email["title"] = "Terms And Conditions";
-                            Mail::send('emails.termAndConditionDoctorEmail', $admin_data_email, function ($message1) use ($admin_data_email, $pdf) {
-                                $message1->to($admin_data_email["email"])->subject($admin_data_email["title"])->attachData($pdf->output(), "TermsAndConditions.pdf");
-                            });
-                        }
-                        Mail::send('emails.termAndConditionDoctorEmail', $data_email, function ($message) use ($data_email, $pdf) {
-                            $message->to($data_email["email"])->subject($data_email["title"])->attachData($pdf->output(), "TermsAndConditions.pdf");
-                        });
-                    } catch (Exception $e) {
-                        Log::info($e);
-                    }
-                    return $user;
-                }
-                else
-                {
+                //     $data_email["email"] = $user->email;
+                //     $data_email["title"] = "Terms And Conditions";
+                //     $time = DB::table('documents')->where('name','term of use')->select('updated_at')->first();
+                //     $data_email["revised"] = date('m-d-Y',strtotime($time->updated_at));
+                //     $pdf = app()->make(PDF::class);
+                //     $pdf = $pdf->loadView('terms.index', $data_email);
+                //     \Storage::disk('s3')->put('term_and_conditions/' . $user->name . '_term_and_conditions.pdf', $pdf->output());
+                //     DB::table('user_term_and_condition_status')->insert([
+                //         'term_and_condition_file' => 'term_and_conditions/' . $user->name . '_term_and_conditions.pdf',
+                //         'user_id' => $user->id,
+                //         'status' => 1,
+                //     ]);
+                //     try {
+                //         $adminUsers = DB::table('users')->where('user_type', 'admin')->get();
+                //         foreach ($adminUsers as $adminUser) {
+                //             $admin_data_email["email"] =  $adminUser->email;
+                //             $admin_data_email["title"] = "Terms And Conditions";
+                //             Mail::send('emails.termAndConditionDoctorEmail', $admin_data_email, function ($message1) use ($admin_data_email, $pdf) {
+                //                 $message1->to($admin_data_email["email"])->subject($admin_data_email["title"])->attachData($pdf->output(), "TermsAndConditions.pdf");
+                //             });
+                //         }
+                //         Mail::send('emails.termAndConditionDoctorEmail', $data_email, function ($message) use ($data_email, $pdf) {
+                //             $message->to($data_email["email"])->subject($data_email["title"])->attachData($pdf->output(), "TermsAndConditions.pdf");
+                //         });
+                //     } catch (Exception $e) {
+                //         Log::info($e);
+                //     }
+                //     return $user;
+                // }
+                // else
+                // {
                     $datecheck = $data['date_of_birth'];
                     // dd($datecheck);
                     $date = str_replace('-', '/', $datecheck);
@@ -309,7 +309,7 @@ class RegisterController extends Controller
                         Log::info($e);
                     }
                     return $user;
-                }
+                // }
             }
             //doctor registration
             else {

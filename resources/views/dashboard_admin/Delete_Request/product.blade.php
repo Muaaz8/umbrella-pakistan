@@ -6,7 +6,7 @@
 @endsection
 
 @section('page_title')
-    <title>UHCS - Product Requests</title>
+    <title>CHCC - Product Requests</title>
 @endsection
 
 @section('top_import_file')

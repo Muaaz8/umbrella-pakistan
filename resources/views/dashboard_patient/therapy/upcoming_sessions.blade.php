@@ -10,7 +10,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.16/clipboard.min.js"></script>
 @endsection
 @section('page_title')
-    <title>UHCS - Upcoming Therapy Events</title>
+    <title>CHCC - Upcoming Therapy Events</title>
 @endsection
 @section('bottom_import_file')
 <script src="{{asset('assets\js\searching.js')}}"></script>

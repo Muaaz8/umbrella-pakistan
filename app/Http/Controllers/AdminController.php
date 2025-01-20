@@ -3840,6 +3840,9 @@ public function store_policy(Request $request){
 
     public function inclinic_patient(){
         $data = InClinics::with('user')->orderby('id','desc')->paginate(10);
+        foreach($data as $d){
+            $d->created_at = User::convert_utc_to_user_timezone(auth()->user()->id, $d->created_at)['datetime'];
+        }
         $patients = User::where('user_type','patient')->get();
         return view('dashboard_admin.inclinic.index',compact('data' , 'patients'));
     }

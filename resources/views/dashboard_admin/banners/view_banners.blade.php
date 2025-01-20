@@ -8,7 +8,7 @@
 @endsection
 
 @section('page_title')
-    <title>UHCS - View Banners</title>
+    <title>CHCC - View Banners</title>
 @endsection
 
 @section('top_import_file')
@@ -86,7 +86,7 @@
                     @endif
                     <div class="py-3 pb-4 text-center">
                         <a href="/delete/banner/{{$banner->id}}"><button class="btn btn-danger ">Delete</button></a>
-                        
+
                     </div>
                 </div>
                 <h4 class="pb-4 border-bottom"></h4>

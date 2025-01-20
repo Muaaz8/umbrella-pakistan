@@ -10,7 +10,7 @@
 @endsection
 
 @section('page_title')
-    <title>UHCS - Edit Profile</title>
+    <title>CHCC - Edit Profile</title>
 @endsection
 
 @section('top_import_file')

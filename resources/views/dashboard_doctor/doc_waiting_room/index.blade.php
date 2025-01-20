@@ -11,7 +11,7 @@
 @section('top_import_file')
 @endsection
 @section('page_title')
-    <title>UHCS - Waiting Room</title>
+    <title>CHCC - Waiting Room</title>
     <style>
         .waiting-check .form-check-input:checked {
             background-color: #4CBB17;

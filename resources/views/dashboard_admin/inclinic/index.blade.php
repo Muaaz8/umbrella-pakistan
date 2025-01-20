@@ -37,7 +37,7 @@
 @endsection
 
 @section('page_title')
-<title>UHCS - Admin Dashboard</title>
+<title>CHCC - Admin Dashboard</title>
 @endsection
 
 @section('top_import_file')

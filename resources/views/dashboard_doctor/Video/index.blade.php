@@ -4,7 +4,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 <link rel="icon" href="{{ asset('asset_frontend/images/logo.ico') }}" type="image/x-icon" />
 @endsection @section('page_title')
-<title>UHCS - Doctor Video Calling</title>
+<title>CHCC - Doctor Video Calling</title>
 @endsection @section('top_import_file')
 <link rel="stylesheet" href="{{ asset('assets\css\doctor_video_calling.css') }}" />
 @endsection @section('bottom_import_file') @php
@@ -630,8 +630,8 @@ header("Access-Control-Allow-Origin: *"); @endphp
             type: 'POST',
             url: "{{URL('/new_get_products_by_category')}}",
             data: {
-                med_id: med_id,
                 session_id: "{{ $session->id }}",
+                med_id: med_id,
                 name: name,
                 type: 'medicine'
             },
@@ -2183,9 +2183,9 @@ header("Access-Control-Allow-Origin: *"); @endphp
                                                                 </button>
                                                             </div>
                                                         </div>
+                                                        <input type="hidden" id="selected_med_cat">
                                                         <div class="medical-col-scroll">
                                                             <div class="row" id="results">
-                                                                <input type="hidden" id="selected_med_cat">
                                                                 @foreach($med as $cat)
                                                                 <div class="col-md-4 col-sm-6">
                                                                     <button title="{{$cat->title}}"

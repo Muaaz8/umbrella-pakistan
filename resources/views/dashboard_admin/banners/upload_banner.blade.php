@@ -8,7 +8,7 @@
 @endsection
 
 @section('page_title')
-    <title>UHCS - Upload Banner</title>
+    <title>CHCC - Upload Banner</title>
 @endsection
 
 @section('top_import_file')

@@ -6,7 +6,7 @@
 @endsection
 
 @section('page_title')
-    <title>UHCS - Error Logs</title>
+    <title>CHCC - Error Logs</title>
 @endsection
 
 @section('top_import_file')

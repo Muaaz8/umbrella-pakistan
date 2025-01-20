@@ -219,7 +219,7 @@ class PharmacyController extends Controller
                 if($product->featured_image == env('APP_URL')."/assets/images/user.png"){
                     $product->featured_image = asset('assets/new_frontend/panadol2.png');
                 }
-                
+
                 return view('website_pages.pharmacy.new_pakistan_single_view', compact('products','meta_tags','title'));
                 // return view('single_product_details', compact('products'));
             } else if ($product->mode == 'lab-test') {
@@ -360,9 +360,9 @@ class PharmacyController extends Controller
             // Get User Cart Items
             $cards = DB::table('card_details')->where('user_id', $user->id)->get();
             $user_cart_items = DB::table('tbl_cart')->where('user_id', Auth::user()->id)->where('status', 'recommended')->get();
-            // dd($billingDetails,$shippingDetails);
             foreach ($user_cart_items as $item) {
                 if ($item->item_type == 'prescribed') {
+                    // dd(Auth::user()->id,$item->pres_id);
                     $pres = DB::table('prescriptions')->where('id', $item->pres_id)->first();
                     $item->prescription_date = $pres->created_at;
                     $item->medicine_usage = $pres->usage;
@@ -1366,8 +1366,8 @@ class PharmacyController extends Controller
                 ]);
                 $doctor = User::find($item->doc_id);
                 $patient = User::find($item->user_id);
-                $state = State::find($doctor->state_id);
-                $city = City::find($doctor->city_id);
+                // $state = State::find($doctor->state_id);
+                // $city = City::find($doctor->city_id);
                 $orderDate = User::convert_utc_to_user_timezone($patient->id, Carbon::now()->format('Y-m-d H:i:s'));
                 $date = str_replace('-', '/',  $patient->date_of_birth);
                 $patient->date_of_birth = date('m/d/Y', strtotime($date));
@@ -1387,8 +1387,8 @@ class PharmacyController extends Controller
                 $presc_meds[$item->doc_session_id]['phy_by'] = $doctor->name . ' ' . $doctor->last_name;
                 $presc_meds[$item->doc_session_id]['phy_phone_number'] = $doctor->phone_number;
                 $presc_meds[$item->doc_session_id]['phy_address'] = $doctor->office_address;
-                $presc_meds[$item->doc_session_id]['phy_city'] = $city->name;
-                $presc_meds[$item->doc_session_id]['phy_state'] = $state->name;
+                $presc_meds[$item->doc_session_id]['phy_city'] = "Hermann";
+                $presc_meds[$item->doc_session_id]['phy_state'] = "Missouri";
                 $presc_meds[$item->doc_session_id]['phy_zip_code'] = $doctor->zip_code;
                 $presc_meds[$item->doc_session_id]['NPI'] = $doctor->nip_number;
                 $presc_meds[$item->doc_session_id]['signature'] = $doctor->signature;

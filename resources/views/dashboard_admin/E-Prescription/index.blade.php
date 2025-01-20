@@ -6,7 +6,7 @@
 @endsection
 
 @section('page_title')
-    <title>UHCS - E-Prescription</title>
+    <title>CHCC - E-Prescription</title>
 @endsection
 
 @section('top_import_file')

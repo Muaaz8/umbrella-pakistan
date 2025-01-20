@@ -452,31 +452,31 @@ class SessionController extends Controller
             $spe = DB::table('specializations')
             ->join('specalization_price', 'specalization_price.spec_id', 'specializations.id')
             ->join('users', 'users.specialization', 'specializations.id')
-            ->join('doctor_licenses', 'doctor_licenses.doctor_id', 'users.id')
+            // ->join('doctor_licenses', 'doctor_licenses.doctor_id', 'users.id')
             // ->where('specalization_price.state_id', $Reg_state)
-            ->where('doctor_licenses.is_verified', '1')
+            // ->where('doctor_licenses.is_verified', '1')
             ->groupBy('specializations.id')
             ->select('specializations.*', 'specalization_price.follow_up_price as follow_up_price', 'specalization_price.initial_price as initial_price')
             ->get();
 
-            $locations = DB::table('states')->where('active','1')->orderBy('name','ASC')->get();
-            foreach($locations as $loc)
-            {
-                $docs = DB::table('doctor_licenses')
-                ->where('state_id',$loc->id)
-                ->where('is_verified','1')
-                ->count();
+            // $locations = DB::table('states')->where('active','1')->orderBy('name','ASC')->get();
+            // foreach($locations as $loc)
+            // {
+            //     $docs = DB::table('doctor_licenses')
+                // ->where('state_id',$loc->id)
+                // ->where('is_verified','1')
+                // ->count();
 
-                if($docs>0)
-                {
-                    $loc->docs = 1;
-                }
-                else
-                {
-                    $loc->docs = 0;
-                }
-            }
-            return view('dashboard_patient.Evisit.index', compact('spe','locations'));
+                // if($docs>0)
+                // {
+                    // $loc->docs = 1;
+                // }
+                // else
+                // {
+                //     $loc->docs = 0;
+                // }
+            // }
+            return view('dashboard_patient.Evisit.index', compact('spe'));
         } else {
             return redirect()->route('errors', '101');
         }

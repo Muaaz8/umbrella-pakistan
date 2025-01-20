@@ -8,7 +8,7 @@
 @endsection
 
 @section('page_title')
-    <title>UHCS - Online Doctors</title>
+    <title>CHCC - Online Doctors</title>
 @endsection
 
 @section('top_import_file')
@@ -786,10 +786,10 @@
                                                 class="btn btn-primary symptomsOpen">
                                                 TALK TO DOCTOR
                                             </button>
-                                            {{-- <button id="{{ $doctor->id }}" class="btn btn-primary"
+                                            {{--<button id="{{ $doctor->id }}" class="btn btn-primary"
                                                 onclick="inquiryform(this)">
                                                 TALK TO DOCTOR
-                                            </button> --}}
+                                            </button>--}}
                                         </div>
                                     </div>
                                 </div>
@@ -816,6 +816,70 @@
             </div>
         </div>
 
+        <div class="modal fade" id="inquiryModal" style="font-weight: normal; " tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="symp">Inquiry Form<br>
+                <small>Please fill this form to continue</small></h4>
+                <div class="col-md-5">
+                {{-- <p class="float-left mb-0" style="color:red">Price: $50</p>
+                <p  class="float-left mb-0"  style="color:red">Duration: 15 minutes</p> --}}
+                </div>
+            </div>
+            <div class="modal-body" style="height: 150px;">
+            <form action="{{route('inquiry.store')}}" method="POST" onsubmit="return checkForm(this)">
+                @csrf
+                @if($session!=null)
+                <input type="hidden" id="price" name="price" value="{{ $session->price }}">
+                @else
+                <input type="hidden" id="price" name="price" value="">
+                @endif
+                <div class="">
+                    <input type="hidden" id="doc_sp_id" name="doc_sp_id">
+                    <input type="hidden" name="doc_id" id="doc_id">
+                    <input type='hidden' value="0" name='Headache'>
+                    <input type='hidden' value="0" name='Flu'>
+                    <input type='hidden' value="0" name='Fever'>
+                    <input type='hidden' value="0" name='Nausea'>
+                    <input type='hidden' value="0" name='Others'>
+                <h6>Symptoms</h6>
+                <input type='hidden' value="0" id='sympt' name='sympt'>
+                <div class="form-check form-check-inline">
+                    <input type="checkbox" class="form-check-input" id="s1" name="Headache" value="1">
+                    <label class="form-check-label" for="s1" >
+                    Headache</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="checkbox" class="form-check-input" id="s2" name="Flu" value="1">
+                    <label class="form-check-label" for="s2">Flu</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="checkbox" class="form-check-input" id="s3" name="Fever" value="1">
+                    <label class="form-check-label" for="s3">Fever</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="checkbox" class="form-check-input" id="s4" name="Nausea" value="1">
+                    <label class="form-check-label" for="s4">Nausea</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input type="checkbox" class="form-check-input" id="s5" name="Others" value="1">
+                    <label class="form-check-label" for="s5">Others</label>
+                </div>
+                </div>
+                <div>
+                    <h6>Description</h6>
+                    <textarea required="" rows="4" id="symp_text" name="problem" class="form-control no-resize" placeholder="Add Description..."></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                    <button type="submit" name="submit_btn" id="submit_btn" class="btn btn-link waves-effect" style="background-color:#3a1f79e8; color:white; border:none; padding:10px;">SUBMIT</button> &nbsp;
+                    <button type="button" class="btn btn-link waves-effect" data-dismiss="modal" style="background-color:red; color:white; border:none; padding:10px;">CLOSE</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
         <!-- Modal -->
         <div class="modal fade" id="symptomsOpen" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
             aria-labelledby="staticBackdropLabel" aria-hidden="true">

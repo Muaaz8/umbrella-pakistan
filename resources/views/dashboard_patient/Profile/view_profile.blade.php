@@ -8,7 +8,7 @@
 @endsection
 
 @section('page_title')
-    <title>UHCS - My Profile</title>
+    <title>CHCC - My Profile</title>
 @endsection
 
 @section('top_import_file')

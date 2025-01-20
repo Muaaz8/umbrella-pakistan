@@ -8,7 +8,7 @@
 @section('top_import_file')
 @endsection
 @section('page_title')
-    <title>UHCS - Final Prescription</title>
+    <title>CHCC - Final Prescription</title>
 @endsection
 @section('bottom_import_file')
     <script type="text/javascript">

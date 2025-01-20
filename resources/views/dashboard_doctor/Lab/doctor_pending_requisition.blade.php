@@ -8,7 +8,7 @@
 @endsection
 
 @section('page_title')
-    <title>UHCS - Doctor Pending Labs</title>
+    <title>CHCC - Doctor Pending Labs</title>
 @endsection
 
 @section('top_import_file')

@@ -8,7 +8,7 @@
 @endsection
 
 @section('page_title')
-    <title>UHCS - Symptoms Checker</title>
+    <title>CHCC - Symptoms Checker</title>
 @endsection
 
 @section('top_import_file')

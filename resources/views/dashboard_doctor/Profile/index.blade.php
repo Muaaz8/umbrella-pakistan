@@ -6,7 +6,7 @@
     <link rel="icon" href="{{ asset('asset_frontend/images/logo.ico') }}" type="image/x-icon">
 @endsection
 @section('page_title')
-    <title>UHCS - Psychiatrist Info</title>
+    <title>CHCC - Psychiatrist Info</title>
 @endsection
 
 @section('top_import_file')

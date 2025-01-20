@@ -6,7 +6,7 @@
 @endsection
 
 @section('page_title')
-    <title>UHCS - Quest Orders</title>
+    <title>CHCC - Quest Orders</title>
 @endsection
 
 @section('top_import_file')

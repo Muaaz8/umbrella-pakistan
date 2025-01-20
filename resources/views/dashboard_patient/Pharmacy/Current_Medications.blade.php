@@ -10,7 +10,7 @@
 @section('top_import_file')
 @endsection
 @section('page_title')
-  <title>UHCS - Current Medication</title>
+  <title>CHCC - Current Medication</title>
 @endsection
 @section('bottom_import_file')
     <script src="{{asset('assets\js\patient_dashboard_script\refill_request.js')}}"></script>

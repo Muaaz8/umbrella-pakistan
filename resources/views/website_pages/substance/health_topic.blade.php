@@ -21,7 +21,7 @@
 
 
 @section('page_title')
-    <title>UHCS - Substance Abuse</title>
+    <title>CHCC - Substance Abuse</title>
 @endsection
 
 @section('top_import_file')
