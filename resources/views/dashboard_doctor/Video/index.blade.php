@@ -1837,7 +1837,7 @@ header("Access-Control-Allow-Origin: *"); @endphp
                             aria-labelledby="pills-home-tab">
                             <div>
                                 <div class="accordion accordion-flush" id="accordionFlushExample">
-                                    <div class="accordion-item">
+                                    {{-- <div class="accordion-item">
                                         <h2 class="accordion-header" id="flush-headingSix">
                                             <button class="accordion-button collapsed" type="button"
                                                 data-bs-toggle="collapse" data-bs-target="#flush-collapseSix"
@@ -1857,7 +1857,7 @@ header("Access-Control-Allow-Origin: *"); @endphp
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="flush-headingTwo">
                                             <button class="accordion-button collapsed" type="button"

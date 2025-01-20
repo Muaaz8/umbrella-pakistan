@@ -478,9 +478,13 @@ public function all_doctor_appointments(){
                 }
                 foreach ($patients as $patient) {
                     $sessionsfordoc = Session::where('patient_id', $patient['id'])->groupBy('doctor_id')->get();
-                    // dd($sessionsfordoc);
+                    $inclinicfordoc = InClinics::where('user_id', $patient['id'])->where('status', 'ended')->groupBy('doctor_id')->get();
                     $doctors = [];
                     foreach ($sessionsfordoc as $doc) {
+                        $name = Helper::get_name($doc['doctor_id']);
+                        array_push($doctors, $name);
+                    }
+                    foreach ($inclinicfordoc as $doc) {
                         $name = Helper::get_name($doc['doctor_id']);
                         array_push($doctors, $name);
                     }
@@ -491,8 +495,8 @@ public function all_doctor_appointments(){
                     if ($session != null) {
                         $patient->last_visit = Helper::get_date_with_format($session['date']);
                         $patient->last_diagnosis = $session['diagnosis'];
-                        $patient->doctors = $doc_str;
                     }
+                    $patient->doctors = $doc_str;
                 }
                 $val = 'all';
                 $states = State::where('country_code', 'US')->get();
