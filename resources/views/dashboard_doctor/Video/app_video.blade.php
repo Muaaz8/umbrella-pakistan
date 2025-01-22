@@ -4,7 +4,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 <link rel="icon" href="{{ asset('asset_frontend/images/logo.ico') }}" type="image/x-icon" />
 @endsection @section('page_title')
-<title>UHCS - Doctor Video Calling</title>
+<title>CHCC - Doctor Video Calling</title>
 @endsection @section('top_import_file')
 <link rel="stylesheet" href="{{ asset('assets\css\doctor_video_calling.css') }}" />
 @endsection @section('bottom_import_file') @php
@@ -18,7 +18,7 @@ header("Access-Control-Allow-Origin: *"); @endphp
             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
         },
     });
-    
+
     $("#mic_mute").click(function () {
         if ($("#mic_icon").hasClass('fa-microphone-slash')) {
             localTracks.audioTrack.setEnabled(true);
@@ -32,7 +32,7 @@ header("Access-Control-Allow-Origin: *"); @endphp
         }
     });
 
-    
+
     // ================= For ZipCodeDiv Ends================
     function endCall() {
         @php
@@ -313,13 +313,13 @@ header("Access-Control-Allow-Origin: *"); @endphp
                             <div>
                                 <h6>Patient Name:</h6>
                                 <p>
-                                    
+
                                 </p>
                             </div>
                             <div>
                                 <h6>Patient Age:</h6>
                                 <p>
-                                    
+
                                 </p>
                             </div>
                         </div> -->

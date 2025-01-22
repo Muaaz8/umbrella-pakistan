@@ -5,7 +5,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <link rel="icon" href="{{ asset('asset_frontend/images/logo.ico') }}" type="image/x-icon" />
 @endsection @section('page_title')
-<title>UHCS - Doctor Video Calling</title>
+<title>CHCC - Doctor Video Calling</title>
 @endsection @section('top_import_file')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
@@ -54,7 +54,7 @@ header("Access-Control-Allow-Origin: *"); @endphp
                 $('#hand_'+e.pat_id).toggleClass('wave');
             }
         });
-        
+
     Echo.channel('end_patient_call')
         .listen('PatientCallEnd', (e) => {
             if (e.session_id == "{{ $therapy_session->id }}" && e.pat_id!= "{{ auth()->user()->id }}") {
@@ -298,18 +298,18 @@ header("Access-Control-Allow-Origin: *"); @endphp
         {
             const player = $(`
             <div id="player-wrapper-${uid}" class="doc_user position-relative">
-                <div id="pat-name-${uid}" class="user_Name">${username} 
+                <div id="pat-name-${uid}" class="user_Name">${username}
                     <i id="hand_${uid}" class="fa-solid"></i><i id="mic_${uid}" class="fa-solid"></i></div>
             </div>
        `    );
             $('#mems').append('<li id="pat-head-'+uid+'"><i class="fa-regular fa-user px-1"></i>'+username+'</li>');
             $("#remote-playerlist").append(player);
         }
-        if (mediaType === 'video') {           
-            user.videoTrack.play(`player-wrapper-${uid}`);  
+        if (mediaType === 'video') {
+            user.videoTrack.play(`player-wrapper-${uid}`);
         }
         if (mediaType === 'audio') {
-            user.audioTrack.play(); 
+            user.audioTrack.play();
         }
 
     }
@@ -327,7 +327,7 @@ header("Access-Control-Allow-Origin: *"); @endphp
         // {
         //     if(document.getElementById("player-wrapper-"+id) === null)
         //     {
-                
+
         //     }
         //     else
         //     {
@@ -398,7 +398,7 @@ header("Access-Control-Allow-Origin: *"); @endphp
             <div id="local-player" class="doc_user position-relative">
                 <div class="user_Name d-flex align-items-center">
                     <div>{{$therapy_session->doc_name}}</div>
-                    <i id="local_mic" class="fa-solid"></i> 
+                    <i id="local_mic" class="fa-solid"></i>
                 </div>
             </div>
           </div>

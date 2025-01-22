@@ -14,7 +14,7 @@
 @endsection
 
 @section('page_title')
-<title>UHCS - Doctor Profile</title>
+<title>CHCC - Doctor Profile</title>
 @endsection
 
 @section('top_import_file')

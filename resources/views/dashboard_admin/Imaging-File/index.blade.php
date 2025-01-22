@@ -6,7 +6,7 @@
 @endsection
 
 @section('page_title')
-    <title>UHCS - Imaging File</title>
+    <title>CHCC - Imaging File</title>
 @endsection
 
 @section('top_import_file')

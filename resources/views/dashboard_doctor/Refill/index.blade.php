@@ -8,7 +8,7 @@
 @endsection
 
 @section('page_title')
-    <title>UHCS - Doctor Refill Requests</title>
+    <title>CHCC - Doctor Refill Requests</title>
 @endsection
 
 @section('top_import_file')

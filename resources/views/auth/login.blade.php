@@ -403,8 +403,8 @@
                             @csrf
                             <div class="login-input-fields d-flex flex-column gap-2">
                                 @if ($errors->any())
-                                    <div class="alert alert-danger">
-                                        <ul>
+                                    <div class="alert alert-danger p-2">
+                                        <ul class="m-0">
                                             @foreach ($errors->all() as $error)
                                                 <li>{{ $error }}</li>
                                             @endforeach

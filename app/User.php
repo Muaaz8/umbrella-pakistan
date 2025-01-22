@@ -471,10 +471,8 @@ class User extends Authenticatable
         $date = new DateTime($dateAndTime);
 
         $date->setTimezone(new DateTimeZone($user->timeZone));
-        // dd($date->format('Y-m-d h:i A'));
 
         $format = array('date' => $date->format('m-d-Y'), 'time' => $date->format('h:i A'), 'datetime' => $date->format('Y-m-d h:i A'));
-        // dd($format);
         return $format;
     }
     public static function convert_user_timezone_to_utc($uid, $dateAndTime)

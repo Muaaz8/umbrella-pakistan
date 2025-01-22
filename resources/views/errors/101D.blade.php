@@ -4,7 +4,7 @@
 @section('top_import_file')
 @endsection
 @section('page_title')
-    <title>UHCS - Umbrella Health Care Systems</title>
+    <title>CHCC - Umbrella Health Care Systems</title>
 @endsection
 @section('bottom_import_file')
 @endsection

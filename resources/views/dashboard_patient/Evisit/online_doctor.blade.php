@@ -8,7 +8,7 @@
 @endsection
 
 @section('page_title')
-    <title>UHCS - Online Doctors</title>
+    <title>CHCC - Online Doctors</title>
 @endsection
 
 @section('top_import_file')
@@ -616,14 +616,14 @@
             var temp = "";
             // alert($('.select2-selection__rendered'));
             // console.log($('.select2-selection__rendered'));
-            if ($('#s1').is(":checked") || $('#s2').is(":checked") || $('#s3').is(":checked") || $('#s4').is(
-                    ":checked") || $('#s5').is(":checked")) {
-                return true;
-            } else {
-                $('#submit_btn').type = '';
-                alert("Error: Please select atleast one of these symptoms");
-                return false;
-            }
+            // if ($('#s1').is(":checked") || $('#s2').is(":checked") || $('#s3').is(":checked") || $('#s4').is(
+            //         ":checked") || $('#s5').is(":checked")) {
+            //     return true;
+            // } else {
+            //     $('#submit_btn').type = '';
+            //     alert("Error: Please select atleast one of these symptoms");
+            //     return false;
+            // }
             $('#sympt').val(temp);
         });
 
@@ -780,16 +780,16 @@
                                                 onclick="window.location.href='/view/doctor/{{ \Crypt::encrypt($doctor->id) }}'">
                                                 View
                                                 Profile </button>
-                                            <button type="button" id="{{ $doctor->id }}"
+                                            {{--<button type="button" id="{{ $doctor->id }}"
                                                 data-doctor="{{ $doctor->id }}"
                                                 data-specialization="{{ $doctor->specialization }}" type="button"
                                                 class="btn btn-primary symptomsOpen">
                                                 TALK TO DOCTOR
-                                            </button>
-                                            {{-- <button id="{{ $doctor->id }}" class="btn btn-primary"
+                                            </button>--}}
+                                            <button id="{{ $doctor->id }}" class="btn btn-primary"
                                                 onclick="inquiryform(this)">
                                                 TALK TO DOCTOR
-                                            </button> --}}
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -816,6 +816,39 @@
             </div>
         </div>
 
+        <div class="modal fade" id="inquiryModal" style="font-weight: normal; " tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-md" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="symp">Inquiry Form<br>
+                        <small>Please fill this form to continue</small></h5>
+                    </div>
+                    <form action="{{route('patient_inquiry_store')}}" method="POST" class="p-3">
+                        @csrf
+                        <div class="modal-body" style="height: 150px;">
+                            @if($session!=null)
+                            <input type="hidden" id="price" name="price" value="{{ $session->price }}">
+                            @else
+                            <input type="hidden" id="price" name="price" value="">
+                            @endif
+                            <div class="">
+                                <input type="hidden" id="doc_sp_id" name="doc_sp_id">
+                                <input type="hidden" name="doc_id" id="doc_id">
+                                <input type='hidden' value="0" id='sympt' name='sympt'>
+                            </div>
+                            <div>
+                                <h6>Description</h6>
+                                <textarea required="" rows="6" id="symp_text" name="problem" class="form-control no-resize" placeholder="Add Description..."></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer mt-5">
+                                <button type="submit" name="submit_btn" id="submit_btn" class="btn btn-link waves-effect" style="background-color:#3a1f79e8; color:white; border:none; padding:10px;">SUBMIT</button> &nbsp;
+                                <button type="button" class="btn btn-link waves-effect" data-dismiss="modal" style="background-color:red; color:white; border:none; padding:10px;">CLOSE</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
         <!-- Modal -->
         <div class="modal fade" id="symptomsOpen" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
             aria-labelledby="staticBackdropLabel" aria-hidden="true">

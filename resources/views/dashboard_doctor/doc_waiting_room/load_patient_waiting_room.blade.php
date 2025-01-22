@@ -62,26 +62,26 @@
                         <input type="hidden" value="{{ $sessions[0]['session_id'] }}" id="now_session_id">
                         <button id="join_btn1" style="font-size:22px" class="{{ $sessions[0]['session_id'] }} join-btn"
                             onclick="joinBtnClick()">Join</button>
-                        <button id="symptom_detail" style="font-size:22px; background: #08295a;" class="join-btn"
+                        {{-- <button id="symptom_detail" style="font-size:22px; background: #08295a;" class="join-btn"
                             data-id="{{ $sessions[0]['patient_id'] }}" style="margin-top:10px !important;">Read
-                            symptoms</button>
+                            symptoms</button> --}}
                     @elseif (isset($sessions[0]['appointment_id']))
                         <button id="waiting_button" style="font-size:16px" onclick="javascript.void(0)"
                             class="btn btn-primary col-12 btn-raised"></button>
                         <button id="join_btn1" style="font-size:22px" class="{{ $sessions[0]['session_id'] }} join-btn"
                             onclick="joinBtnClick()">Join</button>
-                        <button id="symptom_detail" style="font-size:22px; background: #08295a;" class="join-btn"
+                        {{-- <button id="symptom_detail" style="font-size:22px; background: #08295a;" class="join-btn"
                             data-id="{{ $sessions[0]['patient_id'] }}" style="margin-top:10px !important;">Read
-                            symptoms</button>
+                            symptoms</button> --}}
                         <input type="hidden" value="{{ $sessions[0]['session_id'] }}" id="now_session_id">
                         <input type="hidden" value="{{ $sessions[0]['appointment_id'] }}" id="appointment_id">
                     @else
                         <input type="hidden" value="{{ $sessions[0]['session_id'] }}" id="now_session_id">
                         <button id="join_btn1" style="font-size:22px" class="{{ $sessions[0]['session_id'] }} join-btn"
                             onclick="joinBtnClick()">Join</button>
-                        <button id="symptom_detail" style="font-size:22px; background: #08295a;" class="join-btn"
+                        {{-- <button id="symptom_detail" style="font-size:22px; background: #08295a;" class="join-btn"
                             data-id="{{ $sessions[0]['patient_id'] }}" style="margin-top:10px !important;">Read
-                            symptoms</button>
+                            symptoms</button> --}}
                     @endif
                 </div>
 
@@ -167,26 +167,26 @@
                         <input type="hidden" value="{{ $sessions[0]['session_id'] }}" id="now_session_id">
                         <button id="join_btn1" style="font-size:22px" class="{{ $sessions[0]['session_id'] }} join-btn"
                             onclick="joinBtnClick()">Join</button>
-                        <button id="symptom_detail" style="font-size:22px; background: #08295a;" class="join-btn"
+                        {{-- <button id="symptom_detail" style="font-size:22px; background: #08295a;" class="join-btn"
                             data-id="{{ $sessions[0]['patient_id'] }}" style="margin-top:10px !important;">Read
-                            symptoms</button>
+                            symptoms</button> --}}
                     @elseif (isset($sessions[0]['appointment_id']))
                         <button id="waiting_button" style="font-size:16px" onclick="javascript.void(0)"
                             class="btn btn-primary col-12 btn-raised"></button>
                         <button id="join_btn1" style="font-size:22px" class="{{ $sessions[0]['session_id'] }} join-btn"
                             onclick="joinBtnClick()">Join</button>
-                        <button id="symptom_detail" style="font-size:22px; background: #08295a;" class="join-btn"
+                        {{-- <button id="symptom_detail" style="font-size:22px; background: #08295a;" class="join-btn"
                             data-id="{{ $sessions[0]['patient_id'] }}" style="margin-top:10px !important;">Read
-                            symptoms</button>
+                            symptoms</button> --}}
                         <input type="hidden" value="{{ $sessions[0]['session_id'] }}" id="now_session_id">
                         <input type="hidden" value="{{ $sessions[0]['appointment_id'] }}" id="appointment_id">
                     @else
                         <input type="hidden" value="{{ $sessions[0]['session_id'] }}" id="now_session_id">
                         <button id="join_btn1" style="font-size:22px"
                             class="{{ $sessions[0]['session_id'] }} join-btn" onclick="joinBtnClick()">Join</button>
-                        <button id="symptom_detail" style="font-size:22px; background: #08295a;" class="join-btn"
+                        {{-- <button id="symptom_detail" style="font-size:22px; background: #08295a;" class="join-btn"
                             data-id="{{ $sessions[0]['patient_id'] }}" style="margin-top:10px !important;">Read
-                            symptoms</button>
+                            symptoms</button> --}}
                     @endif
                 </div>
 

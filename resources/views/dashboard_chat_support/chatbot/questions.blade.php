@@ -8,7 +8,7 @@
 @endsection
 
 @section('page_title')
-    <title>UHCS - Chatbot Questions</title>
+    <title>CHCC - Chatbot Questions</title>
 @endsection
 
 @section('top_import_file')
@@ -33,7 +33,7 @@
                                <button type="button" class="btn option-view-btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Question</button>
                             </div>
                         </div>
-    
+
                       <div class="wallet-table">
                         <table class="table">
                             <thead>

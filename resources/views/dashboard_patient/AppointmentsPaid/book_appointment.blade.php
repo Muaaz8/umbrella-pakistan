@@ -14,7 +14,7 @@
 @endsection
 
 @section('page_title')
-    <title>UHCS - Book Appointment</title>
+    <title>CHCC - Book Appointment</title>
 @endsection
 @section('bottom_import_file')
 

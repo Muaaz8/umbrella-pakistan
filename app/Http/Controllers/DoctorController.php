@@ -719,33 +719,21 @@ class DoctorController extends Controller
     }
     public function dash_store_symptoms_inquiry(Request $request)
     {
-        // dd($request);
         $symp = $request->validate([
             'doc_sp_id' =>  ['required'],
             'doc_id' =>  ['required', 'string', 'max:255'],
-            'Headache' =>  ['required', 'string', 'max:2'],
-            'Flu' =>  ['required', 'string', 'max:2'],
-            'Fever' =>  ['required', 'string', 'max:2'],
-            'Nausea' =>  ['required', 'string', 'max:2'],
-            'Others' =>  ['required', 'string', 'max:2'],
+            // 'Headache' =>  ['required', 'string', 'max:2'],
+            // 'Flu' =>  ['required', 'string', 'max:2'],
+            // 'Fever' =>  ['required', 'string', 'max:2'],
+            // 'Nausea' =>  ['required', 'string', 'max:2'],
+            // 'Others' =>  ['required', 'string', 'max:2'],
             'problem' =>  ['required', 'string', 'max:255'],
         ]);
 
         $patient_id = Auth::user()->id;
         $doc_id = $symp['doc_id'];
-        // dd($patient_id);
 
-        $symp_id = Symptom::create([
-            'patient_id' =>  $patient_id,
-            'doctor_id' => $symp['doc_id'],
-            'headache' => $symp['Headache'],
-            'flu' => $symp['Flu'],
-            'fever' => $symp['Fever'],
-            'nausea' => $symp['Nausea'],
-            'others' => $symp['Others'],
-            'description' => $symp['problem'],
-            'status' => 'pending'
-        ])->id;
+        $symp_id = 0;
 
         $check_session_already_have = DB::table('sessions')
             ->where('doctor_id', $symp['doc_id'])
@@ -756,14 +744,14 @@ class DoctorController extends Controller
 
         $session_price = "";
         if ($check_session_already_have > 0) {
-            $session_price_get = DB::table('specalization_price')->where('spec_id', $request->doc_sp_id)->where('state_id', auth()->user()->state_id)->first();
+            $session_price_get = DB::table('specalization_price')->where('spec_id', $request->doc_sp_id)->first();
             if ($session_price_get->follow_up_price != null) {
                 $session_price = $session_price_get->follow_up_price;
             } else {
                 $session_price = $session_price_get->initial_price;
             }
         } else {
-            $session_price_get = DB::table('specalization_price')->where('spec_id', $request->doc_sp_id)->where('state_id', auth()->user()->state_id)->first();
+            $session_price_get = DB::table('specalization_price')->where('spec_id', $request->doc_sp_id)->first();
             //dd($session_price_get);
             $session_price = $session_price_get->initial_price;
         }
@@ -795,16 +783,15 @@ class DoctorController extends Controller
             'date' =>  $date,
             'status' => 'pending',
             'queue' => $queue,
-            'symptom_id' => $symp_id,
+            'symptom_id' => '',
             'remaining_time' => 'full',
             'channel' => $channelName,
             'price' => $session_price,
             'specialization_id' => $request->doc_sp_id,
             'session_id' => $new_session_id,
+            'validation_status' => "valid",
         ])->id;
-
-        // dd('ok');
-        return redirect()->route('patient_session_payment_page', ['id' => $session_id]);
+        return redirect()->route('patient_session_payment_page', ['id' => \Crypt::encrypt($session_id)]);
     }
 
     public function session_payment_page($session_id)
@@ -2764,10 +2751,11 @@ class DoctorController extends Controller
             }
             if(isset($patient->reason)){
                 $patient->inclinic = true;
+                $patient->last_diagnosis = $inclinic->reason;
             }else{
                 $patient->inclinic = false;
+                $patient->last_diagnosis = $session->diagnosis;
             }
-            $patient->last_diagnosis = $session->diagnosis;
             $patient->user_image = \App\Helper::check_bucket_files_url($patient->user_image);
         }
         $all_patients = collect($patients);

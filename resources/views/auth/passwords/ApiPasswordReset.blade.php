@@ -10,7 +10,7 @@
 
 
 @section('page_title')
-    <title>UHCS - Reset Password</title>
+    <title>CHCC - Reset Password</title>
 @endsection
 
 @section('top_import_file')

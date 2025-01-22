@@ -576,7 +576,7 @@ header {
 	.offer-banner>span {
         font-size: 1.1rem;
     }
-	
+
 	.logo>img {
         width: 40%;
     }
@@ -786,7 +786,7 @@ header {
             if (check == 0) {
                 $('.next').attr('disabled', true);
             } else {
-                $('.next').attr('disabled', false);
+                $('.next').attr('disabled', true);
             }
         });
 
@@ -1010,7 +1010,7 @@ header {
             var counter = classes.split('_');
             if ($('#' + classes).is(':checked')) {
                 check++;
-                $('.next').attr('disabled', false);
+                $('.next').attr('disabled', true);
                 $('.heading_' + counter[1]).css('color', 'white');
                 $('.price_' + counter[1]).css('color', 'white');
                 $('#' + classes).prop("checked", true);
@@ -1844,7 +1844,7 @@ header {
                                                     </ul>
                                                 </div>
                                                 <input type="button" name="next" class="next action-button m-0 mt-2"
-                                                    value="PROCEED TO CHECKOUT" />
+                                                    value="PROCEED TO CHECKOUT" disabled/>
                                             </div>
 
                                         </div>

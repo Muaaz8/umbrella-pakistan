@@ -9,7 +9,7 @@
 
 
 @section('page_title')
-<title>UHCS - Blocked Account</title>
+<title>CHCC - Blocked Account</title>
 @endsection
 
 @section('top_import_file')

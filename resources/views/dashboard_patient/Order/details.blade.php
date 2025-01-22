@@ -8,7 +8,7 @@
 @endsection
 
 @section('page_title')
-    <title>UHCS - Patient Orders</title>
+    <title>CHCC - Patient Orders</title>
 @endsection
 
 @section('top_import_file')

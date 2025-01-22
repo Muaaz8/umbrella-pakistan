@@ -8,7 +8,7 @@
 @endsection
 
 @section('page_title')
-    <title>UHCS - Doctor Dashboard</title>
+    <title>CHCC - Doctor Dashboard</title>
 @endsection
 
 @section('top_import_file')

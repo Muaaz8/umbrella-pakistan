@@ -8,7 +8,7 @@
 @endsection
 
 @section('page_title')
-    <title>UHCS - Doctor Refill Requests</title>
+    <title>CHCC - Doctor Refill Requests</title>
 @endsection
 
 @section('top_import_file')
@@ -75,10 +75,10 @@
           <div class="col-md-12">
             <div class="row m-auto">
                 <div class="d-flex justify-content-between flex-wrap p-0">
-                    
+
                       <h3>Add Specialization Price</h3>
                       <button class="btn process-pay" id="add_specailization_modal">ADD SPECIALIZATION PRICE</button>
-                    
+
                   </div>
               <div class="wallet-table">
                 <table class="table">

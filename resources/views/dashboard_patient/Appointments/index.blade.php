@@ -9,7 +9,7 @@
 @section('top_import_file')
 @endsection
 @section('page_title')
-    <title>UHCS - All Appointments</title>
+    <title>CHCC - All Appointments</title>
 @endsection
 @section('bottom_import_file')
 <script src="{{asset('assets\js\searching.js')}}"></script>

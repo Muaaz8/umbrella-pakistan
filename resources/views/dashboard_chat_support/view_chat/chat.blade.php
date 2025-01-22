@@ -7,7 +7,7 @@
 @endsection
 
 @section('page_title')
-    <title>UHCS - Chat</title>
+    <title>CHCC - Chat</title>
 @endsection
 
 @section('top_import_file')
@@ -26,12 +26,12 @@
 <div class="dashboard-content">
             <div class="container-fluid">
                 <div class="p-4">
-                
+
                 <section class="msger">
                     <header class="msger-header">
                     <div class="msger-header-title">
                     <div class="d-flex align-items-center"><img style="border-radius:100%" src="{{$message->user_image}}" alt=""><p class="ms-2 fw-bold">{{$message->username}}</p></div>
-                        
+
                       </div>
                       <div class="msger-header-options">
 
@@ -42,16 +42,16 @@
                     @if($msg->to == auth()->user()->id)
                       <div class="msg left-msg">
                         <div
-                         
-                         
+
+
                         ><img class="right__img" src="{{$msg->user_image}}" alt=""></div>
-                  
+
                         <div class="msg-bubble">
                           <div class="msg-info">
                             <div class="msg-info-name">{{$msg->username}}</div>
                             <div class="msg-info-time">{{$msg->created_at['date']}} {{$msg->created_at['time']}}</div>
                           </div>
-                  
+
                           <div class="msg-text">
                           {{$msg->message}}
                           </div>
@@ -59,13 +59,13 @@
                       </div>
                       @else
                       <div class="msg right-msg">
-                  
+
                         <div class="msg-bubble">
                           <div class="msg-info">
                             <div class="msg-info-name">You</div>
                             <div class="msg-info-time">{{$msg->created_at['date']}} {{$msg->created_at['time']}}</div>
                           </div>
-                  
+
                           <div class="msg-text">
                           {{$msg->message}}
                           </div>

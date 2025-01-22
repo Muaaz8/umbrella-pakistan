@@ -6,7 +6,7 @@
 @endsection
 
 @section('page_title')
-    <title>UHCS - Psychiatrist Services</title>
+    <title>CHCC - Psychiatrist Services</title>
 @endsection
 
 @section('top_import_file')

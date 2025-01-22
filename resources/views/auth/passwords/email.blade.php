@@ -8,7 +8,7 @@
 
 
 @section('page_title')
-    <title>UHCS - Forgot Password</title>
+    <title>CHCC - Forgot Password</title>
 @endsection
 
 @section('top_import_file')

@@ -9,7 +9,7 @@
 
 
 @section('page_title')
-    <title>UHCS - Add Sign</title>
+    <title>CHCC - Add Sign</title>
 @endsection
 
 @section('top_import_file')

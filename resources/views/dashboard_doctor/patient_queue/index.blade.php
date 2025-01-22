@@ -8,7 +8,7 @@
 @endsection
 
 @section('page_title')
-    <title>UHCS - Waiting Room</title>
+    <title>CHCC - Waiting Room</title>
 @endsection
 
 @section('top_import_file')

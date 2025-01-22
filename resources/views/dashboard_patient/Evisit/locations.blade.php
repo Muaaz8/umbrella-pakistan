@@ -8,7 +8,7 @@
 @endsection
 
 @section('page_title')
-    <title>UHCS - E-visit</title>
+    <title>CHCC - E-visit</title>
 @endsection
 
 @section('top_import_file')
@@ -33,8 +33,8 @@
 <div class="dashboard-content" id="backto">
      <div class="container">
         <!-- <div class="row"> -->
-            <div class="row my-2 m-auto">     
-              
+            <div class="row my-2 m-auto">
+
               <div class="pb-2">
                 <h3>Select State</h3>
                 <h5 class="registered__state">Registered State: {{$Reg_state->name}}</h5>
@@ -132,10 +132,10 @@
                         </div> -->
                     </div>
 
-       
-        
+
+
                 </div>
-                
+
         <!-- </div> -->
         </div>
      </div>

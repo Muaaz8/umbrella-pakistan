@@ -8,7 +8,7 @@
 @endsection
 
 @section('page_title')
-    <title>UHCS - Therapy Event Payment</title>
+    <title>CHCC - Therapy Event Payment</title>
 @endsection
 
 @section('top_import_file')

@@ -6,7 +6,7 @@
     <link rel="icon" href="{{ asset('asset_frontend/images/logo.ico') }}" type="image/x-icon">
 @endsection
 @section('page_title')
-    <title>UHCS - Admin Dashboard</title>
+    <title>CHCC - Admin Dashboard</title>
 @endsection
 @section('top_import_file')
 

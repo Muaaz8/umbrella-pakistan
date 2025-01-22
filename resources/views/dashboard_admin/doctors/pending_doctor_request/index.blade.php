@@ -8,7 +8,7 @@
 @endsection
 
 @section('page_title')
-    <title>UHCS - Admin Dashboard</title>
+    <title>CHCC - Admin Dashboard</title>
 @endsection
 
 @section('top_import_file')
@@ -68,7 +68,7 @@
                               </tr>
                               @empty
                               <tr>
-                                <td colspan="6">
+                                <td colspan="3">
                                     <div class="m-auto text-center for-empty-div">
                                         <img src="{{ asset('assets/images/for-empty.png') }}" alt="">
                                         <h6>No Doctors To Show</h6>

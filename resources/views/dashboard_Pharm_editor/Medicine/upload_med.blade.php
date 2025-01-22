@@ -8,7 +8,7 @@
 @endsection
 
 @section('page_title')
-    <title>UHCS - Pharmacy Editor Dashboard</title>
+    <title>CHCC - Pharmacy Editor Dashboard</title>
 @endsection
 
 @section('top_import_file')

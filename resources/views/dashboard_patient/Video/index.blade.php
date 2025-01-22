@@ -4,7 +4,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 <link rel="icon" href="{{ asset('asset_frontend/images/logo.ico') }}" type="image/x-icon" />
 @endsection @section('page_title')
-<title>UHCS - Patient Video Calling</title>
+<title>CHCC - Patient Video Calling</title>
 @endsection @section('top_import_file')
 <link rel="stylesheet" href="{{ asset('/assets/css/patient_video_calling.css') }}" />
 @endsection @section('bottom_import_file')

@@ -13,7 +13,7 @@
 @endsection
 
 @section('page_title')
-    <title>UHCS - Book Appointment</title>
+    <title>CHCC - Book Appointment</title>
 @endsection
 @section('bottom_import_file')
     <style>
@@ -770,10 +770,13 @@
                                         <div class="appoint-btn"><button type="button" class="btn btn-primary"
                                                 onclick="window.location.href='/view/doctor/{{ \Crypt::encrypt($doc->id) }}'">
                                                 View Profile </button>
-                                            <button type="button" class="btn btn-primary symptomsOpen"
+                                            {{--<button type="button" class="btn btn-primary symptomsOpen"
                                                 id="{{ $doc->id }}" data-user="{{ $user }}"
                                                 data-doctor="{{ $doc->id }}"
                                                 data-specialization="{{ $doc->specialization }}">
+                                                Book Appointment
+                                            </button>--}}
+                                            <button type="button" class="btn btn-primary" onclick="bookAppointmentModal({{ $doc->id }})">
                                                 Book Appointment
                                             </button>
                                         </div>

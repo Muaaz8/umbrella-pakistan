@@ -383,18 +383,11 @@ window.intlTelInput(input, {
                         <h5 class="patient_det_head mb-2 mt-2">Account Information:</h5>
                         <div>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="mb-1">
                                         <label for="Email" class="form-label">Email: *</label>
                                         <input type="text" class="form-control" name="email" id="email" placeholder="email@example.com">
                                         <small id="email_error" class="text-danger"></small>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-1">
-                                        <label for="Username" class="form-label">Username: *</label>
-                                        <input type="text" class="form-control" name="username"  id="username" placeholder="UserName" maxlength="20" autocomplete="off" readonly onfocus="this.removeAttribute('readonly');"/>
-                                        <small id="username_error" class="text-danger"></small>
                                     </div>
                                 </div>
                                 <div class="col-md-6">

@@ -6,7 +6,7 @@
 @endsection
 
 @section('page_title')
-    <title>UHCS - Physical Locations</title>
+    <title>CHCC - Physical Locations</title>
 @endsection
 
 @section('top_import_file')

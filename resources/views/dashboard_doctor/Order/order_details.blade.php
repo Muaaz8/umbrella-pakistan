@@ -9,7 +9,7 @@
 @section('top_import_file')
 @endsection
 @section('page_title')
-    <title>UHCS - Order Detail</title>
+    <title>CHCC - Order Detail</title>
 @endsection
 @section('content')
 {{-- {{ dd($data) }} --}}

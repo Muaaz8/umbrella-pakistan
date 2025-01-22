@@ -8,7 +8,7 @@
 @endsection
 
 @section('page_title')
-    <title>UHCS - All Session</title>
+    <title>CHCC - All Session</title>
 @endsection
 
 @section('top_import_file')

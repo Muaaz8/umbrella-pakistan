@@ -8,7 +8,7 @@
 @endsection
 
 @section('page_title')
-    <title>UHCS - Account Setting</title>
+    <title>CHCC - Account Setting</title>
 @endsection
 
 @section('top_import_file')
