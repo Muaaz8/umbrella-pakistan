@@ -365,6 +365,9 @@ Route::group(['middleware' => 'redirecttovideo'], function () {
         return view('coming_soon');
     })->name('coming_soon');
     Route::get('email/verification/{user_id}/{hash}', "EmailVerificationController@email_verification");
+
+    Route::post('email/verification', "EmailVerificationController@otp_verification")->name('otp_verification');
+
     Route::get('/forgot_password', function () {
         return view('auth.passwords.email');
     })->name('forgot_password');

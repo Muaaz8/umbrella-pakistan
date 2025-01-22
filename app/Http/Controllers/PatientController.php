@@ -1746,8 +1746,10 @@ class PatientController extends Controller
 
         $x = rand(10e12, 10e16);
         $hash_to_verify = base_convert($x, 10, 36);
+        $otp = rand(100000, 999999);
         $data = [
             'hash' => $hash_to_verify,
+            'otp' => $otp,
             'user_id' => $userId,
             'to_mail' => $userEmail,
         ];
@@ -1760,6 +1762,7 @@ class PatientController extends Controller
             ->where('user_id', $userId)
             ->update([
                 'verification_hash_code' => $hash_to_verify,
+                'otp' => $otp,
             ]);
         return redirect()->back()->with('message', 'Resend email verification link successfully. please check your email.');
     }

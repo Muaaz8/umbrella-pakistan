@@ -36,8 +36,7 @@
                                                     <table width="100%">
                                                         <tbody>
                                                             <tr>
-                                                                <th
-                                                                    style="
+                                                                <th style="
                                       padding-top: 13px;
                                       padding-bottom: 13px;
                                     ">
@@ -69,8 +68,7 @@
                                                         <!-- BEGIN SECTION: Heading -->
                                                         <tbody>
                                                             <tr>
-                                                                <th
-                                                                    style="
+                                                                <th style="
                                                                         color: #4b4b4b;
                                                                         padding: 26px 52px 13px;
                                                                         background-color: #ffff;
@@ -79,13 +77,13 @@
                                                                         <tbody>
                                                                             <tr style="color: #4b4b4b">
                                                                                 <th>
-                                                                                    <h1
-                                                                                        style="
+                                                                                    <h1 style="
                                                                                             font-size: 28px;
                                                                                             font-weight: 700;
                                                                                             color: #4b4b4b;
                                                                                             text-transform: none;
                                                                                             text-align: center;
+                                                                                            text-decoration: underline;
                                                                                         ">
                                                                                         Email Verification
                                                                                     </h1>
@@ -98,11 +96,22 @@
                                                             <!-- END SECTION: Heading -->
                                                             <!-- BEGIN SECTION: Introduction -->
                                                             <tr>
+                                                                <th style="
+                                                                line-height: 26px;
+                                                                text-align: center;
+                                                                margin: 0;
+                                                                padding: 9px 20px;
+                                                            ">
+                                                                    <h2 style="text-align: center; margin: 0px;">OTP (One Time Password)</h2>
+                                                                    <h4 style="margin: 5px">{{ $data['otp'] }}</h4>
+                                                                </th>
+
+                                                            </tr>
+                                                            <tr>
                                                                 <th style="padding: 0px 45px; background: #fff;">
 
 
-                                                                    <p
-                                                                        style="
+                                                                    <p style="
                                                                             font-size: 16px;
                                                                             line-height: 26px;
                                                                             font-weight: 400;
@@ -139,8 +148,7 @@
 
                                                             <!-- BEGIN SECTION: Divider -->
                                                             <tr>
-                                                                <th
-                                                                    style="
+                                                                <th style="
                                       background-color: #fff;
                                       padding: 26px 52px;
                                     ">
@@ -152,8 +160,7 @@
                                               border-top-color: #dadada;
                                               border-top-style: solid;
                                               background-color: #ffffff;
-                                            "
-                                                                                    valign="top"></th>
+                                            " valign="top"></th>
                                                                             </tr>
                                                                         </tbody>
                                                                     </table>
@@ -162,8 +169,7 @@
                                                             <!-- END SECTION: Divider -->
                                                             <!-- BEGIN SECTION: Closing Text -->
                                                             <tr id="section-1468276" class="section closing_text">
-                                                                <th data-key="1468276_closing_text" class="text"
-                                                                    style="
+                                                                <th data-key="1468276_closing_text" class="text" style="
                                       font-family: -apple-system,
                                         BlinkMacSystemFont, 'Segoe UI', Arial,
                                         'Karla';
@@ -175,8 +181,7 @@
                                       text-align: center;
                                       background-color: #fff;
                                     ">
-                                                                    <p
-                                                                        style="
+                                                                    <p style="
 
                                         font-family: -apple-system,
                                           BlinkMacSystemFont, 'Segoe UI', Arial,
@@ -207,8 +212,7 @@
                                     <table style="min-width: 100%">
                                         <tbody>
                                             <tr>
-                                                <td class="section_wrapper_th"
-                                                    style="
+                                                <td class="section_wrapper_th" style="
                               background-color: #fff;
                               padding: 0 52px;
                             ">
@@ -221,8 +225,7 @@
                                                                         <tbody>
                                                                             <tr>
                                                                                 <!-- BEGIN : Column 1 of 2 : SOCIAL_BLOCK -->
-                                                                                <th width="50%"
-                                                                                    style="
+                                                                                <th width="50%" style="
                                               padding-top: 26px;
                                               padding-bottom: 26px;
                                               border-top-width: 2px;
@@ -235,8 +238,7 @@
                                               border-right-color: #dadada;
                                               border-right-style: solid;
                                             ">
-                                                                                    <table width="100%"
-                                                                                        style="
+                                                                                    <table width="100%" style="
                                                 min-width: 100%;
                                                 text-align: center;
                                               ">
@@ -261,7 +263,8 @@
                                                         text-align: center;
                                                         cursor: pointer;
                                                       ">
-                                                                                                        <img style="height:30px !important;" src="https://demo.umbrellamd-video.com/assets/images/facebook.png"></img>
+                                                                                                        <img style="height:30px !important;"
+                                                                                                            src="https://demo.umbrellamd-video.com/assets/images/facebook.png"></img>
                                                                                                     </a>
                                                                                                     <a class="social-link"
                                                                                                         href="#"
@@ -275,7 +278,8 @@
                                                         text-align: center;
                                                         cursor: pointer;
                                                       ">
-                                                      <img src="https://demo.umbrellamd-video.com/assets/images/twitter.png" style="height:30px !important;"></img>
+                                                                                                        <img src="https://demo.umbrellamd-video.com/assets/images/twitter.png"
+                                                                                                            style="height:30px !important;"></img>
                                                                                                     </a>
                                                                                                     <a class="social-link"
                                                                                                         href="#"
@@ -289,7 +293,8 @@
                                                         text-align: center;
                                                         cursor: pointer;
                                                       ">
-                                                      <img src="https://demo.umbrellamd-video.com/assets/images/instagram.png" style="height:30px !important;"></img>
+                                                                                                        <img src="https://demo.umbrellamd-video.com/assets/images/instagram.png"
+                                                                                                            style="height:30px !important;"></img>
                                                                                                     </a>
                                                                                                     <a class="social-link"
                                                                                                         href="#"
@@ -303,7 +308,8 @@
                                                         text-align: center;
                                                         cursor: pointer;
                                                       ">
-                                                      <img src="https://demo.umbrellamd-video.com/assets/images/linkedin.png" style="height:30px !important;"></img>
+                                                                                                        <img src="https://demo.umbrellamd-video.com/assets/images/linkedin.png"
+                                                                                                            style="height:30px !important;"></img>
                                                                                                     </a>
                                                                                                 </th>
                                                                                             </tr>
@@ -312,8 +318,7 @@
                                                                                 </th>
                                                                                 <!-- END : Column 1 of 2 : SOCIAL_BLOCK -->
                                                                                 <!-- BEGIN : Column 2 of 2 : SHOP_BLOCK -->
-                                                                                <th width="50%"
-                                                                                    style="
+                                                                                <th width="50%" style="
 
                                               padding-top: 26px;
                                               padding-bottom: 26px;
@@ -324,8 +329,7 @@
                                               border-bottom-color: #dadada;
                                               border-bottom-style: solid;
                                             ">
-                                                                                    <table width="100%"
-                                                                                        style="
+                                                                                    <table width="100%" style="
                                                 min-width: 100%;
                                                 text-align: center;
                                               ">
@@ -333,8 +337,7 @@
                                                                                         <tbody>
                                                                                             <tr
                                                                                                 style="text-align: center;">
-                                                                                                <th width="100%"
-                                                                                                    style="
+                                                                                                <th width="100%" style="
                                                       padding-left: 5%;
                                                       font-size: 14px;
                                                       line-height: 24px;
@@ -342,7 +345,9 @@
                                                       color: #a3a1a1;
                                                       text-transform: none;
                                                     ">
-                                                                                                 625 School House Road #2, Lakeland, FL 33813
+                                                                                                    625 School House
+                                                                                                    Road #2, Lakeland,
+                                                                                                    FL 33813
                                                                                                     <br
                                                                                                         style="text-align: center" />
                                                                                                     Copyright © 2022
