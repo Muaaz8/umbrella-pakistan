@@ -11,7 +11,7 @@ class EmailVerificationController extends Controller
 {
     public function email_verification($user_id, $hash)
     {
-
+        // $user_id = request()->user_id;
         $user = DB::table('users_email_verification')->where('user_id', $user_id)->first();
         if ($hash == $user->verification_hash_code || $hash == $user->otp) {
             DB::table('users_email_verification')->where('user_id', $user_id)->update(['status' => '1']);
