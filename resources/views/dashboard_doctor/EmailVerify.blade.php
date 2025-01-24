@@ -36,6 +36,22 @@
         border-radius: 40px;
         font-size: 14px;
       }
+      .otp-box {
+        width: 3rem;
+        height: 3rem;
+        text-align: center;
+        font-size: 1.5rem;
+        border: 2px solid #ccc;
+        border-radius: 0.5rem;
+        outline: none;
+        transition: border-color 0.3s;
+    }
+
+    .otp-box:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+
     </style>
   </head>
   <body>
@@ -73,6 +89,13 @@
           <div class="pb-3">
             <h5 class="m-0">Current status:</h5>
           </div>
+
+          @if(Session::has('error'))
+          <div class="alert alert-danger p-2">
+              {{ Session::get('error')}}
+          </div>
+          @endif
+
           <div class="col-md-3 col-sm-6 mb-4">
             <h6 class="check-email-text"><br></h6>
             <div class="reviewed_card_area reviewed-done">
@@ -101,10 +124,13 @@
                   <div class="reviewed_card_icon Email-confirm-wrap">
                     <img src="{{ asset('assets/images/verify-email.png') }}" alt="" />
                     <h6>Email Verification</h6>
-                    <form action="{{ route('resend') }}" id="form_send" method="POST">
-                      @csrf
-                      <button type="submit" class="resend-btn" id="resendMail"><span id="emailCounter"></span> Resend Email</button>
-                    </form>
+                    <div class="d-flex align-items-center justify-content-between">
+                        <form action="{{ route('resend') }}" id="form_send" method="POST">
+                            @csrf
+                            <button type="submit" class="resend-btn" id="resendMail"><span id="emailCounter"></span> Resend Email</button>
+                        </form>
+                        <button type="button" class="resend-btn" data-bs-toggle="modal" data-bs-target="#verify_otp">Verify OTP</button>
+                    </div>
                   </div>
 
                   <div class="reviewed_card_title reviewed-progress-checked">
@@ -428,5 +454,74 @@
       </div>
     </div>
   </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="verify_otp" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Verify OTP</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <p class="p-3 text-center">Please verify your email address to access the Community Healthcare Clinics web portal.</p>
+            <div class="d-flex justify-content-center align-items-center space-x-2 my-2">
+                <input name="num_1" type="text" maxlength="1" class="otp-box" />
+                <input name="num_2" type="text" maxlength="1" class="otp-box" />
+                <input name="num_3" type="text" maxlength="1" class="otp-box" />
+                <input name="num_4" type="text" maxlength="1" class="otp-box" />
+                <input name="num_5" type="text" maxlength="1" class="otp-box" />
+                <input name="num_6" type="text" maxlength="1" class="otp-box" />
+            </div>
+          </div>
+          <div class="modal-footer">
+            <form action="{{ route('otp_verification') }}" method="POST">
+                @csrf
+                <input type="hidden" name="otp" id="otp">
+                <input type="hidden" name="user_type" value="{{ Auth::user()->user_type }}">
+                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                <button class="btn btn-primary" id="verifyOtp">
+                    Verify Email
+                </button>
+            </form>
+        </div>
+      </div>
+      </div>
+    </div>
+
+
+    <script>
+            document.querySelectorAll('.otp-box').forEach((input, index, inputs) => {
+    input.addEventListener('input', (e) => {
+        if (e.target.value.length === 1 && index < inputs.length - 1) {
+            inputs[index + 1].focus();
+        } else if (e.target.value.length === 0 && index > 0) {
+            inputs[index - 1].focus();
+        }
+        updateOtpValue(inputs);
+    });
+
+    input.addEventListener('paste', (e) => {
+        e.preventDefault();
+        const pastedData = e.clipboardData.getData('text').slice(0, inputs.length);
+        pastedData.split('').forEach((char, i) => {
+            if (inputs[i]) {
+                inputs[i].value = char;
+            }
+        });
+        inputs[Math.min(pastedData.length, inputs.length) - 1]?.focus();
+        updateOtpValue(inputs);
+    });
+});
+
+function updateOtpValue(inputs) {
+    const otp = Array.from(inputs).map(input => input.value).join('');
+    document.getElementById('otp').value = otp;
+}
+
+    </script>
+
+
   </body>
 </html>

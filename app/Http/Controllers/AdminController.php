@@ -1917,10 +1917,12 @@ public function lab_approval_doctor(Request $req)
                 }
                 $x = rand(10e12, 10e16);
                 $hash_to_verify = base_convert($x, 10, 36);
+                $otp = rand(100000, 999999);
                 $data = [
                     'hash' => $hash_to_verify,
                     'user_id' => $user_id,
                     'to_mail' => $request['email'],
+                    'otp' => $otp,
                 ];
                 try {
                     Mail::to($request['email'])->send(new UserVerificationEmail($data));
@@ -1930,6 +1932,7 @@ public function lab_approval_doctor(Request $req)
                 DB::table('users_email_verification')->insert([
                     'verification_hash_code' => $hash_to_verify,
                     'user_id' => $user_id,
+                    'otp' => $otp,
                 ]);
                 return redirect()->back();
             } else {
@@ -1979,11 +1982,13 @@ public function lab_approval_doctor(Request $req)
                     ])->id;
                 }
                 $x = rand(10e12, 10e16);
+                $otp = rand(100000, 999999);
                 $hash_to_verify = base_convert($x, 10, 36);
                 $data = [
                     'hash' => $hash_to_verify,
                     'user_id' => $id,
                     'to_mail' => $request['email'],
+                    'otp' => $otp,
                 ];
                 try {
                     Mail::to($request['email'])->send(new UserVerificationEmail($data));
@@ -1993,6 +1998,7 @@ public function lab_approval_doctor(Request $req)
                 DB::table('users_email_verification')->insert([
                     'verification_hash_code' => $hash_to_verify,
                     'user_id' => $id,
+                    'otp' => $otp,
                 ]);
                 $type = auth()->user()->user_type;
                 if ($type == 'admin_lab' || $type == 'admin_pharmacy' || $type == 'admin_imaging') {
@@ -3857,6 +3863,7 @@ public function store_policy(Request $request){
 
     public function in_clinics_store(Request $request){
         $random_password = Str::random(8);
+        $otp = rand(100000, 999999);
         if(!isset($request->user_id)){
             $user_id = User::create([
                 'name' => $request->first_name,
@@ -3873,6 +3880,7 @@ public function store_policy(Request $request){
             DB::table('users_email_verification')->insert([
                 'user_id'=>$user_id,
                 'status'=>0,
+                'otp'=>$otp,
             ]);
         }else{
             $user_id = $request->user_id;

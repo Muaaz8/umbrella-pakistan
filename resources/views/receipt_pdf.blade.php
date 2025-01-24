@@ -214,7 +214,7 @@
                 </tr>
                 @if ($flag)
                     <tr>
-                        <td>Discount (5%):</td>
+                        <td>Discount ({{$discountPercentage}}%):</td>
                         <td class="right">Rs. -{{ number_format($prescription->sum('price')-$discount,2) }}</td>
                     </tr>
                 @endif

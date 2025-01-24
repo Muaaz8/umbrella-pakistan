@@ -272,9 +272,11 @@ class RegisterController extends Controller
                     ]);
                     $x = rand(10e12, 10e16);
                     $hash_to_verify = base_convert($x, 10, 36);
+                    $otp = rand(100000, 999999);
                     $data1 = [
                         'hash' => $hash_to_verify,
                         'user_id' => $user->id,
+                        'otp' => $otp,
                         'to_mail' => $user->email,
                     ];
                     try {
@@ -285,6 +287,7 @@ class RegisterController extends Controller
                     DB::table('users_email_verification')->insert([
                         'verification_hash_code' => $hash_to_verify,
                         'user_id' => $user->id,
+                        'otp' => $otp,
                     ]);
 
                     $data_email["email"] = $user->email;
@@ -392,11 +395,13 @@ class RegisterController extends Controller
                     'timeZone' => $data['timezone'],
                 ]);
                 $x = rand(10e12, 10e16);
+                $otp = rand(100000, 999999);
                 $hash_to_verify = base_convert($x, 10, 36);
                 $data1 = [
                     'hash' => $hash_to_verify,
                     'user_id' => $user->id,
                     'to_mail' => $user->email,
+                    'otp' => $otp,
                 ];
                 try {
                     Mail::to($user->email)->send(new UserVerificationEmail($data1));
@@ -406,6 +411,7 @@ class RegisterController extends Controller
                 DB::table('users_email_verification')->insert([
                     'verification_hash_code' => $hash_to_verify,
                     'user_id' => $user->id,
+                    'otp' => $otp,
                 ]);
                 return $user;
             }

@@ -72,6 +72,12 @@
                         <div>
                             @csrf
                             <li class="list-group-item">
+                                <label for="discountPercentage">Discount %</label>
+                                <div class="d-flex justify-content-around">
+                                    <input type="number" class="form-control" name="discountPercentage" id="discountPercentage" value="10">
+                                </div>
+                            </li>
+                            <li class="list-group-item">
                                 <div class="d-flex justify-content-around">
                                     <input type="hidden" name="session_id" value="{{ $img_order->id }}">
                                     <div>
@@ -194,9 +200,13 @@
 </div>
 
 <script>
+    $("#discountPercentage").keyup(function (e) {
+        $('input[type="checkbox"]').change();
+    });
     $($('input[type="checkbox"]')).change(function() {
         var total = 0;
-        var discount = 0.05;
+        var discountValue = $('#discountPercentage').val();
+        var discount = discountValue/100;
         var totalDiscount = 0;
         var selectedIds = [];
         var type;

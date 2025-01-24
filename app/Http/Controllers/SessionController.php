@@ -71,8 +71,8 @@ class SessionController extends Controller
         $prescription = DB::table('prescriptions')->where('session_id', '0')
             ->whereIn('id', $selectedItems)->get();
         foreach ($prescription as $item) {
-            // DB::table('prescriptions')->where('id', $item->id)->where('session_id', '0')->update(['title' => 'paid']);
-            // DB::table('tbl_cart')->where('pres_id', $item->id)->update(['purchase_status' => '0', 'checkout_status' => '0', 'status' => 'purchased']);
+            DB::table('prescriptions')->where('id', $item->id)->where('session_id', '0')->update(['title' => 'paid']);
+            DB::table('tbl_cart')->where('pres_id', $item->id)->update(['purchase_status' => '0', 'checkout_status' => '0', 'discount' => $request->discountPercentage, 'status' => 'purchased']);
 
             if ($item->type == "medicine") {
                 $item->product = AllProducts::find($item->medicine_id);
@@ -83,12 +83,10 @@ class SessionController extends Controller
             }
         }
 
-        // $discount = $request->sum('price')*0.05;
-        // $total = $request->sum('price') - $discount;
-
         $discount = $request->discount;
         $total = $request->total_price;
-        $pdf = PDF::loadView('receipt_pdf', compact('prescription' , 'discount' , 'total' , 'payment'));
+        $discountPercentage = $request->discountPercentage;
+        $pdf = PDF::loadView('receipt_pdf', compact('prescription' , 'discount' , 'total' , 'payment','discountPercentage'));
         return $pdf->stream('receipt.pdf');
     }
 
