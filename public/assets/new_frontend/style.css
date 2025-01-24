@@ -41,11 +41,11 @@ p {
     background: #082755;
 }
 
-html,
+/* html,
 body {
     width: 100%;
     overflow-x: hidden;
-}
+} */
 
 header {
     background-color: white;
@@ -231,6 +231,10 @@ header {
     transform: rotate(20deg);
     border-bottom-left-radius: 10px;
     z-index: -2;
+}
+
+.main-hero-section {
+    overflow: hidden;
 }
 
 #hero-section {
@@ -1110,6 +1114,7 @@ header {
 #solution-section {
     position: relative;
     min-height: 150px;
+    overflow-x: hidden;
 }
 
 .animated-shapes>img {
@@ -2051,6 +2056,10 @@ header {
 
 
 /* about css  */
+
+.about-page-container {
+    overflow-x: hidden;
+}
 
 .about-heading-section {
     padding: 15px 0;
@@ -4735,9 +4744,9 @@ header {
 /* DOCTORS PROFILE PAGE CSS */
 
 
-.profile_main {
-    height: 100vh;
-}
+/* .profile_main {
+    overflow-x: auto !important;
+} */
 
 
 .profile_container {
@@ -4896,6 +4905,13 @@ header {
 
     .underline3 {
         width: 55%;
+    }
+
+    .disclaimer-blob {
+        /* width: 500px;
+        left: -250px;
+        top: 100px; */
+        display: none;
     }
 }
 

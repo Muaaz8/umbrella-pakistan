@@ -117,9 +117,36 @@
                     @endif
                 </div>
             </div>
+            <div class="doctor_services">
+                <div class="profile_icon d-flex align-items-center gap-2">
+                    <div class="icon_container rounded-circle d-flex p-2 x bg-primary">
+                        <i class="fa-solid fa-hospital-user fs-4 p-1"></i>
+                    </div>
+                    <h3>Services</h3>
+                </div>
+                <div class="row gy-3 gx-4 m-3 profile_service">
+                    @if (isset($doctor->details->procedures))
+                    @foreach ($doctor->details->procedures as $item)
+                    <div class="col-md-6 col-12">
+                        <div class="d-flex align-items-center gap-3 rounded-5 py-2 px-3">
+                            <i class="fa-solid fa-check text-primary"></i>
+                            <p>{{$item}}</p>
+                        </div>
+                    </div>
+                    @endforeach
+                    @else
+                    <div class="col-md-6 col-12">
+                        <div class="d-flex align-items-center gap-3 rounded-5 py-2 px-3">
+                            <i class="fa-solid fa-check text-primary"></i>
+                            <p>No Data Available</p>
+                        </div>
+                    </div>
+                    @endif
+                </div>
+            </div>
         </div>
         <div class="d-flex gap-3 mt-3 mt-md-0 gap-md-5 col-12 col-md-4 flex-md-column flex-column-reverse">
-            <div class="doctor_info rounded-4 d-flex flex-column gap-2">
+            <div class="doctor_info rounded-4 d-flex flex-column gap-2 position-sticky top-0">
                 <h3 class="ps-4 pt-4 pr-4"><u>About the Doctor</u></h3>
                 <div class="doctor_experience d-flex flex-column gap-3">
                     <div class="d-flex gap-2 align-items-baseline ps-4 pe-4">
@@ -164,33 +191,6 @@
                         @endif
                         <i class="fa-solid fa-arrow-right-long"></i>
                     </div>
-                </div>
-            </div>
-            <div class="doctor_services">
-                <div class="profile_icon d-flex align-items-center gap-2">
-                    <div class="icon_container rounded-circle d-flex p-2 x bg-primary">
-                        <i class="fa-solid fa-hospital-user fs-4 p-1"></i>
-                    </div>
-                    <h3>Services</h3>
-                </div>
-                <div class="row gy-3 gx-4 m-3 profile_service">
-                    @if (isset($doctor->details->procedures))
-                    @foreach ($doctor->details->procedures as $item)
-                    <div class="col-12">
-                        <div class="d-flex align-items-center gap-3 rounded-5 py-2 px-3">
-                            <i class="fa-solid fa-check text-primary"></i>
-                            <p>{{$item}}</p>
-                        </div>
-                    </div>
-                    @endforeach
-                    @else
-                    <div class="col-md-6 col-12">
-                        <div class="d-flex align-items-center gap-3 rounded-5 py-2 px-3">
-                            <i class="fa-solid fa-check text-primary"></i>
-                            <p>No Data Available</p>
-                        </div>
-                    </div>
-                    @endif
                 </div>
             </div>
         </div>

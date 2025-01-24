@@ -59,7 +59,7 @@
 @php
     $page = DB::table('pages')->where('url', '/about-us')->first();
 @endphp
-    <main>
+    <main class="about-page-container">
         <div class="about_heading_img">
             <div class="about_heading_inner_div">
                 <h1>ABOUT US</h1>
