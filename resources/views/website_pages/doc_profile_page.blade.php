@@ -54,6 +54,53 @@
                     </div>
                 </div>
             </div>
+            <div class="accordion appointment-date-container" id="accordionExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                        <div class="accordion-btn-inside d-flex justify-content-between w-100">
+                            <div>
+                                <i class="fa-solid fa-clock text-primary"></i>
+                                <span class="appointment-avi ms-1 text-primary fw-bold">Available Tomorrow</span>
+                            </div>
+                            <span class="appointment-time me-2">10:00 AM - 4:00 PM</span>
+                        </div>
+                    </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                    <div class="accordion-body d-flex flex-column gap-2">
+                        <div class="d-flex justify-content-between w-100">
+                            <span>Monday</span>
+                            <span>10:00 AM - 4:00 PM</span>
+                        </div>
+                        <div class="d-flex justify-content-between w-100">
+                            <span>Tuesday</span>
+                            <span>10:00 AM - 4:00 PM</span>
+                        </div>
+                        <div class="d-flex justify-content-between w-100">
+                            <span>Wednesday</span>
+                            <span>10:00 AM - 4:00 PM</span>
+                        </div>
+                        <div class="d-flex justify-content-between w-100">
+                            <span>Thursday</span>
+                            <span>10:00 AM - 4:00 PM</span>
+                        </div>
+                        <div class="d-flex justify-content-between w-100">
+                            <span>Friday</span>
+                            <span>10:00 AM - 4:00 PM</span>
+                        </div>
+                        <div class="d-flex justify-content-between w-100">
+                            <span>Saturday</span>
+                            <span>10:00 AM - 4:00 PM</span>
+                        </div>
+                        <div class="d-flex justify-content-between w-100">
+                            <span>Sunday</span>
+                            <span>10:00 AM - 4:00 PM</span>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
             <div>
                 <h3>Short Bio</h3>
                 <ul class="bio_points flex flex-column gap-2 align-items-start">
@@ -146,7 +193,7 @@
             </div>
         </div>
         <div class="d-flex gap-3 mt-3 mt-md-0 gap-md-5 col-12 col-md-4 flex-md-column flex-column-reverse">
-            <div class="doctor_info rounded-4 d-flex flex-column gap-2 position-sticky top-0">
+            <div class="doctor_info rounded-4 d-flex flex-column gap-2 position-sticky">
                 <h3 class="ps-4 pt-4 pr-4"><u>About the Doctor</u></h3>
                 <div class="doctor_experience d-flex flex-column gap-3">
                     <div class="d-flex gap-2 align-items-baseline ps-4 pe-4">

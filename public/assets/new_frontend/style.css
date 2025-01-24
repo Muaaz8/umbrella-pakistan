@@ -2054,7 +2054,6 @@ header {
     right: 0;
 }
 
-
 /* about css  */
 
 .about-page-container {
@@ -4749,6 +4748,7 @@ header {
 } */
 
 
+
 .profile_container {
     background: var(--lightgray);
     width: 95%;
@@ -4816,14 +4816,17 @@ header {
     border: 1px solid rgba(128, 128, 128, 0.411);
     border-bottom: 0;
     background: #ffffff3f;
+    top: 20px;
 }
 
+.appointment-date-container .accordion-button:not(.collapsed) {
+    background-color: white;
+}
 
 .doctor_exp_text {
     color: rgb(88, 88, 88)2;
     line-height: 1rem;
 }
-
 
 @media only screen and (max-width: 576px) {
     .alphabet {
