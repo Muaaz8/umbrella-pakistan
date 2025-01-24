@@ -4891,6 +4891,7 @@ header {
     .contact-content {
         padding-top: 0;
         align-items: center;
+        margin: auto 0 5.5rem 0;
     }
 
     .underline3 {
