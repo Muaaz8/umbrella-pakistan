@@ -888,7 +888,7 @@ class AppointmentController extends Controller
                 'Saturday' => 'sat',
                 'Sunday' => 'sun',
             ];
-            for ($i = 0; $i < 7; $i++) {
+            for ($i = 0; $i <= 7; $i++) {
                 $currentDate = $startDate->copy()->addDays($i);
                 $dayName = $currentDate->format('l');
                 if ($availability[$dayMap[$dayName]] === 1) {

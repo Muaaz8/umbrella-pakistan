@@ -66,6 +66,12 @@ function bookAppointmentModal(doc_id){
             $.each (dates, function (key, date) {
                 $('#d2').append('<option value="'+date+'">'+date+'</option>');
             });
+
+            const appointmentDate = new URLSearchParams(window.location.search).get('date');
+            if (appointmentDate && dates.includes(appointmentDate)) {
+                $('#d2').val(appointmentDate).trigger('change');
+            }
+
             if(doc.status=='online'){
                 $('#stat').append('<i class="fa fa-circle" style="color:green;"></i> '+doc.status);
             }

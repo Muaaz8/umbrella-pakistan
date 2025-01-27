@@ -91,6 +91,13 @@ Route::get('/doctor-profile/{id}',function($id){
     if($doctor){
         $doctor->details = DB::table('doctor_details')->where('doctor_id',$id)->first();
         $doctor->specializations = DB::table('specializations')->where('id',$doctor->specialization)->first();
+        $doctor->schedules = DB::table('doctor_schedules')->where('doctorID',$id)->get();
+
+        foreach($doctor->schedules as $sc){
+            $sc->from_time = User::convert_utc_to_user_timezone($id,$sc->from_time)['time'];
+            $sc->to_time = User::convert_utc_to_user_timezone($id,$sc->to_time)['time'];
+        }
+
         if($doctor->details){
             $doctor->details->certificates = json_decode($doctor->details->certificates);
             $doctor->details->conditions = json_decode($doctor->details->conditions);

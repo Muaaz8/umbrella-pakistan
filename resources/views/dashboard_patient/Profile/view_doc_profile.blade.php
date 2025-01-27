@@ -35,24 +35,37 @@ $.ajaxSetup({
 </script>
 <script src="{{asset('assets\js\doctor_dashboard_script\book_appointment.js?n=1')}}"></script>
 <script>
-    const mobileScreen = window.matchMedia("(max-width: 990px )");
-    $(document).ready(function () {
-      $(".dashboard-nav-dropdown-toggle").click(function () {
-        $(this)
-          .closest(".dashboard-nav-dropdown")
-          .toggleClass("show")
-          .find(".dashboard-nav-dropdown")
-          .removeClass("show");
-        $(this).parent().siblings().removeClass("show");
-      });
-      $(".menu-toggle").click(function () {
-        if (mobileScreen.matches) {
-          $(".dashboard-nav").toggleClass("mobile-show");
-        } else {
-          $(".dashboard").toggleClass("dashboard-compact");
-        }
-      });
-    });
+
+ $(document).ready(function () {
+  const mobileScreen = window.matchMedia("(max-width: 990px )");
+  const urlParams = new URLSearchParams(window.location.search);
+  const appointmentDate = urlParams.get('date');
+
+  if (appointmentDate) {
+    bookAppointmentModal({{ $doc->id }}, {{ auth()->user()->id }});
+    $('#d2').val(appointmentDate).trigger('change');
+  }
+
+  $(".dashboard-nav-dropdown-toggle").click(function () {
+    $(this)
+      .closest(".dashboard-nav-dropdown")
+      .toggleClass("show")
+      .find(".dashboard-nav-dropdown")
+      .removeClass("show");
+    $(this).parent().siblings().removeClass("show");
+  });
+
+  $(".menu-toggle").click(function () {
+    if (mobileScreen.matches) {
+      $(".dashboard-nav").toggleClass("mobile-show");
+    } else {
+      $(".dashboard").toggleClass("dashboard-compact");
+    }
+  });
+});
+
+
+
 </script>
 @endsection
 
@@ -274,7 +287,7 @@ $.ajaxSetup({
 
                                     <div class="d-flex flex-column mb-3">
                                         <span class="heading d-block">Choose Appointment Date</span>
-                                        <span class="subheadings"><input type="date" name="" id=""></span>
+                                        <span class="subheadings"><input type="date" name="" id="app-date"></span>
                                     </div>
 
                                     <div class="d-flex flex-column mb-3">

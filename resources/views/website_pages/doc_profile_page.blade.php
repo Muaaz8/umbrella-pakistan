@@ -19,6 +19,7 @@
 @endsection
 
 @section('content')
+
 <main class="profile_main d-flex align-items-center justify-content-center w-100 h-100 py-sm-4 py-2">
     <div class="profile_container row px-sm-3 px-1 py-4">
         <div class="col-12 col-md-8 d-flex flex-column gap-4">
@@ -54,53 +55,180 @@
                     </div>
                 </div>
             </div>
+
             <div class="accordion appointment-date-container" id="accordionExample">
                 <div class="accordion-item">
                     <h2 class="accordion-header">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                        <div class="accordion-btn-inside d-flex justify-content-between w-100">
-                            <div>
-                                <i class="fa-solid fa-clock text-primary"></i>
-                                <span class="appointment-avi ms-1 text-primary fw-bold">Available Tomorrow</span>
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                            <div class="accordion-btn-inside d-flex justify-content-between w-100">
+                                <div>
+                                    <i class="fa-solid fa-clock text-primary"></i>
+                                    <span class="appointment-avi ms-1 text-primary fw-bold">
+                                        @php
+                                        $daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+
+                                        $currentDay = now()->dayOfWeek;
+                                        $currentTime = now()->setTimezone('Asia/Karachi')->format('h:i A');
+                                        $todaySchedule = null;
+                                        $nextSchedule = null;
+
+                                        foreach ($doctor->schedules as $schedule) {
+                                            foreach ($daysOfWeek as $index => $day) {
+                                                // Check if today's schedule is available
+                                                if ($index == $currentDay) {
+                                                    // $fromTime = \Carbon\Carbon::parse($schedule->from_time);
+                                                    // $toTime = \Carbon\Carbon::parse($schedule->to_time);
+                                                    $fromTime = $schedule->from_time;
+                                                    $toTime = $schedule->to_time;
+
+                                                    $currentTime = DateTime::createFromFormat('h:i A', $currentTime);
+                                                    $fromTime = DateTime::createFromFormat('h:i A', $fromTime);
+                                                    $toTime = DateTime::createFromFormat('h:i A', $toTime);
+
+                                                    if (
+                                                        ($schedule->mon && $index == 1) ||
+                                                        ($schedule->tues && $index == 2) ||
+                                                        ($schedule->weds && $index == 3) ||
+                                                        ($schedule->thurs && $index == 4) ||
+                                                        ($schedule->fri && $index == 5) ||
+                                                        ($schedule->sat && $index == 6) ||
+                                                        ($schedule->sun && $index == 0)
+                                                    ) {
+                                                        // Check if current time is within today's schedule
+                                                        if ($currentTime < $toTime) {
+                                                            $todaySchedule = [
+                                                                'day' => $day,
+                                                                'from_time' => $fromTime->format('h:i A'),
+                                                                'to_time' => $toTime->format('h:i A'),
+                                                            ];
+                                                            break 2;
+                                                        }
+                                                        // If time is past the 'to_time', look for the next available schedule
+                                                        elseif ($currentTime > $toTime) {
+                                                            continue;
+                                                        }
+                                                        // If the current time is before the 'from_time', use today's schedule
+                                                        elseif ($currentTime < $fromTime) {
+                                                            $todaySchedule = [
+                                                                'day' => $day,
+                                                                'from_time' => $fromTime->format('h:i A'),
+                                                                'to_time' => $toTime->format('h:i A'),
+                                                            ];
+                                                            break 2;
+                                                        }
+                                                    }
+                                                }
+
+                                                // If no schedule found for today, check for the next available schedule
+                                                if (
+                                                    ($schedule->mon && $index == 1) ||
+                                                    ($schedule->tues && $index == 2) ||
+                                                    ($schedule->weds && $index == 3) ||
+                                                    ($schedule->thurs && $index == 4) ||
+                                                    ($schedule->fri && $index == 5) ||
+                                                    ($schedule->sat && $index == 6) ||
+                                                    ($schedule->sun && $index == 0)
+                                                ) {
+                                                    $fromTime = \Carbon\Carbon::parse($schedule->from_time);
+                                                    $toTime = \Carbon\Carbon::parse($schedule->to_time);
+
+                                                    if ($index > $currentDay || ($index == $currentDay && $currentTime->lt($toTime))) {
+                                                        $nextSchedule = [
+                                                            'day' => $day,
+                                                            'from_time' => $fromTime->format('h:i A'),
+                                                            'to_time' => $toTime->format('h:i A'),
+                                                        ];
+                                                        break 2;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        @endphp
+
+                                        @if ($todaySchedule)
+                                            {{ "Available Today: " }}
+                                        @elseif ($nextSchedule)
+                                            {{ "Available: " . $nextSchedule['day'] }}
+                                        @else
+                                            {{ "No Schedule Available" }}
+                                        @endif
+                                    </span>
+                                </div>
+
+                                @if ($todaySchedule || $nextSchedule)
+                                    <span class="appointment-time me-2 fw-bold">
+                                        {{ $todaySchedule ? $todaySchedule['from_time'] . " - " . $todaySchedule['to_time']
+                                        : $nextSchedule['from_time'] . " - " . $nextSchedule['to_time'] }}
+                                    </span>
+                                @endif
                             </div>
-                            <span class="appointment-time me-2">10:00 AM - 4:00 PM</span>
-                        </div>
-                    </button>
+
+                        </button>
                     </h2>
                     <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                    <div class="accordion-body d-flex flex-column gap-2">
-                        <div class="d-flex justify-content-between w-100">
-                            <span>Monday</span>
-                            <span>10:00 AM - 4:00 PM</span>
+                        <div class="accordion-body d-flex flex-column gap-2">
+                            @forelse ($doctor->schedules as $schedule)
+                            @if ($schedule->mon == 1)
+                            <div onclick="setCookieFunction({{ $schedule->id }},{{ $schedule->user_id }},'{{ $schedule->to_time }}', 'Monday')"
+                                class="d-flex justify-content-between w-100 border-bottom p-2 pointer">
+                                <span>Monday</span>
+                                <span>{{ $schedule->from_time }} - {{ $schedule->to_time }}</span>
+                            </div>
+                            @endif
+                            @if ($schedule->tues == 1)
+                            <div onclick="setCookieFunction({{ $schedule->id }},{{ $schedule->user_id }},'{{ $schedule->to_time }}', 'Tuesday')"
+                                class="d-flex justify-content-between w-100 border-bottom p-2 pointer">
+                                <span>Tuesday</span>
+                                <span>{{ $schedule->from_time }} - {{ $schedule->to_time }}</span>
+                            </div>
+                            @endif
+                            @if ($schedule->weds == 1)
+                            <div onclick="setCookieFunction({{ $schedule->id }},{{ $schedule->user_id }},'{{ $schedule->to_time }}', 'Wednesday')"
+                                class="d-flex justify-content-between w-100 border-bottom p-2 pointer">
+                                <span>Wednesday</span>
+                                <span>{{ $schedule->from_time }} - {{ $schedule->to_time }}</span>
+                            </div>
+                            @endif
+                            @if ($schedule->thurs == 1)
+                            <div onclick="setCookieFunction({{ $schedule->id }},{{ $schedule->user_id }},'{{ $schedule->to_time }}', 'Thursday')"
+                                class="d-flex justify-content-between w-100 border-bottom p-2 pointer">
+                                <span>Thursday</span>
+                                <span>{{ $schedule->from_time }} - {{ $schedule->to_time }}</span>
+                            </div>
+                            @endif
+                            @if ($schedule->fri == 1)
+                            <div onclick="setCookieFunction({{ $schedule->id }},{{ $schedule->user_id }},'{{ $schedule->to_time }}', 'Friday')"
+                                class="d-flex justify-content-between w-100 border-bottom p-2 pointer">
+                                <span>Friday</span>
+                                <span>{{ $schedule->from_time }} - {{ $schedule->to_time }}</span>
+                            </div>
+                            @endif
+                            @if ($schedule->sat == 1)
+                            <div onclick="setCookieFunction({{ $schedule->id }},{{ $schedule->user_id }},'{{ $schedule->to_time }}', 'Saturday')"
+                                class="d-flex justify-content-between w-100 border-bottom p-2 pointer">
+                                <span>Saturday</span>
+                                <span>{{ $schedule->from_time }} - {{ $schedule->to_time }}</span>
+                            </div>
+                            @endif
+                            @if ($schedule->sun == 1)
+                            <div onclick="setCookieFunction({{ $schedule->id }},{{ $schedule->user_id }},'{{ $schedule->to_time }}', 'Sunday')"
+                                class="d-flex justify-content-between w-100 border-bottom p-2 pointer">
+                                <span>Sunday</span>
+                                <span>{{ $schedule->from_time }} - {{ $schedule->to_time }}</span>
+                            </div>
+                            @endif
+                            @empty
+                            <div class="d-flex justify-content-between w-100">
+                                <span>No Schedule Available</span>
+                            </div>
+                            @endforelse
                         </div>
-                        <div class="d-flex justify-content-between w-100">
-                            <span>Tuesday</span>
-                            <span>10:00 AM - 4:00 PM</span>
-                        </div>
-                        <div class="d-flex justify-content-between w-100">
-                            <span>Wednesday</span>
-                            <span>10:00 AM - 4:00 PM</span>
-                        </div>
-                        <div class="d-flex justify-content-between w-100">
-                            <span>Thursday</span>
-                            <span>10:00 AM - 4:00 PM</span>
-                        </div>
-                        <div class="d-flex justify-content-between w-100">
-                            <span>Friday</span>
-                            <span>10:00 AM - 4:00 PM</span>
-                        </div>
-                        <div class="d-flex justify-content-between w-100">
-                            <span>Saturday</span>
-                            <span>10:00 AM - 4:00 PM</span>
-                        </div>
-                        <div class="d-flex justify-content-between w-100">
-                            <span>Sunday</span>
-                            <span>10:00 AM - 4:00 PM</span>
-                        </div>
-                    </div>
                     </div>
                 </div>
             </div>
+
+
             <div>
                 <h3>Short Bio</h3>
                 <ul class="bio_points flex flex-column gap-2 align-items-start">
@@ -220,12 +348,13 @@
                         class="appointment_btn btn btn-primary d-flex align-items-center gap-2 justify-content-center rounded-top-0 w-100 rounded-bottom-4">
                         @if (Auth::check())
                         @if ($doctor->zip_code != "")
-                        <button class="py-2 bg-transparent border-0 text-white" data-bs-toggle="modal" data-bs-target="#appointmentModal">
+                        <button class="py-2 bg-transparent border-0 text-white" data-bs-toggle="modal"
+                            data-bs-target="#appointmentModal">
                             Book Appointment with American Doctor
                         </button>
                         @else
-                        <button class="py-2 bg-transparent border-0 text-white" onclick="window.location.href='/view/doctor/{{ \Crypt::encrypt($doctor->id) }}'"
-                        >
+                        <button class="py-2 bg-transparent border-0 text-white"
+                            onclick="window.location.href='/view/doctor/{{ \Crypt::encrypt($doctor->id) }}'">
                             Book Appointment Now
                         </button>
                         @endif
@@ -309,6 +438,41 @@
     </div>
 </div>
 
+
+<script>
+    
+    const setCookieFunction = (id, doctor_id , end_time, day) => {
+
+    const now = new Date();
+    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const currentDayIndex = now.getDay();
+    const targetDayIndex = daysOfWeek.indexOf(day);
+
+    const convertTo24Hour = (time) => {
+        let [hours, minutes] = time.split(/[: ]/).map(Number);
+        const isPM = time.toLowerCase().includes('pm');
+        const isAM = time.toLowerCase().includes('am');
+
+        if (isPM && hours !== 12) hours += 12;
+        if (isAM && hours === 12) hours = 0;
+
+        return { hours, minutes };
+    };
+
+    const { hours: endHour, minutes: endMinute } = convertTo24Hour(end_time);
+    const endTimeInMinutes = endHour * 60 + endMinute;
+
+    let daysToAdd = targetDayIndex - currentDayIndex;
+    if (daysToAdd <= 0) {
+        daysToAdd += 7;
+    }
+
+    now.setDate(now.getDate() + daysToAdd);
+    const expires = new Date(new Date().getTime() + 10 * 60 * 1000).toUTCString();
+    window.location.href = '/view/doctor/' + {!! json_encode(\Crypt::encrypt($doctor->id)) !!}+'?date='+now.toISOString().split('T')[0];
+};
+
+</script>
 
 
 @endsection
