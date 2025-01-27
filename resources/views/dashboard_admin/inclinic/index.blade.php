@@ -84,13 +84,13 @@
                                     <td>{{$item->user->email}}</td>
                                     <td>{{$item->created_at}}</td>
                                     <td data-label="Action">
-                                        <a>
+                                        {{-- <a>
                                             <form action="#" method="post">
                                                 @method('DELETE')
                                                 @csrf
                                                 <input class="btn btn-danger" type="submit" value="Delete" />
                                             </form>
-                                        </a>
+                                        </a> --}}
                                     </td>
                                 </tr>
                                 @empty

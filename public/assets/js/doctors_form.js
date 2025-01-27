@@ -482,7 +482,7 @@ $(document).ready(function(){
 
         var npi=$('#npi').val();
         exist = nipExists(npi);
-        if(npi.length!=10)
+        if(npi.length<3)
         {
             $('#npi_error').text('Please put a valid NPI');
             $('#npi').addClass('border-danger');
@@ -490,25 +490,25 @@ $(document).ready(function(){
         }
         else if(exist==1)
         {
-            $('#npi_error').text('NPI number already exist');
+            $('#npi_error').text('PMDC number already exist');
             $('#npi').addClass('border-danger');
             return false;
         }
         else{
             $('#npi_error').text('');
             $('#npi').removeClass('border-danger');
-            var npiRegex =new RegExp("^[a-zA-Z0-9]*$");
-            //var npiRegex =new RegExp('^[0-9]{1,45}$');
+            // var npiRegex =new RegExp("^[a-zA-Z0-9]*$");
+            // //var npiRegex =new RegExp('^[0-9]{1,45}$');
 
-            if(!npiRegex.test(npi))
-            {
-                $('#npi_error').text('NPI field contain only number');
-                $('#npi').addClass('border-danger');
-                return false;
-            }else{
-                $('#npi_error').text('');
-                $('#npi').removeClass('border-danger');
-            }
+            // if(!npiRegex.test(npi))
+            // {
+            //     $('#npi_error').text('NPI field contain only number');
+            //     $('#npi').addClass('border-danger');
+            //     return false;
+            // }else{
+                // $('#npi_error').text('');
+                // $('#npi').removeClass('border-danger');
+            // }
         }
 
         // var upin=$('#upin').val();
@@ -1224,7 +1224,7 @@ $(document).ready(function(){
 
                     var npi=$('#npi').val();
                     exist = nipExists(npi);
-                    if(npi.length!=10)
+                    if(npi.length<5)
                     {
                         $('#npi_error').text('Please put a valid PMDC number');
                         $('#npi').addClass('border-danger');
@@ -1241,18 +1241,18 @@ $(document).ready(function(){
                     else{
                         $('#npi_error').text('');
                         $('#npi').removeClass('border-danger');
-                        var npiRegex =new RegExp("^[a-zA-Z0-9]*$");
+                        // var npiRegex =new RegExp("^[a-zA-Z0-9]*$");
 
-                        if(!npiRegex.test(npi))
-                        {
-                            $('#npi_error').text('NPI field contain only number');
-                            $('#npi').addClass('border-danger');
-                            $(window).scrollTop(350);
-                            return false;
-                        }else{
-                            $('#npi_error').text('');
-                            $('#npi').removeClass('border-danger');
-                        }
+                        // if(!npiRegex.test(npi))
+                        // {
+                        //     $('#npi_error').text('NPI field contain only number');
+                        //     $('#npi').addClass('border-danger');
+                        //     $(window).scrollTop(350);
+                        //     return false;
+                        // }else{
+                        //     $('#npi_error').text('');
+                        //     $('#npi').removeClass('border-danger');
+                        // }
                     }
 
                     var specializations=$('#specializations').val();
