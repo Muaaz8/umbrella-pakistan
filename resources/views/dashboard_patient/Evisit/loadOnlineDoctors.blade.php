@@ -1,4 +1,4 @@
-<script>
+{{-- <script>
     $('.symptomsOpen').click(function(e) {
         e.preventDefault();
         $('#symptomsOpen').modal('show');
@@ -7,7 +7,7 @@
         $('#symptomsOpen').find('.modal-body #doctorId').val(doc_id);
         $('#symptomsOpen').find('.modal-body #specializationId').val(sp_id);
     });
-</script>
+</script> --}}
 @forelse ($doctors as $doctor)
     <div class="col-md-4 col-lg-3 col-sm-6 mb-3">
         <div class="card">
@@ -54,16 +54,16 @@
                         Profile </button>
                     {{-- <button id="{{ $doctor->id }}" type="button" class="btn btn-primary"
                         onclick="newinquiryform(this)"> --}}
-                        <button type="button" id="{{ $doctor->id }}"
+                        {{-- <button type="button" id="{{ $doctor->id }}"
                             data-doctor="{{ $doctor->id }}"
                             data-specialization="{{ $doctor->specialization }}" type="button"
                             class="btn btn-primary symptomsOpen">
                             TALK TO DOCTOR
+                        </button> --}}
+                        <button id="{{ $doctor->id }}" class="btn btn-primary"
+                            onclick="inquiryform(this)">
+                            TALK TO DOCTOR
                         </button>
-                    {{-- <button id="{{ $doctor->id }}" class="btn btn-primary"
-                                                onclick="inquiryform(this)">
-                                                TALK TO DOCTOR
-                                            </button> --}}
                 </div>
             </div>
         </div>

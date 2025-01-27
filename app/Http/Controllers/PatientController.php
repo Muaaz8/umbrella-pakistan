@@ -61,10 +61,7 @@ class PatientController extends Controller
         $med_prof_exists = MedicalProfile::where('user_id', $user_id)->get()->count();
         $update = false;
         $med_files = DB::table('medical_records')->where('user_id',$user_id)->get();
-        //$med_file = User::where('id',$user_id)->select('med_record_file')->first();
-        // dd($user_id);
-        // dd($med_file['med_record_file']);
-        // dd($user_id);
+
         if ($med_prof_exists >= 1) {
             $update = true;
             $profile = DB::table('medical_profiles')->where('user_id', $user_id)->orderByDesc('id')->first();
@@ -72,14 +69,14 @@ class PatientController extends Controller
             $profile->family_history = json_decode($profile->family_history);
             $profile->medication = json_decode($profile->medication);
             $profile->immunization_history = json_decode($profile->immunization_history);
-            $profile->updated_at = User::convert_utc_to_user_timezone($user_id, $profile->updated_at)['time'];
+            $profile->updated_at = User::convert_utc_to_user_timezone($user_id, $profile->updated_at)['datetime'];
             $profile->previous_symp = explode(",",$profile->previous_symp);
             array_pop($profile->previous_symp);
             $diseases = array("cancer", "hypertension", "heart-disease", "diabetes", "stroke", "mental", "drugs", "glaucoma", "bleeding", "others");
 
             return view('dashboard_patient.Medical_profile.index', compact('profile', 'update', 'diseases','med_files'));
         }
-        // dd('else');
+
         return redirect()->route('patient_update_medical_profile')->with('med_files', $med_files);
         // return view('dashboard_patient.Medical_profile.update_medical_form');
     }

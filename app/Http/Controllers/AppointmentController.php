@@ -442,7 +442,7 @@ class AppointmentController extends Controller
                     ->leftJoin('doctor_schedules',function ($join) {
                         $join->on('doctor_schedules.doctorID', '=' , 'users.id');
                         $join->where('doctor_schedules.title','=','Availability');
-                        $join->where('doctor_schedules.end','>',date('Y-m-d H:i:s'));
+                        // $join->where('doctor_schedules.end','>',date('Y-m-d H:i:s'));
                     })
                     ->where('users.specialization', $id)
                     ->where('users.active', '1')
@@ -838,16 +838,64 @@ class AppointmentController extends Controller
 
     public function get_doc_avail_dates(Request $request)
     {
-        //dd($request->all());
         $today = date("Y-m-d", strtotime(Carbon::today()));
-        $dates = DoctorSchedule::where('doctorID', $request['id'])->where('title', 'Availability')->where('date', '>=', $today)->orderBy('date', 'asc')->get();
+        $dates = DoctorSchedule::where('doctorID', $request['id'])->where('title', 'Availability')->orderBy('date', 'asc')->get();
+        $availability =
+        [
+            'mon' => 0,
+            'tues' => 0,
+            'weds' => 0,
+            'thurs' => 0,
+            'fri' => 0,
+            'sat' => 0,
+            'sun' => 0,
+        ];
         if ($dates != null) {
             foreach ($dates as $date) {
-                $date->date = User::convert_utc_to_user_timezone(auth()->user()->id, $date->start)['date'];
-                $date->start = User::convert_utc_to_user_timezone(auth()->user()->id, $date->start)['datetime'];
-                $date->end = User::convert_utc_to_user_timezone(auth()->user()->id, $date->end)['datetime'];
+                if($date->mon){
+                    $availability['mon'] = 1;
+                }
+                if($date->tues){
+                    $availability['tues'] = 1;
+                }
+                if($date->weds){
+                    $availability['weds'] = 1;
+                }
+                if($date->thurs){
+                    $availability['thurs'] = 1;
+                }
+                if($date->fri){
+                    $availability['fri'] = 1;
+                }
+                if($date->sat){
+                    $availability['sat'] = 1;
+                }
+                if($date->sun){
+                    $availability['sun'] = 1;
+                }
+                // $date->date = User::convert_utc_to_user_timezone(auth()->user()->id, $date->start)['date'];
+                // $date->start = User::convert_utc_to_user_timezone(auth()->user()->id, $date->start)['datetime'];
+                // $date->end = User::convert_utc_to_user_timezone(auth()->user()->id, $date->end)['datetime'];
             }
-            $data['dates'] = $dates;
+            $startDate = Carbon::today();
+            $datesToShow = [];
+            $dayMap = [
+                'Monday' => 'mon',
+                'Tuesday' => 'tues',
+                'Wednesday' => 'weds',
+                'Thursday' => 'thurs',
+                'Friday' => 'fri',
+                'Saturday' => 'sat',
+                'Sunday' => 'sun',
+            ];
+            for ($i = 0; $i < 7; $i++) {
+                $currentDate = $startDate->copy()->addDays($i);
+                $dayName = $currentDate->format('l');
+                if ($availability[$dayMap[$dayName]] === 1) {
+                    $datesToShow[] = $currentDate->toDateString();
+                }
+            }
+            $data['dates'] = $datesToShow;
             $data['user'] = auth()->user();
         } else {
             $data['dates'] = '';
@@ -1366,81 +1414,82 @@ class AppointmentController extends Controller
         // dd($request);
         // dd(substr($request->card_num, 0,1));
         $id = auth()->user()->id;
-        if ((isset($request->old_card))) {
-            $query = DB::table('card_details')
-                ->where('id', $request->card_no)
-                ->get();
-            // dd($query);
-            $pay = new PaymentController();
-            $profile = $query[0]->customerProfileId;
-            $payment = $query[0]->customerPaymentProfileId;
-            $amount = $request->amount_charge;
-            // dd($profile,$payment,$amount);
-            $response = ($pay->new_createPaymentwithCustomerProfile($amount, $profile, $payment));
-            $flag = false;
-        } else {
-            $this->validate($request, [
-                'card_holder_name' => 'required',
-                'card_holder_last_name' => 'required',
-                'card_num' => 'required|min:16',
-                'email' => 'required',
-                'phoneNumber' => 'required',
-                'month' => 'required|',
-                'year' => 'required|',
-                'cvc' => 'required|integer',
-                'state' => 'required',
-                'city' => 'required',
-                'zipcode' => 'required',
-                'address' => 'required',
-                'session_id' => 'required',
-                'amount_charge' => 'required',
-                'subject' => 'required',
-            ]);
-            $getSession = DB::table('sessions')->where('id', $request->session_id)->first();
-            $name = $request->card_holder_name . $request->card_holder_name_middle;
-            $city = City::find($request->city)->name;
-            $state = State::find($request->state)->name;
-            $request->card_num = str_replace('-', '', $request->card_num);
-            $input = [
-                'user' => [
-                    'description' => $request->card_holder_name . " " . $request->card_holder_last_name,
-                    'email' => $request->email,
-                    'firstname' => $request->card_holder_name,
-                    'lastname' => $request->card_holder_last_name,
-                    'phoneNumber' => $request->phoneNumber,
-                ],
-                'info' => [
-                    'subject' => $request->subject,
-                    'user_id' => $getSession->patient_id,
-                    'description' => $request->session_id,
-                    'amount' => $request->amount_charge,
-                ],
-                'billing_info' => [
-                    'amount' => $request->amount_charge,
-                    'credit_card' => [
-                        'number' => $request->card_num,
-                        'expiration_month' => $request->month,
-                        'expiration_year' => $request->year,
-                    ],
-                    'integrator_id' => $request->subject . '-' . $request->session_id,
-                    'csc' => $request->cvc,
-                    'billing_address' => [
-                        'name' => $name,
-                        'street_address' => $request->address,
-                        'city' => $city,
-                        'state' => $state,
-                        'zip' => $request->zipcode,
-                    ]
-                ]
-            ];
-            // dd($input);
-            // $request_data=new Request($input);
-            // dd($request_data);
-            $pay = new PaymentController();
-            $response = ($pay->new_createCustomerProfile($input));
-            $flag = true;
-        }
-
+        // if ((isset($request->old_card))) {
+        //     $query = DB::table('card_details')
+        //         ->where('id', $request->card_no)
+        //         ->get();
+        //     // dd($query);
+        //     $pay = new PaymentController();
+        //     $profile = $query[0]->customerProfileId;
+        //     $payment = $query[0]->customerPaymentProfileId;
+        //     $amount = $request->amount_charge;
+        //     // dd($profile,$payment,$amount);
+        //     $response = ($pay->new_createPaymentwithCustomerProfile($amount, $profile, $payment));
+        //     $flag = false;
+        // } else {
+        //     $this->validate($request, [
+        //         'card_holder_name' => 'required',
+        //         'card_holder_last_name' => 'required',
+        //         'card_num' => 'required|min:16',
+        //         'email' => 'required',
+        //         'phoneNumber' => 'required',
+        //         'month' => 'required|',
+        //         'year' => 'required|',
+        //         'cvc' => 'required|integer',
+        //         'state' => 'required',
+        //         'city' => 'required',
+        //         'zipcode' => 'required',
+        //         'address' => 'required',
+        //         'session_id' => 'required',
+        //         'amount_charge' => 'required',
+        //         'subject' => 'required',
+        //     ]);
+        //     $getSession = DB::table('sessions')->where('id', $request->session_id)->first();
+        //     $name = $request->card_holder_name . $request->card_holder_name_middle;
+        //     $city = City::find($request->city)->name;
+        //     $state = State::find($request->state)->name;
+        //     $request->card_num = str_replace('-', '', $request->card_num);
+        //     $input = [
+        //         'user' => [
+        //             'description' => $request->card_holder_name . " " . $request->card_holder_last_name,
+        //             'email' => $request->email,
+        //             'firstname' => $request->card_holder_name,
+        //             'lastname' => $request->card_holder_last_name,
+        //             'phoneNumber' => $request->phoneNumber,
+        //         ],
+        //         'info' => [
+        //             'subject' => $request->subject,
+        //             'user_id' => $getSession->patient_id,
+        //             'description' => $request->session_id,
+        //             'amount' => $request->amount_charge,
+        //         ],
+        //         'billing_info' => [
+        //             'amount' => $request->amount_charge,
+        //             'credit_card' => [
+        //                 'number' => $request->card_num,
+        //                 'expiration_month' => $request->month,
+        //                 'expiration_year' => $request->year,
+        //             ],
+        //             'integrator_id' => $request->subject . '-' . $request->session_id,
+        //             'csc' => $request->cvc,
+        //             'billing_address' => [
+        //                 'name' => $name,
+        //                 'street_address' => $request->address,
+        //                 'city' => $city,
+        //                 'state' => $state,
+        //                 'zip' => $request->zipcode,
+        //             ]
+        //         ]
+        //     ];
+        //     // dd($input);
+        //     // $request_data=new Request($input);
+        //     // dd($request_data);
+        //     $pay = new PaymentController();
+        //     $response = ($pay->new_createCustomerProfile($input));
+        //     $flag = true;
+        // }
+        $response['messages']['message'][0]['text'] = "Successful.";
+        $flag = false;
 
         if ($response['messages']['message'][0]['text'] == 'Successful.') {
             if ($flag) {

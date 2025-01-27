@@ -45,7 +45,7 @@ $totalsessions = \App\Session::where('status', 'ended')
         <nav class="dashboard-nav-list">
             <a href="{{ route('New_Patient_Dashboard') }}" class="dashboard-nav-item"><i class="fa-solid fa-house"></i>
                 Dashboard </a>
-            <a href="{{ route('symptom_checker') }}" class="dashboard-nav-item"><i class="fa-solid fa-virus"></i> Symptom Checker</a>
+            {{-- <a href="{{ route('symptom_checker') }}" class="dashboard-nav-item"><i class="fa-solid fa-virus"></i> Symptom Checker</a> --}}
             <a href="{{ route('patient_evisit_specialization') }}" class="dashboard-nav-item"><i
                 class="fa-solid fa-stethoscope"></i> E-Visit</a>
             <div class="dashboard-nav-dropdown">
@@ -69,8 +69,8 @@ $totalsessions = \App\Session::where('status', 'ended')
                         class="fa-solid fa-capsules"></i> Pharmacy</a>
                 <div class="dashboard-nav-dropdown-menu">
                     <a href="{{ route('pharmacy') }}" class="dashboard-nav-dropdown-item">View Medicines</a>
-                    <a href="{{ route('current_medication') }}" class="dashboard-nav-dropdown-item">Current
-                        Medications</a>
+                    {{-- <a href="{{ route('current_medication') }}" class="dashboard-nav-dropdown-item">Current
+                        Medications</a> --}}
                 </div>
             </div>
             <div class="dashboard-nav-dropdown">
@@ -78,10 +78,10 @@ $totalsessions = \App\Session::where('status', 'ended')
                         class="fa-solid fa-vial"></i> Labs</a>
                 <div class="dashboard-nav-dropdown-menu">
                     <a href="{{ route('labs') }}" class="dashboard-nav-dropdown-item">Order Labs</a>
-                    <a href="{{ route('patient_Lab_requisition') }}" class="dashboard-nav-dropdown-item">Lab
+                    {{-- <a href="{{ route('patient_Lab_requisition') }}" class="dashboard-nav-dropdown-item">Lab
                         Requisitions</a>
                     <a href="{{ route('Lab_pending_requisition') }}" class="dashboard-nav-dropdown-item">Pending
-                        Requisitions</a>
+                        Requisitions</a> --}}
                     <a href="{{ route('patient_Lab_result') }}" class="dashboard-nav-dropdown-item">Reports</a>
                 </div>
             </div>

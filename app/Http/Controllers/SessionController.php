@@ -1239,21 +1239,13 @@ class SessionController extends Controller
         $user_type = $user->user_type;
         $user_time_zone = $user->timeZone;
         if ($user_type == 'doctor') {
-            // $user_state = Auth::user()->state_id;
-            // $state = State::find($user_state);
-            // if ($state->active == 1) {
                 $user_id = $user->id;
                 $sessions = Session::where('doctor_id', $user_id)
                     ->where('status', 'ended')
                     ->where('remaining_time','!=','full')
                     ->orderByDesc('id')
                     ->paginate(7);
-                // $sessions=[];
                 foreach ($sessions as $session) {
-
-                    $getPersentage = DB::table('doctor_percentage')->where('doc_id', $user_id)->first();
-                    $session->price = ($getPersentage->percentage / 100) * $session->price;
-
                     if ($session->status == 'ended' && $session->start_time != 'null' && $session->end_time != 'null') {
                         $session->date = User::convert_utc_to_user_timezone($user->id, $session->created_at)['date'];
 
@@ -1262,18 +1254,10 @@ class SessionController extends Controller
 
                         $session->end_time = date('h:i A', strtotime('-15 minutes', strtotime($session->end_time)));
                         $session->end_time = User::convert_utc_to_user_timezone($user->id, $session->end_time)['time'];
-                        // dd($session->end_time);
+
                         $pat = User::where('id', $session['patient_id'])->first();
                         $session->pat_name = $pat['name'] . " " . $pat['last_name'];
-
-                        $links = AgoraAynalatics::where('channel', $session['channel'])->first();
-                        if ($links != null) {
-                            $recording = $links->video_link;
-                            $session->recording = $recording;
-                        } else {
-                            $session->recording = 'No recording';
-                        }
-
+                        //refered doctor
                         $referred_doc = Referal::where('session_id', $session['id'])
                             ->where('patient_id', $session['patient_id'])
                             ->where('doctor_id', $user_id)
@@ -1285,22 +1269,13 @@ class SessionController extends Controller
                         } else {
                             $session->refered = null;
                         }
-                        $session->sympptoms = DB::table('symptoms')->where('id',$session['symptom_id'])->first();
-
+                        //prescription
                         $pres = Prescription::where('session_id', $session['id'])->get();
                         $pres_arr = [];
                         foreach ($pres as $prod) {
                             if ($prod['type'] == 'medicine') {
                                 $product = AllProducts::where('id', $prod['medicine_id'])->first();
                             } else if ($prod['type'] == 'imaging') {
-                                // $product = AllProducts::where('id', $prod['imaging_id'])->first();
-                                // $usage = DB::table('imaging_selected_location')
-                                // ->join('imaging_locations', 'imaging_selected_location.imaging_location_id', 'imaging_locations.id')
-                                // ->where('imaging_selected_location.session_id', $prod['session_id'])
-                                // ->where('imaging_selected_location.product_id', $prod['imaging_id'])
-                                // ->select('imaging_locations.city as location')
-                                // ->first();
-                                // $prod->usage = $usage->location;
                                 $product = QuestDataTestCode::where('TEST_CD', $prod['test_id'])
                                     ->first();
                             } else if ($prod['type'] == 'lab-test') {
@@ -1309,27 +1284,18 @@ class SessionController extends Controller
                             }
                             $cart = Cart::where('doc_session_id', $session['id'])
                                 ->where('pres_id', $prod->id)->first();
-                            // dd($cart);
                             $prod->prod_detail = $product;
                             if (isset($cart->status))
                                 $prod->cart_status = $cart->status;
                             else
                                 $prod->cart_status = 'No record';
-                            // dd($prod);
                             array_push($pres_arr, $prod);
                         }
                         $session->pres = $pres_arr;
-                        // array_push($sessions,$session);
                     }
                 }
-                // dd($sessions);
 
-                // return view('session.sessions_full',['sessions'=>$sessions,'user_type'=>$user_type]);
-
-                return view('dashboard_doctor.All_Session.index', compact('user_type', 'sessions'));
-            // } else {
-            //     return redirect()->route('errors', '101');
-            // }
+            return view('dashboard_doctor.All_Session.index', compact('user_type', 'sessions'));
         } else if ($user_type == 'admin') {
             $user_id = $user->id;
             $sessions = Session::where('status', 'ended')->orderByDesc('id')->paginate(7);

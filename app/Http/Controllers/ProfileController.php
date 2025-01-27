@@ -184,20 +184,7 @@ public function view_DocProfile($username)
                         }
                         }
 
-                        // Query will modify later
-                        // $doctor->activities = DB::select("SELECT *, CASE `type` WHEN 'login' THEN 'Last Logged In'
-                        // WHEN 'logout' THEN 'Last Logged Out' WHEN 'prescription added' THEN 'Prescription Status'
-                        // WHEN 'session recommendations' THEN 'Session Recommendation Status' WHEN 'session start'
-                        // THEN 'Session Status' WHEN 'session end' THEN 'Session Ended Status' WHEN 'order' THEN 'Order Status'
-                        // WHEN 'record' THEN 'Report View Status' END AS `heading`, CASE `type` WHEN 'login' THEN 'badge-success'
-                        // WHEN 'logout' THEN 'badge-warning' WHEN 'prescription added' THEN 'badge-info' WHEN
-                        // 'session recommendations' THEN 'badge-info' WHEN 'session start' THEN 'badge-success' WHEN
-                        // 'session end' THEN 'badge-warning' WHEN 'order' THEN 'badge-info' WHEN 'record' THEN 'badge-success'
-                        // END AS `color` FROM `activity_log` WHERE user_id = '$id' AND `type`
-                        // NOT IN ('record', 'product_del_request', 'product_created', 'product_category_created',
-                        // 'product_sub_category_created') order by created_at desc LIMIT 3");
                         $data = DB::table('activity_log')->where('user_id',$id)->select('*')->orderBy('created_at','desc')->paginate(10);
-                        // dd($activities);
                         foreach ($data as $dt) {
                             $user_time_zone = Auth::user()->timeZone;
                             $date = new DateTime($dt->created_at);
@@ -205,32 +192,24 @@ public function view_DocProfile($username)
                             $dt->created_at = $date->format('D, M/d/Y, g:i a');
                         }
 
-                        $doctor->all_patients = DB::table('sessions')->where('sessions.doctor_id', auth()->user()->id)
-                            ->groupBy('sessions.patient_id')
-                            ->where('sessions.status', '!=', 'pending')
+                        $session_patients = DB::table('sessions')
                             ->join('users', 'sessions.patient_id', '=', 'users.id')
+                            ->where('sessions.doctor_id', auth()->user()->id)
+                            ->where('sessions.status', '!=', 'pending')
+                            ->groupBy('sessions.patient_id')
                             ->select('users.*')
                             ->get();
 
-                        // if ($doctor->specialization != '1') {
-                        // $doctor->all_patients = DB::table('referals')
-                        //     ->where('sp_doctor_id', $doctor->id)
-                        //     ->where('referals.status', 'accepted')
-                        //     ->join('users', 'referals.patient_id', '=', 'users.id')
-                        //     ->join('sessions', 'sessions.patient_id', '=', 'users.id')
-                        //     ->select('*', 'referals.doctor_id as doc_id', DB::raw('MAX(sessions.id) as last_id'))
-                        //     ->orderBy('sessions.date', 'DESC')
-                        //     ->groupBy('sessions.patient_id')
-                        //     ->get();
-                        // // dd($patients);
-                        // } else {
-                        // $doctor->all_patients = DB::table('sessions')->where('sessions.doctor_id', auth()->user()->id)
-                        //     ->groupBy('sessions.patient_id')
-                        //     ->join('users', 'sessions.patient_id', '=', 'users.id')
-                        //     ->select('users.*')
-                        //     ->get();
+                        $inclinic_patients = DB::table('in_clinics')
+                            ->join('users', 'in_clinics.user_id', 'users.id')
+                            ->where('in_clinics.doctor_id', $user->id)
+                            ->where('in_clinics.status', 'ended')
+                            ->orderBy('in_clinics.created_at', 'DESC')
+                            ->groupBy('in_clinics.user_id')
+                            ->select('users.*')
+                            ->get();
 
-                        // }
+                        $doctor->all_patients = collect($session_patients->toArray())->merge($inclinic_patients->toArray());
                         foreach ($doctor->all_patients as $patient)
                         {
                             $patient->user_image = \App\Helper::check_bucket_files_url($patient->user_image);
@@ -243,7 +222,6 @@ public function view_DocProfile($username)
                         if ($patient->city_id == null) {
                             $patient->city = 'None';
                         } else {
-                            // $city = City::where('id', $patient->city_id)->first();
                             $patient->city = $patient->city_id;
                         }
                         if ($patient->state_id == null) {
@@ -263,24 +241,9 @@ public function view_DocProfile($username)
                         $userobj = new User();
                         $patient->sessions = $userobj->get_recent_sessions($id);
 
-                        // Activity Query will modify later...!!
-                        // $activities = ActivityLog::where('user_id', $id)->orderByDesc('id')->paginate(9);
-                        // $patient->activities = DB::select("SELECT *, CASE `type` WHEN 'login' THEN 'Last Logged In'
-                        // WHEN 'logout' THEN 'Last Logged Out' WHEN 'prescription added' THEN 'Prescription Status' WHEN
-                        // 'session recommendations' THEN 'Session Recommendation Status' WHEN 'session start' THEN 'Session Status'
-                        // WHEN 'session end' THEN 'Session Ended Status' WHEN 'order' THEN 'Order Status' END AS
-                        // `heading`, CASE `type` WHEN 'login' THEN 'badge-success' WHEN 'logout' THEN 'badge-warning'
-                        // WHEN 'prescription added' THEN 'badge-info' WHEN 'session recommendations' THEN 'badge-info'
-                        // WHEN 'session start' THEN 'badge-success' WHEN 'session end' THEN 'badge-warning' WHEN 'order'
-                        // THEN 'badge-info' END AS `color` FROM `activity_log` WHERE user_id = '$id' AND `type` NOT IN
-                        // ('record', 'product_del_request', 'product_created', 'product_category_created', 'product_sub_category_created')
-                        // order by created_at desc")->paginate(10);
+
                         $data = DB::table('activity_log')->where('user_id',$id)->select('*')->orderBy('created_at','desc')->paginate(10);
-                        // $activities_arr = array();
-                        // foreach($patient->activities as $act){
-                        //     array_push($activities_arr,$act);
-                        // }
-                        // dd($patient->activities,$activities_arr);
+
                         foreach ($data as $dt) {
                             $user_time_zone = Auth::user()->timeZone;
                             $date = new DateTime($dt->created_at);

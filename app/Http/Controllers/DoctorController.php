@@ -792,6 +792,7 @@ class DoctorController extends Controller
             'validation_status' => "valid",
         ])->id;
         return redirect()->route('patient_session_payment_page', ['id' => \Crypt::encrypt($session_id)]);
+        // return redirect()->route('patient_waiting_room', ['id' => \Crypt::encrypt($session_id)]);
     }
 
     public function session_payment_page($session_id)
@@ -1397,12 +1398,12 @@ class DoctorController extends Controller
         }
     }
 
-    public function dash_waiting_room(Request $request)
+    public function dash_waiting_room(Request $request,$id)
     {
+        $request['id'] = \Crypt::decrypt($request['id']);
         $session_id = $request['id'];
         $session = Session::find($request['id']);
         $pat_id = auth()->user()->id;
-        // dd($session);
         $all_waiting = Session::where('doctor_id', $session['doctor_id'])
             ->where('patient_id', '!=', $pat_id)
             ->where('id', '<', $session_id)
@@ -1412,7 +1413,6 @@ class DoctorController extends Controller
             ->get();
 
         $waiting_count = count($all_waiting);
-        // dd($all_waiting);
 
         if ($session['status'] == 'invitation sent')
             $status = 'true';

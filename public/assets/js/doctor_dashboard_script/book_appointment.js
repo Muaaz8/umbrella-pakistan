@@ -64,7 +64,7 @@ function bookAppointmentModal(doc_id){
                 +'</div></div></div></div></div></div>'
             );
             $.each (dates, function (key, date) {
-                $('#d2').append('<option value="'+date.start+'">'+date.date+'</option>');
+                $('#d2').append('<option value="'+date+'">'+date+'</option>');
             });
             if(doc.status=='online'){
                 $('#stat').append('<i class="fa fa-circle" style="color:green;"></i> '+doc.status);
@@ -120,7 +120,7 @@ function dateChoose(a)
                 }
                 if (len > 0) {
                         $.each(vv, function(key, value) {
-                            var tr_str = "<option value='" + value.start + "'>" + value.t_start + " to "+ value.t_end +"</option>";
+                            var tr_str = "<option value='" + value + "'>" + value +"</option>";
                             $("#timeSolt").append(tr_str);
                         });
                 } else {

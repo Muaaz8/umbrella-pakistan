@@ -177,16 +177,16 @@ public function all_doctor_appointments(){
     {
         $edit_data = "";
         $data = DB::table('specalization_price')
-            ->join('states', 'specalization_price.state_id', 'states.id')
+            // ->join('states', 'specalization_price.state_id', 'states.id')
             ->join('specializations', 'specializations.id', 'specalization_price.spec_id')
-            ->where('states.country_code', 'US')
-            ->select('states.name as state_name', 'specializations.name as spec_name', 'specalization_price.*')
+            // ->where('states.country_code', 'US')
+            ->select('specializations.name as spec_name', 'specalization_price.*')
             ->get();
         $spec = DB::table('specializations')
         ->where('status','=','1')
         ->get();
-        $states = DB::table('states')->where('country_code', 'US')->get();
-        return view('dashboard_admin.All_specialization.specialization_price', compact('data', 'edit_data', 'spec', 'states'));
+        // $states = DB::table('states')->where('country_code', 'US')->get();
+        return view('dashboard_admin.All_specialization.specialization_price', compact('data', 'edit_data', 'spec'));
     }
     public function delete_specialization_price($id)
     {
@@ -357,24 +357,22 @@ public function all_doctor_appointments(){
         $input = $request->all();
         $this->validate($request, [
             'spec' => 'required',
-            'state' => 'required',
+            'initial_price' => 'required',
         ]);
-        if ($request->follow_up_price != null) {
-            DB::table('specalization_price')->insert([
-                'state_id' => $request->state,
+        $spec = DB::table('specalization_price')->where('spec_id', $request->spec)->first();
+        if($spec){
+            DB::table('specalization_price')->where('spec_id',$request->spec)->update([
                 'spec_id' => $request->spec,
                 'initial_price' => $request->initial_price,
                 'follow_up_price' => $request->follow_up_price,
             ]);
-        } else {
+        }else{
             DB::table('specalization_price')->insert([
-                'state_id' => $request->state,
                 'spec_id' => $request->spec,
                 'initial_price' => $request->initial_price,
-                'follow_up_price' => null,
+                'follow_up_price' => $request->follow_up_price,
             ]);
         }
-        // dd($input);
         return redirect('/admin/specialization/price');
     }
 

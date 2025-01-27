@@ -43,72 +43,48 @@ class DoctorScheduleController extends Controller
 
     public function add_doc_schedule(Request $request)
     {
-        //dd($request);
         $doctorID=Auth::user()->id;
-        $AvailabilityStartUser = $request->date.' '.$request->startTimePicker;
-        //dd($AvailabilityStart);
-        $AvailabilityStart = User::convert_user_timezone_to_utc($doctorID,$AvailabilityStartUser)['datetime'];
-        //dd($AvailabilityStart);
-        $AvailabilityEndUser = $request->date.' '.$request->endTimePicker;
-        $AvailabilityEnd = User::convert_user_timezone_to_utc($doctorID,$AvailabilityEndUser)['datetime'];
-        //dd($AvailabilityStart,$AvailabilityEnd);
-        if($AvailabilityStart!=null && $AvailabilityEnd!=null)
-        {
-            //$rr=$request['AvailabilityStart'];
-            //$rrr=$request['AvailabilityEnd'];
-            //$AvailabilityStart = explode(" ", $rr);
-            //$AvailabilityEnd = explode(" ", $rrr);
-            //$aaa=$request["startTimePicker"];
-            //$aa=$request["endTimePicker"];
-            //$ssd = date("H:i:s", strtotime($aaa));
-            //$eed = date("H:i:s", strtotime($aa));
-            //$sd=$AvailabilityStart[0]." ".$ssd;
-            //$ed=$AvailabilityEnd[0]." ".$eed;
-
-            // $AvailabilityStart = explode(" ",$AvailabilityStart);
-            //$AvailabilityEnd = explode(" ",$AvailabilityEnd);
-            if($AvailabilityStartUser<$AvailabilityStart)
-            {
-                $title = $request->AvailabilityTitle;
-                $start =  date('H:i:s',strtotime($AvailabilityStart));
-                $end =  date('H:i:s',strtotime($AvailabilityEnd));
-                $date = date('Y-m-d',strtotime($AvailabilityStart));
-                $startdate = date('Y-m-d H:i:s',strtotime($AvailabilityStart));
-                $enddate = date('Y-m-d H:i:s',strtotime($AvailabilityEnd));
-                $color = $request->AvailabilityColor;
-                if($title!=null && $start!=null && $end!=null && $color!=null)
-                {
-                    $query=DB::table('doctor_schedules')->insert(
-                        ['title' => $title, 'start' => $startdate,'end'=>$enddate,'color'=>$color,'slotStartTime'=>$start,'slotEndTime'=>$end,'doctorID'=>$doctorID,'date'=>$date]
-                    );
-                    if($query==1)
-                    {
-                    return redirect()->back();
-                    }
-
-                }
-            }
-            else
-            {
-                $title = $request->AvailabilityTitle;
-                $start =  date('H:i:s',strtotime($AvailabilityStart));
-                $end =  date('H:i:s',strtotime($AvailabilityEnd));
-                $date = date('Y-m-d',strtotime($AvailabilityEnd));
-                $startdate = date('Y-m-d H:i:s',strtotime($AvailabilityStart));
-                $enddate = date('Y-m-d H:i:s',strtotime($AvailabilityEnd));
-                $color = $request->AvailabilityColor;
-                if($title!=null && $start!=null && $end!=null && $color!=null)
-                {
-                    $query=DB::table('doctor_schedules')->insert(
-                        ['title' => $title, 'start' => $startdate,'end'=>$enddate,'color'=>$color,'slotStartTime'=>$start,'slotEndTime'=>$end,'doctorID'=>$doctorID,'date'=>$date]
-                    );
-                    if($query==1)
-                    {
-                    return redirect()->back();
-                    }
-
-                }
-            }
+        $AvailabilityStartUser = $request->from_time;
+        $AvailabilityStart = User::convert_user_timezone_to_utc($doctorID,$AvailabilityStartUser)['time'];
+        $AvailabilityEndUser = $request->to_time;
+        $AvailabilityEnd = User::convert_user_timezone_to_utc($doctorID,$AvailabilityEndUser)['time'];
+        if($request->AvailabilityTitle == "Availability"){
+            $query=DB::table('doctor_schedules')->insert([
+                'user_id'=>$doctorID,
+                // 'user_type'=> $request->user_type,
+                'mon'=> in_array("Mon",$request->week),
+                'tues'=> in_array("Tues",$request->week),
+                'weds'=> in_array("Wed",$request->week),
+                'thurs'=> in_array("Thurs",$request->week),
+                'fri'=> in_array("Fri",$request->week),
+                'sat'=> in_array("Sat",$request->week),
+                'sun'=> in_array("Sun",$request->week),
+                'from_time'=> $AvailabilityStart,
+                'to_time'=> $AvailabilityEnd,
+                'created_at'=> now(),
+                'updated_at'=> now(),
+                'title' => $request->AvailabilityTitle,
+                'doctorID'=>$doctorID,
+                // 'date'=>$date
+            ]);
+        }else{
+            $query=DB::table('doctor_schedules')->insert([
+                'user_id'=>$doctorID,
+                'mon'=> 0,
+                'tues'=> 0,
+                'weds'=> 0,
+                'thurs'=> 0,
+                'fri'=> 0,
+                'sat'=> 0,
+                'sun'=> 0,
+                'from_time'=> $request->from_time,
+                'to_time'=> $request->to_time,
+                'created_at'=> now(),
+                'updated_at'=> now(),
+                'title' => $request->AvailabilityTitle,
+                'doctorID'=>$doctorID,
+                // 'date'=>$date
+            ]);
         }
         return redirect()->back();
     }
@@ -187,23 +163,15 @@ class DoctorScheduleController extends Controller
     public function edit_doc_schedule(Request $request)
     {
         $doctorID=Auth::user()->id;
-        if($request->schedule_id != null && $request->date != null && $request->startTimePicker != null && $request->endTimePicker != null){
+        if($request->schedule_id != null  && $request->from_time != null && $request->to_time != null){
             $UpdateSchedule = DoctorSchedule::where('id',$request->schedule_id)->first();
-            $AvailabilityStart = $UpdateSchedule->date.' '.$request->startTimePicker;
-            $AvailabilityStart = User::convert_user_timezone_to_utc($doctorID,$AvailabilityStart)['datetime'];
-            $AvailabilityEnd = $UpdateSchedule->date.' '.$request->endTimePicker;
-            $AvailabilityEnd = User::convert_user_timezone_to_utc($doctorID,$AvailabilityEnd)['datetime'];
-            $start =  date('H:i:s',strtotime($AvailabilityStart));
-            $end =  date('H:i:s',strtotime($AvailabilityEnd));
-            $date = date('Y-m-d',strtotime($AvailabilityStart));
-            $startdate = date('Y-m-d H:i:s',strtotime($AvailabilityStart));
-            $enddate = date('Y-m-d H:i:s',strtotime($AvailabilityEnd));
+            $AvailabilityStart = $request->from_time;
+            $AvailabilityStart = User::convert_user_timezone_to_utc($doctorID,$AvailabilityStart)['time'];
+            $AvailabilityEnd = $request->to_time;
+            $AvailabilityEnd = User::convert_user_timezone_to_utc($doctorID,$AvailabilityEnd)['time'];
 
-            $UpdateSchedule->start = $startdate;
-            $UpdateSchedule->end = $enddate;
-            $UpdateSchedule->slotStartTime = $start;
-            $UpdateSchedule->slotEndTime = $end;
-            $UpdateSchedule->date = $date;
+            $UpdateSchedule->from_time = $AvailabilityStart;
+            $UpdateSchedule->to_time = $AvailabilityEnd;
             $UpdateSchedule->save();
 
         }
@@ -270,31 +238,10 @@ class DoctorScheduleController extends Controller
             $date = User::convert_utc_to_user_timezone($user->id,$date)['datetime'];
             $time = date('H:i:s',strtotime($date));
             $date = date('Y-m-d',strtotime($date));
-            $schedule = DoctorSchedule::where('doctorID', $user->id)->where('date','>=',date('Y-m-d'))->where('title','Availability')->orderBy('id','desc')->paginate(10);
+            $schedule = DoctorSchedule::where('doctorID', $user->id)->where('title','Availability')->orderBy('id','desc')->paginate(10);
             foreach($schedule as $sc){
-                //$sc->appointments = Appointment::where('doctor_id',$user->id)->where('date',$sc->date)->where('time','>=',$sc->slotStartTime)->where('time','<',$sc->slotEndTime)->where('status','pending')->get();
-                $sc->appointments = DB::table('appointments')
-                ->join('sessions','appointments.id','sessions.appointment_id')
-                ->where('appointments.doctor_id',$user->id)
-                ->where('appointments.date',$sc->date)
-                ->where('appointments.status','pending')
-                ->where('sessions.status','paid')
-                ->orderBy('appointments.time')
-                ->select('appointments.*')->get();
-                $sc->slotStartTime = date('H:i:s',strtotime(User::convert_utc_to_user_timezone($user->id,$sc->start)['time']));
-                $sc->slotEndTime = date('H:i:s',strtotime(User::convert_utc_to_user_timezone($user->id,$sc->end)['time']));
-                foreach($sc->appointments as $key=>$app){
-                    $ddd = date('Y-m-d H:i:s', strtotime("$app->date $app->time"));
-                    $datetime = User::convert_utc_to_user_timezone($user->id,$ddd);
-                    if(date('H:i:s',strtotime($datetime['time']))<$sc->slotStartTime || date('H:i:s',strtotime($datetime['time']))>$sc->slotEndTime){
-                        unset($sc->appointments[$key]);
-                    }
-                }
-                $sc->date = User::convert_utc_to_user_timezone($user->id,$sc->start)['date'];
-                $sc->start = User::convert_utc_to_user_timezone($user->id,$sc->start)['time'];
-                $sc->end = User::convert_utc_to_user_timezone($user->id,$sc->end)['time'];
-                $sc->time = $time;
-                $sc->cdate = date('m-d-Y',strtotime($date));
+                $sc->from_time = User::convert_utc_to_user_timezone($user->id,$sc->from_time)['time'];
+                $sc->to_time = User::convert_utc_to_user_timezone($user->id,$sc->to_time)['time'];
             }
             return view('dashboard_doctor.Schedule.index', compact('schedule','date') );
         }
@@ -595,140 +542,121 @@ class DoctorScheduleController extends Controller
             return "";
         }
     }
+    // public function timing(Request $request)
+    // {
+    //     $day = Carbon::parse($request->sdate)->format('l');
+    //     $day_nick;
+    //     switch ($day) {
+    //         case 'Monday':
+    //             $day_nick = 'mon';
+    //             break;
+    //         case 'Tuesday':
+    //             $day_nick = 'tues';
+    //             break;
+    //         case 'Wednesday':
+    //             $day_nick = 'weds';
+    //             break;
+    //         case 'Thursday':
+    //             $day_nick = 'thurs';
+    //             break;
+    //         case 'Friday':
+    //             $day_nick = 'fri';
+    //             break;
+    //         case 'Saturday':
+    //             $day_nick = 'sat';
+    //             break;
+    //         case 'Sunday':
+    //             $day_nick = 'sun';
+    //             break;
+    //         default:
+    //             break;
+    //     }
+    //     $sche = DB::table('doctor_schedules')->where('user_id',$request->id)->where('title','Availability')->where($day_nick,1)->first();
+    //     $check_availability = DB::table('appointments')->where('doctor_id',$request->id)
+    //     ->where('date',$request->sdate)
+    //     ->first();
+    //     if($sche){
+    //         $fromTime = $sche->from_time;
+    //         $toTime = $sche->to_time;
+    //         $start = Carbon::createFromTimeString($fromTime);
+    //         $end = Carbon::createFromTimeString($toTime);
+    //         $timeSlots = [];
+    //         while ($start->lessThan($end)) {
+    //             $timeSlots[] = $start->format('H:i') . ' ' . $sche->user_type;
+    //             $start->addMinutes($sche->duration);
+    //         }
+    //         if ($check_availability) {
+    //             $timeSlots = array_filter($timeSlots, function ($time) use ($check_availability) {
+    //                 $current = Carbon::parse($time);
+    //                 return !($current->equalTo($check_availability->time));
+    //             });
+    //             $timeSlots = array_values($timeSlots); // Reset array keys
+    //         }
+    //         return response()->json(['success' => true, 'time'=>$timeSlots]);
+    //     }else{
+    //         return response()->json(['success' => true, 'time'=>[]]);
+    //     }
+    // }
     public function timing(Request $request)
     {
-            $user = Auth::user();
-            $d = explode(' ',$request->sdate);
-            //dd($request->sdate[0],$request->sdate[1]);
-            $utc_start_datetime = User::convert_user_timezone_to_utc($user->id,$request->sdate);
-            $user_current_datetime = User::convert_utc_to_user_timezone($user->id,date('Y-m-d H:i:s'));
+        $user = Auth::user();
+        $day = Carbon::parse($request->sdate)->format('l');
+        $day_nick;
+        switch ($day) {
+            case 'Monday':
+                $day_nick = 'mon';
+                break;
+            case 'Tuesday':
+                $day_nick = 'tues';
+                break;
+            case 'Wednesday':
+                $day_nick = 'weds';
+                break;
+            case 'Thursday':
+                $day_nick = 'thurs';
+                break;
+            case 'Friday':
+                $day_nick = 'fri';
+                break;
+            case 'Saturday':
+                $day_nick = 'sat';
+                break;
+            case 'Sunday':
+                $day_nick = 'sun';
+                break;
+            default:
+                break;
+        }
+        $sche = DB::table('doctor_schedules')->where('user_id',$request->id)->where('title','Availability')->where($day_nick,1)->first();
 
-            $docID = $request['id'];
-            $doc_avi="Availability";
-            // $temp = Carbon::createFromFormat('Y-m-d H:i:s', Carbon::now()->format('Y-m-d H:i:s'), $user->timeZone);
-            $temp = new DateTime(Carbon::now()->format('Y-m-d H:i:s'));
-            $temp->setTimezone(new DateTimeZone($user->timeZone));
-            // $temp = explode(' ' ,$temp)[1];
-            $temp = $temp->format('H:i:s');
-            // dd($temp);
-
-            $sdate = date('Y-m-d',strtotime($request->sdate));
-
-            $newDatee=date('Y-m-d H:i:s',strtotime($utc_start_datetime['datetime']));
-
-
-            $current_date_time = date('Y-m-d H:i:s');
-
-
-            // dd(explode(' ',$sdate)[0]);
-            $current_time = date('H:i:s');
-            $time_check = date('H:i:s',strtotime('+20 minutes' ,strtotime($current_time)));
-            // dd($sdate);
-            if(date('Y-m-d',strtotime($utc_start_datetime['datetime']))==date('Y-m-d'))
-            {
-                // dd($utc_start_datetime['datetime']);
-                $docTimings= DB::table('doctor_schedules')
-                    ->select('doctor_schedules.*')
-                    ->where('start', $newDatee)
-                    ->where([['doctorID',$docID],['title',$doc_avi]])
-                    ->get();
-                // foreach($docTimings as $key=>$doc){
-                //     $checking =  User::convert_utc_to_user_timezone($doc->doctorID,$doc->end)['time'];
-                //     if($checking<=$user_current_datetime['time']){
-                //         unset($docTimings[$key]);
-                //     }
-                // }
+        $sche->from_time =  User::convert_utc_to_user_timezone($sche->doctorID,$sche->from_time)['time'];
+        $sche->to_time =  User::convert_utc_to_user_timezone($sche->doctorID,$sche->to_time)['time'];
+        $check_availability = DB::table('appointments')->where('doctor_id',$request->id)
+            ->where('date',$request->sdate)
+            ->pluck('time')->toArray();
+        if($sche){
+            $fromTime = $sche->from_time;
+            $toTime = $sche->to_time;
+            $start = Carbon::createFromTimeString($fromTime);
+            $end = Carbon::createFromTimeString($toTime);
+            $timeSlots = [];
+            while ($start->lessThan($end)) {
+                $timeSlots[] = $start->format('h:i a');
+                $start->addMinutes(20);
             }
-            else
-            {
-                $docTimings= DB::table('doctor_schedules')
-                    ->select('doctor_schedules.*')
-                    ->where('start', $newDatee)
-                    ->where([['doctorID',$docID],['title',$doc_avi]])
-                    ->get();
+            // dd(in_array("07:20 pm", $timeSlots),$timeSlots,$check_availability);
+            if ($check_availability) {
+                $timeSlots = array_filter($timeSlots, function ($time) use ($user,$check_availability) {
+                    $current = User::convert_user_timezone_to_utc($user->id,$time)['time'];
+                    $tt = Carbon::parse($current)->format('H:i:s');
+                    return !(in_array($tt, $check_availability));
+                    // return !($current == $check_availability->time);
+                });
+                $timeSlots = array_values($timeSlots); // Reset array keys
             }
-            //dd($docTimings);
-            $bookedSlots=Appointment::where('date',date('Y-m-d',strtotime($utc_start_datetime['datetime'])))->where('doctor_id',$docID)->get();
-            $time = [];
+        }
 
-            //dd($bookedSlots);
-            foreach($docTimings as $docTiming)
-            {
-                $current_date = User::convert_utc_to_user_timezone($docTiming->doctorID,$current_date_time)['date'];
-                $interval=15;
-                $break=5;
-                $start = User::convert_utc_to_user_timezone($docTiming->doctorID,$docTiming->start)['datetime'];
-                $end = User::convert_utc_to_user_timezone($docTiming->doctorID,$docTiming->end)['datetime'];
-                $startTime = date('H:i:s',strtotime($start));
-                $endTime = date('H:i:s',strtotime($end));
-                $current_time = User::convert_utc_to_user_timezone($docTiming->doctorID,date('Y-m-d H:i:s'))['time'];
-                $current_time = date('H:i:s',strtotime($current_time));
-                $i=0;
-                //dd($start,$end);
-
-                while(strtotime($startTime) <= strtotime($endTime))
-                {
-                    $start = $startTime;
-                    $end = date('H:i:s',strtotime('+'.$interval.' minutes',strtotime($startTime)));
-                    $startTime = date('H:i:s',strtotime('+'.$interval+$break.' minutes',strtotime($startTime)));
-                    $i++;
-                    //dd(.'=='.$user_current_datetime['date'].'=='.strtotime($startTime).'=='.strtotime($endTime));
-                    if(strtotime($startTime) <= strtotime($endTime) && date('m-d-Y',strtotime($sdate)) == $user_current_datetime['date'])
-                    {
-                        if(strtotime($start) >= strtotime($current_time)){
-                            $t_start=date('h:i A',strtotime($start));
-                            $t_end=date('h:i A',strtotime($end));
-                            array_push($time,array('start'=>$start,'end'=>$end,'t_start'=>$t_start,'t_end'=>$t_end));
-                        }
-                    }
-                    else if(strtotime($startTime) <= strtotime($endTime))
-                    {
-                        $t_start=date('h:i A',strtotime($start));
-                        $t_end=date('h:i A',strtotime($end));
-                        array_push($time,array('start'=>$start,'end'=>$end,'t_start'=>$t_start,'t_end'=>$t_end));
-                    }
-                }
-
-                foreach($time as $key=>$value)
-                {
-                    //dd($value['start']);
-                    if($bookedSlots!=null)
-                    {
-                        foreach($bookedSlots as $slot)
-                        {
-                            $time_check = User::convert_utc_to_user_timezone($docID,$slot->date.' '.$slot->time)['datetime'];
-                            $time_check = date('H:i:s',strtotime($time_check));
-                            //dd($slot->time);
-                            if($time_check==$value['start'] && $slot->status=="pending")
-                            {
-                                //dd($slot->time);
-                                unset($time[$key]);
-                            }
-                        }
-                    }
-                }
-                $time = array_values($time);
-            }
-            // $counter=0;
-            $timingArray=[];
-            foreach ($time as $timing) {
-                // dd($timing);
-                $start = User::convert_user_timezone_to_utc($docID,$timing['start'])['time'];
-                $end = User::convert_user_timezone_to_utc($docID,$timing['end'])['time'];
-                $start = User::convert_utc_to_user_timezone($user->id,$start)['time'];
-                $end = User::convert_utc_to_user_timezone($user->id,$end)['time'];
-                $t_start = $start;
-                $t_end = $end;
-                $start = date('H:i:s',strtotime($start));
-                $end = date('H:i:s',strtotime($end));
-                $checkArray=['start'=>$start,'end'=>$end,'t_start'=>$t_start,'t_end'=>$t_end];
-                array_push($timingArray,$checkArray);
-                // dd($timing);
-
-            }
-            //dd($timingArray);
-            return response()->json(['data'=>$timingArray]);
-
+        return response()->json(['data'=>$timeSlots]);
     }
 
 

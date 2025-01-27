@@ -81,14 +81,14 @@ $(document).ready(function(){
                                             <p class="py-2">Country</p>
                                             <p class="py-2 text-muted">{{ $patient->country }}</p>
                                         </div>
-                                        <div class="d-flex align-items-center justify-content-between border-bottom">
+                                        {{-- <div class="d-flex align-items-center justify-content-between border-bottom">
                                             <p class="py-2">Zip Code</p>
                                             <p class="py-2 text-muted">{{ $patient->zip_code }}</p>
                                         </div>
                                         <div class="d-flex align-items-center justify-content-between border-bottom">
                                             <p class="py-2">State</p>
                                             <p class="py-2 text-muted">{{ $patient->state }}</p>
-                                        </div>
+                                        </div> --}}
                                         <div class="d-flex align-items-center justify-content-between border-bottom">
                                             <p class="py-2">City</p>
                                             <p class="py-2 text-muted">{{ $patient->city }}</p>

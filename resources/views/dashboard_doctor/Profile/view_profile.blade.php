@@ -112,14 +112,6 @@
                                             <p class="py-2 text-muted text-break text-end"> {{ $doctor->office_address }}</p>
                                         </div>
                                         <div class="d-flex justify-content-between border-bottom">
-                                            <p class="py-2">Licensed State</p>
-                                            <p class="py-2 text-muted text-break text-end">
-                                            @foreach ($doctor->license as $li)
-                                            {{ $li->name }}
-                                            @endforeach
-                                            </p>
-                                        </div>
-                                        <div class="d-flex justify-content-between border-bottom">
                                             <p class="py-2">Timezone</p>
                                             <p class="py-2 text-muted text-break text-end"> {{ $doctor->timeZone }}</p>
                                         </div>

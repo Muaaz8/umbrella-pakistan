@@ -89,31 +89,61 @@ $("#addTiming").click(function(){
     }
 
   }
+function convertTo24Hour(time12h) {
+    const [time, modifier] = time12h.split(' ');
+    let [hours, minutes] = time.split(':');
+    hours = parseInt(hours);
+    if (modifier === 'PM' && hours !== 12) {
+        hours += 12;
+    }
+    if (modifier === 'AM' && hours === 12) {
+        hours = 0;
+    }
+    hours = String(hours).padStart(2, '0');
+    return `${hours}:${minutes}`;
+}
 
 function edit_schedule(schedule,count){
     if(count.length==0){
-        $('#edit_date').html('<input id="edate" name="date" type="text" '
-        +'class="form-control" value="'+schedule.date+'" readonly/>'
-        +'<input type="hidden" id="schedule_id" name="schedule_id"  value="'+schedule.id+'">');
-        $('#edit_start_time').html('<option selected value="'+schedule.start+'">'+schedule.start+'</option>');
-        $('#edit_end_time').html('<option selected value="'+schedule.end+'">'+schedule.end+'</option>');
-        $.ajax({
-            type: 'POST',
-            url: "/get_schedule_slots",
-            data: {
-                date: moment(schedule.date, 'mm-DD-YYYY').format('YYYY-mm-DD'),
-                id:schedule.id,
-            },
-            async: false,
-            success: function(data)
-            {
-                $.each (data, function (key, start) {
-                    $('#edit_start_time').append('<option value="'+start.time+'">'+start.time+'</option>');
-                    $('#edit_end_time').append('<option value="'+start.time+'">'+start.time+'</option>');
-                });
-            }
-        });
+        $('.scid').html('<input type="hidden" id="schedule_id" name="schedule_id"  value="'+schedule.id+'">');
+        var ftime = convertTo24Hour(schedule.from_time);
+        var ttime = convertTo24Hour(schedule.to_time);
+        $('#from_time').val(ftime);
+        $('#to_time').val(ttime);
+        $('#user_type').val(schedule.user_type);
+        if(schedule.mon == "1"){
+            $('#edit-week1').prop("checked",true);
+        }
+        if(schedule.tues == "1"){
+            $('#edit-week2').prop("checked",true);
+        }
+        if(schedule.weds == "1"){
+            $('#edit-week3').prop("checked",true);
+        }
+        if(schedule.thurs == "1"){
+            $('#edit-week4').prop("checked",true);
+        }
+        if(schedule.fri == "1"){
+            $('#edit-week5').prop("checked",true);
+        }
+        if(schedule.sat == "1"){
+            $('#edit-week6').prop("checked",true);
+        }
+        if(schedule.sun == "1"){
+            $('#edit-week7').prop("checked",true);
+        }
+
         $('#editscheduleModal').modal('show');
+    }
+    else{alert('You can not edit this schedule because you have appointments');}
+}
+
+function edit_blocked_schedule(schedule,count){
+    if(count.length==0){
+        $('.scid').html('<input type="hidden" id="schedule_id" name="schedule_id"  value="'+schedule.id+'">');
+        $('#blocked_from_time').val(schedule.from_time);
+        $('#blocked_to_time').val(schedule.to_time);
+        $('#editBlockedscheduleModal').modal('show');
     }
     else{alert('You can not edit this schedule because you have appointments');}
 }

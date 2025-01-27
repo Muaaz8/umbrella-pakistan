@@ -856,9 +856,17 @@ class QuestController extends Controller
     public function patient_dash_lab_reports($patient_id = null)
     {
         if (auth()->user()->user_type == 'patient') {
+            // $reports = QuestResult::where('pat_id', auth()->user()->id)
+            //     ->where('status', 'success')
+            //     ->orWhere('status', 'error')
+            //     ->orderByDesc('id')
+            //     ->paginate(8);
             $reports = QuestResult::where('pat_id', auth()->user()->id)
-                ->where('status', 'success')
-                ->orwhere('status', 'error')
+                ->where(function ($query) {
+                    return $query
+                        ->where('status', 'success')
+                        ->orWhere('status', 'error');
+                })
                 ->orderByDesc('id')
                 ->paginate(8);
         } else if (auth()->user()->user_type == 'doctor') {
@@ -869,39 +877,38 @@ class QuestController extends Controller
                 ->orderByDesc('id')
                 ->paginate(8);
         }
-        // dd($reports);
-        $hl7_obj = new HL7Controller();
-        foreach ($reports as $report) {
-            $decoded = $hl7_obj->hl7Decode($report->hl7_message);
-            $report->type = $decoded['result_type'];
-            $report->doctor = User::getName($report->doc_id);
-            $report->patient = User::getName($report->pat_id);
-            $test_names = [];
-            foreach ($decoded['arrOBR'] as $obr) {
-                if (!in_array($obr['name'], $test_names)) {
-                    array_push($test_names, $obr['name']);
-                }
-            }
-            $sp_date = explode(' ', $decoded['arrOBR'][0]['specimen_collection_date']);
-            $res_date = date('m/d/Y', strtotime($report->created_at));
-            $report->specimen_date = $sp_date[0];
-            $report->result_date = $res_date;
-            // $report->order_date=$report->created_at;
-            // dd($res_date.' :: '.$sp_date[0]);
-            end($test_names); // move the internal pointer to the end of the array
-            $key = key($test_names); // fetches the key of the element pointed to by the internal pointer
+        // $hl7_obj = new HL7Controller();
+        // foreach ($reports as $report) {
+        //     $decoded = $hl7_obj->hl7Decode($report->hl7_message);
+        //     $report->type = $decoded['result_type'];
+        //     $report->doctor = User::getName($report->doc_id);
+        //     $report->patient = User::getName($report->pat_id);
+        //     $test_names = [];
+        //     foreach ($decoded['arrOBR'] as $obr) {
+        //         if (!in_array($obr['name'], $test_names)) {
+        //             array_push($test_names, $obr['name']);
+        //         }
+        //     }
+        //     $sp_date = explode(' ', $decoded['arrOBR'][0]['specimen_collection_date']);
+        //     $res_date = date('m/d/Y', strtotime($report->created_at));
+        //     $report->specimen_date = $sp_date[0];
+        //     $report->result_date = $res_date;
+        //     // $report->order_date=$report->created_at;
+        //     // dd($res_date.' :: '.$sp_date[0]);
+        //     end($test_names); // move the internal pointer to the end of the array
+        //     $key = key($test_names); // fetches the key of the element pointed to by the internal pointer
 
-            // var_dump($key);
-            $all_test_names = '';
-            foreach ($test_names as $k => $test) {
-                if ($k != $key) {
-                    $all_test_names .= $test;
-                }
-            }
-            $report->test_names = $all_test_names;
+        //     // var_dump($key);
+        //     $all_test_names = '';
+        //     foreach ($test_names as $k => $test) {
+        //         if ($k != $key) {
+        //             $all_test_names .= $test;
+        //         }
+        //     }
+        //     $report->test_names = $all_test_names;
 
-            // dd($report);
-        }
+        //     // dd($report);
+        // }
         return view('dashboard_patient.Lab.index', compact('reports'));
     }
 

@@ -85,7 +85,6 @@
                   <thead>
                     <tr>
                       <th scope="col">Specialization</th>
-                      <th scope="col">State Name</th>
                       <th scope="col">Initial Price</th>
                       <th scope="col">Follow Up Price</th>
                       <th scope="col">Action</th>
@@ -95,11 +94,10 @@
                     @foreach ($data as $item)
                     <tr>
                       <td data-label="Specialization">{{ $item->spec_name }}</td>
-                      <td data-label="State Name">{{ $item->state_name }}</td>
                       <td data-label="Initial Price">{{ $item->initial_price }}</td>
                       <td data-label="Follow Up Price">{{ $item->follow_up_price }}</td>
                       @php
-                          $data = $item->id." ".$item->spec_name." ".$item->state_name." ".$item->initial_price." ".$item->follow_up_price;
+                          $data = $item->id." ".$item->spec_name." ".$item->initial_price." ".$item->follow_up_price;
                       @endphp
                       <td data-label="Action">
                           <div class="dropdown">
@@ -142,12 +140,6 @@
                                 <option selected>Select Specialization</option>
                               </select>
                         </div>
-                    <div class="col-md-6">
-                      <label for="specialization_status">State</label>
-                      <select class="form-select" name="state" id="statesoption">
-                          <option selected>Select State</option>
-                      </select>
-                  </div>
                     </div>
                     <div class="row mt-3 mb-3">
                         <div class="col-md-6">

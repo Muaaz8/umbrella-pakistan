@@ -445,7 +445,7 @@
                                         </div>
 
                                     </div>
-                                    <div class="row py-2">
+                                    {{--<div class="row py-2">
                                         <div class="col-md-4 pt-md-0 pt-3">
                                             <label for="zipcode">Zipcode</label>
                                             <input type="tel" class="bg-light form-control" id="zipcode"
@@ -471,7 +471,7 @@
                                                 <option value="" selected>Select City</option>
                                             </select>
                                         </div>
-                                    </div>
+                                    </div>--}}
                                     <div class="row py-2">
                                         <div class="col-md-12">
                                             <label for="billingaddress">Billing Address</label>

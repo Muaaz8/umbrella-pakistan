@@ -613,42 +613,6 @@
             $('#search_spec').val(spec_id);
             $('#search_loc').val(loc_id);
         });
-
-        //     function doctor_search(){
-        //         var url = window.location.pathname;
-        //         var spec_id = url.split('/')[3];
-        //     }
-        // $("#search").submit(function() {
-        //    var input = $("#search").val();
-        //    var url = window.location.pathname;
-        //    var spec_id = url.split('/')[3];
-        //    $.ajax({
-        //     type: "POST",
-        //     url: "/all/doctor/search",
-        //     data: {
-        //         id: spec_id,
-        //         name: input,
-        //     },
-        //     success: function (response) {
-        //         console.log(response);
-        //         $("#doctor_cards").html('');
-        //         $.each(response, function (index, value) {
-        //             $("#doctor_cards").append('<div class="col-md-4 col-lg-3 col-sm-6 mb-3">'
-        //             +'<div class="card"><div class="additional"><div class="user-card">'
-        //             +'<img src="'+value.user_image+'" alt=""/>'
-        //             +'</div></div><div class="general">'
-        //             +'<h4 class="fs-5">Dr.'+  value.name+' ' + value.last_name +'</h4>'
-        //             +'<h6 class="m-0">'+value.sp_name+'</h6><div class="appoint-btn">'
-        //             +'<button type="button" class="btn btn-primary" onclick="window.location.href="/view/doctor/'+value.id+'"" > View Profile </button>'
-        //             +'<button type="button" class="btn btn-primary" onclick="bookAppointmentModal('+value.id+','+value+'">'
-        //             +'Book Appointment</button></div></div></div></div>');
-        //         });
-        //     }
-        //    });
-        // //    $.each(cards, function (index, value) {
-
-        // //    });
-        // });
     </script>
 
     <script src="{{ asset('assets\js\doctor_dashboard_script\book_appointment.js?n=1') }}"></script>
