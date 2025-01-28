@@ -36,7 +36,7 @@ class User extends Authenticatable
     protected $fillable = [
         'user_type', 'name', 'last_name', 'status', 'temp_password',
         'email', 'password', 'date_of_birth', 'phone_number',
-        'office_address', 'zip_code',
+        'office_address', 'zip_code', 'consultation_fee', 'followup_fee',
         'nip_number', 'upin', 'specialization', 'id_card_front', 'id_card_back', 'terms_and_cond', 'signature',
         'time_from', 'time_to', 'user_image', 'bio', 'state_id',
         'created_by', 'gender',

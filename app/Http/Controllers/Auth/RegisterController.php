@@ -141,6 +141,7 @@ class RegisterController extends Controller
 
     protected function create(array $data)
     {
+
         $this->type= $data['url_type'];
         // $information = geoip($_SERVER['REMOTE_ADDR']);
         // $geo_info = $information->toArray();
@@ -369,6 +370,7 @@ class RegisterController extends Controller
                 }else{
                     $profile_pic = 'user.png';
                 }
+
                 $user = User::create([
                     'user_type' => $data['user_type'],
                     'name' => $data['name'],
@@ -384,6 +386,8 @@ class RegisterController extends Controller
                     'office_address' => $data['address'],
                     'zip_code' => '',
                     'nip_number' => $data['npi'],
+                    'consultation_fee' => $data['consultation_fee'],
+                    'followup_fee' => $data['follow_up_fee'],
                     'upin' => '',
                     'specialization' => $data['specializations'],
                     'gender' => $data['gender'],

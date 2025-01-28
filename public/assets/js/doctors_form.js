@@ -1190,6 +1190,25 @@ $(document).ready(function(){
                     //     $('#state').removeClass('border-danger');
                     // }
 
+                    var consultation_fee = $('#consultation_fee').val();
+
+                    if (consultation_fee == '') { 
+                        $('#consultation_fee_error').text('Please insert your consultation fee');
+                        $('#consultation_fee').addClass('border-danger');
+                        $(window).scrollTop(350);
+                        return false;
+                    } else {
+                        if ($('#follow_up_fee_switch').prop('checked')) {
+                            if ($('#follow_up_fee').val() == '') {
+                                $('#follow_up_fee_error').text('Please insert your follow up fee');
+                                $('#follow_up_fee').addClass('border-danger');
+                                $(window).scrollTop(350);
+                                return false;
+                            }
+                        }
+                    }
+
+
                     var city=$('#city').val();
                     if(city.length=='')
                     {
