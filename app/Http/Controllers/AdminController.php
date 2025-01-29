@@ -349,7 +349,7 @@ public function all_doctor_appointments(){
             $status = "0";
         }
         DB::table('specializations')->where('id',$request['id'])->update(
-            ['name'=>$input['specialization'],'status'=> $status]
+            ['name'=>$input['specialization'],'status'=> $status , 'consultation_time' => $input['spec_time']]
         );
         return redirect('/admin/all/specializations');
     }
@@ -378,9 +378,9 @@ public function all_doctor_appointments(){
 
     public function admin_store_spec(Request $request){
         $input = $request->all();
-        // dd($input);
         Specialization::create([
             'name' => $request->spec_name,
+            'consultation_time' => $request->spec_time,
             'status' => 0,
         ]);
         // dd($input);

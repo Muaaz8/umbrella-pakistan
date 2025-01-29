@@ -21,12 +21,18 @@ $(document).on("click", ".edit", function (e) {
 
 	e.preventDefault();
     var spec = $(this).attr('data-id');
+
     var spec_id = spec.split(",")[0];
     var spec_name = spec.split(",")[1];
     var spec_status = spec.split(",")[2];
+    var spec_time = spec.split(",")[3];
     // console.log(spec_id,spec_name,spec_status);
+
+    console.log(spec_time);
+
 	$("#spec_id").val(spec_id);
 	$("#spec_name").val(spec_name);
+    $("#spec_time2").val(+spec_time);
 	// $("#spec_status").val(spec_status);
     if (spec_status == 1){
         $("#actdec").html("");
@@ -104,6 +110,7 @@ $('#add_specailization_modal').click(function (e) {
                     <tr>
                       <th scope="col">Specialization</th>
                       <th scope="col">Specialization Status</th>
+                      <th scope="col">Consultation Time</th>
                       <th scope="col">Action</th>
                     </tr>
                   </thead>
@@ -116,13 +123,14 @@ $('#add_specailization_modal').click(function (e) {
                         @else
                             <td data-label="Specialization Status">Deactive</td>
                         @endif
+                        <td data-label="Consultation Time">{{ $spe->consultation_time ?? '-' }}</td>
                         <td data-label="Action">
                             <div class="dropdown">
                                 <button class="btn option-view-btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                   OPTIONS
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                  <li><a class="dropdown-item edit" data-id='{{ $spe->id.",".$spe->name.",".$spe->status }}' data-bs-toggle="modal" data-bs-target="#edit_specailization">Edit</a></li>
+                                  <li><a class="dropdown-item edit" data-id='{{ $spe->id.",".$spe->name.",".$spe->status."," .$spe->consultation_time }}' data-bs-toggle="modal" data-bs-target="#edit_specailization">Edit</a></li>
                                   <li><a class="dropdown-item delete" id='{{ $spe->id }}' >Delete</a></li>
                                 </ul>
                               </div>
@@ -156,6 +164,13 @@ $('#add_specailization_modal').click(function (e) {
                     <div class="col-md-12">
                         <label for="specialInstructions">Specialization Name</label>
                         <input type="text" class="form-control" name="spec_name" placeholder="Specialization Name">
+                    </div>
+                </div>
+                <div class="row mt-3 mb-3">
+                    <div class="col-md-12">
+                        <label for="specialization_time">Consultation Time</label>
+                        <input type="number" class="form-control" name="spec_time" id="spec_time"
+                        placeholder="Time in Minutes (15-60)" min="15" max="60" value="15"/>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -198,6 +213,11 @@ $('#add_specailization_modal').click(function (e) {
                             <select class="form-select" name="status" id="actdec">
                             </select>
                             </div>
+                            <div class="col-md-12 py-2">
+                                <label for="specialization_time">Consultation Time</label>
+                                <input type="number" class="form-control" name="spec_time" id="spec_time2"
+                                placeholder="Time in Minutes (15-60)" min="15" max="60"/>
+                        </div>
                         </div>
                     </div>
 
@@ -242,5 +262,4 @@ $('#add_specailization_modal').click(function (e) {
 
 
     <!-- ------------------Delete-Button-Modal-start------------------ -->
-
 @endsection
