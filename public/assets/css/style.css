@@ -4626,3 +4626,13 @@ hr {
     padding: 9px;
 }
 /* ---new-cards---- */
+
+.or-container {
+  border-bottom: 2px solid rgba(128, 128, 128, 0.256);
+  line-height: 0.1;
+}
+
+.or-design {
+  background-color: white;
+  padding: 0 10px;
+}
