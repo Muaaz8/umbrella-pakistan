@@ -155,7 +155,7 @@
                                         color: #666363;
                                         margin: 0;
                                         text-align: center;
-                                      "> If you need help with anything please don't hesitate to drop us an email: <a href=""> support@umbrellamd.com</a>
+                                      "> If you need help with anything please don't hesitate to drop us an email: <a href=""> support@communityhealthcareclinics.com</a>
                                     </p>
                                   </th>
                                 </tr>

@@ -180,6 +180,8 @@ class RecommendationController extends Controller
                     ]);
                     $singleItemMedicine = [
                         'medicine_name' => $product->name,
+                        'unit' => $pres->med_unit,
+                        'days' => $pres->med_days,
                         'quantity' => $pres->quantity,
                         'usage' => $pres->usage,
                         'comment' => $pres->comment,

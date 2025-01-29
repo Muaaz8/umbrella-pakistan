@@ -190,7 +190,7 @@
                                     If you need help with anything please
                                     don't hesitate to drop us an email:
                                     <a href="">
-                                      support@umbrellamd.com</a>
+                                      support@communityhealthcareclinics.com</a>
                                   </p>
                                 </th>
                               </tr>

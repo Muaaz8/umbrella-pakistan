@@ -406,7 +406,7 @@
                             <tbody>
                                 @foreach ($labtests[0] as $labtest)
                                     <tr>
-                                        <td>{{ $labtest->lab_details->TEST_NAME }}</td>
+                                        <td>{{ $labtest['test_name'] }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -429,7 +429,7 @@
                             <tbody>
                                 @foreach ($imaging as $image)
                                     <tr>
-                                        <td>{{ $image->imaging_details->TEST_NAME }}</td>
+                                        <td>{{ $image['test_name'] }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

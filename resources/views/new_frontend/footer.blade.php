@@ -84,7 +84,7 @@
                           <ul>
                               <li>Email : <a href="mailto:contact@umbrellamd.com">contact@umbrellamd.com</a></li>
                               <!-- <li>Or</li> -->
-                              <li><b>Or</b> Email : <a href="mailto:support@umbrellamd.com">support@umbrellamd.com</a></li>
+                              <li><b>Or</b> Email : <a href="mailto:support@communityhealthcareclinics.com">support@communityhealthcareclinics.com</a></li>
                               <li><strong>Phone</strong>: +1 (407) 693-8484</li>
                           </ul>
                       </div>

@@ -723,7 +723,7 @@
                                         					<tr>
 																			<td align="center" style="font-family:'Roboto', Arial, Helvetica, sans-serif;font-size: 13px;color: #dadada;line-height: 19px">This email was sent to : Dr.{{ $doctorName }}<br>
                                             						For any questions please contact at <br>
-																	Email: <p style="color:white;">support@umbrellamd.com</p><br>
+																	Email: <p style="color:white;">support@communityhealthcareclinics.com</p><br>
 																	Phone: +1(407)693-8484<br>
 																	9914 Kennerly Rd, Saint Louis, MO, 63128, USA
 																			</td>
@@ -915,7 +915,7 @@
                                                                                     For any questions please contact at
                                                                                     <br>
                                                                                     Email: <p style="color:white;">
-                                                                                        support@umbrellamd.com</p><br>
+                                                                                        support@communityhealthcareclinics.com</p><br>
                                                                                     Phone: +1(407)693-8484<br>
                                                                                     625 School House Road #2, Lakeland, FL 33813
                                                                                 </td>

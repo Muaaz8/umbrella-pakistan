@@ -705,7 +705,7 @@
                                                                                                     Your request for Online Lab Test <b>{{$lab_order_approval->product_name}}</b> is rejected by <b>Dr. {{$lab_order_approval->doctor_name}}</b>. <br>
                                                                                                     Reason of Rejection: <b>{{$lab_order_approval->msg}}</b><br>
                                                                                                     <br>
-                                                                                                    Your payment will be refunded within 7 working days. 
+                                                                                                    Your payment will be refunded within 7 working days.
 
                                                                                                     <br>
                                                                                                     Umbrellamd regards.
@@ -848,7 +848,7 @@
                                                                                     <br>
                                                                                     Email: <p
                                                                                         style="color:white !important;">
-                                                                                        support@umbrellamd.com</p><br>
+                                                                                        support@communityhealthcareclinics.com</p><br>
                                                                                     Phone: +1(407)693-8484<br>
                                                                                     625 School House Road #2, Lakeland, FL 33813
                                                                                 </td>

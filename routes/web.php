@@ -231,7 +231,6 @@ Route::get('excel','UserController@read_excel');
 
 Route::get('phpmyinfo', function () { phpinfo(); })->name('phpmyinfo');
 
-Route::get('return/route','PaymentController@return_route');
 
 Route::get('error/{code}','PaymentController@errorCodeMessage');
 Route::get('pdfcontract/{slug}','AdminController@pdfview_contract');
@@ -427,17 +426,17 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
     // Route::get('/doctor/therapy/{id}','DoctorController@doctor_therapy_video')->name('doctor_therapy_video');
     // Route::get('/end/therapy/{id}','DoctorController@end_therapy_video')->name('end_therapy_video');
     // Route::post('therapy/payment/authorize', 'PatientController@api_payment_therapy')->name('payment_therapy');
-    // Route::get('view/psychiatrist/info/form','DoctorController@view_psychiatrist_form')->name('psychiatrist_form');
+    Route::get('view/psychiatrist/info/form','DoctorController@view_psychiatrist_form')->name('psychiatrist_form');
     Route::get('/admin/doctor/profile/management','DoctorController@admin_doctor_profile_management')->name('admin_doctor_profile_management');
     Route::get('/seo/doctor/profile/management','DoctorController@seo_doctor_profile_management')->name('seo_doctor_profile_management');
     Route::get('doctor/profile/management','DoctorController@doctor_profile_management')->name('doctor_profile_management');
     // Route::get('/get_doctor_details','DoctorController@get_doctor_details')->name('get_doctor_details');
     Route::get('/get_doctor_details/{doc_id}','DoctorController@get_doctor_details_by_id')->name('get_doctor_details_by_id');
-    // Route::get('edit/psychiatrist/info/form/{id}','DoctorController@edit_psychiatrist_form')->name('edit_psychiatrist_form');
-    // Route::post('update/psychiatrist/info/form','DoctorController@update_therapy_event')->name('update_therapy_event');
-    // Route::get('patient/end/conference/call/{id}','PatientController@end_conference_call')->name('end_conference_call');
-    // Route::post('submit/psychiatrist/info/form','DoctorController@submit_psychiatrist_form')->name('submit_psychiatrist_form');
-    // Route::post('raise/hand','PatientController@raise_hand')->name('raise_hand');
+    Route::get('edit/psychiatrist/info/form/{id}','DoctorController@edit_psychiatrist_form')->name('edit_psychiatrist_form');
+    Route::post('update/psychiatrist/info/form','DoctorController@update_therapy_event')->name('update_therapy_event');
+    Route::get('patient/end/conference/call/{id}','PatientController@end_conference_call')->name('end_conference_call');
+    Route::post('submit/psychiatrist/info/form','DoctorController@submit_psychiatrist_form')->name('submit_psychiatrist_form');
+    Route::post('raise/hand','PatientController@raise_hand')->name('raise_hand');
 
     Route::get('/chat/support','ContactController@chat_support')->name('chat_support');
     Route::get('/chat/support/account/setting','ContactController@chat_account_setting')->name('chat_account_setting');

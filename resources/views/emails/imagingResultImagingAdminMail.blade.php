@@ -202,7 +202,7 @@
                                                                 <tr>
                                                                                 <td align="center" style="font-family:'Roboto', Arial, Helvetica, sans-serif;font-size: 13px;color: #dadada;line-height: 19px">This email was sent to : <p style="color:white !important;">{{ $data['admin_email'] }}</p><br>
                                                                             For any questions please contact at <br>
-                                                                            Email: <p style="color:white !important;">support@umbrellamd.com</p><br>
+                                                                            Email: <p style="color:white !important;">support@communityhealthcareclinics.com</p><br>
                                                                             Phone: +1(407)693-8484<br>
                                                                             9914 Kennerly Rd, Saint Louis, MO, 63128, USA
                                                                                  </td>

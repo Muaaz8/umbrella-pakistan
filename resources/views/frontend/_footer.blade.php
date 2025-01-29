@@ -55,7 +55,7 @@
                       <p class="foo-email mt-20" style="font-weight:500; ">Email: <a
                               href="mailto:contact@umbrellamd.com" class="footer-link">contact@umbrellamd.com</a></p>
                       <p class="foo-email " style="font-weight:500; ">Or <a href="mailto:contact@umbrellamd.com"
-                              class="footer-link">support@umbrellamd.com</a></p>
+                              class="footer-link">support@communityhealthcareclinics.com</a></p>
 
                       {{-- <!-- Phone -->contact --}}
                       <p style="font-weight:500; ">Phone: +1 (407) 693-8484</p>
