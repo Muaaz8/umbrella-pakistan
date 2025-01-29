@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Specialization extends Model
 {
-    protected $fillable=['name','status'];
+    protected $fillable=['name','status', 'consultation_time'];
     public function speciality($doc_id)
     {
         $doc=User::find($doc_id);
