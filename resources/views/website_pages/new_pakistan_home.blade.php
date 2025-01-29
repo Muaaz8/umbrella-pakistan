@@ -55,6 +55,13 @@
         height: 20px;
         margin-right: 10px;
     }
+
+    .doc-btn{
+        color: #333
+    }
+    .doc-btn:hover{
+        color: #ffffff
+    }
 </style>
 @endsection
 
@@ -618,7 +625,8 @@
                         <div class="doc-btn-container">
                             <div class="doctor-button">
                                 <i class="fa-solid fa-user-doctor"></i>
-                                <a data-bs-toggle="modal" data-bs-target="#loginModal" href="#">TALK TO
+                                <a class="doc-btn" @if (Auth::check()) href="{{ route('patient_evisit_specialization') }}"
+                                    @else data-bs-toggle="modal" data-bs-target="#loginModal" @endif>TALK TO
                                     DOCTORS</a>
                             </div>
                         </div>
@@ -1039,7 +1047,9 @@
                         <div class="doc-btn-container">
                             <div class="doctor-button">
                                 <i class="fa-solid fa-user-doctor"></i>
-                                <a href="">TALK TO DOCTORS</a>
+                                <a class="doc-btn" @if (Auth::check()) href="{{ route('patient_online_doctors', ['id' => 1]) }}"
+                                    @else data-bs-toggle="modal" data-bs-target="#loginModal" @endif>TALK TO
+                                    DOCTORS</a>
                             </div>
                         </div>
                     </div>
