@@ -956,8 +956,7 @@ public function lab_approval_doctor(Request $req)
                 $user = Auth::user();
                 if(isset($request)){
                     $doctors = DB::table('users')
-                    ->select('users.*','states.name as state_name')
-                    ->join('states', 'users.state_id', 'states.id')
+                    ->select('users.*')
                     ->where('user_type','doctor')
                     ->where('users.name','LIKE','%'.$request->name.'%')
                     // ->orwhere('users.nip_number','LIKE','%'. $request->name . '%')
@@ -969,8 +968,7 @@ public function lab_approval_doctor(Request $req)
                     ->paginate(8);
                 }else{
                     $doctors = DB::table('users')
-                    ->select('users.*','states.name as state_name')
-                    ->join('states', 'users.state_id', 'states.id')
+                    ->select('users.*')
                     ->where('user_type','doctor')
                     ->where('users.active','0')
                     // ->where('users.status','!=','declined')
