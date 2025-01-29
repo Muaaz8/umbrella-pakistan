@@ -52,81 +52,17 @@ class RecommendationController extends Controller
 
     public function store_pres(Request $request)
     {
-        // $prod_list = $request['product_list'];
-        // $lab_list = $request['lab_product_list'];
-        // // dd($lab_list);
         $session_id = $request['session_id'];
-
-        //$products = [];
-        // dd($prod_list);
-        // if ($prod_list != "0" && $prod_list != null)
-        // {
-        //     $prod_arr = explode(',', $prod_list);
-        //     foreach ($prod_arr as $id) {
-        //         $prod = AllProducts::find($id);
-        //         $input = [];
-        //         $input['medicine_id'] = $id;
-        //         $input['session_id'] = $session_id;
-        //         $input['type'] = $prod['mode'];
-        //         $input['usage'] = $request[$id . '_dose'];
-        //         $input['comment'] = $request[$id . '_instruction'];
-        //         $input['quantity'] = $request[$id . '_quantity'];
-        //         $input['med_unit'] = $request[$id . '_units'];
-        //         $input['med_days'] = $request[$id . '_days'];
-        //         $input['med_time'] = $request[$id . '_med_time'];
-        //         $input['price'] = $request[$id . '_med_price'];
-
-        //         $pres = Prescription::create($input);
-
-
-        //         $prod->pres = $pres;
-        //         array_push($products, $prod);
-        //     }
-
-        // }
-        // if ($lab_list != "0" && $lab_list != null) {
-        //     $lab_arr = explode(',', $lab_list);
-        //     foreach ($lab_arr as $id) {
-        //         $prod = QuestDataTestCode::where('TEST_CD', $id)->first();
-        //         // $products[] = $prod;
-        //         $input_lab = [];
-        //         $input_lab['test_id'] = $id;
-        //         $input_lab['session_id'] = $session_id;
-        //         $input_lab['type'] = 'lab-test';
-        //         $input_lab['usage'] = $request[$id . '_dose'];
-        //         $input_lab['comment'] = $request[$id . '_instruction'];
-        //         $input_lab['quantity'] = $request[$id . '_quantity'];
-        //         // if ($comment != '') {
-        //         //     $pres = Prescription::create([
-        //         //         'test_id' => $id,
-        //         //         'session_id' => $session_id,
-        //         //         'type' => 'lab-test',
-        //         //         'comment' => $comment,
-        //         //         'usage' => $dose,
-        //         //         'quantity' => 1,
-        //         //     ]);
-        //         // } else {
-        //         $pres = Prescription::create($input_lab);
-        //         // }
-        //         $prod->pres = $pres;
-        //         array_push($products, $prod);
-        //     }
-
-        // }
-        // $pharmacy=AllProducts::all();
         $session = Session::where('id', $session_id)->first();
         if($session->validation_status == "valid")
         {
             Session::where('id', $session_id)->update(['provider_notes' => $request['note'], 'diagnosis' => $request['diagnosis']]);
-            // $notes=$request['notes'];
-            // dd($products);
             return redirect()->route('recommendations.display', ['session_id' => $session_id]);
         }
         else
         {
             return redirect()->route('doctor_dashboard');
         }
-        // return view('session.recommendations',compact('products','pat_id','doc_id','session_id','prod_list','pharmacy','notes'));
     }
     public function display(Request $request)
     {
@@ -192,14 +128,12 @@ class RecommendationController extends Controller
     }
     public function store(Request $request)
     {
-        // $user_type = auth()->user()->user_type;
-        // $prod_list = $request['products'];
-        // $lab_list = $request['lab_products'];
         $session_id = $request['session_id'];
         $diagnosis = $request['diagnosis'];
         $notes = $request['note'];
         $session = Session::find($session_id);
         $patient_user = User::find($session->patient_id);
+        $doctor_user = User::find($session->doctor_id);
 
         if ($session['appointment_id'] != null) {
             Appointment::where('id', $session['appointment_id'])->update(['status' => 'complete']);
@@ -212,7 +146,6 @@ class RecommendationController extends Controller
         $preImaging = [];
         Session::where('id', $session_id)->update(['validation_status' => 'expired']);
         if ($items > 0) {
-
             foreach ($pres_list as $pres) {
                 $product = DB::table('tbl_products')->where('id', $pres->medicine_id)->first();
                 if ($pres->type == "medicine") {
@@ -316,15 +249,18 @@ class RecommendationController extends Controller
             Session::where('id', $session_id)->update(['cart_flag' => '1']);
         }
 
-        try {
-            array_push($dataMarge, array('pat_name' => ucwords($patient_user->name)));
+        // try {
+            array_push($dataMarge, array('patient' => $patient_user));
+            array_push($dataMarge, array('doctor' => $doctor_user));
             array_push($dataMarge, array('rec_test' => $preLab));
             array_push($dataMarge, array('rec_pharma' => $prePharma));
             array_push($dataMarge, array('rec_imaging' => $preImaging));
             array_push($dataMarge, array('pat_email' => ucwords($patient_user->email)));
-            if($dataMarge[1]['rec_test'] != [] || $dataMarge[2]['rec_pharma'] != [] || $dataMarge[3]['rec_imaging'] != []){
-                Mail::to($patient_user->email)->send(new patientEvisitRecommendationMail($dataMarge));
-            }
+            array_push($dataMarge, array('session' => $session));
+            $pdf = PDF::loadView('onlineprescriptionPdf',compact('dataMarge'));
+            Mail::send('emails.prescriptionEmail', ['user_data'=>$patient_user], function ($message) use ($patient_user,$dataMarge,$pdf) {
+                $message->to($patient_user->email)->subject('patient prescription')->attachData($pdf->output(), "prescription.pdf");
+            });
             $text = "Session Complete Please Check Recommendations";
             $notification_id = Notification::create([
                 'user_id' => $patient_user->id,
@@ -343,9 +279,9 @@ class RecommendationController extends Controller
             ];
             // \App\Helper::firebase($patient_user->id,'notification',$notification_id->id,$data);
             event(new RealTimeMessage($patient_user->id));
-        } catch (\Exception $e) {
-            Log::error($e);
-        }
+        // } catch (\Exception $e) {
+        //     Log::error($e);
+        // }
         if ($items > 0) {
             ActivityLog::create([
                 'activity' => 'Create session recommendations for ' . $patient_user->name . " " . $patient_user->last_name,

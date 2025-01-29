@@ -150,9 +150,9 @@ class VideoController extends Controller
             event(new patientJoinCall($session->doctor_id, $session->patient_id, $session_id));
 
             if ($session->remaining_time == 'full') {
-                $start_time = Carbon::now()->addMinutes(15)->format('Y-m-d H:i:s');
-                Session::where('id', $session_id)->update(['start_time' => $start_time, 'remaining_time' => '15 minute : 00 seconds']);
-                $session->remaining_time = '15 minute : 00 seconds';
+                $start_time = Carbon::now()->addMinutes(20)->format('Y-m-d H:i:s');
+                Session::where('id', $session_id)->update(['start_time' => $start_time, 'remaining_time' => '20 minute : 00 seconds']);
+                $session->remaining_time = '20 minute : 00 seconds';
             } else {
                 $nowTime = strtotime(Carbon::now()->format('Y-m-d H:i:s'));
                 $end_time = strtotime($session->start_time);

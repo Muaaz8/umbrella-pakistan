@@ -628,9 +628,8 @@ class DoctorScheduleController extends Controller
                 break;
         }
         $sche = DB::table('doctor_schedules')->where('user_id',$request->id)->where('title','Availability')->where($day_nick,1)->first();
-
-        $sche->from_time =  User::convert_utc_to_user_timezone($sche->doctorID,$sche->from_time)['time'];
-        $sche->to_time =  User::convert_utc_to_user_timezone($sche->doctorID,$sche->to_time)['time'];
+        $sche->from_time =  User::convert_utc_to_user_timezone($sche->doctorID,$request->sdate." ".$sche->from_time)['datetime'];
+        $sche->to_time =  User::convert_utc_to_user_timezone($sche->doctorID,$request->sdate." ".$sche->to_time)['datetime'];
         $check_availability = DB::table('appointments')->where('doctor_id',$request->id)
             ->where('date',$request->sdate)
             ->pluck('time')->toArray();

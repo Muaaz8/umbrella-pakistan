@@ -39,7 +39,7 @@ class User extends Authenticatable
         'office_address', 'zip_code', 'consultation_fee', 'followup_fee',
         'nip_number', 'upin', 'specialization', 'id_card_front', 'id_card_back', 'terms_and_cond', 'signature',
         'time_from', 'time_to', 'user_image', 'bio', 'state_id',
-        'created_by', 'gender',
+        'created_by', 'gender','active',
         // 'cnic','uid',
         'med_record_file',
         'username', 'representative_name', 'representative_relation',

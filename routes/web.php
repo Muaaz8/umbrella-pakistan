@@ -231,6 +231,8 @@ Route::get('excel','UserController@read_excel');
 
 Route::get('phpmyinfo', function () { phpinfo(); })->name('phpmyinfo');
 
+Route::get('return/route','PaymentController@return_route');
+
 Route::get('error/{code}','PaymentController@errorCodeMessage');
 Route::get('pdfcontract/{slug}','AdminController@pdfview_contract');
 

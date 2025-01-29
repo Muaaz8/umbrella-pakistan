@@ -46,7 +46,7 @@
 
         var sec = 0;
         if (remaining_time == "full") {
-            sec = 15 * 60;
+            sec = 20 * 60;
         } else {
             time = remaining_time;
             time_sp = time.split("m");

@@ -1192,7 +1192,7 @@ $(document).ready(function(){
 
                     var consultation_fee = $('#consultation_fee').val();
 
-                    if (consultation_fee == '') { 
+                    if (consultation_fee == '') {
                         $('#consultation_fee_error').text('Please insert your consultation fee');
                         $('#consultation_fee').addClass('border-danger');
                         $(window).scrollTop(350);

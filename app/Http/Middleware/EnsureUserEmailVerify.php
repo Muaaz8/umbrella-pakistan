@@ -40,7 +40,9 @@ class EnsureUserEmailVerify
                     // $user->contract_date = DB::table('contracts')->where('provider_id',Auth()->user()->id)->first();
                     if(isset($user->contract_date)){
                         $user->contract_date->date = date('m-d-Y', strtotime($user->contract_date->date));
-                    }return response()->view('dashboard_doctor.EmailVerify',compact('user'));
+                    }
+                    // return response()->view('dashboard_doctor.EmailVerify',compact('user'));
+                    return response()->view('website_pages.email_verify_new');
                 }
                 else{
                     return response()->view('website_pages.email_verify_new');

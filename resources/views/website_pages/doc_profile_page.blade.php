@@ -34,7 +34,7 @@
                         {{ $doctor->specializations->name }}
                     </h5>
                     <h5 class="doctor_degree doctor_designation lh-1 fw-normal fs-6">
-                        {!! nl2br(isset($doctor->details->education)?$doctor->details->education:"No data available")
+                        {!! nl2br(isset($doctor->details)?$doctor->details->education:"No data available")
                         !!}
                     </h5>
                     <div class="ratings d-flex gap-2 align-items-center">
@@ -440,7 +440,7 @@
 
 
 <script>
-    
+
     const setCookieFunction = (id, doctor_id , end_time, day) => {
 
     const now = new Date();

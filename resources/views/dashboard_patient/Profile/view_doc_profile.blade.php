@@ -159,13 +159,9 @@ $.ajaxSetup({
                         <div class="py-2">
                             <div>
                                 <h5>Education:</h5>
-                                @if($doc->details->education == null)
-                                <p>No Education Data</p>
-                                @else
-                                <p>{!! nl2br(isset($doc->details->education)?$doc->details->education:"No data
+                                <p>{!! nl2br(isset($doc->details)?$doc->details->education:"No data
                                     available")
                                     !!}</p>
-                                @endif
                             </div>
                         </div>
                         <div class="py-2">
