@@ -118,7 +118,7 @@
         .footer-contact-head {
             padding-bottom: 0.1rem;
         }
-        
+
         .footer-underline {
             width: 10%;
             background-color: #c80919;
@@ -299,6 +299,10 @@
         .qualification {
             font-weight: normal;
         }
+
+        .text-left{
+            text-align: left;
+        }
     </style>
 </head>
 
@@ -372,11 +376,10 @@
                     </tr>
                     <tr>
                         <td>
-                            
                         </td>
                         <td >
                             <div class="border-top-bottom" style="margin-top: -20px; padding: 5px 0;">
-                                <h3 class="doctor-name">Dr. John Smith</h3>
+                                <h3 class="doctor-name">Dr. {{ $dataMarge[1]['doctor']->name }}</h3>
                             </div>
                         </td>
                     </tr>
@@ -489,7 +492,7 @@
                                     <th>Test Name</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="text-left">
                                 @foreach ($labtests[0] as $labtest)
                                     <tr>
                                         <td>{{ $labtest['test_name'] }}</td>
@@ -512,7 +515,7 @@
                                     <th>Imaging Name</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="text-left">
                                 @foreach ($imaging as $image)
                                     <tr>
                                         <td>{{ $image['test_name'] }}</td>

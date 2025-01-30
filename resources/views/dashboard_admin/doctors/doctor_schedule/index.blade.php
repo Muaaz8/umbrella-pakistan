@@ -42,10 +42,38 @@
         });
         $('#viewappointmentModal').modal('show');
     }
+
+    $('input[name="to_time"]').on('change', function () {
+    var from_time = $('input[name="from_time"]').val();
+    var to_time = $('input[name="to_time"]').val();
+
+    if (!to_time) return;
+
+    var maxTime = "23:59";
+
+    var fromTimeObj = from_time ? new Date(`1970-01-01T${from_time}`) : null;
+    var toTimeObj = new Date(`1970-01-01T${to_time}`);
+    var maxTimeObj = new Date(`1970-01-01T${maxTime}`);
+
+    if (toTimeObj > maxTimeObj) {
+        $('#error').html('<p class="text-danger">To Time cannot be later than 11:59 PM</p>');
+        $('#addTiming').attr('disabled', true);
+    } else if (fromTimeObj && fromTimeObj >= toTimeObj) {
+        $('#error').html('<p class="text-danger">To Time cannot be later than 11:59 PM</p>');
+        $('#addTiming').attr('disabled', true);
+    } else {
+        $('#error').html('');
+        $('#addTiming').attr('disabled', false);
+    }
+    });
+
 </script>
 @endsection
 
 @section('content')
+
+{{-- {{ dd($events , $doctors , $appointments) }} --}}
+
 <div class="dashboard-content">
     <div class="container-fluid">
         <div class="row m-auto">
@@ -55,9 +83,7 @@
                         <div>
                         <h3>Doctor Schedule</h3>
                     </div>
-                        <div class="col-md-4  p-0">
-
-
+                        <div class="col-md-4 p-0 d-flex align-items-center justify-content-around gap-2">
                             <select class="form-select" aria-label="Default select example" id="doc_id">
                                 <option selected>Select Doctor</option>
                                 @foreach ($doctors as $user)
@@ -71,40 +97,43 @@
                                 @endforeach
 
                             </select>
+                            <button class="add-schedule w-100" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <i class="fa-solid fa-plus"></i> Add Schedule
+                            </button>
                         </div>
                     </div>
+
+                    {{-- {{ dd($events) }} --}}
                     <div class="wallet-table">
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th scope="col">Date</th>
+                                    <th scope="col">Week Days</th>
                                     <th scope="col">Start Time</th>
                                     <th scope="col">End Time</th>
-                                    <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse ($events as $event)
                                 <tr>
-                                    <td data-label="Date">{{ explode(" ",$event->start)[0] }}</td>
-                                    <td data-label="Start Time">{{ explode(" ",$event->start)[1]." ".explode(" ",$event->start)[2] }}</td>
-                                    <td data-label="End Time">{{ explode(" ",$event->end)[1]." ".explode(" ",$event->end)[2] }}</td>
-
-                                    <td data-label="Action" class="lab-app-td-icon">
-
-                                        <button
-                                            class="orders-view-btn" style="position: relative" data-bs-toggle="modal"
-                                            onclick="view_app({{$event->appointments}})"
-                                            data-bs-target="#viewappointmentModal">
-                                            <h6 class="app-num">{{count($event->appointments)}}</h6>
-                                            View Appointments
-                                        </button>
+                                    <td data-label="Date">
+                                        <ul class="list-unstyled">
+                                            {!! $event->mon==1?"<li>Monday</li>":"" !!}
+                                            {!! $event->tues==1?"<li>Tuesday</li>":"" !!}
+                                            {!! $event->weds==1?"<li>Wednesday</li>":"" !!}
+                                            {!! $event->thurs==1?"<li>Thursday</li>":"" !!}
+                                            {!! $event->fri==1?"<li>Friday</li>":"" !!}
+                                            {!! $event->sat==1?"<li>Saturday</li>":"" !!}
+                                            {!! $event->sun==1?"<li>Sunday</li>":"" !!}
+                                        </ul>
+                                    </td>
+                                    <td data-label="Start Time">{{ $event->from_time }}</td>
+                                    <td data-label="End Time">{{ $event->to_time }}</td>
                                         @empty
-                                <tr>
-                                    <td colspan="4">Select a Doctor to view his Schedules</td>
-                                </tr>
+                                    <tr>
+                                    <td colspan="3">Select a Doctor to view his Schedules</td>
+                                    </tr>
                                 @endforelse
-                                </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -124,58 +153,6 @@
 
 <!-- ================= Add schedule Modal start ================ -->
 <!-- Button trigger modal -->
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">
-                    Add Schedule
-                </h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="p-3">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <select class="form-select" aria-label="Default select example">
-                                <option selected>Select Doctor</option>
-                                <option value="1">Ahmer</option>
-                                <option value="2">AHmer</option>
-                                <option value="3">Muaaz</option>
-                            </select>
-                        </div>
-                        <div class=" mb-3 col-md-6">
-                            <input type="date" class="form-control" placeholder="Username" aria-label="Username"
-                                aria-describedby="basic-addon1" />
-                        </div>
-                    </div>
-
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="input-group mb-3">
-                                <input type="time" class="form-control" placeholder="Username" aria-label="Username"
-                                    aria-describedby="basic-addon1" />
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="input-group mb-3">
-                                <input type="time" class="form-control" placeholder="Username" aria-label="Username"
-                                    aria-describedby="basic-addon1" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-center">
-                        <button class="w-100 add-schedule">Add Schedule</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- ================= Add schedule Modal Ends ================ -->
 
 <!-- ================= Delete Modal Starts ================ -->
 
@@ -241,4 +218,77 @@
     </div>
 </div>
 <!-- ================= View Appointment Modal Ends ================ -->
+
+<!-- ================= Add Schedule Modal Starts ================ -->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <form method="POST" action="{{ route('add_doc_schedule') }}">
+        @csrf
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">
+                        Add Schedule
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="p-3">
+                        <label class="form-text"> Working Days</label>
+                        <div class="input-group mb-2 d-flex justify-content-around">
+                            <input type="checkbox" id="week1" name="week[]" value="Mon">
+                            <label for="week1"> Mon</label><br>
+                            <input type="checkbox" id="week2" name="week[]" value="Tues">
+                            <label for="week2"> Tues</label><br>
+                            <input type="checkbox" id="week3" name="week[]" value="Wed">
+                            <label for="week3"> Wed</label><br>
+                            <input type="checkbox" id="week4" name="week[]" value="Thurs">
+                            <label for="week4"> Thurs</label><br>
+                            <input type="checkbox" id="week5" name="week[]" value="Fri">
+                            <label for="week5"> Fri</label><br>
+                            <input type="checkbox" id="week6" name="week[]" value="Sat">
+                            <label for="week6"> Sat</label><br>
+                            <input type="checkbox" id="week7" name="week[]" value="Sun">
+                            <label for="week7"> Sun</label><br>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 mb-2">
+                                <select required name="doc_id" class="form-select" aria-label="Default select example">
+                                    <option disabled>Select Doctor</option>
+                                    @foreach ($doctors as $user)
+                                    <option value="{{ $user->id }}">{{ $user->name . ' ' . $user->last_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-text">From Time</label>
+                                <div class="input-group mb-3">
+                                    <input type="hidden" name="AvailabilityTitle" value="Availability"
+                                        id="title" placeholder="Title">
+                                    <input type="hidden" value="#008000" name="AvailabilityColor" id="color" />
+                                    <input required type='time' class="form-control" name="from_time" placeholder="12:00 CST" />
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-text">To Time</label>
+                                <div class="input-group mb-3">
+                                    <input required max="23:59" type='time' class="form-control" name="to_time" placeholder="09:00 CST" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center" id="error">
+                        </div>
+                        <div class="text-center">
+                            <button id="addTiming" class="w-100 add-schedule">Add Schedule</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<!-- ================= Add Schedule Modal End =================== -->
+
 @endsection

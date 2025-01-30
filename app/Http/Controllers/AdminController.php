@@ -88,6 +88,10 @@ public function doctor_schedule($id)
                 $ev->appointments = Appointment::where('doctor_id',$ev->doctorID)->where('date',$ev->date)->where('status','pending')->orderBy('time')->get();
                 $ev->date = User::convert_utc_to_user_timezone($user->id,$ev->date);
                 $ev->date = $ev->date['date'];
+                $ev->from_time = User::convert_utc_to_user_timezone($user->id,$ev->from_time);
+                $ev->from_time = $ev->from_time['time'];
+                $ev->to_time = User::convert_utc_to_user_timezone($user->id,$ev->to_time);
+                $ev->to_time = $ev->to_time['time'];
                 $ev->start = User::convert_utc_to_user_timezone($user->id,$ev->start);
                 $ev->start = $ev->start['date']." ".$ev->start['time'];
                 $ev->end = User::convert_utc_to_user_timezone($user->id,$ev->end);

@@ -43,7 +43,8 @@ class DoctorScheduleController extends Controller
 
     public function add_doc_schedule(Request $request)
     {
-        $doctorID=Auth::user()->id;
+        $doctorID = isset($request->doc_id) ? $request->doc_id : Auth::user()->id;
+
         $AvailabilityStartUser = $request->from_time;
         $AvailabilityStart = User::convert_user_timezone_to_utc($doctorID,$AvailabilityStartUser)['time'];
         $AvailabilityEndUser = $request->to_time;

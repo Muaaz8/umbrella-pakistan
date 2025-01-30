@@ -28,6 +28,30 @@
         myModalEl.addEventListener('hidden.bs.modal', function(event) {
             $('#edit_error').html('');
         });
+
+        $('input[name="to_time"]').on('change', function () {
+    var from_time = $('input[name="from_time"]').val();
+    var to_time = $('input[name="to_time"]').val();
+
+    if (!to_time) return;
+
+    var maxTime = "23:59";
+
+    var fromTimeObj = from_time ? new Date(`1970-01-01T${from_time}`) : null;
+    var toTimeObj = new Date(`1970-01-01T${to_time}`);
+    var maxTimeObj = new Date(`1970-01-01T${maxTime}`);
+
+    if (toTimeObj > maxTimeObj) {
+        $('#error').html('<p class="text-danger">To Time cannot be later than 11:59 PM</p>');
+        $('#addTiming').attr('disabled', true);
+    } else if (fromTimeObj && fromTimeObj >= toTimeObj) {
+        $('#error').html('<p class="text-danger">To Time cannot be later than 11:59 PM</p>');
+        $('#addTiming').attr('disabled', true);
+    } else {
+        $('#error').html('');
+        $('#addTiming').attr('disabled', false);
+    }
+});
     </script>
     <script src="{{ asset('assets\js\doctor_dashboard_script\schedule_new.js?n=1') }}"></script>
 @endsection
