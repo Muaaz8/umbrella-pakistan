@@ -1689,9 +1689,8 @@ header("Access-Control-Allow-Origin: *"); @endphp
                 </div>
             </div>
         </div>
-
-        <div class="row mt-3">
-            <div class="col-lg-7">
+        <div class="row mt-1" style="--bs-gutter-x: 0.5rem;">
+            <div class="col-lg-8">
                 <div class="video-call-screen">
                     <div class="big-video-screen" id="remote-playerlist">
                         <div class="spannerx" id="video_pat">
@@ -1744,11 +1743,10 @@ header("Access-Control-Allow-Origin: *"); @endphp
                     </p>
                 </div>
             </div>
-
-            <div class="col-lg-5">
+            <div class="col-lg-4">
                 <div class="right-detail-call-screen">
-                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                        <li class="nav-item col-3" role="presentation">
+                    <ul class="nav nav-pills mb-1" id="pills-tab" role="tablist">
+                        <li class="nav-item col-4" role="presentation">
                             <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill"
                                 data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home"
                                 aria-selected="true">
@@ -1762,7 +1760,7 @@ header("Access-Control-Allow-Origin: *"); @endphp
                                 Prescription
                             </button>
                         </li>
-                        <li class="nav-item col-3" role="presentation">
+                        <li class="nav-item col-2" role="presentation">
                             <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill"
                                 data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact"
                                 aria-selected="false">
@@ -1770,7 +1768,7 @@ header("Access-Control-Allow-Origin: *"); @endphp
                             </button>
                         </li>
 
-                        <li class="nav-item col-2 ms-auto offset-1" role="presentation">
+                        <li class="nav-item col-3 ms-auto offset-1" role="presentation">
                             <button onclick="myNotePad()" class="notes-btn">
                                 <i class="fa-solid fa-notes-medical"></i> Notes
                             </button>
@@ -1870,7 +1868,7 @@ header("Access-Control-Allow-Origin: *"); @endphp
                                             class="accordion-collapse collapse visit-history-data"
                                             aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
                                             <div class="accordion-body">
-                                                <div class="my-2">
+                                                <div class="my-1">
                                                     <div class="screen-medication" id="loadCurrentMedication"></div>
                                                 </div>
                                             </div>
