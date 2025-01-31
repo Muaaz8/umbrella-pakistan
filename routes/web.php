@@ -526,6 +526,8 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
     });
     Route::get('/inclinic/pharmacy/all/orders','AdminController@inclinic_pharmacy_editor_orders')->name('inclinic_pharmacy_editor_orders');
 
+    Route::get('/inclinic/pharmacy/prescription/download/{id}','AdminController@inclinic_pharmacy_prescription_download')->name('dash_inclinic_pharmacy_prescription_download');
+
     Route::group(['middleware' => ['phar_auth']], function () {
         //New Pharmacy Editor Routes
         Route::get('/pharmacy/account/setting','AdminController@pharmacy_editor_setting')->name('pharmacy_editor_setting');

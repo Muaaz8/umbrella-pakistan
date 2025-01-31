@@ -97,10 +97,26 @@
                                             <td data-label="User Number">{{ $order->user->phone_number }}</td>
                                             <td data-label="Date">{{ explode(' ', $order->created_at)[0] }}</td>
 
-                                            <td data-label="Action">
-                                                <a href="{{ route('dash_inclinic_pharmacy_order', ['id' => $order->id]) }}">
-                                                    <button class="orders-view-btn">View</button>
-                                                </a>
+                                            <td class="d-flex align-items-center justify-content-center" data-label="Action">
+                                                <div class="dropdown">
+                                                    <button class="orders-view-btn dropdown-toggle" type="button"
+                                                        id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        View / Download
+                                                    </button>
+                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                        <li>
+                                                            <a class="dropdown-item"
+                                                                href="{{ route('dash_inclinic_pharmacy_order', ['id' => $order->id]) }}">View
+                                                                Order</a>
+                                                        </li>
+                                                        <li>
+                                                            <a class="dropdown-item"
+                                                                href="{{ route('dash_inclinic_pharmacy_prescription_download', ['id' => $order->id]) }}"
+                                                                >Download
+                                                                Prescription</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </td>
                                         </tr>
                                     @empty

@@ -3156,7 +3156,32 @@ public function store_policy(Request $request){
         }
     }
 
+    public function inclinic_pharmacy_prescription_download ($id){
+        $inclinic_data = \App\Models\InClinics::with(['user','prescriptions','doctor'])->where('id',  $id)->first();
 
+        foreach($inclinic_data->prescriptions as $pres){
+            if($pres->type == "medicine"){
+                $pres->med_details = DB::table('tbl_products')->where('id',$pres->medicine_id)->first();
+                $med_unit = DB::table('medicine_units')->where('unit',$pres->med_unit)->first();
+                $price = DB::table('medicine_pricings')
+                    ->where('product_id', $pres->medicine_id)
+                    ->where('unit_id',$med_unit->id)
+                    ->first();
+                if($pres->med_details->is_single){
+                    $pres->price = ($pres->med_time*$pres->med_days)*$price->sale_price;
+                }else{
+                    $pres->price = $price->sale_price;
+                }
+            }elseif($pres->type == "lab-test"){
+                $pres->lab_details = DB::table('quest_data_test_codes')->where('TEST_CD',$pres->test_id)->first();
+            }elseif($pres->type == "imaging"){
+                $pres->imaging_details = DB::table('quest_data_test_codes')->where('TEST_CD',$pres->imaging_id)->first();
+            }
+        }
+
+        $pdf = PDF::loadView('prescriptionPdf', compact('inclinic_data'));
+        return $pdf->download('prescription.pdf');
+    }
 
     public function pharmacy_editor_setting()
     {
