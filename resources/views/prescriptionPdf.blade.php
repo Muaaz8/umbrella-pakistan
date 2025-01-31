@@ -12,6 +12,29 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
+        @page {
+            size: A4;
+        }
+
+        body {
+            margin: 110px 24px 200px 24px;
+        }
+
+        header {
+            position: fixed;
+            top: 10px;
+            left: 0;
+            right: 0;
+            text-align: center;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0px;
+            left: 0;
+            right: 0;
+        }
+
         table{
             font-size: 14px;
         }
@@ -28,11 +51,8 @@
             display: none;
         }
 
-        .email-container {
+        main {
             background-color: white;
-        }
-
-        .email-container main {
             padding: 0.5rem 1rem;
         }
 
@@ -67,9 +87,13 @@
             font-style: italic;
         }
 
+        .prescription-container {
+            /* page-break-inside: avoid; */
+        }
+
         .prescription {
             width: 100%;
-            border: 2px solid black;
+            /* border: 2px solid black; */
             margin: 1rem 0;
             text-align: center;
         }
@@ -92,7 +116,7 @@
         }
 
         .footer-contact-head {
-            padding-bottom: 0.2rem;
+            padding-bottom: 0.1rem;
         }
 
         .footer-underline {
@@ -101,16 +125,12 @@
             height: 2px;
         }
 
-        .email-container>header {
-            text-align: center;
+        .footer-contact-head {
+            margin-top: 0.1rem;
         }
 
         .contact-div:first-child {
             margin-top: 0;
-        }
-
-        .contact-div {
-            margin-top: 0.75rem;
         }
 
         .contact-div a {
@@ -130,12 +150,12 @@
             margin: auto;
         }
 
-        .email-container main .email-image-section {
+        main .email-image-section {
             margin: 1rem auto;
             text-align: center;
         }
 
-        .email-container main .email-image-section>img {
+        main .email-image-section>img {
             width: 40%;
         }
 
@@ -219,7 +239,6 @@
 
         .email-footer {
             background-color: #082755;
-            /* background: linear-gradient(to bottom, #2964bc), #082755; */
             color: white;
             text-align: center;
         }
@@ -242,23 +261,13 @@
 
         .footer-table {
             width: 100%;
+            padding: 0 37px;
             text-align: left;
             margin-top: 1rem;
         }
 
-        /* .footer-highlight {
-            background: #c80919;
-            padding: 10px;
-            border-radius: 20px;
-            color: white;
-        } */
-
         .contact-div a {
             color: blue;
-        }
-
-        .footer-table .footer-head {
-            margin-bottom: 0.25rem;
         }
 
         .footer-table tbody td {
@@ -285,12 +294,14 @@
         .border-top-bottom {
             border-top: 2px solid #c80919;
             border-bottom: 2px solid #c80919;
-            vertical-align: top;
         }
 
         .qualification {
-            /* color: gray; */
             font-weight: normal;
+        }
+
+        .text-left{
+            text-align: left;
         }
     </style>
 </head>
@@ -302,6 +313,88 @@
                 <img src="{{ public_path('assets/new_frontend/logo.png') }}" alt="logo" />
             </div>
         </header>
+        <footer>
+            <table class="footer-table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div class="footer-head">
+                                <h3 class="footer-contact-head">E-MAIL</h3>
+                                <div class="footer-underline"></div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="footer-head">
+                                <h3 class="footer-contact-head">ADDRESS</h3>
+                                <div class="footer-underline"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="mailto:support@communityhealthcareclinics.com" target="_blank">support@communityhealthcareclinics.com</a>
+                            <a href="mailto:contact@communityhealthcareclinics.com" target="_blank">contact@communityhealthcareclinics.com</a>
+                        </td>
+                        <td style="padding-bottom: 0.5rem;">
+                            Progressive Center, 4th Floor Suite # 410, Main Shahrah-e-Faisal, Karachi
+                        </td>
+                    </tr>
+                    <tr>
+                        <!-- <td class="top">contact@communityhealthcareclinics.com</td> -->
+                        <td>
+                            <div class="footer-head">
+                                <h3 class="footer-contact-head">PHONE</h3>
+                                <div class="footer-underline"></div>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="footer-head">
+                                <h3 class="footer-contact-head">WEBSITE</h3>
+                                <div class="footer-underline"></div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                    <td>
+                            <div class="footer-highlight">
+                                <a href="tel:+14076938484">+1 (407) 693-8484</a>
+                            </div>
+                            <div class="footer-highlight" style="margin-top: 4px">
+                                <a href="https://wa.me/923372350684">0337-2350684</a>
+                            </div>
+                        </td>
+                        <td class="top">
+                            <div class="contact-div">
+                                <a href="https://www.communityhealthcareclinics.com" target="_blank">www.communityhealthcareclinics.com</a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <div class="border-top-bottom" style="margin-top: -20px; padding: 5px 0;">
+                                <h3 class="doctor-name">Dr.
+                                    {{ $inclinic_data->doctor->name }} {{ $inclinic_data->doctor->last_name }}
+                                </h3>
+                            </div>
+                            {{-- <h5 class="qualification">M.B.B.S, B.D.S</h5> --}}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="email-footer">
+                <p class="email-copyright">
+                    Copyright &copy; {{date('Y')}}. Community Healthcare Clinics. All Rights
+                    Reserved
+                </p>
+            </div>
+        </footer>
         <main>
             <section class="patient-details">
                 <h1 class="patient-heading">Patient Details</h1>
@@ -428,89 +521,7 @@
                 @endif
 
             </section>
-            <section class="contact-section-big patient-details">
-                <table class="footer-table">
-                    <thead>
-                        <tr>
-                            <th>
-
-                            </th>
-                            <th>
-
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <div class="footer-head">
-                                    <h3 class="footer-contact-head">E-MAIL</h3>
-                                    <div class="footer-underline"></div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="footer-head">
-                                    <h3 class="footer-contact-head">ADDRESS</h3>
-                                    <div class="footer-underline"></div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>support@communityhealthcareclinics.com</td>
-                            <td style="padding-bottom: 0.5rem;">
-                                Progressive Center, 4th Floor Suite # 410, Main
-                                Shahrah-e-Faisal, Karachi
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="top">contact@communityhealthcareclinics.com</td>
-                            <td>
-                                <div class="footer-head">
-                                    <h3 class="footer-contact-head">WEBSITE</h3>
-                                    <div class="footer-underline"></div>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="footer-head">
-                                    <h3 class="footer-contact-head">PHONE</h3>
-                                    <div class="footer-underline"></div>
-                                </div>
-                            </td>
-                            <td class="top">
-                                <div class="contact-div">
-                                    <a href="https://www.communityhealthcareclinics.com"
-                                        target="_blank">www.communityhealthcareclinics.com</a>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span class="footer-highlight">
-                                    <p>+1 (407) 693-8484</p>
-                                </span>
-                                <span class="footer-highlight" style="margin-left: 0.5rem;">
-                                    <p>0337-2350684</p>
-                                </span>
-                            </td>
-                            <td class="border-top-bottom">
-                                <h3 class="doctor-name">Dr.
-                                    {{ $inclinic_data->doctor->name }} {{ $inclinic_data->doctor->last_name }}
-                                </h3>
-                                {{-- <h5 class="qualification">M.B.B.S, B.D.S</h5> --}}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
         </main>
-        <footer class="email-footer">
-            <p class="email-copyright">
-                Copyright &copy; {{date('Y')}}. Community Healthcare Clinics. All Rights
-                Reserved
-            </p>
-        </footer>
     </div>
 </body>
 
