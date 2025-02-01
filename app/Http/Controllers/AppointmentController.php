@@ -304,34 +304,34 @@ class AppointmentController extends Controller
             // $state = State::find($Reg_state);
 
             $spe = DB::table('specializations')
-            ->join('specalization_price', 'specalization_price.spec_id', 'specializations.id')
+            // ->join('specalization_price', 'specalization_price.spec_id', 'specializations.id')
             ->join('users', 'users.specialization', 'specializations.id')
             // ->join('doctor_licenses', 'doctor_licenses.doctor_id', 'users.id')
             // ->where('specalization_price.state_id', $Reg_state)
             // ->where('doctor_licenses.is_verified', '1')
             ->groupBy('specializations.id')
-            ->select('specializations.*', 'specalization_price.follow_up_price as follow_up_price', 'specalization_price.initial_price as initial_price')
+            ->select('specializations.*')
             ->get();
 
-            $locations = DB::table('states')->where('active','1')->orderBy('name','ASC')->get();
-            foreach($locations as $loc)
-            {
-                $docs = DB::table('doctor_licenses')
-                ->where('state_id',$loc->id)
-                ->where('is_verified','1')
-                ->count();
+            // $locations = DB::table('states')->where('active','1')->orderBy('name','ASC')->get();
+            // foreach($locations as $loc)
+            // {
+            //     $docs = DB::table('doctor_licenses')
+            //     ->where('state_id',$loc->id)
+            //     ->where('is_verified','1')
+            //     ->count();
 
-                if($docs>0)
-                {
-                    $loc->docs = 1;
-                }
-                else
-                {
-                    $loc->docs = 0;
-                }
-            }
+            //     if($docs>0)
+            //     {
+            //         $loc->docs = 1;
+            //     }
+            //     else
+            //     {
+            //         $loc->docs = 0;
+            //     }
+            // }
 
-            return view('dashboard_patient.Appointments.specialization', compact('spe','locations'));
+            return view('dashboard_patient.Appointments.specialization', compact('spe'));
         } else {
             return redirect()->route('errors', '101');
         }
@@ -475,32 +475,32 @@ class AppointmentController extends Controller
                     $doctor->flag = 'Visited';
                 }
             }
-            $session = null;
-            $price = DB::table('specalization_price')->where('spec_id', $id)->first();
-            if($price!=null)
-            {
-                if ($price->follow_up_price != null) {
-                    $session = DB::table('sessions')
-                    ->leftjoin('specializations', 'sessions.specialization_id', 'specializations.id')
-                    ->leftjoin('specalization_price', 'sessions.specialization_id', 'specalization_price.spec_id')
-                    ->where('sessions.patient_id', $user->id)
-                    ->where('sessions.status', 'ended')
-                    ->select('specializations.name as sp_name', 'specalization_price.follow_up_price as price')
-                    ->where('sessions.specialization_id', $id)
-                    ->first();
-                }
-            }
-            else
-            {
-                $price = DB::table('specalization_price')->first();
-                $price->follow_up_price = "0";
-                $price->initial_price = "0";
-            }
+            // $session = null;
+            // $price = DB::table('specalization_price')->where('spec_id', $id)->first();
+            // if($price!=null)
+            // {
+            //     if ($price->follow_up_price != null) {
+            //         $session = DB::table('sessions')
+            //         ->leftjoin('specializations', 'sessions.specialization_id', 'specializations.id')
+            //         ->leftjoin('specalization_price', 'sessions.specialization_id', 'specalization_price.spec_id')
+            //         ->where('sessions.patient_id', $user->id)
+            //         ->where('sessions.status', 'ended')
+            //         ->select('specializations.name as sp_name', 'specalization_price.follow_up_price as price')
+            //         ->where('sessions.specialization_id', $id)
+            //         ->first();
+            //     }
+            // }
+            // else
+            // {
+            //     $price = DB::table('specalization_price')->first();
+            //     $price->follow_up_price = "0";
+            //     $price->initial_price = "0";
+            // }
         }else{
             $flag = 'appointment';
             return view('dashboard_patient.Evisit.patient_health',compact('user','flag'));
         }
-        return view('dashboard_patient.Appointments.book_appointment', compact('doctors','price','session', 'id', 'user'));
+        return view('dashboard_patient.Appointments.book_appointment', compact('doctors', 'id', 'user'));
         //return view('appointments.choose_doctor_for_appointment',compact('doctors','refered_doctors','already_session_did'));
     }
 
@@ -1009,24 +1009,32 @@ class AppointmentController extends Controller
             'appointment_id' => $new_app_id,
         ])->id;
 
-        $check_session_already_have = DB::table('sessions')
-            ->where('doctor_id', $pro_id)
-            ->where('patient_id', $patient_id)
-            ->where('specialization_id', $request->spec_id)
-            ->count();
         $session_price = "";
-        if ($check_session_already_have > 0) {
-            $session_price_get = DB::table('specalization_price')->where('spec_id', $request->spec_id)->first();
-            if ($session_price_get->follow_up_price != null) {
-                $session_price = $session_price_get->follow_up_price;
-            } else {
-                $session_price = $session_price_get->initial_price;
-            }
+        if ($request->price != null) {
+            $session_price = $request->price;
         } else {
-            $session_price_get = DB::table('specalization_price')->where('spec_id', $request->spec_id)->first();
-            // dd($session_price_get);
+            $session_price_get = DB::table('specalization_price')->where('spec_id', $request->doc_sp_id)->first();
             $session_price = $session_price_get->initial_price;
         }
+
+        // $check_session_already_have = DB::table('sessions')
+        //     ->where('doctor_id', $pro_id)
+        //     ->where('patient_id', $patient_id)
+        //     ->where('specialization_id', $request->spec_id)
+        //     ->count();
+        // $session_price = "";
+        // if ($check_session_already_have > 0) {
+        //     $session_price_get = DB::table('specalization_price')->where('spec_id', $request->spec_id)->first();
+        //     if ($session_price_get->follow_up_price != null) {
+        //         $session_price = $session_price_get->follow_up_price;
+        //     } else {
+        //         $session_price = $session_price_get->initial_price;
+        //     }
+        // } else {
+        //     $session_price_get = DB::table('specalization_price')->where('spec_id', $request->spec_id)->first();
+        //     // dd($session_price_get);
+        //     $session_price = $session_price_get->initial_price;
+        // }
         // dd($session_price);
         $new_session_id;
         $randNumber=rand(11,99);

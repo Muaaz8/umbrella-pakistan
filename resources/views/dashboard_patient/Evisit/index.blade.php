@@ -61,51 +61,21 @@
             <!-- <div class="row"> -->
             <div class="row my-2 m-auto">
                 <div class="row align-items-center mb-3">
-                    {{--<div class="col-md-4">
-                        <h5 class="registered__state">Registered State: {{ $state->name }}</h5>
-                    </div>--}}
                 </div>
 
                 <div class="pb-4">
-                    {{-- <div>
-                        <h5 class="registered__state">Registered State: {{$state->name}}</h5>
-
-
-                            <div class="meet__new d-flex justify-content-center meet_select_loca d-flex" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                <p id="selected_state">{{$state->name}}</p>
-                                <i class="fa-solid fa-sort-down pt-1"></i>
-                            </div>
-
-
-                    </div> --}}
                     <h4>Specializations</h4>
                     <p>CHOOSE YOUR DESIRE SPECIALIZE TO EVISIT</p>
                 </div>
                 <div class="row clearfix" id="load_specs">
                     @forelse ($spe as $spec)
                         <div class="col-md-4 mb-5 flexbox" onclick="spec_redirect({{ $spec->id }})">
-                            @if ($spec->follow_up_price != null && $spec->initial_price != null)
-                                <div class="box">
-                                    <h3>{{ $spec->name }}</h1>
-                                        <div class="e-visit-price-box">
-                                            <p class="third"><b>Service Type:</b> E-Visit</p>
-                                            <div>
-                                                <h6 class="m-0"><b>Initial Price: </b>Rs. {{ $spec->initial_price }}</h6>
-                                                <h6 class="m-0"><b>Follow-up Price: </b> Rs. {{ $spec->follow_up_price }}
-                                                </h6>
-                                            </div>
-                                        </div>
-                                </div>
-                            @else
-                                <div class="box">
-                                    <h3>{{ $spec->name }}</h1>
-                                        <div class="e-visit-price-box">
-                                            <p class="third"><b>Service Type:</b> E-Visit</p>
-                                            <h6 class="m-0"><b>Price: </b> Rs. {{ $spec->initial_price }}</h6>
-                                        </div>
-                                </div>
-                            @endif
-                            </a>
+                            <div class="box">
+                                <h3>{{ $spec->name }}</h1>
+                                    <div class="e-visit-price-box">
+                                        <p class="third"><b>Service Type:</b> E-Visit</p>
+                                    </div>
+                            </div>
                         </div>
                     @empty
                         <div>

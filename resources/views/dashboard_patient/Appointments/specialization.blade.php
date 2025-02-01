@@ -49,28 +49,9 @@
 @section('content')
     <div class="dashboard-content">
         <div class="container-fluid">
-            <!-- <div class="row"> -->
             <div class="row my-2 m-auto">
 
                 <div class="pb-4">
-                    <div class="row align-items-center mb-3">
-                        {{--<div class="col-md-4">
-                            <h5 class="registered__state">Registered State: {{ $state->name }}</h5>
-                        </div>
-                        <div class="col-md-8">
-                            <div class="d-flex select__main_state">
-                                <p class="me-2">Select Your Current State: </p>
-                                <div class="d-flex align-items-center state___sty" data-bs-toggle="modal"
-                                    data-bs-target="#staticBackdrop">
-                                    <p id="selected_state">{{ $state->name }} </p>
-                                    <i class="fa-solid fa-sort-down pb-1"></i>
-
-                                </div>
-
-                            </div>
-
-                        </div>--}}
-                    </div>
                     <h4>Specializations</h4>
                     <p>CHOOSE YOUR DESIRE SPECIALIZE TO BOOK APPOINTMENT</p>
                 </div>
@@ -79,24 +60,10 @@
                         <div class="col-md-4 mb-5 flexbox" onclick="spec_redirect({{ $specialization->id }})">
                             <div class="box">
                                 <h3>{{ $specialization->name }}</h1>
-                                    @if ($specialization->follow_up_price != null && $specialization->initial_price != null)
-                                        <div class="e-visit-price-box">
-                                            <p class="third"><b>Service Type:</b> Appointment</p>
-                                            <div>
-                                                <h6 class="m-0"><b>Initial Price:
-                                                    </b>Rs. {{ $specialization->initial_price }}</h6>
-                                                <h6 class="m-0"><b>Follow-up Price: </b>
-                                                    Rs. {{ $specialization->follow_up_price }}</h6>
-                                            </div>
-                                        </div>
-                                    @else
-                                        <div class="e-visit-price-box">
-                                            <p class="third"><b>Service Type:</b> Appointment</p>
-                                            <h6 class="m-0"><b>Price: </b> Rs. {{ $specialization->initial_price }}</h6>
-                                        </div>
-                                    @endif
+                                <div class="e-visit-price-box">
+                                    <p class="third"><b>Service Type:</b> Appointment</p>
+                                </div>
                             </div>
-                            </a>
                         </div>
                     @empty
                         <div class="No__SpeC_avai">
@@ -104,31 +71,7 @@
                         </div>
                     @endforelse
                 </div>
-                {{-- <div class="col-md-4 flexbox">
-                      <div class="box">
-                          <h3>Care</h1>
-                      <div class="e-visit-price-box">
-                          <p class="third">Appointment</p>
-                          <h6 class="m-0"><b>Price: </b> $80</h6>
-                      </div>
-                      </div>
-
-                      </div>
-                      <div class="col-md-4 flexbox">
-                        <div class="box">
-                            <h3>Health</h1>
-                        <div class="e-visit-price-box">
-                            <p class="third">Appointment</p>
-                            <h6 class="m-0"><b>Price: </b> $80</h6>
-                        </div>
-                        </div>
-
-                        </div> --}}
-
-
             </div>
-
-            <!-- </div> -->
         </div>
     </div>
     </div>

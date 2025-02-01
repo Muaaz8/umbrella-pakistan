@@ -39,19 +39,24 @@
                     </h5>
                     <div class="ratings d-flex gap-2 align-items-center">
                         @php
-                        $fullStars = floor($doctor->rating / 20); // Number of full stars
-                        $halfStar = ($doctor->rating % 20 >= 10) ? 1 : 0; // Check if a half-star is needed
-                        $emptyStars = 5 - ($fullStars + $halfStar); // Remaining stars will be empty
+                            if($doctor->rating == null){
+                                $fullStars = 5.0; // Number of full stars
+                            }else {
+                                $fullStars = floor($doctor->rating / 20); // Number of full stars
+                            }
+                            $halfStar = ($doctor->rating % 20 >= 10) ? 1 : 0; // Check if a half-star is needed
+                            $emptyStars = 5 - ($fullStars + $halfStar); // Remaining stars will be empty
                         @endphp
-                        @for ($i = 0; $i < $fullStars; $i++) <i class="fa-solid fa-star"></i>
+                            @for ($i = 0; $i < $fullStars; $i++)
+                                <i class="fa-solid fa-star"></i>
                             @endfor
                             @if ($halfStar)
-                            <i class="fa-solid fa-star-half-alt"></i>
+                                <i class="fa-solid fa-star-half-alt"></i>
                             @endif
-                            @for ($i = 0; $i < $emptyStars; $i++) <i class="fa-regular fa-star"></i>
-                                @endfor
+                            @for ($i = 0; $i < $emptyStars; $i++)
+                                <i class="fa-regular fa-star"></i>
+                            @endfor
 
-                                <p class="profile_comments fw-normal">(356)</p>
                     </div>
                 </div>
             </div>
@@ -68,12 +73,13 @@
                                         @php
                                         $daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
-                                        $currentDay = now()->dayOfWeek;
-                                        $currentTime = now()->setTimezone('Asia/Karachi')->format('h:i A');
+
                                         $todaySchedule = null;
                                         $nextSchedule = null;
 
                                         foreach ($doctor->schedules as $schedule) {
+                                            $currentDay = now()->dayOfWeek;
+                                            $currentTime = now()->setTimezone('Asia/Karachi')->format('h:i A');
                                             foreach ($daysOfWeek as $index => $day) {
                                                 // Check if today's schedule is available
                                                 if ($index == $currentDay) {
@@ -130,8 +136,10 @@
                                                     ($schedule->sat && $index == 6) ||
                                                     ($schedule->sun && $index == 0)
                                                 ) {
-                                                    $fromTime = \Carbon\Carbon::parse($schedule->from_time);
-                                                    $toTime = \Carbon\Carbon::parse($schedule->to_time);
+                                                    // $fromTime = \Carbon\Carbon::parse($schedule->from_time);
+                                                    // $toTime = \Carbon\Carbon::parse($schedule->to_time);
+                                                    $fromTime = $schedule->from_time;
+                                                    $toTime = $schedule->to_time;
 
                                                     if ($index > $currentDay || ($index == $currentDay && $currentTime->lt($toTime))) {
                                                         $nextSchedule = [

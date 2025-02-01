@@ -515,7 +515,7 @@
                         $('.chat__main__').append('<div class="text-start right__user">' +
                             '<p class="right_p">' + response.response + '</p>' +
                             '<img class="right__user_img" height="30" width="30" src="{{ asset('') }}assets/images/doc__.jpg" alt=""></div>'
-                            );
+                        );
                         answer = $('.chat_answer').val('');
                         questions++;
                         session_id = response.session_id;
@@ -579,7 +579,7 @@
                     if (data == '1') {
                         $('#load_docs').html(
                             '<div class="No__SpeC_avai"><p>No Doctors Available in Selected State.</p></div>'
-                            );
+                        );
                         $('.spec__loCation').html(
                             '<div class="d-flex align-items-center state___sty spec__loCation">' +
                             '<p id="selected_state">' + name +
@@ -637,9 +637,7 @@
                         </div>
                         <div class="col-md-4">
                             @if ($id == 21)
-                                <form id="search_form"
-                                    action="/psych/book/appointment/{{ $id }}"
-                                    method="POST">
+                                <form id="search_form" action="/psych/book/appointment/{{ $id }}" method="POST">
                                     @csrf
                                     <div class="input-group">
                                         <input type="hidden" name="spec_id" id="search_spec">
@@ -651,8 +649,7 @@
                                     </div>
                                 </form>
                             @else
-                                <form id="search_form" action="/book/appointment/{{ $id }}"
-                                    method="POST">
+                                <form id="search_form" action="/book/appointment/{{ $id }}" method="POST">
                                     @csrf
                                     <div class="input-group">
                                         <input type="hidden" name="spec_id" id="search_spec">
@@ -670,11 +667,11 @@
                     <hr>
                     <div class="row clearfix" id="load_docs">
                         @forelse ($doctors as $doc)
+                        @if ($doc->consultation_fee != null)
                             <div class="col-md-4 col-lg-3 col-sm-6 mb-3">
                                 <div class="card">
                                     @if ($doc->title == 'Availability')
                                         <div class="shedule_tick">
-                                            <!-- <i class="fa-solid fa-clipboard-check"></i> -->
                                             <span>
                                                 <p>Schedule</p>
                                                 <p>Available</p>
@@ -682,17 +679,9 @@
                                         </div>
                                     @endif
                                     @if ($doc->flag != '')
-                                        <!-- <div class="tdhhead">
-                            <h2>{{ $doc->flag }}</h2>
-                        </div> -->
                                         <div class="visited-doc-flag">
                                             {{ $doc->flag }}
                                         </div>
-                                        <!-- <div class="doc__pricesSs">$ 45.00</div> -->
-
-                                        <!-- <div class="red-doc">
-                                <h6 class="m-0">{{ $doc->flag }}</h6>
-                            </div> -->
                                     @endif
                                     <div class="additional">
                                         <div class="user-card">
@@ -704,13 +693,13 @@
                                         <h4 class="fs-5">Dr. {{ $doc->name }} {{ $doc->last_name }}</h4>
                                         <h6 class="m-0">{{ $doc->sp_name }}</h6>
                                         <h6 class="m-0 all__doc__ini_pr pt-2"><span>Initial Price:</span>
-                                            Rs. {{ $price->initial_price }}</h6>
-                                        @if ($price->follow_up_price != null)
+                                            Rs. {{ $doc->consultation_fee }}</h6>
+                                        @if ($doc->followup_fee != null)
                                             <h6 class="m-0 all__doc__ini_pr"><span>Follow-up Price:</span>
-                                                Rs. {{ $price->follow_up_price }}</h6>
+                                                Rs. {{ $doc->followup_fee }}</h6>
                                         @else
                                             <h6 class="m-0 all__doc__ini_pr"><span>Follow-up Price:</span>
-                                                Rs. {{ $price->initial_price }}</h6>
+                                                Rs. {{ $doc->consultation_fee }}</h6>
                                         @endif
                                         @if ($doc->rating > 0)
                                             <div class="star-ratings">
@@ -734,19 +723,21 @@
                                         <div class="appoint-btn"><button type="button" class="btn btn-primary"
                                                 onclick="window.location.href='/view/doctor/{{ \Crypt::encrypt($doc->id) }}'">
                                                 View Profile </button>
-                                            {{--<button type="button" class="btn btn-primary symptomsOpen"
+                                            {{-- <button type="button" class="btn btn-primary symptomsOpen"
                                                 id="{{ $doc->id }}" data-user="{{ $user }}"
                                                 data-doctor="{{ $doc->id }}"
                                                 data-specialization="{{ $doc->specialization }}">
                                                 Book Appointment
-                                            </button>--}}
-                                            <button type="button" class="btn btn-primary" onclick="bookAppointmentModal({{ $doc->id }})">
+                                            </button> --}}
+                                            <button type="button" class="btn btn-primary"
+                                                onclick="bookAppointmentModal({{ $doc->id }})" data-price="{{ $doc->consultation_fee }}">
                                                 Book Appointment
                                             </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        @endif
                         @empty
                             <h6 class="pb-2">No Available Doctor</h6>
                         @endforelse
@@ -893,13 +884,8 @@
                                                             <small
                                                                 class="text-danger symptom_checker_gender_error invalid-feedback"></small>
                                                         </div>
-                                                        @if ($session != null)
-                                                            <input type="hidden" id="price" name="price"
-                                                                value="{{ $price->initial_price }}">
-                                                        @else
-                                                            <input type="hidden" id="price" name="price"
-                                                                value="{{ $price->initial_price }}">
-                                                        @endif
+                                                        {{--<input type="hidden" id="price" name="price"
+                                                            value="">--}}
                                                         <input type="hidden" id="doctorId" name="doctorId">
                                                         <input type="hidden" id="specializationId"
                                                             name="specializationId">
@@ -1091,7 +1077,7 @@
                                                     <option value="3">Three</option>
                                                 </select></span>
                                         </div>
-
+                                        <input type="hidden" id="price" name="price" value="">
                                         <div class="d-flex flex-column mb-3">
                                             <span class="heading d-block">Choose Appointment Date</span>
                                             <span class="subheadings"><input type="date" name=""

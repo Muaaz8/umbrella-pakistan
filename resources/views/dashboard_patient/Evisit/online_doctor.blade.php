@@ -593,12 +593,13 @@
         });
 
         function inquiryform(doc_id) {
-            // alert('ok');
+            var pricetemp = $(doc_id).data('price');
             var doc_id = $(doc_id).attr('id');
             var sp_id = $("#sp_id" + doc_id).val();
 
             $("#doc_id").val(doc_id);
             $("#doc_sp_id").val(sp_id);
+            $('#price').val(pricetemp);
             $('#inquiryModal').modal('show');
         }
 
@@ -724,9 +725,14 @@
                             </div>
                         </div>
                     </div>
-
-                    {{-- <h3 class="spec__loCation meet_select_loca" style="cursor:pointer;"> {{$state->name}} <i class="fa-solid fa-sort-down"></i></h3> --}}
-
+                    @if (session()->get('error'))
+                        <div id="errorDiv1" class="alert alert-danger col-12 col-md-6 offset-md-3">
+                            @php
+                                $es = session()->get('error');
+                            @endphp
+                            <span role="alert"> <strong>{{ $es }}</strong></span>
+                        </div>
+                    @endif
                     <h3 class="pb-2">Online Doctors</h3>
                     <input type="hidden" id="load_online_doctors"
                         value="{{ route('load_online_doctors', ['id' => $id]) }}">
@@ -746,13 +752,10 @@
                                         </h4>
                                         <h6 class="m-0">{{ $doctor->sp_name }}</h6>
                                         <h6 class="m-0 all__doc__ini_pr pt-2"><span>Initial Price:</span>
-                                            Rs. {{ $price->initial_price }}</h6>
-                                        @if ($price->follow_up_price != null)
+                                            Rs. {{ $doctor->consultation_fee }}</h6>
+                                        @if ($doctor->followup_fee != null)
                                             <h6 class="m-0 all__doc__ini_pr"><span>Follow-up Price:</span>
-                                                Rs. {{ $price->follow_up_price }}</h6>
-                                        @else
-                                            <h6 class="m-0 all__doc__ini_pr"><span>Follow-up Price:</span>
-                                                Rs. {{ $price->initial_price }}</h6>
+                                                Rs. {{ $doctor->followup_fee }}</h6>
                                         @endif
                                         <input type="hidden" id="sp_id{{ $doctor->id }}"
                                             value="{{ $doctor->specialization }}">
@@ -780,14 +783,8 @@
                                                 onclick="window.location.href='/view/doctor/{{ \Crypt::encrypt($doctor->id) }}'">
                                                 View
                                                 Profile </button>
-                                            {{--<button type="button" id="{{ $doctor->id }}"
-                                                data-doctor="{{ $doctor->id }}"
-                                                data-specialization="{{ $doctor->specialization }}" type="button"
-                                                class="btn btn-primary symptomsOpen">
-                                                TALK TO DOCTOR
-                                            </button>--}}
                                             <button id="{{ $doctor->id }}" class="btn btn-primary"
-                                                onclick="inquiryform(this)">
+                                                onclick="inquiryform(this)" data-price="{{ $doctor->consultation_fee }}">
                                                 TALK TO DOCTOR
                                             </button>
                                         </div>
@@ -816,7 +813,7 @@
             </div>
         </div>
 
-        <div class="modal fade" id="inquiryModal" style="font-weight: normal; " tabindex="-1" role="dialog">
+        <div class="modal fade" id="inquiryModal" data-bs-backdrop="static" data-bs-keyboard="false" style="font-weight: normal; " tabindex="-1" role="dialog">
             <div class="modal-dialog modal-md" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -826,31 +823,26 @@
                     <form action="{{route('patient_inquiry_store')}}" method="POST" class="p-3">
                         @csrf
                         <div class="modal-body" style="height: 150px;">
-                            @if($session!=null)
-                            <input type="hidden" id="price" name="price" value="{{ $session->price }}">
-                            @else
                             <input type="hidden" id="price" name="price" value="">
-                            @endif
                             <div class="">
                                 <input type="hidden" id="doc_sp_id" name="doc_sp_id">
                                 <input type="hidden" name="doc_id" id="doc_id">
                                 <input type='hidden' value="0" id='sympt' name='sympt'>
                             </div>
                             <div>
-                                <h6>Description</h6>
-                                <textarea required="" rows="6" id="symp_text" name="problem" class="form-control no-resize" placeholder="Add Description..."></textarea>
+                                <h6>Symptoms</h6>
+                                <textarea required="" rows="6" id="symp_text" name="problem" class="form-control no-resize" placeholder="Add Symptoms..."></textarea>
                             </div>
                         </div>
                         <div class="modal-footer mt-5">
-                                <button type="submit" name="submit_btn" id="submit_btn" class="btn btn-link waves-effect" style="background-color:#3a1f79e8; color:white; border:none; padding:10px;">SUBMIT</button> &nbsp;
-                                <button type="button" class="btn btn-link waves-effect" data-dismiss="modal" style="background-color:red; color:white; border:none; padding:10px;">CLOSE</button>
+                                <button type="submit" name="submit_btn" id="submit_btn" class="btn btn-link waves-effect location__back__BTN" style="border:none; padding:10px;">SUBMIT</button> &nbsp;
                         </div>
                     </form>
                 </div>
             </div>
         </div>
         <!-- Modal -->
-        <div class="modal fade" id="symptomsOpen" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        {{--        <div class="modal fade" id="symptomsOpen" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
             aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -933,12 +925,12 @@
                                                                 <small
                                                                     class="text-danger symptom_checker_gender_error invalid-feedback"></small>
                                                             </div>
-                                                            @if ($session != null)
+                                                            @if (isset($session))
                                                                 <input type="hidden" id="price" name="price"
-                                                                    value="{{ $price->initial_price }}">
+                                                                    value="{{ $doctor->consultation_fee }}">
                                                             @else
                                                                 <input type="hidden" id="price" name="price"
-                                                                    value="{{ $price->initial_price }}">
+                                                                    value="{{ $doctor->consultation_fee }}">
                                                             @endif
                                                             <input type="hidden" id="doctorId" name="doctorId">
                                                             <input type="hidden" id="specializationId"
@@ -1058,7 +1050,7 @@
                                                         </div> <br><br>
                                                         <div class="row justify-content-center">
                                                             <div class="col-7 text-center">
-                                                                {{-- <h5 class="purple-text text-center">You Have Successfully Signed Up</h5> --}}
+                                                                <h5 class="purple-text text-center">You Have Successfully Signed Up</h5>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -1072,7 +1064,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>--}}
         <!--del_model_inqueryform.blade.php -->
     </div>
 

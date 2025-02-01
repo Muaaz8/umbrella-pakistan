@@ -448,13 +448,13 @@ class SessionController extends Controller
             // $state = State::find($Reg_state);
 
             $spe = DB::table('specializations')
-            ->join('specalization_price', 'specalization_price.spec_id', 'specializations.id')
+            // ->join('specalization_price', 'specalization_price.spec_id', 'specializations.id')
             ->join('users', 'users.specialization', 'specializations.id')
             // ->join('doctor_licenses', 'doctor_licenses.doctor_id', 'users.id')
             // ->where('specalization_price.state_id', $Reg_state)
             // ->where('doctor_licenses.is_verified', '1')
             ->groupBy('specializations.id')
-            ->select('specializations.*', 'specalization_price.follow_up_price as follow_up_price', 'specalization_price.initial_price as initial_price')
+            ->select('specializations.*',)
             ->get();
 
             // $locations = DB::table('states')->where('active','1')->orderBy('name','ASC')->get();

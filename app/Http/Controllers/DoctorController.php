@@ -37,13 +37,13 @@ use App\Mail\ReferDoctorToDoctorMail;
 use App\Mail\RequestSessionPatientMail;
 use App\Mail\ReferDoctorToPatientMail;
 use App\Mail\RefillCompleteMailToPatient;
+use Illuminate\Support\Facades\Http;
 use App\Mail\RefillRequestToDoctorMail;
 use App\Mail\SendEmail;
 use App\QuestDataAOE;
 use App\QuestDataTestCode;
 use DateTime;
 use Exception;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
@@ -258,7 +258,7 @@ class DoctorController extends Controller
         if ($user->user_type == 'patient') {
             if($id != '21')
             {
-                $states = DB::table('states')->where('active','1')->get();
+                // $states = DB::table('states')->where('active','1')->get();
                 // $state = DB::table('states')->where('id',$loc_id)->first();
                 $doctors = DB::table('users')
                     ->join('specializations', 'specializations.id', 'users.specialization')
@@ -268,25 +268,23 @@ class DoctorController extends Controller
                     ->select('users.*', 'specializations.name as sp_name')
                     ->paginate(10);
                 foreach ($doctors as $doctor) {
-
                     $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
                 }
-                $session = null;
+                // $session = null;
                 // $price = DB::table('specalization_price')->where('spec_id', $id)->first();
-                $price = DB::table('specalization_price')->where('spec_id', $id)->first();
-                if ($price != null) {
-                if ($price->follow_up_price != null) {
-                    $session = DB::table('sessions')->where('patient_id', $user->id)
-                        ->join('specializations', 'sessions.specialization_id', 'specializations.id')
-                        ->join('specalization_price', 'sessions.specialization_id', 'specalization_price.spec_id')
-                        ->select('specializations.name as sp_name', 'specalization_price.follow_up_price as price')
-                        ->where('specialization_id', $id)->first();
-                }}else{
-                    return view('errors.101');
-                }
-                $symp = DB::table('isabel_symptoms')->get();
+                // if ($price != null) {
+                //     if ($price->follow_up_price != null) {
+                //         $session = DB::table('sessions')->where('patient_id', $user->id)
+                //             ->join('specializations', 'sessions.specialization_id', 'specializations.id')
+                //             ->join('specalization_price', 'sessions.specialization_id', 'specalization_price.spec_id')
+                //             ->select('specializations.name as sp_name', 'specalization_price.follow_up_price as price')
+                //             ->where('specialization_id', $id)->first();
+                //     }
+                // }else{
+                //     return view('errors.101');
+                // }
                 // return view('dashboard_patient.Evisit.online_doctor', compact('doctors', 'session', 'id'));
-                return view('dashboard_patient.Evisit.online_doctor', compact('doctors', 'session', 'id', 'price','symp','states'));
+                return view('dashboard_patient.Evisit.online_doctor', compact('doctors', 'id'));
             }else{
                 $flag = 'session';
                 return view('dashboard_patient.Evisit.patient_health',compact('user','flag','loc_id'));
@@ -722,11 +720,6 @@ class DoctorController extends Controller
         $symp = $request->validate([
             'doc_sp_id' =>  ['required'],
             'doc_id' =>  ['required', 'string', 'max:255'],
-            // 'Headache' =>  ['required', 'string', 'max:2'],
-            // 'Flu' =>  ['required', 'string', 'max:2'],
-            // 'Fever' =>  ['required', 'string', 'max:2'],
-            // 'Nausea' =>  ['required', 'string', 'max:2'],
-            // 'Others' =>  ['required', 'string', 'max:2'],
             'problem' =>  ['required', 'string', 'max:255'],
         ]);
 
@@ -741,19 +734,19 @@ class DoctorController extends Controller
             ->where('specialization_id', $request->doc_sp_id)
             ->count();
 
-
         $session_price = "";
         if ($check_session_already_have > 0) {
-            $session_price_get = DB::table('specalization_price')->where('spec_id', $request->doc_sp_id)->first();
-            if ($session_price_get->follow_up_price != null) {
-                $session_price = $session_price_get->follow_up_price;
+            $session_price_get = User::find($request->doc_id);
+            // consultation_fee
+            // followup_fee
+            if ($session_price_get->followup_fee != null) {
+                $session_price = $session_price_get->followup_fee;
             } else {
-                $session_price = $session_price_get->initial_price;
+                $session_price = $session_price_get->consultation_fee;
             }
         } else {
-            $session_price_get = DB::table('specalization_price')->where('spec_id', $request->doc_sp_id)->first();
-            //dd($session_price_get);
-            $session_price = $session_price_get->initial_price;
+            $session_price_get = User::find($request->doc_id);
+            $session_price = $session_price_get->consultation_fee;
         }
 
         $timestamp = time();
@@ -791,8 +784,16 @@ class DoctorController extends Controller
             'session_id' => $new_session_id,
             'validation_status' => "valid",
         ])->id;
-        return redirect()->route('patient_session_payment_page', ['id' => \Crypt::encrypt($session_id)]);
-        // return redirect()->route('patient_waiting_room', ['id' => \Crypt::encrypt($session_id)]);
+
+        $session = Session::find($session_id);
+        $data = "Evisit-".$new_session_id."-1";
+        $pay = new \App\Http\Controllers\MeezanPaymentController();
+        $res = $pay->payment($data,($session->price*100));
+        if ($res->errorCode == 0) {
+            return redirect($res->formUrl);
+        }else{
+            return redirect()->back()->with('error','Sorry, we are currently facing server issues. Please try again later.');
+        }
     }
 
     public function session_payment_page($session_id)

@@ -138,21 +138,17 @@ class VideoController extends Controller
             $doctor = DB::table('users')
             ->join('specializations', 'specializations.id', 'users.specialization')
             ->where('users.id', $session->doctor_id)
-            ->select('users.name', 'users.last_name', 'users.id', 'specializations.name as sp_name')
+            ->select('users.name', 'users.last_name', 'users.id', 'specializations.name as sp_name','specializations.id as sp_id')
             ->first();
-            try {
-                $session->received = false;
-                // \App\Helper::firebase($session->doctor_id,'patientJoinCall',$session_id,$session);
-            } catch (\Throwable $th) {
-                //throw $th;
-            }
 
             event(new patientJoinCall($session->doctor_id, $session->patient_id, $session_id));
 
             if ($session->remaining_time == 'full') {
-                $start_time = Carbon::now()->addMinutes(20)->format('Y-m-d H:i:s');
-                Session::where('id', $session_id)->update(['start_time' => $start_time, 'remaining_time' => '20 minute : 00 seconds']);
-                $session->remaining_time = '20 minute : 00 seconds';
+                $time_in_minutes = Specialization::where('id',$doctor->sp_id)->first();
+                $time_in_minutes = $time_in_minutes->consultation_time;
+                $start_time = Carbon::now()->addMinutes($time_in_minutes)->format('Y-m-d H:i:s');
+                Session::where('id', $session_id)->update(['start_time' => $start_time, 'remaining_time' => $time_in_minutes.' minute : 00 seconds']);
+                $session->remaining_time = $time_in_minutes.' minute : 00 seconds';
             } else {
                 $nowTime = strtotime(Carbon::now()->format('Y-m-d H:i:s'));
                 $end_time = strtotime($session->start_time);
