@@ -51,8 +51,11 @@
                                     <div class="doctor-data-container"><div class="d-flex flex-column gap-1">
                                     <h5 class="mb-0">Dr.${element.name} ${element.last_name}</h5>
                                     <h6 class="doctor-verify">PMDC Verified</h6></div>
+                                    ${
+                                        element.status == "online" ? `<p class="text-success fw-bold">Online</p>` : `<p class="text-danger fw-bold">Offline</p>`
+                                    }
                                     <p class="">${element.specializations.name}</p>
-                                    <p>${element.details.education.substring(0,45)}</p>
+                                    <p>${element.details.education.substring(0,30)} ...</p>
                                     <div class="doctor-ratings d-flex align-items-center mt-2"></div></div>
                                     </div><div class="d-flex align-items-center justify-content-center w-100"><button
                                     class="btn btn-outline-primary w-100" onclick="window.location.href='/doctor-profile/${element.id}'">View Profile</button></div></div></div>`
@@ -66,6 +69,9 @@
                                     <div class="doctor-data-container"><div class="d-flex flex-column gap-1">
                                     <h5 class="mb-0">Dr.${element.name} ${element.last_name}</h5>
                                     <h6 class="doctor-verify">PMDC Verified</h6></div>
+                                    ${
+                                        element.status == "online" ? `<p class="text-success fw-bold">Online</p>` : `<p class="text-danger fw-bold">Offline</p>`
+                                    }
                                     <p class="">${element.specializations.name}</p>
                                     <p>MBBS</p>
                                     <div class="doctor-ratings d-flex align-items-center mt-2"></div></div>
@@ -109,8 +115,11 @@
                                     <div class="doctor-data-container"><div class="d-flex flex-column gap-1">
                                     <h5 class="mb-0">Dr.${element.name} ${element.last_name}</h5>
                                     <h6 class="doctor-verify">PMDC Verified</h6></div>
+                                    ${
+                                        element.status == "online" ? `<p class="text-success fw-bold">Online</p>` : `<p class="text-danger fw-bold">Offline</p>`
+                                    }
                                     <p class="">${element.specializations.name}</p>
-                                    <p>${element.details.education.substring(0,45)}</p>
+                                    <p>${element.details.education.substring(0,30)} ...</p>
                                     <div class="doctor-ratings d-flex align-items-center mt-2"></div></div>
                                     </div><div class="d-flex align-items-center justify-content-center w-100"><button
                                     class="btn btn-outline-primary w-100" onclick="window.location.href='/doctor-profile/${element.id}'">View Profile</button></div></div></div>`
@@ -124,6 +133,9 @@
                                     <div class="doctor-data-container"><div class="d-flex flex-column gap-1">
                                     <h5 class="mb-0">Dr.${element.name} ${element.last_name}</h5>
                                     <h6 class="doctor-verify">PMDC Verified</h6></div>
+                                    ${
+                                        element.status == "online" ? `<p class="text-success fw-bold">Online</p>` : `<p class="text-danger fw-bold">Offline</p>`
+                                    }
                                     <p class="">${element.specializations.name}</p>
                                     <p>MBBS</p>
                                     <div class="doctor-ratings d-flex align-items-center mt-2"></div></div>
@@ -198,7 +210,15 @@
                               </svg></span><span>American Doctors</span>
                             </label>
                           </div>
+                          <div onclick="select_doc('3')" class="checkbox-wrapper-47">
+                            <input class="inp-cbx" name="cb" id="cb-50" type="radio" value="3" />
+                            <label class="cbx" for="cb-50"><span>
+                              <svg width="12px" height="10px" viewbox="0 0 12 10">
+                                <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
+                              </svg></span><span>Online Doctors</span>
+                            </label>
                         </div>
+                    </div>
                     </div>
                     <div class="search-bar-container form-control px-2 py-2">
                         <form class="d-flex align-items-center justify-content-between">
@@ -236,6 +256,11 @@
                                                 {{ \Str::ucfirst($doctor->name) . ' ' . \Str::ucfirst($doctor->last_name) }}
                                             </h5>
                                             <h6 class="doctor-verify">PMDC Verified</h6>
+                                            @if ($doctor->status == "online")
+                                                <p class="text-success fw-bold">Online</p>
+                                            @else
+                                                <p class="text-danger fw-bold">Offline</p>
+                                            @endif
                                         </div>
                                         <p class="">{{ $doctor->specializations->name }}</p>
                                         <p>{!! nl2br(isset($doctor->details->education) ? \Str::limit($doctor->details->education, 40) : 'MBBS') !!}</p>
