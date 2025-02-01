@@ -55,7 +55,7 @@
                     <h3 class="sess-title">Session with Dr.<b>{{ $session->doctor_name }} </b> Ended</h3>
                     <div>
                         <input type="hidden" id="session_id" value="{{ $session->id }}">
-                        <img src="{{ asset('assets/new_frontend/logo.png') }}" alt="" style="width:10% ; margin:10px 0;">
+                        <img src="{{ asset('assets/new_frontend/logo.png') }}" alt="" style="width:15%; min-width: 200px;">
                     </div>
                     <div class="mt-1">
                         <h3>Please Wait!</h3>
@@ -64,7 +64,7 @@
                     </div>
                     <div>
                         <lottie-player src="https://assets3.lottiefiles.com/packages/lf20_iXKIMU.json"
-                            background="transparent" loop speed="1" style="width: 200px; height: 270px; margin: auto;"
+                            background="transparent" loop speed="1" style="width: 200px; height: 240px; margin: auto;"
                             autoplay></lottie-player>
                     </div>
                     <div>

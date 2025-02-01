@@ -39,25 +39,30 @@ p {
   padding: 5px 15px;
   border-radius: 7px;
   margin-left: auto;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  color: white;
 }
 .video-call-screen {
   background: #f8f5f5;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  border-top: 15px solid #08295a;
+  /* border-top: 15px solid #08295a; */
   height: auto;
-  padding: 10px;
+  /* padding: 10px; */
   border-radius: 10px;
 }
 .right-detail-call-screen {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   border-top: 15px solid #08295a;
   height: 100%;
-  padding: 10px;
+  padding: 5px;
   border-radius: 10px;
 }
 .big-video-screen {
     background-color: rgb(0, 0, 0);
-    height: 55vh;
+    height: 90vh;
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   }
@@ -76,10 +81,11 @@ p {
     border-radius: 10px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
   }
-.call-disconnect {
-  display: flex;
-  align-items: center;
-}
+  .call-disconnect {
+    display: flex;
+    align-items: center;
+    scale: 0.8;
+  }
 .call-disconnect i {
   font-size: 30px;
   margin: 0;
@@ -87,7 +93,7 @@ p {
 }
 
 .patient-name {
-  height: 120px;
+  min-height: 75px;
   width: 150px;
   display: flex;
   flex-direction: column;
@@ -103,7 +109,11 @@ p {
 .after-big-screen-div {
   display: flex;
   justify-content: space-between;
-  margin-top: 10px;
+  align-items: flex-end;
+  margin-top: -130px;
+  position: relative;
+  z-index: 10;
+  padding: 0 1rem;
 }
 .end-call {
   display: flex;
@@ -166,14 +176,15 @@ p {
   align-items: baseline;
   justify-content: space-between;
   font-size: 16px;
+  padding: 0.5rem;
   flex-wrap: wrap;
 }
 .screen-medication .card-body {
   display: flex;
   justify-content: space-between;
-  padding: 0.3rem 1rem;
+  padding: 0.1rem 0.5rem;
+  font-size: 14px;
   flex-wrap: wrap;
-
 }
 
 .screen-symtoms ul li {
@@ -183,7 +194,7 @@ p {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 .right-detail-call-screen .accordion-body {
-  padding: 10px;
+  padding: 2px;
 }
 .right-detail-call-screen .table-family {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -226,8 +237,8 @@ p {
   border-radius: 0;
   background: linear-gradient(to top, #08295a, #165dc8);
   color: white;
-  margin: 10px 0;
-  padding: 0.5rem 1.25rem;
+  margin: 2px 0;
+  padding: 0.5rem 0.75rem 0.5rem 0.5rem;
 }
 .right-detail-call-screen .accordion-button::after {
   filter: invert();
@@ -295,6 +306,7 @@ p {
 }
 .small-video-screen .spannerx p{
   font-size: 14px;
+  margin-top: -10px;
 
 }
 .loaderx:before,
@@ -389,12 +401,15 @@ p {
 
 @media screen and (max-width: 500px) {
 
-.small-video-screen{
-  width: 120px;
-}
-.after-big-screen-div{
-  flex-wrap: wrap;
-}
+  .small-video-screen{
+    width: 90px;
+    height: 100px;
+  }
+  .after-big-screen-div{
+    flex-wrap: wrap;
+    margin-top: -110px;
+    padding: 0 0.5rem;
+  }
 
 
 .patient-name {
@@ -426,3 +441,33 @@ padding: 5px 1px;
 
 }
 /* ============ screen loader ends=============== */
+.video-call-screen .agora_video_player {
+  transform: rotateY(180deg);
+}
+.big-video-screen .agora_video_player {
+  /* border-top-left-radius: 10px;
+  border-top-right-radius: 10px; */
+  /* object-fit: none !important; */
+  border-radius: 1opx;
+}
+.player > div {
+  border-radius: 10px;
+}
+.patient-name {
+  background: white;
+}
+.patient-name h6 {
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+.patient-name p {
+  font-size: 0.8rem;
+}
+.small-video-screen > div {
+  border-radius: 10px;
+  border: 3px solid rgba(0, 0, 0, 0.107);
+  box-shadow: 0px 1px 13px -5px white;
+}
+.call-time h5 {
+  font-size: 14px;
+}
