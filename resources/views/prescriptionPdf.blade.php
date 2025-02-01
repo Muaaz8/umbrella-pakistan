@@ -489,7 +489,7 @@
                             <tbody>
                                 @foreach ($labtests as $labtest)
                                     <tr>
-                                        <td>{{ $labtest->lab_details->TEST_NAME }}</td>
+                                        <td style="text-align: left;">{{ $labtest->lab_details->TEST_NAME }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
