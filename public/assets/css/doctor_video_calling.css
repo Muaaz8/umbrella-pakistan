@@ -39,11 +39,19 @@ p {
   padding: 5px 15px;
   border-radius: 7px;
   margin-left: auto;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  color: white;
+}
+.call-time h5 {
+  font-size: 14px;
 }
 .video-call-screen {
   background: #f8f5f5;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  border-top: 15px solid #08295a;
+  /* border-top: 15px solid #08295a; */
   height: auto;
   /* padding: 10px; */
   border-radius: 10px;
@@ -57,7 +65,7 @@ p {
 }
 .big-video-screen {
   background-color: rgb(0, 0, 0);
-  height: 65vh;
+  height: 90vh;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
@@ -79,6 +87,7 @@ p {
 .call-disconnect {
   display: flex;
   align-items: center;
+  scale: 0.8;
 }
 .call-disconnect i {
   font-size: 30px;
@@ -87,7 +96,7 @@ p {
 }
 
 .patient-name {
-  height: 120px;
+  height: 75px;
   width: 150px;
   display: flex;
   flex-direction: column;
@@ -103,7 +112,11 @@ p {
 .after-big-screen-div {
   display: flex;
   justify-content: space-between;
-  margin-top: 10px;
+  align-items: flex-end;
+  margin-top: -130px;
+  position: relative;
+  z-index: 10;
+  padding: 0 1rem;
 }
 .end-call {
   display: flex;
@@ -500,7 +513,7 @@ p {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    margin-top: 400px;
+    margin-top: 280px;
 }
 .prescribed_items_main{
   max-height: 350px;
@@ -773,7 +786,7 @@ overflow-y: auto;
   } */
 
   .medical-col-scroll{
-    max-height: 250px;
+    max-height: 150px;
     overflow-y: auto;
     overflow-x: hidden;
     padding: 0 5px;
@@ -840,10 +853,13 @@ overflow-y: auto;
     font-size: 13px;
   }
   .small-video-screen{
-    width: 120px;
+    width: 90px;
+    height: 100px;
   }
   .after-big-screen-div{
     flex-wrap: wrap;
+    margin-top: -110px;
+    padding: 0 0.5rem;
   }
   .notes-btn i{
     margin: 0;
@@ -906,10 +922,40 @@ font-weight: bold;
   transform: rotateY(180deg);
 }
 
+.big-video-screen .agora_video_player {
+  /* border-top-left-radius: 10px;
+  border-top-right-radius: 10px; */
+  /* object-fit: none !important; */
+  border-radius: 1opx;
+}
+
 .table-family .table {
   margin-bottom: 0.25rem;
 }
 
 .table-family th, .table-family td {
   font-size: 14px;
+}
+
+.player > div {
+  border-radius: 10px;
+}
+
+.patient-name {
+  background: white;
+}
+
+.patient-name h6 {
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.patient-name p {
+  font-size: 0.8rem;
+}
+
+.small-video-screen > div {
+  border-radius: 10px;
+  border: 3px solid rgba(0, 0, 0, 0.107);
+  box-shadow: 0px 1px 13px -5px white;
 }

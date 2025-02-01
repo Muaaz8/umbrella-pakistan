@@ -1661,7 +1661,7 @@ header("Access-Control-Allow-Origin: *"); @endphp
     });
 </script>
 @endsection @section('content')
-<section>
+<section class="mt-2">
     <div class="videoLoaderDiv" style="display: none;
         width: 100%;
         height: 100vh;
@@ -1674,7 +1674,7 @@ header("Access-Control-Allow-Origin: *"); @endphp
         <i class="fas fa-spinner fa-spin" style="color: white;font-size: 150px;"></i>
     </div>
     <div class="container-fluid">
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-12">
                 <div class="call-screen-header">
                     <div class="d-flex align-items-center">
@@ -1683,19 +1683,19 @@ header("Access-Control-Allow-Origin: *"); @endphp
                             Dr.{{ Auth::user()->name.' '.Auth::user()->last_name }}
                         </h6>
                     </div>
-                    <div class="call-time">
-                        <h5 id="time">15 Minutes : 00 Seconds</h5>
-                    </div>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="row mt-1" style="--bs-gutter-x: 0.5rem;">
             <div class="col-lg-8">
                 <div class="video-call-screen">
-                    <div class="big-video-screen" id="remote-playerlist">
+                    <div class="big-video-screen position-relative" id="remote-playerlist">
                         <div class="spannerx" id="video_pat">
                             <div class="loaderx"></div>
                             <p>Connecting...</p>
+                        </div>
+                        <div class="call-time">
+                            <h5 id="time">15 Minutes : 00 Seconds</h5>
                         </div>
                     </div>
 
@@ -1715,14 +1715,14 @@ header("Access-Control-Allow-Origin: *"); @endphp
                                 <i class="fa-solid fa-microphone-lines" id="mic_icon"></i>MIC
                             </button>
                         </div>
-                        <div class="patient-name">
-                            <div>
+                        <div class="patient-name mb-2 mb-sm-0">
+                            <div class="pt-2 d-flex align-items-center justify-content-between d-sm-block">
                                 <h6>Patient Name:</h6>
                                 <p>
                                     {{ $patient->name.' '.$patient->last_name }}
                                 </p>
                             </div>
-                            <div>
+                            <div class="d-flex align-items-center justify-content-between pt-1 pb-2">
                                 <h6>Patient Age:</h6>
                                 <p>
                                     {{ $patient->date_of_birth }}
@@ -1731,7 +1731,7 @@ header("Access-Control-Allow-Origin: *"); @endphp
                         </div>
                     </div>
                 </div>
-                <div class="call-disclaimer mb-3">
+                <div class="call-disclaimer mt-4 mb-3">
                     <h6>DISCLAIMER</h6>
                     <p class="fs-6">
                         Never disregard professional medical advice or delay
