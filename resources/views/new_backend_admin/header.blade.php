@@ -59,6 +59,8 @@
                         Records </a>
                 </div>
             </div>
+            <a href="{{ route('fee_approval') }}" class="dashboard-nav-item"><i
+                class="fa-solid fa-dollar-sign"></i>Fee Approvals</a>
             <div class="dashboard-nav-dropdown">
                 <a href="javascript:void(0)" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
                         class="fa-solid fas fa-user-md"></i> Doctors </a>

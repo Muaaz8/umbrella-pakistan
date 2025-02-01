@@ -525,6 +525,7 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
         Route::get('/lab/editor/account/setting','AdminController@lab_editor_setting')->name('lab_editor_setting');
     });
     Route::get('/inclinic/pharmacy/all/orders','AdminController@inclinic_pharmacy_editor_orders')->name('inclinic_pharmacy_editor_orders');
+    Route::get('admin/fee-approval' , 'AdminController@fee_approval')->name('fee_approval');
 
     Route::get('/inclinic/pharmacy/prescription/download/{id}','AdminController@inclinic_pharmacy_prescription_download')->name('dash_inclinic_pharmacy_prescription_download');
 
@@ -684,6 +685,8 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
         Route::post('admin/update/physical/location/{id}', 'AdminController@admin_update_physical_location')->name('admin_update_physical_location');
         Route::get('/admin/delete/physical/location/{id}', 'AdminController@delete_physical_location')->name('delete_physical_location');
         Route::get('admin/all/orders', 'TblOrdersController@admin_orders')->name('all_orders_admin');
+        Route::post('admin/confirm-approval', 'AdminController@confirm_approval')->name('confirm_approval');
+        Route::post('decline-approval', 'AdminController@decline_approval')->name('decline_approval');
         Route::post('admin/all/orders', 'TblOrdersController@admin_orders')->name('all_orders_admin');
         Route::get('admin/all/orders/{id}', 'TblOrdersController@order_details')->name('admin_order_details');
         Route::get('admin/documents/add', 'AdminController@document')->name('add_docs');
@@ -948,6 +951,7 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
         //doctor watiing room new route
 
         Route::get('/profile/{username}', 'ProfileController@view_DocProfile')->name('user_profile');
+        Route::post('update-fees' , 'ProfileController@updateFees')->name('updateFees');
         Route::get('/waiting_room_my', 'DoctorController@waiting_room_my');
         Route::get('/session', 'RecommendationController@display_session')->name('session_recom.display');
         Route::post('/recommendations_store_pres', 'RecommendationController@store_pres')->name('recommendations.store.pres');

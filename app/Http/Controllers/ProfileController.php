@@ -167,6 +167,7 @@ public function view_DocProfile($username)
                         // doctor profile picture from S3
 
                         $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
+                        $doctor->pending_approval = DB::table('doctor_fee_approvals')->where('doctor_id',$id)->orderBy("id","desc")->first();
                         $doctor->city = City::find($doctor->city_id);
                         $doctor->state = State::find($doctor->state_id);
                         $doctor->country = Country::find($doctor->country_id);
@@ -178,6 +179,14 @@ public function view_DocProfile($username)
                         ->select('states.name')->get();
                         // doctor certificates
                         $doctor->certificates = DB::table('doctor_certificates')->where('doc_id', $id)->get();
+
+                        if($doctor->pending_approval != null){
+                                $doctor->pending_approval = $doctor->pending_approval->is_approved;
+                        }else{
+                                $doctor->pending_approval = null;
+                        }
+
+
                         foreach ($doctor->certificates as $cert) {
                         if ($cert->certificate_file != "") {
                             $cert->certificate_file = \App\Helper::get_files_url($cert->certificate_file);
@@ -328,6 +337,39 @@ public function view_DocProfile($username)
         ]);
 
         return redirect('/editPatientDetail');
+    }
+
+    public function updateFees(Request $request)
+    {
+        $id = auth()->user()->id;
+        $admin = User::role('admin')->first();
+        $validateData = $request->validate([
+            'consultation_fee' => ['nullable', 'gt:299', 'lt:21000'],
+            'followup_fee' => ['nullable', 'gt:299', 'lt:21000'],
+        ]);
+
+        $doctor = DB::table('doctor_fee_approvals')->where('doctor_id', $id )->where('is_approved' , 'pending')->orderBy('id' , 'desc')->first();
+        if ($doctor) {
+            DB::table('doctor_fee_approvals')->where('doctor_id', $id)->update([
+                'consultation_fee' => $validateData['consultation_fee'],
+                'followup_fee' => $validateData['followup_fee'],
+            ]);
+        } else {
+            DB::table('doctor_fee_approvals')->insert([
+                'doctor_id' => $id,
+                'consultation_fee' => $validateData['consultation_fee'],
+                'followup_fee' => $validateData['followup_fee'],
+            ]);
+        }
+
+        Notification::create([
+            'user_id' =>  $admin->id,
+            'type' => "/admin/fee-approval",
+            'text' => 'New Fee Approval Request',
+        ]);
+        event(new RealTimeMessage($admin->id));
+
+        return redirect()->back()->with('success', 'Fees Request Submitted Successfully');
     }
 
 

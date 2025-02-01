@@ -3,6 +3,8 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
 </script>
+<script src="{{ asset('/js/app.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mouse0270-bootstrap-notify/3.1.5/bootstrap-notify.min.js"></script>
 <script src="{{ asset('assets/js/dashboard_custom.js') }}"></script>
 
 <script>
@@ -83,4 +85,100 @@
             },
         });
     });
-</script>
+
+
+
+
+    Echo.channel('events')
+    .listen('RealTimeMessage', (e) => {
+        console.log("RealTimeMessage", e);
+
+        var user_id = "{{ Auth::user()->id ?? '0'}}";
+        if (e.user_id == user_id) {
+            if (e.getNote != '' || e.getNote != null) {
+                $('#notif').html('');
+
+                $.each(e.getNote, function (key, note) {
+                    var today = new Date();
+                    var diffMs = (today - Christmas);
+                    var Christmas = new Date(note.created_at);
+                    var diffDays = Math.floor(diffMs / 86400000);
+                    var diffHrs = Math.floor((diffMs % 86400000) / 3600000);
+                    var diffMins = Math.round(((diffMs % 86400000) % 3600000) / 60000);
+                    var noteTime = '';
+
+                    if (diffDays <= 0) {
+                        if (diffHrs <= 0) {
+                            if (diffMins <= 0) {
+                                noteTime = '0 mint ago';
+                            } else {
+                                noteTime = diffMins + ' mints ago';
+                            }
+                        } else {
+                            noteTime = diffHrs + ' hours ago';
+                        }
+                    } else {
+                        if (diffDays == 1) {
+                            noteTime = diffDays + ' day ago';
+                        } else {
+                            noteTime = diffDays + ' days ago';
+                        }
+                    }
+                    if (note.status == 'new') {
+                        $('#notif').append(
+                            '<div class = "sec new">' +
+                            '<a href="/ReadNotification/' + note.id + '" >' +
+                            '<div class = "profCont">' +
+                            '<img class = "profile" src = "{{asset("assets/images/notifyuser.png")}}">' +
+                            '</div>' +
+                            '<div class="txt">' + note.text + '</div>' +
+                            '<div class = "txt sub">' + noteTime + '</div>' +
+                            '</a>' +
+                            '</div>'
+                        );
+                    } else {
+                        $('#notif').append(
+                            '<div class = "sec">' +
+                            '<a href="/ReadNotification/' + note.id + '" >' +
+                            '<div class = "profCont">' +
+                            '<img class = "profile" src = "{{asset("assets/images/notifyuser.png")}}">' +
+                            '</div>' +
+                            '<div class="txt">' + note.text + '</div>' +
+                            '<div class = "txt sub">' + noteTime + '</div>' +
+                            '</a>' +
+                            '</div>'
+                        );
+                    }
+                });
+            }
+            if (e.countNote != '' || e.countNote != null) {
+                $('#countNote').text(e.countNote);
+            }
+            if (e.toastShow != '' || e.toastShow != null) {
+                $.each(e.toastShow, function (key, toast) {
+                    $.notify(
+                        {
+                            title: "<strong>New Notification</strong>",
+                            message: "<br>" + toast.text,
+                            icon: 'fas fa-bell',
+                        },
+                        {
+                            type: "info",
+                            allow_dismiss: true,
+                            clickToHide: true,
+                            delay: 25000,
+                            placement: {
+                                from: "bottom",
+                                align: "right"
+                            }
+                        }
+                    );
+                });
+            }
+        }
+    });
+
+
+
+    </script>
+

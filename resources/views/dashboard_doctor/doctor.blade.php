@@ -24,12 +24,16 @@
       <div class="row m-auto">
           <div class="col-md-12">
       <div class="card first-card-wrap">
-        <div class="card-body">
+        <div class="card-body align-items-end">
           <div class="first-card-content">
             <p>Welcome to</p>
           <h1>Community Healthcare Clinics</h1>
       </div>
-          <div class="first-card-img-div">
+          <div class="d-flex justify-content-between align-items-center gap-2">
+            <h5>Change Online Status:</h5>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked2">
+            </div>
               {{-- <img src="{{ asset('assets/images/logo.png') }}" alt="" height="auto" width="200"> --}}
             </div>
         </div>

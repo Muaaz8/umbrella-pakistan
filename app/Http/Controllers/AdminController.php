@@ -3183,6 +3183,62 @@ public function store_policy(Request $request){
         return $pdf->download('prescription.pdf');
     }
 
+    public function fee_approval(){
+        $approvals = DB::table('doctor_fee_approvals')
+            ->join('users', 'doctor_fee_approvals.doctor_id', '=', 'users.id')
+            ->select(
+                'doctor_fee_approvals.*',
+                'users.name',
+                'users.last_name',
+                'users.username'
+
+            )
+            ->where('doctor_fee_approvals.is_approved', 'pending')
+            ->orderBy('doctor_fee_approvals.id', 'desc')
+            ->paginate(10);
+
+        return view('dashboard_admin.fee_approval.index', compact('approvals'));
+    }
+
+    public function confirm_approval(Request $request){
+        $approve_req = DB::table('doctor_fee_approvals')->where('id', $request->approval_id)->update([
+            'is_approved' => 'accepted',
+            'approval_time' => now(),
+        ]);
+
+        if($approve_req){
+            DB::table('users')->where('id', $request->doctor_id)->update([
+                'consultation_fee' => $request->consultation_fee,
+                'followup_fee' => $request->followup_fee,
+            ]);
+
+            Notification::create([
+                'user_id' =>  $request->doctor_id,
+                'type' => "/profile/{$request->username}",
+                'text' => 'Fee Request Approved',
+            ]);
+            event(new RealTimeMessage($request->doctor_id));
+
+        }
+
+        return redirect()->back();
+    }
+
+    public function decline_approval(Request $request){
+        DB::table('doctor_fee_approvals')->where('id', $request->approval_id)->update([
+            'is_approved' => 'cancel'
+        ]);
+
+        Notification::create([
+            'user_id' =>  $request->doctor_id,
+            'type' => "/profile/{$request->username}",
+            'text' => 'Fee Request decline',
+        ]);
+        event(new RealTimeMessage($request->doctor_id));
+
+        return redirect()->back();
+    }
+
     public function pharmacy_editor_setting()
     {
         $user_type = Auth::user()->user_type;

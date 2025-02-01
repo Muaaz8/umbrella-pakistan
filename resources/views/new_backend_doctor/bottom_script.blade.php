@@ -329,6 +329,7 @@ function make_offline(s){
                             $('#status').text('Offline');
                             $('#status').css('color', 'grey');
                             $('#flexSwitchCheckChecked').prop('checked', false);
+                            $('#flexSwitchCheckChecked2').prop('checked', false);
                             $('#status_color').removeClass('profile_online');
                             $('#status_color').addClass('profile_offline');
                             $('#ask_change_status').modal('show');
@@ -354,6 +355,7 @@ $(document).ready(function() {
                 $('#status').text('Online');
                 $('#status').css('color', '#364d81');
                 $('#flexSwitchCheckChecked').prop('checked', true);
+                $('#flexSwitchCheckChecked2').prop('checked', true);
                 $('#status_color').removeClass('profile_offline');
                 $('#status_color').addClass('profile_online');
                 make_offline(status);
@@ -363,6 +365,7 @@ $(document).ready(function() {
                 $('#status').text('Offline');
                 $('#status').css('color', 'grey');
                 $('#flexSwitchCheckChecked').prop('checked', false);
+                $('#flexSwitchCheckChecked2').prop('checked', false);
                 $('#status_color').removeClass('profile_online');
                 $('#status_color').addClass('profile_offline');
             }
@@ -386,6 +389,7 @@ $('#flexSwitchCheckChecked').click(function()
             if(response=='online'){
                 $(this).checked=true;
                 $('#flexSwitchCheckChecked').prop('checked', true);
+                $('#flexSwitchCheckChecked2').prop('checked', true);
                 $('#status').text('Online');
                 $('#status').css('color', '#364d81');
                 $('#status_color').removeClass('profile_offline');
@@ -393,6 +397,42 @@ $('#flexSwitchCheckChecked').click(function()
                 make_offline(response);
             }else{
                 $(this).checked=false;
+                $('#flexSwitchCheckChecked').prop('checked', false);
+                $('#flexSwitchCheckChecked2').prop('checked', false);
+                $('#status').text('Offline');
+                $('#status').css('color', 'grey');
+                $('#status_color').removeClass('profile_online');
+                $('#status_color').addClass('profile_offline');
+            }
+        }
+    });
+    if ($(this).is(":checked")) {
+        $('#status').text('Online');
+        $('#status').css('color', '#364d81');
+    } else if ($(this).is(":not(:checked)")) {
+        $('#status').text('Offline');
+        $('#status').css('color', 'grey');
+    }
+});
+
+$('#flexSwitchCheckChecked2').click(function()
+{
+    $.ajax({
+        type: 'GET',
+        url: "{{ URL('/change_status') }}",
+        success: function(response) {
+            if(response=='online'){
+                $(this).checked=true;
+                $('#flexSwitchCheckChecked2').prop('checked', true);
+                $('#flexSwitchCheckChecked').prop('checked', true);
+                $('#status').text('Online');
+                $('#status').css('color', '#364d81');
+                $('#status_color').removeClass('profile_offline');
+                $('#status_color').addClass('profile_online');
+                make_offline(response);
+            }else{
+                $(this).checked=false;
+                $('#flexSwitchCheckChecked2').prop('checked', false);
                 $('#flexSwitchCheckChecked').prop('checked', false);
                 $('#status').text('Offline');
                 $('#status').css('color', 'grey');
