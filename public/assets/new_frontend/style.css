@@ -4497,11 +4497,6 @@ header {
     .gallery {
         width: auto;
     }
-
-    .doctor-filter {
-        flex-direction: column;
-        align-items: center;
-    }
 }
 
 @media screen and (max-width: 540px) {
@@ -4896,6 +4891,11 @@ header {
         font-size: 0.8rem !important;
     }
 
+    .doctor-filter {
+        flex-direction: column;
+        align-items: center;
+    }
+
     #faq-content {
         padding: 0 10px !important;
     }
@@ -4994,7 +4994,7 @@ header {
 
 /* Doctor's List Page */
 .doctor-filter {
-    min-width: 640px;
+    min-width: 500px;
 }
 
 .doctor-list-container {
@@ -5238,10 +5238,6 @@ header {
 
     .faq:last-child {
         border-bottom: 1px solid #ddd;
-    }
-
-    .doctor-filter {
-        min-width: 100px;
     }
 }
 
@@ -5488,10 +5484,6 @@ header {
     .hero-doctor-para {
         font-size: 0.9rem;
         width: 80%;
-    }
-
-    .checkbox-wrapper-47 label {
-        font-size: 0.8rem !important;
     }
 }
 
