@@ -480,7 +480,7 @@
 
 <section>
     <div class="container-fluid">
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-12">
                 <div class="call-screen-header">
                     <div class="d-flex align-items-center">
@@ -489,21 +489,21 @@
                             {{ Auth::user()->name.' '.Auth::user()->last_name }}
                         </h6>
                     </div>
-                    <div class="call-time">
-                        <h5 id="time">15 Minutes : 00 Seconds</h5>
-                    </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
-        <div class="row mt-3">
-            <div class="col-md-7">
+        <div class="row mt-2" style="--bs-gutter-x: 0.5rem;">
+            <div class="col-md-8">
                 <div class="video-call-screen">
-                    <div class="big-video-screen" id="remote-playerlist">
+                    <div class="big-video-screen position-relative" id="remote-playerlist">
                         <div class="spannerx" id="video_doc">
                             <div class="loaderx"></div>
                             <p>Connecting...</p>
                         </div>
+                        <div class="call-time">
+                        <h5 id="time">15 Minutes : 00 Seconds</h5>
+                    </div>
                     </div>
                     <div class="after-big-screen-div">
                         <div class="small-video-screen" id="local-player" style="position: relative">
@@ -520,21 +520,21 @@
                                 <i class="fa-solid fa-microphone-lines" id="mic_icon"></i>MIC
                             </button>
                         </div>
-                        <div class="patient-name">
-                            <div>
+                        <div class="patient-name mb-2 mb-sm-0">
+                            <div class="pt-2 d-flex align-items-center justify-content-between d-sm-block">
                                 <h6>Doctor Name:</h6>
                                 <p>
                                     Dr.{{ $doctor->name.' '.$doctor->last_name }}
                                 </p>
                             </div>
-                            <div>
+                            <div class="pt-2 d-flex align-items-center justify-content-between d-sm-block">
                                 <h6>Specialization:</h6>
                                 <p>{{ $doctor->sp_name }}</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="call-disclaimer">
+                <div class="call-disclaimer mt-4 mb-3">
                     <h6>DISCLAIMER</h6>
                     <p class="fs-6">
                         Never disregard professional medical advice or delay
@@ -548,7 +548,7 @@
                 </div>
             </div>
 
-            <div class="col-md-5">
+            <div class="col-md-4">
                 <div class="right-detail-call-screen">
                     <div>
                         <div class="accordion accordion-flush" id="accordionFlushExample">
