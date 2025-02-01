@@ -521,13 +521,13 @@
                             </button>
                         </div>
                         <div class="patient-name mb-2 mb-sm-0">
-                            <div class="pt-2 d-flex align-items-center justify-content-between d-sm-block">
+                            <div class="pt-2">
                                 <h6>Doctor Name:</h6>
                                 <p>
                                     Dr.{{ $doctor->name.' '.$doctor->last_name }}
                                 </p>
                             </div>
-                            <div class="pt-2 d-flex align-items-center justify-content-between d-sm-block">
+                            <div class="pt-2">
                                 <h6>Specialization:</h6>
                                 <p>{{ $doctor->sp_name }}</p>
                             </div>

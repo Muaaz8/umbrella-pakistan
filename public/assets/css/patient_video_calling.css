@@ -306,6 +306,7 @@ p {
 }
 .small-video-screen .spannerx p{
   font-size: 14px;
+  margin-top: -10px;
 
 }
 .loaderx:before,
