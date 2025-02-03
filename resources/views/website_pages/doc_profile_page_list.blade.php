@@ -58,8 +58,8 @@
                                     <p class="">${element.specializations.name}</p>
                                     <p>${element.details.education.substring(0,30)} ...</p>
                                     <div class="doctor-ratings d-flex align-items-center mt-2"></div></div>
-                                    </div><div class="d-flex align-items-center justify-content-center w-100"><button
-                                    class="btn btn-outline-primary w-100" onclick="window.location.href='/doctor-profile/${element.id}'">View Profile</button></div></div></div>`
+                                    </div><div class="d-flex align-items-center justify-content-center w-100 position-absolute view-button"><button
+                                    class="btn btn-outline-primary" onclick="window.location.href='/doctor-profile/${element.id}'">View Profile</button></div></div></div>`
                                 );
                             } else {
                                 $(".doctor-cont2").append(
@@ -77,8 +77,8 @@
                                     <p class="">${element.specializations.name}</p>
                                     <p>MBBS</p>
                                     <div class="doctor-ratings d-flex align-items-center mt-2"></div></div>
-                                    </div><div class="d-flex align-items-center justify-content-center w-100"><button
-                                    class="btn btn-outline-primary w-100" onclick="window.location.href='/doctor-profile/${element.id}'">View Profile</button></div></div></div>`
+                                    </div><div class="d-flex align-items-center justify-content-center w-100 position-absolute view-button"><button
+                                    class="btn btn-outline-primary" onclick="window.location.href='/doctor-profile/${element.id}'">View Profile</button></div></div></div>`
                                 );
                             }
                         });
@@ -124,8 +124,8 @@
                                     <p class="">${element.specializations.name}</p>
                                     <p>${element.details.education.substring(0,30)} ...</p>
                                     <div class="doctor-ratings d-flex align-items-center mt-2"></div></div>
-                                    </div><div class="d-flex align-items-center justify-content-center w-100"><button
-                                    class="btn btn-outline-primary w-100" onclick="window.location.href='/doctor-profile/${element.id}'">View Profile</button></div></div></div>`
+                                    </div><div class="d-flex align-items-center justify-content-center w-100 position-absolute view-button"><button
+                                    class="btn btn-outline-primary" onclick="window.location.href='/doctor-profile/${element.id}'">View Profile</button></div></div></div>`
                                 );
                             } else {
                                 $(".doctor-cont2").append(
@@ -143,8 +143,8 @@
                                     <p class="">${element.specializations.name}</p>
                                     <p>MBBS</p>
                                     <div class="doctor-ratings d-flex align-items-center mt-2"></div></div>
-                                    </div><div class="d-flex align-items-center justify-content-center w-100"><button
-                                    class="btn btn-outline-primary w-100" onclick="window.location.href='/doctor-profile/${element.id}'">View Profile</button></div></div></div>`
+                                    </div><div class="d-flex align-items-center justify-content-center w-100 position-absolute view-button"><button
+                                    class="btn btn-outline-primary" onclick="window.location.href='/doctor-profile/${element.id}'">View Profile</button></div></div></div>`
                                 );
                             }
                         });
@@ -296,8 +296,8 @@
 
 
                         </div>
-                        <div class="d-flex align-items-center justify-content-center w-100"><button
-                                class="btn btn-outline-primary w-100"
+                        <div class="d-flex align-items-center justify-content-center w-100 position-absolute view-button"><button
+                                class="btn btn-outline-primary"
                                 onclick="window.location.href='/doctor-profile/{{ $doctor->id }}'">View
                                 Profile</button></div>
                     </div>
