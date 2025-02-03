@@ -5536,3 +5536,8 @@ header {
 .view-button > button {
     width: 95%;
 }
+
+.doctor-list-card-container .truncate-overflow:before {
+    content: "";
+    position: static;
+}
