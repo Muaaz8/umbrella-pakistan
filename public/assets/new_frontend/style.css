@@ -5100,10 +5100,10 @@ header {
 
 .doctor-data-container p {
     font-size: 0.8rem;
-    white-space: nowrap;
+    /* white-space: nowrap;
     width: 60%;
     text-overflow: ellipsis;
-    overflow: hidden;
+    overflow: hidden; */
 }
 
 @media screen and (min-width: 1200px) {
