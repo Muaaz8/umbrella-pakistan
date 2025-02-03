@@ -4157,6 +4157,12 @@ header {
     }
 }
 
+@media (min-width: 768px) and (max-width: 856px) {
+    .doctor-list-card-container {
+        min-height: 230px !important;
+    }
+}
+
 @media screen and (max-width: 855px) {
     #problems-section>div>h2 {
         font-size: 40px;
@@ -4344,6 +4350,10 @@ header {
 
     .nav-tabs {
         --bs-nav-tabs-border-color: none;
+    }
+
+    .doctor-data-container > p:nth-child(3) {
+        font-size: 0.8rem !important;
     }
 }
 
@@ -5098,8 +5108,12 @@ header {
     color: var(--red);
 }
 
-.doctor-data-container p {
+.doctor-data-container > p:nth-child(2) {
     font-size: 0.8rem;
+}
+
+.doctor-data-container > p:nth-child(3) {
+    font-size: 0.65rem;
     /* white-space: nowrap;
     width: 60%;
     text-overflow: ellipsis;
@@ -5535,6 +5549,7 @@ header {
 
 .view-button > button {
     width: 95%;
+    background-color: white;
 }
 
 .doctor-list-card-container .truncate-overflow:before {
