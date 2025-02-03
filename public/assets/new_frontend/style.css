@@ -4164,10 +4164,6 @@ header {
 }
 
 @media screen and (max-width: 768px) {
-    .doctor-list-container>div {
-        flex-direction: column;
-    }
-
     .search-bar-container {
         width: 100% !important;
     }
@@ -4916,6 +4912,18 @@ header {
         top: 100px; */
         display: none;
     }
+
+    .view-button {
+        position: static !important;
+    }
+    
+    .view-button > button {
+        width: 100% !important;
+    }
+
+    .doctor-list-card-container {
+        min-height: 200px !important;
+    }
 }
 
 
@@ -5018,7 +5026,7 @@ header {
 }
 
 .doctor-list-card-container {
-    min-height: 200px;
+    min-height: 220px;
     border-top: 6px solid var(--blue);
     box-shadow: 1px 1px 2px 0px #d0c0c0;
     background: white;
@@ -5092,6 +5100,10 @@ header {
 
 .doctor-data-container p {
     font-size: 0.8rem;
+    white-space: nowrap;
+    width: 60%;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 @media screen and (min-width: 1200px) {
@@ -5497,4 +5509,30 @@ header {
 
 .pointer {
     cursor: pointer !important;
+}
+
+.doctor-new-container > p {
+    font-size: 0.75rem;
+}
+
+.online-dot {
+    min-width: 20px;
+    min-height: 20px;
+    border-radius: 50%;
+    border: 3px solid white;
+    right: 2px;
+    bottom: 2px;
+}
+
+.doctor-list-card-container {
+    padding-top: 2rem !important;
+}
+
+.view-button {
+    bottom: 5px;
+    left: 0;
+}
+
+.view-button > button {
+    width: 95%;
 }
