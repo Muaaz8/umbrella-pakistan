@@ -5100,10 +5100,10 @@ header {
 
 .doctor-data-container p {
     font-size: 0.8rem;
-    white-space: nowrap;
+    /* white-space: nowrap;
     width: 60%;
     text-overflow: ellipsis;
-    overflow: hidden;
+    overflow: hidden; */
 }
 
 @media screen and (min-width: 1200px) {
@@ -5535,4 +5535,9 @@ header {
 
 .view-button > button {
     width: 95%;
+}
+
+.doctor-list-card-container .truncate-overflow:before {
+    content: "";
+    position: static;
 }
