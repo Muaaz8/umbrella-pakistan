@@ -83,11 +83,11 @@
                         <table class="table dataTable">
                           <thead>
                             <tr style="font-size: 14px">
-                              <th scope="col">First Name</th>
-                              <th scope="col">Last Name</th>
+                              <th scope="col">Name</th>
+                              <th scope="col">Consultation Fee</th>
+                              <th scope="col">Follow-up Fee</th>
                               <th scope="col">Email</th>
                               <th scope="col">PMDC</th>
-                              <th scope="col">Percentage</th>
                               <th scope="col">Specialization</th>
                               <th scope="col">Registration Date</th>
                               <th scope="col">Action</th>
@@ -96,11 +96,11 @@
                           <tbody>
                             @forelse($doctors as $doctor)
                             <tr >
-                                <td data-label="First Name">{{ $doctor->name }} </td>
-                                <td data-label="Last Name">{{ $doctor->last_name }} </td>
+                                <td data-label="First Name">{{ "{$doctor->name} {$doctor->last_name}" }} </td>
+                                <td data-label="Last Name">{{ $doctor->consultation_fee ? $doctor->consultation_fee : "-" }} </td>
+                                <td data-label="Percentage">{{ $doctor->followup_fee ? $doctor->followup_fee : "-" }}</td>
                                 <td data-label="Email">{{ $doctor->email }}</td>
                                 <td data-label="PMDC">{{ $doctor->nip_number }}</td>
-                                <td data-label="Percentage">{{ $doctor->percentage_doctor  }}</td>
                                 <td data-label="Specialization">{{ $doctor->spec_name }}</td>
                                 <td data-label="Join Date">{{ date('m-d-Y',strtotime($doctor->created_at)) }}</td>
 

@@ -110,14 +110,34 @@
                                             <div class="col-md-4 doctor_info"><p><span>Email: </span>&nbsp; <span>{{ucwords($doctor->email)}}</span></p></div>
 
                                         </div>
-                                        <div class="col-md-4 doctor_info mt-3"><p><span>Average Response Time:</span>&nbsp; <span>
-                                        @if ($averageResponseTime !== null)
-                                        {{ number_format($averageResponseTime, 1) }} Min.
-                                        @else
-                                            No data found
-                                        @endif
-                                        </span></p>
+                                        <div class="row mt-3">
+                                            <div class="col-md-4 doctor_info">
+                                                <p>
+                                                    <span>Average Response Time:</span>&nbsp; <span>
+                                                        @if ($averageResponseTime !== null)
+                                                            {{ number_format($averageResponseTime,  1) }} Min.
+                                                        @else
+                                                            No data found
+                                                        @endif
+                                                    </span>
+                                                </p>
+                                            </div>
+                                            <div class="col-md-4 doctor_info">
+                                                <p>
+                                                    <span>Consultation Fee:</span>&nbsp; <span>
+                                                        {{ $doctor->consultation_fee ? 'RS.' . $doctor->consultation_fee : '-' }}
+                                                    </span>
+                                                </p>
+                                            </div>
+                                            <div class="col-md-4 doctor_info">
+                                                <p>
+                                                    <span>Follow-up Fee:</span>&nbsp; <span>
+                                                        {{ $doctor->followup_fee ? 'RS.' .$doctor->followup_fee : '-' }}
+                                                    </span>
+                                                </p>
                                         </div>
+
+
 
                                         <div class="row mt-3">
                                             <div class="col-md-12 doctor_info">
