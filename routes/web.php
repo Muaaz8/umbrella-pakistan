@@ -126,6 +126,7 @@ Route::get('/our-doctors',function(){
 })->name('doc_profile_page_list');
 
 Route::get('/our-doctors/{name}',function($name){
+
     if($name == "0"){
         $doctors = DB::table('users')
         ->where('user_type','doctor')
@@ -163,6 +164,20 @@ Route::get('/our-doctors/{name}',function($name){
         ->where('user_type','doctor')
         ->where('active','1')
         ->where('status','!=','ban')
+        ->orderBy('id','desc')
+        ->get();
+        foreach($doctors as $doctor){
+            $doctor->details = DB::table('doctor_details')->where('doctor_id',$doctor->id)->first();
+            $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
+            $doctor->specializations = DB::table('specializations')->where('id',$doctor->specialization)->first();
+        }
+        return json_encode($doctors);
+    }
+
+    if($name == "3"){
+        $doctors = DB::table('users')
+        ->where('user_type','doctor')
+        ->where('status','online')
         ->orderBy('id','desc')
         ->get();
         foreach($doctors as $doctor){
