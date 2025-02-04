@@ -789,7 +789,7 @@ class DoctorController extends Controller
         $data = "Evisit-".$new_session_id."-1";
         $pay = new \App\Http\Controllers\MeezanPaymentController();
         $res = $pay->payment($data,($session->price*100));
-        if ($res->errorCode == 0) {
+        if (isset($res) && $res->errorCode == 0) {
             return redirect($res->formUrl);
         }else{
             return redirect()->back()->with('error','Sorry, we are currently facing server issues. Please try again later.');

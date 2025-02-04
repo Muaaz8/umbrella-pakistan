@@ -45,7 +45,7 @@
 <div class="row m-auto">
   <div class="col-md-12">
       <div class="row my-4">
-          <div class="col-sm-6 col-lg-3 mb-2">
+          <div class="col-sm-6 col-lg-4 mb-2">
               <div class="dashboard-small-card-wrap">
                 <a href="/all/patients">
                   <div class="d-flex dashboard-small-card-inner">
@@ -59,7 +59,7 @@
                 </a>
               </div>
           </div>
-          <div class="col-sm-6 col-lg-3 mb-2">
+          <div class="col-sm-6 col-lg-4 mb-2">
               <div class="dashboard-small-card-wrap">
                 <a href="/doctor/appointments">
                   <div class="d-flex dashboard-small-card-inner">
@@ -73,7 +73,7 @@
                 </a>
               </div>
           </div>
-          <div class="col-sm-6 col-lg-3 mb-2">
+          <div class="col-sm-6 col-lg-4 mb-2">
               <div class="dashboard-small-card-wrap">
                 <a href="/all/sessions">
                   <div class="d-flex dashboard-small-card-inner">
@@ -87,7 +87,7 @@
                 </a>
               </div>
           </div>
-          <div class="col-sm-6 col-lg-3 mb-2">
+          {{-- <div class="col-sm-6 col-lg-3 mb-2">
               <div class="dashboard-small-card-wrap">
                 <a href="/doctor/wallet">
                   <div class="d-flex dashboard-small-card-inner">
@@ -100,7 +100,7 @@
                   </div>
                 </a>
               </div>
-          </div>
+          </div> --}}
       </div>
   </div>
 </div>

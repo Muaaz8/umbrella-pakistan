@@ -4930,7 +4930,7 @@ header {
     .view-button {
         position: static !important;
     }
-    
+
     .view-button > button {
         width: 100% !important;
     }

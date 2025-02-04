@@ -83,12 +83,6 @@
                                         <p class="py-2">Phone</p>
                                         <p class="py-2 text-muted">{{ $doctor->phone_number }}</p>
                                     </div>
-                                    @if (isset($doctor->upin))
-                                    <div class="d-flex align-items-center justify-content-between border-bottom">
-                                        <p class="py-2">Upin</p>
-                                        <p class="py-2 text-muted">{{ $doctor->upin }}</p>
-                                    </div>
-                                    @endif
                                     <div class="d-flex align-items-center justify-content-between border-bottom">
                                         <p class="py-2">PMDC Number</p>
                                         <p class="py-2 text-muted">{{ $doctor->nip_number }}</p>

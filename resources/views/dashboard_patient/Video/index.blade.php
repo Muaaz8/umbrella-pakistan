@@ -211,14 +211,6 @@
                             "</div>" +
                             '<ul class="list-group list-group-flush">' +
                             '<li class="list-group-item">' +
-                            "<b>Symptoms : </b>" +
-                            value.symtems +
-                            "</li>" +
-                            '<li class="list-group-item">' +
-                            "<b>Diagnosis : </b> " +
-                            value.diagnois +
-                            "</li>" +
-                            '<li class="list-group-item">' +
                             "<b>Prescriptions :</b>" +
                             "<ul class='pres-ul'>" +
                             myHtml +

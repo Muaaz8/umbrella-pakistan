@@ -1009,33 +1009,27 @@ class AppointmentController extends Controller
             'appointment_id' => $new_app_id,
         ])->id;
 
+        $check_session_already_have = DB::table('sessions')
+            ->where('doctor_id', $data['provider'])
+            ->where('patient_id', $patient_id)
+            ->where('specialization_id', $request->spec_id)
+            ->count();
+
         $session_price = "";
-        if ($request->price != null) {
-            $session_price = $request->price;
+        if ($check_session_already_have > 0) {
+            $session_price_get = User::find($data['provider']);
+            // consultation_fee
+            // followup_fee
+            if ($session_price_get->followup_fee != null) {
+                $session_price = $session_price_get->followup_fee;
+            } else {
+                $session_price = $session_price_get->consultation_fee;
+            }
         } else {
-            $session_price_get = DB::table('specalization_price')->where('spec_id', $request->doc_sp_id)->first();
-            $session_price = $session_price_get->initial_price;
+            $session_price_get = User::find($data['provider']);
+            $session_price = $session_price_get->consultation_fee;
         }
 
-        // $check_session_already_have = DB::table('sessions')
-        //     ->where('doctor_id', $pro_id)
-        //     ->where('patient_id', $patient_id)
-        //     ->where('specialization_id', $request->spec_id)
-        //     ->count();
-        // $session_price = "";
-        // if ($check_session_already_have > 0) {
-        //     $session_price_get = DB::table('specalization_price')->where('spec_id', $request->spec_id)->first();
-        //     if ($session_price_get->follow_up_price != null) {
-        //         $session_price = $session_price_get->follow_up_price;
-        //     } else {
-        //         $session_price = $session_price_get->initial_price;
-        //     }
-        // } else {
-        //     $session_price_get = DB::table('specalization_price')->where('spec_id', $request->spec_id)->first();
-        //     // dd($session_price_get);
-        //     $session_price = $session_price_get->initial_price;
-        // }
-        // dd($session_price);
         $new_session_id;
         $randNumber=rand(11,99);
         $getLastSessionId = DB::table('sessions')->orderBy('id', 'desc')->first();
@@ -1094,7 +1088,16 @@ class AppointmentController extends Controller
                 'start_time' => date('Y-m-d H:i:s', (strtotime($datetime['datetime']))),
                 'end_time' => date('Y-m-d H:i:s', (strtotime('15 min', strtotime($datetime['datetime'])))),
             ])->id;
-            return redirect()->route('appoint_payment', ['id' => $session_id]);
+            $session = Session::find($session_id);
+            $data = "Appointment-".$new_session_id."-1";
+            $pay = new \App\Http\Controllers\MeezanPaymentController();
+            $res = $pay->payment($data,($session->price*100));
+            if ($res->errorCode == 0) {
+                return redirect($res->formUrl);
+            }else{
+                return redirect()->back()->with('error','Sorry, we are currently facing server issues. Please try again later.');
+            }
+            // return redirect()->route('appoint_payment', ['id' => $session_id]);
         }
     }
 

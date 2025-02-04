@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Session;
+use App\User;
 use App\Notification;
 use App\Mail\EvisitBookMail;
+use App\Mail\NewAppointmentPatientMail;
+use App\Mail\NewAppointmentDoctorMail;
 use Illuminate\Http\Request;
 use App\Events\RealTimeMessage;
 use App\Events\updateQuePatient;
@@ -39,13 +42,18 @@ class MeezanPaymentController extends Controller
     //  <!--- One Phase Payment ---!>
     public function payment($data,$amount)
     {
+
         $description = urlencode($data);
         $this->amount = $amount;
         $data = explode('-',$data);
         if($data[0] == 'Evisit'){
             $orderId = 'CHCCE-'.$data[1];
+        }elseif($data[0] == 'Appointment'){
+            $orderId = 'CHCCA-'.$data[1];
         }
+
         $user_id = auth()->user()->id;
+        $CURLOPT_URL = $this->api_url.'/register.do?userName='.$this->userName.'&password='.$this->password.'&orderNumber='.$orderId.'&amount='.$this->amount.'&currency='.$this->currency.'&returnUrl='.urlencode($this->returnUrl).'&clientId='.$user_id.'&description='.$description;
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => $this->api_url.'/register.do?userName='.$this->userName.'&password='.$this->password.'&orderNumber='.$orderId.'&amount='.$this->amount.'&currency='.$this->currency.'&returnUrl='.urlencode($this->returnUrl).'&clientId='.$user_id.'&description='.$description,
@@ -62,7 +70,7 @@ class MeezanPaymentController extends Controller
 
         curl_close($curl);
         $response = json_decode($response);
-        if ($response->errorCode == 0) {
+        if (isset($response) && $response->errorCode == 0) {
             session()->put('mdOrderId', $response->orderId);
         }
         return $response;
@@ -122,6 +130,68 @@ class MeezanPaymentController extends Controller
                     // $getSession = DB::table('sessions')->where('session_id', $description[1])->first();
                     $getSession = DB::table('sessions')->where('session_id', $description[1])->delete();
                     return redirect()->route('patient_online_doctors',['id'=>$description[2]])->with('error', $response->actionCodeDescription);
+                }
+            }
+            if($description[0] == "Appointment"){
+                if($response->orderStatus == 2){
+                    $getSession = DB::table('sessions')->where('session_id', $description[1])->first();
+                    Session::where('id', $getSession->id)->update(['status' => 'paid']);
+
+                    try {
+                        $doctor_data = DB::table('users')->where('id', $getSession->doctor_id)->first();
+                        $patient_data = DB::table('users')->where('id', $getSession->patient_id)->first();
+                        $getAppointment = DB::table('appointments')->where('id', $getSession->appointment_id)->first();
+                        $d_date = User::convert_utc_to_user_timezone($doctor_data->id, $getAppointment->date . ' ' . $getAppointment->time);
+                        $p_date = User::convert_utc_to_user_timezone($patient_data->id, $getAppointment->date . ' ' . $getAppointment->time);
+
+                        $markDownData1 = [
+                            'doc_name' => ucwords($doctor_data->name),
+                            'pat_name' => ucwords($patient_data->name),
+                            'time' => $p_date['time'],
+                            'date' => $p_date['date'],
+                            'pat_mail' => $patient_data->email,
+                            'doc_mail' => $doctor_data->email,
+                        ];
+                        $markDownData2 = [
+                            'doc_name' => ucwords($doctor_data->name),
+                            'pat_name' => ucwords($patient_data->name),
+                            'time' => $d_date['time'],
+                            'date' => $d_date['date'],
+                            'pat_mail' => $patient_data->email,
+                            'doc_mail' => $doctor_data->email,
+                        ];
+                        Mail::to($patient_data->email)->send(new NewAppointmentPatientMail($markDownData1));
+                        Mail::to($doctor_data->email)->send(new NewAppointmentDoctorMail($markDownData2));
+
+                        $text = "New Appointment Created by " . $patient_data->name . " " . $patient_data->last_name;
+                        $notification_id = Notification::create([
+                            'user_id' =>  $getSession->doctor_id,
+                            'type' => '/doctor/appointments',
+                            'text' => $text,
+                            'appoint_id' => $getSession->appointment_id,
+                        ]);
+                        $data = [
+                            'user_id' =>  $getSession->doctor_id,
+                            'type' => '/doctor/appointments',
+                            'text' => $text,
+                            'appoint_id' => $getSession->appointment_id,
+                            'refill_id' => "null",
+                            'received' => 'false',
+                            'session_id' => 'null',
+                        ];
+                        event(new RealTimeMessage($getSession->doctor_id));
+                        event(new updateQuePatient('update patient que'));
+                    } catch (Exception $e) {
+                        Log::error($e);
+                    }
+                    return redirect()->route('pat_appointments')->with("message", "Appointment Create Successfully");
+                }else{
+                    $getSession = DB::table('sessions')->where('session_id', $description[1])->first();
+
+                    DB::table('appointments')->where('id', $getSession->appointment_id)->delete();
+                    DB::table('sessions')->where('session_id', $description[1])->delete();
+
+                    return redirect()->route('book_appointment',['id'=>$description[2]])->with('error', $response->actionCodeDescription);
                 }
             }
         }

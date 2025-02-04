@@ -293,9 +293,9 @@ class VideoController extends Controller
                         $item = DB::table('quest_data_test_codes')->where('TEST_CD', $pres->test_id)->first();
                         $buyItem = DB::table('lab_orders')->where('pres_id', $pres->id)->first();
                         if ($buyItem != null) {
-                            array_push($array, ['pro_name' => $item->DESCRIPTION, 'status' => 'Purchased']);
+                            array_push($array, ['pro_name' => $item->TEST_NAME, 'status' => 'Purchased']);
                         } else {
-                            array_push($array, ['pro_name' => $item->DESCRIPTION, 'status' => 'Recommend']);
+                            array_push($array, ['pro_name' => $item->TEST_NAME, 'status' => 'Recommend']);
                         }
                     } else if ($pres->type == 'medicine') {
                         $item = DB::table('tbl_products')->where('id', $pres->medicine_id)->first();

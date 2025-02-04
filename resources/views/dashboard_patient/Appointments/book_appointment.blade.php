@@ -663,6 +663,16 @@
                             @endif
                         </div>
                     </div>
+                    <div class="row">
+                        @if (session()->get('error'))
+                            <div id="errorDiv1" class="alert alert-danger col-12 col-md-6 offset-md-3">
+                                @php
+                                    $es = session()->get('error');
+                                @endphp
+                                <span role="alert"> <strong>{{ $es }}</strong></span>
+                            </div>
+                        @endif
+                    </div>
 
                     <hr>
                     <div class="row clearfix" id="load_docs">
@@ -1077,7 +1087,7 @@
                                                     <option value="3">Three</option>
                                                 </select></span>
                                         </div>
-                                        <input type="hidden" id="price" name="price" value="">
+                                        <input type="hidden" id="price" name="price"    value="">
                                         <div class="d-flex flex-column mb-3">
                                             <span class="heading d-block">Choose Appointment Date</span>
                                             <span class="subheadings"><input type="date" name=""

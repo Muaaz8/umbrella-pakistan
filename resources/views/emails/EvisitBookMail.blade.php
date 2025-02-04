@@ -265,7 +265,7 @@
                                   "
 
                                 >
-                                 $ <span>{{ $data['amount'] }}</span>
+                                 Rs. <span>{{ $data['amount'] }}</span>
                                 </p>
                                 </th>
                               </tr>
@@ -358,7 +358,7 @@
                                 "
 
                               >
-                               $ <span>{{ $data['amount'] }}</span>
+                               Rs. <span>{{ $data['amount'] }}</span>
                               </p>
                               </th>
                             </tr>
