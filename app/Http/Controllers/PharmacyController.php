@@ -825,24 +825,8 @@ class PharmacyController extends Controller
 
     public function authorize_create_new_order(Request $request)
     {
-
-        if(strlen($request->exp_month) == 1){
-            $request->exp_month = "0".$request->exp_month;
-        }
-
         $request->payAble = $request->payAble*100;
         $user = Auth::user();
-        $cartPreLab = [];
-        $cartCntLab = [];
-        $cartPreMed = [];
-        $cartCntMed = [];
-        $cartPreImg = [];
-        $cartCntImg = [];
-        $orderAllIds = [];
-
-        //get medicine items from tbl_product table
-        $getAllCartProducts = DB::table('tbl_cart')->where('user_id', $user->id)->where('show_product', '1')->where('status', 'recommended')->get();
-
         $orderId = '';
         $dateString = Carbon::now()->format('yHis');
         $getLastOrderId = DB::table('tbl_orders')->orderBy('id', 'desc')->first();
@@ -853,76 +837,6 @@ class PharmacyController extends Controller
             $orderId = $dateString+$randNumber;
         }
 
-        foreach ($getAllCartProducts as $item) {
-
-            if ($item->item_type == 'counter' && $item->product_mode == 'lab-test') {
-                $item->orderSubId = $orderId . $item->product_id;
-                $item->orderSystemId = $orderId;
-                array_push($orderAllIds, $orderId . $item->product_id);
-                array_push($cartCntLab, $item);
-            } else if ($item->item_type == 'prescribed' && $item->product_mode == 'lab-test') {
-                $item->orderSubId = $orderId . $item->product_id;
-                $item->orderSystemId = $orderId;
-                array_push($orderAllIds, $orderId . $item->product_id);
-                array_push($cartPreLab, $item);
-            } else if ($item->item_type == 'counter' && $item->product_mode == 'medicine') {
-                $item->orderSubId = $orderId . $item->product_id;
-                $item->orderSystemId = $orderId;
-                array_push($orderAllIds, $orderId . $item->product_id);
-                array_push($cartCntMed, $item);
-            } else if ($item->item_type == 'prescribed' && $item->product_mode == 'medicine') {
-                $item->orderSubId = $orderId . $item->product_id;
-                $item->orderSystemId = $orderId;
-                array_push($orderAllIds, $orderId . $item->product_id);
-                array_push($cartPreMed, $item);
-            } else if ($item->item_type == 'counter' && $item->product_mode == 'imaging') {
-                $item->orderSubId = $orderId . $item->product_id;
-                $item->orderSystemId = $orderId;
-                array_push($orderAllIds, $orderId . $item->product_id);
-                array_push($cartCntLab, $item);
-                // $item->orderSubId = $orderId . $item->product_id;
-                // $item->orderSystemId = $orderId;
-                // array_push($orderAllIds, $orderId . $item->product_id);
-                // array_push($cartCntImg, $item);
-            } else if ($item->item_type == 'prescribed' && $item->product_mode == 'imaging') {
-                $item->orderSubId = $orderId . $item->product_id;
-                $item->orderSystemId = $orderId;
-                array_push($orderAllIds, $orderId . $item->product_id);
-                array_push($cartPreLab, $item);
-                // $item->orderSubId = $orderId . $item->product_id;
-                // $item->orderSystemId = $orderId;
-                // array_push($orderAllIds, $orderId . $item->product_id);
-                // array_push($cartPreImg, $item);
-            }
-        }
-
-        $data = "Order-" .$orderId. now()->format('Ymd');
-        $pay = new \App\Http\Controllers\MeezanPaymentController();
-        $res = $pay->payment($data, $request->payAble);
-        if ($res->errorCode == 0) {
-            return redirect($res->formUrl);
-        }else{
-            return redirect()->back()->with('error','Sorry, we are currently facing server issues. Please try again later.');
-        }
-
-        dd($res);
-        dd("we are here");
-
-
-        $request->card_number = str_replace('-', '', $request->card_number);
-        $totalPaymentToCharge = $request->payAble;
-        $billing = array(
-            'number' => substr($request->card_number,0,1) . 'xxx-xxxx-xxxx-' . substr($request->card_number, -4),
-            'expiration_month' => $request->exp_month,
-            'expiration_year' => $request->exp_year,
-            "csc" => $request->cvc,
-            "name" => $request->card_holder_name." ".$request->card_holder_last_name,
-            "email" => $request->email,
-            "street_address" => $request->address,
-            "city" => $request->city,
-            'phoneNumber' => $request->phoneNumber,
-        );
-
         if (isset($request->shipping_customer_name)) {
             $shipping = array(
                 "name" => $request->shipping_customer_name,
@@ -931,133 +845,106 @@ class PharmacyController extends Controller
                 "street_address" => $request->shipping_customer_address,
                 "city" => $request->shipping_customer_city
             );
-        } else {
-            $shipping = array(
-                "name" => $request->card_holder_name." ".$request->card_holder_last_name,
-                "email" => $request->email,
-                "phone" => $request->phoneNumber,
-                "street_address" => $request->address,
-                "city" => $request->city
-            );
+            session()->put('shipping_details', $shipping);
         }
-        // create object for payment
-        if ((isset($request->old_card))) {
-            $query = DB::table('card_details')
-                ->where('id', $request->card_no)
-                ->get();
-            // dd($query,$request->card_no);
-            $pay = new PaymentController();
-            $profile = $query[0]->customerProfileId;
-            $payment = $query[0]->customerPaymentProfileId;
-            $amount = $request->payAble;
-            //dd($profile,$payment,$amount);
-            $response = ($pay->new_createPaymentwithCustomerProfile($amount, $profile, $payment));
-            DB::table('card_details')->where('id', $request->card_no)->update([
-                'shipping' => serialize($shipping),
-            ]);
-            $flag = false;
-        } else {
-            $input = [
-                'user' => [
-                    'description' => $request->card_holder_name,
-                    'email' => $request->email,
-                    'firstname' => $request->card_holder_name,
-                    'lastname' => $request->card_holder_last_name,
-                    'phoneNumber' => $request->phoneNumber,
-                ],
-                'info' => [
-                    'subject' => "Order",
-                    'user_id' => $user->id,
-                    'description' => $orderId,
-                    'amount' => $totalPaymentToCharge,
-                ],
-                'billing_info' => [
-                    'amount' => $totalPaymentToCharge,
-                    'credit_card' => [
-                        'number' => $request->card_number,
-                        'expiration_month' => $request->exp_month,
-                        'expiration_year' => $request->exp_year,
-                    ],
-                    'integrator_id' => 'Order-' . $orderId,
-                    'csc' => $request->cvc,
-                    'billing_address' => [
-                        'name' => $request->card_holder_name." ".$request->card_holder_last_name,
-                        'street_address' => $request->address,
-                        'city' => $request->city,
-                        'state' => $request->state_code,
-                        'zip' => $request->zipcode,
-                    ]
-                ]
-            ];
-
-            // dd($input);
-            $pay = new PaymentController();
-            $response = ($pay->new_createCustomerProfile($input));
-            $flag = true;
+        if($request->payment_method == "credit-card"){
+            $data = "Order-" .$orderId."-". now()->format('Ymd');
+            $pay = new \App\Http\Controllers\MeezanPaymentController();
+            $res = $pay->payment($data, $request->payAble);
+            if ($res->errorCode == 0) {
+                return redirect($res->formUrl);
+            }else{
+                return redirect()->back()->with('msg','Sorry, we are currently facing server issues. Please try again later.');
+            }
+        }else{
+            return redirect()->back()->with('msg','Sorry, Can\'t process with this payment method right now.Kindly try different method.');
         }
+    }
 
+    public function order_payment_return(){
+        $pay = new \App\Http\Controllers\MeezanPaymentController();
+        $response = $pay->payment_return();
+        $description = explode("-",$response->orderDescription);
+        if($response->orderStatus == 2){
+            $orderId = $description[1];
+            $user = Auth::user();
+            $cartPreLab = [];
+            $cartCntLab = [];
+            $cartPreMed = [];
+            $cartCntMed = [];
+            $cartPreImg = [];
+            $cartCntImg = [];
+            $orderAllIds = [];
 
-        if ($response['messages']['message'][0]['text'] == 'Successful.') {
-            $agent = 'web';
-            $transactionArr = [
-                // 'transaction_id' => $paymentResult['transaction_id'],
-                'subject' => 'Order',
-                'description' => $orderId,
-                'total_amount' => $totalPaymentToCharge,
-                'user_id' => $user->id,
-                // 'approval_code' => $paymentResult['approval_code'],
-                // 'approval_message' => $paymentResult['approval_message'],
-                // 'avs_response' => $paymentResult['avs_response'],
-                // 'csc_response' => $paymentResult['csc_response'],
-                // 'external_transaction_id' => $paymentResult['external_transaction_id'],
-                // 'masked_card_number' => $paymentResult['masked_card_number'],
-            ];
-            TblTransaction::create($transactionArr);
-            if ($flag) {
-                $profileId = $response['transactionResponse']['profile']['customerProfileId'];
-                $paymentId = $response['transactionResponse']['profile']['customerPaymentProfileId'];
-                DB::table('card_details')->insert([
-                    'user_id' => Auth::user()->id,
-                    'customerProfileId' => $profileId,
-                    'customerPaymentProfileId' => $paymentId,
-                    'card_number' => substr($request->card_number, -4),
-                    'billing' => serialize($billing),
-                    'shipping' => serialize($shipping),
-                    'card_type' =>substr($request->card_number, 0,1),
-                ]);
+            $getAllCartProducts = DB::table('tbl_cart')->where('user_id', $user->id)->where('show_product', '1')->where('status', 'recommended')->get();
+
+            foreach ($getAllCartProducts as $item) {
+                if ($item->item_type == 'counter' && $item->product_mode == 'lab-test') {
+                    $item->orderSubId = $orderId . $item->product_id;
+                    $item->orderSystemId = $orderId;
+                    array_push($orderAllIds, $orderId . $item->product_id);
+                    array_push($cartCntLab, $item);
+                } else if ($item->item_type == 'prescribed' && $item->product_mode == 'lab-test') {
+                    $item->orderSubId = $orderId . $item->product_id;
+                    $item->orderSystemId = $orderId;
+                    array_push($orderAllIds, $orderId . $item->product_id);
+                    array_push($cartPreLab, $item);
+                } else if ($item->item_type == 'counter' && $item->product_mode == 'medicine') {
+                    $item->orderSubId = $orderId . $item->product_id;
+                    $item->orderSystemId = $orderId;
+                    array_push($orderAllIds, $orderId . $item->product_id);
+                    array_push($cartCntMed, $item);
+                } else if ($item->item_type == 'prescribed' && $item->product_mode == 'medicine') {
+                    $item->orderSubId = $orderId . $item->product_id;
+                    $item->orderSystemId = $orderId;
+                    array_push($orderAllIds, $orderId . $item->product_id);
+                    array_push($cartPreMed, $item);
+                } else if ($item->item_type == 'counter' && $item->product_mode == 'imaging') {
+                    $item->orderSubId = $orderId . $item->product_id;
+                    $item->orderSystemId = $orderId;
+                    array_push($orderAllIds, $orderId . $item->product_id);
+                    array_push($cartCntLab, $item);
+                } else if ($item->item_type == 'prescribed' && $item->product_mode == 'imaging') {
+                    $item->orderSubId = $orderId . $item->product_id;
+                    $item->orderSystemId = $orderId;
+                    array_push($orderAllIds, $orderId . $item->product_id);
+                    array_push($cartPreLab, $item);
+                }
             }
 
+            $agent = 'web';
+            $transactionArr = [
+                'subject' => 'Order',
+                'description' => $description[1],
+                'total_amount' => ($response->amount/100),
+                'user_id' => $user->id,
+            ];
+            TblTransaction::create($transactionArr);
 
-
-            $this->seprate_order_create($cartCntLab, $cartPreLab, $cartPreMed, $cartCntMed, $cartPreImg, $cartCntImg, $shipping);
-
+            $this->seprate_order_create($cartCntLab, $cartPreLab, $cartPreMed, $cartCntMed, $cartPreImg, $cartCntImg);
+            $shipping = session()->get('shipping_details');
             DB::table('tbl_orders')->insert([
-                'order_state' => $user->state_id,
-                'order_id' => $orderId,
+                'order_id' => $description[1],
                 'order_sub_id' => serialize($orderAllIds),
                 // 'transaction_id' => $payment_request['transaction_id'],
                 'customer_id' => $user->id,
-                'total' => $totalPaymentToCharge,
+                'total' => ($response->amount/100),
                 'total_tax' => 0,
-                'billing' => serialize($billing),
+                'billing' => serialize($shipping),
                 'shipping' => serialize($shipping),
                 'payment' => serialize($response),
                 'payment_title' => 'Direct Bank Transfer',
-                'payment_method' => 'via Authorize.net',
+                'payment_method' => 'via Meezan Bank',
                 'cart_items' => '',
                 "lab_order_approvals" => '',
-                'currency' => 'US',
+                'currency' => 'PKR',
                 'order_status' => 'paid',
                 'agent' => $agent,
-                'created_at' => Carbon::now(),
+                'created_at' => now(),
             ]);
 
-            $this->orderNotify($orderId, $getAllCartProducts->toArray(), $totalPaymentToCharge, $billing['number'], $billing['name'], "478066367",$billing['email'],$shipping['email']);
-
+            $this->orderNotify($description[1], $getAllCartProducts->toArray(), ($response->amount/100));
             foreach ($getAllCartProducts as $ci) {
-                if ($ci->refill_flag != '0') {
-                    RefillRequest::where('id', $ci->refill_flag)->update(['granted' => null]);
-                }
                 DB::table('tbl_cart')->where('id', $ci->id)->update([
                     'status' => 'purchased',
                     'purchase_status' => '0',
@@ -1065,19 +952,9 @@ class PharmacyController extends Controller
 
                 ]);
             }
-
-            return redirect()->route('order.complete', ['id' => $orderId]);
-        } else {
-            // dd($response['messages']['message'][0]['text']);
-            $code = $response['messages']['message'][0]['code'];
-            $message = TblTransaction::errorCode($code);
-            DB::table('error_log')->insert([
-                'user_id' => $user->id,
-                'Error_code' => $code,
-                'Error_text' => $response['messages']['message'][0]['text'],
-            ]);
-            Flash::error($message);
-            return redirect()->back();
+            return redirect()->route('order.complete', ['id' => $description[1]]);
+        }else{
+            return redirect()->route('user_cart')->with('msg', $response->actionCodeDescription);
         }
     }
     //////////////////////////////////////////
@@ -1105,78 +982,7 @@ class PharmacyController extends Controller
         return 'ok';
     }
 
-    public function online_lab_order_create(Request $request)
-    {
-        $testsData = [];
-        $item = DB::table('lab_orders')
-            ->join('quest_data_test_codes', 'lab_orders.product_id', 'quest_data_test_codes.TEST_CD')
-            ->where('lab_orders.order_id', $request->order_id)
-            ->where('status','forwarded_to_doctor')
-            ->where('lab_orders.type', 'Counter')
-            ->get();
-
-        foreach ($item as $i) {
-
-            array_push($testsData, ['testCode' => $i->product_id, 'testName' => $i->TEST_NAME, 'aoes' => '']);
-        }
-
-
-        $account = VendorAccount::where('vendor', 'quest')->first();
-        $doctor = User::find($item[0]->doc_id);
-        $patient = User::find($item[0]->user_id);
-
-        $timestamp = time();
-        $lab_ref_num = 'UMD' . $item[0]->user_id . 'Q' . $timestamp;
-        $orderedtestcode = json_encode($testsData);
-        $name = json_encode($testsData);
-        $testAoes = json_encode($testsData);
-        $collect_date = date('Y-m-d', strtotime($item[0]->created_at));
-        $collect_time = date('H:i:s', strtotime($item[0]->created_at));
-        $doc_name = $doctor->last_name . ' ,' . $doctor->name;
-        $barcode = $account->number . $lab_ref_num;
-        $arr_specimen = array(
-            [
-                'client_num' => '73917104',
-                'lab_referance' => $lab_ref_num,
-                'patient_name' => $patient->last_name . ', ' . $patient->name,
-                'barcode' => $account->number . $lab_ref_num,
-            ],
-        );
-        $specimen_labels = json_encode($arr_specimen);
-        $comment = '';
-        $client_bill = '$2y$10$iguHq2BCqFaGg1tI3eZDWujOwENMEmJDYdA7Ywl11Iwv1r/NNmmgu';
-        $patient_bill = '';
-        $third_party_bill = '';
-        $order = QuestLab::create([
-            'order_id' => $item[0]->order_id,
-            'umd_patient_id' => $item[0]->user_id,
-            'quest_patient_id' => $item[0]->user_id,
-            'abn' => '',
-            'billing_type' => 'Client',
-            'diagnosis_code' => 'V725',
-            'vendor_account_id' => $account->id,
-            'orderedtestcode' => $orderedtestcode, 'names' => $name, 'aoe' => $testAoes, 'collect_date' => $collect_date,
-            'collect_time' => $collect_time, 'lab_reference_num' => $lab_ref_num, 'npi' => $doctor->nip_number,
-            'ssn' => '', 'insurance_num' => '', 'room' => '', 'result_notification' => 'Normal',
-            'group_num' => '', 'relation' => 'Self', 'upin' => $doctor->upin, 'ref_physician_id' => $doc_name,
-            'temp' => '', 'icd_diagnosis_code' => '', 'psc_hold' => 1, 'barcode' => $barcode,
-            'specimen_labels' => $specimen_labels, 'comment' => $comment, 'client_bill' => $client_bill,
-            'patient_bill' => $patient_bill, 'third_party_bill' => $third_party_bill,
-        ]);
-
-        $order->zip_code = $patient->zip_code;
-        $hl7_obj = new HL7Controller();
-        $hl7_obj->new_hl7Encode($order);
-        DB::table('lab_orders')
-            ->where('order_id', $request->order_id)
-            ->where('type', 'Counter')
-            ->where('status','forwarded_to_doctor')
-            ->update(['status' => 'quest-forwarded']);
-
-        return 'ok';
-    }
-
-    public function seprate_order_create($cartCntLab, $cartPreLab, $cartPreMed, $cartCntMed, $cartPreImg, $cartCntImg, $shippingDetails)
+    public function seprate_order_create($cartCntLab, $cartPreLab, $cartPreMed, $cartCntMed, $cartPreImg, $cartCntImg)
     {
         if ($cartCntLab != null) {
             foreach ($cartCntLab as $order) {
@@ -1288,78 +1094,6 @@ class PharmacyController extends Controller
             $doctor = User::find($item->doc_id);
             $patient = User::find($item->user_id);
         }
-        // if ($cartPreImg != null) {
-        //     foreach ($cartPreImg as $key => $order) {
-        //         ImagingOrder::create([
-        //             'user_id' => Auth::user()->id,
-        //             'order_id' => $order->orderSystemId,
-        //             'product_id' => $order->product_id,
-        //             'session_id' => $order->doc_session_id,
-        //             'pres_id' => $order->pres_id,
-        //             'location_id' => $order->location_id,
-        //             'status' => 'pending',
-        //             'price' => $order->update_price,
-        //             'sub_order_id' => $order->orderSubId,
-        //         ]);
-        //         $order_id = $order->orderSubId;
-        //         $doctor = User::find($order->doc_id);
-        //         $patient = User::find($order->user_id);
-        //         $state = State::find($doctor->state_id);
-        //         $city = City::find($doctor->city_id);
-        //         $p_city = City::find($patient->city_id);
-        //         $p_state = State::find($patient->state_id);
-        //         $orderDate = User::convert_utc_to_user_timezone($patient->id, Carbon::now()->format('Y-m-d H:i:s'));
-        //         $date = str_replace('-', '/',  $patient->date_of_birth);
-        //         $patient->date_of_birth = date('m/d/Y', strtotime($date));
-
-        //         $presc_meds[$order->doc_session_id]['first_name'] = $patient->name." ".$patient->last_name;;
-        //         $presc_meds[$order->doc_session_id]['address'] = $patient->office_address;
-        //         $presc_meds[$order->doc_session_id]['city'] = $p_city->name;
-        //         $presc_meds[$order->doc_session_id]['state'] = $p_state->name;
-        //         $presc_meds[$order->doc_session_id]['zip_code'] = $patient->zip_code;
-        //         $presc_meds[$order->doc_session_id]['email_address'] = $patient->email;
-        //         $presc_meds[$order->doc_session_id]['phone_number'] = $patient->phone_number;
-        //         $presc_meds[$order->doc_session_id]['patient_dob'] = $patient->date_of_birth;
-        //         $presc_meds[$order->doc_session_id]['patient_gender'] = $patient->gender;
-        //         $presc_meds[$order->doc_session_id]['patient_id'] = $patient->id;
-        //         $presc_meds[$order->doc_session_id]['phy_id'] = $doctor->id;
-        //         $presc_meds[$order->doc_session_id]['order_sub_id'] = $order->orderSubId;
-        //         $presc_meds[$order->doc_session_id]['order_main_id'] = $order->orderSystemId;
-        //         $presc_meds[$order->doc_session_id]['phy_by'] = $doctor->name . ' ' . $doctor->last_name;
-        //         $presc_meds[$order->doc_session_id]['phy_phone_number'] = $doctor->phone_number;
-        //         $presc_meds[$order->doc_session_id]['phy_address'] = $doctor->office_address;
-        //         $presc_meds[$order->doc_session_id]['phy_city'] = $city->name;
-        //         $presc_meds[$order->doc_session_id]['phy_state'] = $state->name;
-        //         $presc_meds[$order->doc_session_id]['phy_zip_code'] = $doctor->zip_code;
-        //         $presc_meds[$order->doc_session_id]['NPI'] = $doctor->nip_number;
-        //         $presc_meds[$order->doc_session_id]['signature'] = $doctor->signature;
-        //         $presc_meds[$order->doc_session_id]['date'] = $orderDate['date'];
-
-        //         $pres = Prescription::find($order->pres_id);
-        //         $img = DB::table('tbl_products')->where('id',$pres->imaging_id)->first();
-        //         $loc = DB::table('imaging_locations')->where('id',$order->location_id)->first();
-        //         $presc_meds[$order->doc_session_id]['items'][$key]['name'] = $img->name;
-        //         $presc_meds[$order->doc_session_id]['items'][$key]['address'] = $loc->address;
-        //         $presc_meds[$order->doc_session_id]['items'][$key]['zip_code'] = $loc->zip_code;
-        //     }
-        //     $recom_obj = new RecommendationController($this->allProductsRepository);
-        //     $recom_obj->new_imaging_order($presc_meds);
-        // }
-        // if ($cartCntImg != null) {
-        //     foreach ($cartCntImg as $order) {
-        //         ImagingOrder::create([
-        //             'user_id' => Auth::user()->id,
-        //             'order_id' => $order->orderSystemId,
-        //             'product_id' => $order->product_id,
-        //             'session_id' => $order->doc_session_id,
-        //             'pres_id' => $order->pres_id,
-        //             'location_id' => $order->location_id,
-        //             'status' => 'pending',
-        //             'price' => $order->update_price,
-        //             'sub_order_id' => $order->orderSubId,
-        //         ]);
-        //     }
-        // }
         if ($cartPreMed != null) {
             $presc_meds = array();
             foreach ($cartPreMed as $key => $item) {
@@ -1381,37 +1115,13 @@ class PharmacyController extends Controller
                 $orderDate = User::convert_utc_to_user_timezone($patient->id, Carbon::now()->format('Y-m-d H:i:s'));
                 $date = str_replace('-', '/',  $patient->date_of_birth);
                 $patient->date_of_birth = date('m/d/Y', strtotime($date));
-                $presc_meds[$item->doc_session_id]['first_name'] = $patient->name." ".$patient->last_name;;
-                $presc_meds[$item->doc_session_id]['address'] = $shippingDetails['street_address'];
-                $presc_meds[$item->doc_session_id]['city'] = $shippingDetails['city'];
-                $presc_meds[$item->doc_session_id]['state'] = $shippingDetails['state'];
-                $presc_meds[$item->doc_session_id]['zip_code'] = $shippingDetails['zip'];
-                $presc_meds[$item->doc_session_id]['email_address'] = $patient->email;
-                $presc_meds[$item->doc_session_id]['phone_number'] = $shippingDetails['phone'];
-                $presc_meds[$item->doc_session_id]['patient_dob'] = $patient->date_of_birth;
-                $presc_meds[$item->doc_session_id]['patient_gender'] = $patient->gender;
-                $presc_meds[$item->doc_session_id]['patient_id'] = $patient->id;
-                $presc_meds[$item->doc_session_id]['phy_id'] = $doctor->id;
-                $presc_meds[$item->doc_session_id]['order_sub_id'] = $item->orderSubId;
-                $presc_meds[$item->doc_session_id]['order_main_id'] = $item->orderSystemId;
-                $presc_meds[$item->doc_session_id]['phy_by'] = $doctor->name . ' ' . $doctor->last_name;
-                $presc_meds[$item->doc_session_id]['phy_phone_number'] = $doctor->phone_number;
-                $presc_meds[$item->doc_session_id]['phy_address'] = $doctor->office_address;
-                $presc_meds[$item->doc_session_id]['phy_city'] = "Hermann";
-                $presc_meds[$item->doc_session_id]['phy_state'] = "Missouri";
-                $presc_meds[$item->doc_session_id]['phy_zip_code'] = $doctor->zip_code;
-                $presc_meds[$item->doc_session_id]['NPI'] = $doctor->nip_number;
-                $presc_meds[$item->doc_session_id]['signature'] = $doctor->signature;
-                $presc_meds[$item->doc_session_id]['date'] = $orderDate['date'];
+
                 $pres = Prescription::find($item->pres_id);
                 $item->med_days = $pres->med_days;
                 $item->med_unit = $pres->med_unit;
                 $item->med_time = $pres->med_time;
                 $item->medicine_usage = $item->med_unit . " " . $item->med_time . " " . $item->med_days;
-                $presc_meds[$item->doc_session_id]['items'][$key] = $item;
             }
-            $recom_obj = new RecommendationController($this->allProductsRepository);
-            $recom_obj->new_eprescription($presc_meds);
         }
         if ($cartCntMed != null) {
             foreach ($cartCntMed as $item) {
@@ -1429,32 +1139,20 @@ class PharmacyController extends Controller
         }
     }
 
-    public function orderNotify($order_main_id, $order_cart_items, $orderAmount, $cardNumber, $cardHolder, $transaction_id, $billingEmail,$shippingEmail)
+    public function orderNotify($order_main_id, $order_cart_items, $orderAmount)
     {
         $orderDate=DB::table('tbl_orders')->where('order_id',$order_main_id)->first();
         try {
-            $users = User::where('id', Auth::user()->id)
-                ->orWhere('user_type', 'admin')
-                ->orWhere('user_type', 'admin_lab')
-                ->orWhere('user_type', 'editor_lab')
-                ->orWhere('user_type', 'admin_imaging')
-                ->orWhere('user_type', 'editor_imaging')
-                ->orWhere('user_type', 'admin_pharmacy')
-                ->orWhere('user_type', 'editor_pharmacy')
-                ->get();
-
-
+            $users = User::where('id', Auth::user()->id)->get();
             $get_order_total = $orderAmount;
-
 
             foreach ($users as $u) {
                 $time = User::convert_user_timezone_to_utc($u->id, $orderDate->created_at);
 
                 $userDetails = array(
-
-                    'cardNumber' => $cardNumber,
-                    'cardHolder' => $cardHolder,
-                    'transaction_id' => $transaction_id,
+                    'cardNumber' => "",
+                    'cardHolder' => $u->name." ".$u->last_name,
+                    'transaction_id' => "",
                     'order_total' => $get_order_total,
                     'order_date' => $time['datetime'],
                     'order_id' => $order_main_id,
@@ -1464,77 +1162,12 @@ class PharmacyController extends Controller
 
                 if($u->id==Auth::user()->id)
                 {
-                    if($billingEmail != $shippingEmail){
-                        Mail::to($shippingEmail)->send(new OrderConfirmationEmail($order_cart_items, $userDetails));
-                    }
                      Mail::to($u->email)->send(new OrderConfirmationEmail($order_cart_items, $userDetails));
                      Mail::to(env('ADVIYAT_EMAIL'))->send(new AdviyatOrderEmail($order_cart_items, $userDetails));
                 }
 
 
                 $text = "New Order Place By " . Auth::user()->name;
-                if($u->user_type=='doctor')
-                {
-                    $notification_id = Notification::create([
-                        'user_id' => $u->id,
-                        'type' => '/doctor/order',
-                        'text' => $text,
-                    ]);
-                    $data = [
-                        'user_id' => $u->id,
-                        'order_id' => $orderDate->id,
-                        'text' => $text,
-                        'received' => 'false',
-                        'session_id' => 'null',
-                        'appoint_id' => 'null',
-                        'refill_id' => 'null',
-                        'type' => '/patient/all/orders/',
-                    ];
-                    try {
-                        // \App\Helper::firebase($u->id,'notification',$notification_id->id,$data);
-                    } catch (\Throwable $th) {
-                        //throw $th;
-                    }
-                }
-                else if($u->user_type=='patient'){
-                    $notification_id = Notification::create([
-                        'user_id' => $u->id,
-                        'type' => '/patient/all/orders/',
-                        'text' => $text,
-                    ]);
-                    $data = [
-                            'received' => 'false',
-                            'order_id' => $orderDate->id,
-                            'text' => $text,
-                            'user_id' => $u->id,
-                            'session_id' => 'null',
-                            'appoint_id' => 'null',
-                            'refill_id' => 'null',
-                            'type' => '/patient/all/orders/',
-                    ];
-                    try {
-
-                        // \App\Helper::firebase($u->id,'notification',$notification_id->id,$data);
-                    } catch (\Throwable $th) {
-                        //throw $th;
-                    }
-                }
-                else if($u->user_type=='admin'){
-                    $notification_id = Notification::create([
-                        'user_id' => $u->id,
-                        'type' => '/admin/all/orders',
-                        'text' => $text,
-                    ]);
-                    $data = [
-                        'user_id' => $u->id,
-                        'type' => '/admin/all/orders',
-                        'text' => $text,
-                        'received' => 'false',
-                        'session_id' => 'null',
-                        'appoint_id' => 'null',
-                        'refill_id' => 'null',
-                ];
-                }
                 if($u->id==Auth::user()->id)
                 {
                     ActivityLog::create([
@@ -2022,487 +1655,6 @@ class PharmacyController extends Controller
         }
         return $cart;
     }
-
-    public function serializeAOEs($items)
-    {
-        $data1 = [];
-        foreach ($items as $value) {
-            foreach ($value as $key2 => $ans) {
-                $testAndQ = explode("|", $key2);
-                $result = QuestDataAOE::select("ANALYTE_CD AS ques_id", "AOE_QUESTION AS ques")
-                    ->where([['TEST_CD', $testAndQ[1]], ["AOE_QUESTION_DESC", $testAndQ[0]]])
-                    ->groupBy('AOE_QUESTION_DESC')
-                    ->get()
-                    ->first();
-                $data = [
-                    "test_cd" => $testAndQ[1],
-                    "ques_id" => $result->ques_id,
-                    "ques" => $result->ques,
-                    "ques_desc" => $testAndQ[0],
-                    "ans" => $ans,
-                ];
-                $data1[] = $data;
-            }
-        }
-        $data2 = [];
-        foreach ($data1 as $item) {
-            $data2[$item['test_cd']][] = $item;
-        }
-        return $data2;
-    }
-
-    #### FOR QUEST ###
-
-    public function new_add_lab_order_for_quest($prescribedLabItems, $billing, $cartCounterLabItems)
-    {
-        $account = VendorAccount::where('vendor', 'quest')->first();
-
-        if (count($cartCounterLabItems) > 0) {
-            foreach ($cartCounterLabItems as $item) {
-                $patient = User::find($item->user_id);
-                $timestamp = time();
-                $lab_ref_num = 'UMD' . $item->user_id . 'Q' . $timestamp;
-                $orderedtestcode = $item->product_id;
-                $names = $item->name;
-                $collect_date = date('Y-m-d', strtotime($item->created_at));
-                $collect_time = date('H:i:s', strtotime($item->created_at));
-                $barcode = $account->number . $lab_ref_num;
-                $arr_specimen = array(
-                    [
-                        'client_num' => '73917104',
-                        'lab_referance' => $lab_ref_num,
-                        'patient_name' => $patient->last_name . ', ' . $patient->name,
-                        'barcode' => $account->number . $lab_ref_num,
-                    ],
-                );
-                $specimen_labels = json_encode($arr_specimen);
-                $comment = '';
-                $client_bill = 'yes';
-                $patient_bill = '';
-                $third_party_bill = '';
-                $order = QuestLab::create([
-                    'order_id' => $item->order_sub_id, 'umd_patient_id' => $item->user_id, 'quest_patient_id' => $item->user_id,
-                    'abn' => '', 'billing_type' => 'Client', 'diagnosis_code' => 'V725', 'vendor_account_id' => $account->id,
-                    'orderedtestcode' => $orderedtestcode, 'names' => $names, 'aoe' => '[]', 'collect_date' => $collect_date,
-                    'collect_time' => $collect_time, 'lab_reference_num' => $lab_ref_num, 'npi' => '',
-                    'ssn' => '', 'insurance_num' => '', 'room' => '', 'result_notification' => 'Normal',
-                    'group_num' => '', 'relation' => 'Self', 'upin' => '', 'ref_physician_id' => '',
-                    'temp' => '', 'icd_diagnosis_code' => '', 'psc_hold' => 1, 'barcode' => $barcode,
-                    'specimen_labels' => $specimen_labels, 'comment' => $comment, 'client_bill' => $client_bill,
-                    'patient_bill' => $patient_bill, 'third_party_bill' => $third_party_bill,
-                ]);
-            }
-        }
-
-        if (count($prescribedLabItems) > 0) {
-
-            foreach ($prescribedLabItems as $item) {
-                $doctor = User::find($item->doc_id);
-                $patient = User::find($item->user_id);
-                $data = DB::table('patient_lab_recomend_aoe')->where('session_id', $item->doc_session_id)->where('testCode', $item->product_id)->first();
-                $aoes = '';
-                if ($data != null) {
-                    $aoes = unserialize($data->aoes);
-                } else {
-                    $aoes = '';
-                }
-
-                $timestamp = time();
-                $lab_ref_num = 'UMD' . $item->user_id . 'Q' . $timestamp;
-                $orderedtestcode = $item->product_id;
-
-                $names = $item->name;
-                $collect_date = date('Y-m-d', strtotime($item->created_at));
-                $collect_time = date('H:i:s', strtotime($item->created_at));
-                $doc_name = $doctor->last_name . ' ,' . $doctor->name;
-                $barcode = $account->number . $lab_ref_num;
-                $arr_specimen = array(
-                    [
-                        'client_num' => '73917104',
-                        'lab_referance' => $lab_ref_num,
-                        'patient_name' => $patient->last_name . ', ' . $patient->name,
-                        'barcode' => $account->number . $lab_ref_num,
-                    ],
-                );
-                $specimen_labels = json_encode($arr_specimen);
-                $comment = '';
-                $client_bill = '$2y$10$iguHq2BCqFaGg1tI3eZDWujOwENMEmJDYdA7Ywl11Iwv1r/NNmmgu';
-                $patient_bill = '';
-                $third_party_bill = '';
-                $order = QuestLab::create([
-                    'order_id' => $item->order_sub_id,
-                    'umd_patient_id' => $item->user_id,
-                    'quest_patient_id' => $item->user_id,
-                    'abn' => '',
-                    'billing_type' => 'Client',
-                    'diagnosis_code' => 'V725',
-                    'vendor_account_id' => $account->id,
-                    'orderedtestcode' => $orderedtestcode, 'names' => $names, 'aoe' => $aoes, 'collect_date' => $collect_date,
-                    'collect_time' => $collect_time, 'lab_reference_num' => $lab_ref_num, 'npi' => $doctor->nip_number,
-                    'ssn' => '', 'insurance_num' => '', 'room' => '', 'result_notification' => 'Normal',
-                    'group_num' => '', 'relation' => 'Self', 'upin' => $doctor->upin, 'ref_physician_id' => $doc_name,
-                    'temp' => '', 'icd_diagnosis_code' => '', 'psc_hold' => 1, 'barcode' => $barcode,
-                    'specimen_labels' => $specimen_labels, 'comment' => $comment, 'client_bill' => $client_bill,
-                    'patient_bill' => $patient_bill, 'third_party_bill' => $third_party_bill,
-                ]);
-
-                $order->zip_code = $billing;
-                $hl7_obj = new HL7Controller();
-                $hl7_obj->new_hl7Encode($order);
-            }
-        }
-    }
-
-
-
-    public function add_lab_order_for_quest($input, $aoe, $billing)
-    {
-        // dd($input);
-        $account = VendorAccount::where('vendor', 'quest')->first();
-        $patient = User::where('id', $input['user_id'])->first();
-        $state = State::where('id', $patient->state_id)->first();
-        $user_state = $state['state_code'];
-        $arr_aoe = $aoe;
-        $order_date = date('Y-m-d');
-        $input['cart_items'] = $this->converToObjToArray($input['cart_items']);
-        $orderTypes = $this->checkOrderTypes($input['cart_items']);
-        $last_orderID = DB::table('tbl_orders')->select('id')->latest('id')->first();
-        $orderIDs = $this->orderIDs($user_state, $orderTypes, $input['user_id'], $last_orderID->id);
-        foreach ($input['cart_items'] as $item) {
-            if ($item['item_type'] == 'counter') {
-                $timestamp = time();
-                $unique_pid = 'UMD' . $input['user_id'] . 'Q' . $timestamp;
-                $lab_ref_num = $unique_pid;
-                $arr_names = array();
-                $arr_test_codes = array();
-                foreach ($input['cart_items'] as $item) {
-                    if ($item['product_mode'] == 'lab-test') {
-                        array_push($arr_names, $item['name']);
-                        array_push($arr_test_codes, $item['product_id']);
-                    }
-                }
-                $order_id = $this->findAssocValue($orderIDs, 'LBT');
-                // dd($orderIDs);
-                $umd_patient_id = $input['user_id'];
-                $quest_patient_id = $input['user_id'];
-                $abn = '';
-                $billing_type = 'Client';
-                $diagnosis_code = 'V725';
-                $vendor_account_id = $account->id;
-                $orderedtestcode = json_encode($arr_test_codes);
-                $names = json_encode($arr_names);
-                $aoe = json_encode($arr_aoe);
-                $collect_date = $order_date;
-                $collect_time = $order_date;
-                $ssn = '';
-                $insurance_num = '';
-                $room = '';
-                $result_notification = 'Normal';
-                $group_num = '';
-                $relation = 'Self';
-                $doc_name = '';
-                $temp = '';
-                $icd_diagnosis_code = '';
-                $psc_hold = 1;
-                $barcode = $account->number . $lab_ref_num;
-                $specimen_labels = '';
-                $comment = '';
-                $client_bill = 'yes';
-                $patient_bill = '';
-                $third_party_bill = '';
-                $order = QuestLab::create([
-                    'order_id' => $order_id,
-                    'umd_patient_id' => $umd_patient_id,
-                    'quest_patient_id' => $quest_patient_id,
-                    'abn' => $abn,
-                    'billing_type' => $billing_type,
-                    'diagnosis_code' => $diagnosis_code,
-                    'vendor_account_id' => $vendor_account_id,
-                    'orderedtestcode' => $orderedtestcode,
-                    'names' => $names,
-                    'aoe' => $aoe,
-                    'collect_date' => $collect_date,
-                    'collect_time' => $collect_time,
-                    'lab_reference_num' => $lab_ref_num,
-                    'npi' => '',
-                    'ssn' => $ssn,
-                    'insurance_num' => $insurance_num,
-                    'room' => $room,
-                    'result_notification' => $result_notification,
-                    'group_num' => $group_num,
-                    'relation' => $relation,
-                    'upin' => '',
-                    'ref_physician_id' => $doc_name,
-                    'temp' => $temp,
-                    'icd_diagnosis_code' => $icd_diagnosis_code,
-                    'psc_hold' => $psc_hold,
-                    'barcode' => $barcode,
-                    'specimen_labels' => $specimen_labels,
-                    'comment' => $comment,
-                    'client_bill' => $client_bill,
-                    'patient_bill' => $patient_bill,
-                    'third_party_bill' => $third_party_bill,
-                ]);
-            } else {
-                $doctors = array();
-                foreach ($input['cart_items'] as $item) {
-                    if ($item['product_mode'] == 'lab-test') {
-                        if ($item['doc_session_id'] != null) {
-                            $session = SessionModel::where('id', $item['doc_session_id'])->first();
-                            $doctor = User::where('id', $session->doctor_id)->where('user_type', 'doctor')->first();
-                            if (!in_array($doctor->id, $doctors)) {
-                                array_push($doctors, $doctor->id);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        // dd($doctors);
-        if (isset($doctors)) {
-            foreach ($doctors as $doc) {
-                $timestamp = time();
-                $unique_pid = 'UMD' . $input['user_id'] . 'Q' . $timestamp;
-                $lab_ref_num = $unique_pid;
-
-                $arr_specimen = array(
-                    [
-                        'client_num' => '73917104',
-                        'lab_referance' => $lab_ref_num,
-                        'patient_name' => $patient->last_name . ', ' . $patient->name,
-                        'barcode' => $account->number . $lab_ref_num,
-                    ],
-                );
-                $arr_names = array();
-                $arr_test_codes = array();
-                $arr_icd_diagnosis_codes = array();
-                foreach ($input['cart_items'] as $item) {
-                    if ($item['product_mode'] == 'lab-test' && $item['item_type'] == 'prescribed') {
-                        // echo $item['doc_session_id']. ' ';
-                        // continue;
-                        $session = SessionModel::where('id', $item['doc_session_id'])->first();
-                        $prescription = Prescription::where('session_id', $item['doc_session_id'])->where('medicine_id', $item)->first();
-                        $doctor = User::where('id', $session->doctor_id)->where('user_type', 'doctor')->first();
-                        if ($doctor->id == $doc) {
-                            // $product=AllProducts::find($item['product_id']);
-                            array_push($arr_names, $item['name']);
-                            array_push($arr_test_codes, $item['product_id']);
-                            array_push($arr_icd_diagnosis_codes, $item['product_id']);
-                        }
-                    }
-                }
-                // var_dump($arr_names);
-                $order_id = $this->findAssocValue($orderIDs, 'PLBT');
-                //dd($order_id);
-                $umd_patient_id = $input['user_id'];
-                $quest_patient_id = $input['user_id'];
-                $abn = '';
-                $billing_type = 'Client';
-                $diagnosis_code = 'V725';
-                $vendor_account_id = $account->id;
-                $orderedtestcode = json_encode($arr_test_codes);
-                $names = json_encode($arr_names);
-                $aoe = json_encode($arr_aoe);
-                $collect_date = $order_date;
-                $collect_time = $order_date;
-                $ssn = '';
-                $insurance_num = '';
-                $room = '';
-                $result_notification = 'Normal';
-                $group_num = '';
-                $relation = 'Self';
-                $doc_name = $doctor->last_name . ' ,' . $doctor->name;
-                $temp = '';
-                $icd_diagnosis_code = '';
-                $psc_hold = 1;
-                $barcode = $account->number . $lab_ref_num;
-                $specimen_labels = json_encode($arr_specimen);
-                $comment = '';
-                $client_bill = '$2y$10$iguHq2BCqFaGg1tI3eZDWujOwENMEmJDYdA7Ywl11Iwv1r/NNmmgu';
-                $patient_bill = '';
-                $third_party_bill = '';
-                $order = QuestLab::create([
-                    'order_id' => $order_id,
-                    'umd_patient_id' => $umd_patient_id,
-                    'quest_patient_id' => $quest_patient_id,
-                    'abn' => $abn,
-                    'billing_type' => $billing_type,
-                    'diagnosis_code' => $diagnosis_code,
-                    'vendor_account_id' => $vendor_account_id,
-                    'orderedtestcode' => $orderedtestcode,
-                    'names' => $names,
-                    'aoe' => $aoe,
-                    'collect_date' => $collect_date,
-                    'collect_time' => $collect_time,
-                    'lab_reference_num' => $lab_ref_num,
-                    'npi' => $doctor->nip_number,
-                    'ssn' => $ssn,
-                    'insurance_num' => $insurance_num,
-                    'room' => $room,
-                    'result_notification' => $result_notification,
-                    'group_num' => $group_num,
-                    'relation' => $relation,
-                    'upin' => $doctor->upin,
-                    'ref_physician_id' => $doc_name,
-                    'temp' => $temp,
-                    'icd_diagnosis_code' => $icd_diagnosis_code,
-                    'psc_hold' => $psc_hold,
-                    'barcode' => $barcode,
-                    'specimen_labels' => $specimen_labels,
-                    'comment' => $comment,
-                    'client_bill' => $client_bill,
-                    'patient_bill' => $patient_bill,
-                    'third_party_bill' => $third_party_bill,
-                ]);
-                $order->zip_code = $billing["zip_code"];
-                $hl7_obj = new HL7Controller();
-                $hl7_obj->hl7Encode($order);
-            }
-        }
-
-        // dd($f);
-
-    }
-
-    ### FOR QUEST ###
-
-    ###  FOR APP
-
-    public function create_order_from_app(Request $request)
-    {
-
-        // UserID
-        $user_id = "";
-        // State For Name
-        $user_state = "";
-
-        if ($request->customer_id === 'GUEST') {
-            $user_id = 'GUEST';
-            $user_state = strtoupper($request->billing["state_code"]);
-        } else {
-            $user_id = $request->customer_id;
-            $user_state = strtoupper($request->billing["state_code"]);
-        }
-
-        $cart_items = $request->cart_items;
-        $orderTypes = $this->checkOrderTypes($cart_items);
-        $last_orderID = DB::table('tbl_orders')->select('id')->latest('id')->first();
-        $orderIDs = $this->orderIDs($user_state, $orderTypes, $user_id, $last_orderID->id + 1);
-        //$orderCartItems = $this->orderCartItems($cart_items);
-
-        // die;
-        // exit;
-        // dd($cart_items);
-        // dd($cart_items);
-        // print_r($request->shipping);
-
-        // For Paypal
-        $arr_expiry = explode("/", $request->payment['card_expiry']);
-        $forPayPal = array(
-            'firstName' => $request->billing['first_name'],
-            'lastName' => $request->billing['last_name'],
-            'number' => $request->payment['card_number'],
-            'expiryMonth' => trim($arr_expiry[0]),
-            'expiryYear' => trim($arr_expiry[1]),
-            'cvv' => $request->payment['cvc'],
-            'amount' => $request->total_price,
-        );
-
-        $pay = new PaymentController;
-        $paypal_response = $pay->payment_to_paypal($forPayPal);
-
-        //dd($paypal_response);
-        //dd($this->findAssocValue($orderIDs, 'LBT'));
-
-        if ($paypal_response['payment_status'] == 'success' || $paypal_response['payment_status'] == 'error') {
-
-            $payment_request = $request->payment;
-            $transaction_id = $paypal_response['transaction_id'];
-            $payment_request['transaction_id'] = $transaction_id;
-            $payment_request['payment_status'] = 'Paid';
-            $agent = 'android';
-
-            $create_order = DB::table('tbl_orders')->insert([
-                'order_state' => $user_state,
-                'order_id' => $this->findAssocValue($orderIDs, 'UMB'),
-                'order_sub_id' => serialize($orderIDs),
-                'customer_id' => $user_id,
-                'total' => $request->total_price,
-                'billing' => serialize($request->billing),
-                'shipping' => serialize($request->shipping),
-                'payment' => serialize($payment_request),
-                'payment_title' => 'Direct Bank Transfer',
-                'payment_method' => 'via PayPal',
-                'cart_items' => serialize($cart_items),
-                'currency' => 'US',
-                'order_status' => 'processing',
-                'agent' => $agent,
-                'created_at' => NOW(),
-            ]);
-
-            foreach ($cart_items as $item) {
-                if ($item['product_mode'] == 'lab-test') {
-                    if ($item['item_type'] == 'prescribed') {
-                        $date_ex = explode('/', $request->billing['lab_appointment_date']);
-                        $date = $date_ex[2] . '-' . $date_ex[1] . '-' . $date_ex[0];
-                        LabOrder::create([
-                            'user_id' => $user_id,
-                            'order_id' => $this->findAssocValue($orderIDs, 'UMB'),
-                            'product_id' => $item['product_id'],
-                            'session_id' => $item['doc_session_id'],
-                            'pres_id' => $item['pres_id'],
-                            'status' => 'pending',
-                            'date' => $date,
-                            'time' => $request->billing['lab_appointment_time'],
-                            'map_marker_id' => $request->billing['lab_nearby_location'],
-                            'sub_order_id' => $this->findAssocValue($orderIDs, 'PLBT'),
-                        ]);
-                    } else {
-                        // dd($this->findAssocValue($orderIDs, 'LBT'));
-                        $date_ex = explode('/', $request->billing['lab_appointment_date']);
-                        $date = $date_ex[2] . '-' . $date_ex[1] . '-' . $date_ex[0];
-                        LabOrder::create([
-                            'user_id' => $user_id,
-                            'order_id' => $this->findAssocValue($orderIDs, 'UMB'),
-                            'product_id' => $item['product_id'],
-                            'status' => 'pending',
-                            'date' => $date,
-                            'time' => $request->billing['lab_appointment_time'],
-                            'map_marker_id' => $request->billing['lab_nearby_location'],
-                            'sub_order_id' => $this->findAssocValue($orderIDs, 'LBT'),
-                        ]);
-                    }
-                }
-            }
-
-            $res2['Response']['Data'] = ['OrderID' => $this->findAssocValue($orderIDs, 'UMB'), 'Message' => "Your order created successfully."];
-            $res2['Response']['Status'] = "True";
-        } else {
-            $res2['Response']['Data'] = ['OrderID' => 'No order id found.', 'Message' => "Error Occured. Please Try Again."];
-            $res2['Response']['Status'] = "False";
-        }
-        return response($res2, 201);
-    }
-
-    public function get_orders_for_app()
-    {
-
-        $params = $_GET;
-        $res = $this->Pharmacy->get_order_for_app($params);
-        $data = [];
-        foreach ($res as $key => $item) {
-            $item->billing = unserialize($item->billing);
-            $item->shipping = unserialize($item->shipping);
-            $item->order_sub_id = unserialize($item->order_sub_id);
-            $item->payment = unserialize($item->payment);
-            $item->cart_items = unserialize($item->cart_items);
-            array_push($data, $item);
-        }
-        $res2['Response'] = ['Data' => $data, 'Status' => 'True'];
-        return response($res2, 201);
-    }
-
-    ### FOR APP
 
     // CREATE ORDER FOR WEB / APP
 

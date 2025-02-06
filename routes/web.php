@@ -256,6 +256,7 @@ Route::post('/order/payment/done', 'PharmacyController@authorize_create_new_orde
 
 Route::get('/meezan/payment', 'MeezanPaymentController@payment')->name('meezan.store');
 Route::get('/meezan/payment/return', 'MeezanPaymentController@payment_return')->name('meezan.return');
+Route::get('/meezan/payment/order/return', 'PharmacyController@order_payment_return')->name('meezan.return');
 
 Route::get('doc/video/page/{id}', 'VideoController@doctorVideo')->name('doc_video_page')->middleware('no_cache');
 Route::get('pat/video/page/{id}', 'VideoController@patientVideo')->name('pat_video_page')->middleware('no_cache');

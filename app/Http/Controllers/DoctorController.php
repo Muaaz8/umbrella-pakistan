@@ -717,6 +717,7 @@ class DoctorController extends Controller
     }
     public function dash_store_symptoms_inquiry(Request $request)
     {
+        // dd($request->all());
         $symp = $request->validate([
             'doc_sp_id' =>  ['required'],
             'doc_id' =>  ['required', 'string', 'max:255'],
@@ -784,15 +785,20 @@ class DoctorController extends Controller
             'session_id' => $new_session_id,
             'validation_status' => "valid",
         ])->id;
-
-        $session = Session::find($session_id);
-        $data = "Evisit-".$new_session_id."-1";
-        $pay = new \App\Http\Controllers\MeezanPaymentController();
-        $res = $pay->payment($data,($session->price*100));
-        if (isset($res) && $res->errorCode == 0) {
-            return redirect($res->formUrl);
+        // return redirect()->route('patient_session_payment_page',['id' => \Crypt::encrypt($session_id)]);
+        if($request->payment_method == "credit-card"){
+            $session = Session::find($session_id);
+            $data = "Evisit-".$new_session_id."-1";
+            $pay = new \App\Http\Controllers\MeezanPaymentController();
+            $res = $pay->payment($data,($session->price*100));
+            if (isset($res) && $res->errorCode == 0) {
+                return redirect($res->formUrl);
+            }else{
+                return redirect()->back()->with('error','Sorry, we are currently facing server issues. Please try again later.');
+            }
         }else{
-            return redirect()->back()->with('error','Sorry, we are currently facing server issues. Please try again later.');
+            Session::find($session_id)->delete();
+            return redirect()->back()->with('error','Sorry, Can\'t process with this payment method right now.Kindly try different method.');
         }
     }
 

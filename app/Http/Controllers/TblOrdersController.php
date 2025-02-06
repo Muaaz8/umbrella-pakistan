@@ -747,11 +747,11 @@ class TblOrdersController extends AppBaseController
                 ->join('tbl_products', 'tbl_products.id', 'medicine_order.order_product_id')
                 ->join('prescriptions', 'prescriptions.medicine_id', 'medicine_order.order_product_id')
                 ->groupBy('medicine_order.id')
-                ->select('tbl_products.name', 'medicine_order.update_price', 'medicine_order.status', 'prescriptions.usage',)->get();
+                ->select('tbl_products.name', 'medicine_order.update_price', 'medicine_order.status', 'prescriptions.usage')
+                ->get();
             if (Auth::user()->user_type == 'patient') {
                 // $data=DB::table('prescriptions')->where('test_id','10285')->get();
                 // dd($data);
-
                 $orderLabs = DB::table('lab_orders')
                     ->join('quest_data_test_codes', 'quest_data_test_codes.TEST_CD', 'lab_orders.product_id')
                     ->join('prescriptions', 'prescriptions.test_id', 'lab_orders.product_id')

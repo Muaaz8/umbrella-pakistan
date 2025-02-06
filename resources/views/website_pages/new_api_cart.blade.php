@@ -31,19 +31,23 @@
             text-align: center;
             transition: 0.3s;
         }
-        .payment-method:hover, .payment-method.active {
+
+        .payment-method:hover,
+        .payment-method.active {
             border-color: #007bff;
             background-color: #f8f9fa;
         }
 
-        .payment-method h5{
+        .payment-method h5 {
             font-size: 16px;
             font-weight: 700;
         }
+
         .icon {
             height: 35px;
             object-fit: cover;
         }
+
         .process-pay {
             background: linear-gradient(to top, #08295a, #165dc8);
             /* background-image: linear-gradient(#2c66bb, #08295a); */
@@ -63,716 +67,717 @@
 
         }
     </style>
-        <style>
+    <style>
         :root {
-    --red: #c80919;
-    --blue: #2964bc;
-    --maroon: #c80919;
-    --navy-blue: #082755;
-    --green: #35b518;
-    --lh: 1.4rem;
-    --lightgray: #f5f5f5;
-    --lightblue: #2964BCA3;
-}
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    transition: all 0.3s ease-out;
-}
-
-.offer-banner>span {
-    font-size: 16px;
-}
-
-i {
-    margin-right: auto !important;
-}
-
-p {
-    margin-bottom: 0;
-}
-
-::-webkit-scrollbar {
-    width: 6px;
-}
-
-::-webkit-scrollbar-track {
-    background: #c7c7c7;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #3b35ac;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: #082755;
-}
-
-html,
-body {
-    width: 100%;
-    overflow-x: hidden;
-}
-
-header {
-    background-color: white;
-}
-
-#contact-bar {
-    height: 50px;
-    background-color: var(--red);
-    color: white;
-    font-size: small;
-}
-
-#navbar {
-    background-color: white;
-}
-
-#left-side>div>div,
-#right-side>div,
-#social-icons>a {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 2px solid white;
-    border-radius: 30px;
-    padding: 6px;
-}
-
-.checkout-steps-wrap #checkoutform .action-button:disabled{
-    background: #334a6d;
-    color: #ffff;
-}
-
-#contact-bar img {
-    width: 15px;
-}
-
-.dropdown-item.active, .dropdown-item:active {
-    color: white !important;
-    text-decoration: none;
-    background-color: var(--navy-blue);
-}
-
-.wrap {
-    height: 100%;
-    width: 90%;
-    margin: 0 auto;
-    border-bottom: 1px solid #e0e0e0;
-}
-
-.logo {
-    border-radius: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: start;
-}
-
-.logo>img {
-    width: 250px;
-}
-
-#nav-right-side {
-    justify-content: flex-end;
-}
-
-#nav-left-side,
-#nav-right-side {
-    gap: 20px;
-}
-
-#nav-left-side {
-    justify-content: center;
-}
-
-#navbar a {
-    text-decoration: none;
-    color: black;
-    border-bottom: 2px solid transparent;
-    font-size: 15px;
-    padding: 3px 0;
-    font-weight: 600;
-    width: max-content;
-}
-
-#drawer a {
-    margin-left: 1rem;
-}
-
-#nav-left-side>a:hover {
-    border-bottom: 2px solid var(--red);
-}
-
-#checker,
-#joinDropdown {
-    border: 2px solid var(--green);
-    padding: 5px 15px;
-    border-radius: 30px;
-    background: #ffff;
-    font-weight: 600;
-}
-
-#checker>img,
-#joinDropdown>img {
-    width: 25px;
-}
-
-#checker:hover,
-#joinDropdown:hover {
-    border: 2px solid var(--red);
-}
-
-.nav_btns {
-    display: flex;
-    align-items: center;
-    justify-content: between;
-    border: 2px solid var(--green);
-    border-radius: 30px;
-    background: #ffff;
-    padding: 3px 15px;
-}
-
-.nav_btns>a {
-    font-size: 16px !important;
-    text-decoration: none;
-    color: black;
-    padding: 0px !important;
-    margin-bottom: 0 !important;
-    margin-left: 5px;
-    font-weight: 500;
-}
-
-.nav_btns:hover {
-    border: 2px solid var(--red);
-}
-
-
-#nav-right-side>div:last-child>img {
-    width: 30px;
-}
-
-#checker,
-#joinDropdown {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-}
-
-.primary-bg {
-    background: #0048b1;
-}
-
-.cart-count {
-    position: absolute;
-    top: -45%;
-    right: -50%;
-    background: var(--red);
-    color: white;
-    height: 25px;
-    width: 25px;
-    border-radius: 50%;
-    font-size: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.drawer img[alt="shop-icon"] {
-    width: 25px;
-    margin-left: 1rem;
-}
-
-.drawer div {
-    margin-top: 0.35rem;
-}
-
-.drawer .cart-count {
-    top: -8px;
-    left: 32px;
-    color: white;
-    height: 15px;
-    width: 15px;
-    font-size: 8px;
-}
-
-.new-footer-cont {
-    max-width: 100vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--navy-blue);
-    padding: 40px 0 20px 0;
-    gap: 20px;
-}
-
-#footer-section {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    align-items: flex-start;
-    width: 90%;
-    gap: 20px;
-    color: white;
-}
-
-.footer-new {
-    display: flex;
-    flex-direction: column;
-    gap: 25px;
-    align-items: start;
-}
-
-#footer-1 {
-    display: flex;
-    justify-content: space-between;
-}
-
-.footer-content-new {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    align-items: start;
-}
-
-.footer-heading {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.footer-heading>h3 {
-    font-size: 24px;
-}
-
-.footer-content-new>h4 {
-    font-weight: 400;
-    color: gainsboro;
-}
-
-.footer-content-new>div>a {
-    text-decoration: none;
-    color: gainsboro;
-}
-
-.footer-info {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.footer-info>img {
-    width: 10px;
-}
-
-.footer-info>a {
-    border-bottom: 1px solid transparent;
-}
-
-.footer-info>a:hover {
-    border-bottom: 1px solid var(--red);
-    color: white;
-}
-
-.footer-highlight {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background-color: var(--red);
-    padding: 10px 15px;
-    border-radius: 20px;
-}
-
-.footer-highlight>img {
-    width: 20px;
-}
-
-.footer-highlight>a:hover {
-    color: gainsboro;
-}
-
-#footer-logo-new {
-    display: block;
-}
-
-#footer-logo-new>img {
-    width: 80%;
-    padding: 1rem;
-    background-color: white;
-    border-radius: 0.5rem;
-    min-width: 220px;
-}
-
-#footer-2>.footer-content-new>h4 {
-    text-decoration: 1px solid underline;
-}
-
-#social-icons {
-    display: flex;
-    justify-content: space-between;
-}
-
-#social-icons>a {
-    background-color: var(--red);
-    border: none;
-    padding: 8px;
-    color: white;
-    text-decoration: none;
-    min-width: 33px;
-    min-height: 33px;
-}
-
-#social-icons>a>i {
-    font-size: 17px;
-}
-
-#footer-4>div>h4 {
-    font-weight: 500;
-    color: white;
-    font-size: 18px;
-}
-
-#copyright>p {
-    color: gainsboro;
-    text-align: center;
-    padding: 0 0.5rem;
-}
-
-#copyright>span {
-    font-weight: bold;
-}
-
-.seperation {
-    width: 100%;
-    height: 1px;
-    background-color: gainsboro;
-}
-
-.hamburger_container {
-    cursor: pointer;
-    display: none;
-    z-index: 1000;
-}
-
-.hamburger div {
-    width: 30px;
-    height: 3px;
-    background-color: #333;
-    margin: 5px 0;
-    transition: 0.4s;
-}
-
-.drawer-item {
-    color: var(--blue);
-}
-
-.drawer {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 250px;
-    height: 100%;
-    background-color: #ffffff;
-    color: #202020;
-    transform: translateX(-100%);
-    transition: transform 0.4s ease;
-    padding-top: 40px;
-    z-index: 999;
-    border-right: 1px solid #ff5757;
-}
-
-.drawer a {
-    padding: 15px 30px;
-    text-decoration: none;
-    font-size: 16px;
-    color: #fff;
-    display: block;
-    transition: 0.3s;
-    border-bottom: 1px solid transparent;
-}
-
-.drawer hr {
-    width: 90%;
-    margin: 0 auto;
-    border: 1px solid #ff5757;
-}
-
-.drawer a:hover {
-    border-bottom: 1px solid var(--red) !important;
-}
-
-.drawer.active {
-    transform: translateX(0);
-}
-
-.close-btn {
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    font-size: 24px;
-    cursor: pointer;
-    color: #202020;
-    transition: 0.3s;
-}
-
-.close-btn:hover {
-    color: #ff5757;
-}
-
-.blur-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 998;
-    display: none;
-}
-
-.blur-overlay.active {
-    display: block;
-}
-
-.hamburger.active div:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
-}
-
-.hamburger.active div:nth-child(2) {
-    opacity: 0;
-}
-
-.hamburger.active div:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -5px);
-}
-
-.dropdown-menu li a {
-    color: #000;
-    font-size: 14px !important;
-    padding: 10px !important;
-    display: block;
-    font-weight: 500 !important;
-    text-decoration: none !important;
-    color: #000 !important;
-    font-size: 14px !important;
-    padding: 8px !important;
-    text-decoration: none;
-    width: 100% !important;
-}
-
-.footer-content-new>p {
-    font-size: 0.9rem;
-}
-
-.footer-content-new>div>a {
-    font-size: 0.8rem;
-}
-
-/* utility.css  */
-
-.text-center {
-    text-align: center;
-}
-
-.flex {
-    display: flex;
-    align-items: center;
-}
-
-.gap-5 {
-    gap: 5px;
-}
-
-.gap-10 {
-    gap: 10px;
-}
-
-.gap-15 {
-    gap: 10px;
-}
-
-.between {
-    justify-content: space-between;
-}
-
-@media screen and (min-width: 1400px) {
-	.offer-banner>span {
-        font-size: 1.1rem;
-    }
-
-	.logo>img {
-        width: 40%;
-    }
-
-    .dropdown-menu li a {
-        font-size: 1.1rem !important;
-    }
-
-    #joinDropdown,
-    #navbar a,
-    .nav_btns>i {
-        font-size: 1.1rem !important;
-    }
-
-    #nav-right-side>div:last-child>img {
-        width: 35px;
-    }
-
-    #nav-right-side>div:last-child {
-        width: 6%;
-    }
-
-    .footer-heading>h3 {
-        font-size: 1.75rem;
-    }
-
-    .footer-content-new>p {
-        font-size: 1.1rem;
-    }
-
-    .footer-content-new>div>a {
-        font-size: 1.1rem;
-    }
-
-    #social-icons>a>i {
-        font-size: 1.3rem;
-    }
-
-    #social-icons {
-        gap: 1.5rem;
-    }
-
-    #copyright>p {
-        font-size: 1.15rem;
-    }
-
-    .footer-content-new > iframe {
-        width: 400px !important;
-        height: 200px;
-    }
-
-    #footer-logo-new>img {
-        width: 100%;
-        min-width: 225px;
-    }
-
-}
-
-@media screen and (min-width: 2000px) {
-    .offer-banner>span {
-        font-size: 1.2rem;
-    }
-
-    .logo>img {
-        width: 40%;
-    }
-
-    .dropdown-menu li a {
-        font-size: 1.2rem !important;
-    }
-
-    #joinDropdown,
-    #navbar a,
-    .nav_btns>i {
-        font-size: 1.2rem !important;
-    }
-
-    #nav-right-side>div:last-child {
-        width: 6%;
-    }
-
-    #nav-right-side>div:last-child>img {
-        width: 65%;
-    }
-
-    .footer-heading>h3 {
-        font-size: 2rem;
-    }
-
-    .footer-content-new>p {
-        font-size: 1.3rem;
-    }
-
-    .footer-content-new>div>a {
-        font-size: 1.3rem;
-    }
-
-    #social-icons>a>i {
-        font-size: 1.5rem;
-    }
-
-    #social-icons {
-        gap: 1.3rem;
-    }
-
-    #copyright>p {
-        font-size: 1.3rem;
-    }
-
-    #footer-logo-new > img {
-        width: 50%;
-    }
-}
-
-@media screen and (max-width: 1200px) {
-    .w-100 {
-        height: auto !important;
-    }
-}
-
-@media screen and (max-width: 1024px) {
-
-#footer-section {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-#navbar a {
-        font-size: 12px;
-    }
-
-}
-
-@media screen and (max-width: 980px) {
-
-#nav-left-side,
-    #nav-right-side {
-        display: none;
-    }
-
-    .hamburger_container {
-        display: block;
-    }
-
-}
-
-@media screen and (max-width: 768px) {
-	#footer-logo-new>img {
-        max-width: 400px;
-    }
-
-	#footer-section {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media screen and (max-width: 480px) {
-	.footer-content-new i {
-        margin-left: 0 !important;
-    }
-
-    .footer-content-new iframe {
-        width: 280px !important;
-    }
-}
-
-@media only screen and (max-width: 373px) {
-    .logo>img {
-        width: 225px;
-    }
-}
+            --red: #c80919;
+            --blue: #2964bc;
+            --maroon: #c80919;
+            --navy-blue: #082755;
+            --green: #35b518;
+            --lh: 1.4rem;
+            --lightgray: #f5f5f5;
+            --lightblue: #2964BCA3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            transition: all 0.3s ease-out;
+        }
+
+        .offer-banner>span {
+            font-size: 16px;
+        }
+
+        i {
+            margin-right: auto !important;
+        }
+
+        p {
+            margin-bottom: 0;
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #c7c7c7;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #3b35ac;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #082755;
+        }
+
+        html,
+        body {
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        header {
+            background-color: white;
+        }
+
+        #contact-bar {
+            height: 50px;
+            background-color: var(--red);
+            color: white;
+            font-size: small;
+        }
+
+        #navbar {
+            background-color: white;
+        }
+
+        #left-side>div>div,
+        #right-side>div,
+        #social-icons>a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid white;
+            border-radius: 30px;
+            padding: 6px;
+        }
+
+        .checkout-steps-wrap #checkoutform .action-button:disabled {
+            background: #334a6d;
+            color: #ffff;
+        }
+
+        #contact-bar img {
+            width: 15px;
+        }
+
+        .dropdown-item.active,
+        .dropdown-item:active {
+            color: white !important;
+            text-decoration: none;
+            background-color: var(--navy-blue);
+        }
+
+        .wrap {
+            height: 100%;
+            width: 90%;
+            margin: 0 auto;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .logo {
+            border-radius: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: start;
+        }
+
+        .logo>img {
+            width: 250px;
+        }
+
+        #nav-right-side {
+            justify-content: flex-end;
+        }
+
+        #nav-left-side,
+        #nav-right-side {
+            gap: 20px;
+        }
+
+        #nav-left-side {
+            justify-content: center;
+        }
+
+        #navbar a {
+            text-decoration: none;
+            color: black;
+            border-bottom: 2px solid transparent;
+            font-size: 15px;
+            padding: 3px 0;
+            font-weight: 600;
+            width: max-content;
+        }
+
+        #drawer a {
+            margin-left: 1rem;
+        }
+
+        #nav-left-side>a:hover {
+            border-bottom: 2px solid var(--red);
+        }
+
+        #checker,
+        #joinDropdown {
+            border: 2px solid var(--green);
+            padding: 5px 15px;
+            border-radius: 30px;
+            background: #ffff;
+            font-weight: 600;
+        }
+
+        #checker>img,
+        #joinDropdown>img {
+            width: 25px;
+        }
+
+        #checker:hover,
+        #joinDropdown:hover {
+            border: 2px solid var(--red);
+        }
+
+        .nav_btns {
+            display: flex;
+            align-items: center;
+            justify-content: between;
+            border: 2px solid var(--green);
+            border-radius: 30px;
+            background: #ffff;
+            padding: 3px 15px;
+        }
+
+        .nav_btns>a {
+            font-size: 16px !important;
+            text-decoration: none;
+            color: black;
+            padding: 0px !important;
+            margin-bottom: 0 !important;
+            margin-left: 5px;
+            font-weight: 500;
+        }
+
+        .nav_btns:hover {
+            border: 2px solid var(--red);
+        }
+
+
+        #nav-right-side>div:last-child>img {
+            width: 30px;
+        }
+
+        #checker,
+        #joinDropdown {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .primary-bg {
+            background: #0048b1;
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -45%;
+            right: -50%;
+            background: var(--red);
+            color: white;
+            height: 25px;
+            width: 25px;
+            border-radius: 50%;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .drawer img[alt="shop-icon"] {
+            width: 25px;
+            margin-left: 1rem;
+        }
+
+        .drawer div {
+            margin-top: 0.35rem;
+        }
+
+        .drawer .cart-count {
+            top: -8px;
+            left: 32px;
+            color: white;
+            height: 15px;
+            width: 15px;
+            font-size: 8px;
+        }
+
+        .new-footer-cont {
+            max-width: 100vw;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--navy-blue);
+            padding: 40px 0 20px 0;
+            gap: 20px;
+        }
+
+        #footer-section {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            align-items: flex-start;
+            width: 90%;
+            gap: 20px;
+            color: white;
+        }
+
+        .footer-new {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            align-items: start;
+        }
+
+        #footer-1 {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .footer-content-new {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: start;
+        }
+
+        .footer-heading {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-heading>h3 {
+            font-size: 24px;
+        }
+
+        .footer-content-new>h4 {
+            font-weight: 400;
+            color: gainsboro;
+        }
+
+        .footer-content-new>div>a {
+            text-decoration: none;
+            color: gainsboro;
+        }
+
+        .footer-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-info>img {
+            width: 10px;
+        }
+
+        .footer-info>a {
+            border-bottom: 1px solid transparent;
+        }
+
+        .footer-info>a:hover {
+            border-bottom: 1px solid var(--red);
+            color: white;
+        }
+
+        .footer-highlight {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background-color: var(--red);
+            padding: 10px 15px;
+            border-radius: 20px;
+        }
+
+        .footer-highlight>img {
+            width: 20px;
+        }
+
+        .footer-highlight>a:hover {
+            color: gainsboro;
+        }
+
+        #footer-logo-new {
+            display: block;
+        }
+
+        #footer-logo-new>img {
+            width: 80%;
+            padding: 1rem;
+            background-color: white;
+            border-radius: 0.5rem;
+            min-width: 220px;
+        }
+
+        #footer-2>.footer-content-new>h4 {
+            text-decoration: 1px solid underline;
+        }
+
+        #social-icons {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        #social-icons>a {
+            background-color: var(--red);
+            border: none;
+            padding: 8px;
+            color: white;
+            text-decoration: none;
+            min-width: 33px;
+            min-height: 33px;
+        }
+
+        #social-icons>a>i {
+            font-size: 17px;
+        }
+
+        #footer-4>div>h4 {
+            font-weight: 500;
+            color: white;
+            font-size: 18px;
+        }
+
+        #copyright>p {
+            color: gainsboro;
+            text-align: center;
+            padding: 0 0.5rem;
+        }
+
+        #copyright>span {
+            font-weight: bold;
+        }
+
+        .seperation {
+            width: 100%;
+            height: 1px;
+            background-color: gainsboro;
+        }
+
+        .hamburger_container {
+            cursor: pointer;
+            display: none;
+            z-index: 1000;
+        }
+
+        .hamburger div {
+            width: 30px;
+            height: 3px;
+            background-color: #333;
+            margin: 5px 0;
+            transition: 0.4s;
+        }
+
+        .drawer-item {
+            color: var(--blue);
+        }
+
+        .drawer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100%;
+            background-color: #ffffff;
+            color: #202020;
+            transform: translateX(-100%);
+            transition: transform 0.4s ease;
+            padding-top: 40px;
+            z-index: 999;
+            border-right: 1px solid #ff5757;
+        }
+
+        .drawer a {
+            padding: 15px 30px;
+            text-decoration: none;
+            font-size: 16px;
+            color: #fff;
+            display: block;
+            transition: 0.3s;
+            border-bottom: 1px solid transparent;
+        }
+
+        .drawer hr {
+            width: 90%;
+            margin: 0 auto;
+            border: 1px solid #ff5757;
+        }
+
+        .drawer a:hover {
+            border-bottom: 1px solid var(--red) !important;
+        }
+
+        .drawer.active {
+            transform: translateX(0);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #202020;
+            transition: 0.3s;
+        }
+
+        .close-btn:hover {
+            color: #ff5757;
+        }
+
+        .blur-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 998;
+            display: none;
+        }
+
+        .blur-overlay.active {
+            display: block;
+        }
+
+        .hamburger.active div:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active div:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active div:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        .dropdown-menu li a {
+            color: #000;
+            font-size: 14px !important;
+            padding: 10px !important;
+            display: block;
+            font-weight: 500 !important;
+            text-decoration: none !important;
+            color: #000 !important;
+            font-size: 14px !important;
+            padding: 8px !important;
+            text-decoration: none;
+            width: 100% !important;
+        }
+
+        .footer-content-new>p {
+            font-size: 0.9rem;
+        }
+
+        .footer-content-new>div>a {
+            font-size: 0.8rem;
+        }
+
+        /* utility.css  */
+
+        .text-center {
+            text-align: center;
+        }
+
+        .flex {
+            display: flex;
+            align-items: center;
+        }
+
+        .gap-5 {
+            gap: 5px;
+        }
+
+        .gap-10 {
+            gap: 10px;
+        }
+
+        .gap-15 {
+            gap: 10px;
+        }
+
+        .between {
+            justify-content: space-between;
+        }
+
+        @media screen and (min-width: 1400px) {
+            .offer-banner>span {
+                font-size: 1.1rem;
+            }
+
+            .logo>img {
+                width: 40%;
+            }
+
+            .dropdown-menu li a {
+                font-size: 1.1rem !important;
+            }
+
+            #joinDropdown,
+            #navbar a,
+            .nav_btns>i {
+                font-size: 1.1rem !important;
+            }
+
+            #nav-right-side>div:last-child>img {
+                width: 35px;
+            }
+
+            #nav-right-side>div:last-child {
+                width: 6%;
+            }
+
+            .footer-heading>h3 {
+                font-size: 1.75rem;
+            }
+
+            .footer-content-new>p {
+                font-size: 1.1rem;
+            }
+
+            .footer-content-new>div>a {
+                font-size: 1.1rem;
+            }
+
+            #social-icons>a>i {
+                font-size: 1.3rem;
+            }
+
+            #social-icons {
+                gap: 1.5rem;
+            }
+
+            #copyright>p {
+                font-size: 1.15rem;
+            }
+
+            .footer-content-new>iframe {
+                width: 400px !important;
+                height: 200px;
+            }
+
+            #footer-logo-new>img {
+                width: 100%;
+                min-width: 225px;
+            }
+
+        }
+
+        @media screen and (min-width: 2000px) {
+            .offer-banner>span {
+                font-size: 1.2rem;
+            }
+
+            .logo>img {
+                width: 40%;
+            }
+
+            .dropdown-menu li a {
+                font-size: 1.2rem !important;
+            }
+
+            #joinDropdown,
+            #navbar a,
+            .nav_btns>i {
+                font-size: 1.2rem !important;
+            }
+
+            #nav-right-side>div:last-child {
+                width: 6%;
+            }
+
+            #nav-right-side>div:last-child>img {
+                width: 65%;
+            }
+
+            .footer-heading>h3 {
+                font-size: 2rem;
+            }
+
+            .footer-content-new>p {
+                font-size: 1.3rem;
+            }
+
+            .footer-content-new>div>a {
+                font-size: 1.3rem;
+            }
+
+            #social-icons>a>i {
+                font-size: 1.5rem;
+            }
+
+            #social-icons {
+                gap: 1.3rem;
+            }
+
+            #copyright>p {
+                font-size: 1.3rem;
+            }
+
+            #footer-logo-new>img {
+                width: 50%;
+            }
+        }
+
+        @media screen and (max-width: 1200px) {
+            .w-100 {
+                height: auto !important;
+            }
+        }
+
+        @media screen and (max-width: 1024px) {
+
+            #footer-section {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            #navbar a {
+                font-size: 12px;
+            }
+
+        }
+
+        @media screen and (max-width: 980px) {
+
+            #nav-left-side,
+            #nav-right-side {
+                display: none;
+            }
+
+            .hamburger_container {
+                display: block;
+            }
+
+        }
+
+        @media screen and (max-width: 768px) {
+            #footer-logo-new>img {
+                max-width: 400px;
+            }
+
+            #footer-section {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media screen and (max-width: 480px) {
+            .footer-content-new i {
+                margin-left: 0 !important;
+            }
+
+            .footer-content-new iframe {
+                width: 280px !important;
+            }
+        }
+
+        @media only screen and (max-width: 373px) {
+            .logo>img {
+                width: 225px;
+            }
+        }
     </style>
 @endsection
 
@@ -857,8 +862,8 @@ header {
                 type: 'POST',
                 url: "{{ route('show_product_on_final_checkout') }}",
                 success: function(res) {
-                    $('#totalCastFinal').text('$' + res.itemSum);
-                    $('#totalPaidFinal').text('$' + res.totalPrice);
+                    $('#totalCastFinal').text('Rs.' + res.itemSum);
+                    $('#totalPaidFinal').text('Rs.' + res.totalPrice);
                     if (res.providerFee > 0) {
                         $('#final_provider_fee').html('$6.00');
                     } else {
@@ -886,7 +891,7 @@ header {
                                 '<h5 class="checkoutItem_cart" id="' + product.id +
                                 '" hidden>' +
                                 product.id + '</h5>' +
-                                '<p class="card-text">Qty:1 <span class="float-end pe-3"><b> Price: $' +
+                                '<p class="card-text">Qty:1 <span class="float-end pe-3"><b> Price: Rs.' +
                                 product.update_price + '</b></span></p>' +
                                 '<p class="card-text">Prescribed by ' + product.prescribed +
                                 '</p>' +
@@ -910,7 +915,7 @@ header {
                                 '<h5 class="checkoutItem_cart" id="' + product.id +
                                 '" hidden>' +
                                 product.id + '</h5>' +
-                                '<p class="card-text">Qty:1 <span class="float-end pe-3"><b> Price: $' +
+                                '<p class="card-text">Qty:1 <span class="float-end pe-3"><b> Price: Rs.' +
                                 product.update_price + '</b></span></p>' +
                                 '<p class="card-text">Counter Purchased</p>' +
                                 '</div>' +
@@ -1319,8 +1324,8 @@ header {
                             type: 'POST',
                             url: "{{ route('show_product_on_final_checkout') }}",
                             success: function(res) {
-                                $('#totalCastFinal').text('$' + res.itemSum);
-                                $('#totalPaidFinal').text('$' + res.totalPrice);
+                                $('#totalCastFinal').text('Rs.' + res.itemSum);
+                                $('#totalPaidFinal').text('Rs.' + res.totalPrice);
                                 if (res.providerFee > 0) {
                                     $('#final_provider_fee').html('$6.00');
                                 } else {
@@ -1353,7 +1358,7 @@ header {
                                             product.id + '" hidden>' + product
                                             .id +
                                             '</h5>' +
-                                            '<p class="card-text">Qty:1 <span class="float-end pe-3"><b> Price: $' +
+                                            '<p class="card-text">Qty:1 <span class="float-end pe-3"><b> Price: Rs.' +
                                             product.update_price +
                                             '</b></span></p>' +
                                             '<p class="card-text">Prescribed by ' +
@@ -1383,7 +1388,7 @@ header {
                                             product.id + '" hidden>' + product
                                             .id +
                                             '</h5>' +
-                                            '<p class="card-text">Qty:1 <span class="float-end pe-3"><b> Price: $' +
+                                            '<p class="card-text">Qty:1 <span class="float-end pe-3"><b> Price: Rs.' +
                                             product.update_price +
                                             '</b></span></p>' +
                                             '<p class="card-text">Counter Purchased</p>' +
@@ -1419,138 +1424,142 @@ header {
         });
 
 
-        $(document).ready(function () {
-        $(".payment-method").click(function () {
-            $(".payment-method").removeClass("active");
-            $(this).addClass("active");
+        $(document).ready(function() {
+            $(".payment-method").click(function() {
+                $(".payment-method").removeClass("active");
+                $(this).addClass("active");
 
-            let selectedMethod = $(this).data("method");
-            console.log(selectedMethod);
+                let selectedMethod = $(this).data("method");
+                console.log(selectedMethod);
 
-            $("#final-pay-button").attr("disabled", false);
-            $("#payment_method").val(selectedMethod);
+                $("#final-pay-button").attr("disabled", false);
+                $("#payment_method").val(selectedMethod);
+            });
+
         });
-
-    });
     </script>
 @endsection
 
 @section('content')
 
-<header class="py-2">
-    <nav>
-      <section id="navbar">
-        <div class="wrap flex gap-15 between">
-          <div id="nav-logo" class="logo" onclick="window.location.href='{{ url('/') }}'" style="cursor: pointer;">
-            <img src="{{ asset('assets/new_frontend/logo.png') }}" alt="umbrella-logo" />
-          </div>
-          <div class="flex gap-15" id="nav-right-side">
-            <div id="checker" class="d-none">
-                <i class="fa-regular fa-user"></i>
-                <a href="#" class="pe-none">Symptoms Checker</a>
-            </div>
+    <header class="py-2">
+        <nav>
+            <section id="navbar">
+                <div class="wrap flex gap-15 between">
+                    <div id="nav-logo" class="logo" onclick="window.location.href='{{ url('/') }}'"
+                        style="cursor: pointer;">
+                        <img src="{{ asset('assets/new_frontend/logo.png') }}" alt="umbrella-logo" />
+                    </div>
+                    <div class="flex gap-15" id="nav-right-side">
+                        <div id="checker" class="d-none">
+                            <i class="fa-regular fa-user"></i>
+                            <a href="#" class="pe-none">Symptoms Checker</a>
+                        </div>
 
-            @if (Auth::check())
-            <div class="dropdown" >
-                <button class="dropdown-toggle w-100" type="button" id="joinDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa-solid fa-user-group"></i> Hi {{ Auth::user()->name}}
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="joinDropdown">
-                    <li><a class="dropdown-item" href="{{ route('home') }}">Go to Dashboard</a></li>
-                    <li><a class="dropdown-item"  href="{{ route('logout') }}"
-                        onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a></li>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
-                </ul>
-              </div>
-              @else
-                <div class="dropdown" >
-                    <button class="dropdown-toggle w-100" type="button" id="joinDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fa-solid fa-user-group"></i> Join Us
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="joinDropdown">
-                        <li><a class="dropdown-item" href="{{ route('login') }}">Login</a></li>
-                        <li><a class="dropdown-item" href="{{ route('doc_register') }}" >Register as Doctor</a></li>
-                        <li><a class="dropdown-item" href="{{ route('pat_register') }}" >Register as Patient</a></li>
-                    </ul>
+                        @if (Auth::check())
+                            <div class="dropdown">
+                                <button class="dropdown-toggle w-100" type="button" id="joinDropdown"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa-solid fa-user-group"></i> Hi {{ Auth::user()->name }}
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="joinDropdown">
+                                    <li><a class="dropdown-item" href="{{ route('home') }}">Go to Dashboard</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('logout') }}"
+                                            onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
+                                    </li>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                        style="display: none;">
+                                        @csrf
+                                    </form>
+                                </ul>
+                            </div>
+                        @else
+                            <div class="dropdown">
+                                <button class="dropdown-toggle w-100" type="button" id="joinDropdown"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa-solid fa-user-group"></i> Join Us
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="joinDropdown">
+                                    <li><a class="dropdown-item" href="{{ route('login') }}">Login</a></li>
+                                    <li><a class="dropdown-item" href="{{ route('doc_register') }}">Register as Doctor</a>
+                                    </li>
+                                    <li><a class="dropdown-item" href="{{ route('pat_register') }}">Register as Patient</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        @endif
+                        <button class="nav_btns">
+                            <i class="fa-brands fa-whatsapp"></i>
+                            <a href="https://wa.me/923372350684" target="_blank">0337-2350684</a>
+                        </button>
+                        <div class="position-relative" onclick="window.location.href='{{ url('/my/cart') }}'">
+                            <img src="{{ asset('assets/new_frontend/purchase-icon.svg') }}" alt="shop-icon" />
+                            @if (Auth::check())
+                                <div class="cart-count">
+                                    <span>{{ app('item_count_cart_responsive') }}</span>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="hamburger_container" onclick="toggleDrawer()">
+                        <div class="hamburger">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
+
+                    <div class="drawer" id="drawer">
+                        <span class="close-btn" onclick="toggleDrawer()">×</span>
+                        <img width="220px" src="{{ asset('assets/new_frontend/logo.png') }}" alt="" />
+                        <hr />
+                        <a href="{{ url('/') }}">Home</a>
+                        <a href="{{ route('pharmacy') }}">Pharmacy</a>
+                        <a href="{{ route('labs') }}">Lab Tests</a>
+                        <a href="{{ route('imaging') }}">Imaging</a>
+                        <a href="{{ route('e-visit') }}">E-Visit</a>
+                        <a href="{{ route('doc_profile_page_list') }}">Our Doctors</a>
+                        <a href="{{ route('about_us') }}">About Us</a>
+                        <a href="{{ route('contact_us') }}">Contact Us</a>
+                        <hr />
+                        @if (Auth::check())
+                            <a href="{{ route('home') }}">Go to Dashboard</a></li>
+                            <a href="{{ route('logout') }}"
+                                onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                style="display: none;">
+                                @csrf
+                            </form>
+                        @else
+                            <a class="drawer-item" href="{{ route('login') }}">Login</a>
+                            <a class="drawer-item" href="{{ route('doc_register') }}">Register as Doctor</a>
+                            <a class="drawer-item" href="{{ route('pat_register') }}">Register as Patient</a>
+                        @endif
+                        <a href="https://wa.me/923372350684" target="_blank">0337-2350684</a>
+                        <div class="position-relative" onclick="window.location.href='{{ url('/my/cart') }}'">
+                            <img src="{{ asset('assets/new_frontend/purchase-icon.svg') }}" alt="shop-icon" />
+                            @if (Auth::check())
+                                <div class="cart-count">
+                                    <span>{{ app('item_count_cart_responsive') }}</span>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="blur-overlay" id="blurOverlay" onclick="toggleDrawer()"></div>
                 </div>
-              @endif
-              <button class="nav_btns">
-                <i class="fa-brands fa-whatsapp"></i>
-                <a href="https://wa.me/923372350684" target="_blank">0337-2350684</a>
-              </button>
-            <div class="position-relative" onclick="window.location.href='{{ url('/my/cart') }}'">
-              <img src="{{ asset('assets/new_frontend/purchase-icon.svg') }}" alt="shop-icon" />
-              @if (Auth::check())
-                <div class="cart-count">
-                    <span>{{ app('item_count_cart_responsive') }}</span>
-                </div>
-              @endif
-            </div>
-          </div>
-          <div class="hamburger_container" onclick="toggleDrawer()">
-            <div class="hamburger">
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>
-          </div>
-
-          <div class="drawer" id="drawer">
-            <span class="close-btn" onclick="toggleDrawer()">×</span>
-            <img width="220px" src="{{ asset('assets/new_frontend/logo.png') }}" alt="" />
-            <hr />
-            <a href="{{ url('/') }}">Home</a>
-            <a href="{{ route('pharmacy') }}">Pharmacy</a>
-            <a href="{{ route('labs') }}">Lab Tests</a>
-            <a href="{{ route('imaging') }}">Imaging</a>
-            <a href="{{ route('e-visit') }}">E-Visit</a>
-            <a href="{{ route('doc_profile_page_list') }}">Our Doctors</a>
-            <a href="{{ route('about_us') }}">About Us</a>
-            <a href="{{ route('contact_us') }}">Contact Us</a>
-            <hr />
-            @if (Auth::check())
-              <a href="{{ route('home') }}">Go to Dashboard</a></li>
-              <a href="{{ route('logout') }}"
-              onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
-              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                @csrf
-              </form>
-            @else
-            <a class="drawer-item" href="{{ route('login') }}">Login</a>
-            <a class="drawer-item" href="{{ route('doc_register') }}" >Register as Doctor</a>
-            <a class="drawer-item" href="{{ route('pat_register') }}" >Register as Patient</a>
-            @endif
-            <a href="https://wa.me/923372350684" target="_blank">0337-2350684</a>
-            <div class="position-relative" onclick="window.location.href='{{ url('/my/cart') }}'">
-              <img src="{{ asset('assets/new_frontend/purchase-icon.svg') }}" alt="shop-icon" />
-              @if (Auth::check())
-                <div class="cart-count">
-                  <span>{{ app('item_count_cart_responsive') }}</span>
-                </div>
-              @endif
-            </div>
-          </div>
-          <div
-            class="blur-overlay"
-            id="blurOverlay"
-            onclick="toggleDrawer()"
-          ></div>
-        </div>
-        <div class="flex gap-15" id="nav-left-side">
-            <a href="{{ url('/') }}">Home</a>
-            <a href="{{ route('pharmacy') }}">Pharmacy</a>
-            <a href="{{ route('labs') }}">Lab Tests</a>
-            <a href="{{ route('imaging') }}">Imaging</a>
-            <a href="{{ route('e-visit') }}">E-Visit</a>
-            <a href="{{ route('doc_profile_page_list') }}">Our Doctors</a>
-            <a href="{{ route('about_us') }}">About Us</a>
-            <a href="{{ route('contact_us') }}">Contact Us</a>
+                <div class="flex gap-15" id="nav-left-side">
+                    <a href="{{ url('/') }}">Home</a>
+                    <a href="{{ route('pharmacy') }}">Pharmacy</a>
+                    <a href="{{ route('labs') }}">Lab Tests</a>
+                    <a href="{{ route('imaging') }}">Imaging</a>
+                    <a href="{{ route('e-visit') }}">E-Visit</a>
+                    <a href="{{ route('doc_profile_page_list') }}">Our Doctors</a>
+                    <a href="{{ route('about_us') }}">About Us</a>
+                    <a href="{{ route('contact_us') }}">Contact Us</a>
 
 
 
-            {{--            <div class="dropdown">
+                    {{--            <div class="dropdown">
                 <a
                   class="dropdown-toggle"
                   href="#"
@@ -1574,17 +1583,17 @@ header {
                   </li>
                 </ul>
               </div> --}}
-          </div>
-      </section>
-    </nav>
-  </header>
+                </div>
+            </section>
+        </nav>
+    </header>
 
-{{-- after registration and login modal --}}
+    {{-- after registration and login modal --}}
 
     <div class="container pt-4">
         <div>
             @if (session()->get('msg'))
-                <div id="errorDiv1" class="alert alert-success col-12 col-md-6 offset-md-3 mt-2">
+                <div id="errorDiv1" class="alert alert-danger col-12 col-md-6 offset-md-3 mt-2">
                     @php
                         $es = session()->get('msg');
                     @endphp
@@ -1596,14 +1605,11 @@ header {
         </div>
         @if (count($user_cart_items) != 0)
             <div class="left checkout-steps-wrap">
-                <!-- multistep form -->
                 <div id="checkoutform">
-                    <!-- progressbar -->
                     <ul id="progressbar">
                         <li class="active">Checkout</li>
                         <li>Payment Details</li>
                     </ul>
-                    <!-- fieldsets -->
 
                     <!-- ******* CHECKOUT-SEC STATRS ******** -->
                     <fieldset class="mb-3">
@@ -1637,14 +1643,17 @@ header {
                                                                     <div class="row main align-items-center"
                                                                         style="position: relative">
                                                                         <div class="col-2 cart-img-div">
-                                                                            @if ($item->product_image != "dummy_medicine.png" && $item->product_image != "default-labtest.jpg" && $item->product_image != "default-imaging.png")
+                                                                            @if (
+                                                                                $item->product_image != 'dummy_medicine.png' &&
+                                                                                    $item->product_image != 'default-labtest.jpg' &&
+                                                                                    $item->product_image != 'default-imaging.png')
                                                                                 <img class="img-fluid"
                                                                                     alt="{{ $item->name }}"
                                                                                     src="{{ \App\Helper::check_bucket_files_url($item->product_image) }}" />
                                                                             @else
                                                                                 <img class="img-fluid"
                                                                                     alt="{{ $item->name }}"
-                                                                                    src="{{ asset('assets/images/'.$item->product_image) }}" />
+                                                                                    src="{{ asset('assets/images/' . $item->product_image) }}" />
                                                                             @endif
                                                                             @if ($item->product_mode == 'medicine')
                                                                                 <h6
@@ -1719,14 +1728,17 @@ header {
                                                                     <div class="row main align-items-center"
                                                                         style="position: relative">
                                                                         <div class="col-2 cart-img-div">
-                                                                            @if ($item->product_image != "dummy_medicine.png" && $item->product_image != "default-labtest.jpg" && $item->product_image != "default-imaging.png")
+                                                                            @if (
+                                                                                $item->product_image != 'dummy_medicine.png' &&
+                                                                                    $item->product_image != 'default-labtest.jpg' &&
+                                                                                    $item->product_image != 'default-imaging.png')
                                                                                 <img class="img-fluid"
                                                                                     alt="{{ $item->name }}"
                                                                                     src="{{ \App\Helper::check_bucket_files_url($item->product_image) }}" />
                                                                             @else
                                                                                 <img class="img-fluid"
                                                                                     alt="{{ $item->name }}"
-                                                                                    src="{{ asset('assets/images/'.$item->product_image) }}" />
+                                                                                    src="{{ asset('assets/images/' . $item->product_image) }}" />
                                                                             @endif
                                                                             @if ($item->product_mode == 'medicine')
                                                                                 <h6
@@ -1828,7 +1840,7 @@ header {
                                                     </ul>
                                                 </div>
                                                 <input type="button" name="next" class="next action-button m-0 mt-2"
-                                                    value="PROCEED TO CHECKOUT"/>
+                                                    value="PROCEED TO CHECKOUT" />
                                             </div>
 
                                         </div>
@@ -2095,26 +2107,35 @@ header {
                                                         <input type="hidden" class="payAble" id="payAble"
                                                             name="payAble" value="{{ $totalPrice }}">
                                                         <input type="hidden" name="payment_method" id="payment_method">
-                                                            <div class="row gap-2 mb-2">
-                                                                <div class="col-md-12">
-                                                                    <div class="payment-method p-3 d-flex align-items-center justify-content-between" data-method="credit-card">
-                                                                        <h5>Pay with Credit Card</h5>
-                                                                        <img class="icon" src="{{ asset('assets/new_frontend/cards.png') }}" alt="">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-12">
-                                                                    <div class="payment-method p-3 d-flex align-items-center justify-content-between" data-method="easy-paisa">
-                                                                        <h5>Pay with EasyPaisa</h5>
-                                                                        <img class="icon" src="{{ asset('assets/new_frontend/easypaisa-logo.png') }}" alt="">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-12">
-                                                                    <div class="payment-method p-3 d-flex align-items-center justify-content-between" data-method="online-cash">
-                                                                        <h5>Pay with Online/Cash</h5>
-                                                                        <img class="icon" src="{{ asset('assets/new_frontend/online-money.png') }}" alt="">
-                                                                    </div>
+                                                        <div class="row gap-2 mb-2">
+                                                            <div class="col-md-12">
+                                                                <div class="payment-method p-3 d-flex align-items-center justify-content-between"
+                                                                    data-method="credit-card">
+                                                                    <h5>Pay with Credit Card</h5>
+                                                                    <img class="icon"
+                                                                        src="{{ asset('assets/new_frontend/cards.png') }}"
+                                                                        alt="">
                                                                 </div>
                                                             </div>
+                                                            <div class="col-md-12">
+                                                                <div class="payment-method p-3 d-flex align-items-center justify-content-between"
+                                                                    data-method="easy-paisa">
+                                                                    <h5>Pay with EasyPaisa</h5>
+                                                                    <img class="icon"
+                                                                        src="{{ asset('assets/new_frontend/easypaisa-logo.png') }}"
+                                                                        alt="">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <div class="payment-method p-3 d-flex align-items-center justify-content-between"
+                                                                    data-method="online-cash">
+                                                                    <h5>Pay with Online/Cash</h5>
+                                                                    <img class="icon"
+                                                                        src="{{ asset('assets/new_frontend/online-money.png') }}"
+                                                                        alt="">
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                         <div class="text-center payment_toggole_form mb-3">
                                                             <h5>SHIPPING ADDRESS FOR MEDICINES</h5>
                                                         </div>
@@ -2124,8 +2145,8 @@ header {
                                                                     <label for="exampleInputEmail1"
                                                                         class="form-label">Full
                                                                         Name*</label>
-                                                                    <input required name="shipping_customer_name" type="text"
-                                                                        class="form-control mt-1"
+                                                                    <input required name="shipping_customer_name"
+                                                                        type="text" class="form-control mt-1"
                                                                         placeholder="Full Name" />
                                                                 </div>
                                                                 <div class="col-md-6 mb-1">
@@ -2139,20 +2160,23 @@ header {
                                                                 <div class="col-md-6 mb-1">
                                                                     <label for="exampleInputEmail1"
                                                                         class="form-label">Phone*</label>
-                                                                    <input required name="shipping_customer_phone" type="text"
-                                                                        class="form-control mt-1" placeholder="Phone" />
+                                                                    <input required name="shipping_customer_phone"
+                                                                        type="text" class="form-control mt-1"
+                                                                        placeholder="Phone" />
                                                                 </div>
                                                                 <div class="col-md-6 mb-3">
-                                                                    <label for="ship_city" class="form-label">City*</label>
-                                                                    <input required name="shipping_customer_city" type="text"
-                                                                        id="ship_city" class="form-control mt-1"
-                                                                        placeholder="City" />
+                                                                    <label for="ship_city"
+                                                                        class="form-label">City*</label>
+                                                                    <input required name="shipping_customer_city"
+                                                                        type="text" id="ship_city"
+                                                                        class="form-control mt-1" placeholder="City" />
                                                                 </div>
                                                                 <div class="col-md-12 mb-3">
                                                                     <label for="exampleInputEmail1"
                                                                         class="form-label">Address*</label>
-                                                                    <input required name="shipping_customer_address" type="text"
-                                                                        class="form-control mt-1" placeholder="Address" />
+                                                                    <input required name="shipping_customer_address"
+                                                                        type="text" class="form-control mt-1"
+                                                                        placeholder="Address" />
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -2280,14 +2304,11 @@ header {
                                                     </div>
                                                     <small id="promo_already_used" class="text-danger"
                                                         style="display: none"> Promo Code Already Used Once. </small>
-                                                    <small id="promo_success" class="text-success"
-                                                        style="display: none">
+                                                    <small id="promo_success" class="text-success" style="display: none">
                                                         Promo Code Added Successfully. </small>
-                                                    <small id="promo_danger" class="text-danger"
-                                                        style="display: none">
+                                                    <small id="promo_danger" class="text-danger" style="display: none">
                                                         Promo Code Expired. </small>
-                                                    <small id="promo_added" class="text-success"
-                                                        style="display: none">
+                                                    <small id="promo_added" class="text-success" style="display: none">
                                                         Promo Code Already Applied. </small>
                                                 </div>
                                                 <div class="card">
@@ -2311,8 +2332,8 @@ header {
                                                         <h2 class="accordion-header" id="flush-headingOne">
                                                             <button class="accordion-button collapsed" type="button"
                                                                 data-bs-toggle="collapse"
-                                                                data-bs-target="#flush-collapseOne"
-                                                                aria-expanded="false" aria-controls="flush-collapseOne">
+                                                                data-bs-target="#flush-collapseOne" aria-expanded="false"
+                                                                aria-controls="flush-collapseOne">
                                                                 Your Items
                                                             </button>
                                                         </h2>
@@ -2347,85 +2368,94 @@ header {
         @endif
     </div>
     <footer class="new-footer-cont">
-    <section id="footer-section">
-        <div id="footer-1" class="footer-new">
-            <div class="logo" id="footer-logo-new">
-                <img src="{{ asset('assets/new_frontend/logo.png') }}" alt="umbrella-logo" />
+        <section id="footer-section">
+            <div id="footer-1" class="footer-new">
+                <div class="logo" id="footer-logo-new">
+                    <img src="{{ asset('assets/new_frontend/logo.png') }}" alt="umbrella-logo" />
+                </div>
+                <div class="flex gap-15" id="social-icons">
+                    <a href="https://www.facebook.com/share/15m4ofYggZ/" target="_blank"><i
+                            class="fa-brands fa-facebook"></i></a>
+                    <a href="https://www.linkedin.com/company/community-health-care-clinics/" target="_blank"><i
+                            class="fa-brands fa-linkedin"></i></a>
+                    <a href="https://www.instagram.com/community_healthcare_clinics?igsh=MXh6aHRzM2NrNThlMw=="
+                        target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                </div>
             </div>
-            <div class="flex gap-15" id="social-icons">
-                <a href="https://www.facebook.com/share/15m4ofYggZ/" target="_blank"><i class="fa-brands fa-facebook"></i></a>
-                <a href="https://www.linkedin.com/company/community-health-care-clinics/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
-                <a href="https://www.instagram.com/community_healthcare_clinics?igsh=MXh6aHRzM2NrNThlMw==" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-            </div>
-        </div>
-        <div id="footer-2" class="footer-new">
-            <div class="footer-heading">
-                <h3>Contact Us</h3>
-                <div class="underline"></div>
-            </div>
-            <div class="footer-content-new">
-                <p class="d-flex align-items-center"><i class="fa-solid mx-2 fa-envelope"></i> <span>contact@communityhealthcareclinics.com</span></p>
-                <p class="d-flex align-items-center"><i class="fa-solid mx-2 fa-envelope"></i> <span>support@communityhealthcareclinics.com</span></p>
-                <p class="d-flex align-items-center"><i class="fa-solid mx-2 fa-location-dot"></i>  <span>Progressive Center, 4th Floor Suite#410, Main Shahrah Faisal, Karachi</span></p>
+            <div id="footer-2" class="footer-new">
+                <div class="footer-heading">
+                    <h3>Contact Us</h3>
+                    <div class="underline"></div>
+                </div>
+                <div class="footer-content-new">
+                    <p class="d-flex align-items-center"><i class="fa-solid mx-2 fa-envelope"></i>
+                        <span>contact@communityhealthcareclinics.com</span></p>
+                    <p class="d-flex align-items-center"><i class="fa-solid mx-2 fa-envelope"></i>
+                        <span>support@communityhealthcareclinics.com</span></p>
+                    <p class="d-flex align-items-center"><i class="fa-solid mx-2 fa-location-dot"></i> <span>Progressive
+                            Center, 4th Floor Suite#410, Main Shahrah Faisal, Karachi</span></p>
 
-                <div class="footer-highlight">
-                    <i class="fa-solid fa-phone"></i>
-                    <a href="tel:+14076938484">+1 (407) 693-8484</a>
-            </div>
-            <div class="footer-highlight">
-                <i class="fa-brands fa-whatsapp"></i>
-                <a href="https://wa.me/923372350684" target="_blank">0337-2350684</a>
-            </div>
-        </div>
-        </div>
-        <div id="footer-3" class="footer-new">
-            <div class="footer-heading">
-                <h3>Working Hours</h3>
-                <div class="underline"></div>
-            </div>
-            <div class="footer-content-new">
-                <p><b>Inclinic:</b> 9am - 9pm</p>
-                <p><b>Online:</b> 24 hours</p>
-                <p>Community Healthcare Clinics</p>
-                <div class="footer-info">
-                    <i class="fa-solid fa-chevron-right"></i>
-                    <a href="{{ route('about_us') }}">About Us</a>
+                    <div class="footer-highlight">
+                        <i class="fa-solid fa-phone"></i>
+                        <a href="tel:+14076938484">+1 (407) 693-8484</a>
+                    </div>
+                    <div class="footer-highlight">
+                        <i class="fa-brands fa-whatsapp"></i>
+                        <a href="https://wa.me/923372350684" target="_blank">0337-2350684</a>
+                    </div>
                 </div>
-                <div class="footer-info">
-                    <i class="fa-solid fa-chevron-right"></i>
-                    <a href="{{ route('contact_us') }}">Contact Us</a>
+            </div>
+            <div id="footer-3" class="footer-new">
+                <div class="footer-heading">
+                    <h3>Working Hours</h3>
+                    <div class="underline"></div>
                 </div>
-                <div class="footer-info">
-                    <i class="fa-solid fa-chevron-right"></i>
-                    <a href="{{ route('faq') }}">FAQs</a>
-                </div>
-                {{-- <div class="footer-info">
+                <div class="footer-content-new">
+                    <p><b>Inclinic:</b> 9am - 9pm</p>
+                    <p><b>Online:</b> 24 hours</p>
+                    <p>Community Healthcare Clinics</p>
+                    <div class="footer-info">
+                        <i class="fa-solid fa-chevron-right"></i>
+                        <a href="{{ route('about_us') }}">About Us</a>
+                    </div>
+                    <div class="footer-info">
+                        <i class="fa-solid fa-chevron-right"></i>
+                        <a href="{{ route('contact_us') }}">Contact Us</a>
+                    </div>
+                    <div class="footer-info">
+                        <i class="fa-solid fa-chevron-right"></i>
+                        <a href="{{ route('faq') }}">FAQs</a>
+                    </div>
+                    {{-- <div class="footer-info">
                     <i class="fa-solid fa-chevron-right"></i>
                     <a href="{{ route('privacy_policy') }}">Privacy Policy</a>
                 </div> --}}
+                </div>
             </div>
-        </div>
-        <div id="footer-4" class="footer-new">
-            <div class="footer-heading">
-                <h3>Find Us</h3>
-                <div class="underline"></div>
-            </div>
+            <div id="footer-4" class="footer-new">
+                <div class="footer-heading">
+                    <h3>Find Us</h3>
+                    <div class="underline"></div>
+                </div>
 
-            <div class="footer-content-new">
+                <div class="footer-content-new">
 
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3620.017148282561!2d67.0743981!3d24.8632639!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33f3f9ba7181d%3A0x99571ff4d3fb7e52!2sCommunity%20Health%20Care%20Clinics!5e0!3m2!1sen!2s!4v1734451314564!5m2!1sen!2s" width="300" height="150" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3620.017148282561!2d67.0743981!3d24.8632639!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33f3f9ba7181d%3A0x99571ff4d3fb7e52!2sCommunity%20Health%20Care%20Clinics!5e0!3m2!1sen!2s!4v1734451314564!5m2!1sen!2s"
+                        width="300" height="150" style="border:0;" allowfullscreen="" loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
 
-            </div>
+                </div>
 
-    </section>
+        </section>
 
-    <div class="seperation"></div>
-    <section id="copyright">
-        <p>
-            Copyright &copy; {{ date('Y') }}.
-            <span>Community Healthcare Clinics. All Rights Reserved</span>
-        </p>
-    </section>
-</footer>
+        <div class="seperation"></div>
+        <section id="copyright">
+            <p>
+                Copyright &copy; {{ date('Y') }}.
+                <span>Community Healthcare Clinics. All Rights Reserved</span>
+            </p>
+        </section>
+    </footer>
 
 @endsection

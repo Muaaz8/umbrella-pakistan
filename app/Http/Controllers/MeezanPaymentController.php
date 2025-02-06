@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\PharmacyController;
 use App\Session;
 use App\User;
 use App\Notification;
@@ -9,10 +10,12 @@ use App\Mail\EvisitBookMail;
 use App\Mail\NewAppointmentPatientMail;
 use App\Mail\NewAppointmentDoctorMail;
 use Illuminate\Http\Request;
+use App\Models\TblTransaction;
 use App\Events\RealTimeMessage;
 use App\Events\updateQuePatient;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Auth;
 
 class MeezanPaymentController extends Controller
 {
@@ -42,18 +45,19 @@ class MeezanPaymentController extends Controller
     //  <!--- One Phase Payment ---!>
     public function payment($data,$amount)
     {
-
-
         $description = urlencode($data);
         $this->amount = $amount;
         $data = explode('-',$data);
         if($data[0] == 'Evisit'){
             $orderId = 'CHCCE-'.$data[1];
+            $this->returnUrl = env('APP_URL')."/meezan/payment/return";
         }elseif($data[0] == 'Appointment'){
             $orderId = 'CHCCA-'.$data[1];
+            $this->returnUrl = env('APP_URL')."/meezan/payment/return";
         }
         else{
-            $orderId = 'CHCCP-'.$data[1];
+            $orderId = 'CHCCO-'.$data[1];
+            $this->returnUrl = env('APP_URL')."/meezan/payment/order/return";
         }
 
         $user_id = auth()->user()->id;
@@ -198,8 +202,8 @@ class MeezanPaymentController extends Controller
                     return redirect()->route('book_appointment',['id'=>$description[2]])->with('error', $response->actionCodeDescription);
                 }
             }
-            if($description[0] == "Prescription"){
-                dd("here");
+            if($description[0] == "Order"){
+                return $response;
             }
         }
     }
