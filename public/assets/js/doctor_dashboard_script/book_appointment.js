@@ -16,6 +16,7 @@ function bookAppointmentModal(doc_id){
                 user = response.user;
                 doc = response.doc;
                 sym = response.symptoms;
+                url = window.location.origin + '/';
                 if(doc.rating<1){
                     doc.rating = 0;
                 }
@@ -27,44 +28,106 @@ function bookAppointmentModal(doc_id){
 
                 $('#load_bookappointment').html('');
 
-                $('#load_bookappointment').append('<div class="row g-0">'
-                    +'<div class="col-md-12 border-right"><div class="row g-0">'
-                    +'<div class="col-md-4"><div class="p-2 text-center"><div class="profile">'
-                    +'<img src="'+doc.user_image+'" width="100" class="rounded-circle img-thumbnail"/>'
-                    +'<span class="d-block mt-3 font-weight-bold">Dr. '+doc.name+' '+doc.last_name+'</span></div>'
-                    +'<div class="about-doctor"><div class="d-flex flex-column mb-2">'
-                    +'<span class="heading d-block">'+doc.sp_name+'</span></div>'
-                    +'<div class="general d-flex justify-content-center"><div class="star-ratings">'
-                    +'<div class="fill-ratings" style="width: '+doc.rating+'%;"><span>★★★★★</span>'
-                    +'</div><div class="empty-ratings"><span>★★★★★</span></div></div></div>'
-                    +'<div class="d-flex flex-column mb-2"><span class="heading d-block">Status</span>'
-                    +'<span id="stat" class="subheadings"></span></div>'
-                    +'<div class="modal-doc-book"><button id="submit_btn" type="submit">BOOK</button></div>'
-                    +'</div></div></div>'
-                    +'<div class="col-md-8 p-3"><div class="row"><div class="col-md-12 p-3"><div><b>Bio:</b>'
-                    +'<p style="max-height:200px; overflow-y: auto;">'+doc.bio+'</p></div></div></div>'
-                    +'<div class="row"><div class="col-md-6 p-3"><h6>Appointment Information</h6>'
-                    +'<div class="d-flex flex-column mb-3"><span class="heading d-block">Service Provider</span>'
-                    +'<input class="subheadings" value="'+doc.name+' '+doc.last_name+'"readonly>'
-                    +'<input type="hidden" name="fname" class="subheadings" value="'+user['name']+'"/>'
-                    +'<input type="hidden" name="spec_id" class="subheadings" value="'+doc.specialization+'"/>'
-                    +'<input type="hidden" name="lname" class="subheadings" value="'+user['last_name']+'"/>'
-                    +'<input type="hidden" name="email" class="subheadings" value="'+user['email']+'"/>'
-                    +'<input type="hidden" name="provider" class="subheadings" value="'+doc.id+'"/>'
-                    +'<input type="hidden" name="ses_id" class="subheadings" value="'+user['ses_id']+'"/>'
-                    +'<input type="hidden" name="phone"  value="'+user['phone_number']+'"/>'+'</div>'
-                    +'<div class="d-flex flex-column mb-3">'
-                    +'<span class="heading d-block">Choose Appointment Time</span><span class="subheadings">'
-                    +'<select class="form-select" id="timeSolt" name="time" required>'
-                    +'<option value="">Select Time</option></select></span>'
-                    +'</div></div><div class="col-md-6 p-3">'
-                    +'<div class="d-flex flex-column mb-3"><br>'
-                    +'<span class="heading d-block">Choose Appointment Date</span><span class="subheadings">'
-                    +'<select class="form-select" id="d2" name="date" required="" onChange="dateChoose('+doc.id+')"><option value="">Available Dates</option>'
-                    +'</select></span></div><div class="d-flex flex-column mb-3">'
-                    +'</div></div></div></div></div>'
-                    +'</div></div></div></div></div></div>'
+                $('#load_bookappointment').append(
+                    '<div class="row g-0">' +
+                        '<div class="col-md-12 border-right">' +
+                            '<div class="row g-0">' +
+                                '<div class="col-md-4">' +
+                                    '<div class="p-2 text-center">' +
+                                        '<div class="profile">' +
+                                            '<img src="' + doc.user_image + '" width="100" class="rounded-circle img-thumbnail"/>' +
+                                            '<span class="d-block mt-3 font-weight-bold">Dr. ' + doc.name + ' ' + doc.last_name + '</span>' +
+                                        '</div>' +
+                                        '<div class="about-doctor">' +
+                                            '<div class="d-flex flex-column mb-2">' +
+                                                '<span class="heading d-block">' + doc.sp_name + '</span>' +
+                                            '</div>' +
+                                            '<div class="general d-flex justify-content-center">' +
+                                                '<div class="star-ratings">' +
+                                                    '<div class="fill-ratings" style="width: ' + doc.rating + '%;">' +
+                                                        '<span>★★★★★</span>' +
+                                                    '</div>' +
+                                                    '<div class="empty-ratings">' +
+                                                        '<span>★★★★★</span>' +
+                                                    '</div>' +
+                                                '</div>' +
+                                            '</div>' +
+                                            '<div class="d-flex flex-column mb-2">' +
+                                                '<span class="heading d-block">Status</span>' +
+                                                '<span id="stat" class="subheadings"></span>' +
+                                            '</div>' +
+                                            '<div class="modal-doc-book">' +
+                                                '<button id="submit_btn" disabled type="submit">BOOK</button>' +
+                                            '</div>' +
+                                        '</div>' +
+                                    '</div>' +
+                                '</div>' +
+                                '<div class="col-md-8 p-3">' +
+                                    '<h5 class="mt-2">Pay With</h5>' +
+                                    '<input type="hidden" name="payment_method" id="payment_method">' +
+                                    '<div class="row">' +
+                                        '<div class="col-md-4">' +
+                                            '<div class="payment-method w-100 p-2 d-flex align-items-center justify-content-between flex-column" data-method="credit-card">' +
+                                                '<img class="icon" src="'+url+'assets/new_frontend/cards.png" alt="">' +
+                                                '<h5>Credit Card</h5>' +
+                                            '</div>' +
+                                        '</div>' +
+                                        '<div class="col-md-4">' +
+                                            '<div class="payment-method w-100 p-2 d-flex align-items-center justify-content-between flex-column" data-method="easy-paisa">' +
+                                                '<img class="icon" src="'+url+'assets/new_frontend/easypaisa-logo.png" alt="">' +
+                                                '<h5>EasyPaisa</h5>' +
+                                            '</div>' +
+                                        '</div>' +
+                                        '<div class="col-md-4">' +
+                                            '<div class="payment-method w-100 p-2 d-flex align-items-center justify-content-between flex-column" data-method="online-cash">' +
+                                                '<img class="icon" src="'+url+'assets/new_frontend/online-money.png" alt="">' +
+                                                '<h5>Online/Cash</h5>' +
+                                            '</div>' +
+                                        '</div>' +
+                                    '</div>' +
+                                    '<div class="row">' +
+                                        '<div class="col-md-12 p-3">' +
+                                            '<div><b>Bio:</b>' +
+                                                '<p style="max-height:200px; overflow-y: auto;">' + doc.bio + '</p>' +
+                                            '</div>' +
+                                        '</div>' +
+                                    '</div>' +
+                                    '<div class="row">' +
+                                    '<h6>Appointment Information</h6>' +
+                                        '<div class="col-md-6 p-3">' +
+                                            '<div class="d-flex flex-column mb-3">' +
+                                                '<span class="heading d-block">Service Provider</span>' +
+                                                '<input class="subheadings" value="' + doc.name + ' ' + doc.last_name + '" readonly>' +
+                                                '<input type="hidden" name="fname" class="subheadings" value="' + user['name'] + '"/>' +
+                                                '<input type="hidden" name="spec_id" class="subheadings" value="' + doc.specialization + '"/>' +
+                                                '<input type="hidden" name="lname" class="subheadings" value="' + user['last_name'] + '"/>' +
+                                                '<input type="hidden" name="email" class="subheadings" value="' + user['email'] + '"/>' +
+                                                '<input type="hidden" name="provider" class="subheadings" value="' + doc.id + '"/>' +
+                                                '<input type="hidden" name="ses_id" class="subheadings" value="' + user['ses_id'] + '"/>' +
+                                                '<input type="hidden" name="phone" value="' + user['phone_number'] + '"/>' +
+                                            '</div>' +
+                                            '<div class="d-flex flex-column mb-3">' +
+                                                '<span class="heading d-block">Choose Appointment Time</span>' +
+                                                '<select class="form-select" id="timeSolt" name="time" required>' +
+                                                    '<option value="">Select Time</option>' +
+                                                '</select>' +
+                                            '</div>' +
+                                        '</div>' +
+                                        '<div class="col-md-6 p-3">' +
+                                            '<div class="d-flex flex-column mb-3">' +
+                                                '<span class="heading d-block">Choose Appointment Date</span>' +
+                                                '<select class="form-select" id="d2" name="date" required="" onChange="dateChoose(' + doc.id + ')">' +
+                                                    '<option value="">Available Dates</option>' +
+                                                '</select>' +
+                                            '</div>' +
+                                        '</div>' +
+                                    '</div>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>'
                 );
+
             $.each (dates, function (key, date) {
                 $('#d2').append('<option value="'+date+'">'+date+'</option>');
             });
@@ -96,6 +159,16 @@ function bookAppointmentModal(doc_id){
                 $('#no_date').modal('show');
                 return false;
             }
+
+            $(".payment-method").on("click", function () {
+                $(".payment-method").removeClass("active");
+                $(this).addClass("active");
+
+                let selectedMethod = $(this).data("method");
+
+                $("#submit_btn").attr("disabled", false);
+                $("#payment_method").val(selectedMethod);
+            });
         }
     });
 }
