@@ -43,6 +43,7 @@ class MeezanPaymentController extends Controller
     public function payment($data,$amount)
     {
 
+
         $description = urlencode($data);
         $this->amount = $amount;
         $data = explode('-',$data);
@@ -50,6 +51,9 @@ class MeezanPaymentController extends Controller
             $orderId = 'CHCCE-'.$data[1];
         }elseif($data[0] == 'Appointment'){
             $orderId = 'CHCCA-'.$data[1];
+        }
+        else{
+            $orderId = 'CHCCP-'.$data[1];
         }
 
         $user_id = auth()->user()->id;
@@ -193,6 +197,9 @@ class MeezanPaymentController extends Controller
 
                     return redirect()->route('book_appointment',['id'=>$description[2]])->with('error', $response->actionCodeDescription);
                 }
+            }
+            if($description[0] == "Prescription"){
+                dd("here");
             }
         }
     }

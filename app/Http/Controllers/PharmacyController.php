@@ -820,22 +820,24 @@ class PharmacyController extends Controller
         }
     }
 
+    /////////////////////////////////////////////////
+    /////////////////////////////////////////////////
+
     public function authorize_create_new_order(Request $request)
     {
+
         if(strlen($request->exp_month) == 1){
             $request->exp_month = "0".$request->exp_month;
         }
-        $user = Auth::user();
 
+        $request->payAble = $request->payAble*100;
+        $user = Auth::user();
         $cartPreLab = [];
         $cartCntLab = [];
-
         $cartPreMed = [];
         $cartCntMed = [];
-
         $cartPreImg = [];
         $cartCntImg = [];
-
         $orderAllIds = [];
 
         //get medicine items from tbl_product table
@@ -893,6 +895,20 @@ class PharmacyController extends Controller
                 // array_push($cartPreImg, $item);
             }
         }
+
+        $data = "Order-" .$orderId. now()->format('Ymd');
+        $pay = new \App\Http\Controllers\MeezanPaymentController();
+        $res = $pay->payment($data, $request->payAble);
+        if ($res->errorCode == 0) {
+            return redirect($res->formUrl);
+        }else{
+            return redirect()->back()->with('error','Sorry, we are currently facing server issues. Please try again later.');
+        }
+
+        dd($res);
+        dd("we are here");
+
+
         $request->card_number = str_replace('-', '', $request->card_number);
         $totalPaymentToCharge = $request->payAble;
         $billing = array(
@@ -904,8 +920,6 @@ class PharmacyController extends Controller
             "email" => $request->email,
             "street_address" => $request->address,
             "city" => $request->city,
-            "state" => $request->state_code,
-            "zip" => $request->zipcode,
             'phoneNumber' => $request->phoneNumber,
         );
 
@@ -915,9 +929,7 @@ class PharmacyController extends Controller
                 "email" => $request->shipping_customer_email,
                 "phone" => $request->shipping_customer_phone,
                 "street_address" => $request->shipping_customer_address,
-                "city" => $request->shipping_customer_city,
-                "state" => $request->shipping_customer_state,
-                "zip" => $request->shipping_customer_zip,
+                "city" => $request->shipping_customer_city
             );
         } else {
             $shipping = array(
@@ -925,13 +937,10 @@ class PharmacyController extends Controller
                 "email" => $request->email,
                 "phone" => $request->phoneNumber,
                 "street_address" => $request->address,
-                "city" => $request->city,
-                "state" => $request->state_code,
-                "zip" => $request->zipcode,
+                "city" => $request->city
             );
         }
         // create object for payment
-        // dd($billing,$shipping );
         if ((isset($request->old_card))) {
             $query = DB::table('card_details')
                 ->where('id', $request->card_no)
@@ -1071,7 +1080,8 @@ class PharmacyController extends Controller
             return redirect()->back();
         }
     }
-
+    //////////////////////////////////////////
+    //////////////////////////////////////////
     public function get_card_details(Request $request){
         // dd($request);
         $billingDetails = DB::table('card_details')->where('id',$request->id)->select('billing')->first();

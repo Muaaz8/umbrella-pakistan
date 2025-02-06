@@ -23,6 +23,22 @@
 @section('page_title')
     <title>Cart | Umbrella Health Care Systems</title>
     <style>
+        .payment-method {
+            cursor: pointer;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            transition: 0.3s;
+        }
+        .payment-method:hover, .payment-method.active {
+            border-color: #007bff;
+            background-color: #f8f9fa;
+        }
+        .icon {
+            height: 50px;
+            object-fit: cover;
+        }
         .process-pay {
             background: linear-gradient(to top, #08295a, #165dc8);
             /* background-image: linear-gradient(#2c66bb, #08295a); */
@@ -120,6 +136,11 @@ header {
     border: 2px solid white;
     border-radius: 30px;
     padding: 6px;
+}
+
+.checkout-steps-wrap #checkoutform .action-button:disabled{
+    background: #334a6d;
+    color: #ffff;
 }
 
 #contact-bar img {
@@ -786,7 +807,7 @@ header {
             if (check == 0) {
                 $('.next').attr('disabled', true);
             } else {
-                $('.next').attr('disabled', true);
+                $('.next').attr('disabled', false);
             }
         });
 
@@ -1010,7 +1031,7 @@ header {
             var counter = classes.split('_');
             if ($('#' + classes).is(':checked')) {
                 check++;
-                $('.next').attr('disabled', true);
+                $('.next').attr('disabled', false);
                 $('.heading_' + counter[1]).css('color', 'white');
                 $('.price_' + counter[1]).css('color', 'white');
                 $('#' + classes).prop("checked", true);
@@ -1076,63 +1097,6 @@ header {
             }
         }
 
-        $(document).ready(function() {
-            $('[name="sameBilling"]').change(function() {
-                var e = document.getElementById("cardNo");
-                var value = e.className;
-                // var value = $(e).attr('class');
-                if ($('[name="sameBilling"]:checked').is(":checked")) {
-                    $.ajax({
-                        type: 'POST',
-                        url: "{{ URL('/get_card_details') }}",
-                        data: {
-                            id: value
-                        },
-                        success: function(response) {
-                            if (response.shipping) {
-                                $("#shipping_customer_name").val(response.shipping.name);
-                                $("#shipping_customer_email").val(response.shipping.email);
-                                $("#shipping_customer_phone").val(response.shipping.phone);
-                                $("#shipping_customer_zip").val(response.shipping.zip);
-                                $("#shipping_customer_state").val(response.shipping.state);
-                                $("#shipping_customer_city").val(response.shipping.city);
-                                $("#shipping_customer_address").val(response.shipping
-                                    .street_address);
-                            } else {
-                                $("#shipping_customer_name").val(response.billing.name);
-                                $("#shipping_customer_email").val(response.billing.email);
-                                $("#shipping_customer_phone").val(response.billing.phoneNumber);
-                                $("#shipping_customer_zip").val(response.billing.zip);
-                                $("#shipping_customer_state").val(response.billing.state);
-                                $("#shipping_customer_city").val(response.billing.city);
-                                $("#shipping_customer_address").val(response.billing
-                                    .street_address);
-                            }
-                        }
-                    });
-                    $('.phd').show();
-                } else {
-                    $.ajax({
-                        type: 'POST',
-                        url: "{{ URL('/get_card_details') }}",
-                        data: {
-                            id: value
-                        },
-                        success: function(response) {
-                            $("#shipping_customer_name").val(response.billing.name);
-                            $("#shipping_customer_email").val(response.billing.email);
-                            $("#shipping_customer_phone").val(response.billing.number);
-                            $("#shipping_customer_zip").val(response.billing.zip);
-                            $("#shipping_customer_state").val(response.billing.state);
-                            $("#shipping_customer_city").val(response.billing.city);
-                            $("#shipping_customer_address").val(response.billing
-                                .street_address);
-                        }
-                    });
-                    $('.phd').hide();
-                }
-            });
-        });
 
         function create_custom_dropdowns() {}
 
@@ -1448,6 +1412,21 @@ header {
                     disableBack();
             }
         });
+
+
+        $(document).ready(function () {
+        $(".payment-method").click(function () {
+            $(".payment-method").removeClass("active");
+            $(this).addClass("active");
+
+            let selectedMethod = $(this).data("method");
+            console.log(selectedMethod);
+
+            $("#final-pay-button").attr("disabled", false);
+            $("#payment_method").val(selectedMethod);
+        });
+
+    });
     </script>
 @endsection
 
@@ -1844,7 +1823,7 @@ header {
                                                     </ul>
                                                 </div>
                                                 <input type="button" name="next" class="next action-button m-0 mt-2"
-                                                    value="PROCEED TO CHECKOUT" disabled/>
+                                                    value="PROCEED TO CHECKOUT"/>
                                             </div>
 
                                         </div>
@@ -1911,150 +1890,6 @@ header {
                                                             @csrf
                                                             <input type="hidden" class="payAble" id="payAble"
                                                                 name="payAble" value="{{ $totalPrice }}">
-                                                            <div class="row">
-                                                                <div class="mb-3 col-md-6">
-                                                                    <label for="exampleInputEmail1"
-                                                                        class="form-label">Card Holder
-                                                                        First Name</label>
-                                                                    <input type="text"
-                                                                        value="{{ Auth::user()->name }}"
-                                                                        name="card_holder_name" class="form-control mt-1"
-                                                                        id="exampleInputEmail1" placeholder="First Name"
-                                                                        aria-describedby="emailHelp" required
-                                                                        maxlength="30" />
-                                                                </div>
-                                                                <div class="mb-3 col-md-6">
-                                                                    <label for="exampleInputEmail1"
-                                                                        class="form-label">Card Holder
-                                                                        Last Name</label>
-                                                                    <input type="text"
-                                                                        value="{{ Auth::user()->last_name }}"
-                                                                        name="card_holder_last_name"
-                                                                        class="form-control mt-1" id="exampleInputEmail1"
-                                                                        placeholder="Last Name" maxlength="30"
-                                                                        aria-describedby="emailHelp" required />
-                                                                </div>
-                                                                <div class="mb-3 col-md-6">
-                                                                    <label for="exampleInputEmail1"
-                                                                        class="form-label">Email</label>
-                                                                    <input type="email"
-                                                                        value="{{ Auth::user()->email }}" name="email"
-                                                                        class="form-control mt-1" id="email"
-                                                                        placeholder="Email" aria-describedby="emailHelp"
-                                                                        required />
-                                                                </div>
-                                                                <div class="mb-3 col-md-6">
-                                                                    <label for="exampleInputEmail1"
-                                                                        class="form-label">Phone
-                                                                        Number</label>
-                                                                    <input type="text"
-                                                                        value="{{ Auth::user()->phone_number }}"
-                                                                        name="phoneNumber" class="form-control mt-1"
-                                                                        id="exampleInputEmail1" placeholder="Phone Number"
-                                                                        aria-describedby="emailHelp" maxlength="10"
-                                                                        required />
-                                                                </div>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label for="exampleInputPassword1" class="form-label">Card
-                                                                    Number</label>
-                                                                <div id="emailHelp" class="form-text">Enter the 16 digit
-                                                                    card
-                                                                    number on
-                                                                    the card</div>
-                                                                <div class="input-group">
-                                                                    <span class="input-group-text p-0 card-pic"
-                                                                        style="width: 10%; background-color: #c0d1dc38">
-                                                                        <img src="{{ asset('assets\images\discover.png') }}"
-                                                                            alt="" width="90%" />
-                                                                    </span>
-                                                                    <input type="text" name="card_number"
-                                                                        id="card_num" class="form-control"
-                                                                        value="" placeholder="1234234534452324"
-                                                                        required maxlength="19"
-                                                                        onkeyup="addHyphen(this)" />
-                                                                </div>
-                                                            </div>
-                                                            <div class="row mb-3 align-items-center">
-                                                                <div class="col-md-6">
-                                                                    <label for="inputPassword6" class="form-label">CVV/CVC
-                                                                        Number</label>
-                                                                    <p id="passwordHelpInline" class="form-text">Enter the
-                                                                        3 or 4
-                                                                        digit
-                                                                        numbers on card</p>
-                                                                </div>
-                                                                <div class="col-md-6">
-                                                                    <input type="number" name="cvc" value=""
-                                                                        id="inputPassword6"
-                                                                        onKeyPress="if(this.value.length==4) return false;"
-                                                                        class="form-control" placeholder="Enter CVV/CVC"
-                                                                        aria-describedby="passwordHelpInline" required />
-                                                                </div>
-                                                            </div>
-                                                            <div class="row align-items-center mb-3">
-                                                                <div class="col-md-6">
-                                                                    <label for="inputPassword6" class="form-label">Expiry
-                                                                        Date</label>
-                                                                    <p id="passwordHelpInline" class="form-text">Enter the
-                                                                        expiration
-                                                                        date of the card</p>
-                                                                </div>
-                                                                <div class="row col-md-6">
-                                                                    <div class="col-5">
-                                                                        <input type="number" value="12"
-                                                                            name="exp_month" id="inputPassword6"
-                                                                            class="form-control"
-                                                                            aria-describedby="passwordHelpInline"
-                                                                            onKeyPress="if(this.value.length==2) return false;"
-                                                                            required />
-                                                                    </div>
-                                                                    <div class="col-2 text-center m-auto"
-                                                                        style="font-size: 2rem">
-                                                                        /
-                                                                    </div>
-                                                                    <div class="col-5">
-                                                                        <input type="number" value="{{ date('Y') }}"
-                                                                            name="exp_year"
-                                                                            onKeyPress="if(this.value.length==4) return false;"
-                                                                            id="inputPassword6" class="form-control"
-                                                                            aria-describedby="passwordHelpInline"
-                                                                            required />
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-md-4 mb-3">
-                                                                    <label for="zipcode" class="form-label">Zip</label>
-                                                                    <input type="text" name="zipcode" value=""
-                                                                        class="form-control mt-3" id="zipcode"
-                                                                        placeholder="Zip Code"
-                                                                        aria-describedby="emailHelp" required />
-                                                                </div>
-                                                                <div class="col-md-4 mb-3">
-                                                                    <label for="state_code"
-                                                                        class="form-label">State</label>
-                                                                    <input type="text" value=""
-                                                                        name="state_code" class="form-control mt-3"
-                                                                        id="state_code" placeholder="State"
-                                                                        aria-describedby="emailHelp" required />
-                                                                </div>
-                                                                <div class="col-md-4 mb-3">
-                                                                    <label for="city" class="form-label">City</label>
-                                                                    <input type="text" value="" name="city"
-                                                                        class="form-control mt-3" id="city"
-                                                                        placeholder="City" aria-describedby="emailHelp"
-                                                                        required />
-                                                                </div>
-                                                            </div>
-                                                            <div class="mb-3">
-                                                                <label for="exampleInputEmail1"
-                                                                    class="form-label">Address</label>
-                                                                <input type="text" value="" name="address"
-                                                                    class="form-control" id="exampleInputEmail1"
-                                                                    maxlength="60" placeholder="Address"
-                                                                    aria-describedby="emailHelp" required />
-                                                            </div>
                                                             <div class="text-center payment_toggole_form mb-3">
                                                                 <h5>SHIPPING ADDRESS FOR MEDICINES</h5>
                                                                 <label class="switch">
@@ -2121,7 +1956,7 @@ header {
                                                                 </div>
                                                             </div>
                                                             <button type="submit" id="final-pay-button"
-                                                                class="btn btn-primary pay"> Pay
+                                                                class="btn btn-primary pay" disabled> Pay
                                                                 Now</button>
                                                         </form>
                                                     </div>
@@ -2229,7 +2064,7 @@ header {
                                                                 </div>
                                                             </div>
                                                             <button type="submit" id="final-pay-button1"
-                                                                class="btn btn-primary pay">
+                                                                class="btn btn-primary pay" disabled>
                                                                 Pay Now</button>
                                                         </form>
                                                     </div>
@@ -2245,6 +2080,7 @@ header {
                                                         Card</button>
                                                 </div>
                                             @endif
+                                            {{-- //////////////////////////////////// --}}
                                             <div class="payment-form-wrap" id="div1" style="display: none;">
                                                 <div class="card">
                                                     <div class="card-title mx-auto">PAYMENT</div>
@@ -2253,206 +2089,70 @@ header {
                                                         @csrf
                                                         <input type="hidden" class="payAble" id="payAble"
                                                             name="payAble" value="{{ $totalPrice }}">
-                                                        <div class="row">
-                                                            <div class="mb-3 col-md-6">
-                                                                <label for="exampleInputEmail1" class="form-label">Card
-                                                                    Holder
-                                                                    First Name</label>
-                                                                <input type="text" value="{{ Auth::user()->name }}"
-                                                                    name="card_holder_name" class="form-control mt-1"
-                                                                    id="exampleInputEmail1" placeholder="First Name"
-                                                                    aria-describedby="emailHelp" required
-                                                                    maxlength="30" />
-                                                            </div>
-                                                            <div class="mb-3 col-md-6">
-                                                                <label for="exampleInputEmail1" class="form-label">Card
-                                                                    Holder
-                                                                    Last Name</label>
-                                                                <input type="text"
-                                                                    value="{{ Auth::user()->last_name }}"
-                                                                    name="card_holder_last_name" class="form-control mt-1"
-                                                                    id="exampleInputEmail1" placeholder="Last Name"
-                                                                    maxlength="30" aria-describedby="emailHelp"
-                                                                    required />
-                                                            </div>
-                                                            <div class="mb-3 col-md-6">
-                                                                <label for="exampleInputEmail1"
-                                                                    class="form-label">Email</label>
-                                                                <input type="email" value="{{ Auth::user()->email }}"
-                                                                    name="email" class="form-control mt-1"
-                                                                    id="email" placeholder="Email"
-                                                                    aria-describedby="emailHelp" required />
-                                                            </div>
-                                                            <div class="mb-3 col-md-6">
-                                                                <label for="exampleInputEmail1" class="form-label">Phone
-                                                                    Number</label>
-                                                                <input type="text"
-                                                                    value="{{ Auth::user()->phone_number }}"
-                                                                    name="phoneNumber" class="form-control mt-1"
-                                                                    id="exampleInputEmail1" placeholder="Phone Number"
-                                                                    aria-describedby="emailHelp" maxlength="10"
-                                                                    required />
-                                                            </div>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="exampleInputPassword1" class="form-label">Card
-                                                                Number</label>
-                                                            <div id="emailHelp" class="form-text">Enter the 16 digit card
-                                                                number on
-                                                                the card</div>
-                                                            <div class="input-group">
-                                                                <span class="input-group-text p-0 card-pic"
-                                                                    style="width: 10%; background-color: #c0d1dc38">
-                                                                    <img src="{{ asset('assets\images\discover.png') }}"
-                                                                        alt="" width="90%" />
-                                                                </span>
-                                                                <input type="text" name="card_number" id="card_num"
-                                                                    class="form-control" value=""
-                                                                    placeholder="1234234534452324" required maxlength="19"
-                                                                    onkeyup="addHyphen(this)" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="row mb-3 align-items-center">
-                                                            <div class="col-md-6">
-                                                                <label for="inputPassword6" class="form-label">CVV/CVC
-                                                                    Number</label>
-                                                                <p id="passwordHelpInline" class="form-text">Enter the 3
-                                                                    or 4
-                                                                    digit
-                                                                    numbers on card</p>
-                                                            </div>
-                                                            <div class="col-md-6">
-                                                                <input type="number" name="cvc" value=""
-                                                                    id="inputPassword6"
-                                                                    onKeyPress="if(this.value.length==4) return false;"
-                                                                    class="form-control" placeholder="Enter CVV/CVC"
-                                                                    aria-describedby="passwordHelpInline" required />
-                                                            </div>
-                                                        </div>
-                                                        <div class="row align-items-center mb-3">
-                                                            <div class="col-md-6">
-                                                                <label for="inputPassword6" class="form-label">Expiry
-                                                                    Date</label>
-                                                                <p id="passwordHelpInline" class="form-text">Enter the
-                                                                    expiration
-                                                                    date of the card</p>
-                                                            </div>
-                                                            <div class="row col-md-6">
-                                                                <div class="col-5">
-                                                                    <input type="number" value="12" name="exp_month"
-                                                                        id="inputPassword6" class="form-control"
-                                                                        aria-describedby="passwordHelpInline"
-                                                                        onKeyPress="if(this.value.length==2) return false;"
-                                                                        required />
+                                                        <input type="hidden" name="payment_method" id="payment_method">
+                                                            <div class="row gap-2 mb-2">
+                                                                <div class="col-md-12">
+                                                                    <div class="payment-method p-3 d-flex align-items-center justify-content-between" data-method="credit-card">
+                                                                        <h5>Pay with Credit Card</h5>
+                                                                        <img class="icon" src="{{ asset('assets/new_frontend/cards.png') }}" alt="">
+                                                                    </div>
                                                                 </div>
-                                                                <div class="col-2 text-center m-auto"
-                                                                    style="font-size: 2rem">
-                                                                    /
-                                                                </div>
-                                                                <div class="col-5">
-                                                                    <input type="number" value="{{ date('Y') }}"
-                                                                        name="exp_year"
-                                                                        onKeyPress="if(this.value.length==4) return false;"
-                                                                        id="inputPassword6" class="form-control"
-                                                                        aria-describedby="passwordHelpInline" required />
+                                                                <div class="col-md-12">
+                                                                    <div class="payment-method p-3 d-flex align-items-center justify-content-between" data-method="easy-paisa">
+                                                                        <h5>Pay with EasyPaisa</h5>
+                                                                        <img class="icon" src="{{ asset('assets/new_frontend/easypaisa-logo.png') }}" alt="">
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-md-4 mb-3">
-                                                                <label for="zipcode" class="form-label">Zip</label>
-                                                                <input type="text" name="zipcode" value=""
-                                                                    class="form-control mt-3" id="zipcode"
-                                                                    placeholder="Zip Code" aria-describedby="emailHelp"
-                                                                    required />
-                                                            </div>
-                                                            <div class="col-md-4 mb-3">
-                                                                <label for="state_code" class="form-label">State</label>
-                                                                <input type="text" value="" name="state_code"
-                                                                    class="form-control mt-3" id="state_code"
-                                                                    placeholder="State" aria-describedby="emailHelp"
-                                                                    required />
-                                                            </div>
-                                                            <div class="col-md-4 mb-3">
-                                                                <label for="city" class="form-label">City</label>
-                                                                <input type="text" value="" name="city"
-                                                                    class="form-control mt-3" id="city"
-                                                                    placeholder="City" aria-describedby="emailHelp"
-                                                                    required />
-                                                            </div>
-                                                        </div>
-                                                        <div class="mb-3">
-                                                            <label for="exampleInputEmail1"
-                                                                class="form-label">Address</label>
-                                                            <input type="text" value="" name="address"
-                                                                class="form-control" id="exampleInputEmail1"
-                                                                maxlength="60" placeholder="Address"
-                                                                aria-describedby="emailHelp" required />
-                                                        </div>
                                                         <div class="text-center payment_toggole_form mb-3">
                                                             <h5>SHIPPING ADDRESS FOR MEDICINES</h5>
-                                                            <label class="switch">
-                                                                <input type="checkbox" name="sameBilling">
-                                                                <span class="slider round"></span>
-                                                            </label>
                                                         </div>
-                                                        <div class="col-md-12 pt-3 phd border-top" style="display:none">
+                                                        <div class="col-md-12 pt-3 phd border-top">
                                                             <div class="row">
-                                                                <div class="col-md-4 mb-3">
+                                                                <div class="col-md-6 mb-1">
                                                                     <label for="exampleInputEmail1"
                                                                         class="form-label">Full
-                                                                        Name</label>
-                                                                    <input name="shipping_customer_name" type="text"
-                                                                        class="form-control mt-3"
+                                                                        Name*</label>
+                                                                    <input required name="shipping_customer_name" type="text"
+                                                                        class="form-control mt-1"
                                                                         placeholder="Full Name" />
                                                                 </div>
-                                                                <div class="col-md-4 mb-3">
+                                                                <div class="col-md-6 mb-1">
                                                                     <label for="exampleInputEmail1"
                                                                         class="form-label">Email</label>
                                                                     <input name="shipping_customer_email" type="text"
-                                                                        class="form-control mt-3" id="exampleInputEmail1"
+                                                                        class="form-control mt-1" id="exampleInputEmail1"
                                                                         placeholder="Email"
                                                                         aria-describedby="emailHelp" />
                                                                 </div>
-                                                                <div class="col-md-4 mb-3">
+                                                                <div class="col-md-6 mb-1">
                                                                     <label for="exampleInputEmail1"
-                                                                        class="form-label">Phone</label>
-                                                                    <input name="shipping_customer_phone" type="text"
-                                                                        class="form-control mt-3" placeholder="Phone" />
+                                                                        class="form-label">Phone*</label>
+                                                                    <input required name="shipping_customer_phone" type="text"
+                                                                        class="form-control mt-1" placeholder="Phone" />
                                                                 </div>
-                                                                <div class="col-md-4 mb-3">
-                                                                    <label for="zip_code" class="form-label">Zip</label>
-                                                                    <input name="shipping_customer_zip" type="text"
-                                                                        id="zip_code" class="form-control mt-3"
-                                                                        placeholder="Zip Code" />
-                                                                </div>
-                                                                <div class="col-md-4 mb-3">
-                                                                    <label for="ship_state_code"
-                                                                        class="form-label">State</label>
-                                                                    <input name="shipping_customer_state" type="text"
-                                                                        id="ship_state_code" class="form-control mt-3"
-                                                                        placeholder="State" />
-                                                                </div>
-                                                                <div class="col-md-4 mb-3">
-                                                                    <label for="ship_city" class="form-label">City</label>
-                                                                    <input name="shipping_customer_city" type="text"
-                                                                        id="ship_city" class="form-control mt-3"
+                                                                <div class="col-md-6 mb-3">
+                                                                    <label for="ship_city" class="form-label">City*</label>
+                                                                    <input required name="shipping_customer_city" type="text"
+                                                                        id="ship_city" class="form-control mt-1"
                                                                         placeholder="City" />
                                                                 </div>
                                                                 <div class="col-md-12 mb-3">
                                                                     <label for="exampleInputEmail1"
-                                                                        class="form-label">Address</label>
-                                                                    <input name="shipping_customer_address" type="text"
-                                                                        class="form-control mt-3" placeholder="Address" />
+                                                                        class="form-label">Address*</label>
+                                                                    <input required name="shipping_customer_address" type="text"
+                                                                        class="form-control mt-1" placeholder="Address" />
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <button type="submit" id="final-pay-button"
-                                                            class="btn btn-primary pay"> Pay
+                                                            class="btn btn-primary pay" disabled> Pay
                                                             Now</button>
                                                     </form>
                                                 </div>
                                             </div>
+                                            {{-- //////////////////////////////////// --}}
+
                                             <div class="payment-form-wrap" id="div2" style="display: none;">
                                                 <div class="card">
                                                     <div class="card-title mx-auto">PAYMENT</div>
@@ -2550,7 +2250,7 @@ header {
                                                             </div>
                                                         </div>
                                                         <button type="submit" id="final-pay-button1"
-                                                            class="btn btn-primary pay">
+                                                            class="btn btn-primary pay" disabled>
                                                             Pay Now</button>
                                                     </form>
                                                 </div>
