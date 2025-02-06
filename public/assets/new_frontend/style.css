@@ -2671,6 +2671,9 @@ header {
 }
 
 .categories-list li {
+    min-width: 150px;
+    max-width: 200px;
+    text-align: left;
     padding: 0.5rem 1rem;
     border-bottom: 1px solid #dadada;
     color: var(--dark-gray);
@@ -4937,6 +4940,13 @@ header {
 
     .doctor-list-card-container {
         min-height: 200px !important;
+    }
+
+    .categories-list li {
+        min-width: 0;
+        max-width: 80px;
+        font-size: 12px;
+        padding: 0.25rem 0.5rem;
     }
 }
 
