@@ -35,8 +35,13 @@
             border-color: #007bff;
             background-color: #f8f9fa;
         }
+
+        .payment-method h5{
+            font-size: 16px;
+            font-weight: 700;
+        }
         .icon {
-            height: 50px;
+            height: 35px;
             object-fit: cover;
         }
         .process-pay {
@@ -2101,6 +2106,12 @@ header {
                                                                     <div class="payment-method p-3 d-flex align-items-center justify-content-between" data-method="easy-paisa">
                                                                         <h5>Pay with EasyPaisa</h5>
                                                                         <img class="icon" src="{{ asset('assets/new_frontend/easypaisa-logo.png') }}" alt="">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-12">
+                                                                    <div class="payment-method p-3 d-flex align-items-center justify-content-between" data-method="online-cash">
+                                                                        <h5>Pay with Online/Cash</h5>
+                                                                        <img class="icon" src="{{ asset('assets/new_frontend/online-money.png') }}" alt="">
                                                                     </div>
                                                                 </div>
                                                             </div>
