@@ -62,6 +62,8 @@
             var sl = $('#sl_' + id).val();
             var pr = $('#pr_' + id).val();
             var sp = $('#sp_' + id).val();
+            var dis = $('#dis_' + id).val();
+            var ac = $('#ac_' + id).val();
             var des = $('#des_' + id).val();
             var de = $('#de_' + id).val();
             var cat = $('#cat_' + id).val();
@@ -73,6 +75,8 @@
             $('#v_pr').text(pr);
             $('#v_sp').text(sp);
             $('#v_des').text(des);
+            $('#v_dis').text(dis);
+            $('#v_ac').text(ac);
             $('#v_dess').text(des);
             $('#v_de').html(de);
             $('#v_cat').text(cat);
@@ -87,13 +91,22 @@
             var des = $('#des_' + id).val();
             var pr = $('#pr_' + id).val();
             var sp = $('#sp_' + id).val();
+            var dis = $('#dis_' + id).val();
+            var ac = $('#ac_' + id).val();
             var cat = $('#cn_' + id).val();
             var catt = "{{ $categories }}";
             var de = $('#de_' + id).val();
+
+            console.log("DIS" , dis);
+            console.log("AC" , ac);
+
+
             $('#e_id').val(id);
             $('#e_name').val(name);
             $('#e_pr').val(pr);
             $('#e_sp').val(sp);
+            $('#e_dis').val(dis);
+            $('#e_ac').val(ac);
             $('#e_cat').val(cat);
             $('#e_des').text(des);
             $('#e_de').text(de);
@@ -158,6 +171,53 @@
             }
         }
     </script>
+    <script>
+        $(document).ready(function () {
+            function calculateSalePrice() {
+                let discountPercentage = parseFloat($("#discount_percentage").val()) || 0;
+                let actualPrice = parseFloat($("#actual_price").val()) || 0;
+
+                if (discountPercentage > 100 || discountPercentage < 0) {
+                    alert("Discount percentage should be between 0 and 100.");
+                    $("#discount_percentage").val('');
+                    $("#sell_price").val('');
+                    return;
+                }
+
+                let discountAmount = (actualPrice * discountPercentage) / 100;
+                let salePrice = actualPrice - discountAmount;
+
+                if (!isNaN(salePrice)) {
+                    $("#sell_price").val(salePrice.toFixed(2));
+                }
+            }
+
+            $("#discount_percentage, #actual_price").on("input", calculateSalePrice);
+        });
+
+        $(document).ready(function () {
+            function calculateSalePrice() {
+                let discountPercentage = parseFloat($("#e_dis").val()) || 0;
+                let actualPrice = parseFloat($("#e_ac").val()) || 0;
+
+                if (discountPercentage > 100 || discountPercentage < 0) {
+                    alert("Discount percentage should be between 0 and 100.");
+                    $("#e_dis").val('');
+                    $("#e_sp").val('');
+                    return;
+                }
+
+                let discountAmount = (actualPrice * discountPercentage) / 100;
+                let salePrice = actualPrice - discountAmount;
+
+                if (!isNaN(salePrice)) {
+                    $("#e_sp").val(salePrice.toFixed(2));
+                }
+            }
+
+            $("#e_dis, #e_ac").on("input", calculateSalePrice);
+        });
+    </script>
 @endsection
 @section('content')
     <div class="dashboard-content">
@@ -189,6 +249,7 @@
                                     <tr>
                                         <th scope="col">Name</th>
                                         <th scope="col">Category Name</th>
+                                        <th scope="col">Actual Price</th>
                                         <th scope="col">Sell Price</th>
                                         <th scope="col">Action</th>
                                     </tr>
@@ -198,6 +259,7 @@
                                         <tr>
                                             <td data-label="Name">{{ $item->TEST_NAME }}</td>
                                             <td data-label="Category Name">{{ $item->main_category_name }}</td>
+                                            <td data-label="Actual Price">{{ $item->PRICE ?? '-' }}</td>
                                             <td data-label="Sale Price">{{ $item->SALE_PRICE }}</td>
                                             <input type='hidden' id="na_{{ $item->TEST_CD }}"
                                                 value="{{ $item->TEST_NAME }}">
@@ -208,6 +270,10 @@
                                                 value="{{ $item->DESCRIPTION }}">
                                             <input type='hidden' id="pr_{{ $item->TEST_CD }}"
                                                 value="{{ $item->PRICE }}">
+                                            <input type="hidden" id="dis_{{ $item->TEST_CD }}"
+                                                value="{{ $item->discount_percentage }}">
+                                            <input type='hidden' id="ac_{{ $item->TEST_CD }}"
+                                                value="{{ $item->actual_price }}">
                                             <input type='hidden' id="sp_{{ $item->TEST_CD }}"
                                                 value="{{ $item->SALE_PRICE }}">
                                             <input type='hidden' id="de_{{ $item->TEST_CD }}"
@@ -322,6 +388,14 @@
                             </div>
                             <div class="row mt-2">
                                 <div class="col-md-6">
+                                    <p><span class="fw-bold">Discount %:</span> <span id="v_dis">39.00</span></p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p><span class="fw-bold">Sale Price:</span> <span id="v_sp">$ 39.00</span></p>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-md-6">
                                     <p><span class="fw-bold">Is Approved from Admin:</span> <span>Approved</span></p>
                                 </div>
                                 <div class="col-md-6">
@@ -402,13 +476,23 @@
                             </div>
                             <div class="row mt-2">
                                 <div class="col-md-6">
-                                    <label for="specialInstructions">Actual Price:</label>
-                                    <input type="text" name="price" class="form-control" placeholder="" required>
+                                    <label for="price">Actual Price:</label>
+                                    <input type="text" name="price" id="price" class="form-control" placeholder="" required>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="specialInstructions">Sell Price:</label>
-                                    <input type="text" name="sale_price" class="form-control" placeholder=""
-                                        required>
+                                    <label for="discount_percentage">Discount %:</label>
+                                    <input type="text" name="discount_percentage" id="discount_percentage" class="form-control" placeholder="" required>
+                                </div>
+                            </div>
+
+                            <div class="row mt-2">
+                                <div class="col-md-6">
+                                    <label for="actual_price">Sell Price:</label>
+                                    <input type="text" name="actual_price" id="actual_price" class="form-control" placeholder="" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="sale_price">Discounted Price:</label>
+                                    <input readonly type="text" name="sale_price" id="sell_price" class="form-control" placeholder="" required>
                                 </div>
                             </div>
                             <div class="row mt-2">
@@ -488,9 +572,22 @@
                                         placeholder="21">
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="specialInstructions">Sell Price:</label>
-                                    <input type="text" id="e_sp" name="sp" class="form-control"
+                                    <label for="specialInstructions">Discount %:</label>
+                                    <input type="text" id="e_dis" name="discount_percentage" class="form-control"
                                         placeholder="39.00">
+                                </div>
+
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-md-6">
+                                    <label for="specialInstructions">Sell Price:</label>
+                                    <input type="text" id="e_ac" name="actual_price" class="form-control"
+                                        placeholder="39.00">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="specialInstructions">Discounted Price:</label>
+                                    <input type="text" id="e_sp" name="sp" class="form-control"
+                                        placeholder="39.00" readonly>
                                 </div>
 
                             </div>
