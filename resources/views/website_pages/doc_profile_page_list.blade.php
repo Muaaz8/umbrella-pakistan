@@ -17,6 +17,24 @@
 
 @section('bottom_import_file')
 <script>
+    function safeSubstring(text, length) {
+        if (text.length <= length) return text;
+
+        // Trim the text to the desired length
+        let trimmedText = text.substring(0, length);
+
+        // Check if the next character after trimmed length is part of a word
+        if (text.charAt(length) !== ' ') {
+            // Find the last space within the trimmed text
+            const lastSpace = trimmedText.lastIndexOf(' ');
+            if (lastSpace !== -1) {
+                trimmedText = trimmedText.substring(0, lastSpace);
+            }
+        }
+
+        return trimmedText + ' ...';
+    }
+
     <?php
         header('Access-Control-Allow-Origin: *');
         ?>
@@ -45,7 +63,7 @@
                                 $(".doctor-cont2").append(
                                     `<div class="col-sm-6 col-md-4 col-xl-3 doctor-list-card">
                                     <div class="doctor-list-card-container rounded-2 px-2 pt-3 pb-2 position-relative">
-                                    <div class="doctor-experience-badge">${element.details.experience } Years Experience</div>
+                                    <div class="doctor-experience-badge">${element.details.experience} Years Experience</div>
                                     <div class="d-flex pb-4 gap-3"><div class="doctor-new-container d-flex flex-column  align-items-center  gap-2 ">
                                                                                 <div class="doctor-pic-container rounded-circle p-1 position-relative">
                                     <img src="${element.user_image}" alt="Doctor Page" class="rounded-circle object-fit-cover w-100 h-100">
@@ -56,10 +74,10 @@
                                     <h5 class="mb-0">Dr.${element.name} ${element.last_name}</h5>
                                     <h6 class="doctor-verify">PMDC Verified</h6></div>
                                     <p class="">${element.specializations.name}</p>
-                                    <p>${element.details.education.substring(0,30)} ...</p>
+                                    <p>${safeSubstring(element.details.education, 60)}</p>
                                     <div class="doctor-ratings d-flex align-items-center mt-2"></div></div>
-                                    </div><div class="d-flex align-items-center justify-content-center w-100 position-absolute view-button"><button
-                                    class="btn btn-outline-primary" onclick="window.location.href='/doctor-profile/${element.id}'">View Profile</button></div></div></div>`
+                                    </div><div class="d-flex align-items-center justify-content-center w-100"><button
+                                    class="btn btn-outline-primary w-100" onclick="window.location.href='/doctor-profile/${element.id}'">View Profile</button></div></div></div>`
                                 );
                             } else {
                                 $(".doctor-cont2").append(
@@ -77,8 +95,8 @@
                                     <p class="">${element.specializations.name}</p>
                                     <p>MBBS</p>
                                     <div class="doctor-ratings d-flex align-items-center mt-2"></div></div>
-                                    </div><div class="d-flex align-items-center justify-content-center w-100 position-absolute view-button"><button
-                                    class="btn btn-outline-primary" onclick="window.location.href='/doctor-profile/${element.id}'">View Profile</button></div></div></div>`
+                                    </div><div class="d-flex align-items-center justify-content-center w-100"><button
+                                    class="btn btn-outline-primary w-100" onclick="window.location.href='/doctor-profile/${element.id}'">View Profile</button></div></div></div>`
                                 );
                             }
                         });
@@ -122,10 +140,10 @@
                                     <h5 class="mb-0">Dr.${element.name} ${element.last_name}</h5>
                                     <h6 class="doctor-verify">PMDC Verified</h6></div>
                                     <p class="">${element.specializations.name}</p>
-                                    <p>${element.details.education.substring(0,30)} ...</p>
+                                    <p>${safeSubstring(element.details.education, 60)}</p>
                                     <div class="doctor-ratings d-flex align-items-center mt-2"></div></div>
-                                    </div><div class="d-flex align-items-center justify-content-center w-100 position-absolute view-button"><button
-                                    class="btn btn-outline-primary" onclick="window.location.href='/doctor-profile/${element.id}'">View Profile</button></div></div></div>`
+                                    </div><div class="d-flex align-items-center justify-content-center w-100"><button
+                                    class="btn btn-outline-primary w-100" onclick="window.location.href='/doctor-profile/${element.id}'">View Profile</button></div></div></div>`
                                 );
                             } else {
                                 $(".doctor-cont2").append(
@@ -143,8 +161,8 @@
                                     <p class="">${element.specializations.name}</p>
                                     <p>MBBS</p>
                                     <div class="doctor-ratings d-flex align-items-center mt-2"></div></div>
-                                    </div><div class="d-flex align-items-center justify-content-center w-100 position-absolute view-button"><button
-                                    class="btn btn-outline-primary" onclick="window.location.href='/doctor-profile/${element.id}'">View Profile</button></div></div></div>`
+                                    </div><div class="d-flex align-items-center justify-content-center w-100"><button
+                                    class="btn btn-outline-primary w-100" onclick="window.location.href='/doctor-profile/${element.id}'">View Profile</button></div></div></div>`
                                 );
                             }
                         });

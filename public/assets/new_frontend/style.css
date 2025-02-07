@@ -5117,6 +5117,7 @@ header {
 }
 
 .doctor-verify {
+    margin: 0 0 0.1rem 0;
     font-size: 0.7rem;
     color: var(--red);
 }
