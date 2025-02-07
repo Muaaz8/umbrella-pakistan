@@ -825,6 +825,7 @@ class PharmacyController extends Controller
 
     public function authorize_create_new_order(Request $request)
     {
+        $request->payAble = filter_var($request->payAble, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
         $request->payAble = $request->payAble*100;
         $user = Auth::user();
         $orderId = '';
