@@ -54,7 +54,7 @@
                                     </div>
                                     <div class="doctor-data-container"><div class="d-flex flex-column gap-1">
                                     <h5 class="mb-0">Dr.${element.name} ${element.last_name}</h5>
-                                    <h6 class="doctor-verify">PMDC Verified</h6></div>
+                                    <h6 class="doctor-verify">${element.zip_code == null?"PMDC Verified":""}</h6></div>
                                     <p class="">${element.specializations.name}</p>
                                     <p>${element.details.education.substring(0,30)} ...</p>
                                     <div class="doctor-ratings d-flex align-items-center mt-2"></div></div>
@@ -73,7 +73,7 @@
                                     </div>
                                     <div class="doctor-data-container"><div class="d-flex flex-column gap-1">
                                     <h5 class="mb-0">Dr.${element.name} ${element.last_name}</h5>
-                                    <h6 class="doctor-verify">PMDC Verified</h6></div>
+                                    <h6 class="doctor-verify">${element.zip_code == null?"PMDC Verified":""}</h6></div>
                                     <p class="">${element.specializations.name}</p>
                                     <p>MBBS</p>
                                     <div class="doctor-ratings d-flex align-items-center mt-2"></div></div>
@@ -120,7 +120,7 @@
                                     </div>
                                     <div class="doctor-data-container"><div class="d-flex flex-column gap-1">
                                     <h5 class="mb-0">Dr.${element.name} ${element.last_name}</h5>
-                                    <h6 class="doctor-verify">PMDC Verified</h6></div>
+                                    <h6 class="doctor-verify">${element.zip_code == null?"PMDC Verified":""}</h6></div>
                                     <p class="">${element.specializations.name}</p>
                                     <p>${element.details.education.substring(0,30)} ...</p>
                                     <div class="doctor-ratings d-flex align-items-center mt-2"></div></div>
@@ -139,7 +139,7 @@
                                     </div>
                                     <div class="doctor-data-container"><div class="d-flex flex-column gap-1">
                                     <h5 class="mb-0">Dr.${element.name} ${element.last_name}</h5>
-                                    <h6 class="doctor-verify">PMDC Verified</h6></div>
+                                    <h6 class="doctor-verify">${element.zip_code == null?"PMDC Verified":""}</h6></div>
                                     <p class="">${element.specializations.name}</p>
                                     <p>MBBS</p>
                                     <div class="doctor-ratings d-flex align-items-center mt-2"></div></div>
@@ -265,7 +265,9 @@
                                     <h5 class="mb-0">Dr.
                                         {{ \Str::ucfirst($doctor->name) . ' ' . \Str::ucfirst($doctor->last_name) }}
                                     </h5>
-                                    <h6 class="doctor-verify">PMDC Verified</h6>
+                                    @if ($doctor->zip_code == null)
+                                        <h6 class="doctor-verify">PMDC Verified</h6>
+                                    @endif
                                 </div>
                                 <p class="">{{ $doctor->specializations->name }}</p>
                                 <p>{!! nl2br(isset($doctor->details->education) ?

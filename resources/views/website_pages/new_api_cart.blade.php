@@ -1857,441 +1857,98 @@
                         <section>
                             <div class="container">
                                 <div class="row">
-                                    @if (count($cards) != 0)
-                                        <h6>Your saved cards:</h6>
-                                        <div class="col-md-7 mb-3 px-md-2 p-0 ">
-                                            <div class="col-md-8 mb-2">
-                                                @foreach ($cards as $card)
-                                                    <div class="d-flex align-items-center mb-2 justify-content-between api_saved_card"
-                                                        data-card="{{ $card->id }}" onclick="divClick(this)">
-                                                        <div class="d-flex align-items-center">
-                                                            @if ($card->card_type == '5')
-                                                                <img src="{{ asset('assets/images/master.png') }}"
+                                    <div class="col-md-7 mb-3 px-md-2 p-0 ">
+                                        {{-- //////////////////////////////////// --}}
+                                        <div class="payment-form-wrap" id="div1" style="display: none;">
+                                            <div class="card">
+                                                <div class="card-title mx-auto">PAYMENT</div>
+                                                <form method="post" id="formWithCard"
+                                                    action="{{ route('order.payment') }}">
+                                                    @csrf
+                                                    <input type="hidden" class="payAble" id="payAble"
+                                                        name="payAble" value="{{ $totalPrice }}">
+                                                    <input type="hidden" name="payment_method" id="payment_method">
+                                                    <div class="row gap-2 mb-2">
+                                                        <div class="col-md-12">
+                                                            <div class="payment-method p-3 d-flex align-items-center justify-content-between"
+                                                                data-method="credit-card">
+                                                                <h5>Pay with Credit Card</h5>
+                                                                <img class="icon"
+                                                                    src="{{ asset('assets/new_frontend/cards.png') }}"
                                                                     alt="">
-                                                            @elseif ($card->card_type == '4')
-                                                                <img src="{{ asset('assets/images/visa.png') }}"
-                                                                    alt="">
-                                                            @elseif ($card->card_type == '3')
-                                                                <img src="{{ asset('assets/images/american-express.png') }}"
-                                                                    alt="">
-                                                            @elseif ($card->card_type == '6')
-                                                                <img src="{{ asset('assets/images/discover.png') }}"
-                                                                    alt="">
-                                                            @endif
-                                                            <label for="cardNo" class="ps-3"><b>**** **** ****
-                                                                    {{ $card->card_number }}</b></label>
+                                                            </div>
                                                         </div>
-                                                        <div class="checkb-round">
-                                                            <input type="radio" onclick="radioClick(this)"
-                                                                class="{{ $card->id }}" name="card"
-                                                                id="cardNo" />
-                                                            {{-- <label for="checkbox"></label> --}}
+                                                        <div class="col-md-12">
+                                                            <div class="payment-method p-3 d-flex align-items-center justify-content-between"
+                                                                data-method="easy-paisa">
+                                                                <h5>Pay with EasyPaisa</h5>
+                                                                <img class="icon"
+                                                                    src="{{ asset('assets/new_frontend/easypaisa-logo.png') }}"
+                                                                    alt="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <div class="payment-method p-3 d-flex align-items-center justify-content-between"
+                                                                data-method="online-cash">
+                                                                <h5>Pay with Online/Cash</h5>
+                                                                <img class="icon"
+                                                                    src="{{ asset('assets/new_frontend/online-money.png') }}"
+                                                                    alt="">
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                @endforeach
-
-                                            </div>
-                                            <div class="col-md-12 mb-3 px-md-2 p-0 ">
-                                                @if (count($cards) != 0)
-                                                    <div class="col-md-4 mb-3">
-                                                        <button id="addButton" onclick="addCard()"
-                                                            class="btn process-pay" style="width:100%">Add New
-                                                            Card</button>
+                                                    <div class="text-center payment_toggole_form mb-3">
+                                                        <h5>SHIPPING ADDRESS FOR MEDICINES</h5>
                                                     </div>
-                                                @endif
-                                                <div class="payment-form-wrap" id="div1" style="display: none;">
-                                                    <div class="card">
-                                                        <div class="card-title mx-auto">PAYMENT</div>
-                                                        <form method="post" id="formWithCard"
-                                                            action="{{ route('order.payment') }}">
-                                                            @csrf
-                                                            <input type="hidden" class="payAble" id="payAble"
-                                                                name="payAble" value="{{ $totalPrice }}">
-                                                            <div class="text-center payment_toggole_form mb-3">
-                                                                <h5>SHIPPING ADDRESS FOR MEDICINES</h5>
-                                                                <label class="switch">
-                                                                    <input type="checkbox" name="sameBilling">
-                                                                    <span class="slider round"></span>
-                                                                </label>
+                                                    <div class="col-md-12 pt-3 phd border-top">
+                                                        <div class="row">
+                                                            <div class="col-md-6 mb-1">
+                                                                <label for="exampleInputEmail1"
+                                                                    class="form-label">Full
+                                                                    Name*</label>
+                                                                <input required name="shipping_customer_name"
+                                                                    type="text" class="form-control mt-1"
+                                                                    placeholder="Full Name" />
                                                             </div>
-                                                            <div class="col-md-12 pt-3 phd border-top"
-                                                                style="display:none">
-                                                                <div class="row">
-                                                                    <div class="col-md-4 mb-3">
-                                                                        <label for="exampleInputEmail1"
-                                                                            class="form-label">Full
-                                                                            Name</label>
-                                                                        <input name="shipping_customer_name"
-                                                                            type="text" class="form-control mt-3"
-                                                                            placeholder="Full Name" />
-                                                                    </div>
-                                                                    <div class="col-md-4 mb-3">
-                                                                        <label for="exampleInputEmail1"
-                                                                            class="form-label">Email</label>
-                                                                        <input name="shipping_customer_email"
-                                                                            type="text" class="form-control mt-3"
-                                                                            id="exampleInputEmail1" placeholder="Email"
-                                                                            aria-describedby="emailHelp" />
-                                                                    </div>
-                                                                    <div class="col-md-4 mb-3">
-                                                                        <label for="exampleInputEmail1"
-                                                                            class="form-label">Phone</label>
-                                                                        <input name="shipping_customer_phone"
-                                                                            type="text" class="form-control mt-3"
-                                                                            placeholder="Phone" />
-                                                                    </div>
-                                                                    <div class="col-md-4 mb-3">
-                                                                        <label for="zip_code"
-                                                                            class="form-label">Zip</label>
-                                                                        <input name="shipping_customer_zip" type="text"
-                                                                            id="zip_code" class="form-control mt-3"
-                                                                            placeholder="Zip Code" />
-                                                                    </div>
-                                                                    <div class="col-md-4 mb-3">
-                                                                        <label for="ship_state_code"
-                                                                            class="form-label">State</label>
-                                                                        <input name="shipping_customer_state"
-                                                                            type="text" id="ship_state_code"
-                                                                            class="form-control mt-3"
-                                                                            placeholder="State" />
-                                                                    </div>
-                                                                    <div class="col-md-4 mb-3">
-                                                                        <label for="ship_city"
-                                                                            class="form-label">City</label>
-                                                                        <input name="shipping_customer_city"
-                                                                            type="text" id="ship_city"
-                                                                            class="form-control mt-3"
-                                                                            placeholder="City" />
-                                                                    </div>
-                                                                    <div class="col-md-12 mb-3">
-                                                                        <label for="exampleInputEmail1"
-                                                                            class="form-label">Address</label>
-                                                                        <input name="shipping_customer_address"
-                                                                            type="text" class="form-control mt-3"
-                                                                            placeholder="Address" />
-                                                                    </div>
-                                                                </div>
+                                                            <div class="col-md-6 mb-1">
+                                                                <label for="exampleInputEmail1"
+                                                                    class="form-label">Email</label>
+                                                                <input name="shipping_customer_email" type="text"
+                                                                    class="form-control mt-1" id="exampleInputEmail1"
+                                                                    placeholder="Email"
+                                                                    aria-describedby="emailHelp" />
                                                             </div>
-                                                            <button type="submit" id="final-pay-button"
-                                                                class="btn btn-primary pay" disabled> Pay
-                                                                Now</button>
-                                                        </form>
+                                                            <div class="col-md-6 mb-1">
+                                                                <label for="exampleInputEmail1"
+                                                                    class="form-label">Phone*</label>
+                                                                <input required name="shipping_customer_phone"
+                                                                    type="text" class="form-control mt-1"
+                                                                    placeholder="Phone" />
+                                                            </div>
+                                                            <div class="col-md-6 mb-3">
+                                                                <label for="ship_city"
+                                                                    class="form-label">City*</label>
+                                                                <input required name="shipping_customer_city"
+                                                                    type="text" id="ship_city"
+                                                                    class="form-control mt-1" placeholder="City" />
+                                                            </div>
+                                                            <div class="col-md-12 mb-3">
+                                                                <label for="exampleInputEmail1"
+                                                                    class="form-label">Address*</label>
+                                                                <input required name="shipping_customer_address"
+                                                                    type="text" class="form-control mt-1"
+                                                                    placeholder="Address" />
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="payment-form-wrap" id="div2" style="display: none;">
-                                                    <div class="card">
-                                                        <div class="card-title mx-auto">PAYMENT</div>
-
-                                                        <form method="post" id="formWithCard1"
-                                                            action="{{ route('order.payment') }}">
-                                                            @csrf
-                                                            {{-- <input type="hidden" id="payAble" name="payAble" value="{{ $totalPrice }}"> --}}
-                                                            <input type="hidden" name="old_card" value="yes">
-                                                            <input type="hidden" name="session_id" value="">
-                                                            <input type="hidden" class="payAble" id="payAble"
-                                                                name="payAble" value="{{ $totalPrice }}">
-                                                            <input type="hidden" name="card_no" id="card_no"
-                                                                value="">
-                                                            <input type="hidden" id="billing_name"
-                                                                name="card_holder_name">
-                                                            <input type="hidden" id="billing_last_name"
-                                                                name="card_holder_last_name">
-                                                            <input type="hidden" id="billing_card_number"
-                                                                name="card_number">
-                                                            <input type="hidden" id="billing_email" name="email">
-                                                            <input type="hidden" id="billing_month" name="exp_month">
-                                                            <input type="hidden" id="billing_year" name="exp_year">
-                                                            <input type="hidden" id="billing_csc" name="csc">
-                                                            <input type="hidden" id="billing_name" name="name">
-                                                            <input type="hidden" id="billing_address" name="address">
-                                                            <input type="hidden" id="billing_city" name="city">
-                                                            <input type="hidden" id="billing_state" name="state_code">
-                                                            <input type="hidden" id="billing_zip" name="zipcode">
-                                                            <input type="hidden" id="billing_phone" name="phoneNumber">
-
-                                                            <div class="text-center payment_toggole_form mb-3">
-                                                                <h5>SHIPPING ADDRESS FOR MEDICINES</h5>
-                                                                <label class="switch">
-                                                                    <input type="checkbox" id="slider_round"
-                                                                        name="sameBilling">
-                                                                    <span class="slider round"></span>
-                                                                </label>
-                                                            </div>
-                                                            <div class="col-md-12 pt-3 phd border-top"
-                                                                style="display:none">
-                                                                <div class="row">
-                                                                    <div class="col-md-4 mb-3">
-                                                                        <label for="exampleInputEmail1"
-                                                                            class="form-label">Full
-                                                                            Name</label>
-                                                                        <input name="shipping_customer_name"
-                                                                            type="text" id="shipping_customer_name"
-                                                                            class="form-control mt-3"
-                                                                            placeholder="Full Name" value="" />
-                                                                    </div>
-                                                                    <div class="col-md-4 mb-3">
-                                                                        <label for="exampleInputEmail1"
-                                                                            class="form-label">Email</label>
-                                                                        <input name="shipping_customer_email"
-                                                                            type="text" class="form-control mt-3"
-                                                                            id="shipping_customer_email"
-                                                                            placeholder="Email"
-                                                                            aria-describedby="emailHelp" value="" />
-                                                                    </div>
-                                                                    <div class="col-md-4 mb-3">
-                                                                        <label for="exampleInputEmail1"
-                                                                            class="form-label">Phone</label>
-                                                                        <input name="shipping_customer_phone"
-                                                                            type="text" id="shipping_customer_phone"
-                                                                            class="form-control mt-3" placeholder="Phone"
-                                                                            value="" />
-                                                                    </div>
-                                                                    <div class="col-md-4 mb-3">
-                                                                        <label for="Zip_Code"
-                                                                            class="form-label">Zip</label>
-                                                                        <input name="shipping_customer_zip" type="text"
-                                                                            id="shipping_customer_zip"
-                                                                            class="form-control mt-3"
-                                                                            placeholder="Zip Code" value="" />
-                                                                    </div>
-                                                                    <div class="col-md-4 mb-3">
-                                                                        <label for="State_Code"
-                                                                            class="form-label">State</label>
-                                                                        <input name="shipping_customer_state"
-                                                                            type="text" id="shipping_customer_state"
-                                                                            class="form-control mt-3" placeholder="State"
-                                                                            value="" />
-                                                                    </div>
-                                                                    <div class="col-md-4 mb-3">
-                                                                        <label for="City"
-                                                                            class="form-label">City</label>
-                                                                        <input name="shipping_customer_city"
-                                                                            type="text" id="shipping_customer_city"
-                                                                            class="form-control mt-3" placeholder="City"
-                                                                            value="" />
-                                                                    </div>
-                                                                    <div class="col-md-12 mb-3">
-                                                                        <label for="exampleInputEmail1"
-                                                                            class="form-label">Address</label>
-                                                                        <input name="shipping_customer_address"
-                                                                            type="text" class="form-control mt-3"
-                                                                            placeholder="Address" value=""
-                                                                            id="shipping_customer_address" />
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <button type="submit" id="final-pay-button1"
-                                                                class="btn btn-primary pay" disabled>
-                                                                Pay Now</button>
-                                                        </form>
-                                                    </div>
-                                                </div>
+                                                    <button type="submit" id="final-pay-button"
+                                                        class="btn btn-primary pay" disabled> Pay
+                                                        Now</button>
+                                                </form>
                                             </div>
                                         </div>
-                                    @else
-                                        <div class="col-md-7 mb-3 px-md-2 p-0 ">
-                                            @if (count($cards) != 0)
-                                                <div class="col-md-4 mb-3">
-                                                    <button id="addButton" onclick="addCard()" class="btn process-pay"
-                                                        style="width:100%">Add New
-                                                        Card</button>
-                                                </div>
-                                            @endif
-                                            {{-- //////////////////////////////////// --}}
-                                            <div class="payment-form-wrap" id="div1" style="display: none;">
-                                                <div class="card">
-                                                    <div class="card-title mx-auto">PAYMENT</div>
-                                                    <form method="post" id="formWithCard"
-                                                        action="{{ route('order.payment') }}">
-                                                        @csrf
-                                                        <input type="hidden" class="payAble" id="payAble"
-                                                            name="payAble" value="{{ $totalPrice }}">
-                                                        <input type="hidden" name="payment_method" id="payment_method">
-                                                        <div class="row gap-2 mb-2">
-                                                            <div class="col-md-12">
-                                                                <div class="payment-method p-3 d-flex align-items-center justify-content-between"
-                                                                    data-method="credit-card">
-                                                                    <h5>Pay with Credit Card</h5>
-                                                                    <img class="icon"
-                                                                        src="{{ asset('assets/new_frontend/cards.png') }}"
-                                                                        alt="">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-12">
-                                                                <div class="payment-method p-3 d-flex align-items-center justify-content-between"
-                                                                    data-method="easy-paisa">
-                                                                    <h5>Pay with EasyPaisa</h5>
-                                                                    <img class="icon"
-                                                                        src="{{ asset('assets/new_frontend/easypaisa-logo.png') }}"
-                                                                        alt="">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-12">
-                                                                <div class="payment-method p-3 d-flex align-items-center justify-content-between"
-                                                                    data-method="online-cash">
-                                                                    <h5>Pay with Online/Cash</h5>
-                                                                    <img class="icon"
-                                                                        src="{{ asset('assets/new_frontend/online-money.png') }}"
-                                                                        alt="">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="text-center payment_toggole_form mb-3">
-                                                            <h5>SHIPPING ADDRESS FOR MEDICINES</h5>
-                                                        </div>
-                                                        <div class="col-md-12 pt-3 phd border-top">
-                                                            <div class="row">
-                                                                <div class="col-md-6 mb-1">
-                                                                    <label for="exampleInputEmail1"
-                                                                        class="form-label">Full
-                                                                        Name*</label>
-                                                                    <input required name="shipping_customer_name"
-                                                                        type="text" class="form-control mt-1"
-                                                                        placeholder="Full Name" />
-                                                                </div>
-                                                                <div class="col-md-6 mb-1">
-                                                                    <label for="exampleInputEmail1"
-                                                                        class="form-label">Email</label>
-                                                                    <input name="shipping_customer_email" type="text"
-                                                                        class="form-control mt-1" id="exampleInputEmail1"
-                                                                        placeholder="Email"
-                                                                        aria-describedby="emailHelp" />
-                                                                </div>
-                                                                <div class="col-md-6 mb-1">
-                                                                    <label for="exampleInputEmail1"
-                                                                        class="form-label">Phone*</label>
-                                                                    <input required name="shipping_customer_phone"
-                                                                        type="text" class="form-control mt-1"
-                                                                        placeholder="Phone" />
-                                                                </div>
-                                                                <div class="col-md-6 mb-3">
-                                                                    <label for="ship_city"
-                                                                        class="form-label">City*</label>
-                                                                    <input required name="shipping_customer_city"
-                                                                        type="text" id="ship_city"
-                                                                        class="form-control mt-1" placeholder="City" />
-                                                                </div>
-                                                                <div class="col-md-12 mb-3">
-                                                                    <label for="exampleInputEmail1"
-                                                                        class="form-label">Address*</label>
-                                                                    <input required name="shipping_customer_address"
-                                                                        type="text" class="form-control mt-1"
-                                                                        placeholder="Address" />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <button type="submit" id="final-pay-button"
-                                                            class="btn btn-primary pay" disabled> Pay
-                                                            Now</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                            {{-- //////////////////////////////////// --}}
-
-                                            <div class="payment-form-wrap" id="div2" style="display: none;">
-                                                <div class="card">
-                                                    <div class="card-title mx-auto">PAYMENT</div>
-
-                                                    <form method="post" id="formWithCard1"
-                                                        action="{{ route('order.payment') }}">
-                                                        @csrf
-                                                        {{-- <input type="hidden" id="payAble" name="payAble" value="{{ $totalPrice }}"> --}}
-                                                        <input type="hidden" name="old_card" value="yes">
-                                                        <input type="hidden" name="session_id" value="">
-                                                        <input type="hidden" class="payAble" id="payAble"
-                                                            name="payAble" value="{{ $totalPrice }}">
-                                                        <input type="hidden" name="card_no" id="card_no"
-                                                            value="">
-                                                        <input type="hidden" id="billing_name" name="card_holder_name">
-                                                        <input type="hidden" id="billing_last_name"
-                                                            name="card_holder_last_name">
-                                                        <input type="hidden" id="billing_card_number"
-                                                            name="card_number">
-                                                        <input type="hidden" id="billing_email" name="email">
-                                                        <input type="hidden" id="billing_month" name="exp_month">
-                                                        <input type="hidden" id="billing_year" name="exp_year">
-                                                        <input type="hidden" id="billing_csc" name="csc">
-                                                        <input type="hidden" id="billing_name" name="name">
-                                                        <input type="hidden" id="billing_address" name="address">
-                                                        <input type="hidden" id="billing_city" name="city">
-                                                        <input type="hidden" id="billing_state" name="state_code">
-                                                        <input type="hidden" id="billing_zip" name="zipcode">
-                                                        <input type="hidden" id="billing_phone" name="phoneNumber">
-
-                                                        <div class="text-center payment_toggole_form mb-3">
-                                                            <h5>SHIPPING ADDRESS FOR MEDICINES</h5>
-                                                            <label class="switch">
-                                                                <input type="checkbox" id="slider_round"
-                                                                    name="sameBilling">
-                                                                <span class="slider round"></span>
-                                                            </label>
-                                                        </div>
-                                                        <div class="col-md-12 pt-3 phd border-top" style="display:none">
-                                                            <div class="row">
-                                                                <div class="col-md-4 mb-3">
-                                                                    <label for="exampleInputEmail1"
-                                                                        class="form-label">Full
-                                                                        Name</label>
-                                                                    <input name="shipping_customer_name" type="text"
-                                                                        id="shipping_customer_name"
-                                                                        class="form-control mt-3" placeholder="Full Name"
-                                                                        value="" />
-                                                                </div>
-                                                                <div class="col-md-4 mb-3">
-                                                                    <label for="exampleInputEmail1"
-                                                                        class="form-label">Email</label>
-                                                                    <input name="shipping_customer_email" type="text"
-                                                                        class="form-control mt-3"
-                                                                        id="shipping_customer_email" placeholder="Email"
-                                                                        aria-describedby="emailHelp" value="" />
-                                                                </div>
-                                                                <div class="col-md-4 mb-3">
-                                                                    <label for="exampleInputEmail1"
-                                                                        class="form-label">Phone</label>
-                                                                    <input name="shipping_customer_phone" type="text"
-                                                                        id="shipping_customer_phone"
-                                                                        class="form-control mt-3" placeholder="Phone"
-                                                                        value="" />
-                                                                </div>
-                                                                <div class="col-md-4 mb-3">
-                                                                    <label for="Zip_Code" class="form-label">Zip</label>
-                                                                    <input name="shipping_customer_zip" type="text"
-                                                                        id="shipping_customer_zip"
-                                                                        class="form-control mt-3" placeholder="Zip Code"
-                                                                        value="" />
-                                                                </div>
-                                                                <div class="col-md-4 mb-3">
-                                                                    <label for="State_Code"
-                                                                        class="form-label">State</label>
-                                                                    <input name="shipping_customer_state" type="text"
-                                                                        id="shipping_customer_state"
-                                                                        class="form-control mt-3" placeholder="State"
-                                                                        value="" />
-                                                                </div>
-                                                                <div class="col-md-4 mb-3">
-                                                                    <label for="City" class="form-label">City</label>
-                                                                    <input name="shipping_customer_city" type="text"
-                                                                        id="shipping_customer_city"
-                                                                        class="form-control mt-3" placeholder="City"
-                                                                        value="" />
-                                                                </div>
-                                                                <div class="col-md-12 mb-3">
-                                                                    <label for="exampleInputEmail1"
-                                                                        class="form-label">Address</label>
-                                                                    <input name="shipping_customer_address" type="text"
-                                                                        class="form-control mt-3" placeholder="Address"
-                                                                        value="" id="shipping_customer_address" />
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <button type="submit" id="final-pay-button1"
-                                                            class="btn btn-primary pay" disabled>
-                                                            Pay Now</button>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    @endif
+                                        {{-- //////////////////////////////////// --}}
+                                    </div>
                                     <div class="col-md-5">
                                         <div>
                                             <div class="row payment-order-summary-wrap">

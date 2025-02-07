@@ -796,6 +796,8 @@ class DoctorController extends Controller
             }else{
                 return redirect()->back()->with('error','Sorry, we are currently facing server issues. Please try again later.');
             }
+        // }elseif($request->payment_method == "online-cash"){
+        //     dd('here');
         }else{
             Session::find($session_id)->delete();
             return redirect()->back()->with('error','Sorry, Can\'t process with this payment method right now.Kindly try different method.');
