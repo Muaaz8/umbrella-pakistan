@@ -76,8 +76,8 @@
                                     <p class="">${element.specializations.name}</p>
                                     <p>${safeSubstring(element.details.education, 60)}</p>
                                     <div class="doctor-ratings d-flex align-items-center mt-2"></div></div>
-                                    </div><div class="d-flex align-items-center justify-content-center w-100"><button
-                                    class="btn btn-outline-primary w-100" onclick="window.location.href='/doctor-profile/${element.id}'">View Profile</button></div></div></div>`
+                                    </div><div class="d-flex align-items-center justify-content-center w-100 position-absolute view-button"><button
+                                    class="btn btn-outline-primary" onclick="window.location.href='/doctor-profile/${element.id}'">View Profile</button></div></div></div>`
                                 );
                             } else {
                                 $(".doctor-cont2").append(
@@ -95,8 +95,8 @@
                                     <p class="">${element.specializations.name}</p>
                                     <p>MBBS</p>
                                     <div class="doctor-ratings d-flex align-items-center mt-2"></div></div>
-                                    </div><div class="d-flex align-items-center justify-content-center w-100"><button
-                                    class="btn btn-outline-primary w-100" onclick="window.location.href='/doctor-profile/${element.id}'">View Profile</button></div></div></div>`
+                                    </div><div class="d-flex align-items-center justify-content-center w-100 position-absolute view-button"><button
+                                    class="btn btn-outline-primary" onclick="window.location.href='/doctor-profile/${element.id}'">View Profile</button></div></div></div>`
                                 );
                             }
                         });
@@ -142,8 +142,8 @@
                                     <p class="">${element.specializations.name}</p>
                                     <p>${safeSubstring(element.details.education, 60)}</p>
                                     <div class="doctor-ratings d-flex align-items-center mt-2"></div></div>
-                                    </div><div class="d-flex align-items-center justify-content-center w-100"><button
-                                    class="btn btn-outline-primary w-100" onclick="window.location.href='/doctor-profile/${element.id}'">View Profile</button></div></div></div>`
+                                    </div><div class="d-flex align-items-center justify-content-center w-100 position-absolute view-button"><button
+                                    class="btn btn-outline-primary" onclick="window.location.href='/doctor-profile/${element.id}'">View Profile</button></div></div></div>`
                                 );
                             } else {
                                 $(".doctor-cont2").append(
@@ -161,8 +161,8 @@
                                     <p class="">${element.specializations.name}</p>
                                     <p>MBBS</p>
                                     <div class="doctor-ratings d-flex align-items-center mt-2"></div></div>
-                                    </div><div class="d-flex align-items-center justify-content-center w-100"><button
-                                    class="btn btn-outline-primary w-100" onclick="window.location.href='/doctor-profile/${element.id}'">View Profile</button></div></div></div>`
+                                    </div><div class="d-flex align-items-center justify-content-center w-100 position-absolute view-button"><button
+                                    class="btn btn-outline-primary" onclick="window.location.href='/doctor-profile/${element.id}'">View Profile</button></div></div></div>`
                                 );
                             }
                         });
@@ -252,7 +252,7 @@
                     </form>
                 </div>
             </div>
-            <div class="row gy-3 gx-4 doctor-cont">
+            <div class="row gy-3 gx-3 doctor-cont">
                 @foreach ($doctors as $doctor)
                 <div class="col-sm-6 col-md-4 col-xl-3 doctor-list-card">
                     <div class="doctor-list-card-container rounded-2 px-2 pt-3 pb-2 position-relative">
@@ -285,10 +285,7 @@
                                     </h5>
                                     <h6 class="doctor-verify">PMDC Verified</h6>
                                 </div>
-                                <p class="">{{ $doctor->specializations->name }}</p>
-                                <p>{!! nl2br(isset($doctor->details->education) ?
-                                    \Str::limit($doctor->details->education, 40) : 'MBBS') !!}</p>
-                                <div class="doctor-ratings d-flex align-items-center  mt-2">
+                                <div class="doctor-ratings d-flex align-items-center  my-1">
                                     @if ($doctor->rating != null)
                                     @php
                                     $fullStars = floor($doctor->rating / 20); // Number of full stars
@@ -310,6 +307,9 @@
                                             <i class="fa-solid fa-star"></i>
                                             @endif
                                 </div>
+                                <p class="">{{ $doctor->specializations->name }}</p>
+                                <p>{!! nl2br(isset($doctor->details->education) ?
+                                    \Str::limit($doctor->details->education, 50) : 'MBBS') !!}</p>
                             </div>
 
 

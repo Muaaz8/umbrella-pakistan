@@ -4164,11 +4164,11 @@ header {
     }
 }
 
-@media (min-width: 767px) and (max-width: 856px) {
+/* @media (min-width: 767px) and (max-width: 856px) {
     .doctor-list-card-container {
         min-height: 230px !important;
     }
-}
+} */
 
 @media screen and (max-width: 855px) {
     #problems-section>div>h2 {
@@ -5122,11 +5122,11 @@ header {
     color: var(--red);
 }
 
-.doctor-data-container > p:nth-child(2) {
+.doctor-data-container > p:nth-child(3) {
     font-size: 0.8rem;
 }
 
-.doctor-data-container > p:nth-child(3) {
+.doctor-data-container > p:nth-child(4) {
     font-size: 0.65rem;
     /* white-space: nowrap;
     width: 60%;
