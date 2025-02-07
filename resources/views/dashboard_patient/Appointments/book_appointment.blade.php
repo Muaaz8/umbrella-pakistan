@@ -64,6 +64,37 @@
             letter-spacing: 1px
         }
 
+        .payment-method {
+        cursor: pointer;
+        border: 2px solid #ddd;
+        border-radius: 10px;
+        padding: 15px;
+        text-align: center;
+        transition: 0.3s;
+    }
+
+    .payment-method:hover,
+    .payment-method.active {
+        border-color: #007bff;
+        background-color: #f8f9fa;
+    }
+
+    .payment-method h5 {
+        font-size: 14px;
+        font-weight: 700;
+        margin: 0;
+    }
+
+    .icon {
+        height: 35px;
+        object-fit: cover;
+    }
+
+    #submit_btn:disabled {
+        background-color: #82a2e7;
+        color: #000;
+    }
+
         #msform .custom_input:focus {
             -moz-box-shadow: none !important;
             -webkit-box-shadow: none !important;
