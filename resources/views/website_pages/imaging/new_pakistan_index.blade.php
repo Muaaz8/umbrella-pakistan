@@ -79,9 +79,13 @@
                                                         Learn More
                                                     </button>
                                                 </div>
+                                                ${value.discount_percentage ? '<span class="discount-no">'+value.discount_percentage+'% Off</span>' : ''}
                                                 <h4 class="truncate" title="${value.TEST_NAME}">${value.TEST_NAME}</h4>
                                                 <p class="truncate-overflow">${value.DETAILS}</p>
-                                                <div class="test-card-price">Rs. ${value.SALE_PRICE}</div>
+                                                <div class="test-card-price d-flex gap-3 align-items-center">
+                                                    <span class="discounted-price">Rs. ${value.SALE_PRICE}</span>
+                                                    ${value.actual_price ? '<span class="actual-price">Rs. '+value.actual_price+'</span>' : ''}
+                                                </div>
                                                 <button class="learn_btn" data-bs-toggle="modal" data-bs-target="#loginModal" type="button">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
                                             </div>
                                         </div>`
@@ -97,9 +101,13 @@
                                                         Learn More
                                                     </button>
                                                 </div>
+                                                ${value.discount_percentage ? '<span class="discount-no">'+value.discount_percentage+'% Off</span>' : ''}
                                                 <h4 class="truncate" title="${value.TEST_NAME}">${value.TEST_NAME}</h4>
                                                 <p class="truncate-overflow">${value.DETAILS}</p>
-                                                <div class="test-card-price">Rs. ${value.SALE_PRICE}</div>
+                                                <div class="test-card-price d-flex gap-3 align-items-center">
+                                                    <span class="discounted-price">Rs. ${value.SALE_PRICE}</span>
+                                                    ${value.actual_price ? '<span class="actual-price">Rs. '+value.actual_price+'</span>' : ''}
+                                                </div>
                                                 <button class="learn_btn ${value.TEST_CD} ${mode}" onclick="addedItem(this)" type="button">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
                                             </div>
                                         </div>`
@@ -151,9 +159,13 @@
                                                         Learn More
                                                     </button>
                                                 </div>
+                                                ${value.discount_percentage ? '<span class="discount-no">'+value.discount_percentage+'% Off</span>' : ''}
                                                 <h4 class="truncate" title="${value.TEST_NAME}">${value.TEST_NAME}</h4>
                                                 <p class="truncate-overflow">${value.DETAILS}</p>
-                                                <div class="test-card-price">Rs. ${value.SALE_PRICE}</div>
+                                                <div class="test-card-price d-flex gap-3 align-items-center">
+                                                    <span class="discounted-price">Rs. ${value.SALE_PRICE}</span>
+                                                    ${value.actual_price ? '<span class="actual-price">Rs. '+value.actual_price+'</span>' : ''}
+                                                </div>
                                                 <button class="learn_btn" data-bs-toggle="modal" data-bs-target="#loginModal" type="button">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
                                             </div>
                                         </div>`
@@ -169,9 +181,13 @@
                                                         Learn More
                                                     </button>
                                                 </div>
+                                                ${value.discount_percentage ? '<span class="discount-no">'+value.discount_percentage+'% Off</span>' : ''}
                                                 <h4 class="truncate" title="${value.TEST_NAME}">${value.TEST_NAME}</h4>
                                                 <p class="truncate-overflow">${value.DETAILS}</p>
-                                                <div class="test-card-price">Rs. ${value.SALE_PRICE}</div>
+                                                <div class="test-card-price d-flex gap-3 align-items-center">
+                                                    <span class="discounted-price">Rs. ${value.SALE_PRICE}</span>
+                                                    ${value.actual_price ? '<span class="actual-price">Rs. '+value.actual_price+'</span>' : ''}
+                                                </div>
                                                 <button class="learn_btn ${value.TEST_CD} ${mode}" onclick="addedItem(this)" type="button">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
                                             </div>
                                         </div>`
@@ -280,9 +296,17 @@
                                         Learn More
                                     </button>
                                 </div>
+                                @if($item->discount_percentage)
+                                    <span class="discount-no">{{ $item->discount_percentage }}% Off</span>
+                                @endif
                                 <h4 class="truncate">{{ $item->name }}</h4>
                                 <p class="truncate-overflow">{!! strip_tags($item->short_description) !!}</p>
-                                <div class="test-card-price">Rs. {{ $item->sale_price }}</div>
+                                <div class="test-card-price d-flex gap-3 align-items-center">
+                                    <span class="discounted-price">Rs. {{ $item->sale_price }}</span>
+                                    @if ($item->actual_price)
+                                        <span class="actual-price">Rs. {{ $item->actual_price }}</span>
+                                    @endif
+                                 </div>
                                 @if (Auth::check())
                                     <button class="learn_btn {{ $item->id }} lab-test" onclick="addedItem(this)">Add To Cart
                                         <i class="fa-solid fa-cart-shopping mx-2"></i>

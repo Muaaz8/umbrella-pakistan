@@ -270,6 +270,8 @@ class Pharmacy extends Model
                     'SALE_PRICE AS sale_price',
                     'DETAILS AS short_description',
                     'DETAILS AS description',
+                    'actual_price AS actual_price',
+                    'discount_percentage AS discount_percentage',
                     DB::raw('SLUG as slug'),
                     DB::raw('"quest_data_test_codes" as tbl_name')
                 )->where([
@@ -289,6 +291,8 @@ class Pharmacy extends Model
                     'SALE_PRICE AS sale_price',
                     'DETAILS AS short_description',
                     'DETAILS AS description',
+                    'actual_price AS actual_price',
+                    'discount_percentage AS discount_percentage',
                     DB::raw('SLUG as slug'),
                     DB::raw('"quest_data_test_codes" as tbl_name')
                 )->where([
@@ -315,6 +319,8 @@ class Pharmacy extends Model
                     'SALE_PRICE AS sale_price',
                     'DETAILS AS short_description',
                     'DETAILS AS description',
+                    'actual_price AS actual_price',
+                    'discount_percentage AS discount_percentage',
                     DB::raw('SLUG as slug'),
                     DB::raw('"quest_data_test_codes" as tbl_name')
                 )
@@ -336,6 +342,8 @@ class Pharmacy extends Model
                     'SALE_PRICE AS sale_price',
                     'DETAILS AS short_description',
                     'DETAILS AS description',
+                    'actual_price AS actual_price',
+                    'discount_percentage AS discount_percentage',
                     DB::raw('SLUG as slug'),
                     DB::raw('"quest_data_test_codes" as tbl_name')
                 )
@@ -408,6 +416,8 @@ class Pharmacy extends Model
                     'quest_data_test_codes.SALE_PRICE AS sale_price',
                     'quest_data_test_codes.DETAILS AS short_description',
                     'quest_data_test_codes.DETAILS AS description',
+                    'quest_data_test_codes.discount_percentage AS discount_percentage',
+                    'quest_data_test_codes.actual_price AS actual_price',
                     DB::raw('quest_data_test_codes.SLUG as slug'),
                     DB::raw('"quest_data_test_codes" as tbl_name')
                 )
@@ -444,6 +454,8 @@ class Pharmacy extends Model
                     'mode',
                     'TEST_NAME AS name',
                     'SALE_PRICE AS sale_price',
+                    'actual_price AS actual_price',
+                    'discount_percentage AS discount_percentage',
                     'featured_image',
                     DB::raw('"quest_data_test_codes" as tbl_name')
                 )
@@ -655,6 +667,8 @@ class Pharmacy extends Model
                 'SALE_PRICE AS sale_price',
                 'DETAILS AS short_description',
                 'DETAILS AS description',
+                'actual_price AS actual_price',
+                'discount_percentage AS discount_percentage',
                 DB::raw('SLUG as slug'),
                 DB::raw('"quest_data_test_codes" as tbl_name')
             )
@@ -712,6 +726,8 @@ class Pharmacy extends Model
                 'quest_data_test_codes.TEST_NAME AS name',
                 'quest_data_test_codes.DETAILS AS short_description',
                 'quest_data_test_codes.DETAILS AS description',
+                'quest_data_test_codes.actual_price AS actual_price',
+                'quest_data_test_codes.discount_percentage AS discount_percentage',
                 DB::raw('quest_data_test_codes.SLUG as slug'),
                 DB::raw('"quest_data_test_codes" as tbl_name'),
                 'product_categories.name as main_category_name',
