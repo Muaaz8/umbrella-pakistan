@@ -9,12 +9,12 @@
 <meta name="csrf-token" content="{{ csrf_token() }}" />
 <meta name="language" content="en-us">
 <meta name="robots" content="index,follow" />
-<meta name="copyright" content="© 2022 All Rights Reserved. Powered By UmbrellaMd">
-<meta name="url" content="https://www.umbrellamd.com">
+<meta name="copyright" content="© 2022 All Rights Reserved. Powered By Community Healthcare Clinics">
+<meta name="url" content="https://www.communityhealthcareclinics.com">
 <meta property="og:locale" content="en_US" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://www.umbrellamd.com" />
-<meta property="og:site_name" content="Umbrella Health Care Systems | Umbrellamd.com" />
+<meta property="og:site_name" content="Community Healthcare Clinics | communityhealthcareclinics.com" />
 <meta name="twitter:site" content="@umbrellamd	">
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="author" content="Umbrellamd">

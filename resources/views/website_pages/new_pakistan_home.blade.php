@@ -2,11 +2,11 @@
 
 @section('meta_tags')
 <meta name="csrf-token" content="{{ csrf_token() }}" />
-<meta name="copyright" content="© {{ date('Y') }} All Rights Reserved. Powered By UmbrellaMd">
+<meta name="copyright" content="© {{ date('Y') }} All Rights Reserved. Powered By Community Healthcare Clinics">
 @foreach ($tags as $tag)
 <meta name="{{ $tag->name }}" content="{{ $tag->content }}">
 @endforeach
-<link rel="icon" href="{{ asset('asset_frontend/images/logo.ico') }}" type="image/x-icon">
+<link rel="icon" href="{{ asset('asset_frontend/new_frontend/fav_ico.png') }}" type="image/x-icon">
 <style>
     .custom-card-body h1,
     .custom-card-body h2,

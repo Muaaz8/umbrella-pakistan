@@ -10,7 +10,7 @@
     <head>
         @yield('meta_tags')
         @yield('page_title')
-        <link rel="icon" href="{{ asset('asset_frontend/images/logo.ico') }}" type="image/x-icon">
+        <link rel="icon" href="{{ asset('assets/new_frontend/fav_ico.png') }}" type="image/x-icon">
         @include('./new_pakistan_frontend/top_script')
         @yield('top_import_file')
     </head>
