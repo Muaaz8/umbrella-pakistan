@@ -1473,7 +1473,7 @@
                             <div class="text-start left_servi_main services d-none">
                                 <div class="d-flex mb-2">
                                     <p><i class="fa-solid fa-location-dot" style="color: rgb(255, 53, 53)"></i></p>
-                                    <h5 class="heading">625 School House Road #2, Lakeland, FL 33813</h5>
+                                    <h5 class="heading">Progressive Center, 4th Floor Suite#410, Main Shahrah Faisal, Karachi</h5>
 
                                 </div>
                                 <div>

@@ -291,7 +291,7 @@
                                                       font-weight: 400;
                                                       color: #a3a1a1;
                                                       text-transform: none;
-                                                    "> 9914 Kennerly Rd, Saint Louis, MO, 63128, USA <br style="text-align: center" /> Copyright © 2022 </th>
+                                                    "> 9914 Kennerly Rd, Saint Louis, MO, 63128, USA <br style="text-align: center" /> Copyright © 2025 </th>
                                                 </tr>
                                                 <!-- Store Address : END -->
                                               </tbody>

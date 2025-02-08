@@ -420,11 +420,11 @@
                                                       text-transform: none;
                                                     "
                                                   >
-                                                  625 School House Road #2, Lakeland, FL 33813
+                                                  Progressive Center, 4th Floor Suite#410, Main Shahrah Faisal, Karachi
                                                     <br
                                                       style="text-align: center"
                                                     />
-                                                    Copyright © 2022
+                                                    Copyright © 2025
                                                   </th>
                                                 </tr>
                                                 <!-- Store Address : END -->

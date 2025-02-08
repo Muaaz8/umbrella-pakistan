@@ -850,7 +850,7 @@
                                                                                         style="color:white !important;">
                                                                                         support@communityhealthcareclinics.com</p><br>
                                                                                     Phone: +1(407)693-8484<br>
-                                                                                    625 School House Road #2, Lakeland, FL 33813
+                                                                                    Progressive Center, 4th Floor Suite#410, Main Shahrah Faisal, Karachi
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>

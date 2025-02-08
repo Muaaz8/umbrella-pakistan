@@ -73,7 +73,7 @@
     <tfooter>
       <tr>
         <td colspan="2" style="font-size:14px;padding:50px 15px 0 15px;">
-          <strong style="display:block;margin:0 0 10px 0;">Regards</strong> Umbrellamd<br> 625 School House Road #2, Lakeland, FL 33813<br><br>
+          <strong style="display:block;margin:0 0 10px 0;">Regards</strong> Umbrellamd<br> Progressive Center, 4th Floor Suite#410, Main Shahrah Faisal, Karachi<br><br>
           <b>Phone:</b> +1 (407) 693-8484<br>
           <b>Email:</b> sales@umbrellamd.com
         </td>
