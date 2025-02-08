@@ -76,7 +76,10 @@
                         <h3 class="pt-2 px-2">Detail Description</h3>
                         <div class="price-tag">
                             <span class="badge bg-danger px-3 py-2">Price: Rs. {{ $products[0]->sale_price}}</span>
-                        </div>
+                            @if ($products[0]->actual_price != null)
+                            <span class="actual-price">Rs. {{ $products[0]->actual_price }}</span>
+                            @endif
+                            </div>
                         @if(Auth::check())
                             <button class="btn-outline-primary {{ $products[0]->id }} lab-test btn" onclick="addedItem(this)">
                                 Add to Cart <i class="fa-solid fa-shopping-cart mx-2"></i>

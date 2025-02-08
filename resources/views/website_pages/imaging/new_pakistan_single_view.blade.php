@@ -62,12 +62,20 @@
         </div>
 
 
-        <div class="container my-3 z-3 pharmacy-page-container border border-1 rounded-3 position-relative">
+        <div class="container my-3 z-4 bg-white pharmacy-page-container border border-1 rounded-3 position-relative">
 
             <h3 class="text-center p-2"><u>Detail Description</u></h3>
+            @if ($products[0]->discount_percentage != null)
+            <div class="price-tag" style="top: 5%">
+                <span class="badge bg-danger px-3 py-2">Discount:  {{ $products[0]->discount_percentage}}% Off</span>
+            </div>
+            @endif
             <div class="text-end d-flex align-items-center justify-content-end p-2">
                 <div class="lab-test-page-price">
                     Rs. {{ $products[0]->sale_price}}
+                    @if ($products[0]->actual_price != null)
+                        <span class="actual-price">Rs. {{ $products[0]->actual_price }}</span>
+                    @endif
                 </div>
                 <button class="btn btn-outline-danger w-25">
                 Add to Cart
