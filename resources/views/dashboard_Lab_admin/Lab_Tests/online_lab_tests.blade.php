@@ -142,19 +142,21 @@
                         $('#bodies').append('<tr id="body_' + arr.TEST_CD + '"></tr>');
                         $('#body_' + arr.TEST_CD).append('<td data-label="Test Code">' + arr.TEST_NAME + '</td>' +
                             '<td data-label="Service Name">' + arr.main_category_name + '</td>' +
+                            '<td data-label="Actual Price">' + arr.PRICE + '</td>' +
                             '<td data-label="Sale Price">' + arr.SALE_PRICE + '</td>' +
-                            '<input type="hidden" id="des_' + arr.TEST_CD + '" value="' + arr.DESCRIPTION +
-                            '">' +
+                            '<input type="hidden" id="des_'+arr.TEST_CD+'" value="'+arr.DESCRIPTION+'">' +
                             '<input type="hidden" id="na_' + arr.TEST_CD + '" value="' + arr.TEST_NAME + '">' +
                             '<input type="hidden" id="pr_' + arr.TEST_CD + '" value="' + arr.PRICE + '">' +
                             '<input type="hidden" id="sp_' + arr.TEST_CD + '" value="' + arr.SALE_PRICE + '">' +
+                            '<input type="hidden" id="dis_' + arr.TEST_CD + '" value="' + arr.discount_percentage + '">' +
+                            '<input type="hidden" id="ac_' + arr.TEST_CD + '" value="' + arr.actual_price + '">' +
                             '<input type="hidden" id="cn_' + arr.TEST_CD + '" value="' + arr.PARENT_CATEGORY +
                             '">' +
-                            '<input type="hidden" id="cn_' + arr.TEST_CD + '" value="' + arr.SLUG + '">' +
-                            '<input type="hidden" id="cn_' + arr.TEST_CD + '" value="' + arr.featured_image +
+                            '<input type="hidden" id="sl_' + arr.TEST_CD + '" value="' + arr.SLUG + '">' +
+                            '<input type="hidden" id="img_' + arr.TEST_CD + '" value="' + arr.featured_image +
                             '">' +
-                            '<input type="hidden" id="cn_' + arr.TEST_CD + '" value="' + arr.mode + '">' +
-                            '<input type="hidden" id="cn_' + arr.TEST_CD + '" value="' + arr.DETAILS + '">' +
+                            '<input type="hidden" id="mo_' + arr.TEST_CD + '" value="' + arr.mode + '">' +
+                            '<input type="hidden" id="de_' + arr.TEST_CD + '" value="' + arr.DETAILS + '">' +
                             '<td data-label="Action"><div class="dropdown">' +
                             '<button class="btn option-view-btn dropdown-toggle" type="button"' +
                             ' id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">OPTIONS</button>' +
