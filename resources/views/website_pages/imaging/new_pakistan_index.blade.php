@@ -82,7 +82,7 @@
                                                 ${value.discount_percentage ? '<span class="discount-no">'+value.discount_percentage+'% Off</span>' : ''}
                                                 <h4 class="truncate" title="${value.TEST_NAME}">${value.TEST_NAME}</h4>
                                                 <p class="truncate-overflow">${value.DETAILS}</p>
-                                                <div class="test-card-price d-flex gap-3 align-items-center">
+                                                <div class="test-card-price d-flex flex-column gap-2 align-items-center">
                                                     <span class="discounted-price">Rs. ${value.SALE_PRICE}</span>
                                                     ${value.actual_price ? '<span class="actual-price">Rs. '+value.actual_price+'</span>' : ''}
                                                 </div>
@@ -104,7 +104,7 @@
                                                 ${value.discount_percentage ? '<span class="discount-no">'+value.discount_percentage+'% Off</span>' : ''}
                                                 <h4 class="truncate" title="${value.TEST_NAME}">${value.TEST_NAME}</h4>
                                                 <p class="truncate-overflow">${value.DETAILS}</p>
-                                                <div class="test-card-price d-flex gap-3 align-items-center">
+                                                <div class="test-card-price d-flex flex-column gap-2 align-items-center">
                                                     <span class="discounted-price">Rs. ${value.SALE_PRICE}</span>
                                                     ${value.actual_price ? '<span class="actual-price">Rs. '+value.actual_price+'</span>' : ''}
                                                 </div>
@@ -162,7 +162,7 @@
                                                 ${value.discount_percentage ? '<span class="discount-no">'+value.discount_percentage+'% Off</span>' : ''}
                                                 <h4 class="truncate" title="${value.TEST_NAME}">${value.TEST_NAME}</h4>
                                                 <p class="truncate-overflow">${value.DETAILS}</p>
-                                                <div class="test-card-price d-flex gap-3 align-items-center">
+                                                <div class="test-card-price d-flex flex-column gap-2 align-items-center">
                                                     <span class="discounted-price">Rs. ${value.SALE_PRICE}</span>
                                                     ${value.actual_price ? '<span class="actual-price">Rs. '+value.actual_price+'</span>' : ''}
                                                 </div>
@@ -184,7 +184,7 @@
                                                 ${value.discount_percentage ? '<span class="discount-no">'+value.discount_percentage+'% Off</span>' : ''}
                                                 <h4 class="truncate" title="${value.TEST_NAME}">${value.TEST_NAME}</h4>
                                                 <p class="truncate-overflow">${value.DETAILS}</p>
-                                                <div class="test-card-price d-flex gap-3 align-items-center">
+                                                <div class="test-card-price d-flex flex-column gap-2 align-items-center">
                                                     <span class="discounted-price">Rs. ${value.SALE_PRICE}</span>
                                                     ${value.actual_price ? '<span class="actual-price">Rs. '+value.actual_price+'</span>' : ''}
                                                 </div>
@@ -301,8 +301,8 @@
                                 @endif
                                 <h4 class="truncate">{{ $item->name }}</h4>
                                 <p class="truncate-overflow">{!! strip_tags($item->short_description) !!}</p>
-                                <div class="test-card-price d-flex gap-3 align-items-center">
-                                    <span class="discounted-price">Rs. {{ $item->sale_price }}</span>
+                                <div class="test-card-price d-flex flex-column gap-2 align-items-center">
+                                    <span class="discounted-price">Rs. {{ $item->sale_price }}.00</span>
                                     @if ($item->actual_price)
                                         <span class="actual-price">Rs. {{ $item->actual_price }}</span>
                                     @endif

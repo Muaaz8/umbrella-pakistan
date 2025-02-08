@@ -72,7 +72,7 @@
             @endif
             <div class="text-end d-flex align-items-center justify-content-end p-2">
                 <div class="lab-test-page-price">
-                    Rs. {{ $products[0]->sale_price}}
+                    Rs. {{ $products[0]->sale_price}}.00
                     @if ($products[0]->actual_price != null)
                         <span class="actual-price">Rs. {{ $products[0]->actual_price }}</span>
                     @endif
