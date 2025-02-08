@@ -208,7 +208,7 @@ Thanks,
                                                                             For any questions please contact at <br>
                                                                             Email: <p style="color:white !important;">support@communityhealthcareclinics.com</p><br>
                                                                             Phone: +1(407)693-8484<br>
-                                                                            9914 Kennerly Rd, Saint Louis, MO, 63128, USA
+                                                                            Progressive Center, 4th Floor Suite#410, Main Shahrah Faisal, Karachi
                                                                                  </td>
                                                                              </tr>
                                                                             <tr>

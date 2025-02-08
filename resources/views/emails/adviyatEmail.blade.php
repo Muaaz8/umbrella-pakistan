@@ -108,7 +108,7 @@
     <table role="presentation" class="email-container">
         <tr>
             <td class="header">
-                <img src="https://pk.communityhealthcareclinics.com/assets/new_frontend/logo.png" alt="communityhealthcareclinics">
+                <img src="https://communityhealthcareclinics.com/assets/new_frontend/logo.png" alt="communityhealthcareclinics">
             </td>
         </tr>
 

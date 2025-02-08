@@ -725,7 +725,7 @@
                                             						For any questions please contact at <br>
 																	Email: <p style="color:white;">support@communityhealthcareclinics.com</p><br>
 																	Phone: +1(407)693-8484<br>
-																	9914 Kennerly Rd, Saint Louis, MO, 63128, USA
+																	Progressive Center, 4th Floor Suite#410, Main Shahrah Faisal, Karachi
 																			</td>
 																		</tr>
                                           				<tr>
@@ -802,7 +802,7 @@
                                                                                     <img width="200"
                                                                                         style="display:block;width:100%;max-width:200px;"
                                                                                         alt="img"
-                                                                                        src="https://www.umbrellamd-video.com/asset_frontend/images/logo.png">
+                                                                                        src="https://www.communityhealthcareclinics.com/asset_frontend/images/logo.png">
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
