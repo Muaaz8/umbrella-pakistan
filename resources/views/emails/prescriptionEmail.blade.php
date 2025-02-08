@@ -42,8 +42,8 @@
                                       padding-bottom: 13px;
                                     ">
                                                                     <!-- Logo : BEGIN -->
-                                                                    <a href="https://communityhealthcareclinics.com/" target="_blank">
-                                                                        <img src="https://communityhealthcareclinics.com/assets/new_frontend/logo.png"
+                                                                    <a href="https://www.communityhealthcareclinics.com/" target="_blank">
+                                                                        <img src="https://www.communityhealthcareclinics.com/assets/new_frontend/logo.png"
                                                                             style="
                                           width: 45%;
                                           display: block;
@@ -294,7 +294,7 @@
                                                         font-size: 14px;
                                                         text-align: center;
                                                       ">
-                                                                                                        <img src="https://communityhealthcareclinics.com/assets/images/facebook.png"
+                                                                                                        <img src="https://www.communityhealthcareclinics.com/assets/images/facebook.png"
                                                                                                             style="height:30px !important;"></img>
 
                                                                                                     </a>
@@ -310,7 +310,7 @@
                                                         font-size: 14px;
                                                         text-align: center;
                                                       ">
-                                                                                                        <img src="https://communityhealthcareclinics.com/assets/images/instagram.png"
+                                                                                                        <img src="https://www.communityhealthcareclinics.com/assets/images/instagram.png"
                                                                                                             style="height:30px !important;"></img>
 
                                                                                                     </a>
@@ -325,7 +325,7 @@
                                                         font-size: 14px;
                                                         text-align: center;
                                                       ">
-                                                                                                        <img src="https://communityhealthcareclinics.com/assets/images/linkedin.png"
+                                                                                                        <img src="https://www.communityhealthcareclinics.com/assets/images/linkedin.png"
                                                                                                             style="height:30px !important;"></img>
 
                                                                                                     </a>

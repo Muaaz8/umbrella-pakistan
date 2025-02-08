@@ -40,8 +40,8 @@
                                       padding-bottom: 13px;
                                     ">
                                   <!-- Logo : BEGIN -->
-                                  <a href="https://communityhealthcareclinics.com/" target="_blank">
-                                    <img src="https://communityhealthcareclinics.com/assets/new_frontend/logo.png" style="
+                                  <a href="https://www.communityhealthcareclinics.com/" target="_blank">
+                                    <img src="https://www.communityhealthcareclinics.com/assets/new_frontend/logo.png" style="
                                           width: 96px;
                                           display: block;
                                           margin: auto;
@@ -253,7 +253,7 @@
                                                         font-size: 14px;
                                                         text-align: center;
                                                       ">
-                                                      <img src="https://communityhealthcareclinics.com/assets/images/facebook.png" style="height:30px !important;"></img>
+                                                      <img src="https://www.communityhealthcareclinics.com/assets/images/facebook.png" style="height:30px !important;"></img>
 
                                                   </a>
                                                   
@@ -265,7 +265,7 @@
                                                         font-size: 14px;
                                                         text-align: center;
                                                       ">
-                                                      <img src="https://communityhealthcareclinics.com/assets/images/instagram.png" style="height:30px !important;"></img>
+                                                      <img src="https://www.communityhealthcareclinics.com/assets/images/instagram.png" style="height:30px !important;"></img>
 
                                                   </a>
                                                   <a class="social-link" href="https://www.linkedin.com/company/community-health-care-clinics/" target="_blank" title="linkedin"
@@ -276,7 +276,7 @@
                                                         font-size: 14px;
                                                         text-align: center;
                                                       ">
-                                                    <img src="https://communityhealthcareclinics.com/assets/images/linkedin.png" style="height:30px !important;"></img>
+                                                    <img src="https://www.communityhealthcareclinics.com/assets/images/linkedin.png" style="height:30px !important;"></img>
 
                                                   </a>
                                                 </th>

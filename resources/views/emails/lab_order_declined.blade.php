@@ -648,7 +648,7 @@
                                                                                     <img width="200"
                                                                                         style="display:block;width:100%;max-width:200px;"
                                                                                         alt="img"
-                                                                                        src="https://communityhealthcareclinics.com/assets/new_frontend/logo.png">
+                                                                                        src="https://www.communityhealthcareclinics.com/assets/new_frontend/logo.png">
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>

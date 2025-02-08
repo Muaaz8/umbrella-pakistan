@@ -87,7 +87,7 @@
                                               <tr><td height="40">&nbsp;</td></tr>
     <tr>
                                                                                 <td align="center">
-                                                                                    <img style="height:100px; width:100px;" src="https://communityhealthcareclinics.com/assets/new_frontend/logo.png" alt="img" />
+                                                                                    <img style="height:100px; width:100px;" src="https://www.communityhealthcareclinics.com/assets/new_frontend/logo.png" alt="img" />
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>

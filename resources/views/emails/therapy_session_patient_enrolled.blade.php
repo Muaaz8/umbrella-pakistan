@@ -68,7 +68,7 @@
                                     "
                                   >
                                     <!-- Logo : BEGIN -->
-                                    <a href="https://communityhealthcareclinics.com/" target="_blank">
+                                    <a href="https://www.communityhealthcareclinics.com/" target="_blank">
                                       <img
                                         src="https://www.communityhealthcareclinics.com/assets/new_frontend/logo.png"
                                         style="
