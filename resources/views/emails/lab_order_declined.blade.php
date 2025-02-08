@@ -648,7 +648,7 @@
                                                                                     <img width="200"
                                                                                         style="display:block;width:100%;max-width:200px;"
                                                                                         alt="img"
-                                                                                        src="https://communityhealthcareclinics.com/assets/new_frontend/logo.png">
+                                                                                        src="https://www.communityhealthcareclinics.com/assets/new_frontend/logo.png">
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
@@ -708,7 +708,7 @@
                                                                                                     Your payment will be refunded within 7 working days.
 
                                                                                                     <br>
-                                                                                                    Umbrellamd regards.
+                                                                                                    Community Healthcare Clinics regards.
 
                                                                                                 </td>
                                                                                             </tr>
@@ -772,7 +772,7 @@
                                                                     style=" background-color:#364d81;font-family:'Open Sans', Arial, Helvetica, sans-serif;font-size: 13px;color: #ffffff;font-weight: 600;letter-spacing: 0.5px;">
 
 
-                                                                    <a href="umbrellamd.com" target="_blank"
+                                                                    <a href="https://www.communityhealthcareclinics.cm" target="_blank"
                                                                         style="color: #ffffff;">Go to Site</a>
                                                                 </td>
 
