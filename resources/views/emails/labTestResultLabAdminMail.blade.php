@@ -151,7 +151,7 @@
                                 <td align="center" height="50" width="220" style=" background-color:#364d81;font-family:'Open Sans', Arial, Helvetica, sans-serif;font-size: 13px;color: #ffffff;font-weight: 600;letter-spacing: 0.5px;">
 
 
-                                    <a href="https://www.umbrellamd.com" target="_blank" style="color: #ffffff;">Go To Site</a>
+                                    <a href="https://www.communityhealthcareclinics.com" target="_blank" style="color: #ffffff;">Go To Site</a>
                                 </td>
 
                                 </tr></tbody></table>

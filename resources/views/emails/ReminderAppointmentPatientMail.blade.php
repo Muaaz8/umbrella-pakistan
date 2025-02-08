@@ -127,8 +127,7 @@
 
 
 
-                                                                        Thanks for booking an appointment with Umbrella
-                                                                        Health Care Systems.This is a
+                                                                        Thanks for booking an appointment with Community Healthcare Clinics.This is a
                                                                         reminder that your appointment is booked for
                                                                         <br>
                                                                         <b> {{ $data['date'] . ' ' . $data['time'] }} with
