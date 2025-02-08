@@ -33,7 +33,7 @@
                                       padding-bottom: 13px;
                                     ">
                                     <!-- Logo : BEGIN -->
-                                    <a href="#">
+                                    <a href="https://communityhealthcareclinics.com/" target="_blank">
                                       <img src="https://communityhealthcareclinics.com/assets/new_frontend/logo.png" style="
                                           width: 96px;
                                           display: block;
@@ -219,7 +219,7 @@
                                                 <!-- Store Address : BEGIN -->
                                                 <tr style="text-align: center;">
                                                   <th class="d-flex justify-content-evenly" width="100%" style="padding-right: 5%;">
-                                                    <a class="social-link" href="#" target="_blank" title="Facebook" style="
+                                                    <a class="social-link" href="https://www.facebook.com/CommunityHealthcareClinics" target="_blank" title="Facebook" style="
                                                         color: grey;
                                                         text-decoration: none !important;
                                                         text-decoration: none;
@@ -227,9 +227,9 @@
                                                         text-align: center;
                                                         cursor: pointer;
                                                       ">
-                                                      <img style="height:30px !important;" src="https://demo.umbrellamd-video.com/assets/images/facebook.png"></img>
+                                                      <img style="height:30px !important;" src="https://communityhealthcareclinics.com/assets/images/facebook.png"></img>
                                                     </a>
-                                                    <a class="social-link" href="#" target="_blank" title="twitter" style="
+                                                    <a class="social-link" href="https://www.instagram.com/community_healthcare_clinics" target="_blank" title="instagram" style="
                                                         color: grey;
                                                         text-decoration: none !important;
                                                         text-decoration: none;
@@ -237,9 +237,9 @@
                                                         text-align: center;
                                                         cursor: pointer;
                                                       ">
-                                                      <img src="https://demo.umbrellamd-video.com/assets/images/twitter.png" style="height:30px !important;"></img>
+                                                      <img src="https://communityhealthcareclinics.com/assets/images/instagram.png" style="height:30px !important;"></img>
                                                     </a>
-                                                    <a class="social-link" href="#" target="_blank" title="instagram" style="
+                                                    <a class="social-link" href="https://www.linkedin.com/company/community-health-care-clinics/" target="_blank" title="linkedin" style="
                                                         color: grey;
                                                         text-decoration: none !important;
                                                         text-decoration: none;
@@ -247,17 +247,7 @@
                                                         text-align: center;
                                                         cursor: pointer;
                                                       ">
-                                                      <img src="https://demo.umbrellamd-video.com/assets/images/instagram.png" style="height:30px !important;"></img>
-                                                    </a>
-                                                    <a class="social-link" href="#" target="_blank" title="linkedin" style="
-                                                        color: grey;
-                                                        text-decoration: none !important;
-                                                        text-decoration: none;
-                                                        font-size: 14px;
-                                                        text-align: center;
-                                                        cursor: pointer;
-                                                      ">
-                                                      <img src="https://demo.umbrellamd-video.com/assets/images/linkedin.png" style="height:30px !important;"></img>
+                                                      <img src="https://communityhealthcareclinics.com/assets/images/linkedin.png" style="height:30px !important;"></img>
                                                     </a>
                                                   </th>
                                                 </tr>
@@ -291,7 +281,7 @@
                                                       font-weight: 400;
                                                       color: #a3a1a1;
                                                       text-transform: none;
-                                                    "> 9914 Kennerly Rd, Saint Louis, MO, 63128, USA <br style="text-align: center" /> Copyright © 2025 </th>
+                                                    "> Progressive Center, 4th Floor Suite#410, Main Shahrah Faisal, Karachi <br style="text-align: center" /> Copyright © 2025 </th>
                                                 </tr>
                                                 <!-- Store Address : END -->
                                               </tbody>

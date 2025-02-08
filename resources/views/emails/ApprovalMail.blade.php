@@ -40,7 +40,7 @@
                                       padding-bottom: 13px;
                                     ">
                                   <!-- Logo : BEGIN -->
-                                  <a href="#">
+                                  <a href="https://communityhealthcareclinics.com/" target="_blank">
                                     <img src="https://communityhealthcareclinics.com/assets/new_frontend/logo.png" style="
                                           width: 96px;
                                           display: block;
@@ -245,7 +245,7 @@
                                               <tr style="text-align: center;">
                                                 <th class="d-flex justify-content-evenly" width="100%"
                                                   style="padding-right: 5%;">
-                                                  <a class="social-link" href="#" target="_blank" title="Facebook"
+                                                  <a class="social-link" href="https://www.facebook.com/CommunityHealthcareClinics" target="_blank" title="Facebook"
                                                     style="
                                                         color: grey;
                                                         text-decoration: none !important;
@@ -253,10 +253,11 @@
                                                         font-size: 14px;
                                                         text-align: center;
                                                       ">
-                                                      <img src="https://demo.umbrellamd-video.com/assets/images/facebook.png" style="height:30px !important;"></img>
+                                                      <img src="https://communityhealthcareclinics.com/assets/images/facebook.png" style="height:30px !important;"></img>
 
                                                   </a>
-                                                  <a class="social-link" href="#" target="_blank" title="twitter"
+                                                  
+                                                  <a class="social-link" href="https://www.instagram.com/community_healthcare_clinics" target="_blank" title="instagram"
                                                     style="
                                                         color: grey;
                                                         text-decoration: none !important;
@@ -264,10 +265,10 @@
                                                         font-size: 14px;
                                                         text-align: center;
                                                       ">
-                                                      <img src="https://demo.umbrellamd-video.com/assets/images/twitter.png" style="height:30px !important;"></img>
+                                                      <img src="https://communityhealthcareclinics.com/assets/images/instagram.png" style="height:30px !important;"></img>
 
                                                   </a>
-                                                  <a class="social-link" href="#" target="_blank" title="instagram"
+                                                  <a class="social-link" href="https://www.linkedin.com/company/community-health-care-clinics/" target="_blank" title="linkedin"
                                                     style="
                                                         color: grey;
                                                         text-decoration: none !important;
@@ -275,18 +276,7 @@
                                                         font-size: 14px;
                                                         text-align: center;
                                                       ">
-                                                      <img src="https://demo.umbrellamd-video.com/assets/images/instagram.png" style="height:30px !important;"></img>
-
-                                                  </a>
-                                                  <a class="social-link" href="#" target="_blank" title="linkedin"
-                                                    style="
-                                                        color: grey;
-                                                        text-decoration: none !important;
-                                                        text-decoration: none;
-                                                        font-size: 14px;
-                                                        text-align: center;
-                                                      ">
-                                                    <img src="https://demo.umbrellamd-video.com/assets/images/linkedin.png" style="height:30px !important;"></img>
+                                                    <img src="https://communityhealthcareclinics.com/assets/images/linkedin.png" style="height:30px !important;"></img>
 
                                                   </a>
                                                 </th>

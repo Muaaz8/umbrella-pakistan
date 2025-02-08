@@ -68,9 +68,9 @@
                                     "
                                   >
                                     <!-- Logo : BEGIN -->
-                                    <a href="#">
+                                    <a href="https://communityhealthcareclinics.com/" target="_blank">
                                       <img
-                                        src="{{ asset('assets/images/logo.png') }}"
+                                        src="https://www.communityhealthcareclinics.com/assets/new_frontend/logo.png"
                                         style="
                                           width: 96px;
                                           display: block;
@@ -444,7 +444,7 @@
                                                     style="padding-right: 5%;">
                                                     <a
                                                       class="social-link"
-                                                      href="#"
+                                                      href="https://www.facebook.com/CommunityHealthcareClinics"
                                                       target="_blank"
                                                       title="Facebook"
                                                       style="
@@ -459,24 +459,9 @@
                                                     </a>
                                                     <a
                                                       class="social-link"
-                                                      href="#"
+                                                      href="https://www.instagram.com/community_healthcare_clinics"
                                                       target="_blank"
-                                                      title="Facebook"
-                                                      style="
-                                                        color: grey;
-                                                        text-decoration: none !important;
-                                                        text-decoration: none;
-                                                        font-size: 14px;
-                                                        text-align: center;
-                                                      "
-                                                    >
-                                                    <i class="fa-brands fa-twitter"></i>
-                                                    </a>
-                                                    <a
-                                                      class="social-link"
-                                                      href="#"
-                                                      target="_blank"
-                                                      title="Facebook"
+                                                      title="Instagram"
                                                       style="
                                                         color: grey;
                                                         text-decoration: none !important;
@@ -489,9 +474,9 @@
                                                     </a>
                                                     <a
                                                       class="social-link"
-                                                      href="#"
+                                                      href="https://www.linkedin.com/company/community-health-care-clinics/"
                                                       target="_blank"
-                                                      title="Facebook"
+                                                      title="Linkedin"
                                                       style="
                                                         color: grey;
                                                         text-decoration: none !important;
