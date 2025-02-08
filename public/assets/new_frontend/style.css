@@ -1794,12 +1794,27 @@ header {
     padding: 10px;
     box-shadow: -2px 2px 3px 0px rgba(128, 128, 128, 0.322);
     margin-top: 10px;
+    z-index: 2;
+}
+
+.tests-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: white;
+    height: 70%;
+    width: 100%;
+    z-index: -1;
 }
 
 .test-card-price {
     position: absolute;
     top: 5%;
     left: 5%;
+}
+
+.discounted-price {
     color: var(--blue);
     padding: 6px;
     font-size: 14px;
@@ -1807,6 +1822,43 @@ header {
     font-weight: 600;
     z-index: 2;
     box-shadow: 0px 0px 0px 4px #f5f5f5;
+}
+
+.actual-price {
+    font-size: 12px;
+    color: gray;
+    font-weight: 500;
+    text-decoration-line: line-through;
+}
+
+/* .cont-disc {
+    width: 100%;
+    height: max-content;
+    background-color: white;
+} */
+
+.discount-no {
+    position: absolute;
+    top: 25%;
+    right: -3%;
+    color: white;
+    background-color: var(--blue);
+    font-size: 12px;
+    padding: 0.25rem 0.75rem;
+    border-radius: 5px;
+}
+
+.discount-no::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 72%;
+    width: 40%;
+    height: 50%;
+    background: #0e4495;
+    z-index: -1;
+    transform: rotate(331deg);
+    border-radius: 5px;
 }
 
 .tests-card:hover {
@@ -1848,6 +1900,7 @@ header {
     align-items: start;
     justify-content: end;
     overflow-x: hidden;
+    background-color: white;
 }
 
 
@@ -4359,7 +4412,7 @@ header {
         --bs-nav-tabs-border-color: none;
     }
 
-    .doctor-data-container > p:nth-child(3) {
+    .doctor-data-container .education-doc {
         font-size: 0.8rem !important;
     }
 }
@@ -5050,7 +5103,7 @@ header {
 }
 
 .doctor-list-card-container {
-    min-height: 220px;
+    min-height: 235px;
     border-top: 6px solid var(--blue);
     box-shadow: 1px 1px 2px 0px #d0c0c0;
     background: white;
@@ -5122,11 +5175,11 @@ header {
     color: var(--red);
 }
 
-.doctor-data-container > p:nth-child(3) {
+.doctor-data-container .specialization-doc {
     font-size: 0.8rem;
 }
 
-.doctor-data-container > p:nth-child(4) {
+.doctor-data-container .education-doc {
     font-size: 0.65rem;
     /* white-space: nowrap;
     width: 60%;
