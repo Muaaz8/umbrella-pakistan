@@ -70,7 +70,7 @@ class DoctorDashboardController extends BaseController
                 $totalEarning = (50 / 100) * $getDoctorSessionTotalPrice;
             }
             $lab_approval_earning = DB::table('lab_orders')
-                                    ->where('lab_orders.status', 'quest-forwarded')
+                                    ->where('lab_orders.status', 'essa-forwarded')
                                     ->where('lab_orders.type', 'Counter')
                                     ->where('lab_orders.doc_id', $user->id)
                                     ->groupBy('lab_orders.order_id')
@@ -338,7 +338,7 @@ class DoctorDashboardController extends BaseController
             ->whereRaw('MONTH(created_at) = ?', [$currentMonth])
             ->get();
         $month_lab_approval_earning = DB::table('lab_orders')
-            ->where('lab_orders.status', 'quest-forwarded')
+            ->where('lab_orders.status', 'essa-forwarded')
             ->where('lab_orders.type', 'Counter')
             ->where('lab_orders.doc_id', $user_id)
             ->whereRaw('MONTH(created_at) = ?', [$currentMonth])
@@ -358,7 +358,7 @@ class DoctorDashboardController extends BaseController
             ->whereRaw('DAY(created_at) = ?', [$currentDay])
             ->get();
         $day_lab_approval_earning = DB::table('lab_orders')
-            ->where('lab_orders.status', 'quest-forwarded')
+            ->where('lab_orders.status', 'essa-forwarded')
             ->where('lab_orders.type', 'Counter')
             ->where('lab_orders.doc_id', $user_id)
             ->whereRaw('DAY(created_at) = ?', [$currentDay])
@@ -372,7 +372,7 @@ class DoctorDashboardController extends BaseController
         }
         $totalEarningCurrentDay = $currentDayDoctorTotalAmount + $day_lab_approval_earning;
         $lab_approval_earning = DB::table('lab_orders')
-            ->where('lab_orders.status', 'quest-forwarded')
+            ->where('lab_orders.status', 'essa-forwarded')
             ->where('lab_orders.type', 'Counter')
             ->where('lab_orders.doc_id', $user_id)
             ->groupBy('lab_orders.order_id')

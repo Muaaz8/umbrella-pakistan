@@ -93,17 +93,17 @@ class LabController extends BaseController
         $user = Auth::user();
         $orders = DB::table('lab_orders')
             ->join('quest_data_test_codes', 'lab_orders.product_id', 'quest_data_test_codes.TEST_CD')
-            ->where('lab_orders.status', 'quest-forwarded')
+            ->where('lab_orders.status', 'essa-forwarded')
             ->where('lab_orders.type', 'Counter')
             ->where('lab_orders.doc_id', $user->id)
             ->orderByDesc('lab_orders.order_id')
             ->groupBy('lab_orders.order_id')
             ->select('lab_orders.order_id','lab_orders.created_at')
             ->paginate(10);
-        // dd($orders);  
+        // dd($orders);
         // $orders_test_name = DB::table('lab_orders')
         //     ->join('quest_data_test_codes', 'lab_orders.product_id', 'quest_data_test_codes.TEST_CD')
-        //     ->where('lab_orders.status', 'quest-forwarded')
+        //     ->where('lab_orders.status', 'essa-forwarded')
         //     ->where('lab_orders.type', 'Counter')
         //     ->where('doc_id', $user->id)
         //     ->orderByDesc('lab_orders.order_id')
@@ -114,7 +114,7 @@ class LabController extends BaseController
             $order->created_at = date("m-d-Y h:iA", strtotime($order->created_at));
             $labs = DB::table('lab_orders')
             ->join('quest_data_test_codes', 'lab_orders.product_id', 'quest_data_test_codes.TEST_CD')
-            ->where('lab_orders.status', 'quest-forwarded')
+            ->where('lab_orders.status', 'essa-forwarded')
             ->where('lab_orders.type', 'Counter')
             ->select('quest_data_test_codes.TEST_NAME')
             ->where('lab_orders.order_id', $order->order_id)->get()->toArray();
@@ -238,7 +238,7 @@ class LabController extends BaseController
             ->where('order_id', $request->order_id)
             ->where('type', 'Counter')
             ->where('status','forwarded_to_doctor')
-            ->update(['status' => 'quest-forwarded']);
+            ->update(['status' => 'essa-forwarded']);
             $online_order['code'] = 200;
             $online_order['online_lab_id'] = $request->order_id;
         return $this->sendResponse($online_order,"Online Lab Order Accepted");
@@ -265,9 +265,9 @@ class LabController extends BaseController
             ->where('lo.user_id','=',Auth::user()->id)
             ->orderBy('popularity','DESC')
             ->get();
-        $popular['code'] = 200;        
-        $popular['popular_lab'] = $lab_orders; 
-        return $this->sendResponse($popular,"List of popular labs");   
+        $popular['code'] = 200;
+        $popular['popular_lab'] = $lab_orders;
+        return $this->sendResponse($popular,"List of popular labs");
     }
     public function lab_requisition_search(Request $request){
         $search = $request->order_id;
@@ -288,14 +288,14 @@ class LabController extends BaseController
             $requisition->LabFile =  \App\Helper::get_files_url($requisition->requisition_file);
         }
         if(!$requisitions->isEmpty()){
-            $Datarequisitions['code']= 200; 
-            $Datarequisitions['requisitions']= $requisitions; 
+            $Datarequisitions['code']= 200;
+            $Datarequisitions['requisitions']= $requisitions;
             return $this->sendResponse($Datarequisitions,"Lab Requisitions List");
         } else{
-            $Datarequisitions['code']= 200; 
+            $Datarequisitions['code']= 200;
             return $this->sendError($Datarequisitions,"No Lab Requisitions List");
         }
-        
+
     }
     public function doc_lab_requisition_pending_search(Request $request){
         $user = auth()->user();
@@ -325,7 +325,7 @@ class LabController extends BaseController
         $search = $request->lab_name;
         $orders = DB::table('lab_orders')
             ->join('quest_data_test_codes', 'lab_orders.product_id', 'quest_data_test_codes.TEST_CD')
-            ->where('lab_orders.status', 'quest-forwarded')
+            ->where('lab_orders.status', 'essa-forwarded')
             ->where('quest_data_test_codes.TEST_NAME','LIKE', '%'.$search.'%')
             ->where('lab_orders.type', 'Counter')
             ->where('lab_orders.doc_id', $user->id)
@@ -338,7 +338,7 @@ class LabController extends BaseController
             $order->created_at = date("m-d-Y h:iA", strtotime($order->created_at));
             $labs = DB::table('lab_orders')
             ->join('quest_data_test_codes', 'lab_orders.product_id', 'quest_data_test_codes.TEST_CD')
-            ->where('lab_orders.status', 'quest-forwarded')
+            ->where('lab_orders.status', 'essa-forwarded')
             ->where('lab_orders.type', 'Counter')
             ->select('quest_data_test_codes.TEST_NAME')
             ->where('lab_orders.order_id', $order->order_id)->get()->toArray();

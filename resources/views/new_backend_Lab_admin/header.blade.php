@@ -22,40 +22,38 @@
         </div>
         <nav class="dashboard-nav-list">
           <a href="/lab/admin/dash" class="dashboard-nav-item"><i class="fa-solid fa-house"></i> Dashboard </a>
-          <div class="dashboard-nav-dropdown">
-            <p
-              class="dashboard-nav-item dashboard-nav-dropdown-toggle" style="cursor:pointer;"
-              ><i class="fa-solid fa-calendar-check"></i> Lab Tests
-            </p>
-            <div class="dashboard-nav-dropdown-menu">
-              <a href="/quest/lab/tests" class="dashboard-nav-dropdown-item">Labtest</a>
-              <a href="/online/lab/tests" class="dashboard-nav-dropdown-item">Online Labtest</a>
-              <a href="/lab/test/categories" class="dashboard-nav-dropdown-item">Labtest Categories</a>
-              <a href="/lab/reports" class="dashboard-nav-dropdown-item">Patient Lab Reports</a>
-
+          @if (auth()->user()->id == 212)
+            <div class="dashboard-nav-dropdown">
+                <p
+                class="dashboard-nav-item dashboard-nav-dropdown-toggle" style="cursor:pointer;"
+                ><i class="fa-solid fa-calendar-check"></i> Lab Tests
+                </p>
+                <div class="dashboard-nav-dropdown-menu">
+                <a href="/quest/lab/tests" class="dashboard-nav-dropdown-item">Labtest</a>
+                <a href="/online/lab/tests" class="dashboard-nav-dropdown-item">Online Labtest</a>
+                <a href="/lab/test/categories" class="dashboard-nav-dropdown-item">Labtest Categories</a>
+                <a href="/lab/reports" class="dashboard-nav-dropdown-item">Patient Lab Reports</a>
+                </div>
             </div>
-          </div>
-          <div class="dashboard-nav-dropdown">
-
-
-          </div>
+          @endif
 
           <a href="/lab/orders" class="dashboard-nav-item"><i class="fa-solid fa-gear"></i>Orders </a>
           {{-- <a href="/quest/orders" class="dashboard-nav-item"><i class="fa-solid fa-gear"></i>Quest Orders </a> --}}
           {{-- <a href="/quest/failed/requests" class="dashboard-nav-item"><i class="fa-solid fa-gear"></i>Quest Failed Requests</a> --}}
-          <div class="dashboard-nav-dropdown">
-            <p
-              class="dashboard-nav-item dashboard-nav-dropdown-toggle" style="cursor:pointer;"
-              ><i class="fa-solid fa-calendar-check"></i> Order Approvals
-            </p>
-            <div class="dashboard-nav-dropdown-menu">
-              <a href="/unassigned/lab/orders" class="dashboard-nav-dropdown-item">Unassigned Orders</a>
-              <a href="/pending/lab/orders" class="dashboard-nav-dropdown-item">Pending Orders</a>
-              <a href="/pending/lab/refunds" class="dashboard-nav-dropdown-item">Pending Refunds</a>
+          @if (auth()->user()->id == 212)
+            <div class="dashboard-nav-dropdown">
+                <p
+                class="dashboard-nav-item dashboard-nav-dropdown-toggle" style="cursor:pointer;"
+                ><i class="fa-solid fa-calendar-check"></i> Order Approvals
+                </p>
+                <div class="dashboard-nav-dropdown-menu">
+                <a href="/unassigned/lab/orders" class="dashboard-nav-dropdown-item">Unassigned Orders</a>
+                <a href="/pending/lab/orders" class="dashboard-nav-dropdown-item">Pending Orders</a>
+                <a href="/pending/lab/refunds" class="dashboard-nav-dropdown-item">Pending Refunds</a>
 
+                </div>
             </div>
-          </div>
-
+          @endif
 
 
           <a href="/lab/admin/account/setting" class="dashboard-nav-item"><i class="fa-solid fa-gear"></i>Account Setting </a>

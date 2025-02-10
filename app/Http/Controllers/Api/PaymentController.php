@@ -386,7 +386,7 @@ class PaymentController extends BaseController
                     'product_id' => $item->product_id,
                     'session_id' => $item->doc_session_id,
                     'pres_id' => $item->pres_id,
-                    'status' => 'quest-forwarded',
+                    'status' => 'essa-forwarded',
                     'type' => 'Prescribed',
                     'date' => date('Y-m-d'),
                     'time' => 0,

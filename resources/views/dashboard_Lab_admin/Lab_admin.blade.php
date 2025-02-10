@@ -87,99 +87,118 @@
                 <div class="row m-auto">
                   <div class="col-md-12">
                     <div class="row m-auto">
-                        <div class="d-flex align-items-end p-0">
-                            <div>
-                              <h3>Manage Lab Editors</h3>
-                            </div>
-
-                          </div>
-                          <div class="d-flex justify-content-between align-items-baseline flex-wrap p-0">
-                            <div class="d-flex align-items-baseline col-12 col-md-4 col-sm-6">
-                                <input id="search" type="text" class="form-control mb-1" placeholder="Search editor">
-                                <button type="button" id="search_btn" onclick="search({{$edt}})" class="btn process-pay"><i class="fa-solid fa-search"></i></button>
-                            </div>
-                        <div>
-                            <button type="button" class="btn process-pay" data-bs-toggle="modal" data-bs-target="#add_new_editor">Add New Editor</button>
-                        </div>
-                        </div>
-
-                      <div class="wallet-table">
-                        <table class="table">
-                            <thead>
-                                <th scope="col">Name</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Status</th>
-                                <th scope="col">Action</th>
-                            </thead>
-                            <tbody id="editors">
-                            @forelse($lab_editors as $editor)
-                              <tr>
-                                <td data-label="Name">{{$editor->name}} {{$editor->last_name}}</td>
-                                <td data-label="Email">{{$editor->email}}</td>
-                                <td data-label="Status">
-                                    @if($editor->status == 'active')
-                                    <select onchange="window.location.href='/lab_editor/change_status/{{$editor->id}}'" class="form-select ad_act_dact w-50 m-sm-0 m-md-auto" aria-label="Default select example">
-                                        <option selected>Active</option>
-                                        <option >Deactivate</option>
-                                    </select>
-                                    @else
-                                    <select onchange="window.location.href='/lab_editor/change_status/{{$editor->id}}'" class="form-select ad_act_dact w-50 m-sm-0 m-md-auto" aria-label="Default select example">
-                                        <option >Active</option>
-                                        <option selected>Deactivate</option>
-                                    </select>
-                                    @endif
-                                </td>
-                                <td data-label="Action">
-                                    <input type="hidden" id="{{$editor->id}}" value="{{$editor->email}}">
-                                    <div class="dropdown">
-                                    <button class="btn option-view-btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                      OPTIONS
-                                    </button>
-                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                      <li><a class="dropdown-item" href="/editor/details/{{$editor->id}}">Details & Activities</a></li>
-                                      <li><a class="dropdown-item" onclick="update_email({{ $editor->id }})" href="#" id="u_email" >Send Email</a></li>
-                                    </ul>
-                                  </div>
-                                </td>
-                              </tr>
-                              @empty
-                            <tr>
-                                <td colspan='4'>
-                                <div class="m-auto text-center for-empty-div">
-                                    <img src="{{ asset('assets/images/for-empty.png') }}" alt="">
-                                    <h6> No Orders</h6>
+                        <div class="col-md-12">
+                            <div class="card first-card-wrap">
+                                <div class="card-body">
+                                    <div class="first-card-content">
+                                        <h1>Community Healthcare Clinics</h1>
+                                        <p>Welcome to Community Healthcare Clinics</p>
+                                    </div>
+                                    <div class="first-card-img-div">
+                                        {{-- <img src="assets/images/logo.png" alt=""  height="auto" width="200"> --}}
+                                    </div>
                                 </div>
-                                </td>
-                            </tr>
-                              @endforelse
-                              </tbody>
-                          </table>
-                            <div class="row d-flex justify-content-center">
-                                <div class="paginateCounter">
-                                    {{ $lab_editors->links('pagination::bootstrap-4') }}
-                                </div>
+
+
                             </div>
-                        <!-- <nav aria-label="..." class="float-end pe-3">
-                          <ul class="pagination">
-                            <li class="page-item disabled">
-                              <span class="page-link">Previous</span>
-                            </li>
-                            <li class="page-item">
-                              <a class="page-link" href="#">1</a>
-                            </li>
-                            <li class="page-item active" aria-current="page">
-                              <span class="page-link">2</span>
-                            </li>
-                            <li class="page-item">
-                              <a class="page-link" href="#">3</a>
-                            </li>
-                            <li class="page-item">
-                              <a class="page-link" href="#">Next</a>
-                            </li>
-                          </ul>
-                        </nav> -->
-                      </div>
+                        </div>
                     </div>
+                    @if (auth()->user()->id == 212)
+                        <div class="row m-auto">
+                            <div class="d-flex align-items-end p-0">
+                                <div>
+                                <h3>Manage Lab Editors</h3>
+                                </div>
+
+                            </div>
+                            <div class="d-flex justify-content-between align-items-baseline flex-wrap p-0">
+                                <div class="d-flex align-items-baseline col-12 col-md-4 col-sm-6">
+                                    <input id="search" type="text" class="form-control mb-1" placeholder="Search editor">
+                                    <button type="button" id="search_btn" onclick="search({{$edt}})" class="btn process-pay"><i class="fa-solid fa-search"></i></button>
+                                </div>
+                            <div>
+                                <button type="button" class="btn process-pay" data-bs-toggle="modal" data-bs-target="#add_new_editor">Add New Editor</button>
+                            </div>
+                            </div>
+
+                        <div class="wallet-table">
+                            <table class="table">
+                                <thead>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Action</th>
+                                </thead>
+                                <tbody id="editors">
+                                @forelse($lab_editors as $editor)
+                                <tr>
+                                    <td data-label="Name">{{$editor->name}} {{$editor->last_name}}</td>
+                                    <td data-label="Email">{{$editor->email}}</td>
+                                    <td data-label="Status">
+                                        @if($editor->status == 'active')
+                                        <select onchange="window.location.href='/lab_editor/change_status/{{$editor->id}}'" class="form-select ad_act_dact w-50 m-sm-0 m-md-auto" aria-label="Default select example">
+                                            <option selected>Active</option>
+                                            <option >Deactivate</option>
+                                        </select>
+                                        @else
+                                        <select onchange="window.location.href='/lab_editor/change_status/{{$editor->id}}'" class="form-select ad_act_dact w-50 m-sm-0 m-md-auto" aria-label="Default select example">
+                                            <option >Active</option>
+                                            <option selected>Deactivate</option>
+                                        </select>
+                                        @endif
+                                    </td>
+                                    <td data-label="Action">
+                                        <input type="hidden" id="{{$editor->id}}" value="{{$editor->email}}">
+                                        <div class="dropdown">
+                                        <button class="btn option-view-btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                        OPTIONS
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                        <li><a class="dropdown-item" href="/editor/details/{{$editor->id}}">Details & Activities</a></li>
+                                        <li><a class="dropdown-item" onclick="update_email({{ $editor->id }})" href="#" id="u_email" >Send Email</a></li>
+                                        </ul>
+                                    </div>
+                                    </td>
+                                </tr>
+                                @empty
+                                <tr>
+                                    <td colspan='4'>
+                                    <div class="m-auto text-center for-empty-div">
+                                        <img src="{{ asset('assets/images/for-empty.png') }}" alt="">
+                                        <h6> No Orders</h6>
+                                    </div>
+                                    </td>
+                                </tr>
+                                @endforelse
+                                </tbody>
+                            </table>
+                                <div class="row d-flex justify-content-center">
+                                    <div class="paginateCounter">
+                                        {{ $lab_editors->links('pagination::bootstrap-4') }}
+                                    </div>
+                                </div>
+                            <!-- <nav aria-label="..." class="float-end pe-3">
+                            <ul class="pagination">
+                                <li class="page-item disabled">
+                                <span class="page-link">Previous</span>
+                                </li>
+                                <li class="page-item">
+                                <a class="page-link" href="#">1</a>
+                                </li>
+                                <li class="page-item active" aria-current="page">
+                                <span class="page-link">2</span>
+                                </li>
+                                <li class="page-item">
+                                <a class="page-link" href="#">3</a>
+                                </li>
+                                <li class="page-item">
+                                <a class="page-link" href="#">Next</a>
+                                </li>
+                            </ul>
+                            </nav> -->
+                        </div>
+                        </div>
+                    @endif
                   </div>
                 </div>
               </div>

@@ -206,6 +206,7 @@ class PharmacyController extends Controller
         } else {
             $products = [];
         }
+
         foreach ($products as $product) {
             if ($product->mode == "medicine") {
                 $meta_tags = DB::table('meta_tags')->where('product_id',$product->id)->get();
@@ -993,7 +994,7 @@ class PharmacyController extends Controller
                     'product_id' => $order->product_id,
                     'session_id' => $order->doc_session_id,
                     'pres_id' => $order->pres_id,
-                    'status' => 'quest-forwarded',
+                    'status' => 'essa-forwarded',
                     'date' => date('Y-m-d'),
                     'time' => 0,
                     'type' => 'Counter',
@@ -1024,7 +1025,7 @@ class PharmacyController extends Controller
                     'product_id' => $item->product_id,
                     'session_id' => $item->doc_session_id,
                     'pres_id' => $item->pres_id,
-                    'status' => 'quest-forwarded',
+                    'status' => 'essa-forwarded',
                     'type' => 'Prescribed',
                     'date' => date('Y-m-d'),
                     'time' => 0,
@@ -1048,7 +1049,7 @@ class PharmacyController extends Controller
                     'product_id' => $order->product_id,
                     'session_id' => $order->doc_session_id,
                     'pres_id' => $order->pres_id,
-                    'status' => 'quest-forwarded',
+                    'status' => 'essa-forwarded',
                     'date' => date('Y-m-d'),
                     'time' => 0,
                     'type' => 'Counter',
@@ -1079,7 +1080,7 @@ class PharmacyController extends Controller
                     'product_id' => $item->product_id,
                     'session_id' => $item->doc_session_id,
                     'pres_id' => $item->pres_id,
-                    'status' => 'quest-forwarded',
+                    'status' => 'essa-forwarded',
                     'type' => 'Prescribed',
                     'date' => date('Y-m-d'),
                     'time' => 0,

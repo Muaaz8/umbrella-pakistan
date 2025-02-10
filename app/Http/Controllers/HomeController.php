@@ -103,7 +103,7 @@ class HomeController extends Controller
                         }
 
                         $lab_approval_earning = DB::table('lab_orders')
-                        ->where('lab_orders.status', 'quest-forwarded')
+                        ->where('lab_orders.status', 'essa-forwarded')
                         ->where('lab_orders.type', 'Counter')
                         ->where('lab_orders.doc_id', $user->id)
                         ->groupBy('lab_orders.order_id')

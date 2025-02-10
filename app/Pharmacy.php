@@ -423,7 +423,7 @@ class Pharmacy extends Model
                 )
                 ->where([
                     ['quest_data_test_codes.PARENT_CATEGORY', '!=', ""],
-                    ['quest_data_test_codes.DETAILS', '!=', ""], /* WILL REMOVE */
+                    // ['quest_data_test_codes.DETAILS', '!=', ""], /* WILL REMOVE */
                 ])
                 // ->union($first)
                 ->where([['quest_data_test_codes.slug', $slug]])

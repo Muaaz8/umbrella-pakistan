@@ -186,8 +186,8 @@ class TblOrdersController extends AppBaseController
         $tblOrders = DB::table('lab_orders')
         ->join('quest_data_test_codes', 'lab_orders.product_id', '=', 'quest_data_test_codes.TEST_CD')
         ->join('users', 'users.id', '=', 'lab_orders.user_id')
-        ->join('states', 'states.id', '=', 'users.state_id')
-        ->join('cities', 'cities.id', '=', 'users.city_id')
+        // ->join('states', 'states.id', '=', 'users.state_id')
+        // ->join('cities', 'cities.id', '=', 'users.city_id')
         ->join('tbl_orders', 'tbl_orders.order_id', '=', 'lab_orders.order_id')
         ->select(
             'quest_data_test_codes.TEST_NAME as name',
@@ -196,8 +196,8 @@ class TblOrdersController extends AppBaseController
             'users.name as fname',
             'users.last_name as lname',
             'users.office_address as address',
-            'cities.name as order_city',
-            'states.name as order_state',
+            // 'cities.name as order_city',
+            // 'states.name as order_state',
             'lab_orders.status as order_status',
             'tbl_orders.payment_title',
             'tbl_orders.payment_method',
@@ -210,8 +210,8 @@ class TblOrdersController extends AppBaseController
         $data = DB::table('lab_orders')
         ->join('quest_data_test_codes', 'lab_orders.product_id', '=', 'quest_data_test_codes.TEST_CD')
         ->join('users', 'users.id', '=', 'lab_orders.user_id')
-        ->join('states', 'states.id', '=', 'users.state_id')
-        ->join('cities', 'cities.id', '=', 'users.city_id')
+        // ->join('states', 'states.id', '=', 'users.state_id')
+        // ->join('cities', 'cities.id', '=', 'users.city_id')
         ->join('tbl_orders', 'tbl_orders.order_id', '=', 'lab_orders.order_id')
         ->select(
             'quest_data_test_codes.TEST_NAME as name',
@@ -220,8 +220,8 @@ class TblOrdersController extends AppBaseController
             'users.name as fname',
             'users.last_name as lname',
             'users.office_address as address',
-            'cities.name as order_city',
-            'states.name as order_state',
+            // 'cities.name as order_city',
+            // 'states.name as order_state',
             'lab_orders.status as order_status',
             'tbl_orders.payment_title',
             'tbl_orders.payment_method',
@@ -919,13 +919,13 @@ class TblOrdersController extends AppBaseController
             ->where('lab_orders.order_id', $lab_order_id->order_id)
             ->join('quest_data_test_codes', 'lab_orders.product_id', '=', 'quest_data_test_codes.TEST_CD')
             ->join('users', 'users.id', '=', 'lab_orders.user_id')
-            ->join('states', 'states.id', '=', 'users.state_id')
+            // ->join('states', 'states.id', '=', 'users.state_id')
             ->join('tbl_orders', 'tbl_orders.order_id', '=', 'lab_orders.order_id')
             ->select(
                 'quest_data_test_codes.TEST_NAME as name',
                 'quest_data_test_codes.SALE_PRICE as total',
                 'lab_orders.*',
-                'states.name as order_state',
+                // 'states.name as order_state',
                 'lab_orders.status as order_status',
                 'tbl_orders.payment_title',
                 'tbl_orders.payment_method',
@@ -1816,7 +1816,7 @@ class TblOrdersController extends AppBaseController
 
         $orders = DB::table('lab_orders')
             ->join('quest_data_test_codes', 'lab_orders.product_id', 'quest_data_test_codes.TEST_CD')
-            ->where('lab_orders.status', 'quest-forwarded')
+            ->where('lab_orders.status', 'essa-forwarded')
             ->where('lab_orders.type', 'Counter')
             ->where('lab_orders.doc_id', $user->id)
             ->orderByDesc('lab_orders.order_id')
@@ -1824,7 +1824,7 @@ class TblOrdersController extends AppBaseController
             ->paginate(9);
         $orders_test_name = DB::table('lab_orders')
             ->join('quest_data_test_codes', 'lab_orders.product_id', 'quest_data_test_codes.TEST_CD')
-            ->where('lab_orders.status', 'quest-forwarded')
+            ->where('lab_orders.status', 'essa-forwarded')
             ->where('lab_orders.type', 'Counter')
             ->where('doc_id', $user->id)
             ->orderByDesc('lab_orders.order_id')

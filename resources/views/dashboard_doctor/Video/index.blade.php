@@ -1889,7 +1889,7 @@ header("Access-Control-Allow-Origin: *"); @endphp
                                             <div class="accordion-body mb-2" id="loadSessionRecords"></div>
                                         </div>
                                     </div>
-                                    @if ($session->specialization_id == '21')
+                                    {{-- @if ($session->specialization_id == '21')
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="flush-headingSeven">
                                             <button class="accordion-button collapsed" type="button"
@@ -2091,7 +2091,7 @@ header("Access-Control-Allow-Origin: *"); @endphp
                                             </div>
                                         </div>
                                     </div>
-                                    @endif
+                                    @endif --}}
 
                                     <div class="accordion-item">
                                         <h2 class="accordion-header" id="flush-headingFour">

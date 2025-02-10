@@ -63,7 +63,7 @@
                                                     {{ $order->first_name . ' ' . $order->last_name }}</li>
                                                 <li class="list-group-item"><b>Product Price :</b>Rs. {{ $order->total }}</li>
                                                 {{-- <li class="list-group-item"><b>Username :</b> {{ $order->name }}</li> --}}
-                                                <li class="list-group-item"><b>Order State :</b> {{ $order->order_state }}
+                                                {{-- <li class="list-group-item"><b>Order State :</b> {{ $order->order_state }} --}}
                                                 </li>
                                                 <li class="list-group-item"><b>Payment Title :</b>
                                                     {{ $order->payment_title }}</li>

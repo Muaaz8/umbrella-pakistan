@@ -901,7 +901,7 @@ class PaymentController extends Controller
             ->get();
 
         $month_lab_approval_earning = DB::table('lab_orders')
-            ->where('lab_orders.status', 'quest-forwarded')
+            ->where('lab_orders.status', 'essa-forwarded')
             ->where('lab_orders.type', 'Counter')
             ->where('lab_orders.doc_id', $user_id)
             ->whereRaw('MONTH(created_at) = ?', [$currentMonth])
@@ -926,7 +926,7 @@ class PaymentController extends Controller
             ->get();
 
         $day_lab_approval_earning = DB::table('lab_orders')
-            ->where('lab_orders.status', 'quest-forwarded')
+            ->where('lab_orders.status', 'essa-forwarded')
             ->where('lab_orders.type', 'Counter')
             ->where('lab_orders.doc_id', $user_id)
             ->whereRaw('DAY(created_at) = ?', [$currentDay])
@@ -942,7 +942,7 @@ class PaymentController extends Controller
         $totalEarningCurrentDay = $currentDayDoctorTotalAmount + $day_lab_approval_earning;
 
         $lab_approval_earning = DB::table('lab_orders')
-            ->where('lab_orders.status', 'quest-forwarded')
+            ->where('lab_orders.status', 'essa-forwarded')
             ->where('lab_orders.type', 'Counter')
             ->where('lab_orders.doc_id', $user_id)
             ->groupBy('lab_orders.order_id')

@@ -116,7 +116,7 @@ class FinanceController extends Controller
 
             $online = DB::table('lab_orders')
             ->where('doc_id',$doc->id)
-            ->where('status','quest-forwarded')
+            ->where('status','essa-forwarded')
             ->where('type','Counter')
             ->groupby('order_id')
             ->count();
@@ -132,7 +132,7 @@ class FinanceController extends Controller
 
             $online = DB::table('lab_orders')
             ->where('doc_id',$doc->id)
-            ->where('status','quest-forwarded')
+            ->where('status','essa-forwarded')
             ->where('type','Counter')
             ->groupby('order_id')
             ->count();
@@ -150,7 +150,7 @@ class FinanceController extends Controller
         $doctor = DB::table('users')->where('id',$id)->first();
         $orders = DB::table('lab_orders')
         ->where('doc_id',$doctor->id)
-        ->where('status','quest-forwarded')
+        ->where('status','essa-forwarded')
         ->where('type','Counter')
         ->groupby('order_id')
         ->paginate(10);
@@ -173,7 +173,7 @@ class FinanceController extends Controller
         $enddate = date('Y-m-d', strtotime($request->date[1]));
         $orders = DB::table('lab_orders')
         ->where('doc_id',$doctor->id)
-        ->where('status','quest-forwarded')
+        ->where('status','essa-forwarded')
         ->where('type','Counter')
         ->whereDate('created_at', '>=', $startdate)
         ->whereDate('created_at', '<=', $enddate)
@@ -200,7 +200,7 @@ class FinanceController extends Controller
             $enddate = date('Y-m-d', strtotime($request->date[1]));
             $OnlineItems = DB::table('lab_orders')
             ->where('doc_id',$doctor->id)
-            ->where('status','quest-forwarded')
+            ->where('status','essa-forwarded')
             ->where('type','Counter')
             ->whereDate('created_at', '>=', $startdate)
             ->whereDate('created_at', '<=', $enddate)
@@ -211,7 +211,7 @@ class FinanceController extends Controller
         {
             $OnlineItems = DB::table('lab_orders')
             ->where('doc_id',$doctor->id)
-            ->where('status','quest-forwarded')
+            ->where('status','essa-forwarded')
             ->where('type','Counter')
             ->groupby('order_id')
             ->get();
@@ -245,7 +245,7 @@ class FinanceController extends Controller
             $enddate = date('Y-m-d', strtotime($request->date[1]));
             $orders = DB::table('lab_orders')
             ->where('doc_id',$doctor->id)
-            ->where('status','quest-forwarded')
+            ->where('status','essa-forwarded')
             ->where('type','Counter')
             ->whereDate('created_at', '>=', $startdate)
             ->whereDate('created_at', '<=', $enddate)
@@ -256,7 +256,7 @@ class FinanceController extends Controller
         {
             $orders = DB::table('lab_orders')
             ->where('doc_id',$doctor->id)
-            ->where('status','quest-forwarded')
+            ->where('status','essa-forwarded')
             ->where('type','Counter')
             ->groupby('order_id')
             ->get();
@@ -499,7 +499,7 @@ class FinanceController extends Controller
         $percent = DB::table('doctor_percentage')->where('doc_id',$doctor->id)->first();
         $online = DB::table('lab_orders')
         ->where('doc_id',$doctor->id)
-        ->where('status','quest-forwarded')
+        ->where('status','essa-forwarded')
         ->where('type','Counter')
         ->groupby('order_id')
         ->get();
@@ -545,7 +545,7 @@ class FinanceController extends Controller
 
             $online = DB::table('lab_orders')
             ->where('doc_id',$doctor->id)
-            ->where('status','quest-forwarded')
+            ->where('status','essa-forwarded')
             ->where('type','Counter')
             ->whereDate('created_at', '>=', $startdate)
             ->whereDate('created_at', '<=', $enddate)
@@ -557,7 +557,7 @@ class FinanceController extends Controller
             $sessions = DB::table('sessions')->where('doctor_id',$doctor->id)->where('status','ended')->get();
             $online = DB::table('lab_orders')
             ->where('doc_id',$doctor->id)
-            ->where('status','quest-forwarded')
+            ->where('status','essa-forwarded')
             ->where('type','Counter')
             ->groupby('order_id')
             ->get();
@@ -613,7 +613,7 @@ class FinanceController extends Controller
 
             $online = DB::table('lab_orders')
             ->where('doc_id',$doctor->id)
-            ->where('status','quest-forwarded')
+            ->where('status','essa-forwarded')
             ->where('type','Counter')
             ->whereDate('created_at', '>=', $startdate)
             ->whereDate('created_at', '<=', $enddate)
@@ -625,7 +625,7 @@ class FinanceController extends Controller
             $sessions = DB::table('sessions')->where('doctor_id',$doctor->id)->where('status','ended')->get();
             $online = DB::table('lab_orders')
             ->where('doc_id',$doctor->id)
-            ->where('status','quest-forwarded')
+            ->where('status','essa-forwarded')
             ->where('type','Counter')
             ->groupby('order_id')
             ->get();
@@ -684,7 +684,7 @@ class FinanceController extends Controller
 
             $online = DB::table('lab_orders')
             ->where('doc_id',$doctor->id)
-            ->where('status','quest-forwarded')
+            ->where('status','essa-forwarded')
             ->where('type','Counter')
             ->whereDate('created_at', '>=', $startdate)
             ->whereDate('created_at', '<=', $enddate)
@@ -696,7 +696,7 @@ class FinanceController extends Controller
             $sessions = DB::table('sessions')->where('doctor_id',$doctor->id)->where('status','ended')->get();
             $online = DB::table('lab_orders')
             ->where('doc_id',$doctor->id)
-            ->where('status','quest-forwarded')
+            ->where('status','essa-forwarded')
             ->where('type','Counter')
             ->groupby('order_id')
             ->get();
@@ -784,7 +784,7 @@ class FinanceController extends Controller
         $percent = DB::table('doctor_percentage')->where('doc_id',$doctor->id)->first();
         $online = DB::table('lab_orders')
         ->where('doc_id',$doctor->id)
-        ->where('status','quest-forwarded')
+        ->where('status','essa-forwarded')
         ->where('type','Counter')
         ->where('doc_fee','unpaid')
         ->orwhere('doc_fee','!=',null)
@@ -834,7 +834,7 @@ class FinanceController extends Controller
 
             $online = DB::table('lab_orders')
             ->where('doc_id',$doctor->id)
-            ->where('status','quest-forwarded')
+            ->where('status','essa-forwarded')
             ->where('type','Counter')
             ->whereDate('created_at', '>=', $startdate)
             ->whereDate('created_at', '<=', $enddate)
@@ -854,7 +854,7 @@ class FinanceController extends Controller
 
             $online = DB::table('lab_orders')
             ->where('doc_id',$doctor->id)
-            ->where('status','quest-forwarded')
+            ->where('status','essa-forwarded')
             ->where('type','Counter')
             ->where('doc_fee','unpaid')
             ->orwhere('doc_fee','!=',null)
@@ -914,7 +914,7 @@ class FinanceController extends Controller
 
             $online = DB::table('lab_orders')
             ->where('doc_id',$doctor->id)
-            ->where('status','quest-forwarded')
+            ->where('status','essa-forwarded')
             ->where('type','Counter')
             ->whereDate('created_at', '>=', $startdate)
             ->whereDate('created_at', '<=', $enddate)
@@ -934,7 +934,7 @@ class FinanceController extends Controller
 
             $online = DB::table('lab_orders')
             ->where('doc_id',$doctor->id)
-            ->where('status','quest-forwarded')
+            ->where('status','essa-forwarded')
             ->where('type','Counter')
             ->where('doc_fee','paid')
             ->orwhere('doc_fee','!=',null)
@@ -997,7 +997,7 @@ class FinanceController extends Controller
 
             $online = DB::table('lab_orders')
             ->where('doc_id',$doctor->id)
-            ->where('status','quest-forwarded')
+            ->where('status','essa-forwarded')
             ->where('type','Counter')
             ->whereDate('created_at', '>=', $startdate)
             ->whereDate('created_at', '<=', $enddate)
@@ -1017,7 +1017,7 @@ class FinanceController extends Controller
 
             $online = DB::table('lab_orders')
             ->where('doc_id',$doctor->id)
-            ->where('status','quest-forwarded')
+            ->where('status','essa-forwarded')
             ->where('type','Counter')
             ->where('doc_fee','unpaid')
             ->orwhere('doc_fee','!=',null)

@@ -256,8 +256,8 @@ class DoctorController extends Controller
     {
         $user = Auth::user();
         if ($user->user_type == 'patient') {
-            if($id != '21')
-            {
+            // if($id != '21')
+            // {
                 // $states = DB::table('states')->where('active','1')->get();
                 // $state = DB::table('states')->where('id',$loc_id)->first();
                 $doctors = DB::table('users')
@@ -285,10 +285,10 @@ class DoctorController extends Controller
                 // }
                 // return view('dashboard_patient.Evisit.online_doctor', compact('doctors', 'session', 'id'));
                 return view('dashboard_patient.Evisit.online_doctor', compact('doctors', 'id'));
-            }else{
-                $flag = 'session';
-                return view('dashboard_patient.Evisit.patient_health',compact('user','flag','loc_id'));
-            }
+            // }else{
+            //     $flag = 'session';
+            //     return view('dashboard_patient.Evisit.patient_health',compact('user','flag','loc_id'));
+            // }
         } else {
             return redirect()->route('home');
         }

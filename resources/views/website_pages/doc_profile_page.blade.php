@@ -136,10 +136,11 @@
                                                     ($schedule->sat && $index == 6) ||
                                                     ($schedule->sun && $index == 0)
                                                 ) {
-                                                    // $fromTime = \Carbon\Carbon::parse($schedule->from_time);
-                                                    // $toTime = \Carbon\Carbon::parse($schedule->to_time);
+
                                                     $fromTime = $schedule->from_time;
                                                     $toTime = $schedule->to_time;
+                                                    $fromTime = DateTime::createFromFormat('h:i A', $fromTime);
+                                                    $toTime = DateTime::createFromFormat('h:i A', $toTime);
 
                                                     if ($index > $currentDay || ($index == $currentDay && $currentTime->lt($toTime))) {
                                                         $nextSchedule = [

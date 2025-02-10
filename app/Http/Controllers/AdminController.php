@@ -2829,13 +2829,13 @@ public function store_policy(Request $request){
         $requisitions = DB::table('quest_labs')
         ->join('quest_requests', 'quest_labs.id', '=', 'quest_requests.quest_lab_id')
         ->join('lab_orders', 'quest_requests.order_id', '=', 'lab_orders.order_id')
-        ->where('lab_orders.status', 'quest-forwarded')
+        ->where('lab_orders.status', 'essa-forwarded')
         ->groupBy('quest_requests.id')
         ->orderByDesc('quest_requests.id')->paginate(9);
         $req =  DB::table('quest_labs')
         ->join('quest_requests', 'quest_labs.id', '=', 'quest_requests.quest_lab_id')
         ->join('lab_orders', 'quest_requests.order_id', '=', 'lab_orders.order_id')
-        ->where('lab_orders.status', 'quest-forwarded')
+        ->where('lab_orders.status', 'essa-forwarded')
         ->groupBy('quest_requests.id')
         ->orderByDesc('quest_requests.id')->get()->toArray();
         foreach ($requisitions as $requisition) {

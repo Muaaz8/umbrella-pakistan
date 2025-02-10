@@ -43,7 +43,6 @@
           {
             $('#bodies').append('<tr id="body_'+arr.order_id+'"></tr>');
             $('#body_'+arr.order_id).append('<td data-label="Order ID">'+arr.order_id+'</td>'
-            +'<td data-label="Order State">'+arr.order_state+'</td>'
             +'<td data-label="Order Status">'+arr.order_status+'</td>'
             +'<td data-label="Date">'+arr.created_at.date+'</td>'
             +'<td data-label="Time">'+arr.created_at.time+'</td>'
@@ -83,7 +82,7 @@
                         <table class="table">
                           <thead>
                             <th scope="col">Order ID</th>
-                            <th scope="col">Order State</th>
+                            {{-- <th scope="col">Order State</th> --}}
                             <th scope="col">Order Status</th>
                             <th scope="col">Date</th>
                             <th scope="col">Time</th>
@@ -93,7 +92,7 @@
                             @forelse($tblOrders as $order)
                             <tr>
                                 <td data-label="Order ID">{{$order->order_id}}</td>
-                                <td data-label="Order State">{{$order->order_state}}</td>
+                                {{-- <td data-label="Order State">{{$order->order_state}}</td> --}}
                                 <td data-label="Order Status">{{$order->order_status}}</td>
                                 <td data-label="Date">{{$order->created_at['date']}}</td>
                                 <td data-label="Time">{{$order->created_at['time']}}</td>
