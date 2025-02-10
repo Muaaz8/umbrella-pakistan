@@ -33,7 +33,7 @@
                                     <table width="100%">
                                         <tbody>
                                             <tr>
-                                                <td style="padding: 20px 0; background-color: #ffff">
+                                                <td style=" background-color: #ffff">
                                                     <table width="100%">
                                                         <tbody>
                                                             <tr>
@@ -46,7 +46,7 @@
                                                                     <a href="https://www.communityhealthcareclinics.com/" target="_blank">
                                                                         <img src="https://www.communityhealthcareclinics.com/assets/new_frontend/logo.png"
                                                                             style="
-                                          width: 96px;
+                                          width: 200px;
                                           display: block;
                                           margin: auto;
                                         " />

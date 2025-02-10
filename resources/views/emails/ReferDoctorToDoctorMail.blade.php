@@ -50,7 +50,7 @@
                     >
                       <tbody style="background-color: #ffff !important">
                         <tr>
-                          <td style="padding: 20px 0; background-color: #ffff !important">
+                          <td style=" background-color: #ffff !important">
                             <table width="100%">
                               <tbody>
                                 <tr>
@@ -66,7 +66,7 @@
                                       <img
                                       src="https://www.communityhealthcareclinics.com/assets/new_frontend/logo.png"
                                         style="
-                                          width: 96px;
+                                          width: 200px;
                                           display: block;
                                           margin: auto;
                                         "
