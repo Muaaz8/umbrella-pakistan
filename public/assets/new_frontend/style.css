@@ -1806,6 +1806,7 @@ header {
     height: 70%;
     width: 100%;
     z-index: -1;
+    border-radius: 20px;
 }
 
 .test-card-price {
@@ -3694,7 +3695,15 @@ header {
         min-width: 500px;
     }
 
+    .tests-card {
+        height: max(250px, 10vh);
+    }
+
     /* Our Doctors Page */
+
+    .doctor-list-card-container {
+        min-height: 260px !important;
+    }
 
     .doctor-list-container h2 {
         font-size: 2.5rem !important;
@@ -3710,15 +3719,19 @@ header {
     }
 
     .doctor-data-container h5 {
-        font-size: 1.4rem !important;
+        font-size: 1.2rem !important;
+    }
+
+    .doctor-data-container .specialization-doc {
+        font-size: 0.9rem !important;
+    }
+    
+    .doctor-data-container .education-doc {
+        font-size: 0.75rem !important;
     }
 
     .doctor-verify {
         font-size: 0.9rem !important;
-    }
-
-    .doctor-data-container p {
-        font-size: 1rem !important;
     }
 
     .doctor-ratings>i {
@@ -3731,6 +3744,10 @@ header {
 
     .doctor-list-card-container button {
         font-size: 1.15rem;
+    }
+
+    .search-bar-container {
+        width: 40% !important;
     }
 
     /* About Us Page */
@@ -5086,6 +5103,10 @@ header {
     width: 92%;
 }
 
+.doctor-list-section hr {
+    margin: 0.1rem 0;
+}
+
 .search-field {
     border: none;
     outline: none;
@@ -5103,7 +5124,7 @@ header {
 }
 
 .doctor-list-card-container {
-    min-height: 235px;
+    min-height: 240px;
     border-top: 6px solid var(--blue);
     box-shadow: 1px 1px 2px 0px #d0c0c0;
     background: white;
@@ -5166,7 +5187,7 @@ header {
 }
 
 .doctor-data-container h5 {
-    font-size: 1.2rem;
+    font-size: 1rem;
 }
 
 .doctor-verify {
