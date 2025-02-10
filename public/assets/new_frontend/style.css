@@ -3699,6 +3699,11 @@ header {
         height: max(250px, 10vh);
     }
 
+    .categories-list li {
+        min-width: 200px;
+        max-width: 200px;
+    }
+
     /* Our Doctors Page */
 
     .doctor-list-card-container {
