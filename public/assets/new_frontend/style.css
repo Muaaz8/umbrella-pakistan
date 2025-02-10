@@ -2686,7 +2686,7 @@ header {
 .alphabet-group:hover .alphabet::after {
     content: '';
     position: absolute;
-    bottom: -16%;
+    bottom: -15%;
     left: 50%;
     transform: translateX(-50%);
     border-left: 6px solid transparent;
