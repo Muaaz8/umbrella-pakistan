@@ -88,7 +88,6 @@
                     success: function(response) {
                         $(".doctor-cont2").html("");
                         $.each(JSON.parse(response), function (indexInArray, element) {
-                            console.log(element)
                             if (element.details) {
                                 $(".doctor-cont2").append(
                                     `<div class="col-sm-6 col-md-4 col-xl-3 doctor-list-card">
@@ -144,6 +143,13 @@
         }
 
         ///////////////////////////
+
+    document.addEventListener('DOMContentLoaded', function () {
+    if (window.location.href.includes('online=1')) {
+        select_doc(3);
+        $('#cb-50').prop('checked', true);
+    }
+});
 
         $("#search").keyup(function(e) {
             var name = e.target.value;
