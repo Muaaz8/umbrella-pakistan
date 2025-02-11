@@ -29,7 +29,7 @@
             <p>Welcome to</p>
           <h1>Community Healthcare Clinics</h1>
       </div>
-          <div class="d-flex justify-content-between align-items-center gap-2">
+          <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center gap-2">
             <h5>Change Online Status:</h5>
             <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked2">

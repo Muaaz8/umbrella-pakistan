@@ -1710,6 +1710,11 @@ input:checked+.slider:before {
   .account-setting-wrapper #deactivate {
     line-height: 18px;
   }
+
+  .dashboard-content h5 {
+    font-size: 0.8rem;
+    text-align: center;
+  }
 }
 
 .wallet-date-picker-wrap .card {
