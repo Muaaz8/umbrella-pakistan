@@ -190,11 +190,18 @@ header > .header-search-container {
     color: gainsboro;
 }
 
+.header-search-result li a {
+    text-decoration: none;
+    color: black;
+}
+
 .product-name {
     max-width: 100%;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+    color: black;
+    font-weight: 600 !important;
 }
 
 .category-name {
@@ -5156,6 +5163,10 @@ header > .header-search-container {
         font-size: 12px;
         padding: 0.25rem 0.5rem;
     }
+
+    .product-name {
+        font-size: 1rem !important;
+    }
 }
 
 
@@ -5182,7 +5193,7 @@ header > .header-search-container {
 
 @media only screen and (max-width: 373px) {
     .logo>img {
-        width: 185px;
+        width: 170px;
     }
 
     .healthcare-section {
@@ -5210,6 +5221,10 @@ header > .header-search-container {
 
     .checkbox-wrapper-47 label {
         font-size: 0.8rem;
+    }
+
+    .hamburger div {
+        width: 25px;
     }
 }
 

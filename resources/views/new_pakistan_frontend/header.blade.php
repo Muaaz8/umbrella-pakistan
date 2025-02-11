@@ -16,56 +16,106 @@
           }
       });
 
+      $('#new-search2').on('input', function () {
+      const searchTerm = $(this).val().trim().toLowerCase();
+
+        if (searchTerm.length === 0) {
+            $('.header-search-result').empty().hide();
+            return;
+        }
+
+        $.ajax({
+            url: `/search_items/${searchTerm}`,
+            type: 'GET',
+            dataType: 'json',
+            success: function (response) {
+                const { products, test_codes } = response;
+
+                $('.header-search-result').empty();
+
+                if (products.length > 0 || test_codes.length > 0) {
+                    products.forEach(product => {
+                        $('.header-search-result').append(`
+                            <li>
+                                <a href="/medicines/${product.slug}" class="d-flex flex-column justify-content-between align-items-start w-100">
+                                    <span class="product-name">${product.name}</span>
+                                    <span class="category-name">Pharmacy</span>
+                                </a>
+                            </li>
+                        `);
+                    });
+
+                    test_codes.forEach(test => {
+                        $('.header-search-result').append(`
+                            <li>
+                                <a href="/labtest/${test.SLUG}" class="d-flex flex-column justify-content-between align-items-start w-100">
+                                    <span class="product-name">${test.TEST_NAME}</span>
+                                      <span class="category-name">Lab Test</span>
+                                </a>
+                            </li>
+                        `);
+                    });
+
+                    $('.header-search-result').show();
+                } else {
+                    $('.header-search-result').hide();
+                }
+            },
+            error: function (error) {
+                console.error('Error fetching search results:', error);
+            }
+        });
+      });
       $('#new-search').on('input', function () {
       const searchTerm = $(this).val().trim().toLowerCase();
 
-      if (searchTerm.length === 0) {
-          $('.header-search-result').empty().hide();
-          return;
-      }
+        if (searchTerm.length === 0) {
+            $('.header-search-result').empty().hide();
+            return;
+        }
 
-      $.ajax({
-          url: `/search_items/${searchTerm}`,
-          type: 'GET',
-          dataType: 'json',
-          success: function (response) {
-              const { products, test_codes } = response;
+        $.ajax({
+            url: `/search_items/${searchTerm}`,
+            type: 'GET',
+            dataType: 'json',
+            success: function (response) {
+                const { products, test_codes } = response;
 
-              $('.header-search-result').empty();
+                $('.header-search-result').empty();
 
-              if (products.length > 0 || test_codes.length > 0) {
-                  products.forEach(product => {
-                      $('.header-search-result').append(`
-                          <li>
-                              <a href="/medicines/${product.slug}" class="d-flex flex-column justify-content-between align-items-start w-100">
-                                  <span class="product-name">${product.name}</span>
-                                  <span class="category-name">Pharmacy</span>
-                              </a>
-                          </li>
-                      `);
-                  });
+                if (products.length > 0 || test_codes.length > 0) {
+                    products.forEach(product => {
+                        $('.header-search-result').append(`
+                            <li>
+                                <a href="/medicines/${product.slug}" class="d-flex flex-column justify-content-between align-items-start w-100">
+                                    <span class="product-name">${product.name}</span>
+                                    <span class="category-name">Pharmacy</span>
+                                </a>
+                            </li>
+                        `);
+                    });
 
-                  test_codes.forEach(test => {
-                      $('.header-search-result').append(`
-                          <li>
-                              <a href="/labtest/${test.SLUG}" class="d-flex flex-column justify-content-between align-items-start w-100">
-                                  <span class="product-name">${test.TEST_NAME}</span>
-                                    <span class="category-name">Lab Test</span>
-                              </a>
-                          </li>
-                      `);
-                  });
+                    test_codes.forEach(test => {
+                        $('.header-search-result').append(`
+                            <li>
+                                <a href="/labtest/${test.SLUG}" class="d-flex flex-column justify-content-between align-items-start w-100">
+                                    <span class="product-name">${test.TEST_NAME}</span>
+                                      <span class="category-name">Lab Test</span>
+                                </a>
+                            </li>
+                        `);
+                    });
 
-                  $('.header-search-result').show();
-              } else {
-                  $('.header-search-result').hide();
-              }
-          },
-          error: function (error) {
-              console.error('Error fetching search results:', error);
-          }
+                    $('.header-search-result').show();
+                } else {
+                    $('.header-search-result').hide();
+                }
+            },
+            error: function (error) {
+                console.error('Error fetching search results:', error);
+            }
+        });
       });
-  });
 
 
 
@@ -82,6 +132,18 @@
       });
 
       $('#new-search').on('blur', function() {
+          if ($(this).val() === "") {
+              $('.header-search-result').hide();
+          }
+      });
+
+      $('#new-search2').on('focus', function() {
+          if ($('.header-search-result').children().length > 0) {
+              $('.header-search-result').show();
+          }
+      });
+
+      $('#new-search2').on('blur', function() {
           if ($(this).val() === "") {
               $('.header-search-result').hide();
           }
@@ -269,7 +331,7 @@
     </nav>
     <div class="header-search-container w-100 w-lg-50 form-control px-2 py-2 position-relative">
       <div class="d-flex align-items-center justify-content-between">
-          <input type="search" name="header-search" placeholder="Search" class="header-search-field w-100" id="new-search">
+          <input type="search" name="header-search" placeholder="Search" class="header-search-field w-100" id="new-search2">
           <ul class="header-search-result categories-list rounded-3"></ul>
           <button type="button" class="header-search-btn px-2"><i class="fa-solid fa-magnifying-glass"></i></button>
       </div>
