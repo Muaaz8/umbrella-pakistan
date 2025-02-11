@@ -21,19 +21,17 @@
     ];
 
     $(".search-btn-mob").on("click", function() {
-        $("header .header-search-container").css("display", "block");
+        $("header > .header-search-container").css("display", "block");
     });
 
-    // When clicking anywhere outside the header-search-container
     $(document).on("click", function(event) {
         if (!$(event.target).closest(".header-search-container").length && !$(event.target).closest(".search-btn-mob").length) {
-            $("header .header-search-container").css("display", "none");
+            $("header > .header-search-container").css("display", "none");
         }
     });
 
-    // When the search input changes
-    $('#new-search').on('input', function() {
-        const searchTerm = $(this).val().toLowerCase();  // Get the search term
+      $('#new-search').on('input', function() {
+        const searchTerm = $(this).val().toLowerCase();
         const filteredProducts = products.filter(product => 
             product.name.toLowerCase().includes(searchTerm) || 
             product.category.toLowerCase().includes(searchTerm)
@@ -264,11 +262,11 @@
       </section>
     </nav>
     <div class="header-search-container w-100 w-lg-50 form-control px-2 py-2 position-relative">
-                <form class="d-flex align-items-center justify-content-between">
-                    <input type="search" name="header-search" placeholder="Search" class="header-search-field w-100" id="new-search">
-                    <ul class="header-search-result categories-list rounded-3"></ul>
-                    <button type="button" class="header-search-btn px-2"><i class="fa-solid fa-magnifying-glass"></i></button>
-                </form>
+      <form class="d-flex align-items-center justify-content-between">
+          <input type="search" name="header-search" placeholder="Search" class="header-search-field w-100" id="new-search">
+          <ul class="header-search-result categories-list rounded-3"></ul>
+          <button type="button" class="header-search-btn px-2"><i class="fa-solid fa-magnifying-glass"></i></button>
+      </form>
     </div>
   </header>
 

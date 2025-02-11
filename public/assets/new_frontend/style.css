@@ -129,7 +129,7 @@ header {
     width: 325px !important;
 }
 
-header .header-search-container {
+header > .header-search-container {
     display: none;
     margin: 10px auto 0 auto;
     width: 90% !important;
