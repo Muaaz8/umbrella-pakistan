@@ -236,7 +236,7 @@
             <a href="{{ route('doc_profile_page_list') }}">Our Doctors</a>
             <a href="{{ route('about_us') }}">About Us</a>
             <a href="{{ route('contact_us') }}">Contact Us</a>
-            <a href="{{ route('doc_profile_page_list') }}" class="text-success online_docs">Online Doctors</a>
+            <a href="{{ route('doc_profile_page_list') }}" class="text-success online_docs d-flex gap-2 align-items-center"><span class="blink-dot"></span><span>Online Doctors</span></a>
 
 
 
