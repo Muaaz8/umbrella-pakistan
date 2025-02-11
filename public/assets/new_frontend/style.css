@@ -148,7 +148,7 @@ header > .header-search-container {
     /* background-color: red; */
     /* max-height: 300px; */
     /* height: 300px; */
-    width: 100%; 
+    width: 100%;
     /* border: 2px solid black; */
     /* overflow-y: hidden; */
     /* z-index: 2; */
@@ -183,6 +183,10 @@ header > .header-search-container {
 }
 
 .header-search-field:focus ~ .header-search-result {
+    display: block;
+}
+
+.header-search-container:hover .header-search-result {
     display: block;
 }
 
@@ -3831,7 +3835,7 @@ header > .header-search-container {
     .doctor-data-container .specialization-doc {
         font-size: 0.9rem !important;
     }
-    
+
     .doctor-data-container .education-doc {
         font-size: 0.75rem !important;
     }
