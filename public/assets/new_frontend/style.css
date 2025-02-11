@@ -129,6 +129,12 @@ header {
     width: 325px !important;
 }
 
+header .header-search-container {
+    display: none;
+    margin: 10px auto 0 auto;
+    width: 90% !important;
+}
+
 .header-search-field {
     border: none;
     outline: none;
@@ -202,6 +208,18 @@ header {
 
 .header-search-result::-webkit-scrollbar-thumb:hover {
     background: #555; /* Optional: change color when hovering */
+}
+
+.cart-search-container {
+    display: none !important;
+}
+
+.cart-mob, .search-btn-mob {
+    font-size: 20px;
+}
+
+.cart-mob img {
+    width: 25px;
 }
 
 .dropdown .fa-user-group {
@@ -4304,6 +4322,10 @@ header {
         word-wrap: normal;
         padding: 0 10px;
     }
+
+    .cart-search-container {
+        display: flex !important;
+    }
 }
 
 @media (max-width: 900px) {
@@ -4813,6 +4835,10 @@ header {
     .content {
         width: 90%;
     }
+
+    .logo > img {
+        width: 200px;
+    }
 }
 
 /* new design */
@@ -5126,7 +5152,7 @@ header {
 
 @media only screen and (max-width: 373px) {
     .logo>img {
-        width: 225px;
+        width: 185px;
     }
 
     .healthcare-section {
