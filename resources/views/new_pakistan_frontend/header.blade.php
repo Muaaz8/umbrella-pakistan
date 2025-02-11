@@ -131,11 +131,11 @@
           </div>
           <div class="flex gap-2" id="nav-right-side">
             <div class="header-search-container w-100 w-lg-50 form-control px-2 py-2 position-relative">
-                <form class="d-flex align-items-center justify-content-between">
+                <div class="d-flex align-items-center justify-content-between">
                     <input type="search" name="header-search" placeholder="Search" class="header-search-field w-100" id="new-search">
                     <ul class="header-search-result categories-list rounded-3"></ul>
                     <button type="button" class="header-search-btn px-2"><i class="fa-solid fa-magnifying-glass"></i></button>
-                </form>
+                </div>
             </div>
             @if (Auth::check())
             <div class="dropdown" >
@@ -268,11 +268,11 @@
       </section>
     </nav>
     <div class="header-search-container w-100 w-lg-50 form-control px-2 py-2 position-relative">
-      <form class="d-flex align-items-center justify-content-between">
+      <div class="d-flex align-items-center justify-content-between">
           <input type="search" name="header-search" placeholder="Search" class="header-search-field w-100" id="new-search">
           <ul class="header-search-result categories-list rounded-3"></ul>
           <button type="button" class="header-search-btn px-2"><i class="fa-solid fa-magnifying-glass"></i></button>
-      </form>
+      </div>
     </div>
   </header>
 
