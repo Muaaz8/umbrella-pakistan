@@ -441,7 +441,7 @@ class PatientController extends Controller
                         'featured_image'
                     )
                     ->where('id', $request->pro_id)
-                    ->where('quantity', '>=', (int) $request->quantity)
+                    // ->where('quantity', '>=', (int) $request->quantity)
                     ->first();
                 $pricing = DB::table('medicine_pricings')->where('id',$request->unit)->first();
 

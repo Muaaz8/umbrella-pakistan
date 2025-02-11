@@ -76,7 +76,7 @@
                                     <tr>
                                         <!-- <th><i class="fa-solid fa fa-flask fs-4"></i></th> -->
                                         <td data-label="Product Name">{{ $med->name }}</td>
-                                        <td data-label="Quantity">{{ $med->usage }}</td>
+                                        <td data-label="Quantity">{{ isset($med->usage)?$med->usage:"-" }}</td>
                                         <td data-label="Price">Rs. {{ $med->update_price }}</td>
                                         <td data-label="Status">{{ $med->status }}</td>
                                         @php

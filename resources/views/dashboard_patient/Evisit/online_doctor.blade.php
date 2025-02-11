@@ -885,37 +885,41 @@
                             <textarea required="" rows="6" id="symp_text" name="problem" class="form-control no-resize"
                                 placeholder="Add Symptoms..."></textarea>
                         </div>
+                        @if($session != null)
                         <h5 class="mt-2">Pay With</h5>
-                        <input type="hidden" name="payment_method" id="payment_method">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="payment-method w-100 p-3 d-flex align-items-center justify-content-between flex-column"
-                                    data-method="credit-card">
-                                    <img class="icon" src="{{ asset('assets/new_frontend/cards.png') }}" alt="">
-                                    <h5>Pay with Credit Card</h5>
+                            <input type="hidden" name="payment_method" id="payment_method">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="payment-method w-100 p-3 d-flex align-items-center justify-content-between flex-column"
+                                        data-method="credit-card">
+                                        <img class="icon" src="{{ asset('assets/new_frontend/cards.png') }}" alt="">
+                                        <h5>Pay with Credit Card</h5>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="payment-method w-100 p-3 d-flex align-items-center justify-content-between flex-column"
+                                        data-method="easy-paisa">
+                                        <img class="icon" src="{{ asset('assets/new_frontend/easypaisa-logo.png') }}"
+                                        alt="">
+                                        <h5>Pay with EasyPaisa</h5>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="payment-method w-100 p-3 d-flex align-items-center justify-content-between flex-column"
+                                        data-method="online-cash">
+                                        <img class="icon" src="{{ asset('assets/new_frontend/online-money.png') }}" alt="">
+                                        <h5>Pay with Online/Cash</h5>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="payment-method w-100 p-3 d-flex align-items-center justify-content-between flex-column"
-                                    data-method="easy-paisa">
-                                    <img class="icon" src="{{ asset('assets/new_frontend/easypaisa-logo.png') }}"
-                                    alt="">
-                                    <h5>Pay with EasyPaisa</h5>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="payment-method w-100 p-3 d-flex align-items-center justify-content-between flex-column"
-                                    data-method="online-cash">
-                                    <img class="icon" src="{{ asset('assets/new_frontend/online-money.png') }}" alt="">
-                                    <h5>Pay with Online/Cash</h5>
-                                </div>
-                            </div>
-                        </div>
+                        @else
+                            <input type="hidden" name="payment_method" id="payment_method" value="first-visit">
+                        @endif
                     </div>
                     <div class="modal-footer mt-2">
                         <button type="submit" name="submit_btn" id="submit_btn"
                             class="btn btn-link waves-effect location__back__BTN"
-                            style="border:none; padding:10px;" disabled>SUBMIT</button> &nbsp;
+                            style="border:none; padding:10px;" {{$session?"disabled":""}}>SUBMIT</button> &nbsp;
                     </div>
                 </form>
             </div>
