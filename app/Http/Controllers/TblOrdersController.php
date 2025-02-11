@@ -743,12 +743,17 @@ class TblOrdersController extends AppBaseController
             $data['order_sub_id'] = $this->tblOrdersRepository->forOrderListView($tblOrders->order_sub_id);
 
             $orderId = $tblOrders->order_id;
-            $orderMeds = DB::table('medicine_order')->where('order_main_id', $orderId)
-                ->join('tbl_products', 'tbl_products.id', 'medicine_order.order_product_id')
-                ->join('prescriptions', 'prescriptions.medicine_id', 'medicine_order.order_product_id')
+            $orderMeds = DB::table('medicine_order')
+                ->where('order_main_id', $orderId)
+                ->join('tbl_products', 'tbl_products.id', '=', 'medicine_order.order_product_id')
+                ->leftJoin('prescriptions', function ($join) {
+                    $join->on('prescriptions.medicine_id', '=', 'medicine_order.order_product_id')
+                        ->where('medicine_order.pro_mode', 'Prescribed');
+                })
                 ->groupBy('medicine_order.id')
                 ->select('tbl_products.name', 'medicine_order.update_price', 'medicine_order.status', 'prescriptions.usage')
                 ->get();
+
             if (Auth::user()->user_type == 'patient') {
                 // $data=DB::table('prescriptions')->where('test_id','10285')->get();
                 // dd($data);
@@ -914,6 +919,7 @@ class TblOrdersController extends AppBaseController
     {
         // $lab_order = LabOrder::where('id', $request['id'])->first();
         // $tblOrders = $this->tblOrdersRepository->getOrderByOrderID($lab_order['order_id']);
+        $id = $request['id'];
         $lab_order_id = LabOrder::where('id', $request['id'])->select('lab_orders.order_id')->first();
         $lab_order = DB::table('lab_orders')
             ->where('lab_orders.order_id', $lab_order_id->order_id)
@@ -951,7 +957,15 @@ class TblOrdersController extends AppBaseController
         // $data['payment'] = $this->tblOrdersRepository->forOrderListView($tblOrders[0]->payment);
         // $data['order_sub_id'] = $this->tblOrdersRepository->forOrderListView($tblOrders[0]->order_sub_id);
         // dd($lab_order);
-        return view('dashboard_Lab_admin.Orders.order_details', compact('lab_order'));
+        return view('dashboard_Lab_admin.Orders.order_details', compact('lab_order','id'));
+    }
+
+    public function lab_admin_add_note(Request $request,$id){
+        $order = LabOrder::find($id);
+        $order->status = $request->status;
+        $order->notes = $request->note;
+        $order->save();
+        return redirect()->back();
     }
 
     public function labOrders_by_patient(Request $request, $patient_id)

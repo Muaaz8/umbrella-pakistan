@@ -89,20 +89,13 @@ class LoginController extends Controller
             ]);
             Session::where('doctor_id', $user->id)->where('remaining_time','!=','full')->update(['status' => 'ended', 'queue' => 0]);
             Session::where('doctor_id', $user->id)->where('status','invitation sent')->orwhere('status','doctor joined')->update(['status' => 'paid']);
-            try {
-                $data = DB::table('users')->where('id',$user->id)->select('id','status')->first();
-                if($data->status == "online"){
-                    $data->status = "offline";
-                }else{
-                    $data->status = "online";
-                }
-                $data->id = (string)$user->id;
-                $data->received = "false";
-                // \App\Helper::firebaseOnlineDoctor('loadOnlineDoctor',$user->id,$data);
-            } catch (\Throwable $th) {
-                // throw $th;
+            $data = User::where('id',$user->id)->select('id','status')->first();
+            if($data->status == "online"){
+                $data->status = "offline";
+            }else{
+                $data->status = "online";
             }
-            // dd(auth()->user()->status);
+            $data->save();
         }
         if ($type == 'patient') {
             ActivityLog::create([

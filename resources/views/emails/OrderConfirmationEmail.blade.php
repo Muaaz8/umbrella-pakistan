@@ -156,7 +156,6 @@
                                       ">
                                                                         <span>Order No.</span>
                                                                         {{ $userDetails['order_id'] }}
-                                                                        @php $providerfee = 0; @endphp
                                                                     </h2>
                                                                 </th>
                                                             </tr>
@@ -263,26 +262,6 @@
                                                                 ">
 
                                                                                                                         </span>
-                                                                                                                        @if($test->item_type=='counter')
-                                                                                                                        @php
-                                                                                                                        $providerfee
-                                                                                                                        =
-                                                                                                                        6;
-                                                                                                                        @endphp
-                                                                                                                        <span
-                                                                                                                            class="muted"
-                                                                                                                            style="
-                                                              text-align: center;
-                                                              font-size: 14px;
-                                                              line-height: 26px;
-                                                              font-weight: normal;
-                                                              color: red;
-                                                            ">
-                                                                                                                            {{
-                                                                                                                            "Lab Test : Physician approval pending once approve requisition email will be sent."
-                                                                                                                            }}
-                                                                                                                        </span>
-                                                                                                                        @endif
                                                                                                                     </p>
                                                                                                                 </th>
 
@@ -361,38 +340,9 @@
                                                                                                         data-key="1468271_discount"
                                                                                                         style="font-weight: bold">Discount</span>
                                                                                                 </th>
-                                                                                                <th style="
-                                                      font-size: 16px;
-                                                      font-weight: 400;
-                                                      color: #666363;
-                                                      width: 35%;
-                                                      padding: 6px 0;
-                                                      text-align: right;
-                                                    ">$0.00
-                                                                                                </th>
                                                                                             </tr>
 
                                                                                             <tr>
-                                                                                                <th style="
-                                                      font-size: 16px;
-                                                      font-weight: bold;
-                                                      color: #666363;
-                                                      width: 65%;
-                                                      padding: 6px 0;
-                                                      text-align: left;
-                                                    ">
-                                                                                                    Provider Fee
-                                                                                                </th>
-                                                                                                <th style="
-                                                      font-size: 16px;
-                                                      font-weight: 400;
-                                                      color: #666363;
-                                                      width: 35%;
-                                                      padding: 6px 0;
-                                                      text-align: right;
-                                                    ">
-                                                                                                    Rs. {{$providerfee}}
-                                                                                                </th>
                                                                                             </tr>
 
                                                                                             <tr>
@@ -454,133 +404,7 @@
                                                             </tr>
                                                             <!-- END SECTION: Products With Pricing -->
                                                             <!-- BEGIN SECTION: Payment Info -->
-                                                            <tr>
-                                                                <th style="padding: 13px 52px" bgcolor="#ffffff">
-                                                                    <table border="0" width="100%">
-                                                                        <!-- PAYMENT INFO -->
 
-                                                                        <tbody>
-                                                                            <tr>
-                                                                                <th colspan="2">
-                                                                                    <h3 data-key="1468272_payment_info"
-                                                                                        style="
-                                                color: #bdbdbd;
-                                                font-size: 16px;
-                                                line-height: 52px;
-                                                font-weight: 700;
-                                                text-transform: uppercase;
-                                                border-bottom-width: 0;
-                                                border-bottom-color: #dadada;
-                                                border-bottom-style: solid;
-                                                letter-spacing: 1px;
-                                                margin: 0;
-                                              " align="left">
-                                                                                        Payment Info
-                                                                                    </h3>
-                                                                                </th>
-                                                                            </tr>
-
-                                                                            <!-- PAYMENT METHOD IMAGE -->
-
-                                                                            <tr>
-                                                                                <th class="table-title" style="
-                                              font-size: 16px;
-                                              line-height: 26px;
-                                              font-weight: bold;
-                                              color: #666363;
-                                              width: 65%;
-                                              padding: 6px 0;
-                                            " align="left" bgcolor="#ffffff" valign="top">
-                                                                                    <table cellspacing="0"
-                                                                                        cellpadding="0" border="0"
-                                                                                        width="100%" style="
-                                                min-width: 100%;
-                                                font-weight: bold;
-                                              " role="presentation">
-                                                                                        <tbody>
-                                                                                            <tr
-                                                                                                style="font-weight: bold">
-                                                                                                <th width="40" style="
-                                                      font-size: 16px;
-                                                      line-height: 26px;
-                                                      font-weight: bold;
-                                                      color: #666363;
-                                                      padding: 8px 10px 8px 0;
-                                                    " align="left" bgcolor="#ffffff" valign="middle">
-                                                    @if (substr($userDetails['cardNumber'],0,1) == 5)
-                                                    <img width="40"
-                                                        style="
-                                                        width: 40px;
-                                                        vertical-align: middle;
-                                                        height: auto !important;
-                                                        font-weight: bold;
-                                                        " alt="Mastercard Icon" src="https://orderlyemails.com/mobile-receipt-mastercard.png" />
-                                                    @elseif (substr($userDetails['cardNumber'],0,1) == 4)
-                                                    <img width="40"
-                                                        style="
-                                                        width: 40px;
-                                                        vertical-align: middle;
-                                                        height: auto !important;
-                                                        font-weight: bold;
-                                                    " alt="Visa Icon" src="https://www.orderlyemails.com/mobile-receipt-visa.png" />
-                                                    @elseif (substr($userDetails['cardNumber'],0,1) == 3)
-                                                    <img width="40"
-                                                        style="
-                                                        width: 40px;
-                                                        vertical-align: middle;
-                                                        height: auto !important;
-                                                        font-weight: bold;
-                                                        " alt="American Express Icon" src="https://images.app.goo.gl/GjLtKMhvMWccTzRN9" />
-                                                    @elseif (substr($userDetails['cardNumber'],0,1) == 6)
-                                                    <img width="40"
-                                                        style="
-                                                        width: 40px;
-                                                        vertical-align: middle;
-                                                        height: auto !important;
-                                                        font-weight: bold;
-                                                        " alt="Discover Icon" src="https://www.orderlyemails.com/mobile-receipt-discover.png" />
-                                                    @endif
-                                                                                                </th>
-                                                                                                <th style="
-                                                      font-size: 16px;
-                                                      line-height: 26px;
-                                                      font-weight: bold;
-                                                      color: #666363;
-                                                      padding: 8px 0;
-                                                    " align="left" bgcolor="#ffffff" valign="middle">
-                                                                                                    Card Number
-
-                                                                                                    <span
-                                                                                                        class="table-muted"
-                                                                                                        style="
-                                                        font-size: 14px;
-                                                        font-weight: bold;
-                                                        color: #bdbdbd;
-                                                      ">
-                                                                                                        {{"xxxx-xxxx-xxxx-".
-                                                                                                        substr($userDetails['cardNumber'], -4)
-                                                                                                        }}</span>
-                                                                                                </th>
-                                                                                            </tr>
-                                                                                        </tbody>
-                                                                                    </table>
-                                                                                </th>
-                                                                                <th class="table-text" style="
-                                              font-size: 16px;
-                                              line-height: 26px;
-                                              font-weight: 400;
-                                              color: #666363;
-                                              width: 35%;
-                                              padding: 13px 0;
-                                              text-align: right;
-                                            ">
-                                                                                    Rs. {{ $userDetails['order_total'] }}
-                                                                                </th>
-                                                                            </tr>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </th>
-                                                            </tr>
 
                                                             <tr id="section-1468275" class="section divider">
                                                                 <th style="
@@ -729,7 +553,7 @@
                                                       ">
                                                                                                         <img style="height:30px !important;" src="https://www.communityhealthcareclinics.com/assets/images/facebook.png"></img>
                                                                                                     </a>
-                                                                                                    
+
                                                                                                     <a class="social-link"
                                                                                                         href="https://www.instagram.com/community_healthcare_clinics"
                                                                                                         target="_blank"

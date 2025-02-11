@@ -1356,6 +1356,7 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
         //TblOrdersController
         Route::get('/lab_order/{id}', 'TblOrdersController@lab_order')->name('lab_order');
         Route::get('/lab/order/{id}', 'TblOrdersController@dash_lab_order')->name('dash_lab_order');
+        Route::post('/lab/admin/add/note/{id}', 'TblOrdersController@lab_admin_add_note')->name('lab_admin_add_note');
         Route::post('/upload_lab_repot/{id}', 'TblOrdersController@upload_lab_report')->name('upload_lab_report');
         Route::get('/lab_orders_filter', 'TblOrdersController@labFilter');
         Route::get('/imaging_orders_filter', 'TblOrdersController@imagingFilter');

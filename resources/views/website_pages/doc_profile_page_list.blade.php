@@ -290,12 +290,12 @@
                     </div>
                 </div>
                 <div class="search-bar-container w-100 w-lg-50 form-control px-2 py-2">
-                    <form class="d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center justify-content-between">
                         <input type="search" name="search" placeholder="Search Doctor Name" class="search-field w-100"
                             id="search">
                         <button type="button" class="search-btn px-2"><i
                                 class="fa-solid fa-magnifying-glass"></i></button>
-                    </form>
+                    </div>
                 </div>
             </div>
             <div class="row gy-3 gx-3 doctor-cont">

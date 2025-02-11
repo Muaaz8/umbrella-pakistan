@@ -270,7 +270,7 @@ class DoctorController extends Controller
                 foreach ($doctors as $doctor) {
                     $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
                 }
-                // $session = null;
+                $session = Session::where('patient_id',$user->id)->where('specialization_id',$id)->first();
                 // $price = DB::table('specalization_price')->where('spec_id', $id)->first();
                 // if ($price != null) {
                 //     if ($price->follow_up_price != null) {
@@ -284,7 +284,7 @@ class DoctorController extends Controller
                 //     return view('errors.101');
                 // }
                 // return view('dashboard_patient.Evisit.online_doctor', compact('doctors', 'session', 'id'));
-                return view('dashboard_patient.Evisit.online_doctor', compact('doctors', 'id'));
+                return view('dashboard_patient.Evisit.online_doctor', compact('doctors', 'id','session'));
             // }else{
             //     $flag = 'session';
             //     return view('dashboard_patient.Evisit.patient_health',compact('user','flag','loc_id'));
@@ -796,8 +796,11 @@ class DoctorController extends Controller
             }else{
                 return redirect()->back()->with('error','Sorry, we are currently facing server issues. Please try again later.');
             }
-        // }elseif($request->payment_method == "online-cash"){
-        //     dd('here');
+        }elseif($request->payment_method == "first-visit"){
+            $session = Session::find($session_id);
+            $session->status = "paid";
+            $session->save();
+            return redirect()->route('waiting_room_pat',['id' => \Crypt::encrypt($session_id)]);
         }else{
             Session::find($session_id)->delete();
             return redirect()->back()->with('error','Sorry, Can\'t process with this payment method right now.Kindly try different method.');

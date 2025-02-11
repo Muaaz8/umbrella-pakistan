@@ -34,13 +34,36 @@
                                         class="order-paid">{{ $lab_order[0]->pay_status }}</label></li>
                             @endif
                             @if ($lab_order[0]->status == 'pending')
-                                <li class="list-group-item d-flex justify-content-between px-2">Status : <label
+                                <li class="list-group-item d-flex justify-content-between">Status : <label
                                         class="order-progress">{{ $lab_order[0]->status }}</label></li>
                             @else
-                                <li class="list-group-item d-flex justify-content-between px-2">Status : <label
+                                <li class="list-group-item d-flex justify-content-between">Status : <label
                                         class="order-paid">{{ $lab_order[0]->status }}</label></li>
                             @endif
                             {{-- <li class="list-group-item d-flex justify-content-between"> Status :  <label class="order-">In progress</label></li> --}}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row m-auto my-2">
+                <div class="col-md-12">
+                    <div class="card" style="width: 100%">
+                        <ul class="list-group list-group-flush">
+                            <form action="{{ route('lab_admin_add_note',['id'=>$id]) }}" method="POST" >
+                                @csrf
+                                <li class="list-group-item d-flex justify-content-between">Status:
+                                    <select name="status" id="status" class="form-control mx-3">
+                                        <option value="essa-forwarded">Essa Forwarded</option>
+                                        <option value="completed">Completed</option>
+                                    </select>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between">Order Note:
+                                    <textarea name="note" id="note" class="form-control" style="resize: none;">{{$lab_order[0]->notes}}</textarea>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-end">
+                                    <button type="submit" class="btn process-pay">Submit</button>
+                                </li>
+                            </form>
                         </ul>
                     </div>
                 </div>

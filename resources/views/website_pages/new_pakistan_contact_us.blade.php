@@ -31,11 +31,31 @@
     @endif
 @endsection
 
+
 @section('top_import_file')
+    <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
 @endsection
 
 
 @section('bottom_import_file')
+<script>
+    var onloadCallback = function() {
+        grecaptcha.render('google_recaptcha', {
+            'sitekey' : '6LctFXkqAAAAAHG3mAMi56uxbdOJ3iOjAKXhyeyW'
+          });
+    };
+
+    $('#contact-form').submit(function(e)
+    {
+        var rcres = grecaptcha.getResponse();
+        if(rcres.length){
+            console.log(rcres);
+        }else{
+            alert('Please verify reCAPTCHA');
+            return false;
+        }
+    });
+</script>
 @endsection
 
 @section('content')
@@ -104,7 +124,7 @@
                     <h4 class="fw-bold">Have a Question? Contact Us.</h4>
                     <p class="py-2">Give us a call or send an email. Our team is always ready to provide customer care
                         help. For more information, visit us.</p>
-                    <form class="row form" action="/contact" method="POST">
+                    <form class="row form" id="contact-form" action="/contact" method="POST">
                         @csrf
                         <div class="row gx-4 gy-2">
                             <!-- First Name and Last Name -->
@@ -143,7 +163,11 @@
                                 <textarea class="form-control" rows="4" name="message" placeholder="Message"></textarea>
                             </div>
                         </div>
-
+                        <div class="col-md-6 mt-2">
+                            <div class="d-flex align-items-center">
+                                <div id="google_recaptcha" class="g-recaptcha"></div>
+                            </div>
+                        </div>
                         <div class="mt-3">
                             <button type="submit" class="contact-btn">Send Now</button>
                         </div>
