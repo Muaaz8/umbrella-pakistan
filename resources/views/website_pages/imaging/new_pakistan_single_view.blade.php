@@ -20,6 +20,11 @@
     <meta name="author" content="Umbrellamd">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="{{ asset('asset_frontend/images/logo.ico') }}" type="image/x-icon">
+    <style>
+        .price-tag {
+            left: -2% !important;
+        }
+    </style>
 @endsection
 
 
@@ -67,7 +72,7 @@
             <h3 class="text-center p-2"><u>Detail Description</u></h3>
             @if ($products[0]->discount_percentage != null)
             <div class="price-tag" style="top: 5%">
-                <span class="badge bg-danger px-3 py-2">Discount:  {{ $products[0]->discount_percentage}}% Off</span>
+                <span class="badge bg-danger px-3 py-2">{{ $products[0]->discount_percentage}}% Off</span>
             </div>
             @endif
             <div class="text-end d-flex align-items-center justify-content-end p-2">

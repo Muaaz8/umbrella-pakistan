@@ -3,6 +3,77 @@
         border-bottom: 2px solid #c80919 !important;
     }
 </style>
+<script>
+  $(document).ready(function() {
+    // Sample data for dynamic search (you can replace this with an API or database call)
+    const products = [
+        { name: 'Banana', category: 'Lab tests' },
+        { name: 'Apple', category: 'Lab tests' },
+        { name: 'ABC Toothpaste(Bubble Gum)ST', category: 'Pharmacy' },
+        { name: 'Mango', category: 'Fruits' },
+        { name: 'Watermelon', category: 'Fruits' },
+        { name: 'Papaya', category: 'Fruits' },
+        { name: 'Avocado', category: 'Fruits' },
+        { name: 'Grapes', category: 'Fruits' },
+        { name: 'Peach', category: 'Fruits' },
+        { name: 'Lemon', category: 'Fruits' },
+        { name: 'Tomato', category: 'Vegetables' }
+    ];
+
+    // When the search input changes
+    $('#search').on('input', function() {
+        const searchTerm = $(this).val().toLowerCase();  // Get the search term
+        const filteredProducts = products.filter(product => 
+            product.name.toLowerCase().includes(searchTerm) || 
+            product.category.toLowerCase().includes(searchTerm)
+        );
+
+        // Clear previous results
+        $('.header-search-result').empty();
+
+        // Populate the search results
+        if (filteredProducts.length > 0) {
+            filteredProducts.forEach(product => {
+                $('.header-search-result').append(`
+                    <li>
+                        <a href="#" class="d-flex flex-column justify-content-between align-items-start w-100">
+                            <span class="product-name">${product.name}</span>
+                            <span class="category-name">${product.category}</span>
+                        </a>
+                    </li>
+                `);
+            });
+            // Show the results
+            $('.header-search-result').show();
+        } else {
+            // Hide if no results
+            $('.header-search-result').hide();
+        }
+    });
+
+    // Hide results when clicking outside
+    $(document).on('click', function(event) {
+        if (!$(event.target).closest('.header-search-container').length) {
+            $('.header-search-result').hide();
+        }
+    });
+
+    // Keep results visible when input is focused
+    $('#search').on('focus', function() {
+        if ($('.header-search-result').children().length > 0) {
+            $('.header-search-result').show();
+        }
+    });
+
+    // Hide results when input loses focus if no results
+    $('#search').on('blur', function() {
+        if ($(this).val() === "") {
+            $('.header-search-result').hide();
+        }
+    });
+});
+
+</script>
 
 
 <!-- header  -->
@@ -43,10 +114,30 @@
           <div id="nav-logo" class="logo" onclick="window.location.href='{{ url('/') }}'" style="cursor: pointer;">
             <img src="{{ asset('assets/new_frontend/logo.png') }}" alt="umbrella-logo" />
           </div>
-          <div class="flex gap-15" id="nav-right-side">
-            <div id="checker">
+          <div class="flex gap-2" id="nav-right-side">
+            <!-- <div id="checker">
                 <i class="fa-regular fa-user"></i>
                 <a href="#" class="pe-none">Symptoms Checker</a>
+            </div> -->
+            <div class="header-search-container w-100 w-lg-50 form-control px-2 py-2 position-relative">
+                <form class="d-flex align-items-center justify-content-between">
+                    <input type="search" name="header-search" placeholder="Search" class="header-search-field w-100" id="search">
+                    <ul class="header-search-result categories-list rounded-3">
+                      <!-- <li><a href="" class="d-flex flex-column justify-content-between align-items-start w-100"><span class="product-name">Banana asfhajskhfkjashfakjshfkjashfjkashks</span><span class="category-name">Lab tests</span></a></li>
+                      <li><a href="" class="d-flex flex-column justify-content-between align-items-start w-100"><span class="product-name">Banana</span><span class="category-name">Lab tests</span></a></li>
+                      <li><a href="" class="d-flex flex-column justify-content-between align-items-start w-100"><span class="product-name">Banana</span><span class="category-name">Lab tests</span></a></li>
+                      <li><a href="" class="d-flex flex-column justify-content-between align-items-start w-100"><span class="product-name">Banana</span><span class="category-name">Lab tests</span></a></li>
+                      <li><a href="" class="d-flex flex-column justify-content-between align-items-start w-100"><span class="product-name">Banana</span><span class="category-name">Lab tests</span></a></li>
+                      <li><a href="" class="d-flex flex-column justify-content-between align-items-start w-100"><span class="product-name">Banana</span><span class="category-name">Lab tests</span></a></li>
+                      <li><a href="" class="d-flex flex-column justify-content-between align-items-start w-100"><span class="product-name">Banana</span><span class="category-name">Lab tests</span></a></li>
+                      <li><a href="" class="d-flex flex-column justify-content-between align-items-start w-100"><span class="product-name">Banana</span><span class="category-name">Lab tests</span></a></li>
+                      <li><a href="" class="d-flex flex-column justify-content-between align-items-start w-100"><span class="product-name">Banana</span><span class="category-name">Lab tests</span></a></li>
+                      <li><a href="" class="d-flex flex-column justify-content-between align-items-start w-100"><span class="product-name">Banana</span><span class="category-name">Lab tests</span></a></li>
+                      <li><a href="" class="d-flex flex-column justify-content-between align-items-start w-100"><span class="product-name">Banana</span><span class="category-name">Lab tests</span></a></li>
+                      <li><a href="" class="d-flex flex-column justify-content-between align-items-start w-100"><span class="product-name">Banana</span><span class="category-name">Lab tests</span></a></li> -->
+                    </ul>
+                    <button type="button" class="header-search-btn px-2"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </form>
             </div>
             @if (Auth::check())
             <div class="dropdown" >

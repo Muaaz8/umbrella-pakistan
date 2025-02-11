@@ -86,7 +86,7 @@ header {
 
 .wrap {
     height: 100%;
-    width: 90%;
+    width: 93%;
     margin: 0 auto;
     border-bottom: 1px solid #e0e0e0;
 }
@@ -123,6 +123,89 @@ header {
     padding: 3px 0 2px 0;
     font-weight: 600;
     width: max-content;
+}
+
+.header-search-container {
+    width: 325px !important;
+}
+
+.header-search-field {
+    border: none;
+    outline: none;
+}
+
+.header-search-result {
+    /* position: absolute;
+    left: 0; */
+    top: 100% !important;
+    display: none;
+    /* background-color: red; */
+    /* max-height: 300px; */
+    /* height: 300px; */
+    width: 100%; 
+    /* border: 2px solid black; */
+    /* overflow-y: hidden; */
+    /* z-index: 2; */
+}
+
+.header-search-result li {
+    min-width: 100% !important;
+}
+
+.header-search-result li:hover {
+    background-color: #0048b1 !important;
+}
+
+.header-search-result li:hover .product-name {
+    color: white;
+}
+
+.header-search-result li:hover .category-name {
+    color: gainsboro;
+}
+
+.product-name {
+    max-width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.category-name {
+    font-size: 0.75rem;
+    color: gray;
+}
+
+.header-search-field:focus ~ .header-search-result {
+    display: block;
+}
+
+.header-search-btn {
+    border: none;
+    background: none;
+}
+
+.header-search-result::-webkit-scrollbar {
+    width: 6px;
+    border-radius: 10px;
+}
+
+.header-search-result::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 10px;
+}
+
+.header-search-result::-webkit-scrollbar-thumb {
+    background: #888; /* Change the color to make it visible */
+    border-radius: 10px;
+}
+
+.header-search-result::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Optional: change color when hovering */
+}
+
+.dropdown .fa-user-group {
+    font-size: 0.8rem;
 }
 
 #drawer a {
@@ -183,7 +266,7 @@ header {
 
 
 #nav-right-side>div:last-child>img {
-    width: 30px;
+    width: 25px;
 }
 
 #checker,

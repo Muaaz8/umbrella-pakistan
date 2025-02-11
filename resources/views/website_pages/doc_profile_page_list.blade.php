@@ -222,9 +222,9 @@
 @section('content')
 <main class="w-100 h-100">
     <section class="doctor-list-section w-100 d-flex align-items-center justify-content-center">
-        <div class="doctor-list-container d-flex flex-column gap-3 my-3">
+        <div class="doctor-list-container d-flex flex-column gap-2 my-3">
             <div class="w-100 d-flex align-items-center justify-content-center">
-                <div class="w-50 d-flex flex-column align-items-center">
+                <div class="w-50 d-flex flex-column align-items-center mb-3">
                     <h2 class="text-center">
                         Our
                         <span class="red">Doctors</span>
