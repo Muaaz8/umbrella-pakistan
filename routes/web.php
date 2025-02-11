@@ -326,6 +326,30 @@ Route::post('/get/guest/msgs','ContactController@get_guest_msgs')->name('get_gue
 Route::get('/get/chatbot/questions','ContactController@get_chatbot_questions')->name('get_chatbot_questions');
 Route::get('/new/patient/not/join/call/{id}', 'VideoController@patient_NotJoiningCall');
 
+Route::get('search_items/{text}', function($text){
+
+    $products = DB::table('tbl_products')
+                ->select('id', 'name', 'slug')
+                ->where('name', 'like', '%' . $text . '%')
+                ->where('mode' , 'medicine')
+                ->limit(20)
+                ->get();
+
+
+    $testCodes = DB::table('quest_data_test_codes')
+                ->select('TEST_CD', 'TEST_NAME', 'SLUG')
+                ->where('TEST_NAME', 'like', '%' . $text . '%')
+                ->limit(20)
+                ->get();
+
+    return response()->json([
+        'products' => $products,
+        'test_codes' => $testCodes,
+    ]);
+});
+
+
+
 Route::group(['middleware' => 'redirecttovideo'], function () {
     Auth::routes();
     Route::get('admin/editor/details/{id}','AdminController@dash_editor_details')->name('dash_editor_details');

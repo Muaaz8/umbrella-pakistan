@@ -4,83 +4,89 @@
     }
 </style>
 <script>
-  $(document).ready(function() {
-    // Sample data for dynamic search (you can replace this with an API or database call)
-    const products = [
-        { name: 'Banana', category: 'Lab tests' },
-        { name: 'Apple', category: 'Lab tests' },
-        { name: 'ABC Toothpaste(Bubble Gum)ST', category: 'Pharmacy' },
-        { name: 'Mango', category: 'Fruits' },
-        { name: 'Watermelon', category: 'Fruits' },
-        { name: 'Papaya', category: 'Fruits' },
-        { name: 'Avocado', category: 'Fruits' },
-        { name: 'Grapes', category: 'Fruits' },
-        { name: 'Peach', category: 'Fruits' },
-        { name: 'Lemon', category: 'Fruits' },
-        { name: 'Tomato', category: 'Vegetables' }
-    ];
+    $(document).ready(function() {
 
-    $(".search-btn-mob").on("click", function() {
-        $("header > .header-search-container").css("display", "block");
-    });
+      $(".search-btn-mob").on("click", function() {
+          $(".header-search-container").css("display", "block");
+      });
 
-    $(document).on("click", function(event) {
-        if (!$(event.target).closest(".header-search-container").length && !$(event.target).closest(".search-btn-mob").length) {
-            $("header > .header-search-container").css("display", "none");
+      $(document).on("click", function(event) {
+          if (!$(event.target).closest(".header-search-container") && !$(event.target).closest(".search-btn-mob")) {
+              $(".header-search-container").css("display", "none");
+          }
+      });
+
+      $('#new-search').on('input', function () {
+      const searchTerm = $(this).val().trim().toLowerCase();
+
+      if (searchTerm.length === 0) {
+          $('.header-search-result').empty().hide();
+          return;
+      }
+
+      $.ajax({
+          url: `/search_items/${searchTerm}`,
+          type: 'GET',
+          dataType: 'json',
+          success: function (response) {
+              const { products, test_codes } = response;
+
+              $('.header-search-result').empty();
+
+              if (products.length > 0 || test_codes.length > 0) {
+                  products.forEach(product => {
+                      $('.header-search-result').append(`
+                          <li>
+                              <a href="/medicines/${product.slug}" class="d-flex flex-column justify-content-between align-items-start w-100">
+                                  <span class="product-name">${product.name}</span>
+                                  <span class="category-name">Pharmacy</span>
+                              </a>
+                          </li>
+                      `);
+                  });
+
+                  test_codes.forEach(test => {
+                      $('.header-search-result').append(`
+                          <li>
+                              <a href="/labtest/${test.SLUG}" class="d-flex flex-column justify-content-between align-items-start w-100">
+                                  <span class="product-name">${test.TEST_NAME}</span>
+                                    <span class="category-name">Lab Test</span>
+                              </a>
+                          </li>
+                      `);
+                  });
+
+                  $('.header-search-result').show();
+              } else {
+                  $('.header-search-result').hide();
+              }
+          },
+          error: function (error) {
+              console.error('Error fetching search results:', error);
+          }
+      });
+  });
+
+
+
+  $(document).on('click', function(event) {
+      if (!$(event.target).closest('.header-search-container')) {
+          $('.header-search-result').hide();
         }
-    });
+      });
 
-      $('#new-search').on('input', function() {
-        const searchTerm = $(this).val().toLowerCase();
-        const filteredProducts = products.filter(product => 
-            product.name.toLowerCase().includes(searchTerm) || 
-            product.category.toLowerCase().includes(searchTerm)
-        );
+      $('#new-search').on('focus', function() {
+          if ($('.header-search-result').children().length > 0) {
+              $('.header-search-result').show();
+          }
+      });
 
-        // Clear previous results
-        $('.header-search-result').empty();
-
-        // Populate the search results
-        if (filteredProducts.length > 0) {
-            filteredProducts.forEach(product => {
-                $('.header-search-result').append(`
-                    <li>
-                        <a href="#" class="d-flex flex-column justify-content-between align-items-start w-100">
-                            <span class="product-name">${product.name}</span>
-                            <span class="category-name">${product.category}</span>
-                        </a>
-                    </li>
-                `);
-            });
-            // Show the results
-            $('.header-search-result').show();
-        } else {
-            // Hide if no results
-            $('.header-search-result').hide();
-        }
-    });
-
-    // Hide results when clicking outside
-    $(document).on('click', function(event) {
-        if (!$(event.target).closest('.header-search-container').length) {
-            $('.header-search-result').hide();
-        }
-    });
-
-    // Keep results visible when input is focused
-    $('#new-search').on('focus', function() {
-        if ($('.header-search-result').children().length > 0) {
-            $('.header-search-result').show();
-        }
-    });
-
-    // Hide results when input loses focus if no results
-    $('#new-search').on('blur', function() {
-        if ($(this).val() === "") {
-            $('.header-search-result').hide();
-        }
-    });
-});
+      $('#new-search').on('blur', function() {
+          if ($(this).val() === "") {
+              $('.header-search-result').hide();
+          }
+      });
+  });
 
 </script>
 
