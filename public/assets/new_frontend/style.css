@@ -113,6 +113,7 @@ header {
 
 #nav-left-side {
     justify-content: center;
+    margin-top: 0.6rem;
 }
 
 #navbar a {
@@ -143,6 +144,25 @@ header {
     100% {
         opacity: 1;
     }
+}
+
+.online_docs {
+    border: 2px solid var(--green) !important;
+    padding: 0.25rem 0.75rem !important;
+    border-radius: 1.5rem;
+}
+
+.online_docs:hover {
+    background: var(--green);
+    color: white;
+}
+
+.online_docs:hover .blink-dot {
+    background-color: white;
+}
+
+.online_docs:hover span {
+    color: white;
 }
 
 .header-search-container {
