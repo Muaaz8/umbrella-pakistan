@@ -603,12 +603,8 @@ public function view_DocProfile($username)
             'dob' => ['required'],
             // 'phoneNumber' => ['required','min:10','max:11', 'gt:0', new Phone],
             'address' => 'required',
-            'state' => ['required'],
             'email' => ['required'],
-          //  'country' => ['required'],
-            'city' => ['required'],
             // 'bio' => ['string'],
-            'zip_code' => ['required'],
             'reason' =>  ['required'],
         ]);
         // dd($validateData);
@@ -626,10 +622,6 @@ public function view_DocProfile($username)
             'date_of_birth' => $query->date_of_birth,
             // 'phone_number' => $query->phone_number,
             'office_address' => $query->office_address,
-            'state_id' => $query->state_id,
-            'city_id' => $query->city_id,
-            // 'bio' => $query->bio,
-            'zip_code' => $query->zip_code,
         );
 
         $new = array(
@@ -639,10 +631,6 @@ public function view_DocProfile($username)
             'date_of_birth' => $newd_o_b,
             // 'phone_number' => $validateData['phoneNumber'],
             'office_address' => $validateData['address'],
-            'state_id' => $validateData['state'],
-            'city_id' => $validateData['city'],
-            // 'bio' => $request['bio'],
-            'zip_code' => $validateData['zip_code'],
         );
 
         $differenceArray1 = array_diff($old, $new);
@@ -651,50 +639,21 @@ public function view_DocProfile($username)
         if ($differenceArray1) {
             // $image = $request->file('image');
             // $filename = \Storage::disk('s3')->put('user_profile_images', $image);
-            DB::table('patients_redord')->insert([
-                'user_id' => $input['user_id'],
+            DB::table('users')->where('id',$id)->update([
                 'name' => $validateData['fname'],
                 'last_name' => $validateData['lname'],
                 'date_of_birth' => $newd_o_b,
                 'office_address' => $validateData['address'],
-                'state_id' => $validateData['state'],
-                'city_id' => $validateData['city'],
-                'zip_code' => $validateData['zip_code'],
                 'email'=> $validateData['email'],
-                'reason'=> $validateData['reason'],
-
             ]);
-        $notification_id = Notification::create([
-            'text' => 'Profile updation By ' .$validateData['fname'],
-            'user_id' => $admin->id,
-            'user_type' => 'admin',
-            'type' => '/admin/patient_records'
-        ]);
-        $data = [
-            'text' => 'Profile updation By ' .$validateData['fname'],
-            'user_id' => $admin->id,
-            'type' => '/admin/patient_records',
-            'session_id' => "null",
-            'received' => 'false',
-            'appoint_id' => 'null',
-            'refill_id' => 'null',
-        ];
-        try {
-            // \App\Helper::firebase($admin->id,'notification',$notification_id->id,$data);
-        } catch (\Throwable $th) {
-            //throw $th;
-        }
-        event(new RealTimeMessage($admin->id));
-        try {
-            Mail::to($admin->email)->send(new UpdateProfileAdminMail());
-
-            return redirect()->back()->with('success', 'Profile Update Request Sent to Admin Successfully');
-
-        } catch (\Throwable $th) {
-            //throw $th;
-            return redirect()->back()->with('success', 'Profile Update Request Sent to Admin Successfully');
-
-        }
+            return redirect()->back()->with('success', 'Profile Updated Successfully');
+        // event(new RealTimeMessage($admin->id));
+        // try {
+        //     Mail::to($admin->email)->send(new UpdateProfileAdminMail());
+        //     return redirect()->back()->with('success', 'Profile Update Request Sent to Admin Successfully');
+        // } catch (\Throwable $th) {
+        //     return redirect()->back()->with('success', 'Profile Update Request Sent to Admin Successfully');
+        // }
     }else{
         return redirect()->back()->with('error', 'you have not made any changes');
     }

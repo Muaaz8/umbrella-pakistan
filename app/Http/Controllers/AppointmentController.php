@@ -419,7 +419,6 @@ class AppointmentController extends Controller
     {
         $user = Auth::user();
         $user->ses_id = '';
-        if($id != '21'){
             if($req->name!=null){
                 $doctors = DB::table('users')
                 ->join('specializations', 'specializations.id', 'users.specialization')
@@ -475,7 +474,7 @@ class AppointmentController extends Controller
                     $doctor->flag = 'Visited';
                 }
             }
-            // $session = null;
+            $session = Session::where('patient_id',$user->id)->where('specialization_id',$id)->first();
             // $price = DB::table('specalization_price')->where('spec_id', $id)->first();
             // if($price!=null)
             // {
@@ -496,12 +495,7 @@ class AppointmentController extends Controller
             //     $price->follow_up_price = "0";
             //     $price->initial_price = "0";
             // }
-        }else{
-            $flag = 'appointment';
-            return view('dashboard_patient.Evisit.patient_health',compact('user','flag'));
-        }
-        return view('dashboard_patient.Appointments.book_appointment', compact('doctors', 'id', 'user'));
-        //return view('appointments.choose_doctor_for_appointment',compact('doctors','refered_doctors','already_session_did'));
+        return view('dashboard_patient.Appointments.book_appointment', compact('doctors', 'id', 'user','session'));
     }
 
     public function requested_session($id)
@@ -906,6 +900,7 @@ class AppointmentController extends Controller
         $data['doc'] = $doc;
         $symptoms = DB::table('isabel_symptoms')->get();
         $data['symptoms'] = $symptoms;
+        $data['sessions'] = Session::where('patient_id',auth()->user()->id)->first();
         return $data;
     }
 
@@ -1088,15 +1083,26 @@ class AppointmentController extends Controller
                 'start_time' => date('Y-m-d H:i:s', (strtotime($datetime['datetime']))),
                 'end_time' => date('Y-m-d H:i:s', (strtotime('15 min', strtotime($datetime['datetime'])))),
             ])->id;
-            $session = Session::find($session_id);
-            $data = "Appointment-".$new_session_id."-1";
-            $pay = new \App\Http\Controllers\MeezanPaymentController();
-            $res = $pay->payment($data,($session->price*100));
-            if (isset($res) && $res->errorCode == 0) {
-                return redirect($res->formUrl);
+            if($request->payment_method == "credit-card"){
+                $session = Session::find($session_id);
+                $data = "Appointment-".$new_session_id."-1";
+                $pay = new \App\Http\Controllers\MeezanPaymentController();
+                $res = $pay->payment($data,($session->price*100));
+                if (isset($res) && $res->errorCode == 0) {
+                    return redirect($res->formUrl);
+                }else{
+                    return redirect()->back()->with('error','Sorry, we are currently facing server issues. Please try again later.');
+                }
+            }elseif($request->payment_method == "first-visit"){
+                $session = Session::find($session_id);
+                $session->status = "paid";
+                $session->save();
+                return redirect()->route('pat_appointments')->with("message", "Appointment Create Successfully");
             }else{
-                return redirect()->back()->with('error','Sorry, we are currently facing server issues. Please try again later.');
+                Session::find($session_id)->delete();
+                return redirect()->back()->with('error','Sorry, Can\'t process with this payment method right now.Kindly try different method.');
             }
+
             // return redirect()->route('appoint_payment', ['id' => $session_id]);
         }
     }

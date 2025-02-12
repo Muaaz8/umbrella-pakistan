@@ -129,7 +129,7 @@
     <div class="receipt">
       <div class="dotted-line"></div>
       <div class="header center">
-        <img src="https://communityhealthcareclinics.com/assets/new_frontend/logo.png" alt="Community Healthcare Clinics">
+        <img src="https://www.communityhealthcareclinics.com/assets/new_frontend/logo.png" alt="Community Healthcare Clinics">
       </div>
 
       <div class="dotted-line"></div>

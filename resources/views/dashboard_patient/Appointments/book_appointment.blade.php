@@ -667,31 +667,17 @@
                             <h3>All Doctors</h3>
                         </div>
                         <div class="col-md-4">
-                            @if ($id == 21)
-                                <form id="search_form" action="/psych/book/appointment/{{ $id }}" method="POST">
-                                    @csrf
-                                    <div class="input-group">
-                                        <input type="hidden" name="spec_id" id="search_spec">
-                                        <input type="hidden" name="loc_id" id="search_loc">
-                                        <input type="text" id="search" name="name" class="form-control"
-                                            placeholder="Search" aria-label="Username" aria-describedby="basic-addon1" />
-                                        <button type="submit" class="btn process-pay"><i
-                                                class="fa-solid fa-search"></i></button>
-                                    </div>
-                                </form>
-                            @else
-                                <form id="search_form" action="/book/appointment/{{ $id }}" method="POST">
-                                    @csrf
-                                    <div class="input-group">
-                                        <input type="hidden" name="spec_id" id="search_spec">
-                                        <input type="hidden" name="loc_id" id="search_loc">
-                                        <input type="text" id="search" name="name" class="form-control"
-                                            placeholder="Search" aria-label="Username" aria-describedby="basic-addon1" />
-                                        <button type="submit" class="btn process-pay"><i
-                                                class="fa-solid fa-search"></i></button>
-                                    </div>
-                                </form>
-                            @endif
+                            <form id="search_form" action="/book/appointment/{{ $id }}" method="POST">
+                                @csrf
+                                <div class="input-group">
+                                    <input type="hidden" name="spec_id" id="search_spec">
+                                    <input type="hidden" name="loc_id" id="search_loc">
+                                    <input type="text" id="search" name="name" class="form-control"
+                                        placeholder="Search" aria-label="Username" aria-describedby="basic-addon1" />
+                                    <button type="submit" class="btn process-pay"><i
+                                            class="fa-solid fa-search"></i></button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <div class="row">

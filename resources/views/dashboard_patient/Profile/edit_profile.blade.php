@@ -93,11 +93,11 @@
                                     <div class="row gx-3 mb-3">
                                     <div class="col-md-6">
                                         <label class="small mb-1" for="inputEmailAddress">Email</label>
-                                        <input class="form-control" id="inputEmailAddress"  name="email" type="email" placeholder="Enter your Emial Address" value="{{ $patient_data->email }}" readonly>
+                                        <input class="form-control" id="inputEmailAddress"  name="email" type="email" placeholder="Enter your Emial Address" value="{{ $patient_data->email }}">
                                       </div>
                                         <div class="col-md-6">
                                             <label class="small mb-1" for="inputOrgName">Date Of Birth</label>
-                                            <input class="form-control" id="inputOrgName" type="date" name="dob" placeholder="Enter your organization name"  value="{{ $patient_data->date_of_birth }}" readonly>
+                                            <input class="form-control" id="inputOrgName" type="date" name="dob" placeholder="Enter your organization name"  value="{{ $patient_data->date_of_birth }}">
                                         </div>
                                         <!-- <div class="col-md-6">
                                             <label class="small mb-1" for="inputLocation">Phone Number</label>
@@ -110,11 +110,6 @@
                                             <label class="small mb-1" for="inputEmailAddress">Address</label>
                                             <input class="form-control" id="inputEmailAddress"  type="text" name="address" placeholder="Enter your Address" value="{{ $patient_data->office_address }}">
                                         </div>
-                                        <div class="col-md-6">
-                                                <label class="small mb-1" for="inputPhone">Zip Code*</label>
-                                                <small class="text-danger zipcode_error"></small>
-                                                <input class="form-control zip_code" id="inputPhone" type="tel" name="zip_code" placeholder="Enter your Zip Code" value="{{ $patient_data->zip_code }}">
-                                            </div>
                                     </div>
 
                                     {{--<div class="row gx-3 mb-3">

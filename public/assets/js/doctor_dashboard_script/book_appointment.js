@@ -16,6 +16,7 @@ function bookAppointmentModal(doc_id){
                 user = response.user;
                 doc = response.doc;
                 sym = response.symptoms;
+                sessions = response.sessions;
                 url = window.location.origin + '/';
                 if(doc.rating<1){
                     doc.rating = 0;
@@ -27,6 +28,34 @@ function bookAppointmentModal(doc_id){
                 $('#price').val(pricetemp);
 
                 $('#load_bookappointment').html('');
+                if(sessions != null){
+                    var paymentOption = '<h5 class="mt-2">Pay With</h5>' +
+                        '<input type="hidden" name="payment_method" id="payment_method">' +
+                        '<div class="row">' +
+                            '<div class="col-md-4">' +
+                                '<div class="payment-method w-100 p-2 d-flex align-items-center justify-content-between flex-column" data-method="credit-card">' +
+                                    '<img class="icon" src="'+url+'assets/new_frontend/cards.png" alt="">' +
+                                    '<h5>Credit Card</h5>' +
+                                '</div>' +
+                            '</div>' +
+                            '<div class="col-md-4">' +
+                                '<div class="payment-method w-100 p-2 d-flex align-items-center justify-content-between flex-column" data-method="easy-paisa">' +
+                                    '<img class="icon" src="'+url+'assets/new_frontend/easypaisa-logo.png" alt="">' +
+                                    '<h5>EasyPaisa</h5>' +
+                                '</div>' +
+                            '</div>' +
+                            '<div class="col-md-4">' +
+                                '<div class="payment-method w-100 p-2 d-flex align-items-center justify-content-between flex-column" data-method="online-cash">' +
+                                    '<img class="icon" src="'+url+'assets/new_frontend/online-money.png" alt="">' +
+                                    '<h5>Online/Cash</h5>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>'
+                    var bookButton = "disabled";
+                }else{
+                    var paymentOption = '<input type="hidden" name="payment_method" id="payment_method"  value="first-visit">';
+                    var bookButton = "";
+                }
 
                 $('#load_bookappointment').append(
                     '<div class="row g-0">' +
@@ -57,34 +86,12 @@ function bookAppointmentModal(doc_id){
                                                 '<span id="stat" class="subheadings"></span>' +
                                             '</div>' +
                                             '<div class="modal-doc-book">' +
-                                                '<button id="submit_btn" disabled type="submit">BOOK</button>' +
+                                                '<button id="submit_btn"'+bookButton+' type="submit">BOOK</button>' +
                                             '</div>' +
                                         '</div>' +
                                     '</div>' +
                                 '</div>' +
-                                '<div class="col-md-8 p-3">' +
-                                    '<h5 class="mt-2">Pay With</h5>' +
-                                    '<input type="hidden" name="payment_method" id="payment_method">' +
-                                    '<div class="row">' +
-                                        '<div class="col-md-4">' +
-                                            '<div class="payment-method w-100 p-2 d-flex align-items-center justify-content-between flex-column" data-method="credit-card">' +
-                                                '<img class="icon" src="'+url+'assets/new_frontend/cards.png" alt="">' +
-                                                '<h5>Credit Card</h5>' +
-                                            '</div>' +
-                                        '</div>' +
-                                        '<div class="col-md-4">' +
-                                            '<div class="payment-method w-100 p-2 d-flex align-items-center justify-content-between flex-column" data-method="easy-paisa">' +
-                                                '<img class="icon" src="'+url+'assets/new_frontend/easypaisa-logo.png" alt="">' +
-                                                '<h5>EasyPaisa</h5>' +
-                                            '</div>' +
-                                        '</div>' +
-                                        '<div class="col-md-4">' +
-                                            '<div class="payment-method w-100 p-2 d-flex align-items-center justify-content-between flex-column" data-method="online-cash">' +
-                                                '<img class="icon" src="'+url+'assets/new_frontend/online-money.png" alt="">' +
-                                                '<h5>Online/Cash</h5>' +
-                                            '</div>' +
-                                        '</div>' +
-                                    '</div>' +
+                                '<div class="col-md-8 p-3">' + paymentOption +
                                     '<div class="row">' +
                                         '<div class="col-md-12 p-3">' +
                                             '<div><b>Bio:</b>' +
