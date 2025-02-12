@@ -20,6 +20,16 @@
     <meta name="author" content="Umbrellamd">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="{{ asset('asset_frontend/images/logo.ico') }}" type="image/x-icon">
+    <style>
+        .price-tag::before {
+            bottom: -28% !important; 
+        }
+
+        .discount-no {
+            top: 3% !important;
+            right: -2% !important;
+        }
+    </style>
 @endsection
 
 
@@ -69,17 +79,20 @@
             </div>
         </div>
 
-        <div class="row container-fluid px-5 mt-2">
+        <div class="row container-fluid px-2 px-sm-5 mt-2 mx-auto">
             <div class="col-md-8 h-100">
                 <div class="position-relative  w-100 h-100 p-4 my-3 bg-white pharmacy-page-container border border-1 rounded-3">
-                    <div class="d-flex align-items-center justify-content-between pt-4">
+                    <div class="d-flex align-items-center justify-content-between pt-5 pt-sm-4">
                         <h3 class="pt-2 px-2">Detail Description</h3>
                         <div class="price-tag">
-                            <span class="badge bg-danger px-3 py-2">Price: Rs. {{ $products[0]->sale_price}}.00</span>
+                            <span class="badge bg-danger px-3 py-2">Rs. {{ $products[0]->sale_price}}.00</span>
                             @if ($products[0]->actual_price != null)
                             <span class="actual-price">Rs. {{ $products[0]->actual_price }}</span>
                             @endif
-                            </div>
+                        </div>
+                        @if ($products[0]->discount_percentage != null)
+                        <span class="discount-no">{{ $products[0]->discount_percentage}}% Off</span>
+                        @endif
                         @if(Auth::check())
                             <button class="btn-outline-primary {{ $products[0]->id }} lab-test btn" onclick="addedItem(this)">
                                 Add to Cart <i class="fa-solid fa-shopping-cart mx-2"></i>

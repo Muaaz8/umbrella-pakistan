@@ -88,7 +88,6 @@
                     success: function(response) {
                         $(".doctor-cont2").html("");
                         $.each(JSON.parse(response), function (indexInArray, element) {
-                            console.log(element)
                             if (element.details) {
                                 $(".doctor-cont2").append(
                                     `<div class="col-sm-6 col-md-4 col-xl-3 doctor-list-card">
@@ -144,6 +143,13 @@
         }
 
         ///////////////////////////
+
+    document.addEventListener('DOMContentLoaded', function () {
+    if (window.location.href.includes('online=1')) {
+        select_doc(3);
+        $('#cb-50').prop('checked', true);
+    }
+});
 
         $("#search").keyup(function(e) {
             var name = e.target.value;
@@ -222,9 +228,9 @@
 @section('content')
 <main class="w-100 h-100">
     <section class="doctor-list-section w-100 d-flex align-items-center justify-content-center">
-        <div class="doctor-list-container d-flex flex-column gap-3 my-3">
+        <div class="doctor-list-container d-flex flex-column gap-2 my-3">
             <div class="w-100 d-flex align-items-center justify-content-center">
-                <div class="w-50 d-flex flex-column align-items-center">
+                <div class="w-50 d-flex flex-column align-items-center mb-3">
                     <h2 class="text-center">
                         Our
                         <span class="red">Doctors</span>
@@ -290,12 +296,12 @@
                     </div>
                 </div>
                 <div class="search-bar-container w-100 w-lg-50 form-control px-2 py-2">
-                    <form class="d-flex align-items-center justify-content-between">
+                    <div class="d-flex align-items-center justify-content-between">
                         <input type="search" name="search" placeholder="Search Doctor Name" class="search-field w-100"
                             id="search">
                         <button type="button" class="search-btn px-2"><i
                                 class="fa-solid fa-magnifying-glass"></i></button>
-                    </form>
+                    </div>
                 </div>
             </div>
             <div class="row gy-3 gx-3 doctor-cont">

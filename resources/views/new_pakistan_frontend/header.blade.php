@@ -3,6 +3,154 @@
         border-bottom: 2px solid #c80919 !important;
     }
 </style>
+<script>
+    $(document).ready(function() {
+
+      $(".search-btn-mob").on("click", function() {
+          $(".header-search-container").css("display", "block");
+      });
+
+      $(document).on("click", function(event) {
+          if (!$(event.target).closest(".header-search-container") && !$(event.target).closest(".search-btn-mob")) {
+              $(".header-search-container").css("display", "none");
+          }
+      });
+
+      $('#new-search2').on('input', function () {
+      const searchTerm = $(this).val().trim().toLowerCase();
+
+        if (searchTerm.length === 0) {
+            $('.header-search-result').empty().hide();
+            return;
+        }
+
+        $.ajax({
+            url: `/search_items/${searchTerm}`,
+            type: 'GET',
+            dataType: 'json',
+            success: function (response) {
+                const { products, test_codes } = response;
+
+                $('.header-search-result').empty();
+
+                if (products.length > 0 || test_codes.length > 0) {
+                    products.forEach(product => {
+                        $('.header-search-result').append(`
+                            <li>
+                                <a href="/medicines/${product.slug}" class="d-flex flex-column justify-content-between align-items-start w-100">
+                                    <span class="product-name">${product.name}</span>
+                                    <span class="category-name">Pharmacy</span>
+                                </a>
+                            </li>
+                        `);
+                    });
+
+                    test_codes.forEach(test => {
+                        $('.header-search-result').append(`
+                            <li>
+                                <a href="/labtest/${test.SLUG}" class="d-flex flex-column justify-content-between align-items-start w-100">
+                                    <span class="product-name">${test.TEST_NAME}</span>
+                                      <span class="category-name">Lab Test</span>
+                                </a>
+                            </li>
+                        `);
+                    });
+
+                    $('.header-search-result').show();
+                } else {
+                    $('.header-search-result').hide();
+                }
+            },
+            error: function (error) {
+                console.error('Error fetching search results:', error);
+            }
+        });
+      });
+      $('#new-search').on('input', function () {
+      const searchTerm = $(this).val().trim().toLowerCase();
+
+        if (searchTerm.length === 0) {
+            $('.header-search-result').empty().hide();
+            return;
+        }
+
+        $.ajax({
+            url: `/search_items/${searchTerm}`,
+            type: 'GET',
+            dataType: 'json',
+            success: function (response) {
+                const { products, test_codes } = response;
+
+                $('.header-search-result').empty();
+
+                if (products.length > 0 || test_codes.length > 0) {
+                    products.forEach(product => {
+                        $('.header-search-result').append(`
+                            <li>
+                                <a href="/medicines/${product.slug}" class="d-flex flex-column justify-content-between align-items-start w-100">
+                                    <span class="product-name">${product.name}</span>
+                                    <span class="category-name">Pharmacy</span>
+                                </a>
+                            </li>
+                        `);
+                    });
+
+                    test_codes.forEach(test => {
+                        $('.header-search-result').append(`
+                            <li>
+                                <a href="/labtest/${test.SLUG}" class="d-flex flex-column justify-content-between align-items-start w-100">
+                                    <span class="product-name">${test.TEST_NAME}</span>
+                                      <span class="category-name">Lab Test</span>
+                                </a>
+                            </li>
+                        `);
+                    });
+
+                    $('.header-search-result').show();
+                } else {
+                    $('.header-search-result').hide();
+                }
+            },
+            error: function (error) {
+                console.error('Error fetching search results:', error);
+            }
+        });
+      });
+
+
+
+  $(document).on('click', function(event) {
+      if (!$(event.target).closest('.header-search-container')) {
+          $('.header-search-result').hide();
+        }
+      });
+
+      $('#new-search').on('focus', function() {
+          if ($('.header-search-result').children().length > 0) {
+              $('.header-search-result').show();
+          }
+      });
+
+      $('#new-search').on('blur', function() {
+          if ($(this).val() === "") {
+              $('.header-search-result').hide();
+          }
+      });
+
+      $('#new-search2').on('focus', function() {
+          if ($('.header-search-result').children().length > 0) {
+              $('.header-search-result').show();
+          }
+      });
+
+      $('#new-search2').on('blur', function() {
+          if ($(this).val() === "") {
+              $('.header-search-result').hide();
+          }
+      });
+  });
+
+</script>
 
 
 <!-- header  -->
@@ -39,14 +187,17 @@
 <header class="py-2">
     <nav>
       <section id="navbar">
-        <div class="wrap flex gap-15 between">
+        <div class="wrap flex gap-15 between position-relative">
           <div id="nav-logo" class="logo" onclick="window.location.href='{{ url('/') }}'" style="cursor: pointer;">
             <img src="{{ asset('assets/new_frontend/logo.png') }}" alt="umbrella-logo" />
           </div>
-          <div class="flex gap-15" id="nav-right-side">
-            <div id="checker">
-                <i class="fa-regular fa-user"></i>
-                <a href="#" class="pe-none">Symptoms Checker</a>
+          <div class="flex gap-2" id="nav-right-side">
+            <div class="header-search-container w-100 w-lg-50 form-control px-2 py-2 position-relative">
+                <div class="d-flex align-items-center justify-content-between">
+                    <input type="search" name="header-search" placeholder="Search" class="header-search-field w-100" id="new-search">
+                    <ul class="header-search-result categories-list rounded-3"></ul>
+                    <button type="button" class="header-search-btn px-2"><i class="fa-solid fa-magnifying-glass"></i></button>
+                </div>
             </div>
             @if (Auth::check())
             <div class="dropdown" >
@@ -87,14 +238,24 @@
               @endif
             </div>
           </div>
-          <div class="hamburger_container" onclick="toggleDrawer()">
-            <div class="hamburger">
-              <div></div>
-              <div></div>
-              <div></div>
+          <div class="d-flex gap-3 align-items-center cart-search-container">
+            <div class="position-relative cart-mob" onclick="window.location.href='{{ url('/my/cart') }}'">
+                <img src="{{ asset('assets/new_frontend/purchase-icon.svg') }}" alt="shop-icon" />
+                @if (Auth::check())
+                  <div class="cart-count">
+                      <span>{{ app('item_count_cart_responsive') }}</span>
+                  </div>
+                @endif
+            </div>
+            <i class="fa-solid fa-magnifying-glass search-btn-mob text-danger"></i>
+            <div class="hamburger_container" onclick="toggleDrawer()">
+              <div class="hamburger">
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
             </div>
           </div>
-
           <div class="drawer" id="drawer">
             <span class="close-btn" onclick="toggleDrawer()">×</span>
             <img width="220px" src="{{ asset('assets/new_frontend/logo.png') }}" alt="" />
@@ -121,14 +282,6 @@
             <a class="drawer-item" href="{{ route('pat_register') }}" >Register as Patient</a>
             @endif
             <a href="https://wa.me/923372350684" target="_blank">0337-2350684</a>
-            <div class="position-relative" onclick="window.location.href='{{ url('/my/cart') }}'">
-              <img src="{{ asset('assets/new_frontend/purchase-icon.svg') }}" alt="shop-icon" />
-              @if (Auth::check())
-                <div class="cart-count">
-                  <span>{{ app('item_count_cart_responsive') }}</span>
-                </div>
-              @endif
-            </div>
           </div>
           <div
             class="blur-overlay"
@@ -145,6 +298,7 @@
             <a href="{{ route('doc_profile_page_list') }}">Our Doctors</a>
             <a href="{{ route('about_us') }}">About Us</a>
             <a href="{{ route('contact_us') }}">Contact Us</a>
+            <a href="{{ route('doc_profile_page_list', ['online' => true]) }}" class="text-success online_docs d-flex gap-1 align-items-center"><span class="blink-dot"></span><span style="font-weight: 700;">Online Doctors</span></a>
 
 
 
@@ -175,6 +329,13 @@
           </div>
       </section>
     </nav>
+    <div class="header-search-container w-100 w-lg-50 form-control px-2 py-2 position-relative">
+      <div class="d-flex align-items-center justify-content-between">
+          <input type="search" name="header-search" placeholder="Search" class="header-search-field w-100" id="new-search2">
+          <ul class="header-search-result categories-list rounded-3"></ul>
+          <button type="button" class="header-search-btn px-2"><i class="fa-solid fa-magnifying-glass"></i></button>
+      </div>
+    </div>
   </header>
 
 {{-- after registration and login modal --}}

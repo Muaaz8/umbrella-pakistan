@@ -86,7 +86,7 @@ header {
 
 .wrap {
     height: 100%;
-    width: 90%;
+    width: 93%;
     margin: 0 auto;
     border-bottom: 1px solid #e0e0e0;
 }
@@ -123,6 +123,138 @@ header {
     padding: 3px 0 2px 0;
     font-weight: 600;
     width: max-content;
+}
+
+.blink-dot {
+    width: 10px;
+    height: 10px;
+    background-color: var(--green);
+    border-radius: 50%;
+    animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.header-search-container {
+    width: 325px !important;
+}
+
+header > .header-search-container {
+    display: none;
+    margin: 10px auto 0 auto;
+    width: 90% !important;
+}
+
+.header-search-field {
+    border: none;
+    outline: none;
+}
+
+.header-search-result {
+    /* position: absolute;
+    left: 0; */
+    top: 100% !important;
+    display: none;
+    /* background-color: red; */
+    /* max-height: 300px; */
+    /* height: 300px; */
+    width: 100%;
+    /* border: 2px solid black; */
+    /* overflow-y: hidden; */
+    /* z-index: 2; */
+}
+
+.header-search-result li {
+    min-width: 100% !important;
+}
+
+.header-search-result li:hover {
+    background-color: #0048b1 !important;
+}
+
+.header-search-result li:hover .product-name {
+    color: white;
+}
+
+.header-search-result li:hover .category-name {
+    color: gainsboro;
+}
+
+.header-search-result li a {
+    text-decoration: none;
+    color: black;
+}
+
+.product-name {
+    max-width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    color: black;
+    font-weight: 600 !important;
+}
+
+.category-name {
+    font-size: 0.75rem;
+    color: gray;
+}
+
+.header-search-field:focus ~ .header-search-result {
+    display: block;
+}
+
+.header-search-container:hover .header-search-result {
+    display: block;
+}
+
+.header-search-btn {
+    border: none;
+    background: none;
+}
+
+.header-search-result::-webkit-scrollbar {
+    width: 6px;
+    border-radius: 10px;
+}
+
+.header-search-result::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 10px;
+}
+
+.header-search-result::-webkit-scrollbar-thumb {
+    background: #888; /* Change the color to make it visible */
+    border-radius: 10px;
+}
+
+.header-search-result::-webkit-scrollbar-thumb:hover {
+    background: #555; /* Optional: change color when hovering */
+}
+
+.cart-search-container {
+    display: none !important;
+}
+
+.cart-mob, .search-btn-mob {
+    font-size: 20px;
+}
+
+.cart-mob img {
+    width: 25px;
+}
+
+.dropdown .fa-user-group {
+    font-size: 0.8rem;
 }
 
 #drawer a {
@@ -183,7 +315,7 @@ header {
 
 
 #nav-right-side>div:last-child>img {
-    width: 30px;
+    width: 25px;
 }
 
 #checker,
@@ -3730,7 +3862,7 @@ header {
     .doctor-data-container .specialization-doc {
         font-size: 0.9rem !important;
     }
-    
+
     .doctor-data-container .education-doc {
         font-size: 0.75rem !important;
     }
@@ -4220,6 +4352,10 @@ header {
     .contact-info {
         word-wrap: normal;
         padding: 0 10px;
+    }
+
+    .cart-search-container {
+        display: flex !important;
     }
 }
 
@@ -4730,6 +4866,10 @@ header {
     .content {
         width: 90%;
     }
+
+    .logo > img {
+        width: 200px;
+    }
 }
 
 /* new design */
@@ -5023,6 +5163,10 @@ header {
         font-size: 12px;
         padding: 0.25rem 0.5rem;
     }
+
+    .product-name {
+        font-size: 1rem !important;
+    }
 }
 
 
@@ -5039,11 +5183,17 @@ header {
     .offer-banner>span {
         font-size: 14px;
     }
+
+    .pharmacy-page-container > div {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
 }
 
 @media only screen and (max-width: 373px) {
     .logo>img {
-        width: 225px;
+        width: 170px;
     }
 
     .healthcare-section {
@@ -5071,6 +5221,10 @@ header {
 
     .checkbox-wrapper-47 label {
         font-size: 0.8rem;
+    }
+
+    .hamburger div {
+        width: 25px;
     }
 }
 
