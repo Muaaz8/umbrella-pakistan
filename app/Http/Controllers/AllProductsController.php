@@ -53,7 +53,7 @@ class AllProductsController extends AppBaseController
                     $item->medicine_usage = $pres->usage;
                 }
                 if ($item->item_type == 'counter' && $item->product_mode == 'lab-test' && $item->show_product == '1') {
-                    $providerFee = 6;
+                    $providerFee = 0;
                 }
                 if ($item->show_product == 1) {
                     $countItem += 1;
@@ -101,7 +101,7 @@ class AllProductsController extends AppBaseController
         foreach ($allProducts as $allProduct) {
             $count += 1;
             if ($allProduct->product_mode == 'lab-test' && $allProduct->item_type == "counter") {
-                $providerFee = 6;
+                $providerFee = 0;
             }
             $item_type = $allProduct->item_type;
             if ($item_type == 'prescribed') {
@@ -153,7 +153,7 @@ class AllProductsController extends AppBaseController
                     $item->medicine_usage = $pres->usage;
                 }
                 if ($item->item_type == 'counter' && $item->product_mode == 'lab-test' && $item->show_product == '1') {
-                    $providerFee = 6;
+                    $providerFee = 0;
                 }
                 if ($item->show_product == 1) {
                     $countItem += 1;
@@ -1182,6 +1182,7 @@ class AllProductsController extends AppBaseController
         {
             $products = DB::table('tbl_products')
             ->where('sub_category', $request->med_id)
+            ->where('mode', 'medicine')
             ->where('product_status', 1)
             ->where('is_approved', 1)
             ->get();
@@ -1190,6 +1191,7 @@ class AllProductsController extends AppBaseController
         {
             $products = DB::table('tbl_products')
             ->where('name','LIKE', "%{$request->name}%")
+            ->where('mode', 'medicine')
             ->where('product_status', 1)
             ->where('is_approved', 1)
             ->get();

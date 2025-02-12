@@ -864,12 +864,11 @@
                 success: function(res) {
                     $('#totalCastFinal').text('Rs.' + res.itemSum);
                     $('#totalPaidFinal').text('Rs.' + res.totalPrice);
-                    if (res.providerFee > 0) {
-                        $('#final_provider_fee').html('$6.00');
-                    } else {
-
-                        $('#final_provider_fee').html('$0.00');
-                    }
+                    //if (res.providerFee > 0) {
+                    //    $('#final_provider_fee').html('$6.00');
+                    //} else {
+                    //$('#final_provider_fee').html('$0.00');
+                    //}
                     var showShipping = 0;
                     $.each(res.allProducts, function(key, product) {
                         if (product.product_mode == "medicine") {
@@ -1063,12 +1062,12 @@
                         $('#totalPaid').text('Rs. ' + totalPrice);
                         $('.payAble').val(totalPrice);
 
-                        if (typeof res.providerFee == 'undefined') {
-                            $('#provider_fee').html('Rs. 0.00');
+                        // if (typeof res.providerFee == 'undefined') {
+                        //     $('#provider_fee').html('Rs. 0.00');
 
-                        } else {
-                            $('#provider_fee').html('Rs. ' + res.providerFee);
-                        }
+                        // } else {
+                        //     $('#provider_fee').html('Rs. ' + res.providerFee);
+                        // }
                     }
                 });
             } else {
@@ -1095,12 +1094,12 @@
                         $('#totalCast').text('Rs. ' + itemSum);
                         $('#totalPaid').text('Rs. ' + totalPrice);
                         $('.payAble').val(totalPrice);
-                        if (typeof res.providerFee == 'undefined') {
-                            $('#provider_fee').html('Rs. 0.00');
+                        // if (typeof res.providerFee == 'undefined') {
+                        //     $('#provider_fee').html('Rs. 0.00');
 
-                        } else {
-                            $('#provider_fee').html('Rs. ' + res.providerFee);
-                        }
+                        // } else {
+                        //     $('#provider_fee').html('Rs. ' + res.providerFee);
+                        // }
 
                     }
                 });
@@ -1326,12 +1325,12 @@
                             success: function(res) {
                                 $('#totalCastFinal').text('Rs.' + res.itemSum);
                                 $('#totalPaidFinal').text('Rs.' + res.totalPrice);
-                                if (res.providerFee > 0) {
-                                    $('#final_provider_fee').html('$6.00');
-                                } else {
+                                // if (res.providerFee > 0) {
+                                //     $('#final_provider_fee').html('$6.00');
+                                // } else {
 
-                                    $('#final_provider_fee').html('$0.00');
-                                }
+                                //     $('#final_provider_fee').html('$0.00');
+                                // }
                                 var showShipping = 0;
                                 $.each(res.allProducts, function(key, product) {
                                     if (product.product_mode == "medicine") {
@@ -1684,11 +1683,11 @@
                                                                                         {{ $item->prescription_date }}</div>
                                                                                 @endisset
                                                                             @endif
-                                                                            @if ($item->product_mode == 'lab-test' && $item->item_type == 'counter')
+                                                                            {{-- @if ($item->product_mode == 'lab-test' && $item->item_type == 'counter')
                                                                                 <div class="row text-prescribed"> +$6.00
                                                                                     Provider's Fee
                                                                                 </div>
-                                                                            @endif
+                                                                            @endif --}}
                                                                         </div>
                                                                         <div class="col text-center">
                                                                             @if ($item->item_type == 'prescribed')
@@ -1768,11 +1767,11 @@
                                                                                         {{ $item->prescription_date }}</div>
                                                                                 @endisset
                                                                             @endif
-                                                                            @if ($item->product_mode == 'lab-test' && $item->item_type == 'counter')
+                                                                            {{-- @if ($item->product_mode == 'lab-test' && $item->item_type == 'counter')
                                                                                 <div class="row text-prescribed"> +$6.00
                                                                                     Provider's Fee
                                                                                 </div>
-                                                                            @endif
+                                                                            @endif --}}
                                                                         </div>
                                                                         <div class="col text-center">
                                                                             @if ($item->item_type == 'prescribed')
@@ -1825,11 +1824,11 @@
                                                         <li class="list-group-item">Total Item <span
                                                                 id="totalItem">{{ $countItem }}</span></li>
 
-                                                        <li class="list-group-item">Provider Fee<span id="provider_fee">
+                                                        {{-- <li class="list-group-item">Provider Fee<span id="provider_fee">
 
                                                                 Rs.{{ number_format($providerFee, 2) ?? '' }}
 
-                                                            </span></li>
+                                                            </span></li> --}}
 
                                                         <li class="list-group-item">Total Cost <span
                                                                 id="totalCast">Rs.{{ number_format($itemSum, 2) }}</span>
@@ -1971,9 +1970,9 @@
                                                 <div class="card">
                                                     <div class="card-header">Order Summary</div>
                                                     <ul class="list-group list-group-flush">
-                                                        <li class="list-group-item">
+                                                        {{-- <li class="list-group-item">
                                                             Provider Fee <span id="final_provider_fee"></span>
-                                                        </li>
+                                                        </li> --}}
                                                         <li class="list-group-item">
                                                             Total Cost <span id="totalCastFinal"></span>
                                                         </li>
