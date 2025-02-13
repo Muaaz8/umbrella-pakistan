@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Events\loadOnlineDoctor;
 use Illuminate\Validation\ValidationException;
-use App\Models\User;
+use App\User;
 
 class LoginController extends Controller
 {
