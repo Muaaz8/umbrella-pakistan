@@ -96,21 +96,16 @@
                                     <div class="view-personal-info-tab">
                                         <div class="row mt-3">
                                             <div class="col-md-4 doctor_info"><p><span>Name:</span>&nbsp; <span>{{ucwords($doctor->name." ".$doctor->last_name)}}</span></p></div>
-                                            <div class="col-md-4 doctor_info"><p><span>State:</span>&nbsp; <span>{{ucwords($doctor->state)}}</span></p></div>
                                             <div class="col-md-4 doctor_info"><p><span>Specialization:</span>&nbsp; <span>{{ucwords($doctor->spec)}}</span></p></div>
-                                        </div>
-                                        <div class="row mt-3">
                                             <div class="col-md-4 doctor_info"><p><span>Phone:</span>&nbsp; <span>{{ucwords($doctor->phone_number)}}</span></p></div>
-                                            <div class="col-md-4 doctor_info"><p><span>PMDC:</span>&nbsp; <span>{{ucwords($doctor->nip_number)}}</span></p></div>
-                                            <div class="col-md-4 doctor_info"><p><span>UPIN:</span>&nbsp; <span>{{ucwords($doctor->upin)}}</span></p></div>
                                         </div>
                                         <div class="row mt-3">
+                                            <div class="col-md-4 doctor_info"><p><span>PMDC:</span>&nbsp; <span>{{ucwords($doctor->nip_number)}}</span></p></div>
                                             <div class="col-md-4 doctor_info"><p><span>Address:</span>&nbsp; <span>{{ucwords($doctor->office_address)}}</span></p></div>
                                             <div class="col-md-4 doctor_info"><p><span>Join Date:</span>&nbsp; <span>{{date('m-d-Y',strtotime($doctor->created_at))}}</span></p></div>
-                                            <div class="col-md-4 doctor_info"><p><span>Email: </span>&nbsp; <span>{{ucwords($doctor->email)}}</span></p></div>
-
                                         </div>
                                         <div class="row mt-3">
+                                            <div class="col-md-4 doctor_info"><p><span>Email: </span>&nbsp; <span>{{ucwords($doctor->email)}}</span></p></div>
                                             <div class="col-md-4 doctor_info">
                                                 <p>
                                                     <span>Average Response Time:</span>&nbsp; <span>
@@ -129,18 +124,18 @@
                                                     </span>
                                                 </p>
                                             </div>
+
+                                        </div>
+                                        <div class="row mt-3">
                                             <div class="col-md-4 doctor_info">
                                                 <p>
                                                     <span>Follow-up Fee:</span>&nbsp; <span>
                                                         {{ $doctor->followup_fee ? 'RS.' .$doctor->followup_fee : '-' }}
                                                     </span>
                                                 </p>
-                                        </div>
+                                            </div>
 
-
-
-                                        <div class="row mt-3">
-                                            <div class="col-md-12 doctor_info">
+                                            <div class="col-md-8 doctor_info">
                                             @if ($doctor->id_card_front != "")
                                             <p><span>Driving License/ID Card:</span>&nbsp; <span>
                                                 <a href="{{ \App\Helper::get_files_url($doctor->id_card_front) }}" target="_blank">
@@ -155,7 +150,6 @@
                                             @endif
 
                                             </div>
-                                        </div>
 
                                     </div>
                                 </div>
