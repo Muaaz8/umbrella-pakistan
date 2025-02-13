@@ -298,7 +298,7 @@
             <a href="{{ route('doc_profile_page_list') }}">Our Doctors</a>
             <a href="{{ route('about_us') }}">About Us</a>
             <a href="{{ route('contact_us') }}">Contact Us</a>
-            <a href="{{ route('doc_profile_page_list', ['online' => true]) }}" class="text-success online_docs d-flex gap-1 align-items-center"><span class="blink-dot"></span><span style="font-weight: 700;">Online Doctors</span></a>
+            <a href="{{ route('doc_profile_page_list', ['online' => true]) }}" class="text-success online_docs d-flex gap-1 align-items-center"><span class="blink-dot"></span><span style="font-weight: 800;">Online Doctors</span></a>
 
 
 
