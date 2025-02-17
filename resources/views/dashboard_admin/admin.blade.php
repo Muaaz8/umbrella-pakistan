@@ -162,7 +162,7 @@
                         <div class="row">
                             <div class="d-flex col-md-4 align-items-center">
                                 <div>
-                                    <h6>Authorize API Mode:</h6>
+                                    <h6>Meezan API Mode:</h6>
                                 </div>
                                 <div>
                                     <label class="switch ms-3 me-2" for="checkbox">

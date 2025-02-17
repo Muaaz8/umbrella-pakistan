@@ -880,10 +880,10 @@ class PatientController extends Controller
                 'inclinic',
             ));
         }elseif(auth()->user()->user_type == 'admin'){
-            $state = DB::table('states')->where('id',$pat_info->state_id)->first();
-            $city = DB::table('cities')->where('id',$pat_info->city_id)->first();
-            $pat_info->state = $state->name;
-            $pat_info->city = $city->name;
+            // $state = DB::table('states')->where('id',$pat_info->state_id)->first();
+            // $city = DB::table('cities')->where('id',$pat_info->city_id)->first();
+            // $pat_info->state = $state->name;
+            // $pat_info->city = $city->name;
             return view('dashboard_admin.manage_users.patient_details', ['sessionss' => $sessions], compact(
                 'pat',
                 'user',

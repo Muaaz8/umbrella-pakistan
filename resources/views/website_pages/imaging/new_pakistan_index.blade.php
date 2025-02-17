@@ -202,6 +202,11 @@
                 });
             }
         });
+
+        function changed(e){
+            var svalue = $(".custom-select").val()
+            window.location.href = '/imaging/'+svalue;
+        }
     </script>
 @endsection
 
@@ -266,16 +271,18 @@
                 Our pharmacy offers prescription drugs at discounted prices.
             </p>
         </div>
-
         <div class="container-fluid px-5 mt-3 pharmacy-page-container">
             <div
                 class="p-4 background-secondary d-flex align-items-center justify-content-between flex-column rounded-4">
                 <div class="d-flex align-items-center justify-content-between custom-search-container">
                     <div class="category-dropdown">
-                        <select class="form-select custom-select" name="category" id="category">
+                        <select class="form-select custom-select" name="category" id="category" onchange="changed(this)">
                             <option value="all">All</option>
+
                             @foreach ($data['sidebar'] as $key => $item)
-                            <option value="{{ $item->id }}">{{ $item->product_parent_category }}</option>
+                                <option value="{{ $item->slug }}"
+                                    {{Route::current()->parameter('slug')==$item->slug?"selected":""}}
+                                >{{ $item->product_parent_category }}</option>
                             @endforeach
                         </select>
                     </div>

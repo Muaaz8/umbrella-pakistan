@@ -1,5 +1,17 @@
 @extends('layouts.dashboard_admin')
+@section('meta_tags')
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <link rel="icon" href="{{ asset('asset_frontend/images/logo.ico') }}" type="image/x-icon">
+@endsection
 
+@section('page_title')
+    <title>CHCC - Admin Dashboard</title>
+@endsection
+
+@section('top_import_file')
+@endsection
 @section('content')
 
     <div class="container px-5">
@@ -9,13 +21,24 @@
             <div class="accordion accordion-flush" id="accordionFlushExample">
                 <div class="accordion-item mb-2">
                     <h2 class="accordion-header" id="flush-heading{{ $inc->id }}">
-                        <button class="accordion-button collapsed" type="button"
-                            data-bs-toggle="collapse"
-                            data-bs-target="#flush-collapse{{ $inc->id }}" aria-expanded="false"
-                            aria-controls="flush-collapse{{ $inc->id }}">
-                            {{ $inc->user->name }} session with Dr. {{ $inc->doctor->name }}
-                            {{ $inc->created_at }}
-                        </button>
+                        @if ($inc->doctor != null)
+                            <button class="accordion-button collapsed" type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapse{{ $inc->id }}" aria-expanded="false"
+                                aria-controls="flush-collapse{{ $inc->id }}">
+                                {{ $inc->user->name }} session with Dr. {{ $inc->doctor->name }}
+                                {{ $inc->created_at }}
+                            </button>
+                        @else
+                            <button class="accordion-button collapsed" type="button"
+                                data-bs-toggle="collapse"
+                                data-bs-target="#flush-collapse{{ $inc->id }}" aria-expanded="false"
+                                aria-controls="flush-collapse{{ $inc->id }}">
+                                {{ $inc->user->name }} session
+                                {{ $inc->created_at }}
+                            </button>
+
+                        @endif
                     </h2>
                     <div id="flush-collapse{{ $inc->id }}" class="accordion-collapse collapse"
                         aria-labelledby="flush-heading{{ $inc->id }}"

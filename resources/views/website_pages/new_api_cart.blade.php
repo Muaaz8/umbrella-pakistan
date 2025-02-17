@@ -12,7 +12,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.umbrellamd.com" />
     <meta property="og:site_name" content="Community Healthcare Clinics | communityhealthcareclinics.com" />
-    <meta name="twitter:site" content="@umbrellamd	">
+    <meta name="twitter:site" content="@umbrellamd">
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="author" content="Umbrellamd">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -21,7 +21,7 @@
 
 
 @section('page_title')
-    <title>Cart | Umbrella Health Care Systems</title>
+    <title>Cart | Community Healthcare Clinics</title>
     <style>
         .payment-method {
             cursor: pointer;
@@ -879,7 +879,7 @@
                                 '<div class="row g-0">' +
                                 '<div class="d-flex">' +
                                 '<div class="image-wrap-inner">' +
-                                '<img src="/uploads/' + product.product_image +
+                                '<img src="' + product.product_image +
                                 '" class="img-fluid rounded-start" alt="' + product.name +
                                 '"/>' +
                                 '</div>' +
@@ -903,7 +903,7 @@
                                 '<div class="row g-0">' +
                                 '<div class="d-flex">' +
                                 '<div class="image-wrap-inner">' +
-                                '<img src="/uploads/' + product.product_image +
+                                '<img src="' + product.product_image +
                                 '" class="img-fluid rounded-start" alt="' + product.name +
                                 '"/>' +
                                 '</div>' +
@@ -1309,6 +1309,7 @@
                     cart_id: cart_id,
                 },
                 success: function(response) {
+                    console.log(response);
                     if (response == 'true') {
                         $('#coupon_code').attr('disabled', true);
                         $('#promo_success').show();
@@ -1342,7 +1343,7 @@
                                             '<div class="row g-0">' +
                                             '<div class="d-flex">' +
                                             '<div class="image-wrap-inner">' +
-                                            '<img src="/uploads/' + product
+                                            '<img src="' + product
                                             .product_image +
                                             '" class="img-fluid rounded-start" alt="' +
                                             product.name + '"/>' +
@@ -1372,7 +1373,7 @@
                                             '<div class="row g-0">' +
                                             '<div class="d-flex">' +
                                             '<div class="image-wrap-inner">' +
-                                            '<img src="/uploads/' + product
+                                            '<img src="' + product
                                             .product_image +
                                             '" class="img-fluid rounded-start" alt="' +
                                             product.name + '"/>' +

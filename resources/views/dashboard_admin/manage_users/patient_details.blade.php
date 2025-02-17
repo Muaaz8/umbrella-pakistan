@@ -30,28 +30,28 @@
                 <div>
                 <div class="name-sec">
                     <div class="d-flex justify-content-between name-sec-inner">
-                    <h5>Name: <span> {{ $pat_name }} </span></h5>
-                    <h5>Date Of Birth : <span>{{ date('m-d-Y',strtotime($pat_info->date_of_birth)) }}</span></h5>
+                    <h5 class="border rounded-3">Name: <span> {{ $pat_name }} </span></h5>
+                    <h5 class="border rounded-3">Date Of Birth : <span>{{ date('m-d-Y',strtotime($pat_info->date_of_birth)) }}</span></h5>
+                    </div>
+                    {{-- <div class="d-flex justify-content-between name-sec-inner">
+                    <h5 class="border rounded-3">State: <span> {{ $pat_info->state }} </span></h5>
+                    <h5 class="border rounded-3">City : <span>{{ $pat_info->city }}</span></h5>
+                    </div> --}}
+                    <div class="d-flex justify-content-between name-sec-inner">
+                    <h5 class="border rounded-3">User Type : <span>{{ $pat_info->user_type }}</span></h5>
+                    <h5 class="border rounded-3">Gender: <span> {{ $pat_info->gender }} </span></h5>
                     </div>
                     <div class="d-flex justify-content-between name-sec-inner">
-                    <h5>State: <span> {{ $pat_info->state }} </span></h5>
-                    <h5>City : <span>{{ $pat_info->city }}</span></h5>
+                    {{-- <h5 class="border rounded-3">Zipcode: <span> {{ $pat_info->zip_code }} </span></h5> --}}
+                    <h5 class="border rounded-3">Timezone : <span>{{ $pat_info->timeZone }}</span></h5>
+                    <h5 class="border rounded-3">Phone No: <span> {{ $pat_info->phone_number }} </span></h5>
                     </div>
                     <div class="d-flex justify-content-between name-sec-inner">
-                    <h5>User Type : <span>{{ $pat_info->user_type }}</span></h5>
-                    <h5>Gender: <span> {{ $pat_info->gender }} </span></h5>
+                    <h5 class="border rounded-3">Email : <span>{{ $pat_info->email }}</span></h5>
+                    <h5 class="border rounded-3">Address: <span> {{ $pat_info->office_address }} </span></h5>
                     </div>
                     <div class="d-flex justify-content-between name-sec-inner">
-                    <h5>Zipcode: <span> {{ $pat_info->zip_code }} </span></h5>
-                    <h5>Timezone : <span>{{ $pat_info->timeZone }}</span></h5>
-                    </div>
-                    <div class="d-flex justify-content-between name-sec-inner">
-                    <h5>Phone No: <span> {{ $pat_info->phone_number }} </span></h5>
-                    <h5>Email : <span>{{ $pat_info->email }}</span></h5>
-                    </div>
-                    <div class="d-flex justify-content-between name-sec-inner">
-                    <h5>Address: <span> {{ $pat_info->office_address }} </span></h5>
-                    <h5>Register Date : <span>{{ date('m-d-Y',strtotime($pat_info->created_at)) }}</span></h5>
+                    <h5 class="border rounded-3">Register Date : <span>{{ date('m-d-Y',strtotime($pat_info->created_at)) }}</span></h5>
                     </div>
                     <!-- <h5 class="name-sec-bio">
                         Bio :

@@ -182,13 +182,16 @@ class SessionController extends Controller
             $user_id = $user->id;
             if(isset($request->name)){
                 $sessions = Session::where('status', 'ended')
-                ->where('session_id',$request->name)
-                ->where('remaining_time','!=','full')
-                ->orderByDesc('id')->paginate(15);
+                    ->where('session_id',$request->name)
+                    ->where('remaining_time','!=','full')
+                    ->orderByDesc('id')->get();
+                $inclinic_data = \App\Models\InClinics::with(['user','prescriptions','doctor'])->get();
             }else{
-                $sessions = Session::where('status', 'ended')->where('remaining_time','!=','full')->orderByDesc('id')->paginate(15);
+                $sessions = Session::where('status', 'ended')->where('remaining_time','!=','full')->orderByDesc('id')->get();
+                $inclinic_data = \App\Models\InClinics::with(['user','prescriptions','doctor'])->get();
             }
             foreach ($sessions as $session) {
+                $session->type = 'session';
                 $getPersentage = DB::table('doctor_percentage')->where('doc_id', $session['doctor_id'])->first();
                 $doc_price = ($getPersentage->percentage / 100) * $session->price;
                 $session->price = $session->price - $doc_price;
@@ -267,10 +270,19 @@ class SessionController extends Controller
                     // array_push($sessions,$session);
                 }
             }
+            foreach ($inclinic_data as $inclinic) {
+                $inclinic->date = User::convert_utc_to_user_timezone($user->id, $inclinic->start_time)['date'];
+                $inclinic->date = $inclinic->date;
+                $inclinic->type = 'inclinic';
+            }
+
+            // Merge both collections
+            $mergedData = $sessions->merge($inclinic_data);
+
+            // Sort by created_at (descending order)
+            $sortedData = $mergedData->sortByDesc('created_at')->values();
             $specializations = DB::table('specializations')->where('status','1')->get();
-            // $sessions=(object)$sessions;
-            // dd($sessions);
-            return view('dashboard_admin.all_sessions.index', compact('user_type', 'sessions','specializations'));
+            return view('dashboard_admin.all_sessions.index', compact('user_type', 'sortedData','specializations'));
         }
     }
 

@@ -16,6 +16,7 @@ use App\Events\updateQuePatient;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
+use App\Models\InClinics;
 
 class MeezanPaymentController extends Controller
 {
@@ -53,6 +54,9 @@ class MeezanPaymentController extends Controller
             $this->returnUrl = env('APP_URL')."/meezan/payment/return";
         }elseif($data[0] == 'Appointment'){
             $orderId = 'CHCCA-'.$data[1];
+            $this->returnUrl = env('APP_URL')."/meezan/payment/return";
+        }elseif($data[0] == 'Inclinic'){
+            $orderId = 'CHCCI-'.$data[1];
             $this->returnUrl = env('APP_URL')."/meezan/payment/return";
         }
         else{
@@ -204,6 +208,17 @@ class MeezanPaymentController extends Controller
             }
             if($description[0] == "Order"){
                 return $response;
+            }
+            if($description[0] == "Inclinic"){
+                if($response->orderStatus == 2){
+                    $pat = InClinics::where('user_id',$description[1])->update([
+                        'status'=> 'pending'
+                    ]);
+                    event(new \App\Events\InClinicPatientUpdate($description[1]));
+                    return redirect()->route('inclinic_patient');
+                }else{
+                    return redirect()->back()->with('error',$response->actionCodeDescription);
+                }
             }
         }
     }

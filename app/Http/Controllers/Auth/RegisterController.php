@@ -307,7 +307,7 @@ class RegisterController extends Controller
                     'date_of_birth' => $newd_o_b,
                     'phone_number' => $data['phone_number'],
                     'office_address' => $data['address'],
-                    'zip_code' => '',
+                    'zip_code' => null,
                     'nip_number' => $data['npi'],
                     'consultation_fee' => $data['consultation_fee'],
                     'followup_fee' => $data['follow_up_fee'],

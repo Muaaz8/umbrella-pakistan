@@ -178,6 +178,7 @@ Route::get('/our-doctors/{name}',function($name){
         $doctors = DB::table('users')
         ->where('user_type','doctor')
         ->where('status','online')
+        ->where('active','1')
         ->orderBy('id','desc')
         ->get();
         foreach($doctors as $doctor){

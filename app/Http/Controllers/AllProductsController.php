@@ -99,6 +99,11 @@ class AllProductsController extends AppBaseController
         $itemSum = DB::table('tbl_cart')->where('show_product', '1')->where('status', 'recommended')->where('user_id', Auth::user()->id)->sum('update_price');
         $totalPrice = $itemSum;
         foreach ($allProducts as $allProduct) {
+            if ($allProduct->product_image != 'dummy_medicine.png' && $allProduct->product_image != 'default-labtest.jpg' && $allProduct->product_image != 'default-imaging.png'){
+                $allProduct->product_image = \App\Helper::check_bucket_files_url($allProduct->product_image);
+            }else{
+                $allProduct->product_image = asset('assets/images/' . $allProduct->product_image);
+            }
             $count += 1;
             if ($allProduct->product_mode == 'lab-test' && $allProduct->item_type == "counter") {
                 $providerFee = 0;

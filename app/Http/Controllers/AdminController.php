@@ -3970,7 +3970,7 @@ public function store_policy(Request $request){
         }else{
             $user_id = $request->user_id;
         }
-        if($request->payment == "easypaisa" || $request->payment == "cash"){
+        if($request->payment_method == "easypaisa" || $request->payment_method == "cash"){
             $pat = InClinics::create([
                 'user_id'=> $user_id,
                 'reason'=> $request->reason,
@@ -3983,7 +3983,21 @@ public function store_policy(Request $request){
             ]);
             event(new RealTimeMessage(254));
             event(new \App\Events\InClinicPatientUpdate($pat->id));
+            return redirect()->route('inclinic_patient');
+        }elseif($request->payment_method == "credit-card"){
+            $pat = InClinics::create([
+                'user_id'=> $user_id,
+                'reason'=> $request->reason,
+                'status'=> 'pending'
+            ]);
+            $data = "Inclinic-".$user_id."-1";
+            $pay = new \App\Http\Controllers\MeezanPaymentController();
+            $res = $pay->payment($data,(850*100));
+            if (isset($res) && $res->errorCode == 0) {
+                return redirect($res->formUrl);
+            }else{
+                return redirect()->back()->with('error','Sorry, we are currently facing server issues. Please try again later.');
+            }
         }
-        return redirect()->route('inclinic_patient');
     }
 }

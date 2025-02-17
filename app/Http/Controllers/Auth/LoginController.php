@@ -79,7 +79,6 @@ class LoginController extends Controller
                 $user->status = 'offline';
                 event(new loadOnlineDoctor('run'));
             }
-            $user->save();
 
             ActivityLog::create([
                 'activity' => 'logged out',
@@ -89,13 +88,10 @@ class LoginController extends Controller
             ]);
             Session::where('doctor_id', $user->id)->where('remaining_time','!=','full')->update(['status' => 'ended', 'queue' => 0]);
             Session::where('doctor_id', $user->id)->where('status','invitation sent')->orwhere('status','doctor joined')->update(['status' => 'paid']);
-            $data = User::where('id',$user->id)->select('id','status')->first();
-            if($data->status == "online"){
-                $data->status = "offline";
-            }else{
-                $data->status = "online";
-            }
-            $data->save();
+            $user->status = 'offline';
+            $user->save();
+            event(new loadOnlineDoctor('run'));
+
         }
         if ($type == 'patient') {
             ActivityLog::create([

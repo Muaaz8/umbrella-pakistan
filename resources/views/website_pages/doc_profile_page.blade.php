@@ -136,20 +136,19 @@
                                                     ($schedule->sat && $index == 6) ||
                                                     ($schedule->sun && $index == 0)
                                                 ) {
-
                                                     $fromTime = $schedule->from_time;
                                                     $toTime = $schedule->to_time;
                                                     $fromTime = DateTime::createFromFormat('h:i A', $fromTime);
                                                     $toTime = DateTime::createFromFormat('h:i A', $toTime);
 
-                                                    if ($index > $currentDay || ($index == $currentDay && $currentTime->lt($toTime))) {
+                                                    // if ($index > $currentDay || ($index == $currentDay && $currentTime->lt($toTime))) {
                                                         $nextSchedule = [
                                                             'day' => $day,
                                                             'from_time' => $fromTime->format('h:i A'),
                                                             'to_time' => $toTime->format('h:i A'),
                                                         ];
                                                         break 2;
-                                                    }
+                                                    // }
                                                 }
                                             }
                                         }
