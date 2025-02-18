@@ -699,8 +699,11 @@ class HomeController extends Controller
         $user->user_image = \App\Helper::check_bucket_files_url($user->user_image);
         $doctor_count = DB::table('users')->where('user_type','doctor')->where('active','1')->count();
         $patients_count = DB::table('users')->where('user_type','patient')->count();
-        $pending_doctors_count = DB::table('users')->where('user_type','doctor')->where('users.active','=','0')->where('users.status','!=','declined')->count();
-        // dd($doctors);
+        // $pending_doctors_count = DB::table('users')->where('user_type','doctor')->where('users.active','=','0')->where('users.status','!=','declined')->count();
+        $today_session_count = Session::where('status','ended')->where('created_at','LIKE', "%".date('Y-m-d')."%")->count();
+        $today_session_count += \App\Models\Inclinics::where('status','ended')->where('created_at','LIKE', "%".date('Y-m-d')."%")->count();
+        $today_patients = User::where('user_type','patient')->where('created_at','LIKE', "%".date('Y-m-d')."%")->count();
+
         $doctors = DB::table('users')
         ->select('users.*')
         ->leftjoin('contracts','contracts.provider_id','users.id')
@@ -740,7 +743,7 @@ class HomeController extends Controller
             $user->ticker_value = "";
         }
 
-        return view('dashboard_admin.admin',compact('doctor_count','patients_count','pending_doctors_count','doctors','user'));
+        return view('dashboard_admin.admin',compact('doctor_count','patients_count','doctors','user','today_session_count','today_patients'));
     }
 
     public function new_pharm_editor_index(){

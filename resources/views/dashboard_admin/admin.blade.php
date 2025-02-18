@@ -132,6 +132,32 @@
                         </div>
                         <div class="col-md-3 mb-3">
                             <div class="dashboard-small-card-wrap">
+                                <a href="#" class="text-dark">
+                                    <div class="d-flex dashboard-small-card-inner">
+                                    <i class="fa-solid fa-vials"></i>
+                                    <div>
+                                        <h6>Today Sessions</h6>
+                                        <p>{{ $today_session_count }}</p>
+                                    </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-3 mb-3">
+                            <div class="dashboard-small-card-wrap">
+                                <a href="#" class="text-dark">
+                                <div class="d-flex dashboard-small-card-inner">
+                                    <i class="fa-solid fa-prescription-bottle-medical"></i>
+                                    <div>
+                                        <h6>Today Patients</h6>
+                                        <p>{{ $today_patients }}</p>
+                                    </div>
+                                </div>
+                                </a>
+                            </div>
+                        </div>
+                        {{-- <div class="col-md-3 mb-3">
+                            <div class="dashboard-small-card-wrap">
                                 <a href="{{ route('pending_doctor_requests') }}" class="text-dark">
                                     <div class="d-flex dashboard-small-card-inner">
                                     <i class="fa-solid fa-vials"></i>
@@ -155,7 +181,7 @@
                                 </div>
                                 </a>
                             </div>
-                        </div>
+                        </div> --}}
 
                     </div>
                     <div class="first-card-wrap card py-3 px-2 mb-2">
