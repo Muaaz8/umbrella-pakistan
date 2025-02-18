@@ -107,10 +107,10 @@
                                         ${generateStarRatings(element.rating)}
                                     </div>
                                     <p class="specialization-doc">${element.specializations.name}</p>
-                                    <hr>
-                                    ${element.consultation_fee ? `<p style="font-size:11px"><b>Consultation Fee: </b> Rs.${element.consultation_fee}</p>` : ''}
-                                    ${element.followup_fee ? `<p style="font-size:11px"><b>Follow Up Fee: </b> Rs.${element.followup_fee}</p>` : ''}
-                                    <hr>
+                                    
+                                    ${element.consultation_fee ? `<hr><p style="font-size:11px" class="d-flex align-items-center justify-content-between w-100"><b>Consultation Fee: </b> <b class="text-white px-2 py-1 bg-primary rounded-2">Rs.${element.consultation_fee}</b></p><hr>` : ''}
+                                    
+                                    
                                     <p class="education-doc">${safeSubstring(element.details.education, 60)}</p>
                                     </div>
                                     </div><div class="d-flex align-items-center justify-content-center w-100 position-absolute view-button"><button
@@ -134,10 +134,10 @@
                                         ${generateStarRatings(element.rating)}
                                     </div>
                                     <p class="specialization-doc">${element.specializations.name}</p>
-                                    <hr>
-                                    ${element.consultation_fee ? `<p style="font-size:11px"><b>Consultation Fee: </b> Rs.${element.consultation_fee}</p>` : ''}
-                                    ${element.followup_fee ? `<p style="font-size:11px"><b>Follow Up Fee: </b> Rs.${element.followup_fee}</p>` : ''}
-                                    <hr>
+                                    
+                                    ${element.consultation_fee ? `<hr><p style="font-size:11px" class="d-flex align-items-center justify-content-between w-100"><b>Consultation Fee: </b> <b class="text-white px-2 py-1 bg-primary rounded-2">Rs.${element.consultation_fee}</b></p><hr>` : ''}
+                                    
+                                    
                                     <p class="education-doc">MBBS</p>
                                     </div>
                                     </div><div class="d-flex align-items-center justify-content-center w-100 position-absolute view-button"><button
@@ -196,10 +196,10 @@
                                         ${generateStarRatings(element.rating)}
                                     </div>
                                     <p class="specialization-doc">${element.specializations.name}</p>
-                                    <hr>
-                                    ${element.consultation_fee ? `<p style="font-size:11px"><b>Consultation Fee: </b> Rs.${element.consultation_fee}</p>` : ''}
-                                    ${element.followup_fee ? `<p style="font-size:11px"><b>Follow Up Fee: </b> Rs.${element.followup_fee}</p>` : ''}
-                                    <hr>
+                                    
+                                    ${element.consultation_fee ? `<hr><p style="font-size:11px" class="d-flex align-items-center justify-content-between w-100"><b>Consultation Fee: </b> <b class="text-white px-2 py-1 bg-primary rounded-2">Rs.${element.consultation_fee}</b></p><hr>` : ''}
+                                    
+                                    
                                     <p class="education-doc">${safeSubstring(element.details.education, 60)}</p>
                                     </div>
                                     </div><div class="d-flex align-items-center justify-content-center w-100 position-absolute view-button"><button
@@ -223,10 +223,10 @@
                                         ${generateStarRatings(element.rating)}
                                     </div>
                                     <p class="specialization-doc">${element.specializations.name}</p>
-                                    <hr>
-                                    ${element.consultation_fee ? `<p style="font-size:11px"><b>Consultation Fee: </b> Rs.${element.consultation_fee}</p>` : ''}
-                                    ${element.followup_fee ? `<p style="font-size:11px"><b>Follow Up Fee: </b> Rs.${element.followup_fee}</p>` : ''}
-                                    <hr>
+                                    
+                                    ${element.consultation_fee ? `<hr><p style="font-size:11px" class="d-flex align-items-center justify-content-between w-100"><b>Consultation Fee: </b> <b class="text-white px-2 py-1 bg-primary rounded-2">Rs.${element.consultation_fee}</b></p><hr>` : ''}
+                                    
+                                    
                                     <p class="education-doc">MBBS</p>
                                     <div class="doctor-ratings d-flex align-items-center mt-2"></div></div>
                                     </div><div class="d-flex align-items-center justify-content-center w-100 position-absolute view-button"><button
@@ -271,10 +271,10 @@
                                         ${generateStarRatings(element.rating)}
                                     </div>
                                     <p class="specialization-doc">${element.specializations.name}</p>
-                                    <hr>
-                                    ${element.consultation_fee ? `<p style="font-size:11px"><b>Consultation Fee: </b> Rs.${element.consultation_fee}</p>` : ''}
-                                    ${element.followup_fee ? `<p style="font-size:11px"><b>Follow Up Fee: </b> Rs.${element.followup_fee}</p>` : ''}
-                                    <hr>
+                                    
+                                    ${element.consultation_fee ? `<hr><p style="font-size:11px" class="d-flex align-items-center justify-content-between w-100"><b>Consultation Fee: </b> <b class="text-white px-2 py-1 bg-primary rounded-2">Rs.${element.consultation_fee}</b></p><hr>` : ''}
+                                    
+                                    
                                     <p class="education-doc">${safeSubstring(element.details.education, 60)}</p>
                                     </div>
                                     </div><div class="d-flex align-items-center justify-content-center w-100 position-absolute view-button"><button
@@ -298,10 +298,10 @@
                                         ${generateStarRatings(element.rating)}
                                     </div>
                                     <p class="specialization-doc">${element.specializations.name}</p>
-                                    <hr>
-                                    ${element.consultation_fee ? `<p style="font-size:11px"><b>Consultation Fee: </b> Rs.${element.consultation_fee}</p>` : ''}
-                                    ${element.followup_fee ? `<p style="font-size:11px"><b>Follow Up Fee: </b> Rs.${element.followup_fee}</p>` : ''}
-                                    <hr>
+                                    
+                                    ${element.consultation_fee ? `<hr><p style="font-size:11px" class="d-flex align-items-center justify-content-between w-100"><b>Consultation Fee: </b> <b class="text-white px-2 py-1 bg-primary rounded-2">Rs.${element.consultation_fee}</b></p><hr>` : ''}
+                                    
+                                    
                                     <p class="education-doc">MBBS</p>
                                     <div class="doctor-ratings d-flex align-items-center mt-2"></div></div>
                                     </div><div class="d-flex align-items-center justify-content-center w-100 position-absolute view-button"><button
@@ -462,15 +462,11 @@
                                             @endif
                                 </div>
                                 <p class="specialization-doc">{{ $doctor->specializations->name }}</p>
-                                <hr>
                                 @if(isset($doctor->consultation_fee))
-                                    <p style="font-size:11px"><b>Consultation Fee: </b> Rs.{{$doctor->consultation_fee}}</p>
+                                    <hr>
+                                    <p style="font-size:11px" class="d-flex align-items-center justify-content-between w-100"><b>Consultation Fee: </b> <b class="text-white px-2 py-1 bg-primary rounded-2">Rs.{{$doctor->consultation_fee}}</b></p>
+                                    <hr>
                                 @endif
-
-                                @if(isset($doctor->followup_fee))
-                                    <p style="font-size:11px"><b>Follow Up Fee: </b> Rs.{{$doctor->followup_fee}}</p>
-                                @endif
-                                <hr>
                                 <p class="education-doc">{!! nl2br(isset($doctor->details->education) ?
                                     \Str::limit($doctor->details->education, 50) : 'MBBS') !!}</p>
                             </div>

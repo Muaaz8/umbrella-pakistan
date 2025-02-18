@@ -2805,6 +2805,10 @@ header > .header-search-container {
     text-align: center;
 }
 
+.doctor-data-container{
+    width: 100% !important;
+}
+
 /* Alphabet Buttons */
 .alphabets {
     display: flex;
@@ -5366,7 +5370,8 @@ header > .header-search-container {
 }
 
 .doctor-data-container h5 {
-    font-size: 1rem;
+    font-size: 0.9rem;
+    font-weight: 600;
 }
 
 .doctor-verify {
