@@ -701,7 +701,7 @@ class HomeController extends Controller
         $patients_count = DB::table('users')->where('user_type','patient')->count();
         // $pending_doctors_count = DB::table('users')->where('user_type','doctor')->where('users.active','=','0')->where('users.status','!=','declined')->count();
         $today_session_count = Session::where('status','ended')->where('created_at','LIKE', "%".date('Y-m-d')."%")->count();
-        $today_session_count += \App\Models\Inclinics::where('status','ended')->where('created_at','LIKE', "%".date('Y-m-d')."%")->count();
+        $today_session_count += \App\Models\InClinics::where('status','ended')->where('created_at','LIKE', "%".date('Y-m-d')."%")->count();
         $today_patients = User::where('user_type','patient')->where('created_at','LIKE', "%".date('Y-m-d')."%")->count();
 
         $doctors = DB::table('users')
