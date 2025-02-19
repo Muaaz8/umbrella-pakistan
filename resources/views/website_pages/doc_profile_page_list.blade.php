@@ -365,7 +365,7 @@
                     </select>
                 </div>
                 <div class="d-flex align-items-center justify-content-between gap-3">
-                    <div class="dropdown doctor-filter d-flex gap-2">
+                    <div class="dropdown doctor-filter d-flex gap-1">
                         <div onclick="select_doc('2')" class="checkbox-wrapper-47">
                             <input checked class="inp-cbx" name="cb" id="cb-47" type="radio" value="2" />
                             <label class="cbx" for="cb-47"><span>
