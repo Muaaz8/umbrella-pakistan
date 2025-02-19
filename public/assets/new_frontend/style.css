@@ -2608,7 +2608,7 @@ header > .header-search-container {
     background-repeat: no-repeat;
     background-position: 30% center;
     background-size: 100%;
-    min-height: 30vh;
+    min-height: 25vh;
     position: relative;
     display: flex;
     align-items: start;
@@ -5151,7 +5151,7 @@ header > .header-search-container {
     .contact-content {
         padding-top: 0;
         align-items: center;
-        margin: auto 0 5.5rem 0;
+        margin: auto 0 4rem 0;
     }
 
     .underline3 {
