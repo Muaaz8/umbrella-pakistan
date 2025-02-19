@@ -109,6 +109,7 @@ Route::get('/doctor-profile/{id}',function($id){
 });
 
 Route::get('/our-doctors',function(){
+    $specializations = DB::table('specializations')->where('status','1')->get();
     $doctors = DB::table('users')
         ->where('user_type','doctor')
         ->where('active','1')
@@ -122,7 +123,7 @@ Route::get('/our-doctors',function(){
             $doctor->specializations = DB::table('specializations')->where('id',$doctor->specialization)->first();
         }
     }
-    return view('website_pages.doc_profile_page_list',compact('doctors'));
+    return view('website_pages.doc_profile_page_list',compact('doctors' , 'specializations'));
 })->name('doc_profile_page_list');
 
 Route::get('/our-doctors/{name}',function($name){
@@ -210,6 +211,34 @@ Route::get('/american-doctors', function(){
 }
 )->name('american-doctors');
 
+Route::get('/filter/doctors/{id}', function($id){
+
+    $doctors;
+
+    if($id == "0"){
+        $doctors = DB::table('users')
+        ->where('user_type','doctor')
+        ->where('active','1')
+        ->where('status','!=','ban')
+        ->orderBy('id','desc')
+        ->get();
+    }else{
+        $doctors = DB::table('users')
+        ->where('user_type','doctor')
+        ->where('active','1')
+        ->where('status','!=','ban')
+        ->where('specialization',$id)
+        ->orderBy('id','desc')
+        ->get();
+    }
+
+    foreach($doctors as $doctor){
+        $doctor->details = DB::table('doctor_details')->where('doctor_id',$doctor->id)->first();
+        $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
+        $doctor->specializations = DB::table('specializations')->where('id',$doctor->specialization)->first();
+    }
+    return json_encode($doctors);
+});
 
 Route::get('/screen_sharing','UserController@sc_share')->name('sc_share');
 Route::post('/create/screen_sharing','UserController@create_sc_sh')->name('create_sc_sh');
