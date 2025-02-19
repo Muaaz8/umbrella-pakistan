@@ -108,7 +108,7 @@
                                     </div>
                                     <p class="specialization-doc">${element.specializations.name}</p>
                                     
-                                    ${element.consultation_fee ? `<hr><p style="font-size:11px" class="d-flex align-items-center justify-content-between w-100"><b>Consultation Fee: </b> <b class="text-white px-2 py-1 bg-primary rounded-2">Rs.${element.consultation_fee}</b></p><hr>` : ''}
+                                    ${element.consultation_fee ? `<hr><p style="font-size:11px" class="d-flex align-items-center justify-content-between flex-wrap w-100"><b>Consultation Fee: </b> <b class="text-white px-2 py-1 bg-primary rounded-2">Rs.${element.consultation_fee}</b></p><hr>` : ''}
                                     
                                     
                                     <p class="education-doc">${safeSubstring(element.details.education, 60)}</p>
@@ -135,7 +135,7 @@
                                     </div>
                                     <p class="specialization-doc">${element.specializations.name}</p>
                                     
-                                    ${element.consultation_fee ? `<hr><p style="font-size:11px" class="d-flex align-items-center justify-content-between w-100"><b>Consultation Fee: </b> <b class="text-white px-2 py-1 bg-primary rounded-2">Rs.${element.consultation_fee}</b></p><hr>` : ''}
+                                    ${element.consultation_fee ? `<hr><p style="font-size:11px" class="d-flex align-items-center justify-content-between flex-wrap w-100"><b>Consultation Fee: </b> <b class="text-white px-2 py-1 bg-primary rounded-2">Rs.${element.consultation_fee}</b></p><hr>` : ''}
                                     
                                     
                                     <p class="education-doc">MBBS</p>
@@ -224,7 +224,7 @@
                                     </div>
                                     <p class="specialization-doc">${element.specializations.name}</p>
                                     
-                                    ${element.consultation_fee ? `<hr><p style="font-size:11px" class="d-flex align-items-center justify-content-between w-100"><b>Consultation Fee: </b> <b class="text-white px-2 py-1 bg-primary rounded-2">Rs.${element.consultation_fee}</b></p><hr>` : ''}
+                                    ${element.consultation_fee ? `<hr><p style="font-size:11px" class="d-flex align-items-center justify-content-between flex-wrap w-100"><b>Consultation Fee: </b> <b class="text-white px-2 py-1 bg-primary rounded-2">Rs.${element.consultation_fee}</b></p><hr>` : ''}
                                     
                                     
                                     <p class="education-doc">MBBS</p>
@@ -278,7 +278,7 @@
                                     </div>
                                     <p class="specialization-doc">${element.specializations.name}</p>
                                     
-                                    ${element.consultation_fee ? `<hr><p style="font-size:11px" class="d-flex align-items-center justify-content-between w-100"><b>Consultation Fee: </b> <b class="text-white px-2 py-1 bg-primary rounded-2">Rs.${element.consultation_fee}</b></p><hr>` : ''}
+                                    ${element.consultation_fee ? `<hr><p style="font-size:11px" class="d-flex align-items-center justify-content-between flex-wrap w-100"><b>Consultation Fee: </b> <b class="text-white px-2 py-1 bg-primary rounded-2">Rs.${element.consultation_fee}</b></p><hr>` : ''}
                                     
                                     
                                     <p class="education-doc">${safeSubstring(element.details.education, 60)}</p>
@@ -305,7 +305,7 @@
                                     </div>
                                     <p class="specialization-doc">${element.specializations.name}</p>
                                     
-                                    ${element.consultation_fee ? `<hr><p style="font-size:11px" class="d-flex align-items-center justify-content-between w-100"><b>Consultation Fee: </b> <b class="text-white px-2 py-1 bg-primary rounded-2">Rs.${element.consultation_fee}</b></p><hr>` : ''}
+                                    ${element.consultation_fee ? `<hr><p style="font-size:11px" class="d-flex align-items-center justify-content-between flex-wrap w-100"><b>Consultation Fee: </b> <b class="text-white px-2 py-1 bg-primary rounded-2">Rs.${element.consultation_fee}</b></p><hr>` : ''}
                                     
                                     
                                     <p class="education-doc">MBBS</p>
@@ -470,7 +470,7 @@
                                 <p class="specialization-doc">{{ $doctor->specializations->name }}</p>
                                 @if(isset($doctor->consultation_fee))
                                     <hr>
-                                    <p style="font-size:11px" class="d-flex align-items-center justify-content-between w-100"><b>Consultation Fee: </b> <b class="text-white px-2 py-1 bg-primary rounded-2">Rs.{{$doctor->consultation_fee}}</b></p>
+                                    <p style="font-size:11px" class="d-flex align-items-center justify-content-between flex-wrap w-100"><b>Consultation Fee: </b> <b class="text-white px-2 py-1 bg-primary rounded-2">Rs.{{$doctor->consultation_fee}}</b></p>
                                     <hr>
                                 @endif
                                 <p class="education-doc">{!! nl2br(isset($doctor->details->education) ?
