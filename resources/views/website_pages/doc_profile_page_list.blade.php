@@ -251,6 +251,12 @@
                         $(".doctor-cont").addClass("d-none");
                         $(".doctor-cont2").html("");
                         $("#select_doc").val(2);
+                        if (JSON.parse(response).length === 0) {
+                            $(".doctor-cont2").html(`
+                                <p class="text-center text-danger fw-bold">No doctors available in this specialization.</p>
+                            `);
+                            return;
+                        }
                         $.each(JSON.parse(response), function (indexInArray, element) {
                             if (element.details) {
                                 $(".doctor-cont2").append(
