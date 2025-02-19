@@ -4967,6 +4967,12 @@ input[type="number"] {
     }
 }
 
+@media screen and (max-width: 405px) {
+    .price_0 {
+        margin-top: 1rem;
+    }
+}
+
 .service_card_svg {
     width: 90px !important;
     height: 90px !important;

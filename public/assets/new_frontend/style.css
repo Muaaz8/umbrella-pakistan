@@ -2607,7 +2607,7 @@ header > .header-search-container {
     background-image: url('./hero-section.webp');
     background-repeat: no-repeat;
     background-position: 30% center;
-    background-size: 100%;
+    background-size: cover;
     min-height: 25vh;
     position: relative;
     display: flex;
