@@ -1132,25 +1132,35 @@
 @section('bottom_import_file')
     <script src="https://thecodeplayer.com/uploads/js/jquery.easing.min.js" type="text/javascript"></script>
     <script>
+        function toggleDrawer() {
+            const drawer = document.getElementById("drawer");
+            const blurOverlay = document.getElementById("blurOverlay");
+            const hamburger = document.querySelector(".hamburger");
+
+            drawer.classList.toggle("active");
+            blurOverlay.classList.toggle("active");
+            hamburger.classList.toggle("active");
+        }
+
         $(document).ready(function() {
 
-$(".search-btn-mob").on("click", function() {
-    $(".header-search-container").css("display", "block");
-});
+            $(".search-btn-mob").on("click", function() {
+                $(".header-search-container").css("display", "block");
+            });
 
-$(document).on("click", function(event) {
-    if (!$(event.target).closest(".header-search-container") && !$(event.target).closest(".search-btn-mob")) {
-        $(".header-search-container").css("display", "none");
-    }
-});
+            $(document).on("click", function(event) {
+                if (!$(event.target).closest(".header-search-container") && !$(event.target).closest(".search-btn-mob")) {
+                    $(".header-search-container").css("display", "none");
+                }
+            });
 
-$('#new-search2').on('input', function () {
-const searchTerm = $(this).val().trim().toLowerCase();
+            $('#new-search2').on('input', function () {
+            const searchTerm = $(this).val().trim().toLowerCase();
 
-  if (searchTerm.length === 0) {
-      $('.header-search-result').empty().hide();
-      return;
-  }
+            if (searchTerm.length === 0) {
+                $('.header-search-result').empty().hide();
+                return;
+            }
 
   $.ajax({
       url: `/search_items/${searchTerm}`,
