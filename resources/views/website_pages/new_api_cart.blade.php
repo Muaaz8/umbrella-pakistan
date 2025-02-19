@@ -1371,7 +1371,7 @@ $('#new-search2').on('blur', function() {
                             showShipping += 1;
                         }
                         if (product.item_type == 'prescribed') {
-                            $('#loadItemChecoutFinal').append('<div class="card mb-3">' +
+                            $('#loadItemChecoutFinal').append('<div class="card mb-1">' +
                                 '<div class="row g-0">' +
                                 '<div class="d-flex">' +
                                 '<div class="image-wrap-inner">' +
@@ -1395,7 +1395,7 @@ $('#new-search2').on('blur', function() {
                                 '</div>' +
                                 '</div>');
                         } else {
-                            $('#loadItemChecoutFinal').append('<div class="card mb-3">' +
+                            $('#loadItemChecoutFinal').append('<div class="card mb-1">' +
                                 '<div class="row g-0">' +
                                 '<div class="d-flex">' +
                                 '<div class="image-wrap-inner">' +
@@ -1835,7 +1835,7 @@ $('#new-search2').on('blur', function() {
                                     }
                                     if (product.item_type == 'prescribed') {
                                         $('#loadItemChecoutFinal').append(
-                                            '<div class="card mb-3">' +
+                                            '<div class="card mb-1">' +
                                             '<div class="row g-0">' +
                                             '<div class="d-flex">' +
                                             '<div class="image-wrap-inner">' +
@@ -1865,7 +1865,7 @@ $('#new-search2').on('blur', function() {
                                             '</div>');
                                     } else {
                                         $('#loadItemChecoutFinal').append(
-                                            '<div class="card mb-3">' +
+                                            '<div class="card mb-1">' +
                                             '<div class="row g-0">' +
                                             '<div class="d-flex">' +
                                             '<div class="image-wrap-inner">' +
@@ -2096,7 +2096,7 @@ $('#new-search2').on('blur', function() {
 
     {{-- after registration and login modal --}}
 
-    <div class="container-fluid pt-4">
+    <div class="container-fluid pt-1">
         <div>
             @if (session()->get('msg'))
                 <div id="errorDiv1" class="alert alert-danger col-12 col-md-6 offset-md-3 mt-2">
@@ -2361,13 +2361,13 @@ $('#new-search2').on('blur', function() {
                     <fieldset class="mb-3">
                         <i class="fa-solid fa-circle-left previous payment-back" name="previous"></i>
                         <section>
-                            <div class="container">
+                            <div class="container-fluid">
                                 <div class="row">
                                     <div class="col-md-7 mb-3 px-md-2 p-0 ">
                                         {{-- //////////////////////////////////// --}}
                                         <div class="payment-form-wrap" id="div1" style="display: none;">
                                             <div class="card">
-                                                <div class="card-title mx-auto">PAYMENT</div>
+                                                <div class="card-title mx-auto" style="margin-bottom: 0;">PAYMENT</div>
                                                 <form method="post" id="formWithCard"
                                                     action="{{ route('order.payment') }}">
                                                     @csrf
@@ -2458,7 +2458,7 @@ $('#new-search2').on('blur', function() {
                                     <div class="col-md-5">
                                         <div>
                                             <div class="row payment-order-summary-wrap">
-                                                <div class="mb-3 promo_maIN_div">
+                                                <div class="mb-2 promo_maIN_div">
                                                     <label class="form-label">Enter Promo Code:</label>
                                                     <div class="d-flex justify-content-between">
                                                         <input type="text" class="form-control w-75 promo_input_F"
@@ -2489,7 +2489,7 @@ $('#new-search2').on('blur', function() {
                                                     </ul>
                                                 </div>
                                             </div>
-                                            <div class="row mt-4 payment-your-order-wrap">
+                                            <div class="row mt-2 payment-your-order-wrap">
                                                 <div class="accordion accordion-flush p-0" id="accordionFlushExample">
                                                     <div class="accordion-item">
                                                         <h2 class="accordion-header" id="flush-headingOne">

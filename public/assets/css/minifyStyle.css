@@ -3845,14 +3845,14 @@ span.avtr figure {
     justify-content: space-between;
 }
 .shopping-cart-all-wrap .title {
-    margin-bottom: 5vh;
+    margin-bottom: 5px;
     align-items: baseline;
 }
 .shopping-cart-all-wrap .card {
     margin: auto;
     width: 100%;
     border: transparent;
-    padding: 20px;
+    padding: 5px 20px 5px 10px;
 }
 .shopping-cart-all-wrap .summary {
     background-color: #ddd;
@@ -4037,7 +4037,7 @@ hr {
 }
 .payment-form-wrap .card {
     margin: auto;
-    padding: 3rem 2rem;
+    padding: 0rem 0.75rem 0.5rem 0.75rem;
 }
 .mt-50 {
     margin-top: 50px;
@@ -4069,10 +4069,20 @@ hr {
 .payment-your-order-wrap .accordion-button {
     box-shadow: rgba(0, 0, 0, 0.16) 0 3px 6px, rgba(0, 0, 0, 0.23) 0 3px 6px;
     font-weight: 800;
+    padding: 1rem 0.6rem;
+}
+.payment-your-order-wrap .accordion-body {
+    padding: 1rem 0.75rem;
 }
 .payment-order-summary-wrap .card-header,
 .payment-order-summary-wrap .list-group-flush > .list-group-item span {
     font-weight: 800;
+}
+.payment-order-summary-wrap .card-header {
+    padding: 0.5rem;
+}
+.payment-order-summary-wrap .list-group-item {
+    padding: 0.5rem;
 }
 .payment-your-order-wrap .card {
     border: 1px solid #00000038;
@@ -4112,7 +4122,7 @@ hr {
     box-shadow: 0 0 0 2px #fff, 0 0 0 3px #08295a;
 }
 .checkout-steps-wrap #progressbar {
-    margin: 20px 0;
+    margin: 10px 0;
     overflow: hidden;
     counter-reset: step;
     text-align: center;
