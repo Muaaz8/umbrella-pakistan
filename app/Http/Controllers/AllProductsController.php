@@ -113,13 +113,21 @@ class AllProductsController extends AppBaseController
                 $doctor = User::find($allProduct->doc_id);
                 $allProduct->prescribed = $doctor->name . ' ' . $doctor->last_name;
             }
-            // dd($allProduct->coupon_code_id);
             if($allProduct->coupon_code_id != ""){
                 $percentage = DB::table('coupon_code')
                 ->where('id',$allProduct->coupon_code_id)
                 ->where('status','1')->select('discount_percentage')->first();
                 $percentage = $percentage->discount_percentage;
-                $new_price = (int)$allProduct->price - ((int)$allProduct->price*((int)$percentage/100));
+                if($allProduct->product_mode == "medicine"){
+                    $productA = DB::table('tbl_products')->where('id',$allProduct->product_id)->first();
+                }else{
+                    $productA = DB::table('quest_data_test_codes')->where('TEST_CD',$allProduct->product_id)->first();
+                }
+                if($productA->discount_percentage != null ){
+                    $new_price = (int)$productA->actual_price - ((int)$productA->actual_price*((int)$percentage/100));
+                }else{
+                    $new_price = (int)$allProduct->price - ((int)$allProduct->price*((int)$percentage/100));
+                }
                 $discount_item = DB::table('tbl_cart')
                 ->where('id',$allProduct->id)
                 ->update([

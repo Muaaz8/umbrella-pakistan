@@ -126,7 +126,12 @@ class CouponController extends Controller
                             $temp = 'Date Expired!!';
                         }
                     }else if($products[0] == 'all'){
-                        dd("ok");
+                        $discount_item = DB::table('tbl_cart')
+                            ->where('id',$request->cart_id[$key])
+                            ->update([
+                                'coupon_code_id' => $discount->id,
+                            ]);
+                            $temp = 'true';
                     }else{
                         $temp = 'false';
                     }

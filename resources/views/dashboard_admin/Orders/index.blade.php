@@ -44,7 +44,6 @@
                             <tr>
                               {{-- <th scope="col">S.No</th> --}}
                               <th scope="col">Order ID</th>
-                              <th scope="col">Order State</th>
                               <th scope="col">Order Status</th>
                               <th scope="col">Date</th>
                               <th scope="col">Time</th>
@@ -56,7 +55,6 @@
                               <tr>
                                 {{-- <td data-label="S.No">{{$orders->id}}</td> --}}
                                 <td data-label="Order ID">{{$orders->order_id}}</td>
-                                <td data-label="Order State">{{$orders->state_name}}</td>
                                 <td data-label="Order Status">{{$orders->order_status}}</td>
                                 <td data-label="Date">{{$orders->created_at['date']}}</td>
                                 <td data-label="Time">{{$orders->created_at['time']}}</td>

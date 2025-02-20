@@ -462,9 +462,9 @@ public function view_DocProfile($username)
         $id = auth()->user()->id;
         $doctor_data = DB::table('users')->where('id', $id)->first();
         $doctor_data->user_image = \App\Helper::check_bucket_files_url($doctor_data->user_image);
-        $doctor_data->city = City::where('id', $doctor_data->city_id)->first();
-        $doctor_data->state = State::where('id', $doctor_data->state_id)->first();
-        $doctor_data->country = Country::where('id', $doctor_data->country_id)->first();
+        // $doctor_data->city = City::where('id', $doctor_data->city_id)->first();
+        // $doctor_data->state = State::where('id', $doctor_data->state_id)->first();
+        // $doctor_data->country = Country::where('id', $doctor_data->country_id)->first();
         $doctor_data->spec = Specialization::where('id', $doctor_data->specialization)->first();
         $specs = Specialization::all();
         // $countries = Country::all();
@@ -1072,9 +1072,9 @@ public function updateDocProfile(Request $request)
         'email' =>  ['required', 'email'],
         'phoneNumber' => ['required'],
         'address' => ['required'],
-        'state' => ['required'],
-        'city' => ['required'],
-        'zip_code' => ['required'],
+        // 'state' => ['required'],
+        // 'city' => ['required'],
+        // 'zip_code' => ['required'],
         'reason' => ['required'],
     ]);
     $time=time();
@@ -1088,54 +1088,61 @@ public function updateDocProfile(Request $request)
     $id = auth()->user()->id;
     $doctor=User::find($id);
 
-    $query = DB::table('users')->where('id',$input['user_id'])->first();
+    // $query = DB::table('users')->where('id',$input['user_id'])->first();
 
-    // dd($query);
+    // // dd($query);
 
-    $old = array(
-        'name' => $query->name,
-        'last_name' => $query->last_name,
-        'email'=> $query->email,
-        'date_of_birth' => $query->date_of_birth,
-        'phone_number' => $query->phone_number,
-        'office_address' => $query->office_address,
-        'state_id' => $query->state_id,
-        'city_id' => $query->city_id,
-        'bio' => $query->bio,
-        'zip_code' => $query->zip_code,
-    );
+    // $old = array(
+    //     'name' => $query->name,
+    //     'last_name' => $query->last_name,
+    //     'email'=> $query->email,
+    //     'date_of_birth' => $query->date_of_birth,
+    //     'phone_number' => $query->phone_number,
+    //     'office_address' => $query->office_address,
+    //     'state_id' => $query->state_id,
+    //     'city_id' => $query->city_id,
+    //     'bio' => $query->bio,
+    //     'zip_code' => $query->zip_code,
+    // );
 
-    $new = array(
-        'name' => $validateData['fname'],
-        'last_name' => $validateData['lname'],
-        'email'=> $validateData['email'],
-        'date_of_birth' => $newd_o_b,
-        'phone_number' => $validateData['phoneNumber'],
-        'office_address' => $validateData['address'],
-        'state_id' => $validateData['state'],
-        'city_id' => $validateData['city'],
-        'bio' => $request['bio'],
-        'zip_code' => $validateData['zip_code'],
-    );
+    // $new = array(
+    //     'name' => $validateData['fname'],
+    //     'last_name' => $validateData['lname'],
+    //     'email'=> $validateData['email'],
+    //     'date_of_birth' => $newd_o_b,
+    //     'phone_number' => $validateData['phoneNumber'],
+    //     'office_address' => $validateData['address'],
+    //     'state_id' => $validateData['state'],
+    //     'city_id' => $validateData['city'],
+    //     'bio' => $request['bio'],
+    //     'zip_code' => $validateData['zip_code'],
+    // );
 
-    $differenceArray1 = array_diff($old, $new);
+    // $differenceArray1 = array_diff($old, $new);
 
-    // dd($old,$new,$differenceArray1);
 
-    if (count($differenceArray1)) {
-        $insertId = DB::table('doctor_profile_update')->insertGetId([
-            'user_id' => $input['user_id'],
+        // $insertId = DB::table('doctor_profile_update')->insertGetId([
+        //     'user_id' => $input['user_id'],
+        //     'name' => $validateData['fname'],
+        //     'last_name' => $validateData['lname'],
+        //     'email'=> $validateData['email'],
+        //     'date_of_birth' => $newd_o_b,
+        //     'phone_number' => $validateData['phoneNumber'],
+        //     'office_address' => $validateData['address'],
+        //     'state_id' => $validateData['state'],
+        //     'city_id' => $validateData['city'],
+        //     'bio' => $request['bio'],
+        //     'zip_code' => $validateData['zip_code'],
+        //     'reason' => $validateData['reason'],
+        // ]);
+        User::where('id',$input['user_id'])->update([
             'name' => $validateData['fname'],
             'last_name' => $validateData['lname'],
             'email'=> $validateData['email'],
             'date_of_birth' => $newd_o_b,
             'phone_number' => $validateData['phoneNumber'],
             'office_address' => $validateData['address'],
-            'state_id' => $validateData['state'],
-            'city_id' => $validateData['city'],
             'bio' => $request['bio'],
-            'zip_code' => $validateData['zip_code'],
-            'reason' => $validateData['reason'],
         ]);
         if ($request->hasFile('certificate')) {
             $files = $request->file('certificate');
@@ -1147,63 +1154,7 @@ public function updateDocProfile(Request $request)
             //     'certificate_file' => $filename,
             //     'doc_id' => $id,]);
         }
-            // dd('ok');
-        $notification_id = Notification::create([
-            'text' => 'Profile updation By ' .$validateData['fname'],
-            'user_id' => $admin->id,
-            'user_type' => 'admin',
-            'type' => '/admin/doctor/profile_update'
-        ]);
-        $data = [
-            'text' => 'Profile updation By ' .$validateData['fname'],
-            'user_id' => $admin->id,
-            'type' => '/admin/doctor/profile_update',
-            'session_id' => "null",
-            'received' => 'false',
-            'appoint_id' => 'null',
-            'refill_id' => 'null',
-        ];
-        try {
-
-            // \App\Helper::firebase($res->user_id,'notification',$notification_id->id,$data);
-        } catch (\Throwable $th) {
-            //throw $th;
-        }
-        event(new RealTimeMessage($admin->id));
-        try {
-            Mail::to($admin->email)->send(new UpdateProfileAdminMail());
-
-            return redirect()->back()->with('success', 'Profile Update Request Sent to Admin Successfully');
-
-        } catch (\Throwable $th) {
-            //throw $th;
-            return redirect()->back()->with('success', 'Profile Update Request Sent to Admin Successfully');
-
-        }
-    } else {
-        if ($request->hasFile('certificate')) {
-            $files = $request->file('certificate');
-            $filename = \Storage::disk('s3')->put('doctor_certificates', $files);
-            DB::table('doctor_profile_update')->insert([
-                'user_id' => $input['user_id'],
-                'name' => $query->name,
-                'last_name' => $query->last_name,
-                'email'=> $query->email,
-                'date_of_birth' => $query->date_of_birth,
-                'phone_number' => $query->phone_number,
-                'office_address' => $query->office_address,
-                'state_id' => $query->state_id,
-                'city_id' => $query->city_id,
-                'bio' => $query->bio,
-                'zip_code' => $query->zip_code,
-                'reason' => $validateData['reason'],
-                'certificate'=>$filename,
-            ]);
-            return redirect()->back()->with('success', 'Certificate Addition Request Sent to Admin Successfully');
-        }else{
-            return redirect()->back()->with('error', 'you have not made any changes');
-        }
-    }
+        return redirect()->back()->with('success', 'Profile Updated Successfully');
 }
 
 

@@ -91,7 +91,7 @@
                                       <!-- Form Group (Date Of Birth)-->
                                       <div class="col-md-6">
                                           <label class="small mb-1" for="inputOrgName">Date Of Birth</label>
-                                          <input class="form-control" name="dob" id="inputOrgName" type="date" placeholder="Enter your Date Of Birth" value="{{  $doctor_data->date_of_birth }}" readonly>
+                                          <input class="form-control" name="dob" id="inputOrgName" type="date" placeholder="Enter your Date Of Birth" value="{{  $doctor_data->date_of_birth }}">
                                       </div>
                                       <!-- Form Group (Phone Number)-->
                                       <div class="col-md-6">
@@ -104,7 +104,7 @@
                                       <!-- Form Group (Email)-->
                                       <div class="col-md-6">
                                           <label class="small mb-1" for="inputOrgName">Email</label>
-                                          <input class="form-control" name="email" id="email" type="text" placeholder="Enter your Email" value="{{  $doctor_data->email }}" readonly>
+                                          <input class="form-control" name="email" id="email" type="text" placeholder="Enter your Email" value="{{  $doctor_data->email }}">
                                       </div>
                                       <!-- Form Group (Address)-->
                                       <div class="col-md-6">
@@ -114,11 +114,11 @@
                                   </div>
 
                                   <div class="row gx-3 mb-3">
-                                    <div class="col-md-6">
+                                    {{--<div class="col-md-6">
                                         <label class="small mb-1" for="inputPhone">Zip Code*</label>
                                         <small class="text-danger zipcode_error"></small>
                                         <input class="form-control zip_code" id="inputPhone" type="tel" name="zip_code" placeholder="Enter your Zip Code" value="{{  $doctor_data->zip_code }}">
-                                    </div>
+                                    </div>--}}
                                     <div class="col-md-6">
                                         <label class="small mb-1" for="inputPhone">BIO</label>
                                         <input class="form-control" id="bio" type="text"  name="bio"  placeholder="Enter your Bio" value="{{ $doctor_data->bio }}">

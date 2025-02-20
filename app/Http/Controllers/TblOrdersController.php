@@ -368,15 +368,15 @@ class TblOrdersController extends AppBaseController
         if ($user->user_type == "admin") {
             if(isset($request->name)){
                 $tblOrders = DB::table('tbl_orders')
-                    ->join('states', 'tbl_orders.order_state', 'states.id')
-                    ->select('tbl_orders.*', 'states.name as state_name')
+                    // ->join('states', 'tbl_orders.order_state', 'states.id')
+                    ->select('tbl_orders.*')
                     ->where('tbl_orders.order_id', 'like', '%'.$request->name.'%')
                     ->orderby('tbl_orders.created_at', 'desc')
                     ->paginate(10);
             }else{
                 $tblOrders = DB::table('tbl_orders')
-                    ->join('states', 'tbl_orders.order_state', 'states.id')
-                    ->select('tbl_orders.*', 'states.name as state_name')
+                    // ->join('states', 'tbl_orders.order_state', 'states.id')
+                    ->select('tbl_orders.*')
                     ->orderby('tbl_orders.created_at', 'desc')
                     ->paginate(10);
             }
@@ -501,14 +501,14 @@ class TblOrdersController extends AppBaseController
             ->where('lab_orders.order_id', $orderId)
             ->where('lab_orders.type', 'Prescribed')
             ->groupBy('lab_orders.id')
-            ->select('lab_orders.*', 'quest_data_test_codes.DESCRIPTION', 'quest_data_test_codes.SALE_PRICE', 'prescriptions.quantity',)
+            ->select('lab_orders.*', 'quest_data_test_codes.TEST_NAME', 'quest_data_test_codes.SALE_PRICE', 'prescriptions.quantity',)
             ->get();
 
             $ordercntLabs = DB::table('lab_orders')
             ->join('quest_data_test_codes', 'quest_data_test_codes.TEST_CD', 'lab_orders.product_id')
             ->where('lab_orders.order_id', $orderId)
             ->where('lab_orders.type', 'Counter')
-            ->select('lab_orders.*', 'quest_data_test_codes.DESCRIPTION', 'quest_data_test_codes.SALE_PRICE')->get();
+            ->select('lab_orders.*', 'quest_data_test_codes.TEST_NAME', 'quest_data_test_codes.SALE_PRICE')->get();
 
             $orderImagings = DB::table('imaging_orders')->where('order_id', $orderId)
             ->join('tbl_products', 'tbl_products.id', 'imaging_orders.product_id')

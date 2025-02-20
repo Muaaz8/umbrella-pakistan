@@ -109,7 +109,11 @@ Route::get('/doctor-profile/{id}',function($id){
 });
 
 Route::get('/our-doctors',function(){
-    $specializations = DB::table('specializations')->where('status','1')->get();
+    $specializations = DB::table('specializations')
+        ->join('users','specializations.id','users.specialization')
+        ->select('specializations.*')
+        ->groupBy('specializations.id')
+        ->get();
     $doctors = DB::table('users')
         ->where('user_type','doctor')
         ->where('active','1')

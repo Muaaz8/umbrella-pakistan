@@ -123,10 +123,7 @@
                                         background: #f9f9f9;
                                         padding: 9px 20px;
                                       ">
-                                                                        We've got your order! We'll drop you another
-                                                                        email <br>
-                                                                        when your
-                                                                        order ships, Thanks
+                                                                        We've got your order!
                                                                     </p>
                                                                     <p style="
                                          font-size: 16px;

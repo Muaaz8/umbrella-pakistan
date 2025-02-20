@@ -111,7 +111,7 @@
                                         @php
                                             $priceTotal = (int) $priceTotal + (int) $labs->price;
                                             $itemCount += 1;
-                                            $providerfee = 6;
+                                            $providerfee = 0;
                                         @endphp
                                         {{-- <td data-label=""><a href="{{ url('/viewQuestTestReport/1') }}">View Report</a></td> --}}
                                     </tr>
@@ -150,9 +150,9 @@
                                     <li class="list-group-item">
                                         Tax <span>Rs. {{ $data['order_data']->total_tax }}</span>
                                     </li>
-                                    <li class="list-group-item">
+                                    {{-- <li class="list-group-item">
                                         Provider Fee <span>Rs. {{ $providerfee }}</span>
-                                    </li>
+                                    </li> --}}
                                     <li class="list-group-item">
                                         To be Paid <span>Rs.
                                             {{ (float) $priceTotal + (float) $data['order_data']->total_tax + (float) $providerfee }}</span>

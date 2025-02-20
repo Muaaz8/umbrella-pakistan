@@ -64,7 +64,7 @@
                 console.log(response);
                 $('#sub_category').html('');
                 // $('#sub_category').append('<option value="all">All</option>');
-                // $('#product').append('<option value="all">All</option>');
+                $('#product').append('<option value="all">All</option>');
                 $.each(response, function (I, V) {
                     $.each(V, function (i, v) {
                         if(typeof v.title !== 'undefined'){
@@ -98,7 +98,7 @@
             // $('#cat_select').html('<option value="all" selected>All</option>');
         }
         $('#product').html('');
-        // $('#product').append('<option value="all">All</option>');
+        $('#product').append('<option value="all">All</option>');
         // if (cat.length<3 && sub[0] != 'all') {
             $.each(cat, function (indexInArray, valueOfElement) {
                 if(valueOfElement == 'lab'){
