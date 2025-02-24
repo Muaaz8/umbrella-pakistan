@@ -66,7 +66,14 @@
             font-size: 2rem;
         }
 
-        .login-logo>img {
+        .login-logo a {
+            text-decoration: none;
+            color: black;
+            display: flex;
+            justify-content: center;
+        }
+
+        .login-logo img {
             width: 80%;
         }
 
@@ -123,6 +130,16 @@
 
         .login-page .form-floating>label {
             padding: 1rem 0;
+        }
+
+        .back-btn {
+            display: flex;
+            align-items: center;
+            color: white;
+        }
+
+        .back-btn span {
+            margin-left: 1rem
         }
 
         .back-btn i {
@@ -189,7 +206,7 @@
                 font-size: 1.1rem;
             }
 
-            .login-logo>img {
+            .login-logo img {
                 width: 90%;
                 max-width: 900px;
             }
@@ -244,7 +261,7 @@
         }
 
         @media screen and (max-width: 768px) {
-            .login-logo>img {
+            .login-logo img {
                 width: 100%;
             }
 
@@ -326,7 +343,7 @@
                 font-size: 3rem;
             }
 
-            .login-logo>img {
+            .login-logo img {
                 width: 90%;
             }
 
@@ -355,6 +372,7 @@
                 <div class="goBackBtn">
                     <div onclick="window.location.href='/'" class="back-btn">
                         <i class="fas fa-arrow-left back_white"></i>
+                        <span>Go to Homepage</span>
                     </div>
                 </div>
                 <div class="left-container">
@@ -393,7 +411,7 @@
                     <div class="login d-flex flex-column gap-2">
                         <div class="login-header d-flex justify-content-between align-items-center">
                             <div class="login-logo d-flex align-items-center justify-content-center w-100">
-                                <img src="{{ asset('assets/new_frontend/logo.png') }}" alt="logo" />
+                                <a href="https://www.communityhealthcareclinics.com/"><img src="{{ asset('assets/new_frontend/logo.png') }}" alt="logo" /></a>
                             </div>
                         </div>
                         <div class="login-heading">
