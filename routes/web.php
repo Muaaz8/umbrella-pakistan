@@ -727,6 +727,7 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
     Route::group(['middleware' => 'admin_auth'], function () {
         Route::get('change/authorize_api/mode','AdminController@change_authorize_api_mode')->name('change_authorize_api_mode');
         Route::get('change/maintainance/mode','AdminController@change_maintainance_mode')->name('change_maintainance_mode');
+        Route::get('transaction','AdminController@tbl_transaction')->name('tbl_transaction');
         Route::post('change/ticker','AdminController@change_ticker')->name('change_ticker');
         Route::get('admin/all/state', 'AdminController@dash_allStates');
         Route::get('admin/all/appointments', 'AppointmentController@dash_admin_appointments');

@@ -37,8 +37,8 @@
             <a href="{{ route('inclinic_patient') }}" class="dashboard-nav-item"><i class="fa-solid fa-house-chimney-medical"></i>In Clinic</a>
             <a href="{{ route('inclinic_pharmacy_editor_orders') }}" class="dashboard-nav-item"><i
                 class="fa-solid fa-calendar-check"></i>Inclinic Orders</a>
-            <a href="{{ route('admin_wallet_pay') }}" class="dashboard-nav-item"><i
-                    class="fa fa-dollar-sign"></i>Finance</a>
+            {{-- <a href="{{ route('admin_wallet_pay') }}" class="dashboard-nav-item"><i
+                    class="fa fa-dollar-sign"></i>Finance</a> --}}
             <div class="dashboard-nav-dropdown">
                 <a href="javascript:void(0)" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
                         class="fas fa-file-contract"></i> Add Items </a>
@@ -47,7 +47,7 @@
                     <a href="{{ route('FAQs') }}" class="dashboard-nav-dropdown-item"> FAQs</a>
                 </div>
             </div>
-            <a href="{{ route('admin_error_log_view') }}" class="dashboard-nav-item"><i
+            {{-- <a href="{{ route('admin_error_log_view') }}" class="dashboard-nav-item"><i
                     class="fa-solid fa-circle-exclamation"></i> Error Log </a>
             <div class="dashboard-nav-dropdown">
                 <a href="javascript:void(0)" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
@@ -58,7 +58,7 @@
                     <a href="{{ route('admin_doctor_profile_update') }}" class="dashboard-nav-dropdown-item"> Doctor
                         Records </a>
                 </div>
-            </div>
+            </div>--}}
             <a href="{{ route('fee_approval') }}" class="dashboard-nav-item"><i
                 class="fa-solid fa-dollar-sign"></i>Fee Approvals</a>
             <div class="dashboard-nav-dropdown">
@@ -75,9 +75,9 @@
                     <a href="{{ route('blocked_doctor') }}" class="dashboard-nav-dropdown-item">
                         Blocked Doctors
                     </a>
-                    <a href="{{ route('lab_approval_doctor') }}" class="dashboard-nav-dropdown-item">
+                    {{-- <a href="{{ route('lab_approval_doctor') }}" class="dashboard-nav-dropdown-item">
                         Lab Approval Doctors
-                    </a>
+                    </a> --}}
                     <a href="{{ route('pending_contract') }}" class="dashboard-nav-dropdown-item">
                         Contract Pending Doctors
                     </a>
@@ -95,14 +95,14 @@
                     <a href="{{ route('specializations') }}" class="dashboard-nav-dropdown-item">View All
                         Specialization</a>
                     {{-- <a href="{{ route('all_doctor_schedule') }}" class="dashboard-nav-dropdown-item"> Add Specialization</a> --}}
-                    <a href="{{ route('price_specializations') }}" class="dashboard-nav-dropdown-item"> Add
-                        Specialization Price</a>
+                    {{-- <a href="{{ route('price_specializations') }}" class="dashboard-nav-dropdown-item"> Add
+                        Specialization Price</a> --}}
 
                 </div>
             </div>
-            <a href="{{ route('admin_lab_reports') }}" class="dashboard-nav-item"><i class="fa-solid fa-file"></i>Reports</a>
-            <a href="{{ route('admin_all_state') }}" class="dashboard-nav-item"><i class="fa-sharp fa-solid fa-location-dot"></i>All
-                States</a>
+            {{-- <a href="{{ route('admin_lab_reports') }}" class="dashboard-nav-item"><i class="fa-solid fa-file"></i>Reports</a> --}}
+            {{-- <a href="{{ route('admin_all_state') }}" class="dashboard-nav-item"><i class="fa-sharp fa-solid fa-location-dot"></i>All
+                States</a> --}}
             <a href="{{ route('all_sessions_record') }}" class="dashboard-nav-item"><i
                     class="fa-solid fa-hand-holding-medical"></i>All Sessions</a>
             <a href="{{ route('admin_inclinic_sessions') }}" class="dashboard-nav-item"><i
@@ -111,30 +111,22 @@
                     class="fa-solid fa-calendar-check"></i>All Appointments</a>
             <a href="{{ route('manage_all_users', ['id', 'all']) }}" class="dashboard-nav-item"><i
                     class="fas fa-file-upload"></i>Manage Users</a>
-            <div class="dashboard-nav-dropdown">
-                <a href="javascript:void(0)" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
-                        class="fa-solid fa-vial"></i> Delete Requests </a>
-                <div class="dashboard-nav-dropdown-menu">
-                    <a href="{{ route('dash_all_prod_del_req') }}" class="dashboard-nav-dropdown-item">Products</a>
-                    {{-- <a href="#" class="dashboard-nav-dropdown-item">Calender Schedule</a> --}}
-                    {{-- <a href="{{ route('price_specializations') }}" class="dashboard-nav-dropdown-item"> Add Specialization Price</a> --}}
-
-                </div>
-            </div>
             <a href="{{ route('admin_all_patients') }}" class="dashboard-nav-item"><i
                     class="fas fa-users"></i>All Patients</a>
             <a href="{{ route('all_orders_admin') }}" class="dashboard-nav-item"><i
                     class="fa-solid fa-calendar-check"></i> Orders </a>
-            <a href="{{ route('admin_quest_orders') }}" class="dashboard-nav-item"><i
-                    class="fa-solid fa-calendar-check"></i> Quest Orders </a>
-            <a href="{{ route('admin_e_prescription') }}" class="dashboard-nav-item"><i
-                    class="fa-regular fa-calendar-days"></i> E-Prescriptions </a>
-            <a href="{{ route('imaging_file') }}" class="dashboard-nav-item"><i
-                    class="fa-regular fa-calendar-days"></i> Imaging Orders </a>
-            <a href="{{ route('admin_quest_failed_requests') }}" class="dashboard-nav-item"><i
-                    class="fa-regular fa-calendar-days"></i> Quest Failed Requests </a>
+            {{-- <a href="{{ route('admin_quest_orders') }}" class="dashboard-nav-item"><i
+                    class="fa-solid fa-calendar-check"></i> Quest Orders </a> --}}
+            {{-- <a href="{{ route('admin_e_prescription') }}" class="dashboard-nav-item"><i
+                    class="fa-regular fa-calendar-days"></i> E-Prescriptions </a> --}}
+            {{-- <a href="{{ route('imaging_file') }}" class="dashboard-nav-item"><i
+                    class="fa-regular fa-calendar-days"></i> Imaging Orders </a> --}}
+            {{-- <a href="{{ route('admin_quest_failed_requests') }}" class="dashboard-nav-item"><i
+                    class="fa-regular fa-calendar-days"></i> Quest Failed Requests </a> --}}
             <a href="{{ route('admin_contact_us') }}" class="dashboard-nav-item"><i class="fa-regular fa-calendar-days"></i>
                 Contact us </a>
+            <a href="{{ route('tbl_transaction') }}" class="dashboard-nav-item"><i class="fa-regular fa-calendar-days"></i>
+                Transactions</a>
             <div class="dashboard-nav-dropdown">
                 <a href="javascript:void(0)" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
                         class="fa-solid fa-vial"></i> Coupon </a>
@@ -155,7 +147,7 @@
 
                 </div>
             </div>
-            <div class="dashboard-nav-dropdown">
+            {{-- <div class="dashboard-nav-dropdown">
                 <a href="javascript:void(0)" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
                         class="fa-solid fa-vial"></i> Psychiatry </a>
                 <div class="dashboard-nav-dropdown-menu">
@@ -163,29 +155,29 @@
                         class="dashboard-nav-dropdown-item">View Psychiatry Services</a>
                     <a href="{{ route('admin_addPsycService') }}" class="dashboard-nav-dropdown-item"> Add Psychiatry
                         Services</a>
-                    {{-- <a href="{{ route('price_specializations') }}" class="dashboard-nav-dropdown-item"> Add Specialization Price</a> --}}
+                    <a href="{{ route('price_specializations') }}" class="dashboard-nav-dropdown-item"> Add Specialization Price</a>
 
                 </div>
-            </div>
-            <div class="dashboard-nav-dropdown">
+            </div> --}}
+            {{-- <div class="dashboard-nav-dropdown">
                 <a href="javascript:void(0)" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
                         class="fa-solid fa-vial"></i> Therapy </a>
                 <div class="dashboard-nav-dropdown-menu">
                     <a href="{{ route('admin_view_therapy_issues') }}"
                         class="dashboard-nav-dropdown-item">View Therapy Issues</a>
                     <a href="{{ route('admin_add_therapy_issues') }}" class="dashboard-nav-dropdown-item"> Add Therapy Issues</a>
-                    {{-- <a href="{{ route('price_specializations') }}" class="dashboard-nav-dropdown-item"> Add Specialization Price</a> --}}
+                    <a href="{{ route('price_specializations') }}" class="dashboard-nav-dropdown-item"> Add Specialization Price</a>
 
                 </div>
-            </div>
-            <div class="dashboard-nav-dropdown">
+            </div> --}}
+            {{-- <div class="dashboard-nav-dropdown">
                 <a href="javascript:void(0)" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
                         class="fa-solid fa-image"></i> Banners </a>
                 <div class="dashboard-nav-dropdown-menu">
                 <a href="{{ route('view_banners') }}" class="dashboard-nav-dropdown-item"> View Banners </a>
                 <a href="{{ route('upload_banner') }}" class="dashboard-nav-dropdown-item"> Upload Banners </a>
                 </div>
-            </div>
+            </div> --}}
 
             <div class="dashboard-nav-dropdown">
                 <a href="javascript:void(0)" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
@@ -196,9 +188,9 @@
                 </div>
             </div>
 
-            <a href="{{ route('admin_physical_location') }}" class="dashboard-nav-item"><i
+            {{-- <a href="{{ route('admin_physical_location') }}" class="dashboard-nav-item"><i
                  class="fa fa-map-marker" aria-hidden="true"></i> Physical Locations </a>
-            <a href="{{ route('medicine_purchase') }}" class="dashboard-nav-item"><i class="fa-solid fa-capsules"></i> Medicine Purchase </a>
+            <a href="{{ route('medicine_purchase') }}" class="dashboard-nav-item"><i class="fa-solid fa-capsules"></i> Medicine Purchase </a> --}}
 
             <a href="{{ route('admin_acc_settings') }}" class="dashboard-nav-item"><i
                     class="fa-regular fas fa-gear"></i> Account Settings </a>

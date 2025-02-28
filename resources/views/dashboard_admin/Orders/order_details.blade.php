@@ -86,10 +86,10 @@
                                         <!-- <th><i class="fa-solid fa fa-flask fs-4"></i></th> -->
                                         <td data-label="Product Name">{{ $labs->TEST_NAME }}</td>
                                         <td data-label="Quantity">1</td>
-                                        <td data-label="Price">Rs. {{ $labs->SALE_PRICE }}</td>
+                                        <td data-label="Price">Rs. {{ $labs->price }}</td>
                                         <td data-label="Status">{{ $labs->status }}</td>
                                         @php
-                                            $priceTotal = $priceTotal + $labs->SALE_PRICE;
+                                            $priceTotal = $priceTotal + $labs->price;
                                             $providerFee = 0;
                                             $itemCount += 1;
                                         @endphp
@@ -101,10 +101,10 @@
                                         <!-- <th><i class="fa-solid fa fa-flask fs-4"></i></th> -->
                                         <td data-label="Product Name">{{ $labs->TEST_NAME }}</td>
                                         <td data-label="Quantity">1</td>
-                                        <td data-label="Price">Rs. {{ $labs->SALE_PRICE }}</td>
+                                        <td data-label="Price">Rs. {{ $labs->price }}</td>
                                         <td data-label="Status">{{ $labs->status }}</td>
                                         @php
-                                            $priceTotal = $priceTotal + $labs->SALE_PRICE;
+                                            $priceTotal = $priceTotal + $labs->price;
                                             $providerFee = 0;
                                             $itemCount += 1;
                                         @endphp
@@ -164,14 +164,14 @@
                                     <div class="card" style="width: 100%">
                                         <ul class="list-group list-group-flush">
                                             <li class="list-group-item"><b>Name : </b>
-                                                {{  $data['billing'][1] }}</li>
+                                                {{  $data['billing'][0] }}</li>
                                             <li class="list-group-item"><b>Phone :</b>
                                                 {{  $data['billing'][2] }}</li>
                                             </li>
                                             <li class="list-group-item"><b>Email :</b>
-                                                {{ $data['billing'][3] }}</li>
+                                                {{ $data['billing'][1] }}</li>
                                             <li class="list-group-item"><b>Address :</b>
-                                                {{ $data['billing'][4] }}</li>
+                                                {{ $data['billing'][3] }}</li>
                                         </ul>
                                     </div>
                                 </div>

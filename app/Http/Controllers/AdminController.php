@@ -46,6 +46,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Collection;
 use App\Models\PurchaseOrderDetail;
 use App\Models\PurchaseOrder;
+use App\Models\TblTransaction;
 use Str;
 use Validator;
 
@@ -3970,7 +3971,7 @@ public function store_policy(Request $request){
         }else{
             $user_id = $request->user_id;
         }
-        if($request->payment_method == "easypaisa" || $request->payment_method == "cash"){
+        if($request->payment_method == "easy-paisa" || $request->payment_method == "online-cash"){
             $pat = InClinics::create([
                 'user_id'=> $user_id,
                 'reason'=> $request->reason,
@@ -3999,5 +4000,9 @@ public function store_policy(Request $request){
                 return redirect()->back()->with('error','Sorry, we are currently facing server issues. Please try again later.');
             }
         }
+    }
+    public function tbl_transaction(){
+        $transactions = TblTransaction::orderBy('id','desc')->paginate(10);
+        return view('dashboard_admin.transactions.index',compact('transactions'));
     }
 }

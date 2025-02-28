@@ -918,10 +918,12 @@ class PharmacyController extends Controller
             $transactionArr = [
                 'subject' => 'Order',
                 'description' => $description[1],
+                'currency' => 'PKR',
                 'total_amount' => ($response->amount/100),
                 'user_id' => $user->id,
+                'status' => '1',
             ];
-            TblTransaction::create($transactionArr);
+            TblTransaction::where('description',$description[1])->update($transactionArr);
 
             $this->seprate_order_create($cartCntLab, $cartPreLab, $cartPreMed, $cartCntMed, $cartPreImg, $cartCntImg);
             $shipping = session()->get('shipping_details');

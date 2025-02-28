@@ -42,7 +42,7 @@ class MeezanPaymentController extends Controller
         }
     }
 
-
+    // 25130855
     //  <!--- One Phase Payment ---!>
     public function payment($data,$amount)
     {
@@ -65,6 +65,16 @@ class MeezanPaymentController extends Controller
         }
 
         $user_id = auth()->user()->id;
+        $transactionArr = [
+            'subject' => $data[0],
+            'description' => $data[1],
+            'currency' => 'PKR',
+            'total_amount' => ($amount/100),
+            'user_id' => $user_id,
+            'status' => '0',
+        ];
+        TblTransaction::create($transactionArr);
+
         $CURLOPT_URL = $this->api_url.'/register.do?userName='.$this->userName.'&password='.$this->password.'&orderNumber='.$orderId.'&amount='.$this->amount.'&currency='.$this->currency.'&returnUrl='.urlencode($this->returnUrl).'&clientId='.$user_id.'&description='.$description;
         $curl = curl_init();
         curl_setopt_array($curl, array(
