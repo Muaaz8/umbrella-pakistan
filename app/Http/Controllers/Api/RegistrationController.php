@@ -370,203 +370,49 @@ class RegistrationController extends BaseController
         }
     }
     //login
-    public function login(Request $request){
-        $login = request()->input('email');
-        $password = request()->input('password');
-        $user = auth()->user();
-        $timeZone=$request->timezone;
-        $fieldType = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
-        $username  = request()->merge([$fieldType => $login]);
-            //user sent their email
-        if( Auth::attempt(['email' => $username, 'password' => $password])){
-            $user = Auth::user();
-            \DB::table('users')->where('id',$user->id)->update(['timeZone'=>$timeZone]);
-            $success['token'] =  $user->createToken('MyApp')->plainTextToken;
-            $user_type = $user->user_type;
-            if($user_type == 'patient'){
-                $user_type_id =1;
-                $user_info = DB::table('users')
-                    ->join('users_email_verification','users.id','users_email_verification.user_id')
-                    ->where('users.id',auth()->user()->id)
-                    ->select('users.*','users_email_verification.status as email_status')
-                    ->first();
-                    $email_verification_status = $user_info->email_status;
-            }if($user_type =='doctor'){
-                $user_type_id =2;
-                if($user->active=='1'){
-                    $date = User::convert_utc_to_user_timezone($user->id,date('Y-m-d H:i:s'))['datetime'];
-                    $date = explode(" ",$date)[0];
-                    $contract = DB::table('contracts')->where('provider_id',$user->id)->first();
-                    if($date >= $contract->date){
-                        $timestamp = date("d-m-Y h:i:s a");
-                        $date = \Carbon\Carbon::createFromFormat('d-m-Y h:i:s a',$timestamp,'UTC')->setTimezone('UTC');
-                        $user->last_activity=$date;
-                        $user->save();
-                    }
-                    $user_info = DB::table('users')
-                    ->join('users_email_verification','users.id','users_email_verification.user_id')
-                    ->where('users.id',auth()->user()->id)
-                    ->select('users.*','users_email_verification.status as email_status')
-                    ->first();
-                    $email_verification_status = $user_info->email_status;
-                    if ($user_info->id_card_front == '' && $user_info->id_card_back == '') {
-                        $id_card_status = 0;
-                    }elseif($user_info->id_card_front == '' || $user_info->id_card_back == ''){
-                        $id_card_status = 0;
-                    }else{
-                        $id_card_status = 1;
-                    }
-                    $user_info->contract_date = DB::table('contracts')->where('provider_id',Auth()->user()->id)->orderby('id','desc')->first();
-                    if(isset($user_info->contract_date)){
-                        $user_info->contract_date->date = date('m-d-Y', strtotime($user_info->contract_date->date));
-                        $contract = 1;
-                    } else{
-                        $contract = 0;
-                    }
-                } elseif($user->active=='0' && $user->status=='ban'){
-                    $doctor_status = 0;
-                } else{
-                    $user_info = DB::table('users')
-                    ->join('users_email_verification','users.id','users_email_verification.user_id')
-                    ->where('users.id',auth()->user()->id)
-                    ->select('users.*','users_email_verification.status as email_status')
-                    ->first();
-                    if(isset($user_info->email_status)){
-                        $email_verification_status = $user_info->email_status;
-                    }
-                    if ($user_info->id_card_front == '' && $user_info->id_card_back == '') {
-                        $id_card_status = 0;
-                    }elseif($user_info->id_card_front == '' || $user_info->id_card_back == ''){
-                        $id_card_status = 0;
-                    } else{
-                        $id_card_status = 1;
-                    }
-                    if($user_info->id_card_front !=''){
-                        $id_card_status = 1;
-                    }
-                    $user_info->contract_date = DB::table('contracts')->where('provider_id',Auth()->user()->id)->orderby('id','desc')->first();
-                    if(isset($user_info->contract_date)){
-                        $user_info->contract_date->date = date('m-d-Y', strtotime($user_info->contract_date->date));
-                        $contract = 1;
-                    } else{
-                       $contract = 0;
-                    }
-
-                }
-                $data['user_type_id'] = $user_type_id;
-                $data['user_id'] = $user->id;
-                $data['token'] =  $user->createToken('MyApp')->plainTextToken;
-                $data['email_verification_status'] = $email_verification_status;
-                $data['id_card_status'] = $id_card_status;
-                $data['contract'] = $contract;
-                return $this->sendResponse($data, 'User login successfully.');
-            }
-            $data['user_type_id'] = $user_type_id;
-            $data['user_id'] = $user->id;
-            $data['token'] =  $user->createToken('MyApp')->plainTextToken;
-            $data['email_verification_status'] =   $email_verification_status;
-            $data['id_card_status'] = 0;
-            $data['contract'] = 0;
-            return $this->sendResponse($data, 'User login successfully.');
-        } elseif(Auth::attempt(['username' => $username, 'password' => $password])) {
-            $user = Auth::user();
-            \DB::table('users')->where('id',$user->id)->update(['timeZone'=>$timeZone]);
-            $user_type = $user->user_type;
-            if($user_type == 'patient'){
-                $user_id = 1;
-                $user_info = DB::table('users')
-                    ->join('users_email_verification','users.id','users_email_verification.user_id')
-                    ->where('users.id',auth()->user()->id)
-                    ->select('users.*','users_email_verification.status as email_status')
-                    ->first();
-                    $email_verification_status = $user_info->email_status;
-            }
-            if($user_type =='doctor'){
-                $user_id =2;
-                $user_info = DB::table('users')
-                ->join('users_email_verification','users.id','users_email_verification.user_id')
-                ->where('users.id',auth()->user()->id)
-                ->select('users.*','users_email_verification.status as email_status')
-                ->first();
-                if($user->active=='1'){
-                    $date = User::convert_utc_to_user_timezone($user->id,date('Y-m-d H:i:s'))['datetime'];
-                    $date = explode(" ",$date)[0];
-                    $contract = DB::table('contracts')->where('provider_id',$user->id)->first();
-                    if($date >= $contract->date){
-                        $timestamp = date("d-m-Y h:i:s a");
-                        $date = \Carbon\Carbon::createFromFormat('d-m-Y h:i:s a',$timestamp,'UTC')->setTimezone('UTC');
-                        $user->last_activity=$date;
-                        $user->save();
-                    }
-                    $user_info = DB::table('users')
-                    ->join('users_email_verification','users.id','users_email_verification.user_id')
-                    ->where('users.id',auth()->user()->id)
-                    ->select('users.*','users_email_verification.status as email_status')
-                    ->first();
-                    $email_verification_status = $user_info->email_status;
-                    if ($user_info->id_card_front == '' && $user_info->id_card_back == '') {
-                        $id_card_status = 0;
-                    }elseif($user_info->id_card_front == '' || $user_info->id_card_back == ''){
-                        $id_card_status = 0;
-                    }else{
-                        $id_card_status = 1;
-                    }
-                    $user_info->contract_date = DB::table('contracts')->where('provider_id',Auth()->user()->id)->orderby('id','desc')->first();
-                    if(isset($user_info->contract_date)){
-                        $user_info->contract_date->date = date('m-d-Y', strtotime($user_info->contract_date->date));
-                        $contract = 1;
-                    } else{
-                        $contract = 0;
-                    }
-                } elseif($user_info->active=='0' && $user_info->status=='ban'){
-                    $doctor_status = 0;
-                } else{
-                    $user_info = DB::table('users')
-                    ->join('users_email_verification','users.id','users_email_verification.user_id')
-                    ->where('users.id',auth()->user()->id)
-                    ->select('users.*','users_email_verification.status as email_status')
-                    ->first();
-                    if(isset($user_info->email_status)){
-                        $email_verification_status = $user_info->email_status;
-                    }
-                    if ($user_info->id_card_front == '' && $user_info->id_card_back == '') {
-                        $id_card_status = 0;
-                    }elseif($user_info->id_card_front == '' || $user_info->id_card_back == ''){
-                        $id_card_status = 0;
-                    } else{
-                        $id_card_status = 1;
-                    }
-                    if($user_info->id_card_front !=''){
-                        $id_card_status = 1;
-                    }
-                    $user_info->contract_date = DB::table('contracts')->where('provider_id',Auth()->user()->id)->orderby('id','desc')->first();
-                    if(isset($user_info->contract_date)){
-                        $user_info->contract_date->date = date('m-d-Y', strtotime($user_info->contract_date->date));
-                        $contract = 1;
-                    } else{
-                       $contract = 0;
-                    }
-                }
-                $data['user_type_id'] = $user_id;
-                $data['user_id'] = $user->id;
-                $data['registered_state_id'] = $user->state_id;
-                $data['token'] =  $user->createToken('MyApp')->plainTextToken;
-                $data['email_verification_status'] = $email_verification_status;
-                $data['id_card_status'] = $id_card_status;
-                $data['contract'] = $contract;
-                return $this->sendResponse($data, 'User login successfully.');
-            }
-            $data['user_type_id'] = $user_id;
-            $data['user_id'] = $user->id;
-            $data['registered_state_id'] = $user->state_id;
-            $data['token'] =  $user->createToken('MyApp')->plainTextToken;
-            $data['email_verification_status'] =   $email_verification_status;
-            $data['id_card_status'] = 0;
-            $data['contract'] = 0;
-            return $this->sendResponse($data, 'User login successfully.');
-        } else{
+    public function login(Request $request)
+    {
+        $login = $request->input('email');
+        $password = $request->input('password');
+        $timeZone = $request->input('timezone');
+    
+        if (!$login || !$password) {
             return $this->sendError([], "Invalid email or password", Response::HTTP_UNAUTHORIZED);
         }
+    
+        $fieldType = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'phone_number';
+        $credentials = [$fieldType => $login, 'password' => $password];
+    
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+    
+            if (!$user || !$user->id) {
+                return $this->sendError([], "User authentication failed.", Response::HTTP_UNAUTHORIZED);
+            }
+    
+            \DB::table('users')->where('id', $user->id)->update(['timeZone' => $timeZone]);
+    
+            $user_info = DB::table('users')
+                ->leftJoin('users_email_verification', 'users.id', '=', 'users_email_verification.user_id')
+                ->where('users.id', $user->id)
+                ->select('users.name', 'users.last_name','users.email', 'users.phone_number' , 'users_email_verification.status as email_status')
+                ->first();
+    
+            if ($user->user_type == 'doctor' && $user->active != '1') {
+                return $this->sendError([], "Your account is not active.", Response::HTTP_UNAUTHORIZED);
+            }
+    
+            $token = $user->createToken('MyApp')->plainTextToken;
+    
+            return $this->sendResponse([
+                'user' => $user_info,
+                'user_type' => $user->user_type,
+                'token' => $token,
+                'email_verification_status' => $user_info->email_status ?? null,
+            ], 'User logged in successfully.');
+        }
+    
+        return $this->sendError([], "Invalid email or password", Response::HTTP_UNAUTHORIZED);
     }
     //logout
     public function logout(Request $request){

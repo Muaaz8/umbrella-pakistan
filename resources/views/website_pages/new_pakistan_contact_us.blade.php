@@ -129,24 +129,24 @@
                         <div class="row gx-4 gy-2">
                             <!-- First Name and Last Name -->
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="fname" placeholder="First Name">
+                                <input type="text" class="form-control" name="fname" placeholder="First Name" required>
                             </div>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="lname" placeholder="Last Name">
+                                <input type="text" class="form-control" name="lname" placeholder="Last Name" required>
                             </div>
                         </div>
 
                         <div class="row mt-2">
                             <!-- Phone -->
                             <div class="col-md-12">
-                                <input type="text" class="form-control" name="ph" placeholder="Phone">
+                                <input type="text" class="form-control" name="ph" placeholder="Phone" required>
                             </div>
                         </div>
 
                         <div class="row mt-2">
                             <!-- Email -->
                             <div class="col-md-12">
-                                <input type="email" class="form-control" name="email" placeholder="Email">
+                                <input type="email" class="form-control" name="email" placeholder="Email" required>
                             </div>
                         </div>
 
@@ -160,7 +160,7 @@
                         <div class="row mt-2">
                             <!-- Message -->
                             <div class="col-md-12">
-                                <textarea class="form-control" rows="4" name="message" placeholder="Message"></textarea>
+                                <textarea class="form-control" rows="4" name="message" placeholder="Message" required></textarea>
                             </div>
                         </div>
                         <div class="col-md-6 mt-2">
