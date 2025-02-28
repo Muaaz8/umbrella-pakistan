@@ -42,6 +42,8 @@ Route::post('email_varification','Api\RegistrationController@email_varification'
 
 Route::get('products/{name}', 'Api\ProductsController@index');
 Route::get('product/{name}/{id}', 'Api\ProductsController@singleProduct');  
+Route::get('categories/{name}','Api\ProductsController@getCategories');
+Route::get('category/{name}/{id}','Api\ProductsController@getProductsByCategory');
 
 //================================================//
         //PATIENT PROFILE
