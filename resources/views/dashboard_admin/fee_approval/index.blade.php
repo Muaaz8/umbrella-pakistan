@@ -1,3 +1,7 @@
+@php
+    use Carbon\Carbon;
+@endphp
+
 @extends('layouts.dashboard_admin')
 
 @section('meta_tags')
@@ -87,7 +91,7 @@
                         <td data-label="Order ID">{{$approval->name ." ". $approval->last_name}}</td>
                         <td data-label="Order State">{{$approval->consultation_fee}}</td>
                         <td data-label="Order Status">{{$approval->followup_fee}}</td>
-                        <td data-label="Date">{{$approval->created_at}}</td>
+                        <td data-label="Date">{{ Carbon::parse($approval->created_at)->diffForHumans()}}</td>
                         <td data-label="Action">
                         <div class="dropdown">
                             <button

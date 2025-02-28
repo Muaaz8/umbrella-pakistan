@@ -109,5 +109,8 @@ class ProductsController extends Controller
         }
     }
 
+    public function getCategories($type , $category_id){
+        
+    }
 
 }
