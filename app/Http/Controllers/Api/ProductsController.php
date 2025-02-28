@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use DB;
 use Illuminate\Http\Request;
+use function Aws\map;
 
 class ProductsController extends Controller
 {
@@ -29,6 +30,12 @@ class ProductsController extends Controller
                     ->join('medicine_pricings', 'medicine_pricings.product_id', 'tbl_products.id')
                     ->where('tbl_products.mode', 'medicine')
                     ->paginate(10);
+                    foreach ($products as $key => $product) {
+                        $product->featured_image = \App\Helper::check_bucket_files_url($product->featured_image);
+                        if($product->featured_image == env('APP_URL')."/assets/images/user.png"){
+                            $product->featured_image = asset('assets/new_frontend/panadol2.png');
+                        }
+                    }
                 return response()->json(['products' => $products]);
             }
             if ($name == 'imaging') {
@@ -90,6 +97,12 @@ class ProductsController extends Controller
                     ->where('tbl_products.mode', 'medicine')
                     ->where('id', $id)
                     ->paginate(10);
+                foreach ($product as $key => $product) {
+                    $product->featured_image = \App\Helper::check_bucket_files_url($product->featured_image);
+                    if($product->featured_image == env('APP_URL')."/assets/images/user.png"){
+                        $product->featured_image = asset('assets/new_frontend/panadol2.png');
+                    }
+                }
                 return response()->json(['product' => $product]);
             }
             if ($name == 'imaging' || $name == 'lab-test') {
@@ -171,6 +184,12 @@ class ProductsController extends Controller
                 ->where('tbl_products.mode','medicine')
                 ->where('tbl_products.sub_category',$id)
                 ->paginate(10);
+                foreach ($products as $key => $product) {
+                    $product->featured_image = \App\Helper::check_bucket_files_url($product->featured_image);
+                    if($product->featured_image == env('APP_URL')."/assets/images/user.png"){
+                        $product->featured_image = asset('assets/new_frontend/panadol2.png');
+                    }
+                }
                 return response()->json(['products' => $products]);
             }
             if($name == 'imaging'){
