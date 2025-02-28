@@ -36,8 +36,12 @@ Route::post('logout', 'Api\RegistrationController@logout')->middleware('auth:san
 //reset password API
 Route::post('reset_password', 'Api\RegistrationController@reset_password');
 Route::post('sessionCheck/{session_id}', 'Api\RegistrationController@sessionCheck');
-
 Route::post('email_varification','Api\RegistrationController@email_varification');
+
+// products api
+
+Route::get('products/{name}', 'Api\ProductsController@index');
+Route::get('product/{name}/{id}', 'Api\ProductsController@singleProduct');  
 
 //================================================//
         //PATIENT PROFILE
