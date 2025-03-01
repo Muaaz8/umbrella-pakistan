@@ -204,7 +204,7 @@ class ProductsController extends Controller
                     'quest_data_test_codes.discount_percentage',
                 )
                 ->where('mode','imaging')
-                ->where('category_id',$id)
+                ->where('PARENT_CATEGORY',$id)
                 ->paginate(10);
                 return response()->json(['products' => $products]);
             }
@@ -220,7 +220,7 @@ class ProductsController extends Controller
                     'quest_data_test_codes.discount_percentage',
                 )
                 ->where('mode','lab-test')
-                ->where('category_id',$id)
+                ->where('PARENT_CATEGORY',$id)
                 ->paginate(10);
                 return response()->json(['products' => $products]);
             }

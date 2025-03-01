@@ -44,6 +44,9 @@ Route::get('products/{name}', 'Api\ProductsController@index');
 Route::get('product/{name}/{id}', 'Api\ProductsController@singleProduct');  
 Route::get('categories/{name}','Api\ProductsController@getCategories');
 Route::get('category/{name}/{id}','Api\ProductsController@getProductsByCategory');
+Route::get('doctors','Api\DoctorsController@index');
+Route::get('doctor/{id}','Api\DoctorsController@singleDoctor');
+
 
 //================================================//
         //PATIENT PROFILE
