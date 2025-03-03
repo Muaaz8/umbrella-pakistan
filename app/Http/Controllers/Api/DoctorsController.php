@@ -105,4 +105,23 @@ class DoctorsController extends Controller
     }
     return response()->json($doctors);
     }
+
+    public function getOnlineDoctors(){
+        $doctors = DB::table('users')
+        ->join('specializations', 'specializations.id', 'users.specialization')
+        ->where('users.status', 'online')
+        ->where('users.active', '1')
+        ->select(
+            'users.name',
+            'users.last_name',
+            'users.id',
+            'users.rating',
+            'users.consultation_fee',
+            'users.followup_fee',
+            'users.user_image', 
+            'specializations.name as sp_name')
+        ->get();
+        return response()->json($doctors);
+    }
+
 }

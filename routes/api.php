@@ -45,6 +45,7 @@ Route::get('product/{name}/{id}', 'Api\ProductsController@singleProduct');
 Route::get('categories/{name}','Api\ProductsController@getCategories');
 Route::get('category/{name}/{id}','Api\ProductsController@getProductsByCategory');
 Route::get('doctors','Api\DoctorsController@index');
+Route::get('online/doctors','Api\DoctorsController@getOnlineDoctors');
 Route::get('doctor/{id}','Api\DoctorsController@singleDoctor');
 Route::get('specializations','Api\DoctorsController@getSpeciallization');
 Route::get('specialization/doctors/{id}','Api\DoctorsController@getDoctorsBySpeciallization');
