@@ -324,7 +324,7 @@ class DoctorController extends Controller
         }
         $session = null;
         // $price = DB::table('specalization_price')->where('spec_id', $id)->first();
-        $price = DB::table('specalization_price')->where('spec_id', $request->spec_id)->first();
+                        
         if($price==null)
         {
             return '1';

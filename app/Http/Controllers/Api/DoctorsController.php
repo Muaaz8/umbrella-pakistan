@@ -74,4 +74,35 @@ class DoctorsController extends Controller
         return response()->json($doctor);
     }
     
+    public function getSpeciallization(){
+        $specialization = DB::table('specializations')
+        ->join('users', 'users.specialization', 'specializations.id')
+        ->groupBy('specializations.id')
+        ->select('specializations.*',)
+        ->get();
+
+        return response()->json($specialization);
+    }
+
+    public function getDoctorsBySpeciallization($id){
+        $doctors = DB::table('users')
+        ->join('specializations', 'specializations.id', 'users.specialization')
+        ->where('users.specialization', $id)
+        ->where('users.status', 'online')
+        ->where('users.active', '1')
+        ->select(
+        'users.name',
+        'users.last_name',
+        'users.id',
+        'users.rating',
+        'users.consultation_fee',
+        'users.followup_fee',
+        'users.user_image', 
+        'specializations.name as sp_name')
+        ->get();
+    foreach ($doctors as $doctor) {
+        $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
+    }
+    return response()->json($doctors);
+    }
 }
