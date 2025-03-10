@@ -1,21 +1,19 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Session;
 use App\User;
 
-class SessionsController extends Controller
+class SessionsController extends BaseController
 {
     public function createSession(Request $request){
 
                 $symp = $request->validate([
                     'doc_sp_id' =>  ['required'],
-                    'doc_id' =>  ['required', 'string', 'max:255'],
+                    'doc_id' =>  ['required', 'max:255'],
                     'problem' =>  ['required', 'string', 'max:255'],
                 ]);
         
@@ -84,19 +82,19 @@ class SessionsController extends Controller
                     $pay = new \App\Http\Controllers\MeezanPaymentController();
                     $res = $pay->payment($data,($session->price*100));
                     if (isset($res) && $res->errorCode == 0) {
-                        return response()->json(['navigate' => 'mazaan bank payment gateway', 'data' => $res->formUrl]);
+                        return $this->sendResponse([$res->formUrl], 'Payment link generated successfully');
 
                     }else{
-                        return response()->json(['error'=> 'Sorry, we are currently facing server issues. Please try again later.']);
+                        return $this->sendError([], 'Payment link not generated');
                     }
                 }elseif($request->payment_method == "first-visit"){
                     $session = Session::find($session_id);
                     $session->status = "paid";
                     $session->save();
-                    return response()->json(['success'=> 'Session created successfully']);
+                    return $this->sendResponse([], 'Session created successfully');
                 }else{
                     Session::find($session_id)->delete();
-                    return response()->json(['error'=> 'Payment method not found']);
+                    return $this->sendError([], 'Payment method not found');
                 }
     }
 }

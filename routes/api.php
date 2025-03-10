@@ -57,6 +57,10 @@ Route::middleware('auth:sanctum','doc_restrict','patToVideoScreen')->group( func
 });
 Route::middleware(['auth:sanctum','doc_restrict'])->group(function(){
 });
+
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::post('session','Api\SessionsController@createSession');
+});
     //================================================//
             //PATIENT PROFILE END HERE
     //================================================//
