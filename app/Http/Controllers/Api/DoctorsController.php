@@ -99,7 +99,9 @@ class DoctorsController extends Controller
         'users.consultation_fee',
         'users.followup_fee',
         'users.user_image', 
-        'specializations.name as sp_name')
+        'specializations.name as sp_name',
+        'specializations.id as sp_id'
+        )
         ->paginate(10);
     foreach ($doctors as $doctor) {
         $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
@@ -121,7 +123,8 @@ class DoctorsController extends Controller
             'users.consultation_fee',
             'users.followup_fee',
             'users.user_image', 
-            'specializations.name as sp_name')
+            'specializations.name as sp_name',
+            'specializations.id as sp_id')
         ->paginate(10);
         return response()->json($doctors);
     }
