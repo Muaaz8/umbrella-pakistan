@@ -395,7 +395,7 @@ class RegistrationController extends BaseController
             $user_info = DB::table('users')
                 ->leftJoin('users_email_verification', 'users.id', '=', 'users_email_verification.user_id')
                 ->where('users.id', $user->id)
-                ->select('users.name', 'users.last_name','users.email', 'users.phone_number' , 'users_email_verification.status as email_status')
+                ->select('users.name', 'users.id', 'users.last_name','users.email', 'users.phone_number' , 'users_email_verification.status as email_status')
                 ->first();
     
             if ($user->user_type == 'doctor' && $user->active != '1') {
