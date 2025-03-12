@@ -28,7 +28,7 @@ class DoctorsController extends Controller
             ->orderBy('id', 'desc')
             ->paginate(8);
     
-        $doctors->getCollection()->transform(function($doctor) {
+            $doctors->getCollection()->transform(function($doctor) {
 
             $doctorDetails = DB::table('doctor_details')->where('doctor_id', $doctor->id)->first();
             $specialization = DB::table('specializations')->where('id', $doctor->specialization)->first();

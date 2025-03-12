@@ -137,7 +137,7 @@
 
                                             <div class="col-md-8 doctor_info">
                                             @if ($doctor->id_card_front != "")
-                                            <p><span>Driving License/ID Card:</span>&nbsp; <span>
+                                            <p><span>ID Card:</span>&nbsp; <span>
                                                 <a href="{{ \App\Helper::get_files_url($doctor->id_card_front) }}" target="_blank">
                                                     <button type="button" class="btn license-btn">Front</button>
                                                 </a>
@@ -146,7 +146,7 @@
                                                 </a>
                                                 </span></p>
                                             @else
-                                                <p><span>Driving License/ID Card:</span>&nbsp;<span>No Driving License Uploaded</span></p>
+                                                <p><span>ID Card:</span>&nbsp;<span>No Driving License Uploaded</span></p>
                                             @endif
 
                                             </div>

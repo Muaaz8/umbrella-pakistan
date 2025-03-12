@@ -1,11 +1,20 @@
 <?php
 
 namespace App\Http\Controllers\Api;
+use App\ActivityLog;
+use App\Events\DoctorJoinedVideoSession;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Events\RealTimeMessage;
+use App\Events\updateDoctorWaitingRoom;
+use App\Mail\patientEvisitInvitationMail;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
+use App\Notification;
 use App\Session;
 use App\User;
+use App\Helper;
 
 class SessionsController extends BaseController
 {
@@ -82,7 +91,7 @@ class SessionsController extends BaseController
                     $pay = new \App\Http\Controllers\MeezanPaymentController();
                     $res = $pay->payment($data,($session->price*100));
                     if (isset($res) && $res->errorCode == 0) {
-                        return $this->sendResponse([$res->formUrl], 'Payment link generated successfully');
+                        return $this->sendResponse(['method'=> 'credit-card', 'url'=> $res->formUrl], 'Payment link generated successfully');
 
                     }else{
                         return $this->sendError([], 'Payment link not generated');
@@ -91,10 +100,119 @@ class SessionsController extends BaseController
                     $session = Session::find($session_id);
                     $session->status = "paid";
                     $session->save();
-                    return $this->sendResponse([], 'Session created successfully');
+                    $session_id = $session->id;
+                    return $this->sendResponse(['method'=>'first-visit', 'session_id'=> $session_id], 'Session created successfully');
+                    
                 }else{
                     Session::find($session_id)->delete();
                     return $this->sendError([], 'Payment method not found');
                 }
     }
+
+    public function getSession($id){
+        $session = Session::select('patient_id', 'doctor_id', 'status', 'queue', 'channel', 'que_message')->find($id);
+        if(empty($session)){
+            return $this->sendError([], 'Session not found');
+        }
+        $doctor = User::select('name', 'last_name', 'user_image')->find($session->doctor_id);
+        $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
+        $session->doctor = $doctor;
+    
+        return $this->sendResponse(['session' => $session], 'Session found successfully');
+    }
+
+    public function sessionInvite($id){
+                $res = Session::where('id', $id)->update(['status' => 'invitation sent', 'invite_time' => now()]);
+                if ($res == 1) {
+                    $sessionData = Session::where('id', $id)->first();
+                    $doc_name = Helper::get_name($sessionData->doctor_id);
+                    $pat_name = Helper::get_name($sessionData->patient_id);
+                    $notification_id = Notification::create([
+                        'user_id' => $sessionData->doctor_id,
+                        'text' => 'E-visit Joining Request Send by ' . $pat_name,
+                        'session_id' => $id,
+                        'type' => 'doctor/patient/queue',
+                    ]);
+                    $data = [
+                        'user_id' => $sessionData->doctor_id,
+                        'text' => 'E-visit Joining Request Send by ' . $pat_name,
+                        'session_id' => $id,
+                        'type' => 'doctor/patient/queue',
+                        'received' => 'false',
+                        'appoint_id' => 'null',
+                        'refill_id' => 'null',
+                    ];
+        
+                    event(new RealTimeMessage($sessionData->doctor_id));
+                    event(new updateDoctorWaitingRoom('new_patient_listed'));
+                    try {
+                        $doctor =  DB::table('users')->where('id', $sessionData->doctor_id)->first();
+                        $markDown = [
+                            'doc_email' => $doctor->email,
+                            'doc_name' => ucwords($doc_name),
+                            'pat_name' => ucwords($pat_name),
+                        ];
+                        Mail::to($doctor->email)->send(new patientEvisitInvitationMail($markDown));
+                    } catch (\Exception $e) {
+                        Log::error($e);
+                    }
+        
+                    //get doctor all session order by ASC
+                    $doc_all_session = Session::where('doctor_id', $sessionData->doctor_id)
+                        ->where('status', 'invitation sent')
+                        ->orWhere('status', 'doctor joined')
+                        ->orderBy('id', 'ASC')
+                        ->get();
+                    //count doctor session
+                    $session_count = count($doc_all_session);
+                    if ($session_count > 1) {
+                        $mints = 5;
+                        foreach ($doc_all_session as $single_session) {
+                            Session::where('id', $single_session['id'])->update(['que_message' => 'Your Doctor Will Be Available In Approximately ' . $mints . ' Mints']);
+                            $mints += 10;
+                        }
+                    } else {
+                        foreach ($doc_all_session as $single_session) {
+                            Session::where('id', $single_session['id'])->update(['que_message' => 'Your Doctor Will Be Available In Approximately 5 Mints']);
+                        }
+                    }
+                    $getData = Session::where('id', $id)->where('patient_id', auth()->user()->id)->first();
+                    return $this->sendResponse($getData, 'Session invitation sent successfully');
+                } else {
+                    return $this->sendError([], 'Session invitation not sent');
+                }
+    }
+
+    public function waitingPatientJoinCall(Request $request)
+    {
+        $id = $request->session_id;
+        $getSession = Session::where('id', $id)->first();
+
+        $userTypeCheck = User::where('id', $getSession->doctor_id)->first();
+        $patUser = User::where('id', $getSession->patient_id)->first();
+        if ($patUser->med_record_file != null) {
+            $patUser->med_record_file = \App\Helper::get_files_url($patUser->med_record_file);
+        }
+        // $patAge=User::where('id',$getSession->patient_id)->first();
+
+        if ($userTypeCheck->user_type == 'doctor') {
+            Session::where('id', $id)->update(['status' => 'doctor joined']);
+            $queue = Session::where('id', $id)->first();
+            if ($queue->queue < 2) {
+                Session::where('id', $id)->update(['response_time' => now()]);
+            }
+
+            event(new DoctorJoinedVideoSession($getSession->doctor_id, $getSession->patient_id, $id));
+            ActivityLog::create([
+                'activity' => 'joined session with ' . $patUser->name . " " . $patUser->last_name,
+                'type' => 'session start',
+                'user_id' => $getSession->doctor_id,
+                'user_type' => 'doctor',
+                'identity' => $id,
+                'party_involved' => $getSession->patient_id,
+            ]);
+        }
+        return response()->json(['message' => 'waiting for patient to join']);
+    }
+    
 }
