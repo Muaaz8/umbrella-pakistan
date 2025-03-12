@@ -64,6 +64,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('session','Api\SessionsController@createSession');
     Route::get('session/{id}','Api\SessionsController@getSession');
     Route::get('session/invite/{id}','Api\SessionsController@sessionInvite');
+    Route::get('joinCall/{id}','Api\SessionsController@videoJoin');
 });
     //================================================//
             //PATIENT PROFILE END HERE
