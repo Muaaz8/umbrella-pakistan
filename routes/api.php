@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\AppEvent;
 use App\Http\Controllers\Api\RegisterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -45,8 +46,11 @@ Route::get('product/{name}/{id}', 'Api\ProductsController@singleProduct');
 Route::get('categories/{name}','Api\ProductsController@getCategories');
 Route::get('category/{name}/{id}','Api\ProductsController@getProductsByCategory');
 Route::get('doctors','Api\DoctorsController@index');
+Route::get('online/doctors','Api\DoctorsController@getOnlineDoctors');
 Route::get('doctor/{id}','Api\DoctorsController@singleDoctor');
-
+Route::get('specializations','Api\DoctorsController@getSpeciallization');
+Route::get('specialization/doctors/{id}','Api\DoctorsController@getDoctorsBySpeciallization');
+Route::get('test' , function(){event(new AppEvent());});
 
 //================================================//
         //PATIENT PROFILE
@@ -54,6 +58,13 @@ Route::get('doctor/{id}','Api\DoctorsController@singleDoctor');
 Route::middleware('auth:sanctum','doc_restrict','patToVideoScreen')->group( function () {
 });
 Route::middleware(['auth:sanctum','doc_restrict'])->group(function(){
+});
+
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::post('session','Api\SessionsController@createSession');
+    Route::get('session/{id}','Api\SessionsController@getSession');
+    Route::get('session/invite/{id}','Api\SessionsController@sessionInvite');
+    Route::get('joinCall/{id}','Api\SessionsController@videoJoin');
 });
     //================================================//
             //PATIENT PROFILE END HERE

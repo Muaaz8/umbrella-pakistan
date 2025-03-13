@@ -324,7 +324,7 @@ class DoctorController extends Controller
         }
         $session = null;
         // $price = DB::table('specalization_price')->where('spec_id', $id)->first();
-        $price = DB::table('specalization_price')->where('spec_id', $request->spec_id)->first();
+                        
         if($price==null)
         {
             return '1';
@@ -2374,14 +2374,6 @@ class DoctorController extends Controller
                     $doc_joined_pat['patient_full_name'] = $patient_full_name;
                     $doc_joined_pat['user_image'] = $pat->user_image;
                     array_push($sessions, $doc_joined_pat);
-                    try {
-                        //code...
-                        $firebase_ses = Session::where('id', $doc_joined_pat['session_id'])->first();
-                        $firebase_ses->received = false;
-                        // \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
-                    } catch (\Throwable $th) {
-                        //throw $th;
-                    }
                     event(new updateQuePatient('update patient que'));
                     $mints = 15;
                 }
@@ -2396,14 +2388,6 @@ class DoctorController extends Controller
                     $single_session['patient_full_name'] = $patient_full_name;
                     $single_session['user_image'] = $pat->user_image;
                     array_push($sessions, $single_session);
-                    try {
-                        //code...
-                        $firebase_ses = Session::where('id', $single_session['session_id'])->first();
-                        $firebase_ses->received = false;
-                        // \App\Helper::firebase($firebase_ses->doctor_id,'updateQuePatient',$firebase_ses->id,$firebase_ses);
-                    } catch (\Throwable $th) {
-                        //throw $th;
-                    }
                     event(new updateQuePatient('update patient que'));
                 }
                 return view('dashboard_doctor.doc_waiting_room.index', compact('sessions'));

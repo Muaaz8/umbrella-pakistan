@@ -5307,7 +5307,7 @@ header > .header-search-container {
 }
 
 .doctor-list-card-container {
-    min-height: 240px;
+    min-height: 250px;
     border-top: 6px solid var(--blue);
     box-shadow: 1px 1px 2px 0px #d0c0c0;
     background: white;

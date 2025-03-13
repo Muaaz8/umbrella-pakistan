@@ -394,14 +394,6 @@ class VideoController extends Controller
                 Session::where('id', $id)->update(['response_time' => now()]);
             }
 
-            try {
-                $firebase_session = DB::table('sessions')->where('id',$id)->first();
-                $firebase_session->received = false;
-                // \App\Helper::firebase($firebase_session->patient_id,'DoctorJoinedVideoSession',$firebase_session->id,$firebase_session);
-            } catch (\Throwable $th) {
-                //throw $th;
-            }
-
             event(new DoctorJoinedVideoSession($getSession->doctor_id, $getSession->patient_id, $id));
             ActivityLog::create([
                 'activity' => 'joined session with ' . $patUser->name . " " . $patUser->last_name,

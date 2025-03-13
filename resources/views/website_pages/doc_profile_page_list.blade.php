@@ -448,6 +448,7 @@
                 <div class="d-flex align-items-center justify-content-between gap-3">
                     <div class="dropdown doctor-filter d-flex gap-1">
                         <div onclick="select_doc(2)" class="checkbox-wrapper-47">
+                        <div onclick="select_doc(2)" class="checkbox-wrapper-47">
                             <input checked class="inp-cbx" name="cb" id="cb-47" type="radio" value="2" />
                             <label class="cbx" for="cb-47"><span>
                                     <svg width="12px" height="10px" viewbox="0 0 12 10">
@@ -455,6 +456,7 @@
                                     </svg></span><span>All Doctors</span>
                             </label>
                         </div>
+                        <div onclick="select_doc(0)" class="checkbox-wrapper-47">
                         <div onclick="select_doc(0)" class="checkbox-wrapper-47">
                             <input class="inp-cbx" name="cb" id="cb-48" type="radio" value="0" />
                             <label class="cbx" for="cb-48"><span>
@@ -464,6 +466,7 @@
                             </label>
                         </div>
                         <div onclick="select_doc(1)" class="checkbox-wrapper-47">
+                        <div onclick="select_doc(1)" class="checkbox-wrapper-47">
                             <input class="inp-cbx" name="cb" id="cb-49" type="radio" value="1" />
                             <label class="cbx" for="cb-49"><span>
                                     <svg width="12px" height="10px" viewbox="0 0 12 10">
@@ -471,6 +474,7 @@
                                     </svg></span><span>American Doctors</span>
                             </label>
                         </div>
+                        <div onclick="select_doc(3)" class="checkbox-wrapper-47">
                         <div onclick="select_doc(3)" class="checkbox-wrapper-47">
                             <input class="inp-cbx" name="cb" id="cb-50" type="radio" value="3" />
                             <label class="cbx" for="cb-50"><span>
@@ -551,6 +555,11 @@
                                 <p class="specialization-doc">{{ $doctor->specializations->name }}</p>
                                 @if(isset($doctor->consultation_fee))
                                     <hr>
+                                    <p style="font-size:9px" class="d-flex align-items-center justify-content-between flex-wrap w-100"><b>Consultation Fee: </b> <b class="text-white px-2 py-1 bg-primary rounded-2">Rs.{{$doctor->consultation_fee}}</b></p>
+                                    @if (isset($doctor->followup_fee) && $doctor->consultation_fee !== $doctor->followup_fee)
+                                        <hr>
+                                        <p style="font-size:9px" class="d-flex align-items-center justify-content-between flex-wrap w-100"><b>Follow-up Fee: </b> <b class="text-white px-2 py-1 bg-success rounded-2">Rs.{{$doctor->followup_fee}}</b></p>
+                                    @endif
                                     <p style="font-size:9px" class="d-flex align-items-center justify-content-between flex-wrap w-100"><b>Consultation Fee: </b> <b class="text-white px-2 py-1 bg-primary rounded-2">Rs.{{$doctor->consultation_fee}}</b></p>
                                     @if (isset($doctor->followup_fee) && $doctor->consultation_fee !== $doctor->followup_fee)
                                         <hr>

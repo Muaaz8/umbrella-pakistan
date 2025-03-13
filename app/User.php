@@ -11,6 +11,7 @@ use App\LabReport;
 use App\User;
 use Carbon\Carbon;
 use DB;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Support\Facades\Cache;
 // use Laravel\Sanctum\HasApiTokens;
@@ -152,17 +153,27 @@ class User extends Authenticatable
     }
     public function get_sessions($user_id)
     {
-        $sessions = Session::where(['patient_id' => $user_id, 'status' => 'ended'])->orderByDesc('id')->get();
-        if (!empty($sessions)) {
-            foreach ($sessions as $session) {
-                $doc = User::where('id', $session['doctor_id'])->first();
+        $sessions = Session::where(['patient_id' => $user_id, 'status' => 'ended'])
+            ->orderByDesc('id')
+            ->get();
+        foreach ($sessions as $session) {
+            $doc = User::where('id', $session['doctor_id'])->first();
+            if ($doc) {
                 $session->doc = $doc['name'] . ' ' . $doc['last_name'];
-                $user_time_zone = Auth::user()->timeZone;
+            }
+    
+            $user_time_zone = Auth::user()->timeZone ?? 'UTC';
+    
+            try {
                 $date = new DateTime($session['date']);
                 $date->setTimezone(new DateTimeZone($user_time_zone));
                 $session->date = Helper::get_date_with_format($date->format('Y-m-d'));
+            } catch (\Exception $e) {
+                Log::error('Invalid timezone or date format: ' . $e->getMessage());
+                $session->date = Helper::get_date_with_format($session['date']);
             }
         }
+    
         return $sessions;
     }
     public function get_recent_sessions($user_id)
