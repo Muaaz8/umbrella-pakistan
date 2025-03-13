@@ -15,26 +15,10 @@
     ></script>
 </head>
 <body>
-        Hello World
-        <div class="error">
-
-        </div>
+        <form action="/send_otp_whatsapp" method="POST" enctype="multipart/form-data">
+            @csrf
+            <input type="file" name="file" id="file">
+            <button type="submit" id="submit">Submit</button>
+        </form>
 </body>
-
-<script>
-    $(document).ready(function () {
-        $.ajax({
-            type: "POST",
-            url: "https://chatbot.umbrellamd-video.com/chat",
-            data: JSON.stringify({ message: "backpain"}),
-            contentType:"application/json;",
-            dataType: "json",
-            success: function (response) {
-                $('.error').append(response.error);
-                console.log(response);
-            }
-        });
-    });
-
-</script>
 </html>

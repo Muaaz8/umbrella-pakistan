@@ -205,6 +205,9 @@ class RegisterController extends Controller
                     ];
                     try {
                         Mail::to($user->email)->send(new UserVerificationEmail($data1));
+                        $whatsapp = new \App\Http\Controllers\WhatsAppController();
+                        $res = $whatsapp->send_otp_message($data['phone_number'],$otp);
+                        Log::error($res);
                     } catch (Exception $e) {
                         Log::error($e);
                     }

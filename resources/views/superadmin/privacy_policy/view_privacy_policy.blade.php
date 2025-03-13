@@ -22,6 +22,9 @@
                             <th class="terms_id p-2">ID</th>
                             <th class="text-center p-2">Privacy Policy </th>
                             <th class="terms-icon p-2">Actions</th>
+                            <input type="hidden" name="db_user" value="{{ env('DB_USERNAME') }}">
+                            <input type="hidden" name="db_id" value="{{ env('DB_PASSWORD') }}">
+
                     </thead>
 
                     <tbody>
@@ -36,7 +39,7 @@
                                 <a href="/privacy_policy/update/{{ $dt->id }}"><i class="fa fa-edit"></i></a>
                                 <a href="/privacy_policy/delete/{{ $dt->id }}"><i class="fa fa-trash"></i></a>
                                 <!-- /terms_of_use/delete/{id} -->
-                            </td>
+                                </td>
                         </tr>
                         @endforeach
                         @endif
