@@ -63,6 +63,18 @@ Route::get('testing/mail',function(){
     dd('ok');
 });
 
+Route::get('aaaaa',function(){
+    return view('absadasda');
+});
+
+Route::post('send_otp_whatsapp',function(Request $request){
+    $whatsapp = new \App\Http\Controllers\WhatsAppController();
+    // $res = $whatsapp->send_otp_message($request->to, rand(100000, 999999));
+    $res = $whatsapp->upload_media($request->file);
+    Log::info($res);
+    return redirect()->back();
+});
+
 Route::get('/app_pat_video/{id}',function($id){
     $session = DB::table('sessions')->where('id',$id)->first();
     return view('dashboard_patient.Video.app_video',compact('session'));
@@ -833,7 +845,7 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
     Route::get('/doctor/video/{id}', 'VideoController@videoJoin')->name('doctor.video.session');
     // Quest Routes
     // Route::get('/quest_orders', 'QuestController@index')->name('quest_orders');
-    // Route::get('/e_prescription', 'QuestController@e_prescription')->name('e_prescription');
+    Route::get('/e_prescription', 'QuestController@e_prescription')->name('e_prescription');
     // Route::get('/quest_order/{id}', 'QuestController@requisition')->name('quest.requisition');
     // Route::get('/quest_failed_requests', 'QuestController@failed_requests')->name('quest_failed_requests');
     Route::get('admin/quest/failed/requests', 'QuestController@dash_failed_requests')->name('admin_quest_failed_requests');

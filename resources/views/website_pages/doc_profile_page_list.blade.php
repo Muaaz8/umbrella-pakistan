@@ -88,6 +88,7 @@
                     success: function(response) {
                         $(".doctor-cont2").html("");
                         $.each(JSON.parse(response), function (indexInArray, element) {
+                            console.log(element);
                             if (element.details) {
                                 $(".doctor-cont2").append(
                                     `<div class="col-sm-6 col-md-4 col-xl-3 doctor-list-card">
@@ -107,26 +108,26 @@
                                         ${generateStarRatings(element.rating)}
                                     </div>
                                     <p class="specialization-doc">${element.specializations.name}</p>
-                                    
+
                                 ${element.consultation_fee ? `
                                 <hr>
                                 <p style="font-size:9px" class="d-flex align-items-center justify-content-between flex-wrap w-100">
-                                    <b>Consultation Fee: </b> 
+                                    <b>Consultation Fee: </b>
                                     <b class="text-white px-2 py-1 bg-primary rounded-2">Rs.${element.consultation_fee}</b>
                                 </p>
                                 ${element.followup_fee && element.followup_fee != element.consultation_fee ? `
                                     <hr>
                                     <p style="font-size:9px" class="d-flex align-items-center justify-content-between flex-wrap w-100">
-                                        <b>Follow-up Fee: </b> 
+                                        <b>Follow-up Fee: </b>
                                         <b class="text-white px-2 py-1 bg-success rounded-2">Rs.${element.followup_fee}</b>
                                     </p>
                                 ` : ''}
                                 <hr>
                                 ` : ''}
 
-                                    
-                                    
-                                    <p class="education-doc">${safeSubstring(element.details.education, 60)}</p>
+
+
+                                    <p class="education-doc">${element.details.education!=null?safeSubstring(element.details.education, 60):""}</p>
                                     </div>
                                     </div><div class="d-flex align-items-center justify-content-center w-100 position-absolute view-button"><button
                                     class="btn btn-outline-primary" onclick="window.location.href='/doctor-profile/${element.id}'">View Profile</button></div></div></div>`
@@ -149,23 +150,23 @@
                                         ${generateStarRatings(element.rating)}
                                     </div>
                                     <p class="specialization-doc">${element.specializations.name}</p>
-                                    
+
                                                                     ${element.consultation_fee ? `
                                 <hr>
                                 <p style="font-size:9px" class="d-flex align-items-center justify-content-between flex-wrap w-100">
-                                    <b>Consultation Fee: </b> 
+                                    <b>Consultation Fee: </b>
                                     <b class="text-white px-2 py-1 bg-primary rounded-2">Rs.${element.consultation_fee}</b>
                                 </p>
                                 ${element.followup_fee && element.followup_fee != element.consultation_fee ? `
                                     <hr>
                                     <p style="font-size:9px" class="d-flex align-items-center justify-content-between flex-wrap w-100">
-                                        <b>Follow-up Fee: </b> 
+                                        <b>Follow-up Fee: </b>
                                         <b class="text-white px-2 py-1 bg-success rounded-2">Rs.${element.followup_fee}</b>
                                     </p>
                                 ` : ''}
                                 <hr>
                                 ` : ''}
-                                    
+
                                     <p class="education-doc">MBBS</p>
                                     </div>
                                     </div><div class="d-flex align-items-center justify-content-center w-100 position-absolute view-button"><button
@@ -224,24 +225,24 @@
                                         ${generateStarRatings(element.rating)}
                                     </div>
                                     <p class="specialization-doc">${element.specializations.name}</p>
-                                    
+
                                                                   ${element.consultation_fee ? `
                                 <hr>
                                 <p style="font-size:9px" class="d-flex align-items-center justify-content-between flex-wrap w-100">
-                                    <b>Consultation Fee: </b> 
+                                    <b>Consultation Fee: </b>
                                     <b class="text-white px-2 py-1 bg-primary rounded-2">Rs.${element.consultation_fee}</b>
                                 </p>
                                 ${element.followup_fee && element.followup_fee != element.consultation_fee ? `
                                     <hr>
                                     <p style="font-size:9px" class="d-flex align-items-center justify-content-between flex-wrap w-100">
-                                        <b>Follow-up Fee: </b> 
+                                        <b>Follow-up Fee: </b>
                                         <b class="text-white px-2 py-1 bg-success rounded-2">Rs.${element.followup_fee}</b>
                                     </p>
                                 ` : ''}
                                 <hr>
                                 ` : ''}
-                                    
-                                    <p class="education-doc">${safeSubstring(element.details.education, 60)}</p>
+
+                                    <p class="education-doc">${element.details.education!=null?safeSubstring(element.details.education, 60):""}</p>
                                     </div>
                                     </div><div class="d-flex align-items-center justify-content-center w-100 position-absolute view-button"><button
                                     class="btn btn-outline-primary" onclick="window.location.href='/doctor-profile/${element.id}'">View Profile</button></div></div></div>`
@@ -264,23 +265,23 @@
                                         ${generateStarRatings(element.rating)}
                                     </div>
                                     <p class="specialization-doc">${element.specializations.name}</p>
-                                    
+
                                                                     ${element.consultation_fee ? `
                                 <hr>
                                 <p style="font-size:9px" class="d-flex align-items-center justify-content-between flex-wrap w-100">
-                                    <b>Consultation Fee: </b> 
+                                    <b>Consultation Fee: </b>
                                     <b class="text-white px-2 py-1 bg-primary rounded-2">Rs.${element.consultation_fee}</b>
                                 </p>
                                 ${element.followup_fee && element.followup_fee != element.consultation_fee ? `
                                     <hr>
                                     <p style="font-size:9px" class="d-flex align-items-center justify-content-between flex-wrap w-100">
-                                        <b>Follow-up Fee: </b> 
+                                        <b>Follow-up Fee: </b>
                                         <b class="text-white px-2 py-1 bg-success rounded-2">Rs.${element.followup_fee}</b>
                                     </p>
                                 ` : ''}
                                 <hr>
                                 ` : ''}
-                                    
+
                                     <p class="education-doc">MBBS</p>
                                     <div class="doctor-ratings d-flex align-items-center mt-2"></div></div>
                                     </div><div class="d-flex align-items-center justify-content-center w-100 position-absolute view-button"><button
@@ -331,24 +332,24 @@
                                         ${generateStarRatings(element.rating)}
                                     </div>
                                     <p class="specialization-doc">${element.specializations.name}</p>
-                                    
+
                                                                  ${element.consultation_fee ? `
                                 <hr>
                                 <p style="font-size:9px" class="d-flex align-items-center justify-content-between flex-wrap w-100">
-                                    <b>Consultation Fee: </b> 
+                                    <b>Consultation Fee: </b>
                                     <b class="text-white px-2 py-1 bg-primary rounded-2">Rs.${element.consultation_fee}</b>
                                 </p>
                                 ${element.followup_fee && element.followup_fee != element.consultation_fee ? `
                                     <hr>
                                     <p style="font-size:9px" class="d-flex align-items-center justify-content-between flex-wrap w-100">
-                                        <b>Follow-up Fee: </b> 
+                                        <b>Follow-up Fee: </b>
                                         <b class="text-white px-2 py-1 bg-success rounded-2">Rs.${element.followup_fee}</b>
                                     </p>
                                 ` : ''}
                                 <hr>
                                 ` : ''}
-                                    
-                                    <p class="education-doc">${safeSubstring(element.details.education, 60)}</p>
+
+                                    <p class="education-doc">${element.details.education!=null?safeSubstring(element.details.education, 60):""}</p>
                                     </div>
                                     </div><div class="d-flex align-items-center justify-content-center w-100 position-absolute view-button"><button
                                     class="btn btn-outline-primary" onclick="window.location.href='/doctor-profile/${element.id}'">View Profile</button></div></div></div>`
@@ -371,23 +372,23 @@
                                         ${generateStarRatings(element.rating)}
                                     </div>
                                     <p class="specialization-doc">${element.specializations.name}</p>
-                                    
+
                                 ${element.consultation_fee ? `
                                 <hr>
                                 <p style="font-size:9px" class="d-flex align-items-center justify-content-between flex-wrap w-100">
-                                    <b>Consultation Fee: </b> 
+                                    <b>Consultation Fee: </b>
                                     <b class="text-white px-2 py-1 bg-primary rounded-2">Rs.${element.consultation_fee}</b>
                                 </p>
                                 ${element.followup_fee && element.followup_fee != element.consultation_fee ? `
                                     <hr>
                                     <p style="font-size:9px" class="d-flex align-items-center justify-content-between flex-wrap w-100">
-                                        <b>Follow-up Fee: </b> 
+                                        <b>Follow-up Fee: </b>
                                         <b class="text-white px-2 py-1 bg-success rounded-2">Rs.${element.followup_fee}</b>
                                     </p>
                                 ` : ''}
                                 <hr>
                                 ` : ''}
-                                    
+
                                     <p class="education-doc">MBBS</p>
                                     <div class="doctor-ratings d-flex align-items-center mt-2"></div></div>
                                     </div><div class="d-flex align-items-center justify-content-center w-100 position-absolute view-button"><button

@@ -324,24 +324,24 @@ class DoctorController extends Controller
         }
         $session = null;
         // $price = DB::table('specalization_price')->where('spec_id', $id)->first();
-                        
-        if($price==null)
-        {
-            return '1';
-        }
-        if ($price != null) {
-        if ($price->follow_up_price != null) {
-            $session = DB::table('sessions')->where('patient_id', $user->id)
-                ->join('specializations', 'sessions.specialization_id', 'specializations.id')
-                ->join('specalization_price', 'sessions.specialization_id', 'specalization_price.spec_id')
-                ->select('specializations.name as sp_name', 'specalization_price.follow_up_price as price')
-                ->where('specialization_id', $request->spec_id)->first();
-        }}else{
-            return view('errors.101');
-        }
+        // $price = DB::table('specalization_price')->where('spec_id', $request->spec_id)->first();
+        // if($price==null)
+        // {
+        //     return '1';
+        // }
+        // if ($price != null) {
+        // if ($price->follow_up_price != null) {
+        //     $session = DB::table('sessions')->where('patient_id', $user->id)
+        //         ->join('specializations', 'sessions.specialization_id', 'specializations.id')
+        //         ->join('specalization_price', 'sessions.specialization_id', 'specalization_price.spec_id')
+        //         ->select('specializations.name as sp_name', 'specalization_price.follow_up_price as price')
+        //         ->where('specialization_id', $request->spec_id)->first();
+        // }}else{
+        //     return view('errors.101');
+        // }
         $symp = DB::table('isabel_symptoms')->get();
         // return view('dashboard_patient.Evisit.online_doctor', compact('doctors', 'session', 'id'));
-        return view('dashboard_patient.Evisit.loadOnlineDoctors', compact('doctors', 'session', 'price','symp','id','loc_id'));
+        return view('dashboard_patient.Evisit.loadOnlineDoctors', compact('doctors', 'session','symp','id','loc_id'));
     }
 
     public function dash_get_online_doctors($id,$loc)

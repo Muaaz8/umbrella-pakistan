@@ -1,4 +1,4 @@
-@extends('layouts.new_web_layout')
+@extends('layouts.new_pakistan_layout')
 
 @section('meta_tags')
 <meta charset="utf-8" />
@@ -37,16 +37,12 @@
 <!-- ******* PRIVACY-POLICY STATRS ******** -->
 <section>
     <div class="container py-5">
-      <div class="row privacy-policy-wrapper">
+      <!-- <div class="row privacy-policy-wrapper">
         <div>
           <h1>PRIVACY POLICY</h1>
           <h4>Introduction</h4>
           <p>
-            Umbrella Health Care Systems (“Umbrella,” “we,” “our,” or “us”) respects the privacy of your information.
-            This Privacy
-            Policy is designed to assist you in understanding how we collect, use and safeguard the information you
-            provide to us in
-            using our website (“www.umbrellamd.com”) and the services provided through our Site (“Services”).
+            Community Healthcare Clinics ("CHCC," "we," "our," or "us") respects the privacy of your information. This Privacy Policy is designed to assist you in understanding how we collect, use, and safeguard the information you provide to us when using our website ("www.communityhealthcareclinics.com") and the services provided through our site ("Services").
           </p>
           <p>
             From time to time, we may change this Privacy Policy. If we do, we will post an amended version on this
@@ -68,8 +64,6 @@
             <li><a href="#six">Security</a></li>
             <li><a href="#seven">Third Party Links</a></li>
             <li><a href="#eight">Children’s Privacy</a></li>
-            <li><a href="#nine">Notice to Nevada Residents</a></li>
-            <li><a href="#ten">Notice to California Residents</a></li>
             <li><a href="#eleven">How to Contact Us</a></li>
           </ol>
         </div>
@@ -78,14 +72,11 @@
           <h2><span>1.</span> Collecting and Using Information</h2>
           <h6><b>Personally Identifiable Information We Collect Online</b></h6>
           <p>
-            We collect Personally Identifiable Information from you through your use of the Site and Services.
-            “Personally Identifiable Information” is individually identifiable information about an individual consumer
-            that we collect online and that we maintain in an accessible form. We collect the following types of
-            Personally Identifiable Information:
+            We collect Personally Identifiable Information ("PII") from you through your use of the site and services. "Personally Identifiable Information" refers to individually identifiable information about a consumer that we collect online and maintain in an accessible form.
           </p>
           <em>Information You Provide</em>
           <p>
-            We may collect the following Personally Identifiable Information that you voluntarily provide to us:
+            We may collect the following PII that you voluntarily provide
           </p>
           <p>
             <em>Physician Registration.</em> To register for a doctor account, you will create a username and password
@@ -392,6 +383,119 @@
             contact@umbrellamd.com.
           </p>
         </div>
+      </div> -->
+
+      <div class="row privacy-policy-wrapper">
+        <p><strong>PRIVACY POLICY</strong></p>
+
+        <p><strong>Introduction</strong></p>
+
+        <p>Community Healthcare Clinics (&quot;CHCC,&quot; &quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) respects the privacy of your information. This Privacy Policy is designed to assist you in understanding how we collect, use, and safeguard the information you provide to us when using our website (&quot;<a href="https://communityhealthcareclinics.com/">www.communityhealthcareclinics.com</a>&quot;) and the services provided through our site (&quot;Services&quot;).</p>
+
+        <p>From time to time, we may update this Privacy Policy. If we do, we will post an amended version on this webpage. Please review this Privacy Policy periodically.</p>
+
+        <p>This Privacy Policy covers the following topics:</p>
+
+        <ul>
+          <li>Collecting and Using Information</li>
+          <li>Cookies and Other Tracking Technologies</li>
+          <li>Third-Party Processors</li>
+          <li>&quot;Do Not Track&quot; Signals</li>
+          <li>Choices About Your Personally Identifiable Information</li>
+          <li>Security</li>
+          <li>Third-Party Links</li>
+          <li>Children&#39;s Privacy</li>
+          <li>How to Contact Us</li>
+        </ul>
+
+        <h3><strong>1. Collecting and Using Information</strong></h3>
+
+        <p><strong>Personally Identifiable Information We Collect Online</strong></p>
+
+        <p>We collect Personally Identifiable Information (&quot;PII&quot;) from you through your use of the site and services. &quot;Personally Identifiable Information&quot; refers to individually identifiable information about a consumer that we collect online and maintain in an accessible form.</p>
+
+        <p><strong>Information You Provide</strong></p>
+
+        <p>We may collect the following PII that you voluntarily provide:</p>
+
+        <ul>
+          <li><strong>Doctor Registration:</strong> To register for a doctor account, you will create a username and password and provide your name, email address, phone number, physical address, medical license, gender, date of birth, PMDC Registration Number, and other professional credentials.</li>
+          <li><strong>Patient Registration:</strong> To register for a patient account, you will create a username and password and provide your name, email address, phone number, physical address, and date of birth.&nbsp;</li>
+          <li><strong>Appointments and Telehealth Services:</strong> When using our telehealth services, we collect necessary information, including consultation details and appointment records.</li>
+          <li><strong>Contacting Us:</strong> If you contact us, we collect your name, email address or phone number.</li>
+        </ul>
+
+        <p><strong>Information Collected Automatically</strong></p>
+
+        <p>We may automatically collect certain PII through your use of the site, including:</p>
+
+        <ul>
+          <li><strong>Usage Information:</strong> Pages accessed, frequency of access, and interactions on the site.</li>
+          <li><strong>Device Information:</strong> Hardware model, operating system, application version, and browser details.</li>
+          <li><strong>Location Information:</strong> City or regional location data when accessing the site.</li>
+        </ul>
+
+        <p><strong>How We Use Your Personally Identifiable Information</strong></p>
+
+        <p>We use the collected PII to provide and improve our services, including:</p>
+
+        <ul>
+          <li>Processing account registrations and appointments</li>
+          <li>Processing transactions and payments</li>
+          <li>Communicating updates and service information</li>
+          <li>Providing support and maintaining our platform</li>
+          <li>Complying with legal obligations</li>
+          <li>Enhancing security and fraud prevention</li>
+        </ul>
+
+        <p><strong>How We Share Your Personally Identifiable Information</strong></p>
+
+        <p>We may share PII in the following ways:</p>
+
+        <ul>
+          <li>With healthcare providers you select</li>
+          <li>With service providers who assist in operations (e.g., hosting, payment processing)</li>
+          <li>To comply with legal obligations</li>
+          <li>In connection with business transactions such as mergers or acquisitions</li>
+          <li>With your consent</li>
+        </ul>
+
+        <h3><strong>2. Cookies and Other Tracking Technologies</strong></h3>
+
+        <p>We use cookies and similar technologies to enhance your experience, analyze site traffic, and tailor content. You can adjust cookie preferences through browser settings.</p>
+
+        <h3><strong>3. Third-Party Processors</strong></h3>
+
+        <p>We use third-party service providers to process PII securely, including cloud storage, payment processing, and analytics services.</p>
+
+        <p><br />
+        &nbsp;</p>
+
+        <h3><strong>4. &quot;Do Not Track&quot; Signals</strong></h3>
+
+        <p>Our site does not currently respond to &quot;Do Not Track&quot; signals due to the lack of industry standards.</p>
+
+        <h3><strong>5. Choices About Your Personally Identifiable Information</strong></h3>
+
+        <p>You can review or request changes to your PII by contacting us at <strong>privacy@communityhealthcareclinics.com</strong>. You can unsubscribe from marketing emails by using the &quot;unsubscribe&quot; link in our emails.</p>
+
+        <h3><strong>6. Security</strong></h3>
+
+        <p>We implement reasonable security measures to protect PII but cannot guarantee absolute security. Please use caution when sharing personal information online.</p>
+
+        <h3><strong>7. Third-Party Links</strong></h3>
+
+        <p>Our site may contain links to third-party websites. We are not responsible for the privacy practices of those sites.</p>
+
+        <h3><strong>8. Children&#39;s Privacy</strong></h3>
+
+        <p>Our services are not intended for children under 13. We do not knowingly collect personal information from children under 13.</p>
+
+        <h3><strong>9. How to Contact Us</strong></h3>
+
+        <p>For privacy-related inquiries, please contact us at <strong>privacy@communityhealthcareclinics.com</strong>.</p>
+
+        <p>&nbsp;</p>
       </div>
     </div>
   </section>
