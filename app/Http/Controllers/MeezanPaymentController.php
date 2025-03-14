@@ -232,4 +232,194 @@ class MeezanPaymentController extends Controller
             }
         }
     }
+
+    //  <!--- Mobile App Payment ---!>
+    public function payment_app($data,$amount)
+    {
+        $description = urlencode($data);
+        $this->amount = $amount;
+        $data = explode('-',$data);
+        if($data[0] == 'Evisit'){
+            $orderId = 'CHCCE-'.$data[1];
+            $this->returnUrl = env('MOBILE_APP_URL')."/SendInviteScreen";
+        }elseif($data[0] == 'Appointment'){
+            $orderId = 'CHCCA-'.$data[1];
+            // $this->returnUrl = env('MOBILE_APP_URL')."/SendInviteScreen";
+        }elseif($data[0] == 'Inclinic'){
+            $orderId = 'CHCCI-'.$data[1];
+            // $this->returnUrl = env('MOBILE_APP_URL')."/SendInviteScreen";
+        }
+        else{
+            $orderId = 'CHCCO-'.$data[1];
+            // $this->returnUrl = env('MOBILE_APP_URL')."/SendInviteScreen";
+        }
+
+        $user_id = auth()->user()->id;
+        $transactionArr = [
+            'subject' => $data[0],
+            'description' => $data[1],
+            'currency' => 'PKR',
+            'total_amount' => ($amount/100),
+            'user_id' => $user_id,
+            'status' => '0',
+        ];
+        TblTransaction::create($transactionArr);
+
+        // $CURLOPT_URL = $this->api_url.'/register.do?userName='.$this->userName.'&password='.$this->password.'&orderNumber='.$orderId.'&amount='.$this->amount.'&currency='.$this->currency.'&returnUrl='.urlencode($this->returnUrl).'&clientId='.$user_id.'&description='.$description;
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => $this->api_url.'/register.do?userName='.$this->userName.'&password='.$this->password.'&orderNumber='.$orderId.'&amount='.$this->amount.'&currency='.$this->currency.'&returnUrl='.urlencode($this->returnUrl).'&clientId='.$user_id.'&description='.$description,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        $response = json_decode($response);
+        if (isset($response) && $response->errorCode == 0) {
+            session()->put('mdOrderId', $response->orderId);
+        }
+        return $response;
+
+    }
+
+    public function payment_return_app()
+    {
+        $orderId = session()->get('mdOrderId');
+        $curl = curl_init();
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => $this->api_url.'/getOrderStatusExtended.do?userName='.$this->userName.'&password='.$this->password.'&orderId='.$orderId,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        $response = json_decode($response);
+        $description = explode("-",$response->orderDescription);
+        if ($response->errorCode == 0) {
+            if($description[0] == "Evisit"){
+                if($response->orderStatus == 2){
+                    $getSession = DB::table('sessions')->where('session_id', $description[1])->first();
+                    Session::where('session_id', $description[1])->update(['status' => 'paid']);
+
+                    $doctor_data = DB::table('users')->where('id', $getSession->doctor_id)->first();
+                    $patient_data = DB::table('users')->where('id', $getSession->patient_id)->first();
+                    $markDownData = [
+                        'doc_name' => ucwords($doctor_data->name),
+                        'pat_name' => ucwords($patient_data->name),
+                        'pat_email' => $patient_data->email,
+                        'doc_mail' => $doctor_data->email,
+                        'amount' => $getSession->price,
+                    ];
+                    Mail::to($patient_data->email)->send(new EvisitBookMail($markDownData));
+
+                    $text = "New Session Created by " . $patient_data->name . " " . $patient_data->last_name;
+                    $notification_id = Notification::create([
+                        'user_id' =>  $getSession->doctor_id,
+                        'type' => '/doctor/patient/queue',
+                        'text' => $text,
+                        'appoint_id' => $getSession->id,
+                    ]);
+
+                    event(new RealTimeMessage($getSession->doctor_id));
+                    event(new updateQuePatient('update patient que'));
+                    return redirect()->route('waiting_room_pat', ['id' => \Crypt::encrypt($getSession->id)]);
+                    // return redirect()->route('payment')->with('success', $response->actionCodeDescription);
+                }else{
+                    // $getSession = DB::table('sessions')->where('session_id', $description[1])->first();
+                    $getSession = DB::table('sessions')->where('session_id', $description[1])->delete();
+                    return redirect()->route('patient_online_doctors',['id'=>$description[2]])->with('error', $response->actionCodeDescription);
+                }
+            }
+            if($description[0] == "Appointment"){
+                if($response->orderStatus == 2){
+                    $getSession = DB::table('sessions')->where('session_id', $description[1])->first();
+                    Session::where('id', $getSession->id)->update(['status' => 'paid']);
+
+                    try {
+                        $doctor_data = DB::table('users')->where('id', $getSession->doctor_id)->first();
+                        $patient_data = DB::table('users')->where('id', $getSession->patient_id)->first();
+                        $getAppointment = DB::table('appointments')->where('id', $getSession->appointment_id)->first();
+                        $d_date = User::convert_utc_to_user_timezone($doctor_data->id, $getAppointment->date . ' ' . $getAppointment->time);
+                        $p_date = User::convert_utc_to_user_timezone($patient_data->id, $getAppointment->date . ' ' . $getAppointment->time);
+
+                        $markDownData1 = [
+                            'doc_name' => ucwords($doctor_data->name),
+                            'pat_name' => ucwords($patient_data->name),
+                            'time' => $p_date['time'],
+                            'date' => $p_date['date'],
+                            'pat_mail' => $patient_data->email,
+                            'doc_mail' => $doctor_data->email,
+                        ];
+                        $markDownData2 = [
+                            'doc_name' => ucwords($doctor_data->name),
+                            'pat_name' => ucwords($patient_data->name),
+                            'time' => $d_date['time'],
+                            'date' => $d_date['date'],
+                            'pat_mail' => $patient_data->email,
+                            'doc_mail' => $doctor_data->email,
+                        ];
+                        Mail::to($patient_data->email)->send(new NewAppointmentPatientMail($markDownData1));
+                        Mail::to($doctor_data->email)->send(new NewAppointmentDoctorMail($markDownData2));
+
+                        $text = "New Appointment Created by " . $patient_data->name . " " . $patient_data->last_name;
+                        $notification_id = Notification::create([
+                            'user_id' =>  $getSession->doctor_id,
+                            'type' => '/doctor/appointments',
+                            'text' => $text,
+                            'appoint_id' => $getSession->appointment_id,
+                        ]);
+                        $data = [
+                            'user_id' =>  $getSession->doctor_id,
+                            'type' => '/doctor/appointments',
+                            'text' => $text,
+                            'appoint_id' => $getSession->appointment_id,
+                            'refill_id' => "null",
+                            'received' => 'false',
+                            'session_id' => 'null',
+                        ];
+                        event(new RealTimeMessage($getSession->doctor_id));
+                        event(new updateQuePatient('update patient que'));
+                    } catch (Exception $e) {
+                        Log::error($e);
+                    }
+                    return redirect()->route('pat_appointments')->with("message", "Appointment Create Successfully");
+                }else{
+                    $getSession = DB::table('sessions')->where('session_id', $description[1])->first();
+
+                    DB::table('appointments')->where('id', $getSession->appointment_id)->delete();
+                    DB::table('sessions')->where('session_id', $description[1])->delete();
+
+                    return redirect()->route('book_appointment',['id'=>$description[2]])->with('error', $response->actionCodeDescription);
+                }
+            }
+            if($description[0] == "Order"){
+                return $response;
+            }
+            if($description[0] == "Inclinic"){
+                if($response->orderStatus == 2){
+                    $pat = InClinics::where('user_id',$description[1])->update([
+                        'status'=> 'pending'
+                    ]);
+                    event(new \App\Events\InClinicPatientUpdate($description[1]));
+                    return redirect()->route('inclinic_patient');
+                }else{
+                    return redirect()->back()->with('error',$response->actionCodeDescription);
+                }
+            }
+        }
+    }
 }

@@ -18,7 +18,7 @@ class WhatsAppController extends Controller
         $to = "92".$to;
         $curl = curl_init();
         curl_setopt_array($curl, array(
-        CURLOPT_URL => 'https://graph.facebook.com/v22.0/600019993184751/messages',
+        CURLOPT_URL => 'https://graph.facebook.com/v22.0/604248952770273/messages',
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_ENCODING => '',
         CURLOPT_MAXREDIRS => 10,
@@ -33,7 +33,7 @@ class WhatsAppController extends Controller
                 "template": {
                     "name": "otp_template",
                     "language": {
-                        "code": "en_GB"
+                        "code": "en_US"
                     },
                     "components": [
                         {
@@ -82,7 +82,7 @@ class WhatsAppController extends Controller
 
         $curl = curl_init();
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://graph.facebook.com/v22.0/600019993184751/media',
+            CURLOPT_URL => 'https://graph.facebook.com/v22.0/604248952770273/media',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -102,14 +102,77 @@ class WhatsAppController extends Controller
         $response = curl_exec($curl);
         curl_close($curl);
 
-        // Handle the response
         if ($response === false) {
-            echo 'Error:' . curl_error($curl);
+            Log::info(curl_error($curl));
         } else {
-            echo 'Response:' . $response;
+            return json_decode($response);
         }
+    }
+
+    public function send_prescription($to, $response){
+        $to = "92".$to;
+        $to = "923190035699";
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://graph.facebook.com/v22.0/604248952770273/messages',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS =>'{
+            "messaging_product": "whatsapp",
+            "to": "923190035699",
+            "type": "template",
+            "template": {
+                "name": "patient_prescription",
+                "language": {
+                    "code": "en"
+                },
+                "components": [
+                    {
+                        "type": "header",
+                        "parameters": [
+                        {
+                            "type": "document",
+                            "document": {
+                                "id": "'.$response->id.'",
+                                "filename": "Prescription.pdf"
+                            }
+                        }
+                        ]
+                    },
+                    {
+                        "type": "body",
+                        "parameters": [
+                            {
+                                "type": "text",
+                                "text": "Muaaz"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }',
+        CURLOPT_HTTPHEADER => array(
+            'Authorization: Bearer '.$this->token,
+            'Content-Type: application/json',
+            ': '
+        ),
+        ));
+
+        $response = curl_exec($curl);
 
         curl_close($curl);
-        echo $response;
+        if ($response === false) {
+            Log::info(curl_error($curl));
+        } else {
+            return json_decode($response);
+        }
+
     }
 }

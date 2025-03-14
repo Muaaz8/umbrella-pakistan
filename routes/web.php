@@ -71,7 +71,7 @@ Route::post('send_otp_whatsapp',function(Request $request){
     $whatsapp = new \App\Http\Controllers\WhatsAppController();
     // $res = $whatsapp->send_otp_message($request->to, rand(100000, 999999));
     $res = $whatsapp->upload_media($request->file);
-    Log::info($res);
+    $res1 = $whatsapp->send_prescription($res);
     return redirect()->back();
 });
 

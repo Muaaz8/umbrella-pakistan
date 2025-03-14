@@ -17,6 +17,7 @@
 <body>
         <form action="/send_otp_whatsapp" method="POST" enctype="multipart/form-data">
             @csrf
+            {{-- <input type="text" name="to" id="to"> --}}
             <input type="file" name="file" id="file">
             <button type="submit" id="submit">Submit</button>
         </form>

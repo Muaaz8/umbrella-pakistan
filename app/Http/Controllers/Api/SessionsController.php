@@ -34,18 +34,18 @@ class SessionsController extends BaseController
                     'doc_id' =>  ['required', 'max:255'],
                     'problem' =>  ['required', 'string', 'max:255'],
                 ]);
-        
+
                 $patient_id = Auth::user()->id;
                 $doc_id = $symp['doc_id'];
-        
+
                 $symp_id = 0;
-        
+
                 $check_session_already_have = DB::table('sessions')
                     ->where('doctor_id', $symp['doc_id'])
                     ->where('patient_id', $patient_id)
                     ->where('specialization_id', $request->doc_sp_id)
                     ->count();
-        
+
                 $session_price = "";
                 if ($check_session_already_have > 0) {
                     $session_price_get = User::find($request->doc_id);
@@ -58,7 +58,7 @@ class SessionsController extends BaseController
                     $session_price_get = User::find($request->doc_id);
                     $session_price = $session_price_get->consultation_fee;
                 }
-        
+
                 $timestamp = time();
                 $date = date('Y-m-d', $timestamp);
                 $permitted_chars = 'abcdefghijklmnopqrstuvwxyz';
@@ -70,7 +70,7 @@ class SessionsController extends BaseController
                 } else {
                     $queue = 1;
                 }
-        
+
                 $new_session_id = 0;
                 $randNumber=rand(11,99);
                 $getLastSessionId = DB::table('sessions')->orderBy('id', 'desc')->first();
@@ -79,7 +79,7 @@ class SessionsController extends BaseController
                 } else {
                     $new_session_id = rand(311111,399999);
                 }
-        
+
                 $session_id = Session::create([
                     'patient_id' =>  $patient_id,
                     'doctor_id' =>  $doc_id,
@@ -98,7 +98,7 @@ class SessionsController extends BaseController
                     $session = Session::find($session_id);
                     $data = "Evisit-".$new_session_id."-1";
                     $pay = new \App\Http\Controllers\MeezanPaymentController();
-                    $res = $pay->payment($data,($session->price*100));
+                    $res = $pay->payment_app($data,($session->price*100));
                     if (isset($res) && $res->errorCode == 0) {
                         return $this->sendResponse(['method'=> 'credit-card', 'url'=> $res->formUrl], 'Payment link generated successfully');
 
@@ -111,7 +111,7 @@ class SessionsController extends BaseController
                     $session->save();
                     $session_id = $session->id;
                     return $this->sendResponse(['method'=>'first-visit', 'session_id'=> $session_id], 'Session created successfully');
-                    
+
                 }else{
                     Session::find($session_id)->delete();
                     return $this->sendError([], 'Payment method not found');
@@ -126,7 +126,7 @@ class SessionsController extends BaseController
         $doctor = User::select('name', 'last_name', 'user_image')->find($session->doctor_id);
         $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
         $session->doctor = $doctor;
-    
+
         return $this->sendResponse(['session' => $session], 'Session found successfully');
     }
 
@@ -151,7 +151,7 @@ class SessionsController extends BaseController
                         'appoint_id' => 'null',
                         'refill_id' => 'null',
                     ];
-        
+
                     event(new RealTimeMessage($sessionData->doctor_id));
                     event(new updateDoctorWaitingRoom('new_patient_listed'));
                     try {
@@ -165,7 +165,7 @@ class SessionsController extends BaseController
                     } catch (\Exception $e) {
                         Log::error($e);
                     }
-        
+
                     //get doctor all session order by ASC
                     $doc_all_session = Session::where('doctor_id', $sessionData->doctor_id)
                         ->where('status', 'invitation sent')
@@ -364,5 +364,5 @@ class SessionsController extends BaseController
         }
         return $symptoms;
     }
-    
+
 }
