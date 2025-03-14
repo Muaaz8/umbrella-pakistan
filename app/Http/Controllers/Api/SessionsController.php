@@ -100,7 +100,7 @@ class SessionsController extends BaseController
                     $pay = new \App\Http\Controllers\MeezanPaymentController();
                     $res = $pay->payment_app($data,($session->price*100));
                     if (isset($res) && $res->errorCode == 0) {
-                        return $this->sendResponse(['method'=> 'credit-card', 'url'=> $res->formUrl], 'Payment link generated successfully');
+                        return $this->sendResponse(['method'=> 'credit-card', 'url'=> $res->formUrl, 'session_id'=> $session_id], 'Payment link generated successfully');
 
                     }else{
                         return $this->sendError([], 'Payment link not generated');
