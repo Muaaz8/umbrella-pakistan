@@ -88,6 +88,29 @@ class DoctorsController extends Controller
         $doctors = DB::table('users')
         ->join('specializations', 'specializations.id', 'users.specialization')
         ->where('users.specialization', $id)
+        ->where('users.active', '1')
+        ->select(
+        'users.name',
+        'users.last_name',
+        'users.id',
+        'users.rating',
+        'users.status',
+        'users.consultation_fee',
+        'users.followup_fee',
+        'users.user_image', 
+        'specializations.name as sp_name',
+        'specializations.id as sp_id'
+        )
+        ->paginate(10);
+    foreach ($doctors as $doctor) {
+        $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
+    }
+    return response()->json($doctors);
+    }
+    public function getOnlineDoctorsBySpeciallization($id){
+        $doctors = DB::table('users')
+        ->join('specializations', 'specializations.id', 'users.specialization')
+        ->where('users.specialization', $id)
         ->where('users.status', 'online')
         ->where('users.active', '1')
         ->select(

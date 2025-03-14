@@ -50,6 +50,7 @@ Route::get('online/doctors','Api\DoctorsController@getOnlineDoctors');
 Route::get('doctor/{id}','Api\DoctorsController@singleDoctor');
 Route::get('specializations','Api\DoctorsController@getSpeciallization');
 Route::get('specialization/doctors/{id}','Api\DoctorsController@getDoctorsBySpeciallization');
+Route::get('specialization/online/doctors/{id}','Api\DoctorsController@getOnlineDoctorsBySpeciallization');
 Route::get('test' , function(){event(new AppEvent());});
 
 //================================================//
