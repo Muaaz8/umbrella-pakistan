@@ -16,6 +16,7 @@ class DoctorsController extends Controller
                 'users.id',
                 'users.rating',
                 'users.gender',
+                'users.zip_code',
                 'users.consultation_fee',
                 'users.followup_fee',
                 'users.user_image',
