@@ -124,7 +124,7 @@ class SessionsController extends BaseController
             return $this->sendError([], 'Session not found');
         }
         $doctor = User::select('name', 'last_name', 'user_image')->find($session->doctor_id);
-        $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
+        $doctor->user_image = Helper::check_bucket_files_url($doctor->user_image);
         $session->doctor = $doctor;
 
         return $this->sendResponse(['session' => $session], 'Session found successfully');
