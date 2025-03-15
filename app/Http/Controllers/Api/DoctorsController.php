@@ -51,6 +51,7 @@ class DoctorsController extends Controller
                 'users.id',
                 'users.rating',
                 'users.gender',
+                'users.zip_code',
                 'users.consultation_fee',
                 'users.followup_fee',
                 'users.user_image',
@@ -94,6 +95,7 @@ class DoctorsController extends Controller
         'users.last_name',
         'users.id',
         'users.rating',
+        'users.zip_code',
         'users.status',
         'users.consultation_fee',
         'users.followup_fee',
@@ -118,6 +120,7 @@ class DoctorsController extends Controller
         'users.last_name',
         'users.id',
         'users.rating',
+        'users.zip_code',
         'users.status',
         'users.consultation_fee',
         'users.followup_fee',
@@ -143,12 +146,18 @@ class DoctorsController extends Controller
             'users.id',
             'users.rating',
             'users.status',
+            'users.zip_code',
             'users.consultation_fee',
             'users.followup_fee',
             'users.user_image', 
             'specializations.name as sp_name',
             'specializations.id as sp_id')
         ->paginate(10);
+
+        foreach ($doctors as $doctor) {
+            $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
+        }
+
         return response()->json($doctors);
     }
 

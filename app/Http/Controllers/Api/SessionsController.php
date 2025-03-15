@@ -129,7 +129,6 @@ class SessionsController extends BaseController
 
         return $this->sendResponse(['session' => $session], 'Session found successfully');
     }
-
     public function sessionInvite($id){
                 $res = Session::where('id', $id)->update(['status' => 'invitation sent', 'invite_time' => now()]);
                 if ($res == 1) {
@@ -191,7 +190,6 @@ class SessionsController extends BaseController
                     return $this->sendError([], 'Session invitation not sent');
                 }
     }
-
     public function waitingPatientJoinCall(Request $request)
     {
         $id = $request->session_id;
@@ -222,8 +220,6 @@ class SessionsController extends BaseController
         }
         return response()->json(['message' => 'waiting for patient to join']);
     }
-
-
     public function videoJoin($id, Request $request)
     {
 
@@ -331,9 +327,6 @@ class SessionsController extends BaseController
             return $this->sendResponse(['user_type' => $user_type, 'docUser' => $docUser, 'pat_age' => $pat_age, 'getSession' => $getSession, 'medical_profile' => $medical_profile, 'symptoms' => $symptoms, 'symp_desc' => $symp_desc, 'history' => $history, 'patUser' => $patUser], 'Session joined successfully');
         }
     }
-
-
-
     public function getSymptoms($symp)
     {
         if ($symp != null) {
