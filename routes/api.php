@@ -69,7 +69,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('sessions/queue','Api\DoctorsController@patients_in_queue');
     Route::get('video/patient_join/{id}','Api\VideoController@waitingPatientJoinCall');
     Route::get('video/doctor/end/{id}','Api\VideoController@doctor_end_session');
-
+    Route::post('recommendation','Api\RecommendationController@store');
 });
     //================================================//
             //PATIENT PROFILE END HERE

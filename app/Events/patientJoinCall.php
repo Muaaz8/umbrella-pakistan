@@ -47,7 +47,9 @@ class patientJoinCall implements ShouldBroadcast
         return ["doctor_id"=>$this->doctor_id,
                 "patient_id"=>$this->patient_id,
                 "session_id"=>\Crypt::encrypt($this->session_id),
-                "message"=>$this->message];
+                "message"=>$this->message,
+                "id"=>$this->session_id
+            ];
     }
 
     /**

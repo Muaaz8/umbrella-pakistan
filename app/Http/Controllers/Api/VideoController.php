@@ -47,7 +47,7 @@ class VideoController extends BaseController
                 'party_involved' => $getSession->patient_id,
             ]);
         }
-        return $this->sendResponse(['session_id'=>$getSession , 'action'=> 'VideoScreen'], 'Session joined successfully');
+        return $this->sendResponse(['session_id'=>$getSession->id , 'action'=> 'VideoScreen'], 'Session joined successfully');
     }
 
     public function doctor_end_session($id)
