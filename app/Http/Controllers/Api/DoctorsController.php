@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Api;
+use App\Events\loadOnlineDoctor;
 use App\Http\Controllers\Controller;
 use App\Events\updateQuePatient;
 use Illuminate\Http\Request;
@@ -333,6 +334,38 @@ class DoctorsController extends BaseController
                     return $this->sendResponse(['sessions' => $sessions, 'action' => 'OnlineWaitingScreen'], 'No patient in queue');
                 }
             }
+        }
+    }
+
+    public function change_online_status()
+    {
+        event(new loadOnlineDoctor('run'));
+        $doc = auth()->user();
+        if ($doc->status == 'online') {
+            $inQueue = Session::where(['doctor_id' => $doc->id, 'status' => 'invitation sent'])->first();
+            if (isset($inQueue->id)) {
+                return $this->sendResponse('online', 'doctor is online');
+            } else {
+                User::where('id', $doc['id'])->update(['status' => 'offline']);
+                try {
+                    $data = DB::table('users')->where('id',$doc->id)->select('id','status')->first();
+                    $data->id = (string)$doc->id;
+                    $data->received = "false";
+                } catch (\Throwable $th) {
+                    throw $th;
+                }
+                return $this->sendResponse("offline", "doctor is offline");
+            }
+        } else {
+            User::where('id', $doc['id'])->update(['status' => 'online']);
+            try {
+                $data = DB::table('users')->where('id',$doc->id)->select('id','status')->first();
+                $data->id = (string)$doc->id;
+                $data->received = "false";
+            } catch (\Throwable $th) {
+                throw $th;
+            }
+            return $this->sendResponse("online", "doctor is online");
         }
     }
 
