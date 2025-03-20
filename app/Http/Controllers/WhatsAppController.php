@@ -3,14 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class WhatsAppController extends Controller
 {
-    protected $api_url;
     protected $token;
 
     public function __construct(){
-        $this->api_url = env('WHATSAPP_API_URL');
         $this->token = env('WHATSAPP_API_TOKEN');
     }
 
@@ -72,8 +71,8 @@ class WhatsAppController extends Controller
     }
 
     public function upload_media($media){
-        $filePath = $media->getRealPath();  // Get the real path of the uploaded file
-        $mimeType = $media->getMimeType(); // Get the MIME type of the file
+        $filePath = $media;  // Get the real path of the uploaded file
+        $mimeType = mime_content_type($media); // Get the MIME type of the file
 
         // Ensure the file type is accepted by WhatsApp
         if (!in_array($mimeType, ['application/pdf', 'image/jpeg', 'image/png', 'video/mp4', 'audio/mp4', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'])) {
@@ -105,13 +104,13 @@ class WhatsAppController extends Controller
         if ($response === false) {
             Log::info(curl_error($curl));
         } else {
+            Log::info("Upload Media: Else LOG".$response);
             return json_decode($response);
         }
     }
 
-    public function send_prescription($to, $response){
-        $to = "92".$to;
-        $to = "923190035699";
+    public function send_prescription($data, $response){
+        $to = "92".$data->phone_number;
 
         $curl = curl_init();
 
@@ -126,7 +125,7 @@ class WhatsAppController extends Controller
         CURLOPT_CUSTOMREQUEST => 'POST',
         CURLOPT_POSTFIELDS =>'{
             "messaging_product": "whatsapp",
-            "to": "923190035699",
+            "to": "'.$to.'",
             "type": "template",
             "template": {
                 "name": "patient_prescription",
@@ -151,7 +150,7 @@ class WhatsAppController extends Controller
                         "parameters": [
                             {
                                 "type": "text",
-                                "text": "Muaaz"
+                                "text": "'.$data->name.'"
                             }
                         ]
                     }

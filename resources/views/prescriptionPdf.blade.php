@@ -419,6 +419,22 @@
                 </table>
             </section>
 
+            <section class="patient-details">
+                <hr class="border-red" />
+                <table class="patient">
+                    <thead>
+                        <tr>
+                            <th>Doctor Note</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>{{ $inclinic_data->doctor_note }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
             @php
                 $medicines = [];
                 $labtests = [];

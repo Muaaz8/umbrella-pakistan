@@ -31,6 +31,7 @@ use App\ImagingPrices;
 use App\Mail\patientEvisitInvitationMail;
 use App\Mail\ReferDoctorToDoctorMail;
 use App\Mail\ReferDoctorToPatientMail;
+use App\Jobs\UploadMediaJob;
 use App\Notification;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
@@ -838,7 +839,7 @@ class SessionController extends Controller
 
         InClinics::where('id', $request['session_id'])->update([
             'doctor_id' => Auth::user()->id,
-            'status' => 'ended',
+            // 'status' => 'ended',
             'doctor_note' => $request['doctor_note'],
         ]);
         $inclinic_data = \App\Models\InClinics::with(['user','prescriptions','doctor'])->where('id',  $request['session_id'])->first();
@@ -855,61 +856,61 @@ class SessionController extends Controller
                 }else{
                     $pres->price = $price->sale_price;
                 }
-                Cart::create([
-                    'product_id' => $pres->medicine_id,
-                    'name' => $pres->med_details->name,
-                    'quantity' => $pres->quantity,
-                    'price' => $pres->price,
-                    'update_price' => $pres->price * $pres->quantity,
-                    'product_mode' => $pres->type,
-                    'user_id' => $inclinic_data->user_id,
-                    'doc_id' => 254,
-                    'doc_session_id' => $request['session_id'],
-                    'pres_id' => $pres->id,
-                    'item_type' => 'prescribed',
-                    'status' => 'recommended',
-                    'checkout_status' => 1,
-                    'purchase_status' => 1,
-                    'product_image' => $pres->med_details->featured_image
-                ]);
+                // Cart::create([
+                //     'product_id' => $pres->medicine_id,
+                //     'name' => $pres->med_details->name,
+                //     'quantity' => $pres->quantity,
+                //     'price' => $pres->price,
+                //     'update_price' => $pres->price * $pres->quantity,
+                //     'product_mode' => $pres->type,
+                //     'user_id' => $inclinic_data->user_id,
+                //     'doc_id' => 254,
+                //     'doc_session_id' => $request['session_id'],
+                //     'pres_id' => $pres->id,
+                //     'item_type' => 'prescribed',
+                //     'status' => 'recommended',
+                //     'checkout_status' => 1,
+                //     'purchase_status' => 1,
+                //     'product_image' => $pres->med_details->featured_image
+                // ]);
             }elseif($pres->type == "lab-test"){
                 $pres->lab_details = DB::table('quest_data_test_codes')->where('TEST_CD',$pres->test_id)->first();
-                Cart::create([
-                    'product_id' => $pres->test_id,
-                    'name' =>  $pres->lab_details->TEST_NAME,
-                    'quantity' => $pres->quantity,
-                    'price' =>  $pres->lab_details->SALE_PRICE,
-                    'update_price' =>  $pres->lab_details->SALE_PRICE,
-                    'product_mode' => $pres->type,
-                    'user_id' =>  $inclinic_data->user_id,
-                    'doc_id' => 254,
-                    'doc_session_id' => $request['session_id'],
-                    'pres_id' => $pres->id,
-                    'item_type' => 'prescribed',
-                    'status' => 'recommended',
-                    'checkout_status' => 1,
-                    'purchase_status' => 1,
-                    'product_image' =>  $pres->lab_details->featured_image,
-                ]);
+                // Cart::create([
+                //     'product_id' => $pres->test_id,
+                //     'name' =>  $pres->lab_details->TEST_NAME,
+                //     'quantity' => $pres->quantity,
+                //     'price' =>  $pres->lab_details->SALE_PRICE,
+                //     'update_price' =>  $pres->lab_details->SALE_PRICE,
+                //     'product_mode' => $pres->type,
+                //     'user_id' =>  $inclinic_data->user_id,
+                //     'doc_id' => 254,
+                //     'doc_session_id' => $request['session_id'],
+                //     'pres_id' => $pres->id,
+                //     'item_type' => 'prescribed',
+                //     'status' => 'recommended',
+                //     'checkout_status' => 1,
+                //     'purchase_status' => 1,
+                //     'product_image' =>  $pres->lab_details->featured_image,
+                // ]);
             }elseif($pres->type == "imaging"){
                 $pres->imaging_details = DB::table('quest_data_test_codes')->where('TEST_CD',$pres->imaging_id)->first();
-                Cart::create([
-                    'product_id' => $pres->imaging_id,
-                    'name' =>  $pres->imaging_details->TEST_NAME,
-                    'quantity' => $pres->quantity,
-                    'price' =>  $pres->imaging_details->SALE_PRICE,
-                    'update_price' =>  $pres->imaging_details->SALE_PRICE,
-                    'product_mode' => $pres->type,
-                    'user_id' =>  $inclinic_data->user_id,
-                    'doc_id' => 254,
-                    'doc_session_id' => $request['session_id'],
-                    'pres_id' => $pres->id,
-                    'item_type' => 'prescribed',
-                    'status' => 'recommended',
-                    'checkout_status' => 1,
-                    'purchase_status' => 1,
-                    'product_image' =>  $pres->imaging_details->featured_image,
-                ]);
+                // Cart::create([
+                //     'product_id' => $pres->imaging_id,
+                //     'name' =>  $pres->imaging_details->TEST_NAME,
+                //     'quantity' => $pres->quantity,
+                //     'price' =>  $pres->imaging_details->SALE_PRICE,
+                //     'update_price' =>  $pres->imaging_details->SALE_PRICE,
+                //     'product_mode' => $pres->type,
+                //     'user_id' =>  $inclinic_data->user_id,
+                //     'doc_id' => 254,
+                //     'doc_session_id' => $request['session_id'],
+                //     'pres_id' => $pres->id,
+                //     'item_type' => 'prescribed',
+                //     'status' => 'recommended',
+                //     'checkout_status' => 1,
+                //     'purchase_status' => 1,
+                //     'product_image' =>  $pres->imaging_details->featured_image,
+                // ]);
             }
         }
 
@@ -917,9 +918,20 @@ class SessionController extends Controller
 
         if($user_data->email != null){
             $pdf = PDF::loadView('prescriptionPdf',compact('inclinic_data'));
-            Mail::send('emails.prescriptionEmail', ['user_data'=>$user_data], function ($message) use ($inclinic_data,$pdf) {
-                $message->to($inclinic_data->user->email)->subject('patient prescription')->attachData($pdf->output(), "prescription.pdf");
-            });
+            // Mail::send('emails.prescriptionEmail', ['user_data'=>$user_data], function ($message) use ($inclinic_data,$pdf) {
+            //     $message->to($inclinic_data->user->email)->subject('patient prescription')->attachData($pdf->output(), "prescription.pdf");
+            // });
+            $pdfData = $pdf->output();
+
+            $tempFile = tmpfile();
+            fwrite($tempFile, $pdfData);
+            $metaData = stream_get_meta_data($tempFile);
+            $filePath = $metaData['uri'];
+
+            $whatsapp = new \App\Http\Controllers\WhatsAppController();
+            UploadMediaJob::dispatch($filePath,$inclinic_data->user);
+            // $res = $whatsapp->upload_media($filePath);
+            // $res1 = $whatsapp->send_prescription($inclinic_data->user,$res);
         }
         return "done";
     }

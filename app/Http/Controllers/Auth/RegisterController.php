@@ -216,28 +216,7 @@ class RegisterController extends Controller
                         'user_id' => $user->id,
                         'otp' => $otp,
                     ]);
-
-                    $data_email["email"] = $user->email;
-                    $data_email["title"] = "Terms And Conditions";
-                    $time = DB::table('documents')->where('name','term of use')->select('updated_at')->first();
-                    $data_email["revised"] = date('m-d-Y',strtotime($time->updated_at));
-                    $pdf = app()->make(PDF::class);
-                    $pdf = $pdf->loadView('terms.index', $data_email);
-                    // \Storage::disk('s3')->put('term_and_conditions/' . $user->name . '_term_and_conditions.pdf', $pdf->output());
-                    // DB::table('user_term_and_condition_status')->insert([
-                    //     'term_and_condition_file' => 'term_and_conditions/' . $user->name . '_term_and_conditions.pdf',
-                    //     'user_id' => $user->id,
-                    //     'status' => 1,
-                    // ]);
-                    try {
-                        Mail::send('emails.termAndConditionDoctorEmail', $data_email, function ($message) use ($data_email, $pdf) {
-                            $message->to($data_email["email"])->subject($data_email["title"])->attachData($pdf->output(), "TermsAndConditions.pdf");
-                        });
-                    } catch (Exception $e) {
-                        Log::info($e);
-                    }
                     return $user;
-                // }
             }
             //doctor registration
             else {
