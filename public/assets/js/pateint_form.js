@@ -259,7 +259,7 @@ $(document).ready(function(){
 
         if(radio1==true)
         {
-            var nameRegex = /^[a-zA-Z]+$/g;
+            var nameRegex = /^[a-zA-Z]+ ?$/;
             var name=$('#name').val();
             if(!nameRegex.test(name))
             {
@@ -271,7 +271,7 @@ $(document).ready(function(){
                 $('#name').removeClass('border-danger');
             }
 
-            var lnameRegex = /^[a-zA-Z]+$/g;
+            var lnameRegex = /^[a-zA-Z]+ ?$/;
             var last_name=$('#last_name').val();
             if(!lnameRegex.test(last_name))
             {
@@ -464,7 +464,7 @@ $(document).ready(function(){
         }
         else
         {
-            var nameRegex = /^[a-zA-Z]+$/g;
+            var nameRegex = /^[a-zA-Z]+ ?$/;
             var rep_name=$('#rep_name').val();
             if(!nameRegex.test(rep_name))
             {
@@ -488,7 +488,7 @@ $(document).ready(function(){
                 $('#rep_fullname').removeClass('border-danger');
             }
 
-            var lnameRegex = /^[a-zA-Z]+$/g;
+            var lnameRegex = /^[a-zA-Z]+ ?$/;
             var last_name=$('#rep_last_name').val();
             if(!lnameRegex.test(last_name))
             {
@@ -1066,7 +1066,7 @@ $(document).ready(function(){
                         }
                     }
 
-                    var nameRegex = /^[a-zA-Z]+$/g;
+                    var nameRegex = /^[a-zA-Z]+ ?$/;
                     var name=$('#name').val();
                     if(!nameRegex.test(name))
                     {
@@ -1078,7 +1078,7 @@ $(document).ready(function(){
                         $('#name').removeClass('border-danger');
                     }
 
-                    var lnameRegex = /^[a-zA-Z]+$/g;
+                    var lnameRegex = /^[a-zA-Z]+ ?$/;
                     var last_name=$('#last_name').val();
                     if(!lnameRegex.test(last_name))
                     {
@@ -1185,22 +1185,22 @@ $(document).ready(function(){
                         $('.city').removeClass('border-danger');
                     }
 
-                    var address=$('#address').val();
-                    if(address.length=='')
-                    {
-                        $('#address_error').text('Please insert your address');
-                        $('#address').addClass('border-danger');
-                        return false;
-                    }
-                    else if (address.length>300){
-                        $('#address_error').text('Character limit is 300');
-                        $('#address').addClass('border-danger');
-                        return false;
-                    }
-                    else{
-                        $('#address_error').text('');
-                        $('#address').removeClass('border-danger');
-                    }
+                    // var address=$('#address').val();
+                    // if(address.length=='')
+                    // {
+                    //     $('#address_error').text('Please insert your address');
+                    //     $('#address').addClass('border-danger');
+                    //     return false;
+                    // }
+                    // else if (address.length>300){
+                    //     $('#address_error').text('Character limit is 300');
+                    //     $('#address').addClass('border-danger');
+                    //     return false;
+                    // }
+                    // else{
+                    //     $('#address_error').text('');
+                    //     $('#address').removeClass('border-danger');
+                    // }
 
                     var email=$('#email').val();
                     // var checker=checkEmail(email);

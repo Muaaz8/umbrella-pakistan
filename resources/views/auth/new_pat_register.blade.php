@@ -251,13 +251,13 @@ if (input.attr("type") == "password") {
 
                                     </div>
                                 </div>
-                                <div class="col-md-12">
+                                {{--<div class="col-md-12">
                                     <div class="mb-1">
                                         <label for="Address" class="form-label">Address: *</label>
                                         <input type="text" class="form-control" id="address" name="address" placeholder="Address">
                                         <small class="text-danger" id="address_error"></small>
                                     </div>
-                                </div>
+                                </div>--}}
                             </div>
                         </div>
                         <h5 class="patient_det_head mb-2 mt-2">Account Information:</h5>

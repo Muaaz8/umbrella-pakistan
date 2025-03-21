@@ -188,7 +188,7 @@ class RegisterController extends Controller
                         'password' => Hash::make($data['password']),
                         'date_of_birth' => $newd_o_b,
                         'phone_number' => $data['phone_number'],
-                        'office_address' => $data['address'],
+                        'office_address' => "",
                         'zip_code' => '',
                         'gender' => $data['gender'],
                         'terms_and_cond' => $data['terms_and_cond'],
