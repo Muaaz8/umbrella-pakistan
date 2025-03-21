@@ -839,7 +839,7 @@ class SessionController extends Controller
 
         InClinics::where('id', $request['session_id'])->update([
             'doctor_id' => Auth::user()->id,
-            // 'status' => 'ended',
+            'status' => 'ended',
             'doctor_note' => $request['doctor_note'],
         ]);
         $inclinic_data = \App\Models\InClinics::with(['user','prescriptions','doctor'])->where('id',  $request['session_id'])->first();
@@ -918,9 +918,9 @@ class SessionController extends Controller
 
         if($user_data->email != null){
             $pdf = PDF::loadView('prescriptionPdf',compact('inclinic_data'));
-            // Mail::send('emails.prescriptionEmail', ['user_data'=>$user_data], function ($message) use ($inclinic_data,$pdf) {
-            //     $message->to($inclinic_data->user->email)->subject('patient prescription')->attachData($pdf->output(), "prescription.pdf");
-            // });
+            Mail::send('emails.prescriptionEmail', ['user_data'=>$user_data], function ($message) use ($inclinic_data,$pdf) {
+                $message->to($inclinic_data->user->email)->subject('patient prescription')->attachData($pdf->output(), "prescription.pdf");
+            });
             $pdfData = $pdf->output();
 
             $tempFile = tmpfile();
@@ -928,10 +928,7 @@ class SessionController extends Controller
             $metaData = stream_get_meta_data($tempFile);
             $filePath = $metaData['uri'];
 
-            $whatsapp = new \App\Http\Controllers\WhatsAppController();
             UploadMediaJob::dispatch($filePath,$inclinic_data->user);
-            // $res = $whatsapp->upload_media($filePath);
-            // $res1 = $whatsapp->send_prescription($inclinic_data->user,$res);
         }
         return "done";
     }

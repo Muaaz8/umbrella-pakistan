@@ -205,6 +205,10 @@ class RegisterController extends Controller
                     ];
                     try {
                         Mail::to($user->email)->send(new UserVerificationEmail($data1));
+                    } catch (Exception $e) {
+                        Log::error($e);
+                    }
+                    try {
                         $whatsapp = new \App\Http\Controllers\WhatsAppController();
                         $res = $whatsapp->send_otp_message($data['phone_number'],$otp);
                         Log::error($res);
@@ -318,6 +322,14 @@ class RegisterController extends Controller
                 } catch (Exception $e) {
                     Log::error($e);
                 }
+                try {
+                    $whatsapp = new \App\Http\Controllers\WhatsAppController();
+                    $res = $whatsapp->send_otp_message($data['phone_number'],$otp);
+                    Log::error($res);
+                } catch (Exception $e) {
+                    Log::error($e);
+                }
+
                 DB::table('users_email_verification')->insert([
                     'verification_hash_code' => $hash_to_verify,
                     'user_id' => $user->id,

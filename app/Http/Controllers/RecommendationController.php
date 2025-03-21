@@ -26,6 +26,7 @@ use App\Prescription;
 use App\QuestDataAOE;
 use App\QuestDataTestCode;
 use App\Repositories\AllProductsRepository;
+use App\Jobs\UploadMediaJob;
 use App\Session;
 use App\State;
 use App\User;
@@ -263,6 +264,16 @@ class RecommendationController extends Controller
             Mail::send('emails.prescriptionEmail', ['user_data'=>$patient_user], function ($message) use ($patient_user,$dataMarge,$pdf) {
                 $message->to($patient_user->email)->subject('patient prescription')->attachData($pdf->output(), "prescription.pdf");
             });
+
+            $pdfData = $pdf->output();
+
+            $tempFile = tmpfile();
+            fwrite($tempFile, $pdfData);
+            $metaData = stream_get_meta_data($tempFile);
+            $filePath = $metaData['uri'];
+
+            UploadMediaJob::dispatch($filePath,$patient_user);
+
             $text = "Session Complete Please Check Recommendations";
             $notification_id = Notification::create([
                 'user_id' => $patient_user->id,
