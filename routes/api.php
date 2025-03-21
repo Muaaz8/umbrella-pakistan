@@ -41,16 +41,22 @@ Route::post('email_varification','Api\RegistrationController@email_varification'
 
 // products api
 
+Route::get('products/categories','Api\ProductsController@getProductsCategories');
+Route::get('categories','Api\ProductsController@getProductsCategories');
 Route::get('products/{name}', 'Api\ProductsController@index');
-Route::get('product/{name}/{id}', 'Api\ProductsController@singleProduct');  
+Route::get('product/{name}/{id}', 'Api\ProductsController@singleProduct'); 
+Route::post('pharmacy', 'Api\ProductsController@getPharmacyByCategory'); 
+Route::post('labtest', 'Api\ProductsController@getLabtestByCategory'); 
+Route::post('imaging', 'Api\ProductsController@getImagingByCategory'); 
 Route::get('categories/{name}','Api\ProductsController@getCategories');
 Route::get('category/{name}/{id}','Api\ProductsController@getProductsByCategory');
+Route::get('doctor/{id}','Api\DoctorsController@singleDoctor');
 Route::get('doctors','Api\DoctorsController@index');
 Route::get('online/doctors','Api\DoctorsController@getOnlineDoctors');
-Route::get('doctor/{id}','Api\DoctorsController@singleDoctor');
 Route::get('specializations','Api\DoctorsController@getSpeciallization');
 Route::get('specialization/doctors/{id}','Api\DoctorsController@getDoctorsBySpeciallization');
 Route::get('specialization/online/doctors/{id}','Api\DoctorsController@getOnlineDoctorsBySpeciallization');
+
 Route::get('test' , function(){event(new AppEvent());});
 
 //================================================//
@@ -59,6 +65,11 @@ Route::get('test' , function(){event(new AppEvent());});
 Route::middleware('auth:sanctum','doc_restrict','patToVideoScreen')->group( function () {
 });
 Route::middleware(['auth:sanctum','doc_restrict'])->group(function(){
+    Route::post('prescription/addLab','Api\PrescriptionController@addLab');
+    Route::post('prescription/addImaging','Api\PrescriptionController@addImaging');
+    Route::post('prescription/removeItem','Api\PrescriptionController@removeItem');
+    Route::post('prescription/addMedicine','Api\PrescriptionController@addMedicine');
+    Route::post('prescription/medicine/addDose','Api\PrescriptionController@addMedicineDose');
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
