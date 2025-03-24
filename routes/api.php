@@ -62,11 +62,6 @@ Route::get('test' , function(){event(new AppEvent());});
 Route::middleware('auth:sanctum','doc_restrict','patToVideoScreen')->group( function () {
 });
 Route::middleware(['auth:sanctum','doc_restrict'])->group(function(){
-    Route::post('prescription/addLab','Api\PrescriptionController@addLab');
-    Route::post('prescription/addImaging','Api\PrescriptionController@addImaging');
-    Route::post('prescription/removeItem','Api\PrescriptionController@removeItem');
-    Route::post('prescription/addMedicine','Api\PrescriptionController@addMedicine');
-    Route::post('prescription/medicine/addDose','Api\PrescriptionController@addMedicineDose');
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
@@ -85,7 +80,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
     //================================================//
 Route::middleware(['auth:sanctum','pat_restrict','apiDoctorIsActive','docToVideoScreen'])->group(function (){
 });
-Route::middleware(['auth:sanctum','pat_restrict','apiDoctorIsActive',])->group(function(){
+Route::middleware(['auth:sanctum','pat_restrict'])->group(function(){
+    Route::post('prescription/addLab','Api\PrescriptionController@addLab');
+    Route::post('prescription/addImaging','Api\PrescriptionController@addImaging');
+    Route::post('prescription/removeItem','Api\PrescriptionController@removeItem');
+    Route::post('prescription/addMedicine','Api\PrescriptionController@addMedicine');
+    Route::post('prescription/medicine/addDose','Api\PrescriptionController@addMedicineDose');
 });
    //=================================================//
             //Doctor PROFILE END HERE
