@@ -151,14 +151,15 @@ class ProductsController extends Controller
                 return response()->json(['categories' => $categories]);
             }
             if ($name == 'imaging') {
-                $categories = DB::table('product_categories')->where('category_type', 'imaging')->get();
+                $categories = DB::table('product_categories')->where('category_type', 'imaging')
+                ->select('id', 'name as title', 'slug', 'category_type')->get();
                 return response()->json(['categories' => $categories]);
             }
             if ($name == 'lab-test') {
                 $categories = QuestDataTestCode::where('mode', 'lab-test')
                 ->where('TEST_NAME','!=', null)
                 ->where('PRICE', '!=', null)
-                ->select('id','TEST_NAME','PRICE', 'SALE_PRICE', 'PARENT_CATEGORY', 'mode')
+                ->select('id','TEST_NAME as title','PRICE', 'SALE_PRICE', 'PARENT_CATEGORY', 'mode')
                 ->get();
                 return response()->json(['products' => $categories]);
             }
