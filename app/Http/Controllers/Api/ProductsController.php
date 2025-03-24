@@ -137,41 +137,30 @@ class ProductsController extends Controller
         return response()->json(['message' => 'Invalid category name'], 400);
     }
     
-
     public function getCategories($name)
     {
         if (empty($name)) {
             return response()->json(['message' => 'category name required'], 404);
         } else {
             if ($name == 'pharmacy') {
-                $categories = DB::table('product_categories')
-                    ->select(
-                        'product_categories.id',
-                        'product_categories.name',
-                    )
-                    ->where('category_type', 'medicine')
-                    ->paginate(20);
+                $categories = DB::table('products_sub_categories')->where('parent_id', '38')
+                ->join('tbl_products','products_sub_categories.id','tbl_products.sub_category')
+                ->select('products_sub_categories.*')
+                ->groupBy('tbl_products.sub_category')
+                ->get();
                 return response()->json(['categories' => $categories]);
             }
             if ($name == 'imaging') {
-                $categories = DB::table('product_categories')
-                    ->select(
-                        'product_categories.id',
-                        'product_categories.name',
-                    )
-                    ->where('category_type', 'imaging')
-                    ->paginate(20);
+                $categories = DB::table('product_categories')->where('category_type', 'imaging')->get();
                 return response()->json(['categories' => $categories]);
             }
             if ($name == 'lab-test') {
-                $categories = DB::table('product_categories')
-                    ->select(
-                        'product_categories.id',
-                        'product_categories.name',
-                    )
-                    ->where('category_type', 'lab-test')
-                    ->paginate(20);
-                return response()->json(['categories' => $categories]);
+                $categories = QuestDataTestCode::where('mode', 'lab-test')
+                ->where('TEST_NAME','!=', null)
+                ->where('PRICE', '!=', null)
+                ->select('id','TEST_NAME','PRICE', 'SALE_PRICE', 'PARENT_CATEGORY', 'mode')
+                ->get();
+                return response()->json(['products' => $categories]);
             }
         }
     }
@@ -242,25 +231,11 @@ class ProductsController extends Controller
         }
     }
 
-    public function getProductsCategories(){
-        $med = DB::table('products_sub_categories')->where('parent_id', '38')
-            ->join('tbl_products','products_sub_categories.id','tbl_products.sub_category')
-            ->select('products_sub_categories.*')
-            ->groupBy('tbl_products.sub_category')
-            ->get();
-        $img = DB::table('product_categories')->where('category_type', 'imaging')->get();   
-        $labs = QuestDataTestCode::where('mode', 'lab-test')
-        ->where('TEST_NAME','!=', null)
-        ->where('PRICE', '!=', null)
-        ->get();     
-        return response()->json(['pharmacy-categories'=> $med,'imaging-categories'=> $img, 'labtest-products'=> $labs]);
-    }
-
     public function getPharmacyByCategory(Request $request){
         if($request->name=='')
         {
             $products = DB::table('tbl_products')
-            ->where('sub_category', $request->med_id)
+            ->where('sub_category', $request->cat_id)
             ->where('mode', 'medicine')
             ->where('product_status', 1)
             ->where('is_approved', 1)
@@ -297,26 +272,5 @@ class ProductsController extends Controller
             return response()->json(['products' => $products]);
         }
     }
-
-    public function getLabtestByCategory(Request $request){
-        if($request->name== '')
-        {
-            $products = DB::table('quest_data_test_codes')
-            ->where('PARENT_CATEGORY', '38')
-            ->where('mode', 'lab-test')
-            ->get();
-            return response()->json(['products' => $products]);
-        }
-        else
-        {
-            $products = DB::table('quest_data_test_codes')
-            ->where('TEST_NAME','LIKE', "%{$request->name}%")
-            ->where('mode', 'lab-test')
-            ->get();
-            return response()->json(['products' => $products]);
-        }
-    }
-
-
 
 }

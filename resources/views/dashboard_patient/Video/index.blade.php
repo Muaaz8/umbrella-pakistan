@@ -374,6 +374,10 @@
         // Add an event listener to play remote tracks when remote user publishes.
         client.on("user-published", handleUserPublished);
         client.on("user-unpublished", handleUserUnpublished);
+        client.on("user-left", handleUserUnpublished);
+        client.on("user-joined", ()=>{
+            console.log('user-joined');
+        });
         // Join a channel and create local tracks. Best practice is to use Promise.all and run them concurrently.
         [uid, localTracks.audioTrack, localTracks.videoTrack] =
             await Promise.all([
@@ -388,6 +392,8 @@
         // Publish the local video and audio tracks to the channel.
         await client.publish(Object.values(localTracks));
         //    console.log("publish success");
+        console.log("client", client);
+        
     };
 
     var appid = "{{ env('AGORA_APP_ID') }}";

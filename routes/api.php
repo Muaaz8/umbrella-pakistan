@@ -41,12 +41,9 @@ Route::post('email_varification','Api\RegistrationController@email_varification'
 
 // products api
 
-Route::get('products/categories','Api\ProductsController@getProductsCategories');
-Route::get('categories','Api\ProductsController@getProductsCategories');
 Route::get('products/{name}', 'Api\ProductsController@index');
 Route::get('product/{name}/{id}', 'Api\ProductsController@singleProduct'); 
 Route::post('pharmacy', 'Api\ProductsController@getPharmacyByCategory'); 
-Route::post('labtest', 'Api\ProductsController@getLabtestByCategory'); 
 Route::post('imaging', 'Api\ProductsController@getImagingByCategory'); 
 Route::get('categories/{name}','Api\ProductsController@getCategories');
 Route::get('category/{name}/{id}','Api\ProductsController@getProductsByCategory');
