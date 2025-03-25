@@ -53,11 +53,12 @@ Route::get('online/doctors','Api\DoctorsController@getOnlineDoctors');
 Route::get('specializations','Api\DoctorsController@getSpeciallization');
 Route::get('specialization/doctors/{id}','Api\DoctorsController@getDoctorsBySpeciallization');
 Route::get('specialization/online/doctors/{id}','Api\DoctorsController@getOnlineDoctorsBySpeciallization');
+Route::post('medicine/detail','Api\MedicineController@get_medicine_detail');
 
 Route::get('test' , function(){event(new AppEvent());});
 
 //================================================//
-        //PATIENT PROFILE
+//PATIENT PROFILE
 //================================================//
 Route::middleware('auth:sanctum','doc_restrict','patToVideoScreen')->group( function () {
 });
