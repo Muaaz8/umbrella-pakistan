@@ -240,6 +240,7 @@ class ProductsController extends Controller
             ->where('mode', 'medicine')
             ->where('product_status', 1)
             ->where('is_approved', 1)
+            ->select('id', 'name as title', 'sub_category', 'parent_category', 'mode', 'medicine_type', 'is_otc', 'is_single', 'short_description')
             ->get();
             return response()->json(['products' => $products]);
         }
@@ -261,6 +262,7 @@ class ProductsController extends Controller
             $products = DB::table('quest_data_test_codes')
             ->where('PARENT_CATEGORY', $request->img_id)
             ->where('mode', 'imaging')
+            ->select('TEST_CD','id','TEST_NAME as title', 'SALE_PRICE' , 'mode', 'PARENT_CATEGORY')
             ->get();
             return response()->json(['products' => $products]);
         }
@@ -269,6 +271,7 @@ class ProductsController extends Controller
             $products = DB::table('quest_data_test_codes')
             ->where('TEST_NAME','LIKE', "%{$request->name}%")
             ->where('mode', 'imaging')
+            ->select('TEST_CD','id','TEST_NAME as title', 'SALE_PRICE' , 'mode', 'PARENT_CATEGORY')
             ->get();
             return response()->json(['products' => $products]);
         }

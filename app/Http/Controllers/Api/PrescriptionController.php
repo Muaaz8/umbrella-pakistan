@@ -35,7 +35,7 @@ class PrescriptionController extends Controller
     public function addLab(Request $request)
     {
         $pres = DB::table('prescriptions')->where('session_id',$request['session_id'])->where('test_id',$request['id'])->get();
-        $test = DB::table('quest_data_test_codes')->where('TEST_CD',$request['id'])->first();
+        $test = DB::table('quest_data_test_codes')->where('id',$request['id'])->first();
         if(count($pres)==0){
             Prescription::insert([
                 'session_id' => $request['session_id'],
@@ -56,7 +56,7 @@ class PrescriptionController extends Controller
     public function addImaging(Request $request)
     {
         $pres = DB::table('prescriptions')->where('session_id',$request['session_id'])->where('imaging_id',$request['id'])->get();
-        $test = DB::table('quest_data_test_codes')->where('TEST_CD',$request['id'])->first();
+        $test = DB::table('quest_data_test_codes')->where('id',$request['id'])->first();
         if(count($pres)==0){
             Prescription::insert([
                 'session_id' => $request['session_id'],
