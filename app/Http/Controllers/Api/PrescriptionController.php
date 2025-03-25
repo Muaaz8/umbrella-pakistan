@@ -77,11 +77,11 @@ class PrescriptionController extends Controller
     public function removeItem(Request $request)
     {
         if ($request['type'] == "lab-test") {
-            Prescription::where('session_id', '0')->where('parent_id', $request['session_id'])->where('test_id', $request['pro_id'])->delete();
+            Prescription::where('session_id', $request['session_id'])->where('test_id', $request['pro_id'])->delete();
         } else if ($request['type'] == "imaging") {
-            Prescription::where('session_id', '0')->where('parent_id', $request['session_id'])->where('imaging_id', $request['pro_id'])->delete();
+            Prescription::where('session_id', $request['session_id'])->where('imaging_id', $request['pro_id'])->delete();
         } else if ($request['type'] == "medicine") {
-            Prescription::where('session_id', '0')->where('parent_id', $request['session_id'])->where('medicine_id', $request['pro_id'])->delete();
+            Prescription::where('session_id', $request['session_id'])->where('medicine_id', $request['pro_id'])->delete();
         }
         event(new LoadPrescribeItemList($request->session_id, $request->user_id));
         return response()->json(['status' => 'success']);
