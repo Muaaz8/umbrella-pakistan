@@ -75,6 +75,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('video/doctor/end/{id}','Api\VideoController@doctor_end_session');
     Route::post('recommendation','Api\RecommendationController@store');
     Route::get('change/status','Api\DoctorsController@change_online_status');
+    Route::get('prescription/{id}','Api\PrescriptionController@getSessionPrescription');
 });
     //================================================//
             //PATIENT PROFILE END HERE
