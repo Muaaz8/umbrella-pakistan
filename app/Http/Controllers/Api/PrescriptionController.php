@@ -19,7 +19,7 @@ class PrescriptionController extends Controller
             $pres = DB::table('prescriptions')->where('session_id',$request['session_id'])->where('medicine_id',$id)->get();
             if(count($pres)==0){
                 Prescription::insert([
-                    'session_id' => "inclinic",
+                    'session_id' => $request['session_id'],
                     'medicine_id' => $id,
                     'type' => 'medicine',
                     'title' => 'pending',
@@ -38,7 +38,7 @@ class PrescriptionController extends Controller
         $test = DB::table('quest_data_test_codes')->where('TEST_CD',$request['id'])->first();
         if(count($pres)==0){
             Prescription::insert([
-                'session_id' => "0",
+                'session_id' => $request['session_id'],
                 'test_id' => $request['id'],
                 'type' => $test->mode,
                 'title' => 'pending',
@@ -59,7 +59,7 @@ class PrescriptionController extends Controller
         $test = DB::table('quest_data_test_codes')->where('TEST_CD',$request['id'])->first();
         if(count($pres)==0){
             Prescription::insert([
-                'session_id' => '0',
+                'session_id' => $request['session_id'],
                 'imaging_id' => $request['id'],
                 'type' => 'imaging',
                 'quantity' => 1,
@@ -103,7 +103,7 @@ class PrescriptionController extends Controller
             $totalprice = $price->sale_price;
             $quantity = 1;
         }
-        $res = Prescription::where('session_id', '0')->where('medicine_id', $request['pro_id'])->where('parent_id', $request['session_id'])->update([
+        $res = Prescription::where('session_id', $request['session_id'])->where('medicine_id', $request['pro_id'])->update([
             'med_days' => $request['days'],
             'med_unit' => $request['units'],
             'med_time' => $request['med_time'],
