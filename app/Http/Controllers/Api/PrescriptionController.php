@@ -120,10 +120,7 @@ class PrescriptionController extends Controller
     }
 
     public function getSessionPrescription($id){
-        $pres = Prescription::where('session_id', $id)
-        ->join('tbl_products', 'prescriptions.medicine_id', '=', 'tbl_products.id')
-        ->select('prescriptions.*', 'tbl_products.name as title')
-        ->get();
+        $pres = Prescription::where('session_id', $id)->get();
         return response()->json($pres);
     }
 
