@@ -73,16 +73,20 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('sessions/queue','Api\DoctorsController@patients_in_queue');
     Route::get('video/patient_join/{id}','Api\VideoController@waitingPatientJoinCall');
     Route::get('video/doctor/end/{id}','Api\VideoController@doctor_end_session');
-    Route::post('recommendation','Api\RecommendationController@store');
     Route::get('change/status','Api\DoctorsController@change_online_status');
     Route::get('prescription/{id}','Api\PrescriptionController@getSessionPrescription');
 });
-    //================================================//
-            //PATIENT PROFILE END HERE
-    //================================================//
+//================================================//
+//PATIENT PROFILE END HERE
+//================================================//
 Route::middleware(['auth:sanctum','pat_restrict','apiDoctorIsActive','docToVideoScreen'])->group(function (){
 });
+
+
+
+
 Route::middleware(['auth:sanctum','pat_restrict'])->group(function(){
+    Route::post('recommendation','Api\RecommendationController@store');
     Route::post('prescription/medicine/addDose','Api\PrescriptionController@addMedicineDose');
     Route::post('prescription/addLab','Api\PrescriptionController@addLab');
     Route::post('prescription/addImaging','Api\PrescriptionController@addImaging');

@@ -8,6 +8,7 @@ use App\Cart;
 use App\Events\RealTimeMessage;
 use App\Events\redirectToCart;
 use App\Http\Controllers\Controller;
+use App\Jobs\UploadMediaJob;
 use App\Mail\ReferDoctorToDoctorMail;
 use App\Mail\ReferDoctorToPatientMail;
 use App\Prescription;
@@ -147,6 +148,7 @@ class RecommendationController extends BaseController
             Session::where('id', $session_id)->update(['cart_flag' => '1']);
         }
 
+        // try {
             array_push($dataMarge, array('patient' => $patient_user));
             array_push($dataMarge, array('doctor' => $doctor_user));
             array_push($dataMarge, array('rec_test' => $preLab));
@@ -155,9 +157,23 @@ class RecommendationController extends BaseController
             array_push($dataMarge, array('pat_email' => ucwords($patient_user->email)));
             array_push($dataMarge, array('session' => $session));
             $pdf = PDF::loadView('onlineprescriptionPdf',compact('dataMarge'));
-            Mail::send('emails.prescriptionEmail', ['user_data'=>$patient_user], function ($message) use ($patient_user,$dataMarge,$pdf) {
-                $message->to($patient_user->email)->subject('patient prescription')->attachData($pdf->output(), "prescription.pdf");
-            });
+            try{
+                Mail::send('emails.prescriptionEmail', ['user_data'=>$patient_user], function ($message) use ($patient_user,$dataMarge,$pdf) {
+                    $message->to($patient_user->email)->subject('patient prescription')->attachData($pdf->output(), "prescription.pdf");
+                });
+            }catch(\Exception $e){
+
+            }
+
+            $pdfData = $pdf->output();
+
+            $tempFile = tmpfile();
+            fwrite($tempFile, $pdfData);
+            $metaData = stream_get_meta_data($tempFile);
+            $filePath = $metaData['uri'];
+
+            UploadMediaJob::dispatch($filePath,$patient_user);
+
             $text = "Session Complete Please Check Recommendations";
             $notification_id = Notification::create([
                 'user_id' => $patient_user->id,
