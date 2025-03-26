@@ -89,7 +89,7 @@ class PrescriptionController extends Controller
 
     public function addMedicineDose(Request $request)
     {
-        $product = AllProducts::find($request['pro_id']);
+        $product = DB::table('tbl_products')->where('id', $request['pro_id'])->first();
         $med_unit = DB::table('medicine_units')->where('unit',$request['units'])->first();
         $quantity = 0;
         $price = DB::table('medicine_pricings')
@@ -103,7 +103,7 @@ class PrescriptionController extends Controller
             $totalprice = $price->sale_price;
             $quantity = 1;
         }
-        $res = Prescription::where('session_id', $request['session_id'])->where('medicine_id', $request['pro_id'])->update([
+        $res = Prescription::where('session_id', $request['session_id'])->where('medicine_id', $request['pro_id'],$request['instructions'])->update([
             'med_days' => $request['days'],
             'med_unit' => $request['units'],
             'med_time' => $request['med_time'],
@@ -114,6 +114,8 @@ class PrescriptionController extends Controller
         ]);
         if ($res) {
             return response()->json(['status' => 'success']);
+        }else{
+            return response()->json(['status'=> 'error']);
         }
     }
 
