@@ -159,7 +159,7 @@ class ProductsController extends Controller
                 $categories = QuestDataTestCode::where('mode', 'lab-test')
                 ->where('TEST_NAME','!=', null)
                 ->where('PRICE', '!=', null)
-                ->select('id','TEST_NAME as title','PRICE', 'SALE_PRICE', 'PARENT_CATEGORY', 'mode')
+                ->select('id','TEST_NAME as title','PRICE', 'SALE_PRICE', 'PARENT_CATEGORY', 'mode', 'TEST_CD')
                 ->get();
                 return response()->json(['products' => $categories]);
             }
@@ -202,6 +202,7 @@ class ProductsController extends Controller
                 ->select(
                     'quest_data_test_codes.id',
                     'quest_data_test_codes.TEST_NAME',
+                    'quest_data_test_codes.TEST_CD',
                     'quest_data_test_codes.DESCRIPTION',
                     'quest_data_test_codes.actual_price',
                     'quest_data_test_codes.SALE_PRICE',
@@ -218,6 +219,7 @@ class ProductsController extends Controller
                 ->select(
                     'quest_data_test_codes.id',
                     'quest_data_test_codes.TEST_NAME',
+                    'quest_data_test_codes.TEST_CD',
                     'quest_data_test_codes.DESCRIPTION',
                     'quest_data_test_codes.actual_price',
                     'quest_data_test_codes.SALE_PRICE',
