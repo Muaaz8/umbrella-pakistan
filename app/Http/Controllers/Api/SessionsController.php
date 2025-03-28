@@ -228,6 +228,7 @@ class SessionsController extends BaseController
         $userTypeCheck = User::where('id', $user_id)->first();
         $patUser = User::where('id', $getSession->patient_id)->first();
         $docUser = User::where('id', $getSession->doctor_id)->first();
+        
         if ($patUser->med_record_file != null) {
             $patUser->med_record_file = \App\Helper::get_files_url($patUser->med_record_file);
         }
