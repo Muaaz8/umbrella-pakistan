@@ -374,7 +374,7 @@ class RegistrationController extends BaseController
     {
         $login = $request->input('email');
         $password = $request->input('password');
-        $timeZone = $request->input('timezone');
+        $timeZone = 'Asia/Karachi';
     
         if (!$login || !$password) {
             return $this->sendError([], "Invalid email or password", Response::HTTP_UNAUTHORIZED);
