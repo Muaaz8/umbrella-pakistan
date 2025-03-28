@@ -1100,7 +1100,7 @@
             #disclaimer-content>div>p {
                 padding: 0 1.5rem;
             }
-            
+
             .footer-content-new i {
                 margin-left: 0 !important;
             }
@@ -2428,8 +2428,8 @@ $('#new-search2').on('blur', function() {
                                                                 <label for="exampleInputEmail1"
                                                                     class="form-label">Phone*</label>
                                                                 <input required name="shipping_customer_phone"
-                                                                    type="text" class="form-control mt-1"
-                                                                    placeholder="Phone" />
+                                                                    type="tel" class="form-control mt-1"
+                                                                    placeholder="Phone" maxlength="11" />
                                                             </div>
                                                             <div class="col-md-6 mb-3">
                                                                 <label for="ship_city"

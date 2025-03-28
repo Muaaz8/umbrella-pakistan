@@ -249,7 +249,7 @@ $(document).ready(function(){
         $(window).scrollTop(350);
 
 
-            var nameRegex = /^[a-zA-Z]+$/g;
+            var nameRegex = /^[a-zA-Z]+ ?$/;
             var name=$('#name').val();
             if(!nameRegex.test(name))
             {
@@ -261,7 +261,7 @@ $(document).ready(function(){
                 $('#name').removeClass('border-danger');
             }
 
-            var lnameRegex = /^[a-zA-Z]+$/g;
+            var lnameRegex = /^[a-zA-Z]+ ?$/;
             var last_name=$('#last_name').val();
             if(!lnameRegex.test(last_name))
             {
@@ -1051,7 +1051,7 @@ $(document).ready(function(){
                 contentType: false,
                 processData: false,
                 beforeSend:()=>{
-                    var nameRegex = /^[a-zA-Z]+$/g;
+                    var nameRegex = /^[a-zA-Z]+ ?$/;
                     var name=$('#name').val();
                     if(!nameRegex.test(name))
                     {
@@ -1064,7 +1064,7 @@ $(document).ready(function(){
                         $('#name').removeClass('border-danger');
                     }
 
-                    var lnameRegex = /^[a-zA-Z]+$/g;
+                    var lnameRegex = /^[a-zA-Z]+ ?$/;
                     var last_name=$('#last_name').val();
                     if(!lnameRegex.test(last_name))
                     {

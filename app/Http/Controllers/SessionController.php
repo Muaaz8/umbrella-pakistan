@@ -272,7 +272,7 @@ class SessionController extends Controller
                 }
             }
             foreach ($inclinic_data as $inclinic) {
-                $inclinic->date = User::convert_utc_to_user_timezone($user->id, $inclinic->start_time)['date'];
+                $inclinic->date = User::convert_utc_to_user_timezone($user->id, $inclinic->created_at)['date'];
                 $inclinic->date = $inclinic->date;
                 $inclinic->type = 'inclinic';
             }

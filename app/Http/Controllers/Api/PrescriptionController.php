@@ -121,28 +121,29 @@ class PrescriptionController extends Controller
 
     public function getSessionPrescription($id)
     {
-        $prescriptions = DB::table('prescriptions as p')
-            ->leftJoin('tbl_products as prod', 'p.medicine_id', '=', 'prod.id')
-            ->leftJoin('quest_data_test_codes as qdtc', 'p.test_id', '=', 'qdtc.TEST_CD')
-            ->leftJoin('quest_data_test_codes as qdtc_imaging', 'p.imaging_id', '=', 'qdtc_imaging.id')
-            ->select([
-                'p.id',
-                'p.session_id',
-                'p.medicine_id',
-                'prod.name as medicine_name',
-                'p.test_id',
-                'qdtc.TEST_NAME as test_name',
-                'p.imaging_id',
-                'qdtc_imaging.TEST_NAME as imaging_name',
-                'p.type',
-                'p.med_days',
-                'p.med_unit',
-                'p.med_time',
-                'p.price',
-                'p.quantity',
-            ])
-            ->where('p.session_id', $id)
-            ->get();
+        // $prescriptions = DB::table('prescriptions as p')
+        //     ->leftJoin('tbl_products as prod', 'p.medicine_id', '=', 'prod.id')
+        //     ->leftJoin('quest_data_test_codes as qdtc', 'p.test_id', '=', 'qdtc.TEST_CD')
+        //     ->leftJoin('quest_data_test_codes as qdtc_imaging', 'p.imaging_id', '=', 'qdtc_imaging.id')
+        //     ->select([
+        //         'p.id',
+        //         'p.session_id',
+        //         'p.medicine_id',
+        //         'prod.name as medicine_name',
+        //         'p.test_id',
+        //         'qdtc.TEST_NAME as test_name',
+        //         'p.imaging_id',
+        //         'qdtc_imaging.TEST_NAME as imaging_name',
+        //         'p.type',
+        //         'p.med_days',
+        //         'p.med_unit',
+        //         'p.med_time',
+        //         'p.price',
+        //         'p.quantity',
+        //     ])
+        //     ->where('p.session_id', $id)
+        //     ->get();
+        $prescriptions = Prescription::with(['medicine','test','imaging'])->where('session_id', $id)->get();
 
         return response()->json($prescriptions);
     }
