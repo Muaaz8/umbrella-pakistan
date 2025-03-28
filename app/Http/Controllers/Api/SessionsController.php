@@ -133,8 +133,8 @@ class SessionsController extends BaseController
                 $res = Session::where('id', $id)->update(['status' => 'invitation sent', 'invite_time' => now()]);
                 if ($res == 1) {
                     $sessionData = Session::where('id', $id)->first();
-                    $doc_name = Helper::get_name($sessionData->doctor_id);
-                    $pat_name = Helper::get_name($sessionData->patient_id);
+                    $doc_name = \App\Helper::get_name($sessionData->doctor_id);
+                    $pat_name = \App\Helper::get_name($sessionData->patient_id);
                     $notification_id = Notification::create([
                         'user_id' => $sessionData->doctor_id,
                         'text' => 'E-visit Joining Request Send by ' . $pat_name,
@@ -222,110 +222,208 @@ class SessionsController extends BaseController
     }
     public function videoJoin($id, Request $request)
     {
-
-        $user_id = auth()->user()->id;
-        $getSession = Session::where('id', $id)->first();
-        $userTypeCheck = User::where('id', $user_id)->first();
-        $patUser = User::where('id', $getSession->patient_id)->first();
-        $docUser = User::where('id', $getSession->doctor_id)->first();
-        
-        if ($patUser->med_record_file != null) {
-            $patUser->med_record_file = \App\Helper::get_files_url($patUser->med_record_file);
-        }
-
-        if ($userTypeCheck->user_type == 'doctor') {
-
-
-            $medicines['products'] = AllProducts::where(['mode' => 'medicine', 'medicine_type' => 'prescribed'])->get();
-            $medicines['category'] = ProductsSubCategory::where(['parent_id' => 38])->get();
-            // dd($med_cats);
-            $labs = QuestDataTestCode::whereRaw("TEST_CD NOT LIKE '#%%' ESCAPE '#'")
-                ->whereIn('id', [
-                    '3327', '4029', '1535', '3787', '47', '1412',
-                    '1484', '1794', '3194', '3352', '3566', '3769',
-                    '4446', '18811', '11363', '899', '16846', '3542',
-                    '229', '747', '6399', '7573', '16814',
-                ])
-                ->where('TEST_CD', '!=', '92613')
-                ->where('TEST_CD', '!=', '11196')
-                ->where('LEGAL_ENTITY', 'DAL')
-                ->orWhere('PRICE', '!=', null)
-                ->get();
-            foreach ($labs as $lab) {
-                // dd($lab);
-                $res = DB::table('prescriptions')->where('test_id', $lab->TEST_CD)->where('session_id', $id)->first();
-                if ($res != null) {
-
-                    $lab->added = 'yes';
-                } else {
-                    $lab->added = 'no';
-                }
-                $getTestAOE = QuestDataAOE::select("TEST_CD AS TestCode", "AOE_QUESTION AS QuestionShort", "AOE_QUESTION_DESC AS QuestionLong")
-                    ->where('TEST_CD', $lab->TEST_CD)
-                    ->groupBy('AOE_QUESTION_DESC')
-                    ->get()
-                    ->toArray();
-
-                $count = count($getTestAOE);
-                if ($count > 0) {
-                    $lab->aoes = 1;
-                    $lab->aoeQuestions = $getTestAOE;
-                } else {
-                    $lab->aoes = 0;
-                    $lab->aoeQuestions = '';
+        try {
+            if (!is_numeric($id) || $id <= 0) {
+                return $this->sendError('Invalid session ID', [], 400);
+            }
+    
+            if (!auth()->check()) {
+                return $this->sendError('Unauthorized', [], 401);
+            }
+    
+            $user_id = auth()->user()->id;
+            
+            $getSession = Session::where('id', $id)->first();
+            if (!$getSession) {
+                return $this->sendError('Session not found', [], 404);
+            }
+    
+            $userTypeCheck = User::where('id', $user_id)->first();
+            if (!$userTypeCheck) {
+                return $this->sendError('User not found', [], 404);
+            }
+    
+            $patUser = User::where('id', $getSession->patient_id)->first();
+            if (!$patUser) {
+                return $this->sendError('Patient not found', [], 404);
+            }
+    
+            $docUser = User::where('id', $getSession->doctor_id)->first();
+            if (!$docUser) {
+                return $this->sendError('Doctor not found', [], 404);
+            }
+    
+            if ($patUser->med_record_file != null) {
+                try {
+                    $patUser->med_record_file = Helper::get_files_url($patUser->med_record_file);
+                } catch (\Exception $e) {
+                    Log::error("Failed to get file URL for user {$patUser->id}: " . $e->getMessage());
+                    $patUser->med_record_file = null;
                 }
             }
-
-
-            $imaging = AllProducts::where('mode', 'imaging')->get();
-
-            $img_categories = ProductCategory::where('category_type', 'imaging')->get();
-            $symp = Symptom::find($getSession->symptom_id);
-            $symptoms = $this->getSymptoms($symp);
-            $symp_desc = ($symp != null) ? $symp['description'] : '';
-
-            $user_obj = new User();
-            $patient_meds = $user_obj->get_current_medicines($getSession->patient_id);
-            $patient_labs = $user_obj->get_lab_reports($getSession->patient_id);
-            $img_reports = $user_obj->get_imaging_reports($getSession->patient_id);
-            $prev_sessions = $user_obj->get_sessions($getSession->patient_id);
-            $pat_age = $user_obj->get_age($getSession->patient_id);
-            $medical_profile = MedicalProfile::where('user_id', $getSession->patient_id)->orderByDesc('id')->first();
-            $specs = Specialization::where('status', '1')->get();
-            $user_type = "doctor";
-            return $this->sendResponse(['user_type' => $user_type, 'medicines' => $medicines, 'pat_age' => $pat_age, 'labs' => $labs, 'imaging' => $imaging, 'symptoms' => $symptoms, 'symp_desc' => $symp_desc, 'patUser' => $patUser, 'getSession' => $getSession, 'medical_profile' => $medical_profile, 'prev_sessions' => $prev_sessions, 'patient_meds' => $patient_meds, 'specs' => $specs, 'patient_labs' => $patient_labs, 'img_categories' => $img_categories, 'img_reports' => $img_reports], 'Session joined successfully');
-
-        } else if ($userTypeCheck->user_type == 'patient') {
-            $user_obj = new User();
-            $history['medicines'] = $user_obj->get_current_medicines($getSession->patient_id);
-            $history['sessions'] = $user_obj->get_sessions($getSession->patient_id);
-            $history['labs'] = $user_obj->get_lab_reports($getSession->patient_id);
-            $history['imaging'] = $user_obj->get_imaging_reports($getSession->patient_id);
-            $pat_age = $user_obj->get_age($getSession->patient_id);
-            $spec = new Specialization();
-            $spname = $spec->speciality($getSession->doctor_id);
-            $docUser->specialization = $spname;
-            // if ($getSession->status != 'doctor joined') {
-            //     $msg = "Session Ended";
-            //     $currentRole = $patUser->user_type;
-            //     return $this->sendError([], $msg);
-            // }
-            $symp = Symptom::find($getSession->symptom_id);
-            $symptoms = $this->getSymptoms($symp);
-            $symp_desc = ($symp != null) ? $symp['description'] : '';
-            $user_type = "patient";
-            $medical_profile = MedicalProfile::where('user_id', $getSession->patient_id)->orderByDesc('id')->first();
-            ActivityLog::create([
-                'activity' => 'joined session with ' . $docUser->name . " " . $docUser->last_name,
-                'type' => 'session start',
-                'user_id' => $getSession->patient_id,
-                'user_type' => 'doctor',
-                'party_involved' => $getSession->doctor_id,
-            ]);
-
-            event(new patientJoinCall($getSession->doctor_id, $getSession->patient_id, $id));
-
-            return $this->sendResponse(['user_type' => $user_type, 'docUser' => $docUser, 'pat_age' => $pat_age, 'getSession' => $getSession, 'medical_profile' => $medical_profile, 'symptoms' => $symptoms, 'symp_desc' => $symp_desc, 'history' => $history, 'patUser' => $patUser], 'Session joined successfully');
+    
+            if ($userTypeCheck->user_type == 'doctor') {
+                try {
+                    $medicines = [];
+                    $medicines['products'] = AllProducts::where(['mode' => 'medicine', 'medicine_type' => 'prescribed'])
+                        ->get()
+                        ->toArray();
+                        
+                    $medicines['category'] = ProductsSubCategory::where(['parent_id' => 38])
+                        ->get()
+                        ->toArray();
+    
+                    $labs = QuestDataTestCode::whereRaw("TEST_CD NOT LIKE '#%%' ESCAPE '#'")
+                        ->whereIn('id', [
+                            '3327', '4029', '1535', '3787', '47', '1412',
+                            '1484', '1794', '3194', '3352', '3566', '3769',
+                            '4446', '18811', '11363', '899', '16846', '3542',
+                            '229', '747', '6399', '7573', '16814',
+                        ])
+                        ->where('TEST_CD', '!=', '92613')
+                        ->where('TEST_CD', '!=', '11196')
+                        ->where('LEGAL_ENTITY', 'DAL')
+                        ->orWhere('PRICE', '!=', null)
+                        ->get();
+    
+                    foreach ($labs as $lab) {
+                        try {
+                            $res = DB::table('prescriptions')->where('test_id', $lab->TEST_CD)
+                                ->where('session_id', $id)
+                                ->first();
+                                
+                            $lab->added = ($res != null) ? 'yes' : 'no';
+    
+                            $getTestAOE = QuestDataAOE::select(
+                                "TEST_CD AS TestCode", 
+                                "AOE_QUESTION AS QuestionShort", 
+                                "AOE_QUESTION_DESC AS QuestionLong"
+                            )
+                            ->where('TEST_CD', $lab->TEST_CD)
+                            ->groupBy('AOE_QUESTION_DESC')
+                            ->get()
+                            ->toArray();
+    
+                            $count = count($getTestAOE);
+                            $lab->aoes = ($count > 0) ? 1 : 0;
+                            $lab->aoeQuestions = ($count > 0) ? $getTestAOE : '';
+                        } catch (\Exception $e) {
+                            Log::error("Error processing lab {$lab->TEST_CD}: " . $e->getMessage());
+                            continue;
+                        }
+                    }
+    
+                    $imaging = AllProducts::where('mode', 'imaging')->get()->toArray();
+                    $img_categories = ProductCategory::where('category_type', 'imaging')->get()->toArray();
+    
+                    $symp = Symptom::find($getSession->symptom_id);
+                    $symptoms = $this->getSymptoms($symp);
+                    $symp_desc = ($symp != null) ? $symp['description'] : '';
+    
+                    $user_obj = new User();
+                    $patient_meds = $user_obj->get_current_medicines($getSession->patient_id);
+                    $patient_labs = $user_obj->get_lab_reports($getSession->patient_id);
+                    $img_reports = $user_obj->get_imaging_reports($getSession->patient_id);
+                    $prev_sessions = $user_obj->get_sessions($getSession->patient_id);
+                    $pat_age = $user_obj->get_age($getSession->patient_id);
+                    
+                    $medical_profile = MedicalProfile::where('user_id', $getSession->patient_id)
+                        ->orderByDesc('id')
+                        ->first();
+                        
+                    $specs = Specialization::where('status', '1')->get()->toArray();
+    
+                    return $this->sendResponse([
+                        'user_type' => 'doctor',
+                        'medicines' => $medicines,
+                        'pat_age' => $pat_age,
+                        'labs' => $labs,
+                        'imaging' => $imaging,
+                        'symptoms' => $symptoms,
+                        'symp_desc' => $symp_desc,
+                        'patUser' => $patUser,
+                        'getSession' => $getSession,
+                        'medical_profile' => $medical_profile,
+                        'prev_sessions' => $prev_sessions,
+                        'patient_meds' => $patient_meds,
+                        'specs' => $specs,
+                        'patient_labs' => $patient_labs,
+                        'img_categories' => $img_categories,
+                        'img_reports' => $img_reports
+                    ], 'Session joined successfully');
+    
+                } catch (\Exception $e) {
+                    Log::error("Doctor video join error: " . $e->getMessage());
+                    return $this->sendError('Failed to load doctor session data', [], 500);
+                }
+    
+            } 
+            else if ($userTypeCheck->user_type == 'patient') {
+                try {
+                    $user_obj = new User();
+                    
+                    $history = [
+                        'medicines' => $user_obj->get_current_medicines($getSession->patient_id),
+                        'sessions' => $user_obj->get_sessions($getSession->patient_id),
+                        'labs' => $user_obj->get_lab_reports($getSession->patient_id),
+                        'imaging' => $user_obj->get_imaging_reports($getSession->patient_id)
+                    ];
+                    
+                    $pat_age = $user_obj->get_age($getSession->patient_id);
+                    
+                    $spec = new Specialization();
+                    $spname = $spec->speciality($getSession->doctor_id);
+                    $docUser->specialization = $spname;
+    
+                    $symp = Symptom::find($getSession->symptom_id);
+                    $symptoms = $this->getSymptoms($symp);
+                    $symp_desc = ($symp != null) ? $symp['description'] : '';
+                    
+                    $medical_profile = MedicalProfile::where('user_id', $getSession->patient_id)
+                        ->orderByDesc('id')
+                        ->first();
+    
+                    try {
+                        ActivityLog::create([
+                            'activity' => 'joined session with ' . $docUser->name . " " . $docUser->last_name,
+                            'type' => 'session start',
+                            'user_id' => $getSession->patient_id,
+                            'user_type' => 'doctor',
+                            'party_involved' => $getSession->doctor_id,
+                        ]);
+                    } catch (\Exception $e) {
+                        Log::error("Failed to create activity log: " . $e->getMessage());
+                    }
+    
+                    try {
+                        event(new patientJoinCall($getSession->doctor_id, $getSession->patient_id, $id));
+                    } catch (\Exception $e) {
+                        Log::error("Failed to fire patientJoinCall event: " . $e->getMessage());
+                    }
+    
+                    return $this->sendResponse([
+                        'user_type' => 'patient',
+                        'docUser' => $docUser,
+                        'pat_age' => $pat_age,
+                        'getSession' => $getSession,
+                        'medical_profile' => $medical_profile,
+                        'symptoms' => $symptoms,
+                        'symp_desc' => $symp_desc,
+                        'history' => $history,
+                        'patUser' => $patUser
+                    ], 'Session joined successfully');
+    
+                } catch (\Exception $e) {
+                    Log::error("Patient video join error: " . $e->getMessage());
+                    return $this->sendError('Failed to load patient session data', [], 500);
+                }
+            } else {
+                return $this->sendError('Invalid user type', [], 400);
+            }
+    
+        } catch (\Exception $e) {
+            Log::error("Video join general error: " . $e->getMessage());
+            return $this->sendError('An unexpected error occurred', [], 500);
         }
     }
     public function getSymptoms($symp)
