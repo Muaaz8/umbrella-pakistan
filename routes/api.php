@@ -69,7 +69,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('session','Api\SessionsController@createSession');
     Route::get('session/{id}','Api\SessionsController@getSession');
     Route::get('session/invite/{id}','Api\SessionsController@sessionInvite');
-    Route::get('joinCall/{id}','Api\SessionsController@videoJoin');
+    Route::post('joinCall/{id}','Api\SessionsController@videoJoin');
     Route::get('sessions/queue','Api\DoctorsController@patients_in_queue');
     Route::get('video/patient_join/{id}','Api\VideoController@waitingPatientJoinCall');
     Route::get('video/doctor/end/{id}','Api\VideoController@doctor_end_session');
