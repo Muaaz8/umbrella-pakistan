@@ -79,7 +79,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('select/product/{id}', 'Api\CartController@select_cart_product');
     Route::get('remove/product/{id}', 'Api\CartController@remove_item_from_cart');
     Route::get('checkout/products', 'Api\CartController@show_checkout_products');
-    Route::get('checkout/remove/product/{id}', 'Api\CartController@remove_product_on_checkout');
+    Route::get('unselect/product/{id}', 'Api\CartController@remove_product_on_checkout');
     Route::post('checkout', 'Api\CartController@create_new_order');
 
 });
