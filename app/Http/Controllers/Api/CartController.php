@@ -62,9 +62,9 @@ class CartController extends BaseController
         }
     }
 
-    public function select_cart_product(Request $request)
+    public function select_cart_product($id)
     {
-        $item_id = $request->item_id;
+        $item_id = $id;
         $result = DB::table('tbl_cart')->where('id', $item_id)->update(['show_product' => '1']);
         $countItem = 0;
         $itemSum = 0;
