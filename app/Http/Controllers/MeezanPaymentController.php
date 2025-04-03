@@ -407,7 +407,7 @@ class MeezanPaymentController extends Controller
                 }
             }
             if($description[0] == "Order"){
-                return redirect()->route('inclinic_patient');
+                return $response;
             }
             if($description[0] == "Inclinic"){
                 if($response->orderStatus == 2){
