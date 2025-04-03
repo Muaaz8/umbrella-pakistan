@@ -243,7 +243,7 @@ class CartController extends BaseController
         if($request->payment_method == "credit-card"){
             $data = "Order-" .$orderId."-". now()->format('Ymd');
             $pay = new \App\Http\Controllers\MeezanPaymentController();
-            $res = $pay->payment($data, $request->payAble);
+            $res = $pay->payment_app($data, $request->payAble);
             if (isset($res) && $res->errorCode == 0) {
                 return $this->sendResponse(['method'=> 'credit-card', 'url'=> $res->formUrl], 'Payment link generated successfully');
 
