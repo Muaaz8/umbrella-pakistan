@@ -32,11 +32,11 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('reminderone:emails')->everyMinute();
         $schedule->command('remindertwo:emails')->everyMinute();
-        // $schedule->command('check:doctor')->everyMinute();
+        $schedule->command('check:doctor')->everyMinute();
         // $schedule->command('fetch:questLabResults')->everyFifteenMinutes();
         $schedule->command('sendorderemail:emails')->everyFiveMinutes();
         $schedule->command('cartreminder:emails')->weekly();
-        // $schedule->command('check:checkactivity')->everyMinute();
+        $schedule->command('check:checkactivity')->everyMinute();
         // $schedule->command('sitemap:generate')->daily();
         // $schedule->command('report:payment')->daily();
     }
