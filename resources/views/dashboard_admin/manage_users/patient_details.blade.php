@@ -206,7 +206,7 @@
                                                                     @if($med->prod_detail!=null)
                                                                     <tr>
                                                                         @if($med->type=='lab-test')
-                                                                        <td data-label="Recommendation">{{ucfirst($med->prod_detail->DESCRIPTION)}}</td>
+                                                                        <td data-label="Recommendation">{{ucfirst($med->prod_detail->TEST_NAME)}}</td>
                                                                         @else
                                                                         <td data-label="Recommendation">{{ucfirst($med->prod_detail->name)}}</td>
                                                                         @endif
