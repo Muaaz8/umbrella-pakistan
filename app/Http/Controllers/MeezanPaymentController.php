@@ -251,7 +251,7 @@ class MeezanPaymentController extends Controller
         }
         else{
             $orderId = 'CHCCO-'.$data[1];
-            // $this->returnUrl = env('MOBILE_APP_URL')."/SendInviteScreen";
+            $this->returnUrl = env('MOBILE_APP_URL')."/ThankYouScreen";
         }
 
         $user_id = auth()->user()->id;
