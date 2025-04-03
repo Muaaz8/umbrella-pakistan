@@ -75,6 +75,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('video/doctor/end/{id}','Api\VideoController@doctor_end_session');
     Route::get('change/status','Api\DoctorsController@change_online_status');
     Route::get('prescription/{id}','Api\PrescriptionController@getSessionPrescription');
+    Route::get('cart', 'Api\CartController@my_cart');
+    Route::post('select/product', 'Api\CartController@select_cart_product');
+    Route::get('remove/product/{id}', 'Api\CartController@remove_item_from_cart');
+    Route::get('checkout/products', 'Api\CartController@show_checkout_products');
+    Route::get('checkout/remove/product/{id}', 'Api\CartController@remove_product_on_checkout');
+    Route::post('checkout', 'Api\CartController@create_new_order');
+
 });
 //================================================//
 //PATIENT PROFILE END HERE
