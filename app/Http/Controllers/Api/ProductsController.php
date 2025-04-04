@@ -100,6 +100,12 @@ class ProductsController extends Controller
                 ->where('tbl_products.mode', 'medicine')
                 ->where('tbl_products.id', $id)
                 ->first();
+
+                $product->units = DB::table('medicine_pricings')
+                                ->join('medicine_units','medicine_units.id','medicine_pricings.unit_id')
+                                ->where('product_id',$product->id)
+                                ->select('medicine_pricings.*','medicine_units.unit')
+                                ->get();
     
             if (!$product) {
                 return response()->json(['message' => 'Product not found'], 404);

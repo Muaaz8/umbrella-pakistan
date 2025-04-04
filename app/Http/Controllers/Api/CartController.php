@@ -254,4 +254,137 @@ class CartController extends BaseController
             return $this->sendError([], 'Sorry, Can\'t process with this payment method right now.Kindly try different method.');
         }
     }
+
+
+    public function add_to_cart(Request $request)
+    {
+        $user_id=Auth::user()->id;
+
+        $getProductMetaData='';
+        if ($request->pro_mode=="lab-test" || $request->pro_mode=="imaging")
+        {
+            $count=DB::table('tbl_cart')
+                ->where('user_id',$user_id)
+                ->where('product_id',$request->pro_id)
+                ->where('product_mode',$request->pro_mode)
+                ->where('item_type','counter')
+                ->where('status','recommended')
+                ->first();
+            if($count!=null)
+            {
+                return response()->json(array('check' => '1'), 200);
+            }
+            else
+            {
+                $getProductMetaData = DB::table('quest_data_test_codes')
+                ->select(
+                    'TEST_CD AS product_id',
+                    'mode',
+                    'TEST_NAME AS name',
+                    'SALE_PRICE AS sale_price',
+                    'featured_image',
+                    DB::raw('"quest_data_test_codes" as tbl_name')
+                )
+                ->where('TEST_CD', $request->pro_id)
+                ->first();
+                $data['session_id'] = '';
+                $data['cart_row_id'] = rand();
+                $data['product_id']=$getProductMetaData->product_id;
+                $data['name'] = $getProductMetaData->name;
+                $data['product_image'] = $getProductMetaData->featured_image;
+                $data['prescription'] = '';
+                $data['design_view'] = '';
+                $data['strip_per_pack'] = 0;
+                $data['quantity'] = $request->pro_qty;
+                $data['price'] = $getProductMetaData->sale_price;
+                $data['discount'] = 0;
+                $data['created_at'] = Carbon::now();
+                $data['updated_at'] = Carbon::now();
+                $data['user_id'] = $user_id;
+                $data['doc_session_id'] = 0;
+                $data['doc_id'] = 0;
+                $data['pres_id'] = 0;
+                $data['update_price'] = $getProductMetaData->sale_price;
+                $data['product_mode'] = $getProductMetaData->mode;
+                $data['item_type'] = 'counter';
+                $data['status'] = 'recommended';
+                $data['map_marker_id'] = '';
+                $data['location_id'] = '';
+                $cart = AppTblCart::Create($data);
+                event(new CountCartItem($user_id));
+                return $this->sendResponse([], 'add to cart successfully.');
+            }
+
+        }
+        else
+        {
+            $count=DB::table('tbl_cart')
+                ->where('user_id',$user_id)
+                ->where('product_id',$request->pro_id)
+                ->where('product_mode',$request->pro_mode)
+                ->where('prescription',$request->unit)
+                ->where('item_type','counter')
+                ->where('status','recommended')
+                ->first();
+            if($count!=null)
+            {
+                $qty=$count->quantity+$request->quantity;
+                $pricing = DB::table('medicine_pricings')->where('id',$request->unit)->first();
+                $count=DB::table('tbl_cart')
+                    ->where('user_id',$user_id)
+                    ->where('product_id',$request->pro_id)
+                    ->where('product_mode',$request->pro_mode)
+                    ->where('item_type','counter')
+                    ->where('status','recommended')
+                    ->update(['quantity'=>$qty,'price'=>$qty*$pricing->sale_price]);
+                    event(new CountCartItem($user_id));
+                    return $this->sendResponse([], 'add to cart successfully.');
+            }
+            else
+            {
+                $getProductMetaData = DB::table('tbl_products')
+                    ->select(
+                        'id as product_id',
+                        'name',
+                        'sale_price',
+                        'mode',
+                        'featured_image'
+                    )
+                    ->where('id', $request->pro_id)
+                    ->first();
+                $pricing = DB::table('medicine_pricings')->where('id',$request->unit)->first();
+
+                $data['session_id'] = '';
+                $data['cart_row_id'] = rand();
+                $data['product_id']=$getProductMetaData->product_id;
+                $data['name'] = $getProductMetaData->name;
+                $data['product_image'] = $getProductMetaData->featured_image;
+                $data['prescription'] = $request->unit;
+                $data['design_view'] = '';
+                $data['strip_per_pack'] = 0;
+                $data['quantity'] = $request->quantity;
+                $data['price'] = $pricing->sale_price*$request->quantity;
+                $data['discount'] = 0;
+                $data['created_at'] = Carbon::now();
+                $data['updated_at'] = Carbon::now();
+                $data['user_id'] = $user_id;
+                $data['doc_session_id'] = 0;
+                $data['doc_id'] = 0;
+                $data['pres_id'] = 0;
+                $data['update_price'] = $pricing->sale_price*$request->quantity;
+                $data['product_mode'] = $getProductMetaData->mode;
+                $data['item_type'] = 'counter';
+                $data['status'] = 'recommended';
+                $data['map_marker_id'] = '';
+                $data['location_id'] = '';
+
+                $cart = AppTblCart::Create($data);
+                event(new CountCartItem($user_id));
+                return $this->sendResponse([], 'add to cart successfully.');
+            }
+        }
+    }
+
+
+
 }
