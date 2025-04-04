@@ -8,6 +8,8 @@ use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\TblCart as AppTblCart;
+use App\Events\CountCartItem;
 
 class CartController extends BaseController
 {
