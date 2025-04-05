@@ -2,14 +2,18 @@
 
 namespace App\Http\Controllers\Api;
 use App\ActivityLog;
+use App\AgoraAynalatics;
+use App\Cart;
 use App\Events\DoctorJoinedVideoSession;
 use App\Events\patientJoinCall;
 use App\MedicalProfile;
 use App\Models\AllProducts;
 use App\Models\ProductCategory;
 use App\Models\ProductsSubCategory;
+use App\Prescription;
 use App\QuestDataAOE;
 use App\QuestDataTestCode;
+use App\Referal;
 use App\Specialization;
 use App\Symptom;
 use Illuminate\Http\Request;
@@ -455,6 +459,82 @@ class SessionsController extends BaseController
             $symp_desc = '';
         }
         return $symptoms;
+    }
+
+    public function pat_sessions_record()
+    {
+        $user = auth()->user();
+        $user_type = $user->user_type;
+        $user_time_zone = $user->timeZone;
+        if ($user_type == 'patient') {
+                $user_id = $user->id;
+                $sessions = Session::where('patient_id', $user_id)
+                    ->where('status', 'ended')
+                    ->where('remaining_time','!=','full')
+                    ->orderByDesc('id')
+                    ->paginate(7);
+                foreach ($sessions as $session) {
+                    if ($session->start_time != 'null' && $session->end_time != 'null') {
+                        $session->date = User::convert_utc_to_user_timezone($user->id, $session->created_at)['date'];
+
+                        $session->start_time = date('h:i A', strtotime('-15 minutes', strtotime($session->start_time)));
+                        $session->start_time = User::convert_utc_to_user_timezone($user->id, $session->start_time)['time'];
+
+                        $session->end_time = date('h:i A', strtotime('-15 minutes', strtotime($session->end_time)));
+                        $session->end_time = User::convert_utc_to_user_timezone($user->id, $session->end_time)['time'];
+
+                        $doc = User::where('id', $session['doctor_id'])->first();
+                        $session->doc_name = $doc['name'] . " " . $doc['last_name'];
+                        $links = AgoraAynalatics::where('channel', $session['channel'])->first();
+                        if ($links != null) {
+                            $recording = $links->video_link;
+                            $session->recording = $recording;
+                        } else {
+                            $session->recording = 'No recording';
+                        }
+                        $pres = Prescription::where('session_id', $session['id'])->get();
+                        $pres_arr = [];
+
+                        $referred_doc = Referal::where('session_id', $session['id'])
+                            ->where('patient_id', $user_id)
+                            ->where('doctor_id', $doc->id)
+                            ->leftjoin('users', 'referals.sp_doctor_id', 'users.id')
+                            ->select('users.name', 'users.last_name')
+                            ->get();
+                        if (count($referred_doc)) {
+                            $session->refered = "Dr." . $referred_doc[0]->name . " " . $referred_doc[0]->last_name;
+                        } else {
+                            $session->refered = null;
+                        }
+                        $session->sympptoms = DB::table('symptoms')->where('id',$session['symptom_id'])->first();
+
+                        foreach ($pres as $prod) {
+
+
+                            if ($prod['type'] == 'medicine') {
+                                $product = AllProducts::where('id', $prod['medicine_id'])->first();
+                            } else if ($prod['type'] == 'imaging') {
+                                $product = QuestDataTestCode::where('TEST_CD', $prod['test_id'])->first();
+                            } else if ($prod['type'] == 'lab-test') {
+                                $product = QuestDataTestCode::where('TEST_CD', $prod['test_id'])->first();
+                            }
+
+                            $cart = Cart::where('doc_session_id', $session['id'])->where('pres_id', $prod->id)->first();
+                            // dd($cart);
+                            $prod->prod_detail = $product;
+
+                            if (isset($cart->status))
+                                $prod->cart_status = $cart->status;
+                            else
+                                $prod->cart_status = 'No record';
+                            // dd($prod);
+                            array_push($pres_arr, $prod);
+                        }
+                        $session->pres = $pres_arr;
+                    }
+                }
+                return $this->sendResponse($sessions, 'Sessions found successfully');
+        }
     }
 
 }

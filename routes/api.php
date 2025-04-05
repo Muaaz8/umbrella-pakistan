@@ -62,7 +62,9 @@ Route::get('test' , function(){event(new AppEvent());});
 //================================================//
 Route::middleware('auth:sanctum','doc_restrict','patToVideoScreen')->group( function () {
 });
+
 Route::middleware(['auth:sanctum','doc_restrict'])->group(function(){
+    Route::get('patient/sessions','Api\SessionsController@pat_sessions_record');
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
