@@ -40,7 +40,7 @@ header("Access-Control-Allow-Origin: *"); @endphp
         }
         $("div.spannerx").addClass("showx");
         $("div.overlayx").addClass("showx");
-        CountDown(sec, session_id);
+        // CountDown(sec, session_id);
         // loadSymtoms(session_id);
         loadIsabelDiagnosis(session_id);
         loadPsychQuestion(session_id);
