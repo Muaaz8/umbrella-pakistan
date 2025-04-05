@@ -30,7 +30,7 @@ class ProductsController extends Controller
                     ->join('products_sub_categories', 'products_sub_categories.id', 'tbl_products.sub_category')
                     ->join('medicine_pricings', 'medicine_pricings.product_id', 'tbl_products.id')
                     ->where('tbl_products.mode', 'medicine')
-                    ->paginate(10);
+                    ->paginate(6);
                     foreach ($products as $key => $product) {
                         $product->featured_image = \App\Helper::check_bucket_files_url($product->featured_image);
                         if($product->featured_image == env('APP_URL')."/assets/images/user.png"){
@@ -49,6 +49,7 @@ class ProductsController extends Controller
                         'quest_data_test_codes.SALE_PRICE',
                         'quest_data_test_codes.PRICE',
                         'quest_data_test_codes.discount_percentage',
+                        'quest_data_test_codes.TEST_CD',
                     )
                     ->where('mode', 'imaging')
                     ->paginate(10);
@@ -64,6 +65,8 @@ class ProductsController extends Controller
                         'quest_data_test_codes.SALE_PRICE',
                         'quest_data_test_codes.PRICE',
                         'quest_data_test_codes.discount_percentage',
+                        'quest_data_test_codes.TEST_CD',
+                        
                     )
                     ->where('mode', 'lab-test')
                     ->paginate(10);
