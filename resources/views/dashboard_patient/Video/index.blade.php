@@ -393,7 +393,6 @@
         localTracks.videoTrack.play("local-player");
         // Publish the local video and audio tracks to the channel.
         await client.publish(Object.values(localTracks));
-        //    console.log("publish success");
         console.log("client", client);
         
     };
