@@ -8,7 +8,7 @@
 @endsection
 
 @section('page_title')
-<title>Doctor {{ $doctor->name . ' ' . $doctor->last_name }}</title>
+<title>{{ $doctor->specialization==32?$doctor->gender=="male"?"Mr.":"Ms.":"Dr." }} {{ $doctor->name . ' ' . $doctor->last_name }}</title>
 @endsection
 
 @section('top_import_file')
@@ -28,7 +28,7 @@
                     <img class="rounded-circle object-fit-cover w-100 h-100" src="{{$doctor->user_image}}" alt="" />
                 </div>
                 <div class="lh-1">
-                    <h2 class="doctor_name lh-1 fw-bolder">Dr. {{ $doctor->name }}<br class="line_break d-none"> {{
+                    <h2 class="doctor_name lh-1 fw-bolder">{{ $doctor->specialization==32?$doctor->gender=="male"?"Mr.":"Ms.":"Dr." }} {{ $doctor->name }}<br class="line_break d-none"> {{
                         $doctor->last_name }}</h2>
                     <h5 class="doctor_designation lh-1 fw-normal">
                         {{ $doctor->specializations->name }}

@@ -98,16 +98,16 @@ Route::get('/seed',function(){
     ]);
 });
 Route::post('/upload-image-endpoint','SEOAdminController@upload_image_endpoint')->name('upload_image_endpoint');
-Route::get('/doctor-profile/{id}',function($id){
-    $doctor = DB::table('users')->where('id',$id)->first();
+Route::get('/doctor-profile/{name}-{last_name}',function($name,$lname){
+    $doctor = DB::table('users')->where('name',$name)->where('last_name',$lname)->first();
     if($doctor){
-        $doctor->details = DB::table('doctor_details')->where('doctor_id',$id)->first();
+        $doctor->details = DB::table('doctor_details')->where('doctor_id',$doctor->id)->first();
         $doctor->specializations = DB::table('specializations')->where('id',$doctor->specialization)->first();
-        $doctor->schedules = DB::table('doctor_schedules')->where('doctorID',$id)->get();
+        $doctor->schedules = DB::table('doctor_schedules')->where('doctorID',$doctor->id)->get();
 
         foreach($doctor->schedules as $sc){
-            $sc->from_time = User::convert_utc_to_user_timezone($id,$sc->from_time)['time'];
-            $sc->to_time = User::convert_utc_to_user_timezone($id,$sc->to_time)['time'];
+            $sc->from_time = User::convert_utc_to_user_timezone($doctor->id,$sc->from_time)['time'];
+            $sc->to_time = User::convert_utc_to_user_timezone($doctor->id,$sc->to_time)['time'];
         }
 
         if($doctor->details){
@@ -131,7 +131,7 @@ Route::get('/our-doctors',function(){
         ->where('active','1')
         ->where('status','!=','ban')
         ->orderBy('id','desc')
-        ->paginate(8);
+        ->paginate(12);
     foreach($doctors as $doctor){
         if ($doctor) {
             $doctor->details = DB::table('doctor_details')->where('doctor_id',$doctor->id)->first();

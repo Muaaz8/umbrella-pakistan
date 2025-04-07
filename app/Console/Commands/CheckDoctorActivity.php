@@ -52,19 +52,6 @@ class CheckDoctorActivity extends Command
                     DB::table('sessions')->where('doctor_id')->where('status','invitation sent')
                     ->orwhere('status','doctor joined')->update(['status' => 'paid']);
                     event(new loadOnlineDoctor('run'));
-                    try {
-                        $data = DB::table('users')->where('id',$doc->id)->select('id','status')->first();
-                        if($data->status == "online"){
-                            $data->status = "offline";
-                        }else{
-                            $data->status = "online";
-                        }
-                        $data->id = (string)$doc->id;
-                        $data->received = "false";
-                        // \App\Helper::firebase($doc->id,'loadOnlineDoctor',$doc->id,$data);
-                    } catch (\Throwable $th) {
-                        throw $th;
-                    }
                     Log::info('done');
                 }
             }

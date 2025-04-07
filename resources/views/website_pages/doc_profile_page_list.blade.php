@@ -102,8 +102,8 @@
                                     <p class="text-white px-2 py-1 ${ element.status == 'online' ? 'bg-success' : 'bg-danger' } rounded-2 fw-bold">${ element.status == 'online' ? 'Online' : 'Offline' }</p>
                                     </div>
                                     <div class="doctor-data-container"><div class="d-flex flex-column gap-1">
-                                    <h5 class="mb-0">Dr.${element.name} ${element.last_name}</h5>
-                                    <h6 class="doctor-verify">${element.zip_code == null?"PMDC Verified":""}</h6></div>
+                                    <h5 class="mb-0">${element.specialization == 32? element.gender=="male"?"Mr.":"Ms.":"Dr."} ${element.name} ${element.last_name}</h5>
+                                    <h6 class="doctor-verify">${element.zip_code == null?element.specialization!=32?"PMDC Verified":"":""}</h6></div>
                                     <div class="doctor-ratings d-flex align-items-center my-1">
                                         ${generateStarRatings(element.rating)}
                                     </div>
@@ -130,7 +130,7 @@
                                     <p class="education-doc">${element.details.education!=null?safeSubstring(element.details.education, 60):""}</p>
                                     </div>
                                     </div><div class="d-flex align-items-center justify-content-center w-100 position-absolute view-button"><button
-                                    class="btn btn-outline-primary" onclick="window.location.href='/doctor-profile/${element.id}'">View Profile</button></div></div></div>`
+                                    class="btn btn-outline-primary" onclick="window.location.href='/doctor-profile/${element.name}-${element.last_name}'">View Profile</button></div></div></div>`
                                 );
                             } else {
                                 $(".doctor-cont2").append(
@@ -144,8 +144,8 @@
                                     <p class="text-white px-2 py-1 ${ element.status == 'online' ? 'bg-success' : 'bg-danger' } rounded-2 fw-bold">${ element.status == 'online' ? 'Online' : 'Offline' }</p>
                                     </div>
                                     <div class="doctor-data-container"><div class="d-flex flex-column gap-1">
-                                    <h5 class="mb-0">Dr.${element.name} ${element.last_name}</h5>
-                                    <h6 class="doctor-verify">${element.zip_code == null?"PMDC Verified":""}</h6></div>
+                                    <h5 class="mb-0">${element.specialization == 32? element.gender=="male"?"Mr.":"Ms.":"Dr."} ${element.name} ${element.last_name}</h5>
+                                    <h6 class="doctor-verify">${element.zip_code == null?element.specialization!=32?"PMDC Verified":"":""}</h6></div>
                                     <div class="doctor-ratings d-flex align-items-center my-1">
                                         ${generateStarRatings(element.rating)}
                                     </div>
@@ -167,10 +167,10 @@
                                 <hr>
                                 ` : ''}
 
-                                    <p class="education-doc">MBBS</p>
+                                    <p class="education-doc"></p>
                                     </div>
                                     </div><div class="d-flex align-items-center justify-content-center w-100 position-absolute view-button"><button
-                                    class="btn btn-outline-primary" onclick="window.location.href='/doctor-profile/${element.id}'">View Profile</button></div></div></div>`
+                                    class="btn btn-outline-primary" onclick="window.location.href='/doctor-profile/${element.name}-${element.last_name}'">View Profile</button></div></div></div>`
                                 );
                             }
                         });
@@ -181,12 +181,12 @@
 
         ///////////////////////////
 
-    document.addEventListener('DOMContentLoaded', function () {
-    if (window.location.href.includes('online=1')) {
-        select_doc(3);
-        $('#cb-50').prop('checked', true);
-    }
-});
+        document.addEventListener('DOMContentLoaded', function () {
+            if (window.location.href.includes('online=1')) {
+                select_doc(3);
+                $('#cb-50').prop('checked', true);
+            }
+        });
 
         $("#search").keyup(function(e) {
             var name = e.target.value;
@@ -219,48 +219,8 @@
                                     <p class="text-white px-2 py-1 ${ element.status == 'online' ? 'bg-success' : 'bg-danger' } rounded-2 fw-bold">${ element.status == 'online' ? 'Online' : 'Offline' }</p>
                                     </div>
                                     <div class="doctor-data-container"><div class="d-flex flex-column gap-1">
-                                    <h5 class="mb-0">Dr.${element.name} ${element.last_name}</h5>
-                                    <h6 class="doctor-verify">${element.zip_code == null?"PMDC Verified":""}</h6></div>
-                                    <div class="doctor-ratings d-flex align-items-center my-1">
-                                        ${generateStarRatings(element.rating)}
-                                    </div>
-                                    <p class="specialization-doc">${element.specializations.name}</p>
-
-                                                                  ${element.consultation_fee ? `
-                                <hr>
-                                <p style="font-size:9px" class="d-flex align-items-center justify-content-between flex-wrap w-100">
-                                    <b>Consultation Fee: </b>
-                                    <b class="text-white px-2 py-1 bg-primary rounded-2">Rs.${element.consultation_fee}</b>
-                                </p>
-                                ${element.followup_fee && element.followup_fee != element.consultation_fee ? `
-                                    <hr>
-                                    <p style="font-size:9px" class="d-flex align-items-center justify-content-between flex-wrap w-100">
-                                        <b>Follow-up Fee: </b>
-                                        <b class="text-white px-2 py-1 bg-success rounded-2">Rs.${element.followup_fee}</b>
-                                    </p>
-                                ` : ''}
-                                <hr>
-                                ` : ''}
-
-                                    <p class="education-doc">${element.details.education!=null?safeSubstring(element.details.education, 60):""}</p>
-                                    </div>
-                                    </div><div class="d-flex align-items-center justify-content-center w-100 position-absolute view-button"><button
-                                    class="btn btn-outline-primary" onclick="window.location.href='/doctor-profile/${element.id}'">View Profile</button></div></div></div>`
-                                );
-                            } else {
-                                $(".doctor-cont2").append(
-                                    `<div class="col-sm-6 col-md-4 col-xl-3 doctor-list-card">
-                                    <div class="doctor-list-card-container rounded-2 px-2 pt-3 pb-2 position-relative">
-                                    <div class="d-flex pb-4 gap-3"><div class="doctor-new-container d-flex flex-column  align-items-center  gap-2 ">
-                                                                                <div class="doctor-pic-container rounded-circle p-1 position-relative">
-                                    <img src="${element.user_image}" alt="Doctor Page" class="rounded-circle object-fit-cover w-100 h-100">
-                                                                        <span class="position-absolute online-dot ${element.status == 'online' ? 'bg-success' : 'bg-danger'}"></span>
-                                    </div>
-                                    <p class="text-white px-2 py-1 ${ element.status == 'online' ? 'bg-success' : 'bg-danger' } rounded-2 fw-bold">${ element.status == 'online' ? 'Online' : 'Offline' }</p>
-                                    </div>
-                                    <div class="doctor-data-container"><div class="d-flex flex-column gap-1">
-                                    <h5 class="mb-0">Dr.${element.name} ${element.last_name}</h5>
-                                    <h6 class="doctor-verify">${element.zip_code == null?"PMDC Verified":""}</h6></div>
+                                    <h5 class="mb-0">${element.specialization == 32? element.gender=="male"?"Mr.":"Ms.":"Dr."} ${element.name} ${element.last_name}</h5>
+                                    <h6 class="doctor-verify">${element.zip_code == null?element.specialization!=32?"PMDC Verified":"":""}</h6></div>
                                     <div class="doctor-ratings d-flex align-items-center my-1">
                                         ${generateStarRatings(element.rating)}
                                     </div>
@@ -282,10 +242,50 @@
                                 <hr>
                                 ` : ''}
 
-                                    <p class="education-doc">MBBS</p>
+                                    <p class="education-doc">${element.details.education!=null?safeSubstring(element.details.education, 60):""}</p>
+                                    </div>
+                                    </div><div class="d-flex align-items-center justify-content-center w-100 position-absolute view-button"><button
+                                    class="btn btn-outline-primary" onclick="window.location.href='/doctor-profile/${element.name}-${element.last_name}'">View Profile</button></div></div></div>`
+                                );
+                            } else {
+                                $(".doctor-cont2").append(
+                                    `<div class="col-sm-6 col-md-4 col-xl-3 doctor-list-card">
+                                    <div class="doctor-list-card-container rounded-2 px-2 pt-3 pb-2 position-relative">
+                                    <div class="d-flex pb-4 gap-3"><div class="doctor-new-container d-flex flex-column  align-items-center  gap-2 ">
+                                                                                <div class="doctor-pic-container rounded-circle p-1 position-relative">
+                                    <img src="${element.user_image}" alt="Doctor Page" class="rounded-circle object-fit-cover w-100 h-100">
+                                                                        <span class="position-absolute online-dot ${element.status == 'online' ? 'bg-success' : 'bg-danger'}"></span>
+                                    </div>
+                                    <p class="text-white px-2 py-1 ${ element.status == 'online' ? 'bg-success' : 'bg-danger' } rounded-2 fw-bold">${ element.status == 'online' ? 'Online' : 'Offline' }</p>
+                                    </div>
+                                    <div class="doctor-data-container"><div class="d-flex flex-column gap-1">
+                                    <h5 class="mb-0">${element.specialization == 32? element.gender=="male"?"Mr.":"Ms.":"Dr."} ${element.name} ${element.last_name}</h5>
+                                    <h6 class="doctor-verify">${element.zip_code == null?element.specialization!=32?"PMDC Verified":"":""}</h6></div>
+                                    <div class="doctor-ratings d-flex align-items-center my-1">
+                                        ${generateStarRatings(element.rating)}
+                                    </div>
+                                    <p class="specialization-doc">${element.specializations.name}</p>
+
+                                                                    ${element.consultation_fee ? `
+                                <hr>
+                                <p style="font-size:9px" class="d-flex align-items-center justify-content-between flex-wrap w-100">
+                                    <b>Consultation Fee: </b>
+                                    <b class="text-white px-2 py-1 bg-primary rounded-2">Rs.${element.consultation_fee}</b>
+                                </p>
+                                ${element.followup_fee && element.followup_fee != element.consultation_fee ? `
+                                    <hr>
+                                    <p style="font-size:9px" class="d-flex align-items-center justify-content-between flex-wrap w-100">
+                                        <b>Follow-up Fee: </b>
+                                        <b class="text-white px-2 py-1 bg-success rounded-2">Rs.${element.followup_fee}</b>
+                                    </p>
+                                ` : ''}
+                                <hr>
+                                ` : ''}
+
+                                    <p class="education-doc"></p>
                                     <div class="doctor-ratings d-flex align-items-center mt-2"></div></div>
                                     </div><div class="d-flex align-items-center justify-content-center w-100 position-absolute view-button"><button
-                                    class="btn btn-outline-primary" onclick="window.location.href='/doctor-profile/${element.id}'">View Profile</button></div></div></div>`
+                                    class="btn btn-outline-primary" onclick="window.location.href='/doctor-profile/${element.name}-${element.last_name}'">View Profile</button></div></div></div>`
                                 );
                             }
                         });
@@ -297,7 +297,7 @@
         $("#specialization").change(function(e){
             var id = e.target.value;
             $('#cb-47').prop('checked', true);
-             if (id != null) {
+                if (id != null) {
                 $.ajax({
                     type: "get",
                     url: "/filter/doctors/" + id,
@@ -326,14 +326,14 @@
                                     <p class="text-white px-2 py-1 ${ element.status == 'online' ? 'bg-success' : 'bg-danger' } rounded-2 fw-bold">${ element.status == 'online' ? 'Online' : 'Offline' }</p>
                                     </div>
                                     <div class="doctor-data-container"><div class="d-flex flex-column gap-1">
-                                    <h5 class="mb-0">Dr.${element.name} ${element.last_name}</h5>
-                                    <h6 class="doctor-verify">${element.zip_code == null?"PMDC Verified":""}</h6></div>
+                                    <h5 class="mb-0">${element.specialization == 32? element.gender=="male"?"Mr.":"Ms.":"Dr."} ${element.name} ${element.last_name}</h5>
+                                    <h6 class="doctor-verify">${element.zip_code == null?element.specialization!=32?"PMDC Verified":"":""}</h6></div>
                                     <div class="doctor-ratings d-flex align-items-center my-1">
                                         ${generateStarRatings(element.rating)}
                                     </div>
                                     <p class="specialization-doc">${element.specializations.name}</p>
 
-                                                                 ${element.consultation_fee ? `
+                                                                    ${element.consultation_fee ? `
                                 <hr>
                                 <p style="font-size:9px" class="d-flex align-items-center justify-content-between flex-wrap w-100">
                                     <b>Consultation Fee: </b>
@@ -352,7 +352,7 @@
                                     <p class="education-doc">${element.details.education!=null?safeSubstring(element.details.education, 60):""}</p>
                                     </div>
                                     </div><div class="d-flex align-items-center justify-content-center w-100 position-absolute view-button"><button
-                                    class="btn btn-outline-primary" onclick="window.location.href='/doctor-profile/${element.id}'">View Profile</button></div></div></div>`
+                                    class="btn btn-outline-primary" onclick="window.location.href='/doctor-profile/${element.name}-${element.last_name}'">View Profile</button></div></div></div>`
                                 );
                             } else {
                                 $(".doctor-cont2").append(
@@ -366,8 +366,8 @@
                                     <p class="text-white px-2 py-1 ${ element.status == 'online' ? 'bg-success' : 'bg-danger' } rounded-2 fw-bold">${ element.status == 'online' ? 'Online' : 'Offline' }</p>
                                     </div>
                                     <div class="doctor-data-container"><div class="d-flex flex-column gap-1">
-                                    <h5 class="mb-0">Dr.${element.name} ${element.last_name}</h5>
-                                    <h6 class="doctor-verify">${element.zip_code == null?"PMDC Verified":""}</h6></div>
+                                    <h5 class="mb-0">${element.specialization == 32? element.gender=="male"?"Mr.":"Ms.":"Dr."} ${element.name} ${element.last_name}</h5>
+                                    <h6 class="doctor-verify">${element.zip_code == null?element.specialization!=32?"PMDC Verified":"":""}</h6></div>
                                     <div class="doctor-ratings d-flex align-items-center my-1">
                                         ${generateStarRatings(element.rating)}
                                     </div>
@@ -389,10 +389,10 @@
                                 <hr>
                                 ` : ''}
 
-                                    <p class="education-doc">MBBS</p>
+                                    <p class="education-doc"></p>
                                     <div class="doctor-ratings d-flex align-items-center mt-2"></div></div>
                                     </div><div class="d-flex align-items-center justify-content-center w-100 position-absolute view-button"><button
-                                    class="btn btn-outline-primary" onclick="window.location.href='/doctor-profile/${element.id}'">View Profile</button></div></div></div>`
+                                    class="btn btn-outline-primary" onclick="window.location.href='/doctor-profile/${element.name}-${element.last_name}'">View Profile</button></div></div></div>`
                                 );
                             }
                         });
@@ -519,11 +519,17 @@
 
                             <div class="doctor-data-container">
                                 <div class="d-flex flex-column gap-1">
-                                    <h5 class="mb-0">Dr.
-                                        {{ \Str::ucfirst($doctor->name) . ' ' . \Str::ucfirst($doctor->last_name) }}
-                                    </h5>
-                                    @if ($doctor->zip_code == null)
-                                        <h6 class="doctor-verify">PMDC Verified</h6>
+                                    @if ($doctor->specialization != '32')
+                                        <h5 class="mb-0">Dr.
+                                            {{ \Str::ucfirst($doctor->name) . ' ' . \Str::ucfirst($doctor->last_name) }}
+                                        </h5>
+                                        @if ($doctor->zip_code == null)
+                                            <h6 class="doctor-verify">PMDC Verified</h6>
+                                        @endif
+                                    @else
+                                        <h5 class="mb-0">{{$doctor->gender == "male"? "Mr.":"Ms."}}
+                                            {{ \Str::ucfirst($doctor->name) . ' ' . \Str::ucfirst($doctor->last_name) }}
+                                        </h5>
                                     @endif
                                 </div>
                                 <div class="doctor-ratings d-flex align-items-center my-1">
@@ -559,14 +565,14 @@
                                     <hr>
                                 @endif
                                 <p class="education-doc">{!! nl2br(isset($doctor->details->education) ?
-                                    \Str::limit($doctor->details->education, 50) : 'MBBS') !!}</p>
+                                    \Str::limit($doctor->details->education, 50) : '') !!}</p>
                             </div>
 
 
                         </div>
                         <div class="d-flex align-items-center justify-content-center w-100 position-absolute view-button"><button
                                 class="btn btn-outline-primary"
-                                onclick="window.location.href='/doctor-profile/{{ $doctor->id }}'">View
+                                onclick="window.location.href='/doctor-profile/{{ $doctor->name }}-{{ $doctor->last_name }}'">View
                                 Profile</button></div>
                     </div>
                 </div>
