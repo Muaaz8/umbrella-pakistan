@@ -40,7 +40,7 @@ header("Access-Control-Allow-Origin: *"); @endphp
         }
         $("div.spannerx").addClass("showx");
         $("div.overlayx").addClass("showx");
-        // CountDown(sec, session_id);
+        CountDown(sec, session_id);
         // loadSymtoms(session_id);
         loadIsabelDiagnosis(session_id);
         loadPsychQuestion(session_id);
@@ -1506,7 +1506,7 @@ header("Access-Control-Allow-Origin: *"); @endphp
         // Join a channel and create local tracks. Best practice is to use Promise.all and run them concurrently.
         [uid, localTracks.audioTrack, localTracks.videoTrack] = await Promise.all([
             // Join the channel.
-            client.join(appid, channel, token || null, uid || null),
+            client.join(appid, channel, token || null, null),
             // Create tracks to the local microphone and camera.
             AgoraRTC.createMicrophoneAudioTrack(),
             AgoraRTC.createCameraVideoTrack()
@@ -1516,6 +1516,8 @@ header("Access-Control-Allow-Origin: *"); @endphp
         // Publish the local video and audio tracks to the channel.
         await client.publish(Object.values(localTracks));
         //    console.log("publish success");
+        console.log(client);
+        
     }
 
     var appid = "{{ env('AGORA_APP_ID') }}";
@@ -1565,6 +1567,7 @@ header("Access-Control-Allow-Origin: *"); @endphp
     }
 
     function handleUserPublished(user, mediaType) {
+        console.log('here..................');
         const id = user.uid;
         remoteUsers[id] = user;
         subscribe(user, mediaType);

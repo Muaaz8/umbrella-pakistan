@@ -384,7 +384,7 @@
         [uid, localTracks.audioTrack, localTracks.videoTrack] =
             await Promise.all([
                 // Join the channel.
-                client.join(appid, channel, token || null, uid || null),
+                client.join(appid, channel, token || null, null),
                 // Create tracks to the local microphone and camera.
                 AgoraRTC.createMicrophoneAudioTrack(),
                 AgoraRTC.createCameraVideoTrack(),
