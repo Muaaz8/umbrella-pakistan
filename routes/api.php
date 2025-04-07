@@ -65,6 +65,8 @@ Route::middleware('auth:sanctum','doc_restrict','patToVideoScreen')->group( func
 
 Route::middleware(['auth:sanctum','doc_restrict'])->group(function(){
     Route::get('patient/sessions','Api\SessionsController@pat_sessions_record');
+    Route::get('patient/orders/{id}','Api\OrdersController@order_details');
+    Route::get('patient/orders','Api\OrdersController@patient_orders');
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
