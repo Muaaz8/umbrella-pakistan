@@ -102,6 +102,7 @@ class MeezanPaymentController extends Controller
     public function payment_return()
     {
         $transaction = TblTransaction::where('user_id',auth()->user()->id)->where('status','0')->orderBy('id','desc')->first();
+
         $orderId = $transaction->transaction_id;
         $curl = curl_init();
         curl_setopt_array($curl, array(
@@ -149,7 +150,7 @@ class MeezanPaymentController extends Controller
                         'description' => $description[1],
                         'currency' => 'PKR',
                         'total_amount' => ($response->amount/100),
-                        'user_id' => $user->id,
+                        'user_id' => auth()->user()->id,
                         'status' => 1,
                     ];
                     TblTransaction::where('description',$description[1])->update($transactionArr);
@@ -216,7 +217,7 @@ class MeezanPaymentController extends Controller
                             'description' => $description[1],
                             'currency' => 'PKR',
                             'total_amount' => ($response->amount/100),
-                            'user_id' => $user->id,
+                            'user_id' => auth()->user()->id,
                             'status' => 1,
                         ];
                         TblTransaction::where('description',$description[1])->update($transactionArr);
@@ -249,7 +250,7 @@ class MeezanPaymentController extends Controller
                         'description' => $description[1],
                         'currency' => 'PKR',
                         'total_amount' => ($response->amount/100),
-                        'user_id' => $user->id,
+                        'user_id' => auth()->user()->id,
                         'status' => 1,
                     ];
                     TblTransaction::where('description',$description[1])->update($transactionArr);
@@ -369,7 +370,7 @@ class MeezanPaymentController extends Controller
                         'description' => $description[1],
                         'currency' => 'PKR',
                         'total_amount' => ($response->amount/100),
-                        'user_id' => $user->id,
+                        'user_id' => auth()->user()->id,
                         'status' => 1,
                     ];
                     TblTransaction::where('description',$description[1])->update($transactionArr);
@@ -436,7 +437,7 @@ class MeezanPaymentController extends Controller
                             'description' => $description[1],
                             'currency' => 'PKR',
                             'total_amount' => ($response->amount/100),
-                            'user_id' => $user->id,
+                            'user_id' => auth()->user()->id,
                             'status' => 1,
                         ];
                         TblTransaction::where('description',$description[1])->update($transactionArr);
@@ -469,7 +470,7 @@ class MeezanPaymentController extends Controller
                         'description' => $description[1],
                         'currency' => 'PKR',
                         'total_amount' => ($response->amount/100),
-                        'user_id' => $user->id,
+                        'user_id' => auth()->user()->id,
                         'status' => 1,
                     ];
                     TblTransaction::where('description',$description[1])->update($transactionArr);
