@@ -22,7 +22,7 @@ class CartController extends BaseController
             $providerFee = 0;
             $user_cart_items = DB::table('tbl_cart')->where('user_id', Auth::user()->id)->where('status', 'recommended')->get();
             foreach ($user_cart_items as $item) {
-                if ($item->item_type == 'prescribed') { 
+                if ($item->item_type == 'prescribed') {
                     $pres = DB::table('prescriptions')->where('id', $item->pres_id)->first();
                     $item->prescription_date = $pres->created_at;
                     $item->medicine_usage = $pres->usage;
@@ -651,7 +651,7 @@ class CartController extends BaseController
             'currency' => 'PKR',
             'total_amount' => ($response->amount/100),
             'user_id' => $user->id,
-            'status' => '1',
+            'status' => 1,
             ];
             TblTransaction::where('description',$description[1])->update($transactionArr);
 
@@ -683,7 +683,6 @@ class CartController extends BaseController
                     'status' => 'purchased',
                     'purchase_status' => '0',
                     'checkout_status' => '0',
-
                 ]);
             }
             return $this->sendResponse(['id'=> $description[1]], 'order completed');

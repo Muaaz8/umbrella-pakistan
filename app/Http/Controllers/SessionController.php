@@ -42,6 +42,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use PDF;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class SessionController extends Controller
 {
@@ -174,116 +175,236 @@ class SessionController extends Controller
             return view('sessions', compact('user_type', 'sessions'));
         }
     }
+    // public function all_sessions_record(Request $request)
+    // {
+    //     // dd($request->all());
+    //     $user_type = auth()->user()->user_type;
+    //     if ($user_type == 'admin') {
+    //         $user = Auth::user();
+    //         $user_id = $user->id;
+    //         if(isset($request->name)){
+    //             $sessions = Session::where('status', 'ended')
+    //                 ->where('session_id',$request->name)
+    //                 ->where('remaining_time','!=','full')
+    //                 ->orderByDesc('id')->get();
+    //             $inclinic_data = \App\Models\InClinics::with(['user','prescriptions','doctor'])->get();
+    //         }else{
+    //             $sessions = Session::where('status', 'ended')->where('remaining_time','!=','full')->orderByDesc('id')->get();
+    //             $inclinic_data = \App\Models\InClinics::with(['user','prescriptions','doctor'])->get();
+    //         }
+    //         foreach ($sessions as $session) {
+    //             $session->type = 'session';
+    //             $getPersentage = DB::table('doctor_percentage')->where('doc_id', $session['doctor_id'])->first();
+    //             $doc_price = ($getPersentage->percentage / 100) * $session->price;
+    //             $session->price = $session->price - $doc_price;
+
+    //             if ($session->status == 'ended' && $session->start_time != 'null' && $session->end_time != 'null') {
+    //                 $session->date = User::convert_utc_to_user_timezone($user->id, $session->start_time)['date'];
+    //                 $session->date = $session->date;
+
+    //                 $session->start_time = date('h:i A', strtotime('-15 minutes', strtotime($session->start_time)));
+    //                 $session->start_time = User::convert_utc_to_user_timezone($user->id, $session->start_time)['time'];
+
+    //                 $session->end_time = date('h:i A', strtotime('-15 minutes', strtotime($session->end_time)));
+    //                 $session->end_time = User::convert_utc_to_user_timezone($user->id, $session->end_time)['time'];
+
+
+    //                 $doc = User::where('id', $session['doctor_id'])->first();
+
+    //                 $session->doc_name = !empty($doc) ?  $doc['name'] . " " . $doc['last_name'] : 'N/A';
+    //                 $pat = User::where('id', $session['patient_id'])->first();
+    //                 $session->pat_name = $pat['name'] . " " . $pat['last_name'];
+    //                 $links = AgoraAynalatics::where('channel', $session['channel'])->first();
+    //                 if ($links != null) {
+    //                     $recording = $links->video_link;
+    //                     $session->recording = $recording;
+    //                 } else {
+    //                     $session->recording = 'No recording';
+    //                 }
+
+    //                 $referred_doc = Referal::where('session_id', $session['id'])
+    //                         ->where('patient_id', $session['patient_id'])
+    //                         ->where('doctor_id', $session['doctor_id'])
+    //                         ->leftjoin('users', 'referals.sp_doctor_id', 'users.id')
+    //                         ->select('users.name', 'users.last_name')
+    //                         ->get();
+    //                     if (count($referred_doc)) {
+    //                         $session->refered = "Dr. ".$session->doc_name." Referred the Patient to Dr." . $referred_doc[0]->name . " " . $referred_doc[0]->last_name;
+    //                     } else {
+    //                         $session->refered = null;
+    //                     }
+    //                 $session->sympptoms = DB::table('symptoms')->where('id',$session['symptom_id'])->first();
+
+    //                 $pres = Prescription::where('session_id', $session['id'])->get();
+    //                 $pres_arr = [];
+    //                 //dd($pres);
+    //                 foreach ($pres as $prod) {
+    //                     if ($prod['imaging_id'] != '0') {
+
+    //                         $product = AllProducts::where('id', $prod['imaging_id'])->first()->toArray();
+    //                         $usage = DB::table('imaging_selected_location')
+    //                             ->join('imaging_locations', 'imaging_selected_location.imaging_location_id', 'imaging_locations.id')
+    //                             ->where('imaging_selected_location.session_id', $prod['session_id'])
+    //                             ->where('imaging_selected_location.product_id', $prod['imaging_id'])
+    //                             ->select('imaging_locations.city as location')
+    //                             ->first();
+    //                         $prod->usage = $usage->location;
+    //                     } else if ($prod['medicine_id'] != '0') {
+
+    //                         $product = AllProducts::where('id', $prod['medicine_id'])->first()->toArray();
+    //                     } else {
+    //                         $product = QuestDataTestCode::where('TEST_CD', $prod['test_id'])
+    //                             ->first();
+    //                     }
+    //                     $cart = Cart::where('doc_session_id', $session['id'])
+    //                         ->where('pres_id', $prod->id)->first();
+    //                     // dd($cart);
+    //                     $prod->prod_detail = $product;
+    //                     if (isset($cart->status))
+    //                         $prod->cart_status = $cart->status;
+    //                     else
+    //                         $prod->cart_status = 'Invalid';
+    //                     // dd($prod);
+    //                     array_push($pres_arr, $prod);
+    //                 }
+    //                 $session->pres = $pres_arr;
+    //                 $session->pres_files = PrescriptionsFile::where(['session_id' => $session->id, 'status' => '1'])->get();
+    //                 // array_push($sessions,$session);
+    //             }
+    //         }
+    //         foreach ($inclinic_data as $inclinic) {
+    //             $inclinic->date = User::convert_utc_to_user_timezone($user->id, $inclinic->created_at)['date'];
+    //             $inclinic->date = $inclinic->date;
+    //             $inclinic->type = 'inclinic';
+    //         }
+
+    //         // Merge both collections
+    //         $mergedData = $sessions->merge($inclinic_data);
+
+    //         // Sort by created_at (descending order)
+    //         $sortedData = $mergedData->sortByDesc('created_at')->values();
+    //         $specializations = DB::table('specializations')->where('status','1')->get();
+    //         return view('dashboard_admin.all_sessions.index', compact('user_type', 'sortedData','specializations'));
+    //     }
+    // }
+
+
     public function all_sessions_record(Request $request)
     {
-        // dd($request->all());
         $user_type = auth()->user()->user_type;
+
         if ($user_type == 'admin') {
             $user = Auth::user();
             $user_id = $user->id;
-            if(isset($request->name)){
+            if (isset($request->name)) {
                 $sessions = Session::where('status', 'ended')
-                    ->where('session_id',$request->name)
-                    ->where('remaining_time','!=','full')
-                    ->orderByDesc('id')->get();
-                $inclinic_data = \App\Models\InClinics::with(['user','prescriptions','doctor'])->get();
-            }else{
-                $sessions = Session::where('status', 'ended')->where('remaining_time','!=','full')->orderByDesc('id')->get();
-                $inclinic_data = \App\Models\InClinics::with(['user','prescriptions','doctor'])->get();
+                    ->where('session_id', $request->name)
+                    ->where('remaining_time', '!=', 'full')
+                    ->orderByDesc('id')
+                    ->get();
+            } else {
+                $sessions = Session::where('status', 'ended')
+                    ->where('remaining_time', '!=', 'full')
+                    ->orderByDesc('id')
+                    ->get();
             }
+
+            $inclinic_data = \App\Models\InClinics::with(['user', 'prescriptions', 'doctor'])->get();
             foreach ($sessions as $session) {
                 $session->type = 'session';
                 $getPersentage = DB::table('doctor_percentage')->where('doc_id', $session['doctor_id'])->first();
                 $doc_price = ($getPersentage->percentage / 100) * $session->price;
                 $session->price = $session->price - $doc_price;
-
                 if ($session->status == 'ended' && $session->start_time != 'null' && $session->end_time != 'null') {
                     $session->date = User::convert_utc_to_user_timezone($user->id, $session->start_time)['date'];
-                    $session->date = $session->date;
-
                     $session->start_time = date('h:i A', strtotime('-15 minutes', strtotime($session->start_time)));
                     $session->start_time = User::convert_utc_to_user_timezone($user->id, $session->start_time)['time'];
 
                     $session->end_time = date('h:i A', strtotime('-15 minutes', strtotime($session->end_time)));
                     $session->end_time = User::convert_utc_to_user_timezone($user->id, $session->end_time)['time'];
 
+                    $doc = User::find($session['doctor_id']);
+                    $session->doc_name = $doc ? $doc->name . ' ' . $doc->last_name : 'N/A';
 
-                    $doc = User::where('id', $session['doctor_id'])->first();
+                    $pat = User::find($session['patient_id']);
+                    $session->pat_name = $pat->name . ' ' . $pat->last_name;
 
-                    $session->doc_name = !empty($doc) ?  $doc['name'] . " " . $doc['last_name'] : 'N/A';
-                    $pat = User::where('id', $session['patient_id'])->first();
-                    $session->pat_name = $pat['name'] . " " . $pat['last_name'];
                     $links = AgoraAynalatics::where('channel', $session['channel'])->first();
-                    if ($links != null) {
-                        $recording = $links->video_link;
-                        $session->recording = $recording;
-                    } else {
-                        $session->recording = 'No recording';
-                    }
+                    $session->recording = $links ? $links->video_link : 'No recording';
 
                     $referred_doc = Referal::where('session_id', $session['id'])
-                            ->where('patient_id', $session['patient_id'])
-                            ->where('doctor_id', $session['doctor_id'])
-                            ->leftjoin('users', 'referals.sp_doctor_id', 'users.id')
-                            ->select('users.name', 'users.last_name')
-                            ->get();
-                        if (count($referred_doc)) {
-                            $session->refered = "Dr. ".$session->doc_name." Referred the Patient to Dr." . $referred_doc[0]->name . " " . $referred_doc[0]->last_name;
-                        } else {
-                            $session->refered = null;
-                        }
-                    $session->sympptoms = DB::table('symptoms')->where('id',$session['symptom_id'])->first();
+                        ->where('patient_id', $session['patient_id'])
+                        ->where('doctor_id', $session['doctor_id'])
+                        ->leftJoin('users', 'referals.sp_doctor_id', 'users.id')
+                        ->select('users.name', 'users.last_name')
+                        ->get();
 
-                    $pres = Prescription::where('session_id', $session['id'])->get();
+                    if (count($referred_doc)) {
+                        $session->refered = "Dr. {$session->doc_name} Referred the Patient to Dr. {$referred_doc[0]->name} {$referred_doc[0]->last_name}";
+                    } else {
+                        $session->refered = null;
+                    }
+
+                    $session->sympptoms = DB::table('symptoms')->where('id', $session['symptom_id'])->first();
+
                     $pres_arr = [];
-                    //dd($pres);
+                    $pres = Prescription::where('session_id', $session['id'])->get();
                     foreach ($pres as $prod) {
                         if ($prod['imaging_id'] != '0') {
-
-                            $product = AllProducts::where('id', $prod['imaging_id'])->first()->toArray();
+                            $product = AllProducts::find($prod['imaging_id'])->toArray();
                             $usage = DB::table('imaging_selected_location')
                                 ->join('imaging_locations', 'imaging_selected_location.imaging_location_id', 'imaging_locations.id')
                                 ->where('imaging_selected_location.session_id', $prod['session_id'])
                                 ->where('imaging_selected_location.product_id', $prod['imaging_id'])
                                 ->select('imaging_locations.city as location')
                                 ->first();
-                            $prod->usage = $usage->location;
+                            $prod->usage = $usage->location ?? null;
                         } else if ($prod['medicine_id'] != '0') {
-
-                            $product = AllProducts::where('id', $prod['medicine_id'])->first()->toArray();
+                            $product = AllProducts::find($prod['medicine_id'])->toArray();
                         } else {
-                            $product = QuestDataTestCode::where('TEST_CD', $prod['test_id'])
-                                ->first();
+                            $product = QuestDataTestCode::where('TEST_CD', $prod['test_id'])->first();
                         }
+
                         $cart = Cart::where('doc_session_id', $session['id'])
                             ->where('pres_id', $prod->id)->first();
-                        // dd($cart);
+
                         $prod->prod_detail = $product;
-                        if (isset($cart->status))
-                            $prod->cart_status = $cart->status;
-                        else
-                            $prod->cart_status = 'Invalid';
-                        // dd($prod);
+                        $prod->cart_status = $cart->status ?? 'Invalid';
+
                         array_push($pres_arr, $prod);
                     }
                     $session->pres = $pres_arr;
                     $session->pres_files = PrescriptionsFile::where(['session_id' => $session->id, 'status' => '1'])->get();
-                    // array_push($sessions,$session);
                 }
             }
+
             foreach ($inclinic_data as $inclinic) {
                 $inclinic->date = User::convert_utc_to_user_timezone($user->id, $inclinic->created_at)['date'];
-                $inclinic->date = $inclinic->date;
                 $inclinic->type = 'inclinic';
             }
 
-            // Merge both collections
             $mergedData = $sessions->merge($inclinic_data);
-
-            // Sort by created_at (descending order)
             $sortedData = $mergedData->sortByDesc('created_at')->values();
-            $specializations = DB::table('specializations')->where('status','1')->get();
-            return view('dashboard_admin.all_sessions.index', compact('user_type', 'sortedData','specializations'));
+
+            $page = $request->get('page', 1);
+            $perPage = 10;
+            $offset = ($page - 1) * $perPage;
+
+            $paginatedData = new LengthAwarePaginator(
+                $sortedData->slice($offset, $perPage),
+                $sortedData->count(),
+                $perPage,
+                $page,
+                ['path' => $request->url(), 'query' => $request->query()]
+            );
+
+            $specializations = DB::table('specializations')->where('status', '1')->get();
+
+            return view('dashboard_admin.all_sessions.index', compact(
+                'user_type',
+                'paginatedData',
+                'specializations'
+            ));
         }
     }
 

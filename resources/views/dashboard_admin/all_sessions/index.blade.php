@@ -71,7 +71,7 @@
                   </div>
 
                 <div class="accordion accordion-flush" id="accordionFlushExample">
-                    @foreach ($sortedData as $session)
+                    @foreach ($paginatedData as $session)
                         @if($session->type == "session")
                             <div class="accordion-item mb-3">
                                 <h2 class="accordion-header" id="flush-{{ $session->id }}">
@@ -345,7 +345,7 @@
                             </div>
                         @endif
                     @endforeach
-                    {{-- $sortedData->links('pagination::bootstrap-4') --}}
+                    {{ $paginatedData->links('pagination::bootstrap-4') }}
                 </div>
             </div>
         </div>

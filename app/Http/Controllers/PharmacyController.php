@@ -921,7 +921,7 @@ class PharmacyController extends Controller
                 'currency' => 'PKR',
                 'total_amount' => ($response->amount/100),
                 'user_id' => $user->id,
-                'status' => '1',
+                'status' => 1,
             ];
             TblTransaction::where('description',$description[1])->update($transactionArr);
 

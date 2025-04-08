@@ -46,6 +46,7 @@ class MeezanPaymentController extends Controller
     //  <!--- One Phase Payment ---!>
     public function payment($data,$amount)
     {
+        $user_id = auth()->user()->id;
         $description = urlencode($data);
         $this->amount = $amount;
         $data = explode('-',$data);
@@ -64,18 +65,6 @@ class MeezanPaymentController extends Controller
             $this->returnUrl = env('APP_URL')."/meezan/payment/order/return";
         }
 
-        $user_id = auth()->user()->id;
-        $transactionArr = [
-            'subject' => $data[0],
-            'description' => $data[1],
-            'currency' => 'PKR',
-            'total_amount' => ($amount/100),
-            'user_id' => $user_id,
-            'status' => '0',
-        ];
-        TblTransaction::create($transactionArr);
-
-        $CURLOPT_URL = $this->api_url.'/register.do?userName='.$this->userName.'&password='.$this->password.'&orderNumber='.$orderId.'&amount='.$this->amount.'&currency='.$this->currency.'&returnUrl='.urlencode($this->returnUrl).'&clientId='.$user_id.'&description='.$description;
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => $this->api_url.'/register.do?userName='.$this->userName.'&password='.$this->password.'&orderNumber='.$orderId.'&amount='.$this->amount.'&currency='.$this->currency.'&returnUrl='.urlencode($this->returnUrl).'&clientId='.$user_id.'&description='.$description,
@@ -92,16 +81,28 @@ class MeezanPaymentController extends Controller
 
         curl_close($curl);
         $response = json_decode($response);
-        if (isset($response) && $response->errorCode == 0) {
-            session()->put('mdOrderId', $response->orderId);
-        }
+        // if (isset($response) && $response->errorCode == 0) {
+        //     session()->put('mdOrderId', $response->orderId);
+        // }
+        $transactionArr = [
+            'subject' => $data[0],
+            'description' => $data[1],
+            'currency' => 'PKR',
+            'total_amount' => ($amount/100),
+            'user_id' => $user_id,
+            'status' => 0,
+            'transaction_id' => $response->orderId,
+        ];
+        TblTransaction::create($transactionArr);
+
         return $response;
 
     }
 
     public function payment_return()
     {
-        $orderId = session()->get('mdOrderId');
+        $transaction = TblTransaction::where('user_id',auth()->user()->id)->where('status','0')->orderBy('id','desc')->first();
+        $orderId = $transaction->transaction_id;
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => $this->api_url.'/getOrderStatusExtended.do?userName='.$this->userName.'&password='.$this->password.'&orderId='.$orderId,
@@ -143,6 +144,15 @@ class MeezanPaymentController extends Controller
                         'text' => $text,
                         'appoint_id' => $getSession->id,
                     ]);
+                    $transactionArr = [
+                        'subject' => 'Evisit',
+                        'description' => $description[1],
+                        'currency' => 'PKR',
+                        'total_amount' => ($response->amount/100),
+                        'user_id' => $user->id,
+                        'status' => 1,
+                    ];
+                    TblTransaction::where('description',$description[1])->update($transactionArr);
 
                     event(new RealTimeMessage($getSession->doctor_id));
                     event(new updateQuePatient('update patient que'));
@@ -201,6 +211,16 @@ class MeezanPaymentController extends Controller
                             'received' => 'false',
                             'session_id' => 'null',
                         ];
+                        $transactionArr = [
+                            'subject' => 'Appointment',
+                            'description' => $description[1],
+                            'currency' => 'PKR',
+                            'total_amount' => ($response->amount/100),
+                            'user_id' => $user->id,
+                            'status' => 1,
+                        ];
+                        TblTransaction::where('description',$description[1])->update($transactionArr);
+
                         event(new RealTimeMessage($getSession->doctor_id));
                         event(new updateQuePatient('update patient que'));
                     } catch (Exception $e) {
@@ -224,6 +244,15 @@ class MeezanPaymentController extends Controller
                     $pat = InClinics::where('user_id',$description[1])->update([
                         'status'=> 'pending'
                     ]);
+                    $transactionArr = [
+                        'subject' => 'Inclinic',
+                        'description' => $description[1],
+                        'currency' => 'PKR',
+                        'total_amount' => ($response->amount/100),
+                        'user_id' => $user->id,
+                        'status' => 1,
+                    ];
+                    TblTransaction::where('description',$description[1])->update($transactionArr);
                     event(new \App\Events\InClinicPatientUpdate($description[1]));
                     return redirect()->route('inclinic_patient');
                 }else{
@@ -236,6 +265,7 @@ class MeezanPaymentController extends Controller
     //  <!--- Mobile App Payment ---!>
     public function payment_app($data,$amount)
     {
+        $user_id = auth()->user()->id;
         $description = urlencode($data);
         $this->amount = $amount;
         $data = explode('-',$data);
@@ -254,16 +284,6 @@ class MeezanPaymentController extends Controller
             $this->returnUrl = env('MOBILE_APP_URL')."/ThankYouScreen";
         }
 
-        $user_id = auth()->user()->id;
-        $transactionArr = [
-            'subject' => $data[0],
-            'description' => $data[1],
-            'currency' => 'PKR',
-            'total_amount' => ($amount/100),
-            'user_id' => $user_id,
-            'status' => '0',
-        ];
-        TblTransaction::create($transactionArr);
 
         // $CURLOPT_URL = $this->api_url.'/register.do?userName='.$this->userName.'&password='.$this->password.'&orderNumber='.$orderId.'&amount='.$this->amount.'&currency='.$this->currency.'&returnUrl='.urlencode($this->returnUrl).'&clientId='.$user_id.'&description='.$description;
         $curl = curl_init();
@@ -282,16 +302,26 @@ class MeezanPaymentController extends Controller
 
         curl_close($curl);
         $response = json_decode($response);
-        if (isset($response) && $response->errorCode == 0) {
-            session()->put('mdOrderId', $response->orderId);
-        }
+        // if (isset($response) && $response->errorCode == 0) {
+        //     session()->put('mdOrderId', $response->orderId);
+        // }
+        $transactionArr = [
+            'subject' => $data[0],
+            'description' => $data[1],
+            'currency' => 'PKR',
+            'total_amount' => ($amount/100),
+            'user_id' => $user_id,
+            'status' => 0,
+        ];
+        TblTransaction::create($transactionArr);
         return $response;
 
     }
 
     public function payment_return_app()
     {
-        $orderId = session()->get('mdOrderId');
+        $transaction = TblTransaction::where('user_id',auth()->user()->id)->where('status','0')->orderBy('id','desc')->first();
+        $orderId = $transaction->transaction_id;
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => $this->api_url.'/getOrderStatusExtended.do?userName='.$this->userName.'&password='.$this->password.'&orderId='.$orderId,
@@ -333,6 +363,16 @@ class MeezanPaymentController extends Controller
                         'text' => $text,
                         'appoint_id' => $getSession->id,
                     ]);
+
+                    $transactionArr = [
+                        'subject' => 'Evisit',
+                        'description' => $description[1],
+                        'currency' => 'PKR',
+                        'total_amount' => ($response->amount/100),
+                        'user_id' => $user->id,
+                        'status' => 1,
+                    ];
+                    TblTransaction::where('description',$description[1])->update($transactionArr);
 
                     event(new RealTimeMessage($getSession->doctor_id));
                     event(new updateQuePatient('update patient que'));
@@ -391,6 +431,16 @@ class MeezanPaymentController extends Controller
                             'received' => 'false',
                             'session_id' => 'null',
                         ];
+                        $transactionArr = [
+                            'subject' => 'Appointment',
+                            'description' => $description[1],
+                            'currency' => 'PKR',
+                            'total_amount' => ($response->amount/100),
+                            'user_id' => $user->id,
+                            'status' => 1,
+                        ];
+                        TblTransaction::where('description',$description[1])->update($transactionArr);
+
                         event(new RealTimeMessage($getSession->doctor_id));
                         event(new updateQuePatient('update patient que'));
                     } catch (Exception $e) {
@@ -414,6 +464,15 @@ class MeezanPaymentController extends Controller
                     $pat = InClinics::where('user_id',$description[1])->update([
                         'status'=> 'pending'
                     ]);
+                    $transactionArr = [
+                        'subject' => 'Inclinic',
+                        'description' => $description[1],
+                        'currency' => 'PKR',
+                        'total_amount' => ($response->amount/100),
+                        'user_id' => $user->id,
+                        'status' => 1,
+                    ];
+                    TblTransaction::where('description',$description[1])->update($transactionArr);
                     event(new \App\Events\InClinicPatientUpdate($description[1]));
                     return redirect()->route('inclinic_patient');
                 }else{
