@@ -302,7 +302,7 @@ Route::post('/order/payment/done', 'PharmacyController@authorize_create_new_orde
 
 Route::get('/meezan/payment', 'MeezanPaymentController@payment')->name('meezan.store');
 Route::get('/meezan/payment/return', 'MeezanPaymentController@payment_return')->name('meezan.return');
-Route::get('/meezan/payment/order/return', 'PharmacyController@order_payment_return')->name('meezan.return');
+Route::get('/meezan/payment/order/return', 'PharmacyController@order_payment_return')->name('meezan.order.return');
 
 Route::get('doc/video/page/{id}', 'VideoController@doctorVideo')->name('doc_video_page')->middleware('no_cache');
 Route::get('pat/video/page/{id}', 'VideoController@patientVideo')->name('pat_video_page')->middleware('no_cache');
@@ -1071,6 +1071,9 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
         Route::get('/inclinic_patient', 'AdminController@inclinic_patient')->name('inclinic_patient');
         Route::get('/in_clinics_create', 'AdminController@in_clinics_create')->name('in_clinics_create');
         Route::post('/in_clinics_store', 'AdminController@in_clinics_store')->name('in_clinics_store');
+
+        Route::get('/lab_for_patient', 'AdminController@lab_for_patient')->name('lab_for_patient');
+        Route::post('/lab_for_patient_store', 'AdminController@lab_for_patient_store')->name('lab_for_patient_store');
         //Route::post('/admin/walletPay', 'PaymentController@Wallet_Pay')->name('admin_wallet_pay');
         // Route::get('/new_item',function(){return view('new_item');})->name('new_item');
 

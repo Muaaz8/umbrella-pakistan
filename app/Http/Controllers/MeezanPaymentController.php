@@ -50,30 +50,42 @@ class MeezanPaymentController extends Controller
         $description = urlencode($data);
         $this->amount = $amount;
         $data = explode('-',$data);
+        $transaction = TblTransaction::create([
+            'subject' => $data[0],
+            'description' => $data[1],
+            'currency' => 'PKR',
+            'total_amount' => ($amount / 100),
+            'user_id' => $user_id,
+            'status' => 0,
+            'transaction_id' => null,
+        ]);
+
+        $temp_id = $transaction->id;
+
         if($data[0] == 'Evisit'){
             $orderId = 'CHCCE-'.$data[1];
-            $this->returnUrl = env('APP_URL')."/meezan/payment/return";
+            $this->returnUrl = route('meezan.return', ['temp_id' => $temp_id]);
         }elseif($data[0] == 'Appointment'){
             $orderId = 'CHCCA-'.$data[1];
-            $this->returnUrl = env('APP_URL')."/meezan/payment/return";
+            $this->returnUrl = route('meezan.return', ['temp_id' => $temp_id]);
         }elseif($data[0] == 'Inclinic'){
             $orderId = 'CHCCI-'.$data[1];
-            $this->returnUrl = env('APP_URL')."/meezan/payment/return";
+            $this->returnUrl = route('meezan.return', ['temp_id' => $temp_id]);
         }
         else{
             $orderId = 'CHCCO-'.$data[1];
-            $this->returnUrl = env('APP_URL')."/meezan/payment/order/return";
+            $this->returnUrl = route('meezan.order.return', ['temp_id' => $temp_id]);
         }
 
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => $this->api_url.'/register.do?userName='.$this->userName.'&password='.$this->password.'&orderNumber='.$orderId.'&amount='.$this->amount.'&currency='.$this->currency.'&returnUrl='.urlencode($this->returnUrl).'&clientId='.$user_id.'&description='.$description,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => '',
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 0,
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'GET',
         ));
 
@@ -81,19 +93,9 @@ class MeezanPaymentController extends Controller
 
         curl_close($curl);
         $response = json_decode($response);
-        // if (isset($response) && $response->errorCode == 0) {
-        //     session()->put('mdOrderId', $response->orderId);
-        // }
-        $transactionArr = [
-            'subject' => $data[0],
-            'description' => $data[1],
-            'currency' => 'PKR',
-            'total_amount' => ($amount/100),
-            'user_id' => $user_id,
-            'status' => 0,
-            'transaction_id' => $response->orderId,
-        ];
-        TblTransaction::create($transactionArr);
+
+        $transaction->transaction_id = $response->orderId;
+        $transaction->save();
 
         return $response;
 
@@ -101,7 +103,8 @@ class MeezanPaymentController extends Controller
 
     public function payment_return()
     {
-        $transaction = TblTransaction::where('user_id',auth()->user()->id)->where('status','0')->orderBy('id','desc')->first();
+        $tempId = $_GET['temp_id'];
+        $transaction = TblTransaction::find($tempId);
 
         $orderId = $transaction->transaction_id;
         $curl = curl_init();
@@ -270,9 +273,21 @@ class MeezanPaymentController extends Controller
         $description = urlencode($data);
         $this->amount = $amount;
         $data = explode('-',$data);
+        $transaction = TblTransaction::create([
+            'subject' => $data[0],
+            'description' => $data[1],
+            'currency' => 'PKR',
+            'total_amount' => ($amount / 100),
+            'user_id' => $user_id,
+            'status' => 0,
+            'transaction_id' => null,
+        ]);
+
+        $temp_id = $transaction->id;
+
         if($data[0] == 'Evisit'){
             $orderId = 'CHCCE-'.$data[1];
-            $this->returnUrl = env('MOBILE_APP_URL')."/SendInviteScreen";
+            $this->returnUrl = env('MOBILE_APP_URL')."/SendInviteScreen?temp_id=".$temp_id;
         }elseif($data[0] == 'Appointment'){
             $orderId = 'CHCCA-'.$data[1];
             // $this->returnUrl = env('MOBILE_APP_URL')."/SendInviteScreen";
@@ -282,20 +297,20 @@ class MeezanPaymentController extends Controller
         }
         else{
             $orderId = 'CHCCO-'.$data[1];
-            $this->returnUrl = env('MOBILE_APP_URL')."/ThankYouScreen";
+            $this->returnUrl = env('MOBILE_APP_URL')."/ThankYouScreen?temp_id=".$temp_id;
         }
 
 
         // $CURLOPT_URL = $this->api_url.'/register.do?userName='.$this->userName.'&password='.$this->password.'&orderNumber='.$orderId.'&amount='.$this->amount.'&currency='.$this->currency.'&returnUrl='.urlencode($this->returnUrl).'&clientId='.$user_id.'&description='.$description;
         $curl = curl_init();
         curl_setopt_array($curl, array(
-        CURLOPT_URL => $this->api_url.'/register.do?userName='.$this->userName.'&password='.$this->password.'&orderNumber='.$orderId.'&amount='.$this->amount.'&currency='.$this->currency.'&returnUrl='.urlencode($this->returnUrl).'&clientId='.$user_id.'&description='.$description,
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => '',
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 0,
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_URL => $this->api_url.'/register.do?userName='.$this->userName.'&password='.$this->password.'&orderNumber='.$orderId.'&amount='.$this->amount.'&currency='.$this->currency.'&returnUrl='.urlencode($this->returnUrl).'&clientId='.$user_id.'&description='.$description,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'GET',
         ));
 
@@ -303,25 +318,19 @@ class MeezanPaymentController extends Controller
 
         curl_close($curl);
         $response = json_decode($response);
-        // if (isset($response) && $response->errorCode == 0) {
-        //     session()->put('mdOrderId', $response->orderId);
-        // }
-        $transactionArr = [
-            'subject' => $data[0],
-            'description' => $data[1],
-            'currency' => 'PKR',
-            'total_amount' => ($amount/100),
-            'user_id' => $user_id,
-            'status' => 0,
-        ];
-        TblTransaction::create($transactionArr);
+
+        $transaction->transaction_id = $response->orderId;
+        $transaction->save();
+
         return $response;
 
     }
 
     public function payment_return_app()
     {
-        $transaction = TblTransaction::where('user_id',auth()->user()->id)->where('status','0')->orderBy('id','desc')->first();
+        $tempId = $_GET['temp_id'];
+        $transaction = TblTransaction::find($tempId);
+
         $orderId = $transaction->transaction_id;
         $curl = curl_init();
         curl_setopt_array($curl, array(

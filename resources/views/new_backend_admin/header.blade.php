@@ -34,6 +34,7 @@
         <nav class="dashboard-nav-list">
             <a href="{{ url('admin/dash') }}" class="dashboard-nav-item"><i class="fa-solid fa-house"></i> Dashboard
             </a>
+            <a href="{{ route('lab_for_patient') }}" class="dashboard-nav-item"><i class="fa-solid fa-flask"></i>Lab For Patient</a>
             <a href="{{ route('inclinic_patient') }}" class="dashboard-nav-item"><i class="fa-solid fa-house-chimney-medical"></i>In Clinic</a>
             <a href="{{ route('inclinic_pharmacy_editor_orders') }}" class="dashboard-nav-item"><i
                 class="fa-solid fa-calendar-check"></i>Inclinic Orders</a>

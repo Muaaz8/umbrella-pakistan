@@ -49,6 +49,7 @@ use App\Models\PurchaseOrder;
 use App\Models\TblTransaction;
 use Str;
 use Validator;
+use App\LabOrder;
 
 class AdminController extends Controller
 {
@@ -4004,5 +4005,120 @@ public function store_policy(Request $request){
     public function tbl_transaction(){
         $transactions = TblTransaction::orderBy('id','desc')->paginate(10);
         return view('dashboard_admin.transactions.index',compact('transactions'));
+    }
+
+    public function lab_for_patient(){
+        $patients = User::where('user_type','patient')->get();
+        $products = DB::table('quest_data_test_codes')
+            ->select(
+                'quest_data_test_codes.id',
+                'quest_data_test_codes.TEST_NAME',
+                'quest_data_test_codes.TEST_CD',
+                'quest_data_test_codes.actual_price',
+                'quest_data_test_codes.SALE_PRICE',
+                'quest_data_test_codes.PRICE',
+                'quest_data_test_codes.discount_percentage',
+            )
+            ->where('mode','lab-test')
+            ->get();
+        return view('dashboard_admin.lab_for_patient.create',compact('products','patients'));
+    }
+
+    public function lab_for_patient_store(Request $request){
+
+        if(!isset($request->user_id)){
+            $random_password = Str::random(8);
+            $otp = rand(100000, 999999);
+            $user_id = User::create([
+                'name' => $request->first_name,
+                'last_name' => $request->last_name,
+                'username' => $request->first_name.'_'.$request->last_name,
+                'phone_number' => $request->phone,
+                'user_type' => 'patient',
+                'email' => $request->email,
+                'date_of_birth' => $request->dob,
+                'password' => Hash::make($random_password),
+                'temp_password' => $random_password,
+                'created_by' => auth()->user()->id,
+            ])->id;
+            DB::table('users_email_verification')->insert([
+                'user_id'=>$user_id,
+                'status'=>0,
+                'otp'=>$otp,
+            ]);
+        }else{
+            $user_id = $request->user_id;
+        }
+        if($request->payment_method == "easy-paisa" || $request->payment_method == "online-cash"){
+                $orderId = date("YmdHis");
+                $patient = User::where('id',$user_id)->first();
+                $cartCntLab = [];
+                $orderAllIds = [];
+
+                $shipping = array(
+                    "name" => $patient->name,
+                    "email" => $patient->email,
+                    "phone" => $patient->phone_number,
+                    "street_address" => $patient->office_address,
+                );
+
+                foreach ($request->test as $item) {
+                    $testDetail = DB::table('quest_data_test_codes')->where('TEST_CD',$item)->first();
+                    $testDetail->orderSubId = $orderId . $item;
+                    $testDetail->orderSystemId = $orderId;
+                    array_push($orderAllIds, $orderId . $item);
+                    array_push($cartCntLab, $testDetail);
+                }
+
+                $agent = 'web';
+                $transactionArr = [
+                    'subject' => 'Admin Order for Patient',
+                    'description' => $orderId,
+                    'currency' => 'PKR',
+                    'total_amount' => $request->price,
+                    'user_id' => $user_id,
+                    'status' => 1,
+                ];
+                TblTransaction::create($transactionArr);
+
+                if ($cartCntLab != null) {
+                    foreach ($cartCntLab as $order) {
+                        LabOrder::create([
+                            'user_id' => $user_id,
+                            'order_id' => $order->orderSystemId,
+                            'product_id' => $order->TEST_CD,
+                            'session_id' => "",
+                            'pres_id' => "",
+                            'status' => 'essa-forwarded',
+                            'date' => date('Y-m-d'),
+                            'time' => 0,
+                            'type' => 'Counter',
+                            'map_marker_id' => 0,
+                            'price' => $order->SALE_PRICE,
+                            'sub_order_id' => $order->orderSubId,
+                        ]);
+                    }
+                }
+
+                DB::table('tbl_orders')->insert([
+                    'order_id' => $orderId,
+                    'order_sub_id' => serialize($orderAllIds),
+                    'customer_id' => $user_id,
+                    'total' => $request->price,
+                    'total_tax' => 0,
+                    'billing' => serialize($shipping),
+                    'shipping' => serialize($shipping),
+                    'payment' => serialize($request->payment_method),
+                    'payment_title' => $request->payment_method,
+                    'payment_method' => $request->payment_method,
+                    'cart_items' => '',
+                    "lab_order_approvals" => '',
+                    'currency' => 'PKR',
+                    'order_status' => 'paid',
+                    'agent' => $agent,
+                    'created_at' => now(),
+                ]);
+        }
+        return redirect()->back();
     }
 }
