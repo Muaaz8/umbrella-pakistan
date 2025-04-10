@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Api;
+use App\Models\Contract;
 use Log;
 use App\Http\Controllers\Controller;
 use Validator;
@@ -27,6 +28,7 @@ use App\Mail\ApiPasswordReset;
 use Illuminate\Auth\Events\PasswordReset;
 use App\Http\Controllers\Api\BaseController;
 use Illuminate\Http\Response;
+use Image;
 
 
 class RegistrationController extends BaseController
@@ -71,152 +73,6 @@ class RegistrationController extends BaseController
             }
         }
     }
-    public function store_patient(Request $request){
-        // $timeZone = $geo_info['timezone'];
-        $data = json_decode($request->data);
-        $fileData = $request->file;
-        $fileName =null;
-        if(request()->hasFile('file'))
-        {
-            $file = request()->file('file');
-            $fileName = \Storage::disk('s3')->put('medical_records', $file);
-        }
-        // if user is patient
-        if($request->rep_radio =="0"){
-            $datecheck = $request->date_of_birth;
-            // dd($datecheck);
-            $date = str_replace('-', '/', $datecheck);
-            $newd_o_b = date("Y-m-d", strtotime($date));
-            if (str_contains($datecheck, "/")) {
-                $newd_o_b;
-            }
-            $user = User::create([
-                'user_type' => 'patient',
-                'name' => $data->name,
-                'last_name' => $data->last_name,
-                'email' => $data->email,
-                'username' => $data->username,
-                'country_id' => '233',
-                'city_id' => $data->city,
-                'state_id' => $data->state,
-                'password' => Hash::make($data->password),
-                'date_of_birth' => $newd_o_b,
-                'phone_number' => $data->phone_number ,
-                'med_record_file' => ($fileName)? $fileName : " ",
-                'office_address' => $data->address,
-                'zip_code' => $data->zip_code,
-                'gender' => $data->gender,
-                'terms_and_cond' => $data->terms_and_cond,
-                'timeZone' => "",
-            ]);
-            $x = rand(10e12, 10e16);
-            $hash_to_verify = base_convert($x, 10, 36);
-            $data = [
-                'hash' => $hash_to_verify,
-                'user_id' => $user->id,
-                'to_mail' => $user->email,
-            ];
-            try {
-                Mail::to($user->email)->send(new UserVerificationEmail($data));
-            } catch (Exception $e) {
-                Log::error($e);
-            }
-            DB::table('users_email_verification')->insert([
-                'verification_hash_code' => $hash_to_verify,
-                'user_id' => $user->id,
-            ]);
-
-            $data_email["email"] = $user->email;
-            $data_email["title"] = "Terms And Conditions";
-            $time = DB::table('documents')->where('name','term of use')->select('updated_at')->first();
-            $data_email["revised"] = date('m-d-Y',strtotime($time->updated_at));
-            $pdf = app()->make(PDF::class);
-            $pdf = $pdf->loadView('terms.index', $data_email);
-            \Storage::disk('s3')->put('term_and_conditions/' . $user->name . '_term_and_conditions.pdf', $pdf->output());
-            DB::table('user_term_and_condition_status')->insert([
-                'term_and_condition_file' => 'term_and_conditions/' . $user->name . '_term_and_conditions.pdf',
-                'user_id' => $user->id,
-                'status' => 1,
-            ]);
-            $data['user'] =$user;
-            return $this->sendResponse($data,'User Created Successfully!');
-        } else{
-            $datecheck = $data->date_of_birth;
-            // dd($datecheck);
-            $date = str_replace('-', '/', $datecheck);
-            $newd_o_b = date("Y-m-d", strtotime($date));
-            if (str_contains($datecheck, "/")) {
-                $newd_o_b;
-            }
-            $user = User::create([
-                'user_type' => 'patient',
-                'email' => $data->email,
-                'username' => $data->username,
-                'password' => Hash::make($data->password),
-                'name' => $data->name,
-                'last_name' => $data->last_name,
-                'med_record_file' => $fileName,
-                'country_id' => '233',
-                'city_id' => $data->city,
-                'state_id' => $data->state,
-                'date_of_birth' => $newd_o_b,
-                'phone_number' => $data->phone_number,
-                'office_address' => $data->address,
-                'zip_code' => $data->zip_code,
-                'gender' => $data->gender,
-                'representative_name' => $data->fullname,
-                'representative_relation' =>$data->relation,
-                'terms_and_cond' => $data->terms_and_cond,
-                'timeZone' => "",
-            ]);
-            $x = rand(10e12, 10e16);
-            $hash_to_verify = base_convert($x, 10, 36);
-            $data = [
-                'hash' => $hash_to_verify,
-                'user_id' => $user->id,
-                'to_mail' => $user->email,
-            ];
-            try {
-                Mail::to($user->email)->send(new UserVerificationEmail($data));
-            } catch (Exception $e) {
-                Log::error($e);
-            }
-            DB::table('users_email_verification')->insert([
-                'verification_hash_code' => $hash_to_verify,
-                'user_id' => $user->id,
-            ]);
-            $data_email["email"] = $user->email;
-            $data_email["title"] = "Terms And Conditions";
-            $time = DB::table('documents')->where('name','term of use')->select('updated_at')->first();
-            $data_email["revised"] = date('m-d-Y',strtotime($time->updated_at));
-            $pdf = app()->make(PDF::class);
-            $pdf = $pdf->loadView('terms.index', $data_email);
-            \Storage::disk('s3')->put('term_and_conditions/' . $user->name . '_term_and_conditions.pdf', $pdf->output());
-            DB::table('user_term_and_condition_status')->insert([
-                'term_and_condition_file' => 'term_and_conditions/' . $user->name . '_term_and_conditions.pdf',
-                'user_id' => $user->id,
-                'status' => 1,
-            ]);
-            try {
-                $adminUsers = DB::table('users')->where('user_type', 'admin')->get();
-                foreach ($adminUsers as $adminUser) {
-                    $admin_data_email["email"] =  $adminUser->email;
-                    $admin_data_email["title"] = "Terms And Conditions";
-                    Mail::send('emails.termAndConditionDoctorEmail', $admin_data_email, function ($message1) use ($admin_data_email, $pdf) {
-                        $message1->to($admin_data_email["email"])->subject($admin_data_email["title"])->attachData($pdf->output(), "TermsAndConditions.pdf");
-                    });
-                }
-                Mail::send('emails.termAndConditionDoctorEmail', $data_email, function ($message) use ($data_email, $pdf) {
-                    $message->to($data_email["email"])->subject($data_email["title"])->attachData($pdf->output(), "TermsAndConditions.pdf");
-                });
-            } catch (Exception $e) {
-                Log::info($e);
-            }
-            $data['user'] =$user;
-            return $this->sendResponse($data,'User Created Successfully!');
-        }
-    }
-
     // doctor registration
     public function validation_doctor(Request $request){
         $validator = Validator::make($request->all(), [
@@ -486,76 +342,6 @@ class RegistrationController extends BaseController
         }
 
     }
-    // public function after_login_verification_check(){
-    //     $user=auth()->user();
-    //     if($user->user_type=='doctor'){
-    //         if($user->active=='1'){
-    //             $date = User::convert_utc_to_user_timezone($user->id,date('Y-m-d H:i:s'))['datetime'];
-    //             $date = explode(" ",$date)[0];
-    //             $contract = DB::table('contracts')->where('provider_id',$user->id)->first();
-    //             if($date >= $contract->date){
-    //                 $timestamp = date("d-m-Y h:i:s a");
-    //                 $date = \Carbon\Carbon::createFromFormat('d-m-Y h:i:s a',$timestamp,'UTC')->setTimezone('UTC');
-    //                 $user->last_activity=$date;
-    //                 $user->save();
-    //                 return $next($request);
-    //             } else {
-    //                 $user = DB::table('users')
-    //                 ->join('users_email_verification','users.id','users_email_verification.user_id')
-    //                 ->where('users.id',auth()->user()->id)
-    //                 ->select('users.*','users_email_verification.status as email_status')
-    //                 ->first();
-    //                 if ($user->id_card_front == '' && $user->id_card_back == '') {
-    //                     $id_card_status = 0;
-    //                 }elseif($user->id_card_front == '' || $user->id_card_back == ''){
-    //                     $id_card_status = 0;
-    //                 }else{
-    //                     $id_card_status = 1;
-    //                 }
-    //                 $user->contract_date = DB::table('contracts')->where('provider_id',Auth()->user()->id)->orderby('id','desc')->first();
-    //                 if(isset($user->contract_date)){
-    //                     $user->contract_date->date = date('m-d-Y', strtotime($user->contract_date->date));
-    //                     $contract = 1;
-    //                 } else{
-    //                     $contract = 0;
-    //                 }
-    //             }
-    //         } elseif($user->active=='0' && $user->status=='ban'){
-    //             $doctor_status = 0;
-    //         } else{
-    //             $user = DB::table('users')
-    //             ->join('users_email_verification','users.id','users_email_verification.user_id')
-    //             ->where('users.id',auth()->user()->id)
-    //             ->select('users.*','users_email_verification.status as email_status')
-    //             ->first();
-    //             if($user->email_status){
-    //                 $email_verification_status = $user->email_status;
-    //             } elseif ($user->id_card_front == '' && $user->id_card_back == '') {
-    //                 $id_card_status = 0;
-    //             } elseif($user->id_card_front == '' || $user->id_card_back == ''){
-    //                 $id_card_status = 0;
-    //             } else{
-    //                 $id_card_status = 1;
-    //             }
-    //             if($user->id_card_front !=''){
-    //                 $id_card_status = 1;
-    //             }
-    //             $user->contract_date = DB::table('contracts')->where('provider_id',Auth()->user()->id)->orderby('id','desc')->first();
-    //             if(isset($user->contract_date)){
-    //                 $user->contract_date->date = date('m-d-Y', strtotime($user->contract_date->date));
-    //                 $contract = 1;
-    //             } else{
-    //                $contract = 0;
-    //             }
-    //             $userData['email_verification_status'] = $email_verification_status;
-    //             $userData['id_card_status'] = $id_card_status;
-    //             $userData['contract'] = $contract;
-    //             return $this->sendResponse($userData,'doctor info');
-    //         }
-    //     } else{
-    //         return $next($request);
-    //     }
-    // }
     public function upload_id_Card(Request $request){
         $doctor = Auth::user();
         if(request()->hasFile('front_img'))
@@ -601,6 +387,168 @@ class RegistrationController extends BaseController
        $session_detail =  DB::table('sessions')->where('id',$session_id)->first();
        $sessionData['session_detail'] = $session_detail;
        return $this->sendResponse($sessionData,'Session details');
+    }
+
+    protected function create(array $data)
+    {
+        if (!isset($_POST['g-recaptcha-response'])) {
+            return $this->sendError([], 'Captcha not found');
+        }
+        
+        $captcha = $_POST['g-recaptcha-response'];
+        $secretKey = "6LctFXkqAAAAAIMmlIukFW8I-pb_-iUeAhB-LQ7O";
+        $response = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . $secretKey . '&response=' . $captcha);
+        $responseData = json_decode($response, true);
+        
+        if ($responseData['success'] !== true) {
+            return $this->sendError([], 'Captcha not verified');
+        }
+        
+        $user_type = $data['user_type'];
+        
+        $datecheck = $data['date_of_birth'];
+        $newd_o_b = $this->formatDateOfBirth($datecheck);
+        
+        $userData = [
+            'user_type' => $user_type,
+            'name' => $data['name'],
+            'last_name' => $data['last_name'],
+            'email' => $data['email'],
+            'username' => $data['name'] . '_' . $data['last_name'],
+            'country_id' => $data['country'],
+            'city_id' => $data['city'],
+            'state_id' => '',
+            'password' => Hash::make($data['password']),
+            'date_of_birth' => $newd_o_b,
+            'phone_number' => $data['phone_number'],
+            'gender' => $data['gender'],
+            'terms_and_cond' => $data['terms_and_cond'],
+            'timeZone' => $data['timezone'],
+        ];
+        
+        if ($user_type == 'patient') {
+            $userData += [
+                'office_address' => "",
+                'zip_code' => '',
+            ];
+        } else {
+            $userData += [
+                'office_address' => $data['address'],
+                'zip_code' => null,
+                'nip_number' => $data['npi'],
+                'consultation_fee' => $data['consultation_fee'],
+                'followup_fee' => $data['follow_up_fee'],
+                'active' => '1',
+                'upin' => '',
+                'specialization' => $data['specializations'],
+                'signature' => $data['signature'],
+            ];
+            
+            $userData += $this->processImageUploads();
+        }
+        
+        $user = User::create($userData);
+        
+        $hash_to_verify = base_convert(rand(10e12, 10e16), 10, 36);
+        $otp = rand(100000, 999999);
+        
+        DB::table('users_email_verification')->insert([
+            'verification_hash_code' => $hash_to_verify,
+            'user_id' => $user->id,
+            'otp' => $otp,
+        ]);
+        
+        $emailData = [
+            'hash' => $hash_to_verify,
+            'user_id' => $user->id,
+            'to_mail' => $user->email,
+            'otp' => $otp,
+        ];
+        
+        $this->sendNotifications($user, $emailData, $otp);
+        
+        if ($user_type != 'patient') {
+            DB::table('doctor_percentage')->insert([
+                'doc_id' => $user->id,
+                'percentage' => 70,
+            ]);
+            
+            Contract::create([
+                'slug' => 'UMB' . time(),
+                'provider_id' => $user->id,
+                'provider_name' => $data['name'] . ' ' . $data['last_name'],
+                'provider_address' => $data['address'],
+                'provider_email_address' => $data['email'],
+                'provider_speciality' => $data['specializations'],
+                'date' => date('Y-m-d'),
+                'session_percentage' => 70,
+                'signature' => $data['signature'],
+                'status' => 'signed',
+            ]);
+        }
+        
+        return $this->sendResponse($user, 'User Created Successfully!');
+    }
+
+    private function formatDateOfBirth($datecheck)
+    {
+        if (str_contains($datecheck, "/")) {
+            return date("Y-m-d", strtotime($datecheck));
+        }
+        
+        $date = str_replace('-', '/', $datecheck);
+        return date("Y-m-d", strtotime($date));
+    }
+
+    private function processImageUploads()
+    {
+        $imageData = [
+            'id_card_front' => 'doctors/' . date('YmdHis'),
+            'id_card_back' => 'doctors/' . date('YmdHis'),
+            'user_image' => 'user.png'
+        ];
+        
+        $uploadFields = [
+            'id_front_side' => 'id_card_front',
+            'id_back_side' => 'id_card_back',
+            'profile_pic' => 'user_image'
+        ];
+        
+        foreach ($uploadFields as $requestField => $dataField) {
+            if (request()->hasFile($requestField)) {
+                $file = request()->file($requestField);
+                $folder = $dataField === 'user_image' ? 'user_profile_images/' : 'doctors/';
+                $imageName = $folder . date('YmdHis') . $file->getClientOriginalName();
+                
+                $img = Image::make($file);
+                $img->resize(1000, 1000, function ($constraint) {
+                    $constraint->aspectRatio();
+                });
+                
+                $resource = $img->stream()->detach();
+                \Storage::disk('s3')->put($imageName, $resource);
+                
+                $imageData[$dataField] = $imageName;
+            }
+        }
+        
+        return $imageData;
+    }
+    
+    private function sendNotifications($user, $emailData, $otp)
+    {
+        try {
+            Mail::to($user->email)->queue(new UserVerificationEmail($emailData)); // Consider using queue() instead of send()
+        } catch (Exception $e) {
+            Log::error($e);
+        }
+                try {
+            $whatsapp = new \App\Http\Controllers\WhatsAppController();
+            $res = $whatsapp->send_otp_message($user->phone_number, $otp);
+            Log::error($res);
+        } catch (Exception $e) {
+            Log::error($e);
+        }
     }
 
 }
