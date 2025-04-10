@@ -275,7 +275,7 @@
                                                                 text-align: right;
                                                               ">
                                                                                                                         ×&nbsp;{{
-                                                                                                                        $test->quantity
+                                                                                                                        isset($test->quantity)?$test->quantity:"1"
                                                                                                                         }}
                                                                                                                     </p>
                                                                                                                 </th>
