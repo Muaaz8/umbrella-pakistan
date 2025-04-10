@@ -19,6 +19,7 @@ use App\Models\AllProducts;
 use App\Models\PhysicalLocations;
 use App\Models\ContactForm;
 use App\Mail\UserVerificationEmail;
+use App\Mail\OrderConfirmationEmail;
 use App\Models\ProductCategory;
 use App\Models\ProductsSubCategory;
 use App\Models\Contract;
@@ -50,6 +51,7 @@ use App\Models\TblTransaction;
 use Str;
 use Validator;
 use App\LabOrder;
+use App\Jobs\UploadLabMediaJob;
 
 class AdminController extends Controller
 {
@@ -4008,7 +4010,7 @@ public function store_policy(Request $request){
     }
 
     public function lab_for_patient(){
-        $patients = User::where('user_type','patient')->get();
+        $patients = User::where('user_type','patient')->orderBy('id','desc')->get();
         $products = DB::table('quest_data_test_codes')
             ->select(
                 'quest_data_test_codes.id',
@@ -4079,7 +4081,7 @@ public function store_policy(Request $request){
                     'user_id' => $user_id,
                     'status' => 1,
                 ];
-                TblTransaction::create($transactionArr);
+                $transac = TblTransaction::create($transactionArr);
 
                 if ($cartCntLab != null) {
                     foreach ($cartCntLab as $order) {
@@ -4118,6 +4120,32 @@ public function store_policy(Request $request){
                     'agent' => $agent,
                     'created_at' => now(),
                 ]);
+
+                $order_date = now()->format('h:i:s A');
+
+                $order_cart_items = DB::table('lab_orders')
+                    ->join('quest_data_test_codes','quest_data_test_codes.TEST_CD','lab_orders.product_id')
+                    ->where('order_id', $orderId)
+                    ->select('lab_orders.*','quest_data_test_codes.TEST_NAME as name','quest_data_test_codes.SALE_PRICE as update_price',)
+                    ->get();
+                $order_cart_items->user = User::where('id',$user_id)->first();
+                $get_order_total = 0;
+                foreach ($order_cart_items as $order_cart_item) {
+                    $get_order_total += $order_cart_item->price;
+                }
+                $order_total = number_format($get_order_total, 2);
+                $userDetails = array('transaction_id' => $transac->id, 'order_total' => $order_total, 'order_date' => $order_date, 'order_id' => $orderId, 'pat_email' => $patient->email);
+                Mail::to($patient->email)->send(new OrderConfirmationEmail($order_cart_items, $userDetails));
+
+                $pdf = PDF::loadView('lab_order_receipt',compact('order_cart_items'));
+                $pdfData = $pdf->output();
+
+                $tempFile = tmpfile();
+                fwrite($tempFile, $pdfData);
+                $metaData = stream_get_meta_data($tempFile);
+                $filePath = $metaData['uri'];
+
+                UploadLabMediaJob::dispatch($filePath,$order_cart_items->user);
         }
         return redirect()->back();
     }

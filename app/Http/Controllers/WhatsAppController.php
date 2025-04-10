@@ -174,4 +174,70 @@ class WhatsAppController extends Controller
         }
 
     }
+
+    public function send_lab_receipt($data, $response){
+        $to = "92".$data->phone_number;
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://graph.facebook.com/v22.0/604248952770273/messages',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS =>'{
+            "messaging_product": "whatsapp",
+            "to": "'.$to.'",
+            "type": "template",
+            "template": {
+                "name": "lab_order",
+                "language": {
+                    "code": "en"
+                },
+                "components": [
+                    {
+                        "type": "header",
+                        "parameters": [
+                        {
+                            "type": "document",
+                            "document": {
+                                "id": "'.$response->id.'",
+                                "filename": "Receipt.pdf"
+                            }
+                        }
+                        ]
+                    },
+                    {
+                        "type": "body",
+                        "parameters": [
+                            {
+                                "type": "text",
+                                "text": "'.$data->name.'"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }',
+        CURLOPT_HTTPHEADER => array(
+            'Authorization: Bearer '.$this->token,
+            'Content-Type: application/json',
+            ': '
+        ),
+        ));
+
+        $response = curl_exec($curl);
+
+        curl_close($curl);
+        if ($response === false) {
+            Log::info(curl_error($curl));
+        } else {
+            return json_decode($response);
+        }
+
+    }
 }
