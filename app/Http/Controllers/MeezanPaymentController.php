@@ -326,9 +326,9 @@ class MeezanPaymentController extends Controller
 
     }
 
-    public function payment_return_app()
+    public function payment_return_app($id)
     {
-        $tempId = $_GET['temp_id'];
+        $tempId = $id;
         $transaction = TblTransaction::find($tempId);
 
         $orderId = $transaction->transaction_id;
@@ -379,19 +379,28 @@ class MeezanPaymentController extends Controller
                         'description' => $description[1],
                         'currency' => 'PKR',
                         'total_amount' => ($response->amount/100),
-                        'user_id' => auth()->user()->id,
+                        'user_id' => $patient_data->id,
                         'status' => 1,
                     ];
                     TblTransaction::where('description',$description[1])->update($transactionArr);
 
                     event(new RealTimeMessage($getSession->doctor_id));
                     event(new updateQuePatient('update patient que'));
-                    return redirect()->route('waiting_room_pat', ['id' => \Crypt::encrypt($getSession->id)]);
-                    // return redirect()->route('payment')->with('success', $response->actionCodeDescription);
+                    return response()->json([
+                        'status' => 'success',
+                        'message' => 'Payment Successful',
+                    ]);
+                    return response()->json([
+                        'status' => 'success',
+                        'message' => $response->actionCodeDescription,
+                    ]);
                 }else{
                     // $getSession = DB::table('sessions')->where('session_id', $description[1])->first();
                     $getSession = DB::table('sessions')->where('session_id', $description[1])->delete();
-                    return redirect()->route('patient_online_doctors',['id'=>$description[2]])->with('error', $response->actionCodeDescription);
+                    return response()->json([
+                        'status' => 'error',
+                        'message' => $response->actionCodeDescription,
+                    ]);
                 }
             }
             if($description[0] == "Appointment"){
