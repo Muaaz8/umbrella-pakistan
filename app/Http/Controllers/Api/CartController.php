@@ -10,9 +10,20 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\TblCart as AppTblCart;
 use App\Events\CountCartItem;
+use App\Pharmacy;
+use App\Repositories\AllProductsRepository;
 
 class CartController extends BaseController
 {
+    private $Pharmacy;
+    private $allProductsRepository;
+
+    public function __construct(Pharmacy $Pharmacy, AllProductsRepository $allProductsRepo)
+    {
+        $this->Pharmacy = $Pharmacy;
+        $this->allProductsRepository = $allProductsRepo;
+    }
+
     public function my_cart()
     {
         if (Auth::check()) {
@@ -690,4 +701,15 @@ class CartController extends BaseController
             return $this->sendError('Payment failed', ['error' => 'Payment was not successful. Please try again.']);
         }
     }
+    public function get_cart_counter()
+    {
+        $user = Auth::user();
+        if (isset($user->id)) {
+            $data = $this->Pharmacy->get_cart_counter_by_user($user->id);
+        } else {
+            $data = 0;
+        }
+        echo json_encode($data);
+    }
+
 }
