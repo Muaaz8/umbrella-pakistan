@@ -90,6 +90,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('cart/count', 'Api\CartController@get_cart_counter');
     Route::get('get_notification', 'Api\NotificationController@getUserNotification');
     Route::get('payment/return/{id}', 'MeezanPaymentController@payment_return_app');
+    Route::get('order/confirm', 'Api\OrdersController@order_confirm');
 });
 //================================================//
 //PATIENT PROFILE END HERE

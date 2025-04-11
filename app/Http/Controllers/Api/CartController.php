@@ -706,6 +706,7 @@ class CartController extends BaseController
                     'checkout_status' => '0',
                 ]);
             }
+            event(new CountCartItem($user_id));
             return $this->sendResponse(['id'=> $description[1]], 'order completed');
         }else{
             return $this->sendError('Payment failed', ['error' => 'Payment was not successful. Please try again.']);

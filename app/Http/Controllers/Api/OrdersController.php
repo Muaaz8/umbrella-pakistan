@@ -44,7 +44,6 @@ class OrdersController extends BaseController
 
         $this->tblOrdersRepository = $tblOrdersRepo;
     }
-
     public function patient_orders(Request $request)
     {
         $user = auth()->user();
@@ -115,7 +114,6 @@ class OrdersController extends BaseController
             'orders' => $tblOrders
         ], 'orders fetch successfully');
     }
-
     public function order_details($id)
     {
         $tblOrders = $this->tblOrdersRepository->getsOrderByID($id);
@@ -195,6 +193,19 @@ class OrdersController extends BaseController
                     'orderImagings' => $orderImagings
                 ], 'Order details fetched successfully');
             }
+        }
+    }
+    public function order_confirm(){
+        $id = auth()->user()->id;
+        $order = TblOrders::where('customer_id', $id)->orderBy('created_at', 'desc')->first();
+        $user = User::where('id', $id)->select('name', 'last_name', 'gender', 'user_type', 'email')->first();
+        if ($order) {
+            return $this->sendResponse([
+                'order' => $order,
+                'user' => $user
+            ], 'Order details fetched successfully');
+        }else{
+            return $this->sendError('Order not found', ['error' => 'Order with the given ID does not exist.']);
         }
     }
 }
