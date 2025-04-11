@@ -6,10 +6,14 @@ use App\ActivityLog;
 use App\Events\RealTimeMessage;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\MeezanPaymentController;
+use App\LabOrder;
 use App\Mail\AdviyatOrderEmail;
 use App\Mail\OrderConfirmationEmail;
 use App\Models\TblTransaction;
+use App\Notification;
+use App\Prescription;
 use App\User;
+use App\VendorAccount;
 use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -526,7 +530,6 @@ class CartController extends BaseController
                     'order_main_id' => $item->orderSystemId,
                     'order_sub_id' => $item->orderSubId,
                     'order_product_id' => $item->product_id,
-                    'pro_mode' => 'Prescribed',
                     'pro_mode' => 'Prescribed',
                     'update_price' => $item->update_price,
                     'session_id' => $item->doc_session_id,
