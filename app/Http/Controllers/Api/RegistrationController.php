@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 use App\Models\Contract;
+use Laravel\Sanctum\PersonalAccessToken;
 use Log;
 use App\Http\Controllers\Controller;
 use Validator;
@@ -549,6 +550,51 @@ class RegistrationController extends BaseController
         } catch (Exception $e) {
             Log::error($e);
         }
+    }
+
+    public function autoLogin(Request $request)
+    {
+        $token = $request->bearerToken() ?? $request->token;
+    
+        if (!$token) {
+            return $this->sendError([], "Token not provided.");
+        }
+    
+        $accessToken = PersonalAccessToken::findToken($token);
+    
+        if (!$accessToken || !$accessToken->tokenable) {
+            return $this->sendError([], "Invalid or expired token.");
+        }
+    
+        $user = $accessToken->tokenable;
+    
+        if (!$user || !$user->id) {
+            return $this->sendError([], "User authentication failed.");
+        }
+    
+        // Optional: Update timezone
+        $timeZone = 'Asia/Karachi';
+        DB::table('users')->where('id', $user->id)->update(['timeZone' => $timeZone]);
+    
+        $user_info = DB::table('users')
+            ->leftJoin('users_email_verification', 'users.id', '=', 'users_email_verification.user_id')
+            ->where('users.id', $user->id)
+            ->select('users.name', 'users.id', 'users.last_name', 'users.email', 'users.phone_number', 'users_email_verification.status as email_status')
+            ->first();
+    
+        if ($user->user_type === 'doctor' && $user->active != '1') {
+            return $this->sendError([], "Your account is not active.");
+        }
+    
+        // Optional: create a new token (or reuse the old one if desired)
+        $newToken = $user->createToken('MyApp')->plainTextToken;
+    
+        return $this->sendResponse([
+            'user' => $user_info,
+            'user_type' => $user->user_type,
+            'token' => $newToken,
+            'email_verification_status' => $user_info->email_status ?? null,
+        ], 'User auto-logged in successfully.');
     }
 
 }

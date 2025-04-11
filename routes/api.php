@@ -21,6 +21,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 //patient registration
+Route::get('login/check', 'Api\RegistrationController@autoLogin');
 Route::post('email_verification', 'Api\RegistrationController@patient_registration');
 Route::post('get_state', 'Api\RegistrationController@get_state');
 Route::post('register_patient', 'Api\RegistrationController@create');
