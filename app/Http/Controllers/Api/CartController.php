@@ -2,7 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\ActivityLog;
+use App\Events\RealTimeMessage;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\MeezanPaymentController;
+use App\Mail\AdviyatOrderEmail;
+use App\Mail\OrderConfirmationEmail;
+use App\Models\TblTransaction;
 use App\User;
 use Illuminate\Support\Carbon;
 use Illuminate\Http\Request;
@@ -12,6 +18,7 @@ use App\TblCart as AppTblCart;
 use App\Events\CountCartItem;
 use App\Pharmacy;
 use App\Repositories\AllProductsRepository;
+use Illuminate\Support\Facades\Mail;
 
 class CartController extends BaseController
 {
@@ -255,7 +262,7 @@ class CartController extends BaseController
         }
         if($request->payment_method == "credit-card"){
             $data = "Order-" .$orderId."-". now()->format('Ymd');
-            $pay = new \App\Http\Controllers\MeezanPaymentController();
+            $pay = new MeezanPaymentController();
             $res = $pay->payment_app($data, $request->payAble);
             if (isset($res) && $res->errorCode == 0) {
                 return $this->sendResponse(['method'=> 'credit-card', 'url'=> $res->formUrl], 'Payment link generated successfully');
@@ -580,7 +587,7 @@ class CartController extends BaseController
                 if($u->id==Auth::user()->id)
                 {
                      Mail::to($u->email)->send(new OrderConfirmationEmail($order_cart_items, $userDetails));
-                     Mail::to(env('ADVIYAT_EMAIL'))->send(new AdviyatOrderEmail($order_cart_items, $userDetails));
+                    //  Mail::to(env('ADVIYAT_EMAIL'))->send(new AdviyatOrderEmail($order_cart_items, $userDetails));
                 }
 
 
@@ -606,7 +613,7 @@ class CartController extends BaseController
 
     public function order_payment_app_return($id){
         $temp_id = $id;
-        $pay = new \App\Http\Controllers\MeezanPaymentController();
+        $pay = new MeezanPaymentController();
         $response = $pay->payment_return_app($temp_id);
         $description = explode("-",$response->orderDescription);
         if($response->orderStatus == 2){
@@ -672,7 +679,6 @@ class CartController extends BaseController
             DB::table('tbl_orders')->insert([
                 'order_id' => $description[1],
                 'order_sub_id' => serialize($orderAllIds),
-                // 'transaction_id' => $payment_request['transaction_id'],
                 'customer_id' => $user->id,
                 'total' => ($response->amount/100),
                 'total_tax' => 0,
