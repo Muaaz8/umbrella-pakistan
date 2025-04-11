@@ -604,9 +604,10 @@ class CartController extends BaseController
         }
     }
 
-    public function order_payment_app_return(){
+    public function order_payment_app_return($id){
+        $temp_id = $id;
         $pay = new \App\Http\Controllers\MeezanPaymentController();
-        $response = $pay->payment_return();
+        $response = $pay->payment_return_app($temp_id);
         $description = explode("-",$response->orderDescription);
         if($response->orderStatus == 2){
             $orderId = $description[1];
