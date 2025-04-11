@@ -33,46 +33,64 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+        $(document).ready(function () {
+            doc_id = "{{ Auth::user()->id }}";
+            $.ajax({
+                type: "GET",
+                url: "/get_doctor_details/"+doc_id,
+                success: function (response) {
+                    console.log(response);
+                    if(response){
+                        $('#certificates').html('');
+                        $.each(response.doctor.certificates, function (indexInArray, valueOfElement) {
+                            $('#certificates').append('<option value="'+valueOfElement+'">'+valueOfElement+'</option>');
+                        });
+                        let certificates = response.doctor.certificates;
+                        $('#certificates').val(null).trigger('change');
+                        $('#certificates').val(certificates).trigger('change');
 
-        $.ajax({
-            type: "GET",
-            url: "/get_doctor_details",
-            success: function (response) {
-                if(response){
-                    $('#certificates').html('');
-                    $.each(response.doctor.certificates, function (indexInArray, valueOfElement) {
-                        $('#certificates').append('<option value="'+valueOfElement+'">'+valueOfElement+'</option>');
-                    });
-                    let certificates = response.doctor.certificates;
-                    $('#certificates').val(null).trigger('change');
-                    $('#certificates').val(certificates).trigger('change');
+                        $('#conditions').html('');
+                        $.each(response.doctor.conditions, function (indexInArray, valueOfElement) {
+                            $('#conditions').append('<option value="'+valueOfElement+'">'+valueOfElement+'</option>');
+                        });
+                        let conditions = response.doctor.conditions;
+                        $('#conditions').val(null).trigger('change');
+                        $('#conditions').val(conditions).trigger('change');
 
-                    $('#conditions').html('');
-                    $.each(response.doctor.conditions, function (indexInArray, valueOfElement) {
-                        $('#conditions').append('<option value="'+valueOfElement+'">'+valueOfElement+'</option>');
-                    });
-                    let conditions = response.doctor.conditions;
-                    $('#conditions').val(null).trigger('change');
-                    $('#conditions').val(conditions).trigger('change');
+                        $('#procedures').html('');
+                        $.each(response.doctor.procedures, function (indexInArray, valueOfElement) {
+                            $('#procedures').append('<option value="'+valueOfElement+'">'+valueOfElement+'</option>');
+                        });
+                        let procedures = response.doctor.procedures;
+                        $('#procedures').val(null).trigger('change');
+                        $('#procedures').val(procedures).trigger('change');
 
-                    $('#procedures').html('');
-                    $.each(response.doctor.procedures, function (indexInArray, valueOfElement) {
-                        $('#procedures').append('<option value="'+valueOfElement+'">'+valueOfElement+'</option>');
-                    });
-                    let procedures = response.doctor.procedures;
-                    $('#procedures').val(null).trigger('change');
-                    $('#procedures').val(procedures).trigger('change');
+                        $('#location').val(response.doctor.location);
+                        $('#latitude').val(response.doctor.latitude);
+                        $('#longitude').val(response.doctor.longitude);
+                        $('#about').val(response.doctor.about);
+                        $('#education').val(response.doctor.education);
+                        $('#helping').val(response.doctor.helping);
+                        $('#experience').val(response.doctor.experience);
+                        $('#issue').val(response.doctor.issue);
+                        $('#specialties').val(response.doctor.specialties);
+                    }else{
+                        $('#certificates').html('');
+                        $('#conditions').html('');
+                        $('#procedures').html('');
+                        $('#location').val("");
+                        $('#latitude').val("");
+                        $('#longitude').val("");
+                        $('#about').val("");
+                        $('#education').val("");
+                        $('#helping').val("");
+                        $('#experience').val("");
+                        $('#issue').val("");
+                        $('#specialties').val("");
 
-                    $('#location').val(response.doctor.location);
-                    $('#latitude').val(response.doctor.latitude);
-                    $('#longitude').val(response.doctor.longitude);
-                    $('#about').val(response.doctor.about);
-                    $('#education').val(response.doctor.education);
-                    $('#helping').val(response.doctor.helping);
-                    $('#issue').val(response.doctor.issue);
-                    $('#specialties').val(response.doctor.specialties);
-                }
-            }
+                    }
+                    }
+                });
         });
 
         $(".js-select2").select2({
@@ -184,6 +202,12 @@
                                         <div class="col-md-6">
                                             <label class="fw-bolder" for="selectmedicine">Lonigtude</label>
                                             <input type="text" name="longitude" class="form-control" id="longitude" placeholder="Enter Longitude of your Location">
+                                        </div>
+                                    </div>
+                                    <div class="row align-items-center">
+                                        <div class="col-md-6">
+                                            <label class="fw-bolder" for="selectmedicine">Experience</label>
+                                            <input type="text" name="experience" class="form-control" id="experience" placeholder="Enter Work Experience in Years">
                                         </div>
                                     </div>
                                     <div class="row mt-2">
