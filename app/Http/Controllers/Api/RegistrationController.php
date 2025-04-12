@@ -43,7 +43,7 @@ class RegistrationController extends BaseController
         ]);
         if($validator->fails()) {
             $data['validation_error'] =$validator->errors();
-            return $this->sendError($data,"validation Fail",Response::HTTP_UNPROCESSABLE_ENTITY);
+            return $this->sendError($data,"validation Fail");
           } else{
             return $this->sendResponse([],'Validation Passed');
         }
@@ -361,20 +361,23 @@ class RegistrationController extends BaseController
         ]);
         return $this->sendResponse([],'id card uploaded');
     }
-    public function resend_verification(){
-        $doctor = Auth::user();
+    public function resend_otp(Request $request){
+        $user = User::find($request->id)->first();
+        if($user == null){
+            return $this->sendError([],'User not found');
+        }
         try {
             $x = rand(10e12, 10e16);
             $hash_to_verify = base_convert($x, 10, 36);
             $data = [
                 'hash' => $hash_to_verify,
-                'user_id' => $doctor->id,
-                'to_mail' => $doctor->email,
+                'user_id' => $user->id,
+                'to_mail' => $user->email,
             ];
-            DB::table('users_email_verification')->where('user_id', $doctor->id)->update([
+            DB::table('users_email_verification')->where('user_id', $user->id)->update([
                 'verification_hash_code' => $hash_to_verify,
             ]);
-            Mail::to($doctor->email)->send(new UserVerificationEmail($data));
+            Mail::to($user->email)->send(new UserVerificationEmail($data));
 
             $emailSend['status'] = 'Email Resend';
             return $this->sendResponse($emailSend,'Email Resend');
@@ -390,13 +393,19 @@ class RegistrationController extends BaseController
        return $this->sendResponse($sessionData,'Session details');
     }
 
-    protected function create(array $data)
+    protected function create(Request $request)
     {
-        if (!isset($_POST['g-recaptcha-response'])) {
+
+        $user = User::where('email', $request['email'])->first();
+        if (isset($user->id)) {
+            return $this->sendError([], 'Email already exists');
+        }
+
+        if (!isset($request->g_recaptcha_response)) {
             return $this->sendError([], 'Captcha not found');
         }
         
-        $captcha = $_POST['g-recaptcha-response'];
+        $captcha = $request->g_recaptcha_response;
         $secretKey = "6LctFXkqAAAAAIMmlIukFW8I-pb_-iUeAhB-LQ7O";
         $response = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . $secretKey . '&response=' . $captcha);
         $responseData = json_decode($response, true);
@@ -405,26 +414,26 @@ class RegistrationController extends BaseController
             return $this->sendError([], 'Captcha not verified');
         }
         
-        $user_type = $data['user_type'];
+        $user_type = $request->user_type;
         
-        $datecheck = $data['date_of_birth'];
+        $datecheck = $request->date_of_birth;
         $newd_o_b = $this->formatDateOfBirth($datecheck);
         
         $userData = [
             'user_type' => $user_type,
-            'name' => $data['name'],
-            'last_name' => $data['last_name'],
-            'email' => $data['email'],
-            'username' => $data['name'] . '_' . $data['last_name'],
-            'country_id' => $data['country'],
-            'city_id' => $data['city'],
+            'name' => $request->name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'username' => $request->name . '_' . $request->last_name,
+            'country_id' => $request->country,
+            'city_id' => $request->city,
             'state_id' => '',
-            'password' => Hash::make($data['password']),
+            'password' => Hash::make($request->password),
             'date_of_birth' => $newd_o_b,
-            'phone_number' => $data['phone_number'],
-            'gender' => $data['gender'],
-            'terms_and_cond' => $data['terms_and_cond'],
-            'timeZone' => $data['timezone'],
+            'phone_number' => $request->phone_number,
+            'gender' => $request->gender,
+            'terms_and_cond' => $request->terms_and_cond,
+            'timeZone' => $request->timezone,
         ];
         
         if ($user_type == 'patient') {
@@ -434,15 +443,15 @@ class RegistrationController extends BaseController
             ];
         } else {
             $userData += [
-                'office_address' => $data['address'],
+                'office_address' => $request->address,
                 'zip_code' => null,
-                'nip_number' => $data['npi'],
-                'consultation_fee' => $data['consultation_fee'],
-                'followup_fee' => $data['follow_up_fee'],
+                'nip_number' => $request->npi,
+                'consultation_fee' => $request->consultation_fee,
+                'followup_fee' => $request->follow_up_fee,
                 'active' => '1',
                 'upin' => '',
-                'specialization' => $data['specializations'],
-                'signature' => $data['signature'],
+                'specialization' => $request->specializations,
+                'signature' => $request->signature,
             ];
             
             $userData += $this->processImageUploads();
@@ -477,13 +486,13 @@ class RegistrationController extends BaseController
             Contract::create([
                 'slug' => 'UMB' . time(),
                 'provider_id' => $user->id,
-                'provider_name' => $data['name'] . ' ' . $data['last_name'],
-                'provider_address' => $data['address'],
-                'provider_email_address' => $data['email'],
-                'provider_speciality' => $data['specializations'],
+                'provider_name' => $request->name . ' ' . $request->last_name,
+                'provider_address' => $request->address,
+                'provider_email_address' => $request->email,
+                'provider_speciality' => $request->specializations,
                 'date' => date('Y-m-d'),
                 'session_percentage' => 70,
-                'signature' => $data['signature'],
+                'signature' => $request->signature,
                 'status' => 'signed',
             ]);
         }
@@ -595,6 +604,46 @@ class RegistrationController extends BaseController
             'token' => $newToken,
             'email_verification_status' => $user_info->email_status ?? null,
         ], 'User auto-logged in successfully.');
+    }
+
+    public function otp_verification(Request $request)
+    {
+        $user_id = $request->user_id;
+        $otp = $request->otp;
+
+        $user = DB::table('users_email_verification')->where('user_id', $user_id)->first();
+        if ($otp == $user->otp) {
+            DB::table('users_email_verification')->where('user_id', $user_id)->update(['status' => '1']);
+            
+            $timeZone = 'Asia/Karachi';
+            DB::table('users')->where('id', $user->id)->update(['timeZone' => $timeZone]);
+        
+            $user_info = DB::table('users')
+                ->leftJoin('users_email_verification', 'users.id', '=', 'users_email_verification.user_id')
+                ->where('users.id', $user->id)
+                ->select('users.name', 'users.id', 'users.last_name', 'users.email', 'users.phone_number', 'users_email_verification.status as email_status')
+                ->first();
+        
+            if ($user->user_type === 'doctor' && $user->active != '1') {
+                return $this->sendError([], "Your account is not active.");
+            }
+        
+            $newToken = $user->createToken('MyApp')->plainTextToken;
+        
+            return $this->sendResponse([
+                'user' => $user_info,
+                'user_type' => $user->user_type,
+                'token' => $newToken,
+                'email_verification_status' => $user_info->email_status ?? null,
+            ], 'Otp Verified Successsfully.');
+        } else {
+            Session::flash('error', 'Invalid OTP');
+            if ($request->user_type == "patient") {
+                return $this->sendError([], 'Invalid OTP');
+            } else {
+                return $this->sendError([], 'Invalid OTP');
+            }
+        }
     }
 
 }

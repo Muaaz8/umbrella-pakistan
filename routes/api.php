@@ -39,6 +39,8 @@ Route::post('logout', 'Api\RegistrationController@logout')->middleware('auth:san
 Route::post('reset_password', 'Api\RegistrationController@reset_password');
 Route::post('sessionCheck/{session_id}', 'Api\RegistrationController@sessionCheck');
 Route::post('email_varification','Api\RegistrationController@email_varification');
+Route::post('otp_verification','Api\RegistrationController@otp_verification');
+Route::post('resend_otp','Api\RegistrationController@resend_otp');
 
 // products api
 
