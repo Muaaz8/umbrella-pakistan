@@ -591,29 +591,28 @@ class RegistrationController extends BaseController
             DB::table('users_email_verification')->where('user_id', $user_id)->update(['status' => '1']);
             
             $timeZone = 'Asia/Karachi';
-            DB::table('users')->where('id', $user->id)->update(['timeZone' => $timeZone]);
+            DB::table('users')->where('id', $user_id)->update(['timeZone' => $timeZone]);
         
+            
             $user_info = DB::table('users')
-                ->leftJoin('users_email_verification', 'users.id', '=', 'users_email_verification.user_id')
-                ->where('users.id', $user->id)
-                ->select('users.name', 'users.id', 'users.last_name', 'users.email', 'users.phone_number', 'users_email_verification.status as email_status')
-                ->first();
-        
-            $newToken = $user->createToken('MyApp')->plainTextToken;
+            ->leftJoin('users_email_verification', 'users.id', '=', 'users_email_verification.user_id')
+            ->where('users.id', $user_id)
+            ->select('users.name', 'users.id', 'users.last_name', 'users.email', 'users.phone_number', 'users_email_verification.status as email_status','users.user_type')
+            ->first();
+            
+            $authUser = User::find($user_id);
+            $newToken = $authUser->createToken('MyApp')->plainTextToken;
         
             return $this->sendResponse([
                 'user' => $user_info,
-                'user_type' => $user->user_type,
+                'user_type' => $user_info->user_type,
                 'token' => $newToken,
-                'email_verification_status' => $user_info->email_status ?? null,
+                'email_verification_status' => $user_info->email_status,
             ], 'Otp Verified Successsfully.');
         } else {
-            Session::flash('error', 'Invalid OTP');
-            if ($request->user_type == "patient") {
+
                 return $this->sendError([], 'Invalid OTP');
-            } else {
-                return $this->sendError([], 'Invalid OTP');
-            }
+
         }
     }
 
