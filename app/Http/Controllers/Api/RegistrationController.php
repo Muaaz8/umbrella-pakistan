@@ -361,34 +361,7 @@ class RegistrationController extends BaseController
         ]);
         return $this->sendResponse([],'id card uploaded');
     }
-    public function resend_otp(Request $request){
-        $user = User::find($request->id);
-        if($user == null){
-            return $this->sendError([],'User not found');
-        }
-        try {
-            $x = rand(10e12, 10e16);
-            $hash_to_verify = base_convert($x, 10, 36);
-            $otp = rand(100000, 999999);
-            $data = [
-                'hash' => $hash_to_verify,
-                'user_id' => $user->id,
-                'to_mail' => $user->email,
-                'otp' => $otp,
-            ];
-            DB::table('users_email_verification')->where('user_id', $user->id)->update([
-                'verification_hash_code' => $hash_to_verify,
-                'otp'=> $otp
-            ]);
-            Mail::to($user->email)->send(new UserVerificationEmail($data));
-            $emailSend['status'] = 'Email Resend';
-            return $this->sendResponse([$emailSend],'Email Resend');
-        } catch (Exception $e) {
-            Log::error($e);
-            $emailSend['status'] = $e;
-            return $this->sendError([$emailSend],'not send');
-        }
-    }
+
     public function sessionCheck($session_id){
        $session_detail =  DB::table('sessions')->where('id',$session_id)->first();
        $sessionData['session_detail'] = $session_detail;
@@ -554,7 +527,7 @@ class RegistrationController extends BaseController
         } catch (Exception $e) {
             Log::error($e);
         }
-                try {
+        try {
             $whatsapp = new \App\Http\Controllers\WhatsAppController();
             $res = $whatsapp->send_otp_message($user->phone_number, $otp);
             Log::error($res);
@@ -626,10 +599,6 @@ class RegistrationController extends BaseController
                 ->select('users.name', 'users.id', 'users.last_name', 'users.email', 'users.phone_number', 'users_email_verification.status as email_status')
                 ->first();
         
-            if ($user->user_type === 'doctor' && $user->active != '1') {
-                return $this->sendError([], "Your account is not active.");
-            }
-        
             $newToken = $user->createToken('MyApp')->plainTextToken;
         
             return $this->sendResponse([
@@ -645,6 +614,36 @@ class RegistrationController extends BaseController
             } else {
                 return $this->sendError([], 'Invalid OTP');
             }
+        }
+    }
+
+    public function resend_otp(Request $request){
+        $user = User::find($request->id);
+        if($user == null){
+            return $this->sendError([],'User not found');
+        }
+        try {
+            $x = rand(10e12, 10e16);
+            $hash_to_verify = base_convert($x, 10, 36);
+            $otp = rand(100000, 999999);
+            $emailData = [
+                'hash' => $hash_to_verify,
+                'user_id' => $user->id,
+                'to_mail' => $user->email,
+                'otp' => $otp,
+            ];
+            DB::table('users_email_verification')->where('user_id', $user->id)->update([
+                'verification_hash_code' => $hash_to_verify,
+                'otp'=> $otp
+            ]);
+
+            $this->sendNotifications($user, $emailData, $otp);
+            $emailSend['status'] = 'Email Resend';
+            return $this->sendResponse([$emailSend],'Email Resend');
+        } catch (Exception $e) {
+            Log::error($e);
+            $emailSend['status'] = $e;
+            return $this->sendError([$emailSend],'not send');
         }
     }
 
