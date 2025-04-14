@@ -348,8 +348,8 @@ class DoctorsController extends BaseController
             } else {
                 User::where('id', $doc['id'])->update(['status' => 'offline']);
                 try {
-                    $data = DB::table('users')->where('id',$doc->id)->select('id','status')->first();
-                    $data->id = (string)$doc->id;
+                    $data = DB::table('users')->where('id', $doc->id)->select('id', 'status')->first();
+                    $data->id = (string) $doc->id;
                     $data->received = "false";
                 } catch (\Throwable $th) {
                     throw $th;
@@ -359,13 +359,88 @@ class DoctorsController extends BaseController
         } else {
             User::where('id', $doc['id'])->update(['status' => 'online']);
             try {
-                $data = DB::table('users')->where('id',$doc->id)->select('id','status')->first();
-                $data->id = (string)$doc->id;
+                $data = DB::table('users')->where('id', $doc->id)->select('id', 'status')->first();
+                $data->id = (string) $doc->id;
                 $data->received = "false";
             } catch (\Throwable $th) {
                 throw $th;
             }
             return $this->sendResponse("online", "doctor is online");
+        }
+    }
+
+    public function doctors_filter($type)
+    {
+
+        if ($type == "pakistani") {
+            $doctors = DB::table('users')
+                ->where('user_type', 'doctor')
+                ->where('active', '1')
+                ->where('status', '!=', 'ban')
+                ->whereNull('zip_code')
+                ->orderBy('id', 'desc')
+                ->get();
+            foreach ($doctors as $doctor) {
+                $doctor->details = DB::table('doctor_details')->where('doctor_id', $doctor->id)->first();
+                $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
+                $doctor->specializations = DB::table('specializations')->where('id', $doctor->specialization)->first();
+            }
+            return $this->sendResponse($doctors, 'Pakistani doctors');
+        } else if ($type == "american") {
+            $doctors = DB::table('users')
+                ->where('user_type', 'doctor')
+                ->where('active', '1')
+                ->where('status', '!=', 'ban')
+                ->whereNotNull('zip_code')
+                ->orderBy('id', 'desc')
+                ->get();
+            foreach ($doctors as $doctor) {
+                $doctor->details = DB::table('doctor_details')->where('doctor_id', $doctor->id)->first();
+                $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
+                $doctor->specializations = DB::table('specializations')->where('id', $doctor->specialization)->first();
+            }
+            return $this->sendResponse($doctors, 'American doctors');
+        } else if ($type == "all") {
+            $doctors = DB::table('users')
+                ->where('user_type', 'doctor')
+                ->where('active', '1')
+                ->where('status', '!=', 'ban')
+                ->orderBy('id', 'desc')
+                ->get();
+            foreach ($doctors as $doctor) {
+                $doctor->details = DB::table('doctor_details')->where('doctor_id', $doctor->id)->first();
+                $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
+                $doctor->specializations = DB::table('specializations')->where('id', $doctor->specialization)->first();
+            }
+            return $this->sendResponse($doctors, 'All doctors');
+        } else if ($type == "online") {
+            $doctors = DB::table('users')
+                ->where('user_type', 'doctor')
+                ->where('status', 'online')
+                ->where('active', '1')
+                ->orderBy('id', 'desc')
+                ->get();
+            foreach ($doctors as $doctor) {
+                $doctor->details = DB::table('doctor_details')->where('doctor_id', $doctor->id)->first();
+                $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
+                $doctor->specializations = DB::table('specializations')->where('id', $doctor->specialization)->first();
+            }
+            return $this->sendResponse($doctors, 'Online doctors');
+        } else {
+            $doctors = DB::table('users')
+                ->where('user_type', 'doctor')
+                ->where('active', '1')
+                ->where('status', '!=', 'ban')
+                ->where('name', 'LIKE', '%' . $type . '%')
+                ->orWhere('last_name', 'LIKE', '%' . $type . '%')
+                ->orderBy('id', 'desc')
+                ->get();
+            foreach ($doctors as $doctor) {
+                $doctor->details = DB::table('doctor_details')->where('doctor_id', $doctor->id)->first();
+                $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
+                $doctor->specializations = DB::table('specializations')->where('id', $doctor->specialization)->first();
+            }
+            return $this->sendResponse($doctors, 'Doctors by name');
         }
     }
 
