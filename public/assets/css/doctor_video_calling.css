@@ -921,7 +921,6 @@ font-weight: bold;
 
 .video-call-screen .agora_video_player {
   transform: rotateY(180deg);
-  object-fit: contain !important;
 }
 
 .big-video-screen .agora_video_player {
@@ -929,6 +928,7 @@ font-weight: bold;
   border-top-right-radius: 10px; */
   /* object-fit: none !important; */
   border-radius: 1opx;
+  object-fit: contain !important;
 }
 
 .table-family .table {
