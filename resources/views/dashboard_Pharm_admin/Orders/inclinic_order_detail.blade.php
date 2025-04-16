@@ -57,6 +57,8 @@
                             :<label>{{ $img_order->user->phone_number }}</label></li>
                         <li class="list-group-item d-flex justify-content-between">Reason
                             :<label>{{ $img_order->reason }}</label></li>
+                        <li class="list-group-item d-flex justify-content-between">Reason
+                            :<label>{{ $img_order->follow_up==1?"Follow Up":'No Follow Up' }}</label></li>
                         @if (count($img_order->prescriptions) > 0)
                         <li class="list-group-item d-flex justify-content-between">Payment :<label>{{
                                 \Str::ucfirst($img_order->prescriptions[0]->title) }}</label></li>

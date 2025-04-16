@@ -57,10 +57,19 @@ class SessionController extends Controller
         if (auth()->user()->user_type == 'doctor') {
             $id = auth()->user()->id;
             $inclinic = InClinics::with(['user','prescriptions','doctor'])->where('doctor_id',$id)->orderBy('id','desc')->paginate(10);
+            foreach ($inclinic as $inclinics) {
+                $inclinics->date = User::convert_utc_to_user_timezone(auth()->user()->id, $inclinics->created_at)['date'];
+                $inclinics->date = $inclinics->date;
+            }
             return view('dashboard_doctor.All_Session.inlcinic_sessions', compact( 'inclinic'));
         }
         if (auth()->user()->user_type == 'admin') {
             $inclinic = InClinics::with(['user','prescriptions','doctor'])->orderBy('id','desc')->paginate(10);
+            foreach ($inclinic as $inclinics) {
+                $inclinics->created_at = User::convert_utc_to_user_timezone(auth()->user()->id, date('Y-m-d h:i A', strtotime($inclinics->created_at)))['datetime'];
+                $inclinics->updated_at = User::convert_utc_to_user_timezone(auth()->user()->id, date('Y-m-d h:i A', strtotime($inclinics->updated_at)))['datetime'];
+                // $inclinics->date = $inclinics->date;
+            }
             return view('dashboard_admin.inclinic.sessions', compact( 'inclinic'));
         }
     }
@@ -380,6 +389,7 @@ class SessionController extends Controller
 
             foreach ($inclinic_data as $inclinic) {
                 $inclinic->date = User::convert_utc_to_user_timezone($user->id, $inclinic->created_at)['date'];
+                $inclinic->updated_at = User::convert_utc_to_user_timezone($user->id, $inclinic->updated_at)['datetime'];
                 $inclinic->type = 'inclinic';
             }
 
@@ -957,11 +967,11 @@ class SessionController extends Controller
 
     public function inclinic_doctor_end_session(Request $request)
     {
-
         InClinics::where('id', $request['session_id'])->update([
             'doctor_id' => Auth::user()->id,
             'status' => 'ended',
             'doctor_note' => $request['doctor_note'],
+            'follow_up' => $request['follow_up'],
         ]);
         $inclinic_data = \App\Models\InClinics::with(['user','prescriptions','doctor'])->where('id',  $request['session_id'])->first();
         foreach($inclinic_data->prescriptions as $pres){
@@ -1037,18 +1047,19 @@ class SessionController extends Controller
 
         $user_data = $inclinic_data->user;
 
-        if($user_data->email != null){
+        if(count($inclinic_data->prescriptions) > 0){
             $pdf = PDF::loadView('prescriptionPdf',compact('inclinic_data'));
-            Mail::send('emails.prescriptionEmail', ['user_data'=>$user_data], function ($message) use ($inclinic_data,$pdf) {
-                $message->to($inclinic_data->user->email)->subject('patient prescription')->attachData($pdf->output(), "prescription.pdf");
-            });
+            if($user_data->email != null){
+                Mail::send('emails.prescriptionEmail', ['user_data'=>$user_data], function ($message) use ($inclinic_data,$pdf) {
+                    $message->to($inclinic_data->user->email)->subject('patient prescription')->attachData($pdf->output(), "prescription.pdf");
+                });
+            }
             $pdfData = $pdf->output();
 
             $tempFile = tmpfile();
             fwrite($tempFile, $pdfData);
             $metaData = stream_get_meta_data($tempFile);
             $filePath = $metaData['uri'];
-
             UploadMediaJob::dispatch($filePath,$inclinic_data->user);
         }
         return "done";

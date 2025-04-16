@@ -2332,6 +2332,9 @@ class PatientController extends Controller
     public function doctor_in_clinic(Request $request){
         if($request->ajax()){
             $patients = InClinics::with('user')->where('id',$request->id)->where('status','paid')->first();
+            if($patients){
+                $patients->user->age = User::get_age($patients->user->id);
+            }
             return response()->json($patients, 200);
         }else{
             $patients = InClinics::with('user')->where('status','paid')->orderBy('id','asc')->get();

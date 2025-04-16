@@ -15,7 +15,8 @@ class InClinics extends Model
         'doctor_id',
         'doctor_note',
         'reason',
-        'status'
+        'status',
+        'follow_up'
     ];
 
     public function user(){

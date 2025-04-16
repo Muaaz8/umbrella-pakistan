@@ -529,6 +529,10 @@ $(document).on('click', '.pagination a', function(event){
                                                         <h6>Doctor note :</h6>
                                                         <p class="ms-3">{{ $inc->doctor_note }}</p>
                                                     </div>
+                                                    <div class="d-flex border p-1 px-3">
+                                                        <h6>Follow Up :</h6>
+                                                        <p class="ms-3">{{ $inc->follow_up==1?"Follow Up Needed":"Follow Up not Needed" }}</p>
+                                                    </div>
                                                     <div class="wallet-table table-responsive">
                                                         @if(($inc->prescriptions) != null)
                                                             <table class="table">

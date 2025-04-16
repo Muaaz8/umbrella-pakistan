@@ -96,7 +96,7 @@
                                     <th scope="col">Patient Number</th>
                                     <th scope="col">Patient Email</th>
                                     <th scope="col">Date</th>
-                                    <th scope="col">Action</th>
+                                    <th scope="col">Follow Up</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -107,15 +107,7 @@
                                     <td>{{$item->user->phone_number}}</td>
                                     <td>{{$item->user->email}}</td>
                                     <td>{{$item->created_at}}</td>
-                                    <td data-label="Action">
-                                        {{-- <a>
-                                            <form action="#" method="post">
-                                                @method('DELETE')
-                                                @csrf
-                                                <input class="btn btn-danger" type="submit" value="Delete" />
-                                            </form>
-                                        </a> --}}
-                                    </td>
+                                    <td>{{$item->follow_up==1?"Needed":"Not Needed"}}</td>
                                 </tr>
                                 @empty
                                 <tr>

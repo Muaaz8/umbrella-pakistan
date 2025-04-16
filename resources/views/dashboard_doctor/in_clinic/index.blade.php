@@ -86,6 +86,7 @@
             var reason = $('#reason-' + id).html()
             var age = $('#age-' + id).html()
             var phone = $('#phone-' + id).html()
+            console.log(age);
             $('#session-id').html(id)
             $('#patient-id').html(user_id)
             $('#consulation-name').html(name)
@@ -123,6 +124,10 @@
                                             <span class="key">${keys})</span>
                                             <h5 id="name-${response.id }">
                                                 ${response.user.name} ${response.user.last_name}</h5>
+                                                <h5 class="d-none" id="age-${response.id}">${response.user.age}</h5>
+                                                <h5 class="d-none" id="phone-${response.id}">${response.user.phone_number}</h5>
+                                                <h5 class="d-none" id="id-${response.id}">${response.user.id}</h5>
+                                                <h5 class="d-none" id="session_id-${response.id}">${response.id}</h5>
                                         </div>
                                     </div>
                                 </h2>
@@ -668,6 +673,7 @@
                             data: {
                                 session_id: session_id,
                                 doctor_note: $('#note').val(),
+                                follow_up: $('#followup').is(':checked') ? 1 : 0,
                             },
                             beforeSend: function () {
                                 $(".end-consultation2").html('<i class="fas fa-spinner fa-spin"></i>');
@@ -1043,6 +1049,10 @@
                 <div class="d-flex flex-column gap-2 justify-content-center align-items-start">
                     <h6 class="m-0">Doctor Note:</h6>
                     <textarea name="note" id="note" class="form-control" rows="5" placeholder="Write Doctor Note"></textarea>
+                </div>
+                <div class="justify-content-end d-flex gap-2">
+                    <input type="checkbox" name="followup" id="followup" class="form-check-input" value="0">
+                    <label class="fw-5">Follow up:</label>
                 </div>
             </div>
             <div class="modal-footer">

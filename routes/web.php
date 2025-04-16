@@ -711,6 +711,10 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
         Route::get('/mark/invoice/paid/{id}','FinanceController@mark_invoice_paid')->name('mark_invoice_paid');
 
     });
+    Route::get('check_event',function(){
+        event(new \App\Events\InClinicPatientUpdate(42));
+        dd('done');
+    });
     Route::get('/doctor/in/clinics', 'PatientController@doctor_in_clinic')->name('doctor_in_clinic');
 
     Route::post('/inclinic_new_get_products_by_category', 'AllProductsController@inclinic_new_get_products_by_category');

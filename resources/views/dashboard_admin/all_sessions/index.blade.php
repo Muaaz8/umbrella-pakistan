@@ -301,6 +301,10 @@
                                                     <h6>Doctor note :</h6>
                                                     <p class="ms-3">{{ $session->doctor_note }}</p>
                                                 </div>
+                                                <div class="d-flex border p-1 px-3">
+                                                    <h6>Follow Up :</h6>
+                                                    <p class="ms-3">{{ $session->follow_up==1?"Follow Up":"No Follow Up" }}</p>
+                                                </div>
                                                 <div class="wallet-table table-responsive">
                                                     @if(($session->prescriptions) != null)
                                                         <table class="table">
