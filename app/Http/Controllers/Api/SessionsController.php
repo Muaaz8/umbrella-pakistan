@@ -124,7 +124,6 @@ class SessionsController extends BaseController
             return $this->sendError([], 'Payment method not found');
         }
     }
-
     public function getSession($id)
     {
         $session = Session::select('patient_id', 'doctor_id', 'status', 'queue', 'channel', 'que_message', 'remaining_time', 'status')->find($id);

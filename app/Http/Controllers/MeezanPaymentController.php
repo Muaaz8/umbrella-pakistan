@@ -290,7 +290,7 @@ class MeezanPaymentController extends Controller
             $this->returnUrl = env('MOBILE_APP_URL')."/SendInviteScreen?temp_id=".$temp_id;
         }elseif($data[0] == 'Appointment'){
             $orderId = 'CHCCA-'.$data[1];
-            // $this->returnUrl = env('MOBILE_APP_URL')."/SendInviteScreen";
+            $this->returnUrl = env('MOBILE_APP_URL')."/AppointmentScreen?temp_id=".$temp_id;
         }elseif($data[0] == 'Inclinic'){
             $orderId = 'CHCCI-'.$data[1];
             // $this->returnUrl = env('MOBILE_APP_URL')."/SendInviteScreen";
