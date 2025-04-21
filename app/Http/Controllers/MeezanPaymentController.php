@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Auth;
 use App\Models\InClinics;
+use Log;
 
 class MeezanPaymentController extends Controller
 {
@@ -390,10 +391,6 @@ class MeezanPaymentController extends Controller
                         'status' => 'success',
                         'message' => 'Payment Successful',
                     ]);
-                    return response()->json([
-                        'status' => 'success',
-                        'message' => $response->actionCodeDescription,
-                    ]);
                 }else{
                     // $getSession = DB::table('sessions')->where('session_id', $description[1])->first();
                     $getSession = DB::table('sessions')->where('session_id', $description[1])->delete();
@@ -465,14 +462,22 @@ class MeezanPaymentController extends Controller
                     } catch (Exception $e) {
                         Log::error($e);
                     }
-                    return redirect()->route('pat_appointments')->with("message", "Appointment Create Successfully");
+                    // return redirect()->route('pat_appointments')->with("message", "Appointment Create Successfully");
+                    return response()->json([
+                        'status' => 'success',
+                        'message' => 'Payment Successful',
+                    ]);
                 }else{
                     $getSession = DB::table('sessions')->where('session_id', $description[1])->first();
 
                     DB::table('appointments')->where('id', $getSession->appointment_id)->delete();
                     DB::table('sessions')->where('session_id', $description[1])->delete();
 
-                    return redirect()->route('book_appointment',['id'=>$description[2]])->with('error', $response->actionCodeDescription);
+                    // return redirect()->route('book_appointment',['id'=>$description[2]])->with('error', $response->actionCodeDescription);
+                    return response()->json([
+                        'status' => 'error',
+                        'message' => $response->actionCodeDescription,
+                    ]);
                 }
             }
             if($description[0] == "Order"){
