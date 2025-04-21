@@ -383,4 +383,45 @@ class AppointmentsController extends BaseController
             return $this->sendError('Server Error', ['error' => $e->getMessage()], 500);
         }
     }
+
+    public function patient_appointments()
+    {
+        try {
+            $user = Auth::user();
+    
+            if (!$user) {
+                return $this->sendError('Authentication Error', ['error' => 'User not authenticated'], 401);
+            }
+    
+            $today = date('Y-m-d');
+            $todayTime = date('h:i A');
+    
+            $appointments = DB::table('appointments')
+                ->join('users', 'appointments.doctor_id', 'users.id')
+                ->join('sessions', 'appointments.id', 'sessions.appointment_id')
+                ->where('appointments.patient_id', $user->id)
+                ->where('sessions.status', '!=', 'pending')
+                ->orderBy('appointments.created_at', 'DESC')
+                ->select(
+                    'appointments.*',
+                    'sessions.id as sesssion_id',
+                    'sessions.que_message as msg',
+                    'sessions.join_enable',
+                    'users.specialization as spec_id'
+                )
+                ->paginate(10);
+    
+            foreach ($appointments as $app) {
+                $datetime = date('Y-m-d H:i:s', strtotime("$app->date $app->time"));
+                $converted = User::convert_utc_to_user_timezone($user->id, $datetime);
+                $app->time = $converted['time'];
+                $app->date = $converted['date'];
+            }
+    
+            return $this->sendResponse(['appointments' => $appointments], 'Appointments List');
+        } catch (\Exception $e) {
+            return $this->sendError('Server Error', ['error' => $e->getMessage()], 500);
+        }
+    }
+    
 }
