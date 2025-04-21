@@ -96,7 +96,7 @@ class PatientsController extends BaseController
         ], 'Patient Dashboard Info');
     }
 
-    public function store_medical_history_new(Request $request)
+    public function patient_medical_prfile_save(Request $request)
     {
         $symptoms = "";
         if ($request['symp'] != null) {

@@ -77,6 +77,7 @@ Route::middleware(['auth:sanctum','doc_restrict'])->group(function(){
     Route::get('patient/get/doctors/{id}','Api\AppointmentsController@book_appointment');
     Route::get('available/dates/{id}','Api\AppointmentsController@get_doc_avail_dates');
     Route::get('patient/dashboard/info','Api\PatientsController@get_patient_dasboard_info');
+    Route::post('patient/medical/profile/update','Api\PatientsController@patient_medical_prfile_save');
     Route::post('doctor/day/timing','Api\AppointmentsController@doctor_timing');
 });
 
