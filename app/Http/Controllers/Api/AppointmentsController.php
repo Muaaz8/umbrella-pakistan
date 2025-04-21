@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Appointment;
 use App\DoctorSchedule;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\MeezanPaymentController;
+use Validator;
 use App\Session;
 use App\User;
 use Auth;
@@ -81,36 +83,36 @@ class AppointmentsController extends BaseController
         $today = date("Y-m-d", strtotime(Carbon::today()));
         $dates = DoctorSchedule::where('doctorID', $id)->where('title', 'Availability')->orderBy('date', 'asc')->get();
         $availability =
-        [
-            'mon' => 0,
-            'tues' => 0,
-            'weds' => 0,
-            'thurs' => 0,
-            'fri' => 0,
-            'sat' => 0,
-            'sun' => 0,
-        ];
+            [
+                'mon' => 0,
+                'tues' => 0,
+                'weds' => 0,
+                'thurs' => 0,
+                'fri' => 0,
+                'sat' => 0,
+                'sun' => 0,
+            ];
         if ($dates != null) {
             foreach ($dates as $date) {
-                if($date->mon){
+                if ($date->mon) {
                     $availability['mon'] = 1;
                 }
-                if($date->tues){
+                if ($date->tues) {
                     $availability['tues'] = 1;
                 }
-                if($date->weds){
+                if ($date->weds) {
                     $availability['weds'] = 1;
                 }
-                if($date->thurs){
+                if ($date->thurs) {
                     $availability['thurs'] = 1;
                 }
-                if($date->fri){
+                if ($date->fri) {
                     $availability['fri'] = 1;
                 }
-                if($date->sat){
+                if ($date->sat) {
                     $availability['sat'] = 1;
                 }
-                if($date->sun){
+                if ($date->sun) {
                     $availability['sun'] = 1;
                 }
                 // $date->date = User::convert_utc_to_user_timezone(auth()->user()->id, $date->start)['date'];
@@ -145,7 +147,7 @@ class AppointmentsController extends BaseController
         $data['doc'] = $doc;
         $symptoms = DB::table('isabel_symptoms')->get();
         $data['symptoms'] = $symptoms;
-        $data['sessions'] = Session::where('patient_id',auth()->user()->id)->first();
+        $data['sessions'] = Session::where('patient_id', auth()->user()->id)->first();
         return $this->sendResponse($data, 'Doctor Availability');
     }
 
@@ -179,13 +181,13 @@ class AppointmentsController extends BaseController
             default:
                 break;
         }
-        $sche = DB::table('doctor_schedules')->where('user_id',$request->id)->where('title','Availability')->where($day_nick,1)->first();
-        $sche->from_time =  User::convert_utc_to_user_timezone($sche->doctorID,$request->sdate." ".$sche->from_time)['datetime'];
-        $sche->to_time =  User::convert_utc_to_user_timezone($sche->doctorID,$request->sdate." ".$sche->to_time)['datetime'];
-        $check_availability = DB::table('appointments')->where('doctor_id',$request->id)
-            ->where('date',$request->sdate)
+        $sche = DB::table('doctor_schedules')->where('user_id', $request->id)->where('title', 'Availability')->where($day_nick, 1)->first();
+        $sche->from_time = User::convert_utc_to_user_timezone($sche->doctorID, $request->sdate . " " . $sche->from_time)['datetime'];
+        $sche->to_time = User::convert_utc_to_user_timezone($sche->doctorID, $request->sdate . " " . $sche->to_time)['datetime'];
+        $check_availability = DB::table('appointments')->where('doctor_id', $request->id)
+            ->where('date', $request->sdate)
             ->pluck('time')->toArray();
-        if($sche){
+        if ($sche) {
             $fromTime = $sche->from_time;
             $toTime = $sche->to_time;
             $start = Carbon::createFromTimeString($fromTime);
@@ -196,8 +198,8 @@ class AppointmentsController extends BaseController
                 $start->addMinutes(20);
             }
             if ($check_availability) {
-                $timeSlots = array_filter($timeSlots, function ($time) use ($user,$check_availability) {
-                    $current = User::convert_user_timezone_to_utc($user->id,$time)['time'];
+                $timeSlots = array_filter($timeSlots, function ($time) use ($user, $check_availability) {
+                    $current = User::convert_user_timezone_to_utc($user->id, $time)['time'];
                     $tt = Carbon::parse($current)->format('H:i:s');
                     return !(in_array($tt, $check_availability));
                 });
@@ -211,156 +213,174 @@ class AppointmentsController extends BaseController
 
     public function create_appointment(Request $request)
     {
-        $user = Auth::user();
-        $data = $request->validate([
-            'fname' =>  ['required', 'string', 'max:255'],
-            'lname' =>  ['required', 'string', 'max:255'],
-            'email' =>  ['required', 'string', 'max:255'],
-            'phone' =>  ['required', 'string', 'max:255'],
-            'provider' =>  ['required', 'string', 'max:255'],
-            'date' =>  ['required', 'max:255'],
-            'time' =>  ['required', 'max:255']
-        ]);
-        $datetime = date('Y-m-d', strtotime($request->date)) . ' ' . $data['time'];
-        $datetime = User::convert_user_timezone_to_utc($user->id, $datetime);
+        try {
 
-        $p_s_Time = date('H:i:s', (strtotime($datetime['datetime'])));
-        $full_date = $datetime['date'];
-        $date = $datetime['date'];
-        $date1 = new Carbon($date);
-        $app_date = $datetime['date'];
-        $patient_id = Auth::user()->id;
-        $pro_id = $data['provider'];
-        $pro_name_data = DB::table('users')->select('name', 'last_name', 'email', 'phone_number')->where('id', $pro_id)->get();
-        $provider_name = $pro_name_data[0]->name . " " . $pro_name_data[0]->last_name;
-        $appoint_data_time = $datetime['datetime'];
-
-        $firstReminder = date('Y-m-d H:i:s', (strtotime('-1 day', strtotime($appoint_data_time))));
-        $timestamp = strtotime($appoint_data_time);
-        $time = $timestamp - (15 * 60);
-
-        $secondReminder = date("Y-m-d H:i:s", $time);
-        $new_app_id = "";
-        $randNumber=rand(11,99);
-        $getLastAppId = DB::table('appointments')->orderBy('id', 'desc')->first();
-        if ($getLastAppId != null) {
-            $new_app_id = $getLastAppId->appointment_id + 1+$randNumber;
-        } else {
-            $new_app_id = rand(411111,499999);
-        }
-
-        $app_id = Appointment::create([
-            'doctor_id' =>  $data['provider'],
-            'patient_id' =>  $patient_id,
-            'patient_name' =>  $data['fname'] . " " . $data['lname'],
-            'doctor_name' => $provider_name,
-            'email' => $data['email'],
-            'phone' => $data['phone'],
-            // 'problem' => $problems,
-            'date' => $app_date,
-            'day' => $date1->format('l'),
-            'status' => 'pending',
-            'time' => $p_s_Time,
-            'created_at' => Carbon::now(),
-            'updated_at' => Carbon::now(),
-            'reminder_one_status' => "pending",
-            'reminder_two_status' => "pending",
-            'reminder_one' => $firstReminder,
-            'reminder_two' => $secondReminder,
-            'appointment_id' => $new_app_id,
-        ])->id;
-
-        $check_session_already_have = DB::table('sessions')
-            ->where('doctor_id', $data['provider'])
-            ->where('patient_id', $patient_id)
-            ->where('specialization_id', $request->spec_id)
-            ->count();
-
-        $session_price = "";
-        if ($check_session_already_have > 0) {
-            $session_price_get = User::find($data['provider']);
-            if ($session_price_get->followup_fee != null) {
-                $session_price = $session_price_get->followup_fee;
-            } else {
-                $session_price = $session_price_get->consultation_fee;
-            }
-        } else {
-            $session_price_get = User::find($data['provider']);
-            $session_price = $session_price_get->consultation_fee;
-        }
-
-        $new_session_id = "";
-        $randNumber=rand(11,99);
-        $getLastSessionId = DB::table('sessions')->orderBy('id', 'desc')->first();
-        if ($getLastSessionId != null) {
-            $new_session_id = $getLastSessionId->session_id + 1+$randNumber;
-        } else {
-            $new_session_id = rand(311111,399999);
-        }
-
-        $permitted_chars = 'abcdefghijklmnopqrstuvwxyz';
-        $channelName = substr(str_shuffle($permitted_chars), 0, 8);
-        $sessiondate = Carbon::now();
-        if($request->ses_id != '' && $request->ses_id != "undefined"){
-            $session_id = Session::where('id',$request->ses_id)->update([
-                'patient_id' =>  $patient_id,
-                'appointment_id' =>  $app_id,
-                'doctor_id' =>  $pro_id,
-                'date' => date('Y-m-d', (strtotime($datetime['datetime']))),
-                'status' => 'paid',
-                'queue' => 0,
-                'remaining_time' => 'full',
-                'channel' => $channelName,
-                'created_at' => $sessiondate,
-                'updated_at' => $sessiondate,
-                'specialization_id' => $request->spec_id,
-                'price' => $session_price,
-                'location_id' => $request->loc_id,
-                'validation_status' => "valid",
-                'start_time' => date('Y-m-d H:i:s', (strtotime($datetime['datetime']))),
-                'end_time' => date('Y-m-d H:i:s', (strtotime('15 min', strtotime($datetime['datetime'])))),
+            $validator = Validator::make($request->all(), [
+                'fname' => 'required|string|max:255',
+                'lname' => 'required|string|max:255',
+                'email' => 'required|email|max:255',
+                'phone' => 'required|string|max:255',
+                'provider' => 'required|exists:users,id',
+                'date' => 'required|date_format:Y-m-d',
+                'time' => 'required|string',
+                'spec_id' => 'required|exists:specializations,id',
+                'payment_method' => 'required|in:credit-card,first-visit',
             ]);
-            return $this->sendResponse(['session_id' => $request->ses_id], 'Appointment Created');
-        }else{
-            $session_id = Session::create([
-                'patient_id' =>  $patient_id,
-                'appointment_id' =>  $app_id,
-                'doctor_id' =>  $pro_id,
-                'date' => date('Y-m-d', (strtotime($datetime['datetime']))),
-                'status' => 'pending',
-                'queue' => 0,
-                'remaining_time' => 'full',
-                'channel' => $channelName,
-                'join_enable' => null,
-                'created_at' => $sessiondate,
-                'updated_at' => $sessiondate,
-                'specialization_id' => $request->spec_id,
-                'price' => $session_price,
-                'session_id' => $new_session_id,
-                'location_id' => $request->loc_id,
-                'validation_status' => "valid",
-                'start_time' => date('Y-m-d H:i:s', (strtotime($datetime['datetime']))),
-                'end_time' => date('Y-m-d H:i:s', (strtotime('15 min', strtotime($datetime['datetime'])))),
-            ])->id;
-            if($request->payment_method == "credit-card"){
-                $session = Session::find($session_id);
-                $data = "Appointment-".$new_session_id."-1";
-                $pay = new \App\Http\Controllers\MeezanPaymentController();
-                $res = $pay->payment_app($data,($session->price*100));
-                if (isset($res) && $res->errorCode == 0) {
-                    return redirect($res->formUrl);
-                }else{
-                    return $this->sendError('Payment Error', ['error' => 'Payment Error']);
-                }
-            }elseif($request->payment_method == "first-visit"){
-                $session = Session::find($session_id);
-                $session->status = "paid";
-                $session->save();
-                return $this->sendResponse(['session_id' => $session_id], 'Appointment Created');
-            }else{
-                Session::find($session_id)->delete();
-                return $this->sendError('Payment Error', ['error' => 'Payment Error']);
+
+
+            if ($validator->fails()) {
+                return $this->sendError('Validation Error', $validator->errors(), 422);
             }
+
+            $user = Auth::user();
+            if (!$user) {
+                return $this->sendError('Authentication Error', ['error' => 'User not authenticated'], 401);
+            }
+
+            $datetime = date('Y-m-d', strtotime($request->date)) . ' ' . $request->time;
+            $datetime = User::convert_user_timezone_to_utc($user->id, $datetime);
+
+            $startTime = $datetime['datetime'];
+            $appDate = $datetime['date'];
+            $timeOnly = date('H:i:s', strtotime($startTime));
+            $dayName = (new Carbon($appDate))->format('l');
+            $patientId = $user->id;
+            $providerId = $request->provider;
+
+            $provider = DB::table('users')
+                ->select('name', 'last_name', 'email', 'phone_number', 'consultation_fee', 'followup_fee')
+                ->where('id', $providerId)
+                ->first();
+
+            if (!$provider) {
+                return $this->sendError('Provider Error', ['error' => 'Provider not found'], 404);
+            }
+
+            $providerName = $provider->name . " " . $provider->last_name;
+            $patientName = $request->fname . " " . $request->lname;
+
+            $firstReminder = date('Y-m-d H:i:s', strtotime('-1 day', strtotime($startTime)));
+            $secondReminder = date('Y-m-d H:i:s', strtotime('-15 minutes', strtotime($startTime)));
+
+            $appointmentId = rand(411111, 499999);
+            $lastAppointment = DB::table('appointments')->orderBy('id', 'desc')->first();
+            if ($lastAppointment) {
+                $appointmentId = $lastAppointment->appointment_id + rand(11, 99);
+            }
+
+            DB::beginTransaction();
+            try {
+                $appointment = Appointment::create([
+                    'doctor_id' => $providerId,
+                    'patient_id' => $patientId,
+                    'patient_name' => $patientName,
+                    'doctor_name' => $providerName,
+                    'email' => $request->email,
+                    'phone' => $request->phone,
+                    'date' => $appDate,
+                    'day' => $dayName,
+                    'status' => 'pending',
+                    'time' => $timeOnly,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                    'reminder_one_status' => 'pending',
+                    'reminder_two_status' => 'pending',
+                    'reminder_one' => $firstReminder,
+                    'reminder_two' => $secondReminder,
+                    'appointment_id' => $appointmentId,
+                ]);
+
+                
+                $sessionCount = DB::table('sessions')
+                ->where('doctor_id', $providerId)
+                ->where('patient_id', $patientId)
+                ->where('specialization_id', $request->spec_id)
+                ->count();
+                
+                $sessionPrice = $sessionCount > 0 && $provider->followup_fee
+                ? $provider->followup_fee
+                : $provider->consultation_fee;
+                
+                $sessionId = rand(311111, 399999);
+                $lastSession = DB::table('sessions')->orderBy('id', 'desc')->first();
+                if ($lastSession) {
+                    $sessionId = $lastSession->session_id + rand(11, 99);
+                }
+                
+                $channelName = substr(str_shuffle('abcdefghijklmnopqrstuvwxyz'), 0, 8);
+                $endTime = date('Y-m-d H:i:s', strtotime('+15 minutes', strtotime($startTime)));
+                
+                if (isset($request->ses_id)) {
+                    Session::where('id', $request->ses_id)
+                    ->update([
+                        'patient_id' => $patientId,
+                        'appointment_id' => $appointment->id,
+                        'doctor_id' => $providerId,
+                            'date' => date('Y-m-d', strtotime($startTime)),
+                            'status' => 'paid',
+                            'queue' => 0,
+                            'remaining_time' => 'full',
+                            'channel' => $channelName,
+                            'created_at' => now(),
+                            'updated_at' => now(),
+                            'specialization_id' => $request->spec_id,
+                            'price' => $sessionPrice,
+                            'location_id' => $request->loc_id,
+                            'validation_status' => 'valid',
+                            'start_time' => $startTime,
+                            'end_time' => $endTime,
+                        ]);
+                    DB::commit();
+                    return $this->sendResponse(['session_id' => $request->ses_id], 'Appointment Created');
+                } else {
+                    $session = Session::create([
+                        'patient_id' => $patientId,
+                        'appointment_id' => $appointment->id,
+                        'doctor_id' => $providerId,
+                        'date' => date('Y-m-d', strtotime($startTime)),
+                        'status' => 'pending',
+                        'queue' => 0,
+                        'remaining_time' => 'full',
+                        'channel' => $channelName,
+                        'join_enable' => null,
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                        'specialization_id' => $request->spec_id,
+                        'price' => $sessionPrice,
+                        'session_id' => $sessionId,
+                        'location_id' => $request->loc_id,
+                        'validation_status' => 'valid',
+                        'start_time' => $startTime,
+                        'end_time' => $endTime,
+                    ]);
+
+                    DB::commit();
+                    if ($request->payment_method == "credit-card") {
+                        $data = "Appointment-" . $sessionId . "-1";
+                        $pay = new MeezanPaymentController();
+                        $res = $pay->payment_app($data, ($session->price * 100));
+                        
+                        if (isset($res) && $res->errorCode == 0) {
+                            return $this->sendResponse(['method' => 'credit-card', 'url' => $res->formUrl, 'session_id' => $session->id], 'Payment link generated successfully');
+                        } else {
+                            DB::rollBack();
+                            return $this->sendError('Payment Error', ['error' => 'Payment gateway error'], 400);
+                        }
+                    } elseif ($request->payment_method == "first-visit") {
+                        $session->status = "paid";
+                        $session->save();
+                        return $this->sendResponse(['session_id' => $session->id], 'Appointment Created');
+                    } else {
+                        DB::rollBack();
+                        return $this->sendError('Payment Error', ['error' => 'Invalid payment method'], 400);
+                    }
+                }
+            } catch (\Exception $e) {
+                DB::rollBack();
+                return $this->sendError('Database Error', ['error' => $e->getMessage()], 500);
+            }
+        } catch (\Exception $e) {
+            return $this->sendError('Server Error', ['error' => $e->getMessage()], 500);
         }
     }
 }
