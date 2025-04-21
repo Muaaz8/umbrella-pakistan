@@ -72,6 +72,7 @@ Route::middleware(['auth:sanctum','doc_restrict'])->group(function(){
     Route::get('patient/orders/{id}','Api\OrdersController@order_details');
     Route::get('patient/orders','Api\OrdersController@patient_orders');
     Route::post('patient/create/appointment','Api\AppointmentsController@create_appointment');
+    Route::get('patient/cancel/appointment/{id}','Api\AppointmentsController@pat_appointment_cancel');
     Route::get('patient/appointments','Api\AppointmentsController@patient_appointments');
     Route::get('patient/medical/profile','Api\PatientsController@pat_medical_profile');
     Route::get('patient/get/doctors/{id}','Api\AppointmentsController@book_appointment');

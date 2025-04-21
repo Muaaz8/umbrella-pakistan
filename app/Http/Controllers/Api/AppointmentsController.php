@@ -4,8 +4,16 @@ namespace App\Http\Controllers\Api;
 
 use App\Appointment;
 use App\DoctorSchedule;
+use App\Events\RealTimeMessage;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\MeezanPaymentController;
+use App\Mail\CancelAppointmentAccountantMail;
+use App\Mail\CancelAppointmentDoctorMail;
+use App\Mail\CancelAppointmentPatientMail;
+use Exception;
+use Log;
+use Mail;
+use Notification;
 use Validator;
 use App\Session;
 use App\User;
@@ -422,6 +430,78 @@ class AppointmentsController extends BaseController
         } catch (\Exception $e) {
             return $this->sendError('Server Error', ['error' => $e->getMessage()], 500);
         }
+    }
+
+    public function pat_appointment_cancel($id)
+    {
+        $user_type = auth()->user()->user_type;
+        $app = Appointment::find($id);
+        if ($app) {
+            $app->status = $user_type . ' has cancelled the appointment';
+            $app->save();
+        }
+        try {
+
+            $getAppointment = DB::table('appointments')->where('id', $id)->first();
+            $doctor_data = DB::table('users')->where('id', $getAppointment->doctor_id)->first();
+            $patient_data = DB::table('users')->where('id', $getAppointment->patient_id)->first();
+            $adminMail = DB::table('users')->where('user_type', 'admin')->first();
+            $p_datetime = User::convert_utc_to_user_timezone($patient_data->id, $getAppointment->date . ' ' . $getAppointment->time);
+            $d_datetime = User::convert_utc_to_user_timezone($doctor_data->id, $getAppointment->date . ' ' . $getAppointment->time);
+            $a_datetime = User::convert_utc_to_user_timezone($adminMail->id, $getAppointment->date . ' ' . $getAppointment->time);
+
+            $p_markDownData = [
+                'doc_name' => ucwords($doctor_data->name),
+                'pat_name' => ucwords($patient_data->name),
+                'time' => $p_datetime['time'],
+                'date' => $p_datetime['date'],
+                'pat_mail' => $patient_data->email,
+                'doc_mail' => $doctor_data->email,
+            ];
+
+            $d_markDownData = [
+                'doc_name' => ucwords($doctor_data->name),
+                'pat_name' => ucwords($patient_data->name),
+                'time' => $d_datetime['time'],
+                'date' => $d_datetime['date'],
+                'pat_mail' => $patient_data->email,
+                'doc_mail' => $doctor_data->email,
+            ];
+
+            $accountsMarkDownData = [
+                'doc_name' => ucwords($doctor_data->name),
+                'pat_name' => ucwords($patient_data->name),
+                'time' => $a_datetime['time'],
+                'date' => $a_datetime['date'],
+                'acounts_name' => ucwords($adminMail->name),
+                'acounts_mail' => $adminMail->email,
+            ];
+
+            Mail::to($patient_data->email)->send(new CancelAppointmentPatientMail($p_markDownData));
+            Mail::to($doctor_data->email)->send(new CancelAppointmentDoctorMail($d_markDownData));
+            Mail::to($adminMail->email)->send(new CancelAppointmentAccountantMail($accountsMarkDownData));
+
+            $text = "Appointment with " . $patient_data->name . " " . $patient_data->last_name . " has been Cancelled by " . $user_type;
+            $notification_id = \App\Notification::create([
+                'user_id' =>  $getAppointment->doctor_id,
+                'type' => '/doctor/appointments',
+                'text' => $text,
+                'appoint_id' => $id,
+            ]);
+            $data = [
+                'user_id' =>  $getAppointment->doctor_id,
+                'type' => '/doctor/appointments',
+                'text' => $text,
+                'appoint_id' => $id,
+                'refill_id' => "null",
+                'received' => 'false',
+                'session_id' => 'null',
+            ];
+            event(new RealTimeMessage($getAppointment->patient_id));
+        } catch (Exception $e) {
+            Log::error($e);
+        }
+        return $this->sendResponse([], 'Appointment cancelled.');
     }
     
 }
