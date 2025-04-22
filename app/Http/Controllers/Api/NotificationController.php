@@ -23,4 +23,29 @@ class NotificationController extends BaseController
             return $this->sendResponse($data, 'Notifications retrieved successfully.');
         }
     }
+
+    public function ReadNotification($id)
+    {
+        $notId=$id;
+        $id=auth()->user()->id;
+        DB::table('notifications')->where('user_id',$id)->where('id',$notId)->update(['status' => 'old']);
+        $notifs=Notification::where('id',$notId)->get();
+        foreach($notifs as $note)
+        {
+            $type=$note['type'];
+            return $this->sendResponse(['notes'=>$note , 'type'=> $type], 'Notification retrieved successfully.');
+        }
+    }
+
+    public function ReadAllNotification()
+    {
+        $user_id = Auth()->user()->id;
+        $user = auth()->user();
+        if($user_id!=null){
+            DB::table('notifications')->where('user_id',$user_id)->update(['status' => 'old']);
+            return $this->sendResponse([], 'All notifications marked as read successfully.');
+
+        }
+    }
+
 }
