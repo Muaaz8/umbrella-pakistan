@@ -593,4 +593,70 @@ class SessionsController extends BaseController
         }
     }
 
+    public function doc_sessions_record(Request $request)
+    {
+        $user = auth()->user();
+        $user_type = $user->user_type;
+        $user_time_zone = $user->timeZone;
+        if ($user_type == 'doctor') {
+                $user_id = $user->id;
+                $sessions = Session::where('doctor_id', $user_id)
+                    ->where('status', 'ended')
+                    ->where('remaining_time','!=','full')
+                    ->orderByDesc('id')
+                    ->paginate(7);
+                foreach ($sessions as $session) {
+                    if ($session->status == 'ended' && $session->start_time != 'null' && $session->end_time != 'null') {
+                        $session->date = User::convert_utc_to_user_timezone($user->id, $session->created_at)['date'];
+
+                        $session->start_time = date('h:i A', strtotime('-15 minutes', strtotime($session->start_time)));
+                        $session->start_time = User::convert_utc_to_user_timezone($user->id, $session->start_time)['time'];
+
+                        $session->end_time = date('h:i A', strtotime('-15 minutes', strtotime($session->end_time)));
+                        $session->end_time = User::convert_utc_to_user_timezone($user->id, $session->end_time)['time'];
+
+                        $pat = User::where('id', $session['patient_id'])->first();
+                        $session->pat_name = $pat['name'] . " " . $pat['last_name'];
+                        //refered doctor
+                        $referred_doc = Referal::where('session_id', $session['id'])
+                            ->where('patient_id', $session['patient_id'])
+                            ->where('doctor_id', $user_id)
+                            ->leftjoin('users', 'referals.sp_doctor_id', 'users.id')
+                            ->select('users.name', 'users.last_name')
+                            ->get();
+                        if (count($referred_doc)) {
+                            $session->refered = "You Referred the Patient to Dr." . $referred_doc[0]->name . " " . $referred_doc[0]->last_name;
+                        } else {
+                            $session->refered = null;
+                        }
+                        //prescription
+                        $pres = Prescription::where('session_id', $session['id'])->get();
+                        $pres_arr = [];
+                        foreach ($pres as $prod) {
+                            if ($prod['type'] == 'medicine') {
+                                $product = AllProducts::where('id', $prod['medicine_id'])->first();
+                            } else if ($prod['type'] == 'imaging') {
+                                $product = QuestDataTestCode::where('TEST_CD', $prod['test_id'])
+                                    ->first();
+                            } else if ($prod['type'] == 'lab-test') {
+                                $product = QuestDataTestCode::where('TEST_CD', $prod['test_id'])
+                                    ->first();
+                            }
+                            $cart = Cart::where('doc_session_id', $session['id'])
+                                ->where('pres_id', $prod->id)->first();
+                            $prod->prod_detail = $product;
+                            if (isset($cart->status))
+                                $prod->cart_status = $cart->status;
+                            else
+                                $prod->cart_status = 'No record';
+                            array_push($pres_arr, $prod);
+                        }
+                        $session->pres = $pres_arr;
+                    }
+                }
+
+            return $this->sendResponse($sessions, 'get doctor sessions successfully');
+        }
+    }
+
 }

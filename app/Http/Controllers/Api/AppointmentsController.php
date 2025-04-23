@@ -503,5 +503,31 @@ class AppointmentsController extends BaseController
         }
         return $this->sendResponse([], 'Appointment cancelled.');
     }
+
+    public function doctor_appointments()
+    {
+        $user = Auth::user();
+        $today = date('Y-m-d');
+        $todayTime = date('h:i A');
+            $make_reschudle = DB::table('appointments')
+                ->where('appointments.date', '<=', $today)
+                ->where('appointments.time', '<', $todayTime)
+                ->where('appointments.status', 'pending')
+                ->update(['appointments.status' => 'make-reschedule']);
+
+            $appointments = DB::table('appointments')
+                ->join('sessions', 'appointments.id', 'sessions.appointment_id')
+                ->where('appointments.doctor_id', $user->id)
+                ->where('sessions.status','!=','pending')
+                ->orderBy('appointments.created_at', 'DESC')
+                ->select('appointments.*', 'sessions.id as session_id', 'sessions.que_message as msg', 'sessions.join_enable')
+                ->paginate(8);
+            foreach ($appointments as $app) {
+                $ddd = date('Y-m-d H:i:s', strtotime("$app->date $app->time"));
+                $app->date = User::convert_utc_to_user_timezone($user->id, $ddd)['date'];
+                $app->time = User::convert_utc_to_user_timezone($user->id, $ddd)['time'];
+            }
+            return $this->sendResponse( $appointments, 'Appointments List');
+    }
     
 }

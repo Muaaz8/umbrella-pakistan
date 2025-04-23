@@ -128,6 +128,12 @@ Route::middleware(['auth:sanctum','pat_restrict'])->group(function(){
     Route::post('prescription/addImaging','Api\PrescriptionController@addImaging');
     Route::post('prescription/removeItem','Api\PrescriptionController@removeItem');
     Route::post('prescription/addMedicine','Api\PrescriptionController@addMedicine');
+    Route::get('get/doctor/appointments','Api\AppointmentsController@doctor_appointments');
+    Route::get('get/doctor/schedules','Api\DoctorsController@get_doctor_schedule');
+    Route::post('add/doctor/schedules','Api\DoctorsController@add_doctor_schedule');
+    Route::get('get/doctor/details','Api\DoctorsController@get_doctor_details_by_id');
+    Route::post('add/doctor/details','Api\DoctorsController@add_doctor_details');
+    Route::get('get/doctor/sessions', 'Api\SessionsController@doc_sessions_record');
 });
    //=================================================//
             //Doctor PROFILE END HERE
