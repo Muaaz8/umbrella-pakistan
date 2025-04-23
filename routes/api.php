@@ -107,6 +107,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('read/notification/{id}', 'Api\NotificationController@ReadNotification');
     Route::get('payment/return/{id}', 'MeezanPaymentController@payment_return_app');
     Route::get('order/confirm', 'Api\OrdersController@order_confirm');
+    Route::get('profile/{username}', 'Api\ProfileController@view_profile');
+    Route::post('profile/update/phoneNumber', 'Api\ProfileController@editprofilenumber');
+    Route::post('profile/update', 'Api\ProfileController@updatePatient');
 });
 //================================================//
 //PATIENT PROFILE END HERE
