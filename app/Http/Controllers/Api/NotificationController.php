@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Events\CountCartItem;
 use App\Http\Controllers\Controller;
+use App\Events\RealTimeMessage;
 use App\Notification;
 use DB;
 use Illuminate\Support\Facades\Auth;
@@ -35,6 +36,7 @@ class NotificationController extends BaseController
         foreach ($notifs as $note) {
             $type = $note['type'];
             event(new CountCartItem($id));
+            event(new RealTimeMessage($id));
             return $this->sendResponse(['notes' => $note, 'type' => $type], 'Notification retrieved successfully.');
         }
     }
@@ -46,6 +48,7 @@ class NotificationController extends BaseController
         if ($user_id != null) {
             DB::table('notifications')->where('user_id', $user_id)->update(['status' => 'old']);
             event(new CountCartItem($user_id));
+            event(new RealTimeMessage($user_id));
             return $this->sendResponse([], 'All notifications marked as read successfully.');
 
         }
