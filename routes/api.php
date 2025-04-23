@@ -109,6 +109,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('order/confirm', 'Api\OrdersController@order_confirm');
     Route::get('profile/{username}', 'Api\ProfileController@view_profile');
     Route::post('profile/update/phoneNumber', 'Api\ProfileController@editprofilenumber');
+    Route::post('profile/update/image', 'Api\ProfileController@editprofilepicture');
     Route::post('profile/update', 'Api\ProfileController@updatePatient');
 });
 //================================================//

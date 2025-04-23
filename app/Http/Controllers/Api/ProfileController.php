@@ -149,7 +149,6 @@ class ProfileController extends BaseController
         }
 
     }
-
     function editprofilenumber(Request $request)
     {
         $id = auth()->user()->id;
@@ -162,7 +161,6 @@ class ProfileController extends BaseController
 
         return $this->sendResponse(['user' => $user], 'Phone number updated successfully.');
     }
-
     public function updatePatient(Request $request)
     {
         $input = $request->all();
@@ -230,5 +228,18 @@ class ProfileController extends BaseController
 
     }
 
+    function editprofilepicture(Request $request){
+        $user = auth()->user() ;
+        $image = $request->file('filename');
+        $filename = \Storage::disk('s3')->put('user_profile_images', $image);
+        DB::table('users')->where('id',$user->id)->update([
+            'user_image' => $filename,
+        ]);
+        if($user->user_type == 'patient'){
+            return $this->sendResponse(['user' => $user], 'Profile picture updated successfully.');
+        }else if ($user->user_type == 'doctor'){
+            return $this->sendResponse(['user' => $user], 'Profile picture updated successfully.');
+        }
+    }
 
 }

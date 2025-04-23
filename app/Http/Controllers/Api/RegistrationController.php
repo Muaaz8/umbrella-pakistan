@@ -252,13 +252,13 @@ class RegistrationController extends BaseController
             $user_info = DB::table('users')
                 ->leftJoin('users_email_verification', 'users.id', '=', 'users_email_verification.user_id')
                 ->where('users.id', $user->id)
-                ->select('users.name', 'users.id', 'users.last_name','users.email', 'users.phone_number' , 'users_email_verification.status as email_status')
+                ->select('users.name', 'users.id', 'users.last_name','users.email', 'users.username', 'users.user_image', 'users.phone_number' , 'users_email_verification.status as email_status')
                 ->first();
     
             if ($user->user_type == 'doctor' && $user->active != '1') {
                 return $this->sendError([], "Your account is not active.", Response::HTTP_UNAUTHORIZED);
             }
-    
+            $user_info->user_image = \App\Helper::check_bucket_files_url($user_info->user_image);
             $token = $user->createToken('MyApp')->plainTextToken;
     
             return $this->sendResponse([
@@ -563,13 +563,15 @@ class RegistrationController extends BaseController
         $user_info = DB::table('users')
             ->leftJoin('users_email_verification', 'users.id', '=', 'users_email_verification.user_id')
             ->where('users.id', $user->id)
-            ->select('users.name', 'users.id', 'users.last_name', 'users.email', 'users.phone_number', 'users_email_verification.status as email_status')
+            ->select('users.name', 'users.id', 'users.username', 'users.user_image', 'users.last_name', 'users.email', 'users.phone_number', 'users_email_verification.status as email_status')
             ->first();
     
         if ($user->user_type === 'doctor' && $user->active != '1') {
             return $this->sendError([], "Your account is not active.");
         }
     
+        
+        $user_info->user_image = \App\Helper::check_bucket_files_url($user_info->user_image);
         // Optional: create a new token (or reuse the old one if desired)
         $newToken = $user->createToken('MyApp')->plainTextToken;
     
