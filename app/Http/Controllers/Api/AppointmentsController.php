@@ -504,6 +504,88 @@ class AppointmentsController extends BaseController
         return $this->sendResponse([], 'Appointment cancelled.');
     }
 
+    public function doc_appointment_cancel($id)
+    {
+        $user_type = auth()->user()->user_type;
+        $app = Appointment::find($id);
+        if ($app) {
+            $app->status = $user_type . ' has cancelled the appointment';
+            $app->save();
+            if($user_type=='doctor')
+            {
+                DB::table('sessions')->where('appointment_id',$app->id)->update(['status'=>'paid']);
+            }
+            else
+            {
+                DB::table('sessions')->where('appointment_id',$app->id)->update(['status'=>'cancel']);
+            }
+        }
+
+        try {
+
+            $getAppointment = DB::table('appointments')->where('id', $id)->first();
+            $doctor_data = DB::table('users')->where('id', $getAppointment->doctor_id)->first();
+            $patient_data = DB::table('users')->where('id', $getAppointment->patient_id)->first();
+            $adminMail = DB::table('users')->where('user_type', 'admin')->first();
+            $p_datetime = User::convert_utc_to_user_timezone($patient_data->id, $getAppointment->date . ' ' . $getAppointment->time);
+            $d_datetime = User::convert_utc_to_user_timezone($doctor_data->id, $getAppointment->date . ' ' . $getAppointment->time);
+            $a_datetime = User::convert_utc_to_user_timezone($adminMail->id, $getAppointment->date . ' ' . $getAppointment->time);
+
+            $p_markDownData = [
+                'doc_name' => ucwords($doctor_data->name),
+                'pat_name' => ucwords($patient_data->name),
+                'time' => $p_datetime['time'],
+                'date' => $p_datetime['date'],
+                'pat_mail' => $patient_data->email,
+                'doc_mail' => $doctor_data->email,
+            ];
+
+            $d_markDownData = [
+                'doc_name' => ucwords($doctor_data->name),
+                'pat_name' => ucwords($patient_data->name),
+                'time' => $d_datetime['time'],
+                'date' => $d_datetime['date'],
+                'pat_mail' => $patient_data->email,
+                'doc_mail' => $doctor_data->email,
+            ];
+
+            $accountsMarkDownData = [
+                'doc_name' => ucwords($doctor_data->name),
+                'pat_name' => ucwords($patient_data->name),
+                'time' => $a_datetime['time'],
+                'date' => $a_datetime['date'],
+                'acounts_name' => ucwords($adminMail->name),
+                'acounts_mail' => $adminMail->email,
+            ];
+
+            Mail::to($patient_data->email)->send(new CancelAppointmentPatientMail($p_markDownData));
+            Mail::to($doctor_data->email)->send(new CancelAppointmentDoctorMail($d_markDownData));
+            Mail::to($adminMail->email)->send(new CancelAppointmentAccountantMail($accountsMarkDownData));
+
+            $text = "Appointment from Dr. " . $doctor_data->name . " " . $doctor_data->last_name . " has been Cancelled by " . $user_type;
+            $notification_id = Notification::create([
+                'user_id' =>  $getAppointment->patient_id,
+                'type' => '/patient/appointments',
+                'text' => $text,
+                'appoint_id' => $id,
+            ]);
+            $data = [
+                'user_id' =>  $getAppointment->patient_id,
+                'type' => '/patient/appointments',
+                'text' => $text,
+                'appoint_id' => $id,
+                'refill_id' => "null",
+                'received' => 'false',
+                'session_id' => 'null',
+            ];
+            event(new RealTimeMessage($getAppointment->patient_id));
+        } catch (Exception $e) {
+            Log::error($e);
+        }
+
+        return $this->sendResponse([], 'Appointment cancelled.');
+    }
+
     public function doctor_appointments()
     {
         $user = Auth::user();

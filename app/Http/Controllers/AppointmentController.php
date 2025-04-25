@@ -1594,7 +1594,6 @@ class AppointmentController extends Controller
 
     public function doc_appointment_cancel(Request $request)
     {
-        //dd($request);
         $user_type = auth()->user()->user_type;
         $app = Appointment::find($request->id);
         if ($app) {

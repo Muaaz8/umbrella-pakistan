@@ -62,45 +62,67 @@ class ProfileController extends BaseController
             )->first();
             if (isset($user->id)) {
                 if ($id == $user->id) {
-                    if ($user->user_type == 'doctor') {
-                        $doctor = $user;
+                    if($user->user_type=='doctor'){
+                        $doctor=$user;
+
                         $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
-                        $doctor->pending_approval = DB::table('doctor_fee_approvals')->where('doctor_id', $id)->orderBy("id", "desc")->first();
+                        $doctor->pending_approval = DB::table('doctor_fee_approvals')->where('doctor_id',$id)->orderBy("id","desc")->first();
                         $doctor->city = City::find($doctor->city_id);
                         $doctor->state = State::find($doctor->state_id);
                         $doctor->country = Country::find($doctor->country_id);
                         $doctor->spec = Specialization::find($doctor->specialization);
                         $doctor->license = DB::table('doctor_licenses')
-                            ->join('states', 'states.id', 'doctor_licenses.state_id')
-                            ->where('doctor_id', $id)
-                            ->where('is_verified', 1)
-                            ->select('states.name')->get();
+                        ->join('states','states.id','doctor_licenses.state_id')
+                        ->where('doctor_id',$id)
+                        ->where('is_verified',1)
+                        ->select('states.name')->get();
+                        // doctor certificates
                         $doctor->certificates = DB::table('doctor_certificates')->where('doc_id', $id)->get();
 
-                        if ($doctor->pending_approval != null) {
-                            $doctor->pending_approval = $doctor->pending_approval->is_approved;
-                        } else {
-                            $doctor->pending_approval = null;
+                        if($doctor->pending_approval != null){
+                                $doctor->pending_approval = $doctor->pending_approval->is_approved;
+                        }else{
+                                $doctor->pending_approval = null;
                         }
 
 
                         foreach ($doctor->certificates as $cert) {
-                            if ($cert->certificate_file != "") {
-                                $cert->certificate_file = \App\Helper::get_files_url($cert->certificate_file);
-                            }
+                        if ($cert->certificate_file != "") {
+                            $cert->certificate_file = \App\Helper::get_files_url($cert->certificate_file);
+                        }
                         }
 
-                        $data = DB::table('activity_log')->where('user_id', $id)->select('*')->orderBy('created_at', 'desc')->paginate(10);
-                        foreach ($data as $dt) {
+                        $doctor->activity = DB::table('activity_log')->where('user_id',$id)->select('*')->orderBy('created_at','desc')->get();
+                        foreach ($doctor->activity as $dt) {
                             $user_time_zone = Auth::user()->timeZone;
                             $date = new DateTime($dt->created_at);
                             $date->setTimezone(new DateTimeZone($user_time_zone));
                             $dt->created_at = $date->format('D, M/d/Y, g:i a');
                         }
 
-                        foreach ($doctor->all_patients as $patient) {
+                        $session_patients = DB::table('sessions')
+                            ->join('users', 'sessions.patient_id', '=', 'users.id')
+                            ->where('sessions.doctor_id', auth()->user()->id)
+                            ->where('sessions.status', '!=', 'pending')
+                            ->groupBy('sessions.patient_id')
+                            ->select('users.*')
+                            ->get();
+
+                        $inclinic_patients = DB::table('in_clinics')
+                            ->join('users', 'in_clinics.user_id', 'users.id')
+                            ->where('in_clinics.doctor_id', $user->id)
+                            ->where('in_clinics.status', 'ended')
+                            ->orderBy('in_clinics.created_at', 'DESC')
+                            ->groupBy('in_clinics.user_id')
+                            ->select('users.*')
+                            ->get();
+
+                        $doctor->all_patients = collect($session_patients->toArray())->merge($inclinic_patients->toArray());
+                        foreach ($doctor->all_patients as $patient)
+                        {
                             $patient->user_image = \App\Helper::check_bucket_files_url($patient->user_image);
                         }
+                        // return view('dashboard_doctor.Profile.view_profile', compact('doctor','data'));
                         return $this->sendResponse(['user' => $doctor], 'Doctor Profile retrieved successfully.');
                     } else if ($user->user_type == 'patient') {
                         $patient = $user;
@@ -228,16 +250,17 @@ class ProfileController extends BaseController
 
     }
 
-    function editprofilepicture(Request $request){
-        $user = auth()->user() ;
+    function editprofilepicture(Request $request)
+    {
+        $user = auth()->user();
         $image = $request->file('filename');
         $filename = \Storage::disk('s3')->put('user_profile_images', $image);
-        DB::table('users')->where('id',$user->id)->update([
+        DB::table('users')->where('id', $user->id)->update([
             'user_image' => $filename,
         ]);
-        if($user->user_type == 'patient'){
+        if ($user->user_type == 'patient') {
             return $this->sendResponse(['user' => $user], 'Profile picture updated successfully.');
-        }else if ($user->user_type == 'doctor'){
+        } else if ($user->user_type == 'doctor') {
             return $this->sendResponse(['user' => $user], 'Profile picture updated successfully.');
         }
     }

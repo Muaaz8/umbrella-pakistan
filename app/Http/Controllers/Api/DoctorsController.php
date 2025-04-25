@@ -560,7 +560,8 @@ class DoctorsController extends BaseController
         return $this->sendResponse($doctor, 'update doctor details successfully');
     }
 
-    public function get_doctor_details_by_id($id){
+    public function get_doctor_details_by_id(){
+        $id = auth()->user()->id;
         $doctor = DB::table('doctor_details')->where('doctor_id',$id)->first();
         if($doctor){
             $doctor->certificates = json_decode($doctor->certificates);

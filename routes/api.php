@@ -118,23 +118,22 @@ Route::middleware(['auth:sanctum'])->group(function () {
 Route::middleware(['auth:sanctum','pat_restrict','apiDoctorIsActive','docToVideoScreen'])->group(function (){
 });
 
-
-
-
 Route::middleware(['auth:sanctum','pat_restrict'])->group(function(){
     Route::post('recommendation','Api\RecommendationController@store');
     Route::post('prescription/medicine/addDose','Api\PrescriptionController@addMedicineDose');
     Route::post('prescription/addLab','Api\PrescriptionController@addLab');
     Route::post('prescription/addImaging','Api\PrescriptionController@addImaging');
     Route::post('prescription/removeItem','Api\PrescriptionController@removeItem');
+    Route::get('doctor/cancel/appointment/{id}','Api\AppointmentsController@doc_appointment_cancel');
     Route::post('prescription/addMedicine','Api\PrescriptionController@addMedicine');
     Route::get('get/doctor/appointments','Api\AppointmentsController@doctor_appointments');
     Route::get('get/doctor/schedules','Api\DoctorsController@get_doctor_schedule');
-    Route::post('add/doctor/schedules','Api\DoctorsController@add_doctor_schedule');
+    Route::post('add/doctor/schedules','Api\DoctorsController@add_doc_schedule');
     Route::get('get/doctor/details','Api\DoctorsController@get_doctor_details_by_id');
     Route::post('add/doctor/details','Api\DoctorsController@add_doctor_details');
     Route::get('get/doctor/sessions', 'Api\SessionsController@doc_sessions_record');
     Route::get('get/doctor/patients', 'Api\DoctorsController@doc_patients');
+    Route::get('get/patient/record/{id}', 'Api\PatientsController@view_patient_record');
 });
    //=================================================//
             //Doctor PROFILE END HERE

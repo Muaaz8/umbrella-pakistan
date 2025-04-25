@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\ActivityLog;
 use App\Helper;
 use App\Http\Controllers\Controller;
+use App\Models\InClinics;
 use App\Repositories\TblOrdersRepository;
 use App\MedicalProfile;
 use App\User;
@@ -22,6 +23,66 @@ class PatientsController extends BaseController
 
         $this->tblOrdersRepository = $tblOrdersRepo;
     }
+
+    public function fetch_pending_imagings($user_id,Request $request)
+    {
+        if($request->ajax())
+        {
+            $imagings = DB::table('sessions')
+            ->join('tbl_cart','sessions.id','tbl_cart.doc_session_id')
+            ->where('tbl_cart.user_id',$user_id)
+            ->where('tbl_cart.product_mode','imaging')
+            ->where('tbl_cart.item_type','prescribed')
+            ->where('tbl_cart.status','purchased')
+            ->select('tbl_cart.*','sessions.date as session_date')
+            ->latest()
+            ->paginate(4,['*'],'pimagings');
+            return view('dashboard_doctor.All_patient.pimagings_page',compact('imagings'));
+        }
+        else{
+            $imagings = DB::table('sessions')
+            ->join('tbl_cart','sessions.id','tbl_cart.doc_session_id')
+            ->where('tbl_cart.user_id',$user_id)
+            ->where('tbl_cart.product_mode','imaging')
+            ->where('tbl_cart.item_type','prescribed')
+            ->where('tbl_cart.status','purchased')
+            ->latest()
+            ->select('tbl_cart.*','sessions.date as session_date')
+            ->paginate(4,['*'],'pimagings');
+            return $imagings;
+        }
+    }
+
+    public function fetch_pending_labs($user_id,Request $request)
+    {
+        if($request->ajax())
+        {
+            $labs = DB::table('sessions')
+            ->join('tbl_cart','sessions.id','tbl_cart.doc_session_id')
+            ->where('tbl_cart.user_id',$user_id)
+            ->where('tbl_cart.product_mode','lab-test')
+            ->where('tbl_cart.item_type','prescribed')
+            ->where('tbl_cart.status','purchased')
+            ->select('tbl_cart.*','sessions.date as session_date')
+            ->latest()
+            ->paginate(4,['*'],'plabs');
+            return view('dashboard_doctor.All_patient.plabs_page',compact('labs'));
+        }
+        else
+        {
+            $labs = DB::table('sessions')
+            ->join('tbl_cart','sessions.id','tbl_cart.doc_session_id')
+            ->where('tbl_cart.user_id',$user_id)
+            ->where('tbl_cart.product_mode','lab-test')
+            ->where('tbl_cart.item_type','prescribed')
+            ->where('tbl_cart.status','purchased')
+            ->select('tbl_cart.*','sessions.date as session_date')
+            ->latest()
+            ->paginate(4,['*'],'plabs');
+            return $labs;
+        }
+    }
+
 
     public function get_patient_dasboard_info()
     {
@@ -205,6 +266,93 @@ class PatientsController extends BaseController
         }
 
         return $this->sendResponse(['profile' => null, 'update' => $update, 'diseases' => [], 'med_files' => $med_files], 'Medical Profile');
+    }
+
+    public function view_patient_record(Request $request)
+    {
+        $user_type = auth()->user()->user_type;
+        $id = $request['id'];
+        $pat = User::find($id);
+        $user = $pat;
+        $pat_name = Helper::get_name($id);
+        $pat_info = User::patient_info($id);
+        $sessions = User::get_full_session_details($id);
+        $inclinic = InClinics::with(['user','prescriptions','doctor'])->where('user_id',$id)->orderBy('id','desc')->paginate(10);
+        $user_obj = new User();
+        $tblOrders = $this->tblOrdersRepository->getOrdersByUserID($id);
+        foreach ($tblOrders as $order) {
+            $order->created_at = User::convert_utc_to_user_timezone($user->id,$order->created_at);
+        }
+        foreach ($sessions as $session) {
+            $session->date = User::convert_utc_to_user_timezone($user->id, $session->created_at)['date'];
+
+            $session->start_time = date('h:i A',strtotime('-15 minutes',strtotime($session->start_time)));
+            $session->start_time = User::convert_utc_to_user_timezone($user->id, $session->start_time)['time'];
+
+            $session->end_time = date('h:i A',strtotime('-15 minutes',strtotime($session->end_time)));
+            $session->end_time = User::convert_utc_to_user_timezone($user->id, $session->end_time)['time'];
+        }
+        $history['patient_meds'] = $user_obj->get_current_medicines($id); //$patient_meds[0]->prod->name
+        $history['patient_labs'] = $user_obj->get_lab_reports($id);
+        $history['patient_imaging'] = $user_obj->get_imaging_reports($id);
+        $history['patient_pending_labs'] = $this->fetch_pending_labs($id,new Request);
+        $history['patient_pending_imagings'] = $this->fetch_pending_imagings($id,new Request);
+        $medical_profile = MedicalProfile::where('user_id', $id)->orderByDesc('id')->first();
+        $last_updated = "";
+        $box['med_price'] = DB::table('medicine_order')->where('user_id', $id)->sum('update_price');
+        $orderLabs = DB::table('lab_orders')
+            ->join('quest_data_test_codes', 'quest_data_test_codes.TEST_CD', 'lab_orders.product_id')
+            ->join('prescriptions', 'prescriptions.test_id', 'lab_orders.product_id')
+            ->where('lab_orders.status','!=', 'pending')
+            ->where('lab_orders.user_id', $id)
+            ->groupBy('lab_orders.id')
+            ->select('lab_orders.*', 'quest_data_test_codes.DESCRIPTION', 'quest_data_test_codes.SALE_PRICE', 'prescriptions.quantity',)
+            ->get();
+        $box['lab_price'] = 0;
+        foreach($orderLabs as $order){
+            $box['lab_price'] += $order->SALE_PRICE;
+        }
+        $box['imaging_price'] = DB::table('imaging_orders')->where('user_id', $id)->sum('price');
+        $box['sessions'] = DB::table('sessions')->where('patient_id',$id)->where('status','!=','pending')->count();
+        if ($medical_profile != null) {
+            $last_updated = Helper::get_date_with_format($medical_profile['updated_at']);
+        }
+
+        if (auth()->user()->user_type == 'doctor') {
+            ActivityLog::create([
+                'activity' => 'viewed record of ' . $pat_name,
+                'type' => 'record',
+                'user_id' => auth()->user()->id,
+                'user_type' => 'doctor',
+                'party_involved' => $id,
+            ]);
+            return $this->sendResponse([
+                'sessionss' => $sessions,
+                'pat_info' => $pat_info,
+                'pat_name' => $pat_name,
+                'medical_profile' => $medical_profile,
+                'last_updated' => $last_updated,
+                'user_type' => $user_type,
+                'history' => $history,
+                'tblOrders' => $tblOrders,
+                'inclinic' => $inclinic,
+                'box' => $box
+            ], 'Patient Record');
+
+        }elseif(auth()->user()->user_type == 'admin'){
+            return $this->sendResponse([
+                'sessionss' => $sessions,
+                'pat_info' => $pat_info,
+                'pat_name' => $pat_name,
+                'medical_profile' => $medical_profile,
+                'last_updated' => $last_updated,
+                'user_type' => $user_type,
+                'history' => $history,
+                'tblOrders' => $tblOrders,
+                'inclinic' => $inclinic,
+                'box' => $box
+            ], 'Patient Record');
+        }
     }
 
 }
