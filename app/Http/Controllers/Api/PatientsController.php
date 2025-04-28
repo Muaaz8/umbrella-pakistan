@@ -113,6 +113,17 @@ class PatientsController extends BaseController
             ->where('appointments.status', 'pending')
             ->where('sessions.status', '!=', 'pending')
             ->count();
+        
+            $upComingAppointment = DB::table('appointments')
+            ->where('patient_id', $user->id)
+            ->whereNotIn('status', [
+                'doctor has cancelled the appointment',
+                'patient has cancelled the appointment',
+                'completed'
+            ])
+            ->whereRaw("STR_TO_DATE(CONCAT(date, ' ', time), '%Y-%m-%d %H:%i:%s') > ?", [now()])
+            ->orderByRaw("STR_TO_DATE(CONCAT(date, ' ', time), '%Y-%m-%d %H:%i:%s') ASC")
+            ->first();
 
         $pending_sessions = DB::table('sessions')
             ->where('patient_id', $user->id)
@@ -153,7 +164,8 @@ class PatientsController extends BaseController
             'total_reminds' => $total_reminds,
             'med_profile' => $med_profile,
             'ses_id' => $ses_id,
-            'ses_feed' => $ses_feed
+            'ses_feed' => $ses_feed,
+            'upComingAppointment' => $upComingAppointment,
         ], 'Patient Dashboard Info');
     }
 

@@ -659,4 +659,45 @@ class SessionsController extends BaseController
         }
     }
 
+    public function sessionCheck()
+    {
+        try {
+            $user = auth()->user();
+    
+            if (!$user) {
+                return $this->sendError([], 'User not authenticated', 401);
+            }
+    
+            $user_type = $user->user_type;
+    
+            if ($user_type == 'doctor') {
+                $session = Session::where('doctor_id', $user->id)
+                    ->where('status', 'doctor joined')
+                    ->first();
+    
+                if ($session) {
+                    return $this->sendResponse($session, 'You have a session to join.');
+                } else {
+                    return $this->sendError([], 'No active session found for doctor', 404);
+                }
+            } elseif ($user_type == 'patient') {
+                $session = Session::where('patient_id', $user->id)
+                    ->where('status', 'invitation sent')
+                    ->first();
+    
+                if ($session) {
+                    return $this->sendResponse($session, 'You have a session to join.');
+                } else {
+                    return $this->sendError([], 'No active session found for patient', 404);
+                }
+            } else {
+                return $this->sendError([], 'Invalid user type', 400);
+            }
+    
+        } catch (\Exception $e) {
+            return $this->sendError([], 'Something went wrong: ' . $e->getMessage(), 500);
+        }
+    }
+    
+
 }
