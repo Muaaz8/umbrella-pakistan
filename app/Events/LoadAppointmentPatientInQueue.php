@@ -38,6 +38,7 @@ class LoadAppointmentPatientInQueue implements ShouldBroadcast
             "appointment_id"=>$this->appointment_id,
             "patient_id"=>$ses->patient_id,
             "session_id"=>\Crypt::encrypt($ses->id),
+            "session"=>$ses,
         ];
     }
     /**
