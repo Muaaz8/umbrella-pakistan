@@ -41,7 +41,9 @@ class DoctorJoinedVideoSession implements ShouldBroadcast
                 "session_id"=>\Crypt::encrypt($this->session_id),
                 "doc_name"=>$doc_name,
                 "doc_image"=>$doc_image,
-                "message"=>$this->message];
+                "message"=>$this->message,
+                "session"=>$this->session_id,
+            ];
     }
 
     /**
