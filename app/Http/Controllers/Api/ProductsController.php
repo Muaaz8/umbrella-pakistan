@@ -288,4 +288,11 @@ class ProductsController extends Controller
         }
     }
 
+
+    public function getMedPrescribeSubCategories()
+    {
+        $cat = DB::table('products_sub_categories')->where('parent_id', 38)->orderBy('title', 'asc')->get();
+        return response()->json($cat);
+    }
+
 }

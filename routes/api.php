@@ -44,6 +44,7 @@ Route::post('resend_otp','Api\RegistrationController@resend_otp');
 // products api
 
 Route::get('products/{name}', 'Api\ProductsController@index');
+Route::get('get/med/sub/category', 'Api\ProductsController@getMedPrescribeSubCategories');
 Route::get('product/{name}/{id}', 'Api\ProductsController@singleProduct'); 
 Route::post('pharmacy', 'Api\ProductsController@getPharmacyByCategory'); 
 Route::post('imaging', 'Api\ProductsController@getImagingByCategory'); 
