@@ -1,12 +1,15 @@
 <?php
 
 namespace App\Http\Controllers\Api;
+use App\Appointment;
 use App\DoctorSchedule;
 use App\Events\loadOnlineDoctor;
 use App\Helper;
 use App\Http\Controllers\Controller;
 use App\Events\updateQuePatient;
 use Auth;
+use App\Notification;
+use App\Events\RealTimeMessage;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use App\Session;
@@ -625,5 +628,158 @@ class DoctorsController extends BaseController
         $all_patients = collect($patients);
         return $this->sendResponse($all_patients, 'get patients successfully');
     }
+
+    public function doctor_dashboard()
+{
+    $user = Auth::user();
+    $userId = $user->id;
+    $currentRole = strtolower($user->user_type);
+
+    $email_status = DB::table('users_email_verification')
+        ->where('user_id', $userId)
+        ->value('status');
+
+    $term_condition_status = DB::table('user_term_and_condition_status')
+        ->where([
+            ['status', '=', '0'],
+            ['flag', '=', 'update'],
+            ['user_id', '=', $userId],
+        ])->exists();
+
+    if ($currentRole !== 'admin') {
+
+        if ($email_status === 1) {
+            if (!$term_condition_status) {
+                if (empty($user->provider)) {
+                    auth()->user()->assignRole($currentRole);
+                } else {
+                    auth()->user()->assignRole('temp_patient');
+                    return $this->sendError('Unauthorized', 'You are not authorized to access this resource.');
+                }
+
+                $profileImage = DB::table('users')->find($userId);
+                $notifications = Notification::where('user_id', $userId)
+                    ->orderByDesc('id')->get();
+
+                $countNotification = $notifications->where('status', 'new')->count();
+
+                if ($currentRole === 'doctor') {
+
+                    $totalPatient = DB::table('sessions')
+                        ->where('doctor_id', $userId)
+                        ->where('status', '!=', 'pending')
+                        ->select('patient_id')
+                        ->distinct()
+                        ->count();
+
+                    $totalPendingAppoint = DB::table('appointments')
+                        ->join('sessions', 'sessions.appointment_id', '=', 'appointments.id')
+                        ->where([
+                            ['appointments.status', '=', 'pending'],
+                            ['sessions.status', '=', 'paid'],
+                            ['appointments.doctor_id', '=', $userId]
+                        ])->count();
+
+                    $currentMonth = now()->month;
+                    $monthTotalAppoint = Appointment::where('doctor_id', $userId)
+                        ->whereMonth('created_at', $currentMonth)
+                        ->count();
+
+                    $sessionTotalPrice = DB::table("sessions")
+                        ->where([
+                            ['doctor_id', '=', $userId],
+                            ['status', '=', 'ended'],
+                        ])->sum('price');
+
+                    $percentage = DB::table('doctor_percentage')
+                        ->where('doc_id', $userId)
+                        ->value('percentage') ?? 50;
+
+                    $totalEarning = ($percentage / 100) * $sessionTotalPrice;
+
+                    $labApprovalCount = DB::table('lab_orders')
+                        ->where([
+                            ['status', '=', 'essa-forwarded'],
+                            ['type', '=', 'Counter'],
+                            ['doc_id', '=', $userId]
+                        ])
+                        ->select('order_id')
+                        ->distinct()
+                        ->count();
+
+                    $totalEarning += ($labApprovalCount * 3);
+
+                    // Reschedule past appointments
+                    $today = now()->format('Y-m-d');
+                    $nowTime = now()->format('H:i:s');
+                    DB::table('appointments')
+                        ->whereDate('date', '<=', $today)
+                        ->where('time', '<', $nowTime)
+                        ->where('status', 'pending')
+                        ->update(['status' => 'make-reschedule']);
+
+                    $totalSessions = DB::table('sessions')
+                        ->where([
+                            ['doctor_id', '=', $userId],
+                            ['status', '=', 'ended'],
+                        ])->count();
+
+                    $appoints = DB::table('appointments')
+                        ->join('sessions', 'appointments.id', '=', 'sessions.appointment_id')
+                        ->where([
+                            ['appointments.doctor_id', '=', $userId],
+                            ['appointments.status', '=', 'pending'],
+                            ['appointments.date', '>=', $today],
+                        ])
+                        ->where('sessions.status', '!=', 'pending')
+                        ->orderByDesc('appointments.created_at')
+                        ->select('appointments.*', 'sessions.id as sesssion_id', 'sessions.que_message as msg', 'sessions.join_enable')
+                        ->get();
+
+                    foreach ($appoints as $appoint) {
+                        $datetime = $appoint->date . ' ' . $appoint->time;
+                        $datetime = User::convert_utc_to_user_timezone($userId, $datetime);
+                        $appoint->date = $datetime['date'];
+                        $appoint->time = $datetime['time'];
+                    }
+                    return $this->sendResponse([
+                        'notifications' => $notifications,
+                        'countNotification' => $countNotification,
+                        'currentRole' => $currentRole,
+                        'appoints' => $appoints,
+                        'profile' => $profileImage,
+                        'totalPatient' => $totalPatient,
+                        'totalPendingAppoint' => $totalPendingAppoint,
+                        'monthTotalAppoint' => $monthTotalAppoint,
+                        'totalEarning' => $totalEarning,
+                        'totalSessions' => $totalSessions
+                    ], 'Doctor Dashboard');
+                }
+            } 
+        } else {
+            $userData = DB::table('users')
+                ->leftJoin('users_email_verification', 'users.id', '=', 'users_email_verification.user_id')
+                ->leftJoin('contracts', 'users.id', '=', 'contracts.provider_id')
+                ->where('users.id', $userId)
+                ->select(
+                    'users.*',
+                    'users_email_verification.status as email_status',
+                    'contracts.status as contract_status',
+                    'contracts.date as contract_date'
+                )
+                ->orderByDesc('contracts.id')
+                ->first();
+
+            $userData->card_status = ($userData->id_card_front && $userData->id_card_back) ? 1 : 0;
+
+            if ($userData->contract_date) {
+                $userData->contract_date = date('m-d-Y', strtotime($userData->contract_date));
+            }
+
+            return $this->sendResponse($userData, 'User Data');
+        }
+    }
+}
+
 
 }
