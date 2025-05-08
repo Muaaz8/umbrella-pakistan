@@ -9,6 +9,8 @@ use App\Specialization;
 use App\State;
 use App\User;
 use App\Rules\Phone;
+use App\Notification;
+use App\Events\RealTimeMessage;
 use Auth;
 use DateTime;
 use DateTimeZone;
@@ -80,11 +82,10 @@ class ProfileController extends BaseController
                         $doctor->certificates = DB::table('doctor_certificates')->where('doc_id', $id)->get();
 
                         if($doctor->pending_approval != null){
-                                $doctor->pending_approval = $doctor->pending_approval->is_approved;
+                                $doctor->pending_approval;
                         }else{
                                 $doctor->pending_approval = null;
                         }
-
 
                         foreach ($doctor->certificates as $cert) {
                         if ($cert->certificate_file != "") {
@@ -117,12 +118,6 @@ class ProfileController extends BaseController
                             ->select('users.*')
                             ->get();
 
-                        $doctor->all_patients = collect($session_patients->toArray())->merge($inclinic_patients->toArray());
-                        foreach ($doctor->all_patients as $patient)
-                        {
-                            $patient->user_image = \App\Helper::check_bucket_files_url($patient->user_image);
-                        }
-                        // return view('dashboard_doctor.Profile.view_profile', compact('doctor','data'));
                         return $this->sendResponse(['user' => $doctor], 'Doctor Profile retrieved successfully.');
                     } else if ($user->user_type == 'patient') {
                         $patient = $user;
@@ -263,6 +258,39 @@ class ProfileController extends BaseController
         } else if ($user->user_type == 'doctor') {
             return $this->sendResponse(['user' => $user], 'Profile picture updated successfully.');
         }
+    }
+
+    public function updateFees(Request $request)
+    {
+        $id = auth()->user()->id;
+        $admin = User::role('admin')->first();
+        $validateData = $request->validate([
+            'consultation_fee' => ['nullable', 'gt:299', 'lt:21000'],
+            'followup_fee' => ['nullable', 'gt:299', 'lt:21000'],
+        ]);
+
+        $doctor = DB::table('doctor_fee_approvals')->where('doctor_id', $id )->where('is_approved' , 'pending')->orderBy('id' , 'desc')->first();
+        if ($doctor) {
+            DB::table('doctor_fee_approvals')->where('doctor_id', $id)->update([
+                'consultation_fee' => $validateData['consultation_fee'],
+                'followup_fee' => $validateData['followup_fee'],
+            ]);
+        } else {
+            DB::table('doctor_fee_approvals')->insert([
+                'doctor_id' => $id,
+                'consultation_fee' => $validateData['consultation_fee'],
+                'followup_fee' => $validateData['followup_fee'],
+            ]);
+        }
+
+        Notification::create([
+            'user_id' =>  $admin->id,
+            'type' => "/admin/fee-approval",
+            'text' => 'New Fee Approval Request',
+        ]);
+        event(new RealTimeMessage($admin->id));
+
+        return $this->sendResponse(['fee_approval' => $doctor], 'Fees updated successfully.');
     }
 
 }
