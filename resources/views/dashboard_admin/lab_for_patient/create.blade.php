@@ -165,7 +165,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="container mt-2 table-height">
+                                            <div class="container mt-2 table-height" style="max-height: 300px; overflow-y: auto;">
                                                 <table class="table table-hover mb-2" id="user-table">
                                                     <thead>
                                                         <tr scope="row">
@@ -289,8 +289,9 @@
             rows.forEach(row => {
                 const cells = row.getElementsByTagName('td');
                 const name = cells[1].textContent.toLowerCase();
+                const phone = cells[2].textContent.toLowerCase();
                 const email = cells[3].textContent.toLowerCase();
-                row.style.display = (name.includes(searchValue) || email.includes(searchValue)) ? '' : 'none';
+                row.style.display = (name.includes(searchValue) || email.includes(searchValue) || phone.includes(searchValue)) ? '' : 'none';
             });
         }
     </script>

@@ -19,9 +19,9 @@
         </div>
         <nav class="dashboard-nav-list">
           <a href="/finance/admin/dash" class="dashboard-nav-item"><i class="fa-solid fa-house"></i> Dashboard </a>
-          <!-- <a href="#" class="dashboard-nav-item"><i class="fa-solid fa-calendar-check"></i>Wallet</a> -->
+          {{-- <a href="#" class="dashboard-nav-item"><i class="fa-solid fa-calendar-check"></i>Wallet</a> --}}
           <a href="/doctors/finance/reports" class="dashboard-nav-item"><i class="fa-solid fa-calendar-check"></i>Doctor Reports</a>
-          <a href="/vendors" class="dashboard-nav-item"><i class="fa-solid fa-calendar-check"></i>Vendors</a>
+          {{-- <a href="/vendors" class="dashboard-nav-item"><i class="fa-solid fa-calendar-check"></i>Vendors</a> --}}
 
           <a href="/finance/admin/account/setting" class="dashboard-nav-item"><i class="fa-solid fa-gear"></i>Account Setting </a>
 

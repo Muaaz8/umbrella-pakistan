@@ -49,6 +49,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules\Password;
 use Image;
 use Response;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class DoctorController extends Controller
 {
@@ -2724,6 +2725,11 @@ class DoctorController extends Controller
             ->select('in_clinics.*','in_clinics.user_id as patient_id', 'users.user_image', DB::raw('MAX(in_clinics.id) as last_id'))
             ->get();
 
+        // $patients = collect($session_patients->toArray())->merge($inclinic_patients->toArray());
+        $page = \Illuminate\Support\Facades\Request::get('page');
+        $page = $page ? $page : 1;
+        $perPage = 5;
+
         $patients = collect($session_patients->toArray())->merge($inclinic_patients->toArray());
 
         foreach ($patients as $patient) {
@@ -2754,7 +2760,14 @@ class DoctorController extends Controller
             }
             $patient->user_image = \App\Helper::check_bucket_files_url($patient->user_image);
         }
-        $all_patients = collect($patients);
+        // $all_patients = collect($patients);
+        $all_patients = new LengthAwarePaginator(
+            $patients->forPage($page, $perPage),
+            $patients->count(),
+            $perPage,
+            $page,
+            ['path' => \Illuminate\Support\Facades\Request::url(), 'query' => \Illuminate\Support\Facades\Request::query()]
+        );
         return view('dashboard_doctor.All_patient.index', compact('all_patients'));
     }
     public function doc_pay_details(Request $request)

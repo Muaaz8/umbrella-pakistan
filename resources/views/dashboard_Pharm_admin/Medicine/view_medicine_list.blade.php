@@ -318,11 +318,11 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <label for="specialInstructions">Generic</label>
-                                    <input class="form-control" id="generic" name="generic" required>
+                                    <input class="form-control" id="generic" name="generic">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="specialInstructions">Class</label>
-                                    <input class="form-control" id="class" name="class" required>
+                                    <input class="form-control" id="class" name="class">
                                 </div>
                             </div>
                             <div class="row">
@@ -382,11 +382,11 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <label for="specialInstructions">Generic</label>
-                                    <input class="form-control" id="edit_generic" name="generic" required>
+                                    <input class="form-control" id="edit_generic" name="generic">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="specialInstructions">Class</label>
-                                    <input class="form-control" id="edit_class" name="class" required>
+                                    <input class="form-control" id="edit_class" name="class">
                                 </div>
                             </div>
                             <div class="row">

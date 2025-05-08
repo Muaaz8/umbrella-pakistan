@@ -52,25 +52,51 @@ class SessionController extends Controller
         return response()->json(['data' => $sessionStatus]);
     }
 
-    public function inclinic_sessions()
+    public function inclinic_sessions(Request $request)
     {
-        if (auth()->user()->user_type == 'doctor') {
-            $id = auth()->user()->id;
-            $inclinic = InClinics::with(['user','prescriptions','doctor'])->where('doctor_id',$id)->orderBy('id','desc')->paginate(10);
-            foreach ($inclinic as $inclinics) {
-                $inclinics->date = User::convert_utc_to_user_timezone(auth()->user()->id, $inclinics->created_at)['date'];
-                $inclinics->date = $inclinics->date;
-            }
-            return view('dashboard_doctor.All_Session.inlcinic_sessions', compact( 'inclinic'));
-        }
-        if (auth()->user()->user_type == 'admin') {
-            $inclinic = InClinics::with(['user','prescriptions','doctor'])->orderBy('id','desc')->paginate(10);
+        if($request->ajax()){
+            $inclinic = InClinics::with(['user', 'prescriptions', 'doctor'])
+                ->where('status', 'ended')
+                ->when($request->has('search') && $request->search != '', function ($query) use ($request) {
+                    $search = $request->search;
+                    $query->whereHas('user', function ($q) use ($search) {
+                        $q->where('name', 'like', "%{$search}%")
+                            ->orWhere('last_name', 'like', "%{$search}%")
+                            ->orWhereRaw("CONCAT(name, ' ', last_name) LIKE ?", ["%{$search}%"]);
+                    });
+                })
+                ->orderBy('id', 'desc')
+                ->paginate(10);
             foreach ($inclinic as $inclinics) {
                 $inclinics->created_at = User::convert_utc_to_user_timezone(auth()->user()->id, date('Y-m-d h:i A', strtotime($inclinics->created_at)))['datetime'];
                 $inclinics->updated_at = User::convert_utc_to_user_timezone(auth()->user()->id, date('Y-m-d h:i A', strtotime($inclinics->updated_at)))['datetime'];
-                // $inclinics->date = $inclinics->date;
             }
-            return view('dashboard_admin.inclinic.sessions', compact( 'inclinic'));
+            // return json_encode(['data'=>$inclinic,'status' => 'success']);
+            $html = view('partials.inclinic_accordion', compact('inclinic'))->render();
+
+            return response()->json([
+                'html' => $html,
+                'status' => 'success'
+            ]);
+        }else{
+            if (auth()->user()->user_type == 'doctor') {
+                $id = auth()->user()->id;
+                $inclinic = InClinics::with(['user','prescriptions','doctor'])->where('status','ended')->where('doctor_id',$id)->orderBy('id','desc')->paginate(10);
+                foreach ($inclinic as $inclinics) {
+                    $inclinics->date = User::convert_utc_to_user_timezone(auth()->user()->id, $inclinics->created_at)['date'];
+                    $inclinics->date = $inclinics->date;
+                }
+                return view('dashboard_doctor.All_Session.inlcinic_sessions', compact( 'inclinic'));
+            }
+            if (auth()->user()->user_type == 'admin') {
+                $inclinic = InClinics::with(['user','prescriptions','doctor'])->where('status','ended')->orderBy('id','desc')->paginate(10);
+                foreach ($inclinic as $inclinics) {
+                    $inclinics->created_at = User::convert_utc_to_user_timezone(auth()->user()->id, date('Y-m-d h:i A', strtotime($inclinics->created_at)))['datetime'];
+                    $inclinics->updated_at = User::convert_utc_to_user_timezone(auth()->user()->id, date('Y-m-d h:i A', strtotime($inclinics->updated_at)))['datetime'];
+                    // $inclinics->date = $inclinics->date;
+                }
+                return view('dashboard_admin.inclinic.sessions', compact( 'inclinic'));
+            }
         }
     }
 
@@ -306,10 +332,19 @@ class SessionController extends Controller
             $user = Auth::user();
             $user_id = $user->id;
             if (isset($request->name)) {
-                $sessions = Session::where('status', 'ended')
-                    ->where('session_id', $request->name)
+                $sessions = Session::where('sessions.status', 'ended')
+                    ->join('users', 'users.id', 'sessions.patient_id')
+                    ->when($request->has('name') && $request->name != '', function ($query) use ($request) {
+                        $name = $request->name;
+                        $query->where(function ($q) use ($name) {
+                            $q->where('name', 'like', "%{$name}%")
+                                ->orWhere('last_name', 'like', "%{$name}%")
+                                ->orWhereRaw("CONCAT(name, ' ', last_name) LIKE ?", ["%{$name}%"]);
+                        });
+                    })
                     ->where('remaining_time', '!=', 'full')
-                    ->orderByDesc('id')
+                    ->orderByDesc('sessions.id')
+                    ->select('sessions.*')
                     ->get();
             } else {
                 $sessions = Session::where('status', 'ended')
@@ -318,7 +353,16 @@ class SessionController extends Controller
                     ->get();
             }
 
-            $inclinic_data = \App\Models\InClinics::with(['user', 'prescriptions', 'doctor'])->get();
+            $inclinic_data = \App\Models\InClinics::with(['user', 'prescriptions', 'doctor'])
+                ->when($request->has('name') && $request->name != '', function ($query) use ($request) {
+                    $name = $request->name;
+                    $query->whereHas('user', function ($q) use ($name) {
+                        $q->where('name', 'like', "%{$name}%")
+                            ->orWhere('last_name', 'like', "%{$name}%")
+                            ->orWhereRaw("CONCAT(name, ' ', last_name) LIKE ?", ["%{$name}%"]);
+                    });
+                })
+                ->get();
             foreach ($sessions as $session) {
                 $session->type = 'session';
                 $getPersentage = DB::table('doctor_percentage')->where('doc_id', $session['doctor_id'])->first();

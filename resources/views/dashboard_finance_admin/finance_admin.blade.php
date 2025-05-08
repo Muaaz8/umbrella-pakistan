@@ -32,9 +32,9 @@
                 url: "{{ URL('/get_wallet_graph_values') }}",
                 data: {},
                 success: function(data) {
-                    $('#evisit_ear').text('$ ' + data.evisit_ear);
-                    $('#pres_ear').text('$ ' + data.pres_ear);
-                    $('#online_ear').text('$ ' + data.online_ear);
+                    $('#evisit_ear').text('Rs. ' + data.evisit_ear);
+                    $('#pres_ear').text('Rs. ' + data.pres_ear);
+                    $('#online_ear').text('Rs. ' + data.online_ear);
                     new Chart("myChart", {
                         type: "line",
                         data: {
@@ -162,14 +162,14 @@
                             ses.doc_name + '</p><p>Session with:</p><p>Patient: ' +
                             '<span class="fw-bold">' + ses.pat_name +
                             '</span></p></div><div class="flextwo">' +
-                            '<div><span> Patient Paid</span> <span>+$ &nbsp;' + ses.price +
+                            '<div><span> Patient Paid</span> <span>+Rs. &nbsp;' + ses.price +
                             '</span></div>' +
                             '<div>Doctor ' + ses.doc_percent +
-                            '%<span class="text-danger">-$ &nbsp;' + ses.doc_price +
+                            '%<span class="text-danger">-Rs. &nbsp;' + ses.doc_price +
                             '</span></div>' +
-                            '<div>Credit card Fee <span class="text-danger">-$ &nbsp;' + parseFloat(
+                            '<div>Credit card Fee <span class="text-danger">-Rs. &nbsp;' + parseFloat(
                                 ses.card_fee) + '</span></div>' +
-                            '<div>Net Profit <span>+$ &nbsp;' + ses.Net_profit + '</span></div>' +
+                            '<div>Net Profit <span>+Rs. &nbsp;' + ses.Net_profit + '</span></div>' +
                             '</div></div></div><div><div>'
                         );
                     });
@@ -521,7 +521,7 @@
                                                 <span id="evisit_ear"></span>
                                             </h6>
                                             <hr>
-                                            <!-- <p>$ &nbsp;849.00</p> -->
+                                            <!-- <p>Rs. &nbsp;849.00</p> -->
 
                                             <h6>
                                                 <span class="text-danger details-bold">

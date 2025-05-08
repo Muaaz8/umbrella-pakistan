@@ -63,7 +63,7 @@
                           id="search"
                           name="name"
                           class="form-control"
-                          placeholder="Search By Session Id"
+                          placeholder="Search By Name"
                           aria-label="Username"
                           aria-describedby="basic-addon1"/>
                       </form>

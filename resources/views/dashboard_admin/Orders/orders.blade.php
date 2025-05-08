@@ -44,9 +44,26 @@
                                 <td data-label="User Number">${arr.user.phone_number}</td>
                                 <td data-label="Date">${(arr.created_at).split('T')[0]}</td>
                                 <td data-label="Action">
-                                    <a href="/inclinic/pharmacy/order/${arr.id}">
-                                        <button class="orders-view-btn">View</button>
-                                    </a>
+                                    <div class="dropdown">
+                                        <button class="orders-view-btn dropdown-toggle" type="button"
+                                            id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                            View / Download
+                                        </button>
+                                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                            <li>
+                                                <a class="dropdown-item"
+                                                href="/inclinic/pharmacy/order/${arr.id}">
+                                                View
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item"
+                                                    href="/inclinic/pharmacy/prescription/download/${arr.id}">
+                                                    Download Prescription
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </td>
                             </tr>`
                         );
@@ -69,7 +86,7 @@
                                 <div class="input-group">
                                     <div class="d-flex">
                                         <input type="text" class="form-control mb-1" id="search"
-                                            placeholder="Search editor">
+                                            placeholder="Search by Patient Name">
                                         <button type="button" id="search_btn"
                                             onclick="search({{ json_encode($data) }})" class="btn process-pay"><i
                                                 class="fa-solid fa-search"></i></button>

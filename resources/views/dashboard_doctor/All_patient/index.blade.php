@@ -55,7 +55,7 @@
                     <h6> No Patients</h6>
                 </div>
                 @endforelse
-
+                {{ $all_patients->links('pagination::bootstrap-4') }}
             </div>
         </div>
     </div>

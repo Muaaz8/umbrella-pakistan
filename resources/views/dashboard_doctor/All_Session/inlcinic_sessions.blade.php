@@ -3,7 +3,7 @@
 @section('content')
     <div class="container px-5">
         <div class="shadow-new rounded bg-white p-4">
-        <h4 class="font-italic mb-4">Inclinic Patients</h4>
+        <h4 class="font-italic mb-4">Inclinic Session</h4>
         @forelse ($inclinic as $inc)
             <div class="accordion accordion-flush" id="accordionFlushExample">
                 <div class="accordion-item mb-2">

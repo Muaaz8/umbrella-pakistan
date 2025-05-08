@@ -1394,7 +1394,7 @@ class PaymentController extends Controller
                 if ($pres->type == 'lab-test') {
                     $test = DB::table('quest_data_test_codes')->where('TEST_CD', $pres->test_id)->first();
                     $order = DB::table('lab_orders')->where('pres_id', $pres->id)->where('product_id', $pres->test_id)->first();
-                    $pres->name = $test->DESCRIPTION;
+                    $pres->name = $test->TEST_NAME;
                     $pres->sale_price = $test->SALE_PRICE;
                     $pres->price = $test->PRICE;
                     $pres->order_id = $order->order_id;
@@ -1662,7 +1662,6 @@ class PaymentController extends Controller
             ->join('quest_data_test_codes', 'quest_data_test_codes.TEST_CD', 'lab_orders.product_id')
             ->where('lab_orders.type', 'Counter')
             ->sum('quest_data_test_codes.SALE_PRICE');
-            //dd($getLabOrderTotal);
             //end here total lab orders earning
 
             //start here total lab orders earning
@@ -1728,7 +1727,7 @@ class PaymentController extends Controller
                 $ot->price = $test->PRICE;
                 $ot->sale_price = $test->SALE_PRICE;
                 $ot->datetime = User::convert_utc_to_user_timezone($user_id, $ot->created_at);
-                $ot->name = $test->DESCRIPTION;
+                $ot->name = $test->TEST_NAME;
             }
 
             //return dd($currentMonthDoctorHistory);
@@ -1830,7 +1829,7 @@ class PaymentController extends Controller
                 if ($pres->type == 'lab-test') {
                     $test = DB::table('quest_data_test_codes')->where('TEST_CD', $pres->test_id)->first();
                     $order = DB::table('lab_orders')->where('pres_id', $pres->id)->where('product_id', $pres->test_id)->first();
-                    $pres->name = $test->DESCRIPTION;
+                    $pres->name = $test->TEST_NAME;
                     $pres->sale_price = $test->SALE_PRICE;
                     $pres->price = $test->PRICE;
                     $pres->order_id = $order->order_id;
@@ -1877,7 +1876,7 @@ class PaymentController extends Controller
                 $ot->price = $test->PRICE;
                 $ot->sale_price = $test->SALE_PRICE;
                 $ot->datetime = User::convert_utc_to_user_timezone($user_id, $ot->created_at);
-                $ot->name = $test->DESCRIPTION;
+                $ot->name = $test->TEST_NAME;
             }
             $data = $OnlineItems;
         }
@@ -1949,7 +1948,7 @@ class PaymentController extends Controller
                     if ($pres->type == 'lab-test') {
                         $test = DB::table('quest_data_test_codes')->where('TEST_CD', $pres->test_id)->first();
                         $order = DB::table('lab_orders')->where('pres_id', $pres->id)->where('product_id', $pres->test_id)->first();
-                        $pres->name = $test->DESCRIPTION;
+                        $pres->name = $test->TEST_NAME;
                         $pres->sale_price = $test->SALE_PRICE;
                         $pres->price = $test->PRICE;
                         $pres->order_id = $order->order_id;
@@ -2007,7 +2006,7 @@ class PaymentController extends Controller
                 $ot->price = $test->PRICE;
                 $ot->sale_price = $test->SALE_PRICE;
                 $ot->datetime = User::convert_utc_to_user_timezone($user_id, $ot->created_at);
-                $ot->name = $test->DESCRIPTION;
+                $ot->name = $test->TEST_NAME;
             }
             return view('dashboard_finance_admin.pagination_pages.online',compact('OnlineItems'))->render();
         }
@@ -2023,6 +2022,7 @@ class PaymentController extends Controller
         ->orderBy('prescriptions.id','DESC')
         ->select('prescriptions.*','sessions.session_id as ses_id','sessions.id as sessi_id')
         ->get();
+        // dd($prescriptions);
         $getOrderTotal = 0;
         $getOrderMonthTotal = 0;
         $getOrderTodayTotal = 0;
@@ -2031,24 +2031,20 @@ class PaymentController extends Controller
             if ($pres->type == 'lab-test') {
                 $test = DB::table('quest_data_test_codes')->where('TEST_CD', $pres->test_id)->first();
                 $order = DB::table('lab_orders')->where('pres_id', $pres->id)->where('product_id', $pres->test_id)->first();
-                $pres->name = $test->DESCRIPTION;
+                $pres->name = $test->TEST_NAME;
                 $pres->sale_price = $test->SALE_PRICE;
                 $pres->price = $test->PRICE;
                 $pres->order_id = $order->order_id;
                 $pres->pro_id = $pres->test_id;
             } else if ($pres->type == 'imaging') {
-                $test = DB::table('tbl_products')->where('id', $pres->imaging_id)->first();
-                $order = DB::table('imaging_orders')->where('pres_id', $pres->id)->where('product_id', $pres->imaging_id)->first();
-                $loc = DB::table('imaging_selected_location')->where('session_id', $pres->sessi_id)->where('product_id',$pres->imaging_id)->first();
-                $price = DB::table('imaging_prices')->where('location_id', $loc->imaging_location_id)->where('product_id',$loc->product_id)->first();
-                $pres->name = $test->name;
-                $pres->sale_price = 0;
-                $pres->price = 0;
-                if($price!=null)
-                {
-                    $pres->sale_price = $price->price;
-                    $pres->price = $price->actual_price;
-                }
+                // $test = DB::table('tbl_products')->where('id', $pres->imaging_id)->first();
+                $test = DB::table('quest_data_test_codes')->where('TEST_CD', $pres->test_id)->first();
+                $order = DB::table('lab_orders')->where('pres_id', $pres->id)->where('product_id', $pres->test_id)->first();
+                // $price = $test->PRICE;
+                // $loc = DB::table('imaging_selected_location')->where('session_id', $pres->sessi_id)->where('product_id',$pres->imaging_id)->first();
+                $pres->name = $test->TEST_NAME;
+                $pres->sale_price = $test->PRICE;
+                $pres->price = $test->SALE_PRICE;
                 $pres->order_id = $order->order_id;
                 $pres->pro_id = $pres->imaging_id;
             } else if ($pres->type == 'medicine') {
