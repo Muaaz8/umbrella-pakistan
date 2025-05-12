@@ -596,6 +596,8 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
         Route::get('/quest/orders','AdminController@quest_orders')->name('quest_orders');
         Route::get('/quest/failed/requests','AdminController@quest_failed_requests')->name('quest_failed_requests');
         Route::get('/quest/lab/tests','AdminController@quest_lab_tests')->name('quest_lab_tests');
+        Route::get('/add/bulk/lab/test','AdminController@add_bulk_lab_test')->name('add_bulk_lab_test');
+        Route::post("/lab/uploadCSV", "AdminController@dash_uploadLabFile")->name('dash_uploadLabCSV');
         Route::post('edit/lab/test','AdminController@edit_lab_test')->name('edit_lab_test');
         Route::get('/lab/test/categories','ProductCategoryController@lab_test_categories')->name('lab_test_categories');
         Route::post('update/lab/cat','ProductCategoryController@update_lab_cat')->name('update_lab_cat');

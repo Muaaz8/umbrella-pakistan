@@ -32,7 +32,8 @@
                 <a href="/quest/lab/tests" class="dashboard-nav-dropdown-item">Labtest</a>
                 <a href="/online/lab/tests" class="dashboard-nav-dropdown-item">Online Labtest</a>
                 <a href="/lab/test/categories" class="dashboard-nav-dropdown-item">Labtest Categories</a>
-                <a href="/lab/reports" class="dashboard-nav-dropdown-item">Patient Lab Reports</a>
+                <a href="/add/bulk/lab/test" class="dashboard-nav-dropdown-item">Bulk Upload Labtest</a>
+                {{-- <a href="/lab/reports" class="dashboard-nav-dropdown-item">Patient Lab Reports</a> --}}
                 </div>
             </div>
           @endif
@@ -40,7 +41,7 @@
           <a href="/lab/orders" class="dashboard-nav-item"><i class="fa-solid fa-gear"></i>Orders </a>
           {{-- <a href="/quest/orders" class="dashboard-nav-item"><i class="fa-solid fa-gear"></i>Quest Orders </a> --}}
           {{-- <a href="/quest/failed/requests" class="dashboard-nav-item"><i class="fa-solid fa-gear"></i>Quest Failed Requests</a> --}}
-          @if (auth()->user()->id == 212)
+          {{-- @if (auth()->user()->id == 212)
             <div class="dashboard-nav-dropdown">
                 <p
                 class="dashboard-nav-item dashboard-nav-dropdown-toggle" style="cursor:pointer;"
@@ -53,7 +54,7 @@
 
                 </div>
             </div>
-          @endif
+          @endif --}}
 
 
           <a href="/lab/admin/account/setting" class="dashboard-nav-item"><i class="fa-solid fa-gear"></i>Account Setting </a>

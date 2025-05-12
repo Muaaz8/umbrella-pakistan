@@ -124,7 +124,7 @@
                           @forelse($data as $item)
                             <tr>
                                 <td data-label="Test Code">{{ $item->TEST_CD }}</td>
-                                <td data-label="Service Name">{{ $item->DESCRIPTION }}</td>
+                                <td data-label="Service Name">{{ $item->TEST_NAME }}</td>
                                 <input type='hidden' id="des_{{ $item->TEST_CD }}" value="{{ $item->DESCRIPTION }}">
                                 <td data-label="Full Name">{{ $item->TEST_NAME }}</td>
                                 <input type='hidden' id="nam_{{ $item->TEST_CD }}" value="{{ $item->TEST_NAME }}">

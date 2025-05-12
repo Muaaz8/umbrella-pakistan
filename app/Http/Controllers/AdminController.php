@@ -81,58 +81,42 @@ class AdminController extends Controller
         return view('dashboard_admin.doctors.online_doctors.index',compact('doctors'));
     }
 
-//doctor_schedule
-public function doctor_schedule($id)
+    //doctor_schedule
+    public function doctor_schedule($id)
     {
-            $doctors = User::where('user_type', 'doctor')->get();
-            $events = DoctorSchedule::where('doctorID',$id)->orderby('id','desc')->paginate(10);
+        $doctors = User::where('user_type', 'doctor')->get();
+        $events = DoctorSchedule::where('doctorID',$id)->orderby('id','desc')->paginate(10);
 
-            $user = Auth::user();
-            foreach ($events as $ev) {
-                $ev->appointments = Appointment::where('doctor_id',$ev->doctorID)->where('date',$ev->date)->where('status','pending')->orderBy('time')->get();
-                $ev->date = User::convert_utc_to_user_timezone($user->id,$ev->date);
-                $ev->date = $ev->date['date'];
-                $ev->from_time = User::convert_utc_to_user_timezone($user->id,$ev->from_time);
-                $ev->from_time = $ev->from_time['time'];
-                $ev->to_time = User::convert_utc_to_user_timezone($user->id,$ev->to_time);
-                $ev->to_time = $ev->to_time['time'];
-                $ev->start = User::convert_utc_to_user_timezone($user->id,$ev->start);
-                $ev->start = $ev->start['date']." ".$ev->start['time'];
-                $ev->end = User::convert_utc_to_user_timezone($user->id,$ev->end);
-                $ev->end = $ev->end['date']." ".$ev->end['time'];
-            }
-        // else {
-        //     $events = DoctorSchedule::where('doctorID', $request->id)->get();
-        // }
-        //  dd($id);
+        $user = Auth::user();
+        foreach ($events as $ev) {
+            $ev->appointments = Appointment::where('doctor_id',$ev->doctorID)->where('date',$ev->date)->where('status','pending')->orderBy('time')->get();
+            $ev->date = User::convert_utc_to_user_timezone($user->id,$ev->date);
+            $ev->date = $ev->date['date'];
+            $ev->from_time = User::convert_utc_to_user_timezone($user->id,$ev->from_time);
+            $ev->from_time = $ev->from_time['time'];
+            $ev->to_time = User::convert_utc_to_user_timezone($user->id,$ev->to_time);
+            $ev->to_time = $ev->to_time['time'];
+            $ev->start = User::convert_utc_to_user_timezone($user->id,$ev->start);
+            $ev->start = $ev->start['date']." ".$ev->start['time'];
+            $ev->end = User::convert_utc_to_user_timezone($user->id,$ev->end);
+            $ev->end = $ev->end['date']." ".$ev->end['time'];
+        }
 
         return view("dashboard_admin.doctors.doctor_schedule.index", compact('doctors', 'events','id'));
     }
 
+    public function all_doctor_schedule(){
+        $doctors = User::where('user_type', 'doctor')->get();
+        $events = DoctorSchedule::where('id')->paginate(10);
+        $appointments = Appointment::where('id')->paginate(10);
+        $id=0;
+        return view("dashboard_admin.doctors.doctor_schedule.index", compact('doctors', 'events','appointments','id'));
+    }
 
-
-
-
-public function all_doctor_schedule(){
-
-    $doctors = User::where('user_type', 'doctor')->get();
-    $events = DoctorSchedule::where('id')->paginate(10);
-    $appointments = Appointment::where('id')->paginate(10);
-$id=0;
-    return view("dashboard_admin.doctors.doctor_schedule.index", compact('doctors', 'events','appointments','id'));
-
-}
-
-public function all_doctor_appointments(){
-
-
-    $appointments = Appointment::get();
-
-    return view("dashboard_admin.doctors.doctor_schedule.index", compact('doctors', 'events'));
-
-}
-
-
+    public function all_doctor_appointments(){
+        $appointments = Appointment::get();
+        return view("dashboard_admin.doctors.doctor_schedule.index", compact('doctors', 'events'));
+    }
 
     public function addSpecialization()
     {
@@ -701,8 +685,9 @@ public function all_doctor_appointments(){
             return redirect('/login');
         }
     }
-//doctors->admin
-public function all_doctor_index(Request $req)
+
+    //doctors->admin
+    public function all_doctor_index(Request $req)
     {
         if (Auth::check()) {
             if (Auth::user()->user_type == 'admin') {
@@ -756,7 +741,7 @@ public function all_doctor_index(Request $req)
     }
 
 
-public function lab_approval_doctor(Request $req)
+    public function lab_approval_doctor(Request $req)
     {
         if (Auth::check()) {
             if (Auth::user()->user_type == 'admin') {
@@ -999,12 +984,6 @@ public function lab_approval_doctor(Request $req)
         }
     }
 
-
-
-
-
-
-
     public function send_contract(Request $request)
     {
         // dd($request);
@@ -1167,7 +1146,6 @@ public function lab_approval_doctor(Request $req)
     }
 
 
-
     public function deactivate(Request $request)
     {
         $id = $request['id'];
@@ -1189,8 +1167,6 @@ public function lab_approval_doctor(Request $req)
 
         return redirect()->back();
     }
-
-
 
 
     public function activity_log_doctor(Request $request)
@@ -1244,8 +1220,8 @@ public function lab_approval_doctor(Request $req)
             return redirect('/login');
         }
     }
-//doctor_view_details
 
+    //doctor_view_details
     public function all_doctor_view(Request $request)
     {
         if (Auth::check()) {
@@ -1471,12 +1447,6 @@ public function lab_approval_doctor(Request $req)
         }
     }
 
-
-
-
-
-
-
     public function admin_contact()
     {
         $data = ContactForm::orderBy('id', 'DESC')->paginate(10);
@@ -1534,10 +1504,6 @@ public function lab_approval_doctor(Request $req)
         }
     }
 
-
-
-
-
     //Manage_users Admin
     public function manage_all_users($userType)
     {
@@ -1554,11 +1520,6 @@ public function lab_approval_doctor(Request $req)
         return view('dashboard_admin.manage_users.index',compact('users','roles','userType'));
 
     }
-
-
-
-
-
 
     public function store_admin(Request $request)
     {
@@ -2088,52 +2049,41 @@ public function lab_approval_doctor(Request $req)
         return view('dashboard_admin.manage_users.admin_details',compact('user','allProducts','productCategories','productsSubCategories','activities'));
     }
 
+    public function document()
+    {
+        return view('dashboard_admin.documents.add_documents.index');
+    }
 
+    public function store_documents(Request $request){
 
+        $validated = $request->validate([
+            'content' => 'required',
+        ]);
 
-//documents
+        $insert_arr = array(
+            'name' => "term of use",
+            'content' => $request->input('content'),
+        );
 
-public function document()
-{
-    return view('dashboard_admin.documents.add_documents.index');
-}
+        $query = Document::insert($insert_arr);
+        return redirect()->route('docs')
+        ->with('success','document created successfully.');
+    }
 
-public function store_documents(Request $request){
+    public function store_policy(Request $request){
+        $validated = $request->validate([
+            'content' => 'required|max:255',
+        ]);
 
-    $validated = $request->validate([
-        'content' => 'required',
-    ]);
+        $insert_arr = array(
+            'content'       => $request->input('content'),
 
-    $insert_arr = array(
-        'name' => "term of use",
-        'content' => $request->input('content'),
-    );
+        );
 
-    $query = Document::insert($insert_arr);
-    return redirect()->route('docs')
-    ->with('success','document created successfully.');
-}
-
-public function store_policy(Request $request){
-
-    $validated = $request->validate([
-        'content' => 'required|max:255',
-    ]);
-
-    $insert_arr = array(
-        'content'       => $request->input('content'),
-
-    );
-
-    $query = Policy::insert($insert_arr);
-    return redirect()->route('view_privacy_policy')
-    ->with('success','document created successfully.');
-}
-
-
-
-
-
+        $query = Policy::insert($insert_arr);
+        return redirect()->route('view_privacy_policy')
+        ->with('success','document created successfully.');
+    }
 
     public function terms_of_use()
     {
@@ -2273,7 +2223,7 @@ public function store_policy(Request $request){
 
     }
 
-//update_document
+    //update_document
     public function update_term(Request $request)
     {
         $input=$request->all();
@@ -2282,8 +2232,7 @@ public function store_policy(Request $request){
         $data->content = $input['content'];
         $data->save();
         return redirect()->route('docs')
-    ->with('success','document updated successfully.');
-
+            ->with('success','document updated successfully.');
     }
 
     public function show_terms($id, Request $request)
@@ -2332,7 +2281,6 @@ public function store_policy(Request $request){
             ['doc_percentage.required' => 'Please add some percentage to doctor its required']
         );
         $exist = DB::table('doctor_percentage')->where('doc_id', $doctor)->first();
-// dd($exist);
         if ($exist != null) {
             DB::table('users')->where('id',$doctor)->update([
                 'active'=>'0',
@@ -2367,12 +2315,6 @@ public function store_policy(Request $request){
         }
 
     }
-
-
-
-
-
-
 
     public function states()
     {
@@ -2443,10 +2385,6 @@ public function store_policy(Request $request){
             return redirect('/login');
         }
     }
-
-
-
-
 
     public function send_mail(Request $request)
     {
@@ -2945,27 +2883,12 @@ public function store_policy(Request $request){
                 'TEST_CD' => $request->tcd,
                 'TEST_NAME' => $request->name,
                 'DESCRIPTION' => $request->description,
-                // 'LEGAL_ENTITY' => $request->LE,
-                // 'UNIT_CD' => $request->uc,
-                // 'STATE' => $request->state,
                 'PRICE' => $request->price,
                 'SALE_PRICE' => $request->sale_price,
                 'PARENT_CATEGORY' => $request->category,
                 'SPECIMEN_TYPE' => $request->sp_type,
                 'actual_price' => $request->actual_price,
                 'discount_percentage' => $request->discount_percentage,
-                // 'medicine_type' => $request->type,
-                // 'NBS_SERVICE_CODE' => $request->NSC,
-                // 'TOPLAB_PERFORMING_SITE' => $request->TLPS,
-                // 'NBS_PERFORMING_SITE' => $request->NBSPS,
-                // 'SUFFIX' => $request->suffix,
-                // 'PROFILE_IND' => $request->PIND,
-                // 'SELECTEST_IND' => $request->STI,
-                // 'TEST_FLAG' => $request->Tflag,
-                // 'NO_BILL_INDICATOR' => $request->NBI,
-                // 'BILL_ONLY_INDICATOR' => $request->BOI,
-                // 'SEND_OUT_REFLEX_COUNT' => $request->SORC,
-                // 'AOES_exist' => $request->aoess,
                 'DETAILS' => $request->details,
                 'mode' => $product_category->category_type,
                 'ACTIVE_IND' => 'A',
@@ -3058,6 +2981,98 @@ public function store_policy(Request $request){
             return redirect()->back();
         }
 
+    }
+
+    public function add_bulk_lab_test(){
+        return view('dashboard_Lab_admin.Lab_Tests.bulk_upload');
+    }
+
+    public function dash_uploadLabFile(Request $request){
+        $user_id = Auth::user()->id;
+        $fileData = $this->readCSV($request->file('file'), ',');
+        $errorValidation = $this->errorValidation($fileData);
+        if (count($errorValidation) == 0) {
+            $pricingData = [];
+            foreach ($fileData as $item) {
+                $product_id = $this->payloadProducts($item, $user_id);
+            }
+            Flash::success("Successfully Uploaded.");
+            return redirect()->back();
+        } else {
+            foreach ($errorValidation as $message) {
+                Flash::error($message['message']);
+            }
+            return redirect()->back();
+        }
+    }
+
+    public function payloadProducts($item, $user_id)
+    {
+        $prod = DB::table('quest_data_test_codes')
+            ->where('TEST_CD',$item['Test ID'])
+            ->where('TEST_NAME',$item['Test Name'])
+            ->first();
+        if($prod){
+            $product_id = $prod->id;
+        }else{
+            $cat = DB::table('product_categories')->where('name',$item['Category'])->first();
+            $arr = [
+                'TEST_NAME' => $item['Test Name'],
+                'SLUG' => \Str::slug($item['Test Name']),
+                'TEST_CD' => $item['Test ID'],
+                'PRICE' => $item['Rate'],
+                'SALE_PRICE' => $item['Rate After Discount'],
+                'PARENT_CATEGORY' => $cat->id,
+                'SPECIMEN_TYPE' => NULL,
+                'actual_price' => $item['Rate'],
+                'discount_percentage' => $item['Discount Percent'],
+                'mode' => 'lab-test',
+                'ACTIVE_IND' => 'A',
+                'UPDATE_USER' => 'OEAPP',
+                'INSERT_DATETIME' => date('Y-m-d H:i:s'),
+            ];
+
+            $product_id = DB::table('quest_data_test_codes')->insertGetId($arr);
+        }
+        return $product_id;
+    }
+
+    public function errorValidation($data)
+    {
+        $i = 2;
+        $result = [];
+        foreach ($data as $item) {
+            if (empty($item['Test ID']) || empty($item['Test Name']) || empty($item['Department']) || empty($item['Rate'])) {
+                $result[] = [
+                    'message' => 'Empty Column found at line ' . $i,
+                    'status' => 'ERROR',
+                ];
+            }
+            $i++;
+        }
+        return $result;
+    }
+
+    public function readCSV($filename = '', $delimiter = ',')
+    {
+        if (!file_exists($filename) || !is_readable($filename)) {
+            return false;
+        }
+
+        $header = null;
+        $data = array();
+        if (($handle = fopen($filename, 'r')) !== false) {
+            while (($row = fgetcsv($handle, 1000, $delimiter)) !== false) {
+                if (!$header) {
+                    $header = $row;
+                } else {
+                    $data[] = array_combine($header, $row);
+                }
+            }
+            fclose($handle);
+        }
+
+        return $data;
     }
 
     public function lab_admin_setting()

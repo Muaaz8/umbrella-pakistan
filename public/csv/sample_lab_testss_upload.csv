@@ -1,0 +1,123 @@
+Test ID,Test Name,Rate,Discount Percent,Rate After Discount,Category
+1000193,RBS (Glucometer),260,30,182,Routine
+1000194,FBS (Glucometer),260,30,182,Routine
+6491,Bone Mineral Density (BMD),3000,30,2100,Routine
+2100,D-Dimer,2390,30,1673,Routine
+3001,RBS (Glucose Random),320,30,224,Routine
+3002,Urea,720,30,504,Routine
+3004,BUN (Urea Nitrogen),740,30,518,Routine
+3005,Creatinine,690,30,483,Routine
+3009,Sodium,510,30,357,Routine
+3010,Potassium,510,30,357,Routine
+3013,Chloride,440,30,308,Routine
+3014,Bicarbonate,440,30,308,Routine
+3018,Urinary Potassium,530,30,371,Routine
+3021,Urinary Sodium,650,30,455,Routine
+3026,Very low density lipids (VLDL),800,30,560,Routine
+3027,Cholesterol,620,30,434,Routine
+3028,High density lipids (HDL),640,30,448,Routine
+3029,Low density lipids (LDL),690,30,483,Routine
+3030,Triglycerides,680,30,476,Routine
+3033,SGPT (ALT),540,30,378,Routine
+3034,Gamma GT,650,30,455,Routine
+3035,Alkaline Phosphatase,540,30,378,Routine
+3036,SGOT (AST),540,30,378,Routine
+3037,LDH,690,30,483,Routine
+3039,CPK,1690,30,1183,Routine
+3043,Amylase,1290,30,903,Routine
+3044,Total Protein,680,30,476,Routine
+3045,Albumin,540,30,378,Routine
+3046,Globulin,600,30,420,Routine
+3055,Uric Acid,720,30,504,Routine
+3056,Calcium,690,30,483,Routine
+3065,Magnesium,690,30,483,Routine
+3300,HbA1c(Glycosylated Hb),1790,30,1253,Routine
+3318,Iron,940,30,658,Routine
+3329,TIBC,1090,30,763,Routine
+4676,CSF Protein D/R,690,30,483,Routine
+6211,Urinary Creatinine (Spot),1000,30,700,Routine
+6291,Total Lipids,680,30,476,Routine
+6321,Urinary Protein (Spot),690,30,483,Routine
+6323,Phosphorus,640,30,448,Routine
+6358,Urinary Urea (Spot),720,30,504,Routine
+6374,24 Hrs Urinary Amylase,1350,30,945,Routine
+6375,Urinary Calcium (Spot),900,30,630,Routine
+6376,Urinary Uric acid (Spot),720,30,504,Routine
+6391,Urinary Chloride,440,30,308,Routine
+100103,24 HRS URINARY PHOSPHORUS,750,30,525,Routine
+100105,24 HRS URINARY URIC ACID,740,30,518,Routine
+100110,24 HRS URINARY POTASIUM,740,30,518,Routine
+1000148,Glucose Tolerance Test (GTT),1270,30,889,Routine
+1000192,Keton,360,30,252,Routine
+1000234,Fluid for Amylase,2000,30,1400,Routine
+1000937,Urine for Protien,620,30,434,Routine
+1000946,FBS (Glucose Fasting ),320,30,224,Routine
+1001176,24 HRS URINARY SODIUM,740,30,518,Routine
+1001254,Ascitic fluid for creatinine,740,30,518,Routine
+1001263,Troponin I - (ICT),1860,30,1302,Routine
+1001355,Urinary Phosphorus (Spot),710,30,497,Routine
+1002064,Fluid for lipase,1790,30,1253,Routine
+1002301,Test CDE,10,30,7,Routine
+1002311,FLUID FOR CREATININE,800,30,560,Routine
+1002312,FLUID FOR PH,550,30,385,Routine
+4672,CSF Glucose D/R,410,30,287,Routine
+6361,Knee Aspirate D/R + Gram Stain + AFB,2140,30,1498,Routine
+1000587,"Ascitic Fluid SSAG [Serum Ascitic Albumin Gradient], (Serum Albumin-Ascitic Albumin)",2200,30,1540,Routine
+1002149,PERICARDIAL FLUID,1950,30,1365,Routine
+2016,MCHC,450,30,315,Routine
+2017,Reticulocyte Counts,490,30,343,Routine
+2036,MP (Malarial Parasite),720,30,504,Routine
+2045,Eosinophil Count,490,30,343,Routine
+2046,Blood Group,760,30,532,Routine
+2053,Sickle Cell,520,30,364,Routine
+2056,Coombs Test (Direct),1290,30,903,Routine
+2057,Coombs Test (Indirect),1290,30,903,Routine
+2073,MP ICT,1090,30,763,Routine
+6337,PCV / HEMATOCRIT,490,30,343,Routine
+6363,MCH,450,30,315,Routine
+6364,MCV,450,30,315,Routine
+7096,Platelet Count For PRP,510,30,357,Routine
+100098,LIVER ABSCESS D/R+GRAMSTAIN+AFB,2150,30,1505,Routine
+1000588,ESR,430,30,301,Routine
+2026,Bleeding Time - BT,490,30,343,Routine
+2027,Clotting Time - CT,490,30,343,Routine
+2071,Mantoux Test,820,30,574,Routine
+1001344,HER2/neu,6390,30,4473,Routine
+4503,AFB Smear,470,30,329,Routine
+6372,Sputum AFB (ZNCF) - Fasting,490,30,343,Routine
+1000314,Sputum AFB (ZNCF) - Random,490,30,343,Routine
+1001575,Synovial fluid AFB Smear,490,30,343,Routine
+1001576,Gastric Lavage AFB Smear,500,30,350,Routine
+1001577,Peritoneal Fluid AFB Smear,490,30,343,Routine
+1001578,Pericardial Fluid AFB Smear,490,30,343,Routine
+1001579,Pleural Fluid AFB Smear,490,30,343,Routine
+1001580,Ascitic Fluid AFB Smear,490,30,343,Routine
+1001581,Lymph node AFB Smear,490,30,343,Routine
+1001582,Pus AFB Smear,490,30,343,Routine
+1001583,Tissue AFB Smear,490,30,343,Routine
+1001584,CSF AFB Smear,490,30,343,Routine
+1001585,Fluid AFB Smear,490,30,343,Routine
+1001586,Stool AFB Smear,490,30,343,Routine
+1001587,Tracheal aspirate,490,30,343,Routine
+1001588,Bronchial lavage,490,30,343,Routine
+1001589,Prostatic fluid,490,30,343,Routine
+1001916,Culture & Sensivity (Anaerobic),1990,30,1393,Routine
+1002281,Bacterial slants,5000,30,3500,Routine
+6020,Stool for Occult Blood,420,30,294,Routine
+6055,Urine Pregnancy Test,490,30,343,Routine
+6087,Occult Blood,440,30,308,Routine
+6318,Urine Sugar,470,30,329,Routine
+6320,Micro Albumin(Urine),1190,30,833,Routine
+6371,Stool for Reducing Substances,430,30,301,Routine
+6378,Urine - Sugar + Albumin,590,30,413,Routine
+6379,Urine - Sugar/Glucose,430,30,301,Routine
+6380,Urine - Ketone,350,30,245,Routine
+6381,Urobilinogin,320,30,224,Routine
+6487,Urine Albumin,540,30,378,Routine
+100089,STOOL D/R + OCCULT BLOOD,550,30,385,Routine
+1000002,Fat Globules,320,30,224,Routine
+1000233,URINE FOR REDUCING SUGAR,460,30,322,Routine
+1000978,Stool for Reducing Sugar,420,30,294,Routine
+1001129,CoronaVirus Health Screening Questionnaire,550,30,385,Routine
+6585,Perituneal Fluid for Amylase,2190,30,1533,Routine
+100091,24 HRS URINARY MICRO ALBUMIN,1210,30,847,Routine

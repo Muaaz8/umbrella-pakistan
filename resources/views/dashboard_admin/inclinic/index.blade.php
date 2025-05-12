@@ -113,6 +113,43 @@
             document.getElementById('bmi').value = '';
         }
     }
+    $('#submitBtn').on('click', function(e) {
+        // Validate tobacco use
+        if ($('input[name="tobacco_use"]:checked').length === 0) {
+            alert("Please select a tobacco use option.");
+            e.preventDefault();
+            $('#tobaccoCheckboxValidation').prop('required', true);
+        } else {
+            $('#tobaccoCheckboxValidation').prop('required', false);
+        }
+
+        // Validate med condition
+        if ($('.med_condition:checked').length === 0) {
+            alert("Please select at least one medical condition.");
+            e.preventDefault();
+            $('#checkboxValidation').prop('required', true);
+        } else {
+            $('#checkboxValidation').prop('required', false);
+        }
+
+        // Validate allergies
+        if ($('input[name="allergies"]:checked').length === 0) {
+            alert("Please select an allergies option.");
+            e.preventDefault();
+        }
+
+        // Validate food allergies
+        if ($('input[name="food_allergies"]:checked').length === 0) {
+            alert("Please select a food allergies option.");
+            e.preventDefault();
+        }
+        // Validate payment method
+        if ($('#payment_method').val() === '') {
+            alert("Please select a payment method.");
+            e.preventDefault();
+        }
+    });
+
 </script>
 @endsection
 
@@ -248,7 +285,7 @@
                             </div>
                             <div class="col-md-6">
                                 <label class="fw-bolder mb-2" for="selectmedicine">Highest level of education complete</label>
-                                <select name="education" id="education" class="form-control">
+                                <select name="education" id="education" class="form-control" required>
                                     <option value="" disabled selected>Select Education Level</option>
                                     <option value="Less than High School">Less than High School</option>
                                     <option value="High School or equivalent">High School or equivalent</option>
@@ -265,28 +302,33 @@
                                 <label class="fw-bolder mb-2" for="selectmedicine">Existing Medical Conditions:</label>
                                 <div>
                                     <div>
-                                        <input type="checkbox" name="med_condition[]" id="HTN" value="HTN">
+                                        <input type="checkbox" name="med_condition[]" class="med_condition" id="HTN" value="HTN">
                                         <label for="HTN">HTN</label>
                                     </div>
                                     <div>
-                                        <input type="checkbox" name="med_condition[]" id="DM" value="DM">
+                                        <input type="checkbox" name="med_condition[]" class="med_condition" id="DM" value="DM">
                                         <label for="DM">DM</label>
                                     </div>
                                     <div>
-                                        <input type="checkbox" name="med_condition[]" id="TSH" value="TSH">
+                                        <input type="checkbox" name="med_condition[]" class="med_condition" id="TSH" value="TSH">
                                         <label for="TSH">TSH</label>
                                     </div>
                                     <div>
-                                        <input type="checkbox" name="med_condition[]" id="Asthma" value="Asthma">
+                                        <input type="checkbox" name="med_condition[]" class="med_condition" id="Asthma" value="Asthma">
                                         <label for="Asthma">Asthma</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" name="med_condition[]" class="med_condition" id="No med condition" value="No med condition">
+                                        <label for="No med condition">No med condition</label>
                                     </div>
 
                                     <div>
-                                        <input type="checkbox" name="med_condition[]" id="Other" value="Other">
+                                        <input type="checkbox" name="med_condition[]" class="med_condition" id="Other" value="Other">
                                         <label for="Other">Other</label>
                                         <input type="text" name="other_condition" id="other_condition" class="custom-form-control d-none"
                                             placeholder="Please specify...">
                                     </div>
+                                    <input type="hidden" id="checkboxValidation" required>
                                 </div>
                             </div>
 
@@ -294,26 +336,27 @@
                                 <label class="fw-bolder mb-2" for="selectmedicine">Tobacco Use:</label>
                                 <div>
                                     <div>
-                                        <input type="radio" name="tobacco_use" id="Never smoked" value="Never smoked">
+                                        <input type="radio" name="tobacco_use" class="tobacco_use" id="Never smoked" value="Never smoked">
                                         <label for="Never smoked">Never smoked</label>
                                     </div>
                                     <div>
-                                        <input type="radio" name="tobacco_use" id="former smoker, no current use" value="former smoker, no current use">
+                                        <input type="radio" name="tobacco_use" class="tobacco_use" id="former smoker, no current use" value="former smoker, no current use">
                                         <label for="former smoker, no current use">former smoker, no current use</label>
                                     </div>
                                     <div>
-                                        <input type="radio" name="tobacco_use" id="current smoker, some days only" value="current smoker, some days only">
+                                        <input type="radio" name="tobacco_use" class="tobacco_use" id="current smoker, some days only" value="current smoker, some days only">
                                         <label for="current smoker, some days only">current smoker, some days only</label>
                                     </div>
                                     <div>
-                                        <input type="radio" name="tobacco_use" id="current smoker, everyday use" value="current smoker, everyday use">
+                                        <input type="radio" name="tobacco_use" class="tobacco_use" id="current smoker, everyday use" value="current smoker, everyday use">
                                         <label for="current smoker, everyday use">current smoker, everyday use</label>
                                     </div>
 
                                     <div>
-                                        <input type="radio" name="tobacco_use" id="unknown smoking history" value="unknown smoking history">
+                                        <input type="radio" name="tobacco_use" class="tobacco_use" id="unknown smoking history" value="unknown smoking history">
                                         <label for="unknown smoking history">unknown smoking history</label>
                                     </div>
+                                    <input type="hidden" id="tobaccoCheckboxValidation" required>
                                 </div>
                             </div>
 
@@ -398,7 +441,7 @@
                             <div class="col-md-12">
                                 <div class="mb-2">
                                     <label for="reason" class="form-label">Reason</label>
-                                    <textarea id="reason" name="reason" class="form-control" rows="3"></textarea>
+                                    <textarea id="reason" name="reason" class="form-control" rows="3" required></textarea>
                                 </div>
                             </div>
                             {{-- <div class="col-md-12">
@@ -451,7 +494,7 @@
                                 </div>
                             </div>
                             <div class="col-md-12">
-                                <button type="submit" class="btn process-pay w-100">Submit</button>
+                                <button type="submit" class="btn process-pay w-100" id="submitBtn">Submit</button>
                             </div>
                         </div>
                     </form>
