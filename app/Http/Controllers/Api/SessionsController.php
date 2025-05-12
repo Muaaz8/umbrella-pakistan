@@ -672,7 +672,8 @@ class SessionsController extends BaseController
     
             if ($user_type == 'doctor') {
                 $session = Session::where('doctor_id', $user->id)
-                    ->where('status', 'doctor joined')
+                    ->where('status', 'started')
+                    ->orWhere('status', 'doctor joined')
                     ->first();
     
                 if ($session) {
@@ -682,7 +683,8 @@ class SessionsController extends BaseController
                 }
             } elseif ($user_type == 'patient') {
                 $session = Session::where('patient_id', $user->id)
-                    ->where('status', 'invitation sent')
+                    ->where('status', 'started')
+                    ->orWhere('status', 'invitation sent')
                     ->first();
     
                 if ($session) {

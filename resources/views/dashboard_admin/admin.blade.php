@@ -18,7 +18,7 @@
 
 @section('bottom_import_file')
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             var authorize_api_status = "{{ $user->authorize_api_status }}"
             var maintain_status = "{{ $user->maintain_status }}"
             var ticker_status = "{{ $user->ticker_status }}"
@@ -35,23 +35,22 @@
                 $('#ticker_status').text('ON');
             }
         });
-        $('#checkbox').click(function() {
+        $('#checkbox').click(function () {
             $('#pay_mode').modal('show');
         });
-        $('#checkbox2').click(function() {
+        $('#checkbox2').click(function () {
             $('#maintain_confirm').modal('show');
         });
         var ticker_value = "{{ $user->ticker_value }}"
-        $('#checkbox3').click(function() {
-            if(ticker_value != "")
-            {
+        $('#checkbox3').click(function () {
+            if (ticker_value != "") {
                 $("#ticker_text").val(ticker_value);
             }
             $('#ticker').modal('show');
         });
 
         var myModalEl = document.getElementById('pay_mode');
-        myModalEl.addEventListener('hidden.bs.modal', function(event) {
+        myModalEl.addEventListener('hidden.bs.modal', function (event) {
             if ($('#checkbox').prop('checked')) {
                 $("#checkbox").prop("checked", false);
             } else {
@@ -59,7 +58,7 @@
             }
         });
         var myModalEl = document.getElementById('maintain_confirm');
-        myModalEl.addEventListener('hidden.bs.modal', function(event) {
+        myModalEl.addEventListener('hidden.bs.modal', function (event) {
             if ($('#checkbox2').prop('checked')) {
                 $("#checkbox2").prop("checked", false);
             } else {
@@ -67,7 +66,7 @@
             }
         });
         var myModalEl = document.getElementById('ticker');
-        myModalEl.addEventListener('hidden.bs.modal', function(event) {
+        myModalEl.addEventListener('hidden.bs.modal', function (event) {
             if ($('#checkbox3').prop('checked')) {
                 $("#checkbox3").prop("checked", false);
             } else {
@@ -78,6 +77,7 @@
 @endsection
 
 @section('content')
+
     <div class="dashboard-content">
         <div class="container-fluid">
             <div class="row m-auto">
@@ -91,7 +91,7 @@
                                 </div>
                             </div>
                             <div class="first-card-img-div">
-                                {{-- <img src="{{ asset('assets/images/logo.png') }}" alt=""  height="auto" width="200"> --}}
+                                {{-- <img src="{{ asset('assets/images/logo.png') }}" alt="" height="auto" width="200"> --}}
                             </div>
                         </div>
 
@@ -103,86 +103,85 @@
             <div class="row m-auto">
                 <div class="col-md-12">
                     <div class="row my-4">
-                        <div class="col-md-3 mb-3">
+                        <div class="col-md-4 mb-3">
                             <div class="dashboard-small-card-wrap">
                                 <a href="{{ route('all_doctors') }}" class="text-dark">
-                                <div class="d-flex dashboard-small-card-inner">
-                                    <i class="fa-solid fa-user-doctor"></i>
-                                    <div>
-                                        <h6>Active Doctors</h6>
-                                        <p>{{ $doctor_count }}</p>
-                                    </div>
+                                    <div class="d-flex dashboard-small-card-inner">
+                                        <i class="fa-solid fa-user-doctor"></i>
+                                        <div>
+                                            <h6>Active Doctors</h6>
+                                            <p>{{ $doctor_count }}</p>
+                                        </div>
 
-                                </div>
+                                    </div>
                                 </a>
-                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-3 mb-3">
+                        <div class="col-md-4 mb-3">
                             <div class="dashboard-small-card-wrap">
                                 <a href="{{ route('admin_all_patients') }}" class="text-dark">
                                     <div class="d-flex dashboard-small-card-inner">
-                                    <i class="fa-solid fa-cart-shopping"></i>
-                                    <div>
-                                        <h6>Total Patients</h6>
-                                        <p>{{ $patients_count }}</p>
-                                    </div>
+                                        <i class="fa-solid fa-cart-shopping"></i>
+                                        <div>
+                                            <h6>Total Patients</h6>
+                                            <p>{{ $patients_count }}</p>
+                                        </div>
                                     </div>
                                 </a>
                             </div>
                         </div>
-                        <div class="col-md-3 mb-3">
+                        <div class="col-md-4 mb-3">
                             <div class="dashboard-small-card-wrap">
                                 <a href="#" class="text-dark">
                                     <div class="d-flex dashboard-small-card-inner">
-                                    <i class="fa-solid fa-vials"></i>
-                                    <div>
-                                        <h6>Today Sessions</h6>
-                                        <p>{{ $today_session_count }}</p>
-                                    </div>
+                                        <i class="fa-solid fa-vials"></i>
+                                        <div>
+                                            <h6>Today Sessions</h6>
+                                            <p>{{ $today_session_count }}</p>
+                                        </div>
                                     </div>
                                 </a>
                             </div>
                         </div>
-                        <div class="col-md-3 mb-3">
+                        <div class="col-md-4 mb-3">
                             <div class="dashboard-small-card-wrap">
                                 <a href="#" class="text-dark">
-                                <div class="d-flex dashboard-small-card-inner">
-                                    <i class="fa-solid fa-prescription-bottle-medical"></i>
-                                    <div>
-                                        <h6>Today Patients</h6>
-                                        <p>{{ $today_patients }}</p>
-                                    </div>
-                                </div>
-                                </a>
-                            </div>
-                        </div>
-                        {{-- <div class="col-md-3 mb-3">
-                            <div class="dashboard-small-card-wrap">
-                                <a href="{{ route('pending_doctor_requests') }}" class="text-dark">
                                     <div class="d-flex dashboard-small-card-inner">
-                                    <i class="fa-solid fa-vials"></i>
-                                    <div>
-                                        <h6>Pending/Blocked Doctor</h6>
-                                        <p>{{ $pending_doctors_count }}</p>
-                                    </div>
+                                        <i class="fa-solid fa-prescription-bottle-medical"></i>
+                                        <div>
+                                            <h6>Today Patients</h6>
+                                            <p>{{ $today_patients }}</p>
+                                        </div>
                                     </div>
                                 </a>
                             </div>
                         </div>
-                        <div class="col-md-3 mb-3">
+                        <div class="col-md-4 mb-3">
                             <div class="dashboard-small-card-wrap">
-                                <a href="{{ route('admin_wallet_pay') }}" class="text-dark">
-                                <div class="d-flex dashboard-small-card-inner">
-                                    <i class="fa-solid fa-prescription-bottle-medical"></i>
-                                    <div>
-                                        <h6>Total Earnings</h6>
-                                        <p>0</p>
+                                <a href="#" class="text-dark">
+                                    <div class="d-flex dashboard-small-card-inner">
+                                        <i class="fa fa-stethoscope"></i>
+                                        <div>
+                                            <h6>All Sessions</h6>
+                                            <p>{{$all_sessions}}</p>
+                                        </div>
                                     </div>
-                                </div>
                                 </a>
                             </div>
-                        </div> --}}
-
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="dashboard-small-card-wrap">
+                                <a href="#" class="text-dark">
+                                    <div class="d-flex dashboard-small-card-inner">
+                                        <i class="fa-solid fa fa-qrcode"></i>
+                                        <div>
+                                            <h6>Total Qr Scan</h6>
+                                            <p>{{$qrCount}}</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                     <div class="first-card-wrap card py-3 px-2 mb-2">
                         <div class="row">
@@ -345,29 +344,30 @@
         <div class="modal-dialog">
             <form action="/change/ticker" method="POST">
                 @csrf
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="tickerModalLabel">Website Home Page Ticker</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="delete-modal-body">
-                        <div class="row">
-                            <div class="col-md-2">
-                                Text:
-                            </div>
-                            <div class="col-md-10">
-                                <input type="text" name="ticker_text" id="ticker_text" class="form-control" value="" required/>
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="tickerModalLabel">Website Home Page Ticker</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="delete-modal-body">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    Text:
+                                </div>
+                                <div class="col-md-10">
+                                    <input type="text" name="ticker_text" id="ticker_text" class="form-control" value=""
+                                        required />
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger">Save</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                            aria-label="Close">Cancel</button>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-danger">Save</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
-                        aria-label="Close">Cancel</button>
-                </div>
-            </div>
             </form>
         </div>
     </div>

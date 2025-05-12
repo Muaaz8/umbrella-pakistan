@@ -13,6 +13,7 @@ use AWS\CRT\Log;
 use Barryvdh\DomPDF\PDF;
 use Carbon\Carbon;
 use App\Models\Contract;
+use CreateQrScansTable;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -704,6 +705,8 @@ class HomeController extends Controller
         $today_session_count += \App\Models\InClinics::where('status','ended')->where('created_at','LIKE', "%".date('Y-m-d')."%")->count();
         $today_patients = User::where('user_type','patient')->where('created_at','LIKE', "%".date('Y-m-d')."%")->count();
 
+        $all_sessions = Session::where('status','ended')->count();
+
         $doctors = DB::table('users')
         ->select('users.*')
         ->leftjoin('contracts','contracts.provider_id','users.id')
@@ -714,6 +717,8 @@ class HomeController extends Controller
         ->groupBy('users.id')
         ->orderBy('users.created_at', 'DESC')
         ->paginate(3);
+
+        $qrCount = DB::table('qr_scans')->count();
 
         foreach ($doctors as $doc) {
             $doc->created_at = User::convert_utc_to_user_timezone($user->id,$doc->created_at);
@@ -743,7 +748,7 @@ class HomeController extends Controller
             $user->ticker_value = "";
         }
 
-        return view('dashboard_admin.admin',compact('doctor_count','patients_count','doctors','user','today_session_count','today_patients'));
+        return view('dashboard_admin.admin',compact('doctor_count','patients_count','doctors','user','today_session_count','today_patients' , 'qrCount', 'all_sessions'));
     }
 
     public function new_pharm_editor_index(){

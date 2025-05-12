@@ -13,9 +13,6 @@ use App\Models\Policy;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
-use Nexmo\Laravel\Facade\Nexmo;
-use \Torann\GeoIP\GeoIP;
 use Carbon\Carbon;
 
 class WelcomeController extends Controller
@@ -48,7 +45,19 @@ class WelcomeController extends Controller
 
     public function index($slug = '',Request $request)
     {
-        // Get Categories
+ 
+        if ($request->query('qrScan') === 'true') {
+            $ip = $request->ip();
+            $userAgent = $request->header('User-Agent');
+
+                DB::table('qr_scans')->insert([
+                    'ip_address' => $ip,
+                    'user_agent' => $userAgent,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+        }
+
         $data['imaging_category'] = $this->Pharmacy->getMainCategoryHomePage('imaging');
         // $data['labtest_category'] = $this->Pharmacy->getMainCategoryHomePage('lab-test');
         $data['prescribed_medicines_category'] = ProductsSubCategory::select('id', 'slug', 'title')
