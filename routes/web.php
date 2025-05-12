@@ -729,6 +729,7 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
     Route::post('/inclinic_check_prescription_completed', 'DoctorController@inclinic_check_prescription_completed');
     Route::post('/inclinic_doctor_end_session', 'SessionController@inclinic_doctor_end_session');
     Route::post('/inclinic_pharmacy_payment', 'SessionController@inclinic_pharmacy_payment')->name('inclinic_pharmacy_payment');
+    Route::post('/save_med_profile', 'AdminController@save_med_profile')->name('save_med_profile');
 
     Route::post('patient/health/store','DoctorController@patient_health_store')->name('patient_health_store');
     Route::post('mood/disorder/store','DoctorController@mood_disorder_store')->name('mood_disorder_store');

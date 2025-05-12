@@ -3974,6 +3974,38 @@ public function store_policy(Request $request){
         }else{
             $user_id = $request->user_id;
         }
+
+        $medical_profile = [
+            'education' => $request->education,
+            'med_condition' => json_encode($request->med_condition),
+            'other_condition' => $request->other_condition,
+            'tobacco_use' => $request->tobacco_use,
+            'allergies' => $request->allergies,
+            'medication_allergies' => $request->medication_allergies,
+            'food_allergies' => $request->food_allergies,
+            'list_food_allergies' => $request->list_food_allergies,
+            'blood_pressure' => $request->blood_pressure,
+            'pulse' => $request->pulse,
+            'temperature' => $request->temperature,
+            'spo2' => $request->spo2,
+            'blood_glucose' => $request->blood_glucose,
+            'weight' => $request->weight,
+            'height' => $request->height,
+            'bmi' => $request->bmi
+        ];
+        $medical_profile = json_encode($medical_profile);
+        $med = \App\MedicalProfile::where('user_id',$user_id)->first();
+        if($med != null){
+            $med->update([
+                'immunization_history' => $medical_profile,
+            ]);
+        }else{
+            \App\MedicalProfile::create([
+                'user_id' => $user_id,
+                'immunization_history' => $medical_profile,
+            ]);
+        }
+
         if($request->payment_method == "easy-paisa" || $request->payment_method == "online-cash"){
             $pat = InClinics::create([
                 'user_id'=> $user_id,
@@ -4004,6 +4036,43 @@ public function store_policy(Request $request){
             }
         }
     }
+
+    public function save_med_profile(Request $request){
+        $med = \App\MedicalProfile::where('user_id',$request->user_id)->first();
+        $profile = json_decode($med->immunization_history);
+
+        $medical_profile = [
+            'education' => $profile->education,
+            'med_condition' => $profile->med_condition,
+            'other_condition' => $profile->other_condition,
+            'tobacco_use' => $profile->tobacco_use,
+            'allergies' => $profile->allergies,
+            'medication_allergies' => $profile->medication_allergies,
+            'food_allergies' => $profile->food_allergies,
+            'list_food_allergies' => $profile->list_food_allergies,
+            'blood_pressure' => $request->blood_pressure,
+            'pulse' => $request->pulse,
+            'temperature' => $request->temperature,
+            'spo2' => $request->spo2,
+            'blood_glucose' => $request->blood_glucose,
+            'weight' => $request->weight,
+            'height' => $request->height,
+            'bmi' => $request->bmi
+        ];
+        $medical_profile = json_encode($medical_profile);
+        if($med != null){
+            $med->update([
+                'immunization_history' => $medical_profile,
+            ]);
+        }else{
+            \App\MedicalProfile::create([
+                'user_id' => $request->user_id,
+                'immunization_history' => $medical_profile,
+            ]);
+        }
+        return json_encode(['status' => 'success']);
+    }
+
     public function tbl_transaction(){
         $transactions = TblTransaction::orderBy('id','desc')->paginate(10);
         return view('dashboard_admin.transactions.index',compact('transactions'));

@@ -99,6 +99,7 @@
             $('#patient-reason').html(reason)
             $('#patient-phone').html(phone)
             $('.consultation-side').removeClass('d-none');
+            $('#med_profile_table_'+ id).removeClass('d-none');
             $('.start-button').attr('disabled','true');
             onPageLoadPrescribeItemLoad();
         }
@@ -689,6 +690,42 @@
             });
         }
 
+        function save_med_profile(id){
+            event.preventDefault();
+            var user_id = $('#id-'+id).html();
+            var blood_pressure = $('#blood_pressure_'+id).val();
+            var pulse = $('#pulse_'+id).val();
+            var temperature = $('#temperature_'+id).val();
+            var spo2 = $('#spo2_'+id).val();
+            var blood_glucose = $('#blood_glucose_'+id).val();
+            var weight = $('#weight_'+id).val();
+            var height = $('#height_'+id).val();
+            var bmi = $('#bmi_'+id).val();
+
+            $.ajax({
+                type: 'POST',
+                url: '/save_med_profile',
+                data: {
+                    user_id: user_id,
+                    blood_pressure: blood_pressure,
+                    pulse: pulse,
+                    temperature: temperature,
+                    spo2: spo2,
+                    blood_glucose: blood_glucose,
+                    weight: weight,
+                    height: height,
+                    bmi: bmi
+                },
+                beforeSend: function () {
+                    $("#save_profile_"+id).html('<i class="fas fa-spinner fa-spin"></i>');
+                },
+                success: function (status) {
+                    $('#save_profile_'+id).html('Saved');
+                    $('#save_profile_'+id).prop("disabled", true);
+                }
+            });
+        }
+
 </script>
 @endsection
 @section('content')
@@ -728,7 +765,118 @@
                                 aria-labelledby="flush-heading{{ $pat->id }}" data-bs-parent="#accordionFlushExample">
                                 <div class="accordion-body">
                                     <p id="reason-{{ $pat->id }}">{{ $pat->reason }}</p>
-
+                                    <table class="my-2 d-none" id="med_profile_table_{{ $pat->id }}">
+                                        <tr>
+                                            <td>Age:</td>
+                                            <td>{{$pat->user->get_age($pat->user->id)}}</td>
+                                        </tr>
+                                        @if($pat->med_profile != null)
+                                            <tr>
+                                                <td>Education:</td>
+                                                <td id="education_{{$pat->id}}">{{$pat->med_profile->immunization_history->education}}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Medical Condition:</td>
+                                                <td>
+                                                    {{ implode(', ', json_decode($pat->med_profile->immunization_history->med_condition,true))}}
+                                                    {{ $pat->med_profile->immunization_history->other_condition!=null?$pat->med_profile->immunization_history->other_condition:"" }}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Tobacco Use:</td>
+                                                <td>
+                                                    {{ $pat->med_profile->immunization_history->tobacco_use}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Medication Allergies:</td>
+                                                <td>
+                                                    {{ $pat->med_profile->immunization_history->allergies == "yes"?$pat->med_profile->immunization_history->medication_allergies : $pat->med_profile->immunization_history->allergies}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Food Allergies:</td>
+                                                <td>
+                                                    {{ $pat->med_profile->immunization_history->food_allergies == "yes"?$pat->med_profile->immunization_history->list_food_allergies : $pat->med_profile->immunization_history->food_allergies}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Blood Pressure:</td>
+                                                <td>
+                                                    <input type="text" name="blood_pressure" id="blood_pressure_{{$pat->id}}" class="form-control"
+                                                        value="{{ $pat->med_profile->immunization_history->blood_pressure }}"
+                                                        {{ $pat->med_profile->immunization_history->blood_pressure!=null?"readonly":'' }}
+                                                        placeholder="Enter Blood Pressure">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Pulse:</td>
+                                                <td>
+                                                    <input type="text" name="pulse" id="pulse_{{$pat->id}}" class="form-control"
+                                                        value="{{ $pat->med_profile->immunization_history->pulse }}"
+                                                        {{ $pat->med_profile->immunization_history->pulse!=null?"readonly":'' }}
+                                                        placeholder="Enter Pulse">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Temperature:</td>
+                                                <td>
+                                                    <input type="text" name="temperature" id="temperature_{{$pat->id}}" class="form-control"
+                                                        value="{{ $pat->med_profile->immunization_history->temperature }}"
+                                                        {{ $pat->med_profile->immunization_history->temperature!=null?"readonly":'' }}
+                                                        placeholder="Enter Temperature">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>SPO2:</td>
+                                                <td>
+                                                    <input type="text" name="spo2" id="spo2_{{$pat->id}}" class="form-control"
+                                                        value="{{ $pat->med_profile->immunization_history->spo2 }}"
+                                                        {{ $pat->med_profile->immunization_history->spo2!=null?"readonly":'' }}
+                                                        placeholder="Enter SPO2">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Blood Glucose:</td>
+                                                <td>
+                                                    <input type="text" name="blood_glucose" id="blood_glucose_{{$pat->id}}" class="form-control"
+                                                        value="{{ $pat->med_profile->immunization_history->blood_glucose }}"
+                                                        {{ $pat->med_profile->immunization_history->blood_glucose!=null?"readonly":'' }}
+                                                        placeholder="Enter Blood Glucose">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Weight:</td>
+                                                <td>
+                                                    <input type="text" name="weight" id="weight_{{$pat->id}}" class="form-control"
+                                                        value="{{ $pat->med_profile->immunization_history->weight }}"
+                                                        {{ $pat->med_profile->immunization_history->weight!=null?"readonly":'' }}
+                                                        placeholder="Enter Weight">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Height:</td>
+                                                <td>
+                                                    <input type="text" name="height" id="height_{{$pat->id}}" class="form-control"
+                                                        value="{{ $pat->med_profile->immunization_history->height }}"
+                                                        {{ $pat->med_profile->immunization_history->height!=null?"readonly":'' }}
+                                                        placeholder="Enter Height">
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>BMI:</td>
+                                                <td>
+                                                    <input type="text" name="bmi" id="bmi_{{$pat->id}}" class="form-control"
+                                                        value="{{ $pat->med_profile->immunization_history->bmi }}"
+                                                        {{ $pat->med_profile->immunization_history->bmi!=null?"readonly":'' }}
+                                                        placeholder="Enter BMI">
+                                                </td>
+                                            </tr>
+                                            @endif
+                                            <tr>
+                                                <td colspan="2"><button class="btn btn-outline-primary" id="save_profile_{{$pat->id}}" onclick="save_med_profile({{$pat->id}})">Save</button></td>
+                                            </tr>
+                                    </table>
                                     <div class="d-flex gap-2 justify-content-center align-items-center">
                                         <button class="btn btn-outline-success w-100 start-button"
                                             onclick="start({{ $pat->id }})">Start Consultation</button>
