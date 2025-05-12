@@ -68,6 +68,51 @@
         $("#submit_btn").attr("disabled", false);
         $("#payment_method").val(selectedMethod);
     });
+    // Show/Hide other_condition input based on radio button selection
+    $("input[name='med_condition[]']").on("change", function() {
+        if ($(this).val() === "Other") {
+            if ($("#other_condition").hasClass("d-none")) {
+                $("#other_condition").removeClass("d-none");
+            } else {
+                $("#other_condition").addClass("d-none");
+            }
+        }
+    });
+
+    // Show/Hide medication_allergies input based on radio button selection
+    $("input[name='allergies']").on("change", function() {
+        if ($(this).val() === "yes") {
+            $("#medication_allergies").removeClass("d-none");
+        } else {
+            $("#medication_allergies").addClass("d-none");
+        }
+    });
+
+    // Show/Hide list_food_allergies input based on radio button selection
+    $("input[name='food_allergies']").on("change", function() {
+        if ($(this).val() === "yes") {
+            $("#list_food_allergies").removeClass("d-none");
+        } else {
+            $("#list_food_allergies").addClass("d-none");
+        }
+    });
+
+
+    $("input[name='weight'], input[name='height']").on("keyup", function() {
+        calculateBMI();
+    });
+
+    function calculateBMI() {
+        var weight = parseFloat(document.getElementById('weight').value);
+        var height = parseFloat(document.getElementById('height').value) / 100; // Convert cm to m
+
+        if (!isNaN(weight) && !isNaN(height) && height > 0) {
+            var bmi = (weight / (height * height)).toFixed(2);
+            document.getElementById('bmi').value = bmi;
+        } else {
+            document.getElementById('bmi').value = '';
+        }
+    }
 </script>
 @endsection
 
@@ -195,12 +240,161 @@
                                     <input type="email" id="user-email" class="form-control" readonly>
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="mb-2">
                                     <label for="user-phone" class="form-label">Phone</label>
                                     <input type="text" id="user-phone" class="form-control" readonly>
                                 </div>
                             </div>
+                            <div class="col-md-6">
+                                <label class="fw-bolder mb-2" for="selectmedicine">Highest level of education complete</label>
+                                <select name="education" id="education" class="form-control">
+                                    <option value="" disabled selected>Select Education Level</option>
+                                    <option value="Less than High School">Less than High School</option>
+                                    <option value="High School or equivalent">High School or equivalent</option>
+                                    <option value="Attended College/University">Attended College/University</option>
+                                    <option value="Bachelor’s degree">Bachelor’s degree</option>
+                                    <option value="Master’s degree">Master’s degree</option>
+                                    <option value="I prefer not to answer">I prefer not to answer</option>
+                                </select>
+                            </div>
+
+                            <hr class="mt-3">
+                            <h4>Medical History</h4>
+                            <div class="col-md-6">
+                                <label class="fw-bolder mb-2" for="selectmedicine">Existing Medical Conditions:</label>
+                                <div>
+                                    <div>
+                                        <input type="checkbox" name="med_condition[]" id="HTN" value="HTN">
+                                        <label for="HTN">HTN</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" name="med_condition[]" id="DM" value="DM">
+                                        <label for="DM">DM</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" name="med_condition[]" id="TSH" value="TSH">
+                                        <label for="TSH">TSH</label>
+                                    </div>
+                                    <div>
+                                        <input type="checkbox" name="med_condition[]" id="Asthma" value="Asthma">
+                                        <label for="Asthma">Asthma</label>
+                                    </div>
+
+                                    <div>
+                                        <input type="checkbox" name="med_condition[]" id="Other" value="Other">
+                                        <label for="Other">Other</label>
+                                        <input type="text" name="other_condition" id="other_condition" class="custom-form-control d-none"
+                                            placeholder="Please specify...">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="fw-bolder mb-2" for="selectmedicine">Tobacco Use:</label>
+                                <div>
+                                    <div>
+                                        <input type="radio" name="tobacco_use" id="Never smoked" value="Never smoked">
+                                        <label for="Never smoked">Never smoked</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" name="tobacco_use" id="former smoker, no current use" value="former smoker, no current use">
+                                        <label for="former smoker, no current use">former smoker, no current use</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" name="tobacco_use" id="current smoker, some days only" value="current smoker, some days only">
+                                        <label for="current smoker, some days only">current smoker, some days only</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" name="tobacco_use" id="current smoker, everyday use" value="current smoker, everyday use">
+                                        <label for="current smoker, everyday use">current smoker, everyday use</label>
+                                    </div>
+
+                                    <div>
+                                        <input type="radio" name="tobacco_use" id="unknown smoking history" value="unknown smoking history">
+                                        <label for="unknown smoking history">unknown smoking history</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="fw-bolder mb-2" for="selectmedicine">Allergies to Medication:</label>
+                                <div class="d-flex justify-content-center gap-3">
+                                    <div>
+                                        <input type="radio" name="allergies" id="allergies_yes" value="yes">
+                                        <label for="allergies_yes">Yes</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" name="allergies" id="allergies_no" value="no">
+                                        <label for="allergies_no">No</label>
+                                    </div>
+                                </div>
+                                <input type="text" name="medication_allergies" id="medication_allergies" class="form-control d-none"
+                                    placeholder="Please specify...">
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <label class="fw-bolder mb-2" for="selectmedicine">Allergies to Food and/or other substances</label>
+                                <div class="d-flex justify-content-center gap-3">
+                                    <div>
+                                        <input type="radio" name="food_allergies" id="food_allergies_yes" value="yes">
+                                        <label for="food_allergies_yes">Yes</label>
+                                    </div>
+                                    <div>
+                                        <input type="radio" name="food_allergies" id="food_allergies_no" value="no">
+                                        <label for="food_allergies_no">No</label>
+                                    </div>
+                                </div>
+                                <input type="text" name="list_food_allergies" id="list_food_allergies" class="form-control d-none"
+                                    placeholder="Please specify...">
+                            </div>
+
+                            <hr class="mt-3">
+                            <h4>Vital Records</h4>
+                            <div class="col-md-6">
+                                <label class="fw-bolder mb-2" for="selectmedicine">Blood Pressure</label>
+                                <input type="text" name="blood_pressure" class="form-control"
+                                    placeholder="Enter Blood Pressure...">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="fw-bolder mb-2" for="selectmedicine">Pulse</label>
+                                <input type="text" name="pulse" class="form-control"
+                                    placeholder="Enter Pulse...">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="fw-bolder mb-2" for="selectmedicine">Temperature</label>
+                                <input type="text" name="temperature" class="form-control"
+                                    placeholder="Enter Temperature...">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="fw-bolder mb-2" for="selectmedicine">SpO2</label>
+                                <input type="text" name="spo2" class="form-control"
+                                    placeholder="Enter SpO2...">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="fw-bolder mb-2" for="selectmedicine">Random Blood Glucose</label>
+                                <input type="text" name="blood_glucose" class="form-control"
+                                    placeholder="Enter Random Blood Glucose...">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="fw-bolder mb-2" for="selectmedicine">Weight</label>
+                                <input type="text" name="weight" id="weight" class="form-control"
+                                    placeholder="Enter Weight in Kg...">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="fw-bolder mb-2" for="selectmedicine">Height</label>
+                                <input type="text" name="height" id="height" class="form-control"
+                                    placeholder="Enter Height in cm...">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="fw-bolder mb-2" for="selectmedicine">BMI</label>
+                                <input type="text" name="bmi" id="bmi" class="form-control"
+                                    placeholder="Enter BMI...">
+                            </div>
+
+                            <hr class="mt-3">
+
                             <div class="col-md-12">
                                 <div class="mb-2">
                                     <label for="reason" class="form-label">Reason</label>

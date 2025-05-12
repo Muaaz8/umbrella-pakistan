@@ -2331,19 +2331,23 @@ class PatientController extends Controller
 
     public function doctor_in_clinic(Request $request){
         if($request->ajax()){
-            $patients = InClinics::with('user')->where('id',$request->id)->where('status','paid')->first();
+            $patients = InClinics::with(['user','med_profile'])->where('id',$request->id)->where('status','paid')->first();
             if($patients){
                 $patients->user->age = User::get_age($patients->user->id);
+                $patient->med_profile->immunization_history = json_decode($patient->med_profile->immunization_history);
             }
             return response()->json($patients, 200);
         }else{
-            $patients = InClinics::with('user')->where('status','paid')->orderBy('id','asc')->get();
+            $patients = InClinics::with(['user','med_profile'])->where('status','paid')->orderBy('id','asc')->get();
             $med = DB::table('products_sub_categories')->where('parent_id', '38')
                 ->join('tbl_products','products_sub_categories.id','tbl_products.sub_category')
                 ->select('products_sub_categories.*')
                 ->groupBy('tbl_products.sub_category')
                 ->get();
             $img = DB::table('product_categories')->where('category_type', 'imaging')->get();
+            foreach($patients as $patient){
+                $patient->med_profile->immunization_history = json_decode($patient->med_profile->immunization_history);
+            }
             return view('dashboard_doctor.in_clinic.index',compact('patients','med','img'));
         }
     }

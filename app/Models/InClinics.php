@@ -31,4 +31,8 @@ class InClinics extends Model
         return $this->hasMany(\App\Prescription::class, 'parent_id', 'id');
     }
 
+    public function med_profile(){
+        return $this->belongsTo(\App\MedicalProfile::class, 'user_id', 'user_id');
+    }
+
 }
