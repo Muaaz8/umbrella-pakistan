@@ -781,5 +781,11 @@ class DoctorsController extends BaseController
     }
 }
 
+    public function check_status(Request $request)
+    {
+        $doc = auth()->user()->status;
+        return $this->sendResponse($doc, 'Doctor status');
+    }
+
 
 }

@@ -92,6 +92,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('video/patient_join/{id}','Api\VideoController@waitingPatientJoinCall');
     Route::get('video/doctor/end/{id}','Api\VideoController@doctor_end_session');
     Route::get('change/status','Api\DoctorsController@change_online_status');
+    Route::get('check/status','Api\DoctorsController@check_status');
     Route::get('prescription/{id}','Api\PrescriptionController@getSessionPrescription');
     Route::get('cart', 'Api\CartController@my_cart');
     Route::get('select/product/{id}', 'Api\CartController@select_cart_product');
