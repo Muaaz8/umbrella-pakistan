@@ -48,6 +48,14 @@
                     <a href="{{ route('FAQs') }}" class="dashboard-nav-dropdown-item"> FAQs</a>
                 </div>
             </div>
+            <div class="dashboard-nav-dropdown">
+                <a href="javascript:void(0)" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
+                        class="fa fa-user-plus"></i> Vendors </a>
+                <div class="dashboard-nav-dropdown-menu">
+                    <a href="{{ route('add_vender_page') }}" class="dashboard-nav-dropdown-item"> Add Vendor</a>
+                    <a href="{{ route('all_vendors_page') }}" class="dashboard-nav-dropdown-item">All Vendors</a>
+                </div>
+            </div>
             {{-- <a href="{{ route('admin_error_log_view') }}" class="dashboard-nav-item"><i
                     class="fa-solid fa-circle-exclamation"></i> Error Log </a>
             <div class="dashboard-nav-dropdown">

@@ -376,18 +376,18 @@ class RegistrationController extends BaseController
             return $this->sendError([], 'Email already exists');
         }
 
-        if (!isset($request->g_recaptcha_response)) {
-            return $this->sendError([], 'Captcha not found');
-        }
+        // if (!isset($request->g_recaptcha_response)) {
+        //     return $this->sendError([], 'Captcha not found');
+        // }
         
-        $captcha = $request->g_recaptcha_response;
-        $secretKey = "6LctFXkqAAAAAIMmlIukFW8I-pb_-iUeAhB-LQ7O";
-        $response = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . $secretKey . '&response=' . $captcha);
-        $responseData = json_decode($response, true);
+        // $captcha = $request->g_recaptcha_response;
+        // $secretKey = "6LctFXkqAAAAAIMmlIukFW8I-pb_-iUeAhB-LQ7O";
+        // $response = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . $secretKey . '&response=' . $captcha);
+        // $responseData = json_decode($response, true);
         
-        if ($responseData['success'] !== true) {
-            return $this->sendError([], 'Captcha not verified');
-        }
+        // if ($responseData['success'] !== true) {
+        //     return $this->sendError([], 'Captcha not verified');
+        // }
         
         $user_type = $request->user_type;
         

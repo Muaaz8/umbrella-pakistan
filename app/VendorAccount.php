@@ -9,6 +9,12 @@ class VendorAccount extends Model
     protected $fillable=[
         'number',
         'name',
-        'address'
+        'address',
+        'vendor_number',
+        'vendor',
+        'user_id',
+        'image',
+        'category',
+        'is_active',
     ];
 }

@@ -410,7 +410,8 @@ Route::group(['middleware' => 'redirecttovideo'], function () {
     Route::post('fetch_labtest_item_by_category', 'unAuthController@fetchLabtestItemByCategory')->name('fetch_labtest_item_by_category');
     Route::post('fetch_imaging_item_by_category', 'unAuthController@fetchImagingItemByCategory')->name('fetch_imaging_item_by_category');
     Route::get('/labtests', 'PharmacyController@index')->name('labs');
-    Route::get('/pharmacy', 'PharmacyController@index')->name('pharmacy');
+    Route::get('/pharmacy', 'PharmacyController@index')->name('pharmacy_products');
+    Route::get( '/shops', 'VendorsController@index')->name('vendor');
     Route::get('/imaging', 'PharmacyController@index')->name('imaging');
     Route::get('/pharmacy/{slug}', 'PharmacyController@index')->name('pharmacy.category');
     Route::get('/labtests/{slug}', 'PharmacyController@index')->name('slug.labtest');
@@ -425,6 +426,7 @@ Route::group(['middleware' => 'redirecttovideo'], function () {
     Route::post('/verify_email_unique', 'Auth\RegisterController@verify_email_unique');
     Route::post('/verify_nip_unique', 'Auth\RegisterController@verify_nip_unique');
     Route::post('/verify_username_unique', 'Auth\RegisterController@verify_username_unique');
+    Route::get('/pharmacy/items', 'PharmacyController@index')->name('pharmacy');
 
     Route::post('/symptom_checker_cookie_store',"unAuthController@symptom_checker_cookie_store");
     Route::post('/symptom_chat',"unAuthController@chat");
@@ -1116,7 +1118,13 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
         // Route::post('/add/items/faqs/update/{id}', 'TblFaqController@update_faqs')->name('update_faqs');
 
 
-
+        // vendors routes
+        Route::get('/admin/vender/add', 'VendorsController@create_vendor_page')->name('add_vender_page');
+        Route::post('/admin/vender/add', 'VendorsController@create')->name('add_vender');
+        Route::get('/admin/venders/all', 'VendorsController@showVendors')->name('all_vendors_page');
+        Route::post('/admin/vendor/change_status', 'VendorsController@toggle_status')->name('toggle_status');
+        Route::get('/admin/vendors/edit/{id}', 'VendorsController@edit')->name('edit_vendor');
+        Route::put('/admin/vendors/update/{id}', 'VendorsController@update')->name('update_vendor');
 
 
 
