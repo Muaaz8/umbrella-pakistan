@@ -252,7 +252,7 @@ class RegistrationController extends BaseController
             $user_info = DB::table('users')
                 ->leftJoin('users_email_verification', 'users.id', '=', 'users_email_verification.user_id')
                 ->where('users.id', $user->id)
-                ->select('users.name', 'users.id', 'users.last_name','users.email', 'users.username', 'users.user_image', 'users.phone_number' , 'users_email_verification.status as email_status')
+                ->select('users.name', 'users.status' , 'users.id', 'users.last_name','users.email', 'users.username', 'users.user_image', 'users.phone_number' , 'users_email_verification.status as email_status')
                 ->first();
     
             if ($user->user_type == 'doctor' && $user->active != '1') {
@@ -285,6 +285,8 @@ class RegistrationController extends BaseController
             Session::where('doctor_id', $user->id)->where('remaining_time','!=','full')->update(['status' => 'ended', 'queue' => 0]);
             Session::where('doctor_id', $user->id)->where('status','invitation sent')->orwhere('status','doctor joined')->update(['status' => 'paid']);
             $user->tokens()->where('id', $user->currentAccessToken()->id)->delete();
+            $user->status = 'offline';
+            $user->save();
             return $this->sendResponse([],"User Logout!");
         }
         if ($type == 'patient') {
@@ -295,8 +297,9 @@ class RegistrationController extends BaseController
                 'user_type' => 'patient',
             ]);
             Session::where('patient_id', $user->id)->where('remaining_time','!=','full')->update(['status' => 'ended', 'queue' => 0]);
-            // $user = request()->user(); //or Auth::user()
             $user->tokens()->where('id', $user->currentAccessToken()->id)->delete();
+            $user->status = 'offline';
+            $user->save();
             return $this->sendResponse([],"User Logout!");
         }
     }
@@ -563,7 +566,7 @@ class RegistrationController extends BaseController
         $user_info = DB::table('users')
             ->leftJoin('users_email_verification', 'users.id', '=', 'users_email_verification.user_id')
             ->where('users.id', $user->id)
-            ->select('users.name', 'users.id', 'users.username', 'users.user_image', 'users.last_name', 'users.email', 'users.phone_number', 'users_email_verification.status as email_status')
+            ->select('users.name','users.status', 'users.id', 'users.username', 'users.user_image', 'users.last_name', 'users.email', 'users.phone_number', 'users_email_verification.status as email_status')
             ->first();
     
         if ($user->user_type === 'doctor' && $user->active != '1') {
@@ -599,7 +602,7 @@ class RegistrationController extends BaseController
             $user_info = DB::table('users')
             ->leftJoin('users_email_verification', 'users.id', '=', 'users_email_verification.user_id')
             ->where('users.id', $user_id)
-            ->select('users.name', 'users.id', 'users.last_name', 'users.email', 'users.phone_number', 'users_email_verification.status as email_status','users.user_type')
+            ->select('users.name', 'users.status', 'users.id', 'users.last_name', 'users.email', 'users.phone_number', 'users_email_verification.status as email_status','users.user_type')
             ->first();
             
             $authUser = User::find($user_id);
