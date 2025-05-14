@@ -587,6 +587,8 @@ class HomeController extends Controller
                         return redirect()->route('chat_support');
                     } else if ($currentRole == 'admin_seo') {
                         return redirect()->route('seo_admin_dash');
+                    } else if ($currentRole == 'vendor') {
+                        return redirect()->route('vendor_dash');
                     }
                     return view('home', compact('notifs', 'countNotification', 'currentRole', 'profileImage','doctors'));
                 } else {

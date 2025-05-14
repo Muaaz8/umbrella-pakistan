@@ -589,6 +589,11 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
     Route::get('/del/meta/tag/{id}','SEOAdminController@del_meta_tag')->name('del_meta_tag');
     Route::post('/edit/meta/tag','SEOAdminController@edit_meta_tag')->name('edit_meta_tag');
     Route::post('/insert/pages/meta/tag','SEOAdminController@save_pages_meta_tag')->name('save_pages_meta_tag');
+
+    // All Vendor Routes
+    Route::get('/vendor/dash','VendorsController@vendor_dash')->name('vendor_dash');
+
+
     Route::group(['middleware' => ['lab_auth']], function () {
         //New Lab Admin Routes
         Route::get('lab/admin/dash','AdminController@lab_admin_dash')->name('lab_admin_dash');

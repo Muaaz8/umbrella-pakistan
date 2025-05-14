@@ -25,21 +25,21 @@ class VendorsController extends Controller
         return view('website_pages.vendors.index', compact('vendors'));
     }
 
-public function create_vendor_page()
-{
-    $locations = [
-        [
-            'id' => '1',
-            'name' => 'shah faisal colony'
-        ],
-        [
-            'id' => '2',
-            'name' => 'johor'
-        ]
-    ];
+    public function create_vendor_page()
+    {
+        $locations = [
+            [
+                'id' => '1',
+                'name' => 'shah faisal colony'
+            ],
+            [
+                'id' => '2',
+                'name' => 'johor'
+            ]
+        ];
 
-    return view('website_pages.vendors.create', compact('locations'));
-}
+        return view('website_pages.vendors.create', compact('locations'));
+    }
 
 
     public function showVendors(Request $request)
@@ -146,6 +146,8 @@ public function create_vendor_page()
                 'otp' => $otp,
             ];
 
+            DB::table('user_verification')->insert($data1);
+
             $vendorAccount = VendorAccount::create([
                 'number' => $request->vendor_number,
                 'name' => $request->name,
@@ -231,16 +233,16 @@ public function create_vendor_page()
 
     public function edit($id)
     {
-    $locations = [
-        [
-            'id' => '1',
-            'name' => 'shah faisal colony'
-        ],
-        [
-            'id' => '2',
-            'name' => 'johor'
-        ]
-    ];
+        $locations = [
+            [
+                'id' => '1',
+                'name' => 'shah faisal colony'
+            ],
+            [
+                'id' => '2',
+                'name' => 'johor'
+            ]
+        ];
         try {
             $vendor = VendorAccount::findOrFail($id);
             $user = User::findOrFail($vendor->user_id);
@@ -383,5 +385,11 @@ public function create_vendor_page()
                 ->withInput()
                 ->with('error', 'An error occurred while updating the vendor. Please try again later.');
         }
+    }
+
+    public function vendor_dash(){
+        $user = auth()->user();
+        $vendor = VendorAccount::where('user_id', $user->id)->first();
+        return view('dashboard_vendor.vendor');
     }
 }

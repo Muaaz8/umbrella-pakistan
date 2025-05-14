@@ -78,7 +78,7 @@
                     });
                 }
             });
-
+            // prescriptions();
         });
 
         $(document).on('click', '.pagination a', function(event) {
@@ -210,6 +210,7 @@
                     var total = 0;
                     $.each(data, function(key, pres) {
                         total += parseFloat(pres.sale_price);
+                        console.log(oid,pres.order_id);
                         if (oid != pres.order_id) {
                             $('#precriptionItem').append(
                                 '<div class="accordion accordion-flush " id="accordionFlushExample_' +
@@ -551,7 +552,7 @@
                                         <a class="nav-link active" data-bs-toggle="tab" href="#eVisits">E-Visit</a>
                                     </li>
                                     <li class="nav-item col-md-3 col-12">
-                                        <a class="nav-link" data-bs-toggle="tab" href="#precriptionItems">Prescription
+                                        <a class="nav-link" data-bs-toggle="tab" href="#precriptionItem">Prescription
                                             Items</a>
                                     </li>
                                     <li class="nav-item col-md-3 col-12">
@@ -674,7 +675,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="tab-pane container fade" id="precriptionItems">
+                                    <div class="tab-pane container fade" id="precriptionItem">
                                         <div class="row mb-2">
                                             <div class="col-md-6 d-flex">
                                                 <div class="row">
@@ -708,7 +709,92 @@
                                                     </ul>
                                                 </div>
                                             </div>
-
+                                            @php
+                                                $oid = 0;
+                                                $total = 0;
+                                            @endphp
+                                            @foreach ($prescriptions as $pres)
+                                            @php
+                                                $total += $pres->sale_price;
+                                            @endphp
+                                            <div class="accordion accordion-flush " id="accordionFlushExample_{{$pres->order_id}}">
+                                                <div class="accordion-item mb-2">
+                                                    <h2 class="accordion-header" id="flush-heading_ {{$pres->order_id}}">
+                                                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                        data-bs-target="#flush-collapse_{{$pres->order_id}}" aria-expanded="false" aria-controls="flush-collapse_{{$pres->order_id}}">
+                                                            <div class="accord-data">
+                                                                <div>
+                                                                    <i class="fa-solid fa-capsules"></i>&nbsp; Order ID: &nbsp;
+                                                                    <span>
+                                                                    {{$pres->order_id}}</span>
+                                                                </div>
+                                                                <div><strong>Session ID : &nbsp;
+                                                                    <span>
+                                                                        UEV- {{$pres->ses_id}}
+                                                                    </span>
+                                                                    </strong>
+                                                                </div>
+                                                                <div> {{$pres->datetime['time']}} , {{$pres->datetime['date']}}&nbsp;
+                                                                    <a class="btn process-pay" href="#" role="button">Details&nbsp;
+                                                                        <i class="fa fa-arrow-down"></i>
+                                                                        </a>
+                                                                </div>
+                                                            </div>
+                                                        </button>
+                                                    </h2>
+                                                    <div id="flush-collapse_{{$pres->order_id}}" class="accordion-collapse collapse" aria-labelledby="flush-heading_{{$pres->order_id}}"
+                                                        data-bs-parent="#accordionFlushExample_{{$pres->order_id}}">
+                                                        <div class="accordion-body" id="accorbody_{{$pres->order_id}}">
+                                                            <div class="p-3">
+                                                                <div class="row mb-1">
+                                                                    <div class="col-md-4">
+                                                                        <b>Product Name:</b>
+                                                                        {{$pres->name}}
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <b>Product ID:</b>
+                                                                            {{$pres->pro_id}}
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <b>Product type:</b>
+                                                                            {{$pres->type}}
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-4">
+                                                                        <b>Dosage Days:</b>
+                                                                            {{$pres->usage}}
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <b>Selling Price:</b>
+                                                                         Rs.  {{$pres->sale_price}}
+                                                                    </div>
+                                                                    <div class="col-md-4">
+                                                                        <b>Price:</b>
+                                                                            Rs.  {{$pres->price}}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            @endforeach
+                                            <div class="accordion accordion-flush " id="accordionFlushExample">
+                                                <div class="accordion-item mb-2">
+                                                <h2 class="accordion-header" id="flush-heading">
+                                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                                        data-bs-target="#flush-collapse" aria-expanded="false" aria-controls="flush-collapse">
+                                                        <div class="accord-data">
+                                                            <div>
+                                                                <i class=""></i>&nbsp; Total Prescriptions: &nbsp;
+                                                                <span>{{$prescriptions->count()}}</span>
+                                                            </div>
+                                                                <div>Total Earning: <strong>Rs.  {{$total}} </strong></div>
+                                                        </div>
+                                                    </button>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 

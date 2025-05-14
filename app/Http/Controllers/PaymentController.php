@@ -1413,8 +1413,8 @@ class PaymentController extends Controller
                     ->where('id', $pres->price)
                     ->first();
                     $pres->name = $test->name;
-                    $pres->sale_price = $price->sale_price;
-                    $pres->price = $price->price;
+                    $pres->sale_price = $order->update_price;
+                    $pres->price = $order->update_price;
                     if ($order != null) {
                         $pres->order_id = $order->order_main_id;
                     } else {
@@ -1499,11 +1499,8 @@ class PaymentController extends Controller
             $currentMonth = date('Y-m');
             $currentDay = date('Y-m-d');
             if ($request['daterange'] != null && $request['filtertype'] != null) {
-
-                // start doctor select date range session history
                 $dateRange = $request['daterange'];
                 $filterType = $request['filtertype'];
-                // dd($dateRangedd);
 
                 $margeDate = explode("-", $dateRange);
                 $fromDate = $margeDate[0];
@@ -1563,6 +1560,7 @@ class PaymentController extends Controller
                     ->whereRaw('MONTH(sessions.created_at) = ?', [date('m')])
                     ->select('sessions.*', 'users.*')
                     ->get();
+
                 foreach ($doctorHistory as $doctor_his) {
                     $date = new DateTime($doctor_his->start_time);
                     $date->setTimezone(new DateTimeZone($user_time_zone));
@@ -1578,25 +1576,66 @@ class PaymentController extends Controller
                 }
 
                 //return dd($doctorHistory);
-
-                // //end here current month doctor history
             }
+            // dd($currentDay,$currentMonth,$getOrderTodayTotal,$getOrderMonthTotal,$getOrderTotal);
+
+            // $prescriptions = DB::table('prescriptions')
+            //     ->join('sessions','prescriptions.session_id','sessions.id')
+            //     ->join('tbl_cart','prescriptions.id','tbl_cart.pres_id')
+            //     ->where('tbl_cart.item_type','prescribed')
+            //     ->where('tbl_cart.status','purchased')
+            //     ->orderBy('prescriptions.id','DESC')
+            //     ->groupby('sessions.id')
+            //     ->select('sessions.session_id as ses_id','sessions.id as sessi_id','sessions.created_at')
+            //     ->paginate(10,['*'],'pres');
 
             $prescriptions = DB::table('prescriptions')
-            ->join('sessions','prescriptions.session_id','sessions.id')
-            ->join('tbl_cart','prescriptions.id','tbl_cart.pres_id')
-            ->where('tbl_cart.item_type','prescribed')
-            ->where('tbl_cart.status','purchased')
-            ->orderBy('prescriptions.id','DESC')
-            ->groupby('sessions.id')
-            ->select('sessions.session_id as ses_id','sessions.id as sessi_id','sessions.created_at')
-            ->paginate(10,['*'],'pres');
+                ->join('sessions','prescriptions.session_id','sessions.id')
+                ->join('tbl_cart','prescriptions.id','tbl_cart.pres_id')
+                ->where('tbl_cart.item_type','prescribed')
+                ->where('tbl_cart.status','purchased')
+                ->orderBy('prescriptions.id','DESC')
+                ->select('prescriptions.*','sessions.session_id as ses_id','sessions.id as sessi_id')
+                ->paginate(10,['*'],'pres');
+            foreach ($prescriptions as $pres) {
+                if ($pres->type == 'lab-test') {
+                    $test = DB::table('quest_data_test_codes')->where('TEST_CD', $pres->test_id)->first();
+                    $order = DB::table('lab_orders')->where('pres_id', $pres->id)->where('product_id', $pres->test_id)->first();
+                    $pres->name = $test->TEST_NAME;
+                    $pres->sale_price = $test->SALE_PRICE;
+                    $pres->price = $test->PRICE;
+                    $pres->order_id = $order->order_id;
+                    $pres->pro_id = $pres->test_id;
+                } else if ($pres->type == 'imaging') {
+                    $test = DB::table('tbl_products')->where('id', $pres->imaging_id)->first();
+                    $order = DB::table('imaging_orders')->where('pres_id', $pres->id)->where('product_id', $pres->imaging_id)->first();
+                    $loc = DB::table('imaging_selected_location')->where('session_id', $pres->sessi_id)->where('product_id',$pres->imaging_id)->first();
+                    $price = DB::table('imaging_prices')->where('location_id', $loc->imaging_location_id)->where('product_id',$loc->product_id)->first();
+                    $pres->name = $test->name;
+                    $pres->sale_price = $price->price;
+                    $pres->price = $price->actual_price;
+                    $pres->order_id = $order->order_id;
+                    $pres->pro_id = $pres->imaging_id;
+                } else if ($pres->type == 'medicine') {
+                    $test = DB::table('tbl_products')->where('id', $pres->medicine_id)->first();
+                    $order = DB::table('medicine_order')->where('session_id', $pres->sessi_id)->first();
+                    $price = DB::table('medicine_pricings')
+                        ->where('id', $pres->price)
+                        ->first();
+                    $pres->name = $test->name;
+                    $pres->sale_price = $order->update_price;
+                    $pres->price = $order->update_price;
+                    $pres->order_id = $order->order_main_id;
+                    $pres->pro_id = $pres->medicine_id;
+                }
+                $pres->datetime = User::convert_utc_to_user_timezone($user_id, $pres->created_at);
+            }
 
             //start here total lab orders earning
             $getLabOrderTotal = DB::table("lab_orders")
-            ->join('quest_data_test_codes', 'quest_data_test_codes.TEST_CD', 'lab_orders.product_id')
-            ->where('lab_orders.type', 'Counter')
-            ->sum('quest_data_test_codes.SALE_PRICE');
+                ->join('quest_data_test_codes', 'quest_data_test_codes.TEST_CD', 'lab_orders.product_id')
+                ->where('lab_orders.type', 'Counter')
+                ->sum('quest_data_test_codes.SALE_PRICE');
             //end here total lab orders earning
 
             //start here total lab orders earning
@@ -1616,13 +1655,10 @@ class PaymentController extends Controller
             $currentMonthTotal = $totalAdminSessionIncomMonth;
 
             $getLabOrderMonthTotal = DB::table("lab_orders")
-            ->join('quest_data_test_codes', 'quest_data_test_codes.TEST_CD', 'lab_orders.product_id')
-            ->where('lab_orders.type', 'Counter')
-            ->whereRaw('MONTH(lab_orders.created_at) = ?', [date('m')])
-            ->sum('quest_data_test_codes.SALE_PRICE');
-
-            //dd($totalMonthBalance);
-            //end here total lab orders earning
+                ->join('quest_data_test_codes', 'quest_data_test_codes.TEST_CD', 'lab_orders.product_id')
+                ->where('lab_orders.type', 'Counter')
+                ->whereRaw('MONTH(lab_orders.created_at) = ?', [date('m')])
+                ->sum('quest_data_test_codes.SALE_PRICE');
 
             $currentTodayTotalSessions = DB::table("sessions")
                 ->where('status', 'ended')
@@ -1742,13 +1778,13 @@ class PaymentController extends Controller
             else
             {
                 $prescriptions = DB::table('prescriptions')
-                ->join('sessions','prescriptions.session_id','sessions.id')
-                ->join('tbl_cart','prescriptions.id','tbl_cart.pres_id')
-                ->where('tbl_cart.item_type','prescribed')
-                ->where('tbl_cart.status','purchased')
-                ->orderBy('prescriptions.id','DESC')
-                ->select('prescriptions.*','sessions.session_id as ses_id','sessions.id as sessi_id')
-                ->get();
+                    ->join('sessions','prescriptions.session_id','sessions.id')
+                    ->join('tbl_cart','prescriptions.id','tbl_cart.pres_id')
+                    ->where('tbl_cart.item_type','prescribed')
+                    ->where('tbl_cart.status','purchased')
+                    ->orderBy('prescriptions.id','DESC')
+                    ->select('prescriptions.*','sessions.session_id as ses_id','sessions.id as sessi_id')
+                    ->get();
             }
             foreach ($prescriptions as $pres) {
                 if ($pres->type == 'lab-test') {
@@ -1773,11 +1809,11 @@ class PaymentController extends Controller
                     $test = DB::table('tbl_products')->where('id', $pres->medicine_id)->first();
                     $order = DB::table('medicine_order')->where('session_id', $pres->sessi_id)->first();
                     $price = DB::table('medicine_pricings')
-                    ->where('id', $pres->price)
-                    ->first();
+                        ->where('id', $pres->price)
+                        ->first();
                     $pres->name = $test->name;
-                    $pres->sale_price = $price->sale_price;
-                    $pres->price = $price->price;
+                    $pres->sale_price = $order->update_price;
+                    $pres->price = $order->update_price;
                     $pres->order_id = $order->order_main_id;
                     $pres->pro_id = $pres->medicine_id;
                 }
