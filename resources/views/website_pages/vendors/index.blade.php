@@ -22,13 +22,9 @@
     <link rel="icon" href="{{ asset('asset_frontend/images/logo.ico') }}" type="image/x-icon">
 @endsection
 
-{{-- @section('page_title')
-@if ($title != null)
-<title>{{ $title->content }}</title>
-@else
-<title>Shops</title>
-@endif
-@endsection --}}
+@section('page_title')
+    <title>Shops</title>
+@endsection
 
 @section('top_import_file')
 @endsection
@@ -96,7 +92,8 @@
                                 <p>Products: 20000</p>
                             </div>
                             <div class="med-img2">
-                                <img src="{{ asset('assets/new_frontend/panadol2.png') }}" alt="img">
+                                <img src="{{$vendor->image}}" alt="img">
+                                {{-- <img src="{{ asset('assets/new_frontend/panadol2.png') }}" alt="img"> --}}
                             </div>
                             <h4 class="truncate m-0 p-0">{{ $vendor->name }}</h4>
                             <h6 class="truncate mb-2 p-0">{{ $vendor->address }}</h6>

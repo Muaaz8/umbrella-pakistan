@@ -1366,9 +1366,8 @@ class PaymentController extends Controller
                 ->get();
             foreach ($Sessions_check as $currentMonthTotalSession) {
                 $getpercentage = DB::table('doctor_percentage')->where('doc_id', $currentMonthTotalSession->doctor_id)->first();
-                $card_fee = (2 / 100) * $currentMonthTotalSession->price;
                 $doc_price = ($getpercentage->percentage / 100) * $currentMonthTotalSession->price;
-                $data['EvisitEarningsForGraf'][$count] += $currentMonthTotalSession->price - $doc_price - $card_fee;
+                $data['EvisitEarningsForGraf'][$count] += $currentMonthTotalSession->price - $doc_price;
             }
 
             $data['OnlineEarningsForGraf'][$count] = DB::table("lab_orders")
@@ -1400,15 +1399,13 @@ class PaymentController extends Controller
                     $pres->order_id = $order->order_id;
                     $pres->pro_id = $pres->test_id;
                 } else if ($pres->type == 'imaging') {
-                    $test = DB::table('tbl_products')->where('id', $pres->imaging_id)->first();
-                    $order = DB::table('imaging_orders')->where('pres_id', $pres->id)->where('product_id', $pres->imaging_id)->first();
-                    $loc = DB::table('imaging_selected_location')->where('session_id', $pres->sessi_id)->where('product_id',$pres->imaging_id)->first();
-                    $price = DB::table('imaging_prices')->where('location_id', $loc->imaging_location_id)->where('product_id',$loc->product_id)->first();
-                    $pres->name = $test->name;
-                    $pres->sale_price = $price->price;
-                    $pres->price = $price->actual_price;
+                    $test = DB::table('quest_data_test_codes')->where('TEST_CD', $pres->imaging_id)->first();
+                    $order = DB::table('lab_orders')->where('pres_id', $pres->id)->where('product_id', $pres->imaging_id)->first();
+                    $pres->name = $test->TEST_NAME;
+                    $pres->sale_price = $test->SALE_PRICE;
+                    $pres->price = $test->PRICE;
                     $pres->order_id = $order->order_id;
-                    $pres->pro_id = $pres->imaging_id;
+                    $pres->pro_id = $pres->test_id;
                 } else if ($pres->type == 'medicine') {
                     $test = DB::table('tbl_products')->where('id', $pres->medicine_id)->first();
                     $order = DB::table('medicine_order')->where('session_id', $pres->session_id)->first();
@@ -1485,9 +1482,8 @@ class PaymentController extends Controller
                 $doc_price = ($getpercentage->percentage / 100) * $getSessionTotalSession->price;
                 $getSessionTotalSession->doc_percent = $getpercentage->percentage;
                 $getSessionTotalSession->doc_price = $doc_price;
-                $getSessionTotalSession->card_fee = (2 / 100) * $getSessionTotalSession->price;
-                $getSessionTotalSession->Net_profit = $getSessionTotalSession->price - $doc_price - $getSessionTotalSession->card_fee;
-                $totalAdminSessionIncom += $getSessionTotalSession->price - $doc_price - $getSessionTotalSession->card_fee;
+                $getSessionTotalSession->Net_profit = $getSessionTotalSession->price - $doc_price;
+                $totalAdminSessionIncom += $getSessionTotalSession->price - $doc_price;
                 $user_check = User::where('id', $getSessionTotalSession->patient_id)->first();
                 $getSessionTotalSession->pat_name = $user_check->name . ' ' . $user_check->last_name;
                 $user_check = User::where('id', $getSessionTotalSession->doctor_id)->first();
@@ -1595,67 +1591,6 @@ class PaymentController extends Controller
             ->groupby('sessions.id')
             ->select('sessions.session_id as ses_id','sessions.id as sessi_id','sessions.created_at')
             ->paginate(10,['*'],'pres');
-            // foreach ($prescriptions as $press) {
-            //     $press->prescriptions = DB::table('prescriptions')
-            //     ->join('sessions','prescriptions.session_id','sessions.id')
-            //     ->join('tbl_cart','prescriptions.id','tbl_cart.pres_id')
-            //     ->where('tbl_cart.item_type','prescribed')
-            //     ->where('tbl_cart.status','purchased')
-            //     ->where('sessions.id',$press->sessi_id)
-            //     ->orderBy('prescriptions.id','DESC')
-            //     ->select('prescriptions.*','sessions.session_id as ses_id','sessions.id as sessi_id')
-            //     ->get();
-            //     $orderid=null;
-            //     foreach($press->prescriptions as $pres)
-            //     {
-            //         if ($pres->type == 'lab-test') {
-            //             $test = DB::table('quest_data_test_codes')->where('TEST_CD', $pres->test_id)->first();
-            //             $order = DB::table('lab_orders')->where('pres_id', $pres->id)->where('product_id', $pres->test_id)->first();
-            //             $pres->name = $test->DESCRIPTION;
-            //             $pres->sale_price = $test->SALE_PRICE;
-            //             $pres->price = $test->PRICE;
-            //             $pres->order_id = $order->order_id;
-            //             $pres->pro_id = $pres->test_id;
-            //         } else if ($pres->type == 'imaging') {
-            //             $test = DB::table('tbl_products')->where('id', $pres->imaging_id)->first();
-            //             $order = DB::table('imaging_orders')->where('pres_id', $pres->id)->where('product_id', $pres->imaging_id)->first();
-            //             $loc = DB::table('imaging_selected_location')->where('session_id', $pres->sessi_id)->where('product_id',$pres->imaging_id)->first();
-            //             $price = DB::table('imaging_prices')->where('location_id', $loc->imaging_location_id)->where('product_id',$loc->product_id)->first();;
-            //             $pres->name = $test->name;
-            //             $pres->sale_price = $price->price;
-            //             $pres->price = $price->actual_price;
-            //             $pres->order_id = $order->order_id;
-            //             $pres->pro_id = $pres->imaging_id;
-            //         } else if ($pres->type == 'medicine') {
-            //             $test = DB::table('tbl_products')->where('id', $pres->medicine_id)->first();
-            //             $order = DB::table('medicine_order')->where('session_id', $pres->sessi_id)->first();
-            //             $price = DB::table('medicine_pricings')
-            //             ->where('id', $pres->price)
-            //             ->first();
-            //             $pres->name = $test->name;
-            //             $pres->sale_price = $price->sale_price;
-            //             $pres->price = $price->price;
-            //             $pres->order_id = $order->order_main_id;
-            //             $pres->pro_id = $pres->medicine_id;
-            //         }
-            //         if(date('Y-m',strtotime($pres->created_at))==$currentMonth)
-            //         {
-            //             $getOrderMonthTotal += $pres->sale_price;
-            //         }
-            //         if(date('Y-m-d',strtotime($pres->created_at))==$currentDay)
-            //         {
-            //             $getOrderTodayTotal += $pres->sale_price;
-            //         }
-            //         $getOrderTotal += $pres->sale_price;
-            //         $orderid = $pres->order_id;
-            //     }
-            //     $press->order_id = $orderid;
-            //     $press->datetime = User::convert_utc_to_user_timezone($user_id, $press->created_at);
-            // }
-            //start here total orders earning
-
-            //dd($getOrderTotal);
-            //end here total orders earning
 
             //start here total lab orders earning
             $getLabOrderTotal = DB::table("lab_orders")
@@ -1676,12 +1611,9 @@ class PaymentController extends Controller
                 $getpercentage = DB::table('doctor_percentage')->where('doc_id', $currentMonthTotalSession->doctor_id)->first();
                 $doc_price = ($getpercentage->percentage / 100) * $currentMonthTotalSession->price;
                 // dd($doc_price);
-                $currentMonthTotalSession->card_fee = (2 / 100) * $currentMonthTotalSession->price;
-                $totalAdminSessionIncomMonth += $currentMonthTotalSession->price - $doc_price -$currentMonthTotalSession->card_fee;
+                $totalAdminSessionIncomMonth += $currentMonthTotalSession->price - $doc_price;
             }
             $currentMonthTotal = $totalAdminSessionIncomMonth;
-
-
 
             $getLabOrderMonthTotal = DB::table("lab_orders")
             ->join('quest_data_test_codes', 'quest_data_test_codes.TEST_CD', 'lab_orders.product_id')
@@ -1701,12 +1633,9 @@ class PaymentController extends Controller
             foreach ($currentTodayTotalSessions as $currentTodayTotalSession) {
                 $getpercentage = DB::table('doctor_percentage')->where('doc_id', $currentTodayTotalSession->doctor_id)->first();
                 $doc_price = ($getpercentage->percentage / 100) * $currentTodayTotalSession->price;
-                $currentTodayTotalSession->card_fee = (2 / 100) * $currentTodayTotalSession->price;
-                $totalAdminSessionIncomToday += $currentTodayTotalSession->price - $doc_price - $currentTodayTotalSession->card_fee;
+                $totalAdminSessionIncomToday += $currentTodayTotalSession->price - $doc_price;
             }
             $currentTodayTotal = $totalAdminSessionIncomToday;
-
-
 
             $getLabOrderTodayTotal = DB::table("lab_orders")
                 ->join('quest_data_test_codes', 'quest_data_test_codes.TEST_CD', 'lab_orders.product_id')
@@ -1719,8 +1648,6 @@ class PaymentController extends Controller
             $totalMonthBalance = $currentMonthTotal + $data['month'] + $getLabOrderMonthTotal;
             $totalBalance = $getLabOrderTotal + $data['total'] + $totalSessionPrice;
 
-
-
             $OnlineItems = DB::table('lab_orders')->where('type','Counter')->orderBy('id','DESC')->paginate(10,['*'],'online');
             foreach ($OnlineItems as $ot) {
                 $test = DB::table('quest_data_test_codes')->where('TEST_CD', $ot->product_id)->first();
@@ -1730,7 +1657,6 @@ class PaymentController extends Controller
                 $ot->name = $test->TEST_NAME;
             }
 
-            //return dd($currentMonthDoctorHistory);
             $count = count($doctorHistory);
             if($user_type == "admin")
             {
@@ -1774,8 +1700,7 @@ class PaymentController extends Controller
                 $doc_price = ($getpercentage->percentage / 100) * $getSessionTotalSession->price;
                 $getSessionTotalSession->doc_percent = $getpercentage->percentage;
                 $getSessionTotalSession->doc_price = $doc_price;
-                $getSessionTotalSession->card_fee = (2 / 100) * $getSessionTotalSession->price;
-                $getSessionTotalSession->Net_profit = $getSessionTotalSession->price - $doc_price - $getSessionTotalSession->card_fee;
+                $getSessionTotalSession->Net_profit = $getSessionTotalSession->price - $doc_price;
                 $user_check = User::where('id', $getSessionTotalSession->patient_id)->first();
                 $getSessionTotalSession->pat_name = $user_check->name . ' ' . $user_check->last_name;
                 $user_check = User::where('id', $getSessionTotalSession->doctor_id)->first();
@@ -1898,9 +1823,8 @@ class PaymentController extends Controller
                 $doc_price = ($getpercentage->percentage / 100) * $getSessionTotalSession->price;
                 $getSessionTotalSession->doc_percent = $getpercentage->percentage;
                 $getSessionTotalSession->doc_price = $doc_price;
-                $getSessionTotalSession->card_fee = (2 / 100) * $getSessionTotalSession->price;
-                $getSessionTotalSession->Net_profit = $getSessionTotalSession->price - $doc_price - $getSessionTotalSession->card_fee;
-                $totalAdminSessionIncom += $getSessionTotalSession->price - $doc_price - $getSessionTotalSession->card_fee;
+                $getSessionTotalSession->Net_profit = $getSessionTotalSession->price - $doc_price;
+                $totalAdminSessionIncom += $getSessionTotalSession->price - $doc_price;
                 $user_check = User::where('id', $getSessionTotalSession->patient_id)->first();
                 $getSessionTotalSession->pat_name = $user_check->name . ' ' . $user_check->last_name;
                 $user_check = User::where('id', $getSessionTotalSession->doctor_id)->first();
@@ -2089,8 +2013,7 @@ class PaymentController extends Controller
             $doc_price = ($getpercentage->percentage / 100) * $getSessionTotalSession->price;
             $getSessionTotalSession->doc_percent = $getpercentage->percentage;
             $getSessionTotalSession->doc_price = $doc_price;
-            $getSessionTotalSession->card_fee = (2 / 100) * $getSessionTotalSession->price;
-            $totalAdminSessionIncom += $getSessionTotalSession->price - $doc_price - $getSessionTotalSession->card_fee;
+            $totalAdminSessionIncom += $getSessionTotalSession->price - $doc_price;
         }
         return $totalAdminSessionIncom;
     }

@@ -151,7 +151,7 @@
                             '">' +
                             '<div class="accord-data"><div><i class="fa fa-users"></i>&nbsp; Session ID &nbsp;<span>UEV-' +
                             ses.session_id + '</span></div>' +
-                            '<div>Earning <strong>$' + ses.Net_profit + '</strong></div>' +
+                            '<div>Earning <strong>Rs. ' + ses.Net_profit + '</strong></div>' +
                             '<div>' + ses.datetime['time'] + ',' + ses.datetime['date'] +
                             ' &nbsp;<a class="btn process-pay" href="#" ' +
                             'role="button">Details&nbsp;<i class="fa fa-arrow-down"></i></a></div>' +
@@ -181,7 +181,7 @@
                         'data-bs-target="#flush-collapse" aria-expanded="false" aria-controls="flush-collapse">' +
                         '<div class="accord-data"><div><i class=""></i>&nbsp; Total Sessions: &nbsp;<span>' +
                         data.length + '</span></div>' +
-                        '<div><i class="fa fa-usd"></i>&nbsp;Total Earning: <strong>' + total +
+                        '<div>Total Earning: <strong>Rs. ' + total +
                         '</strong></div>' +
                         '<div>' + date + ' &nbsp;</div>' +
                         '</div></button><div><div>'
@@ -242,9 +242,9 @@
                                 '</div></div>' +
                                 '<div class="row"><div class="col-md-4"><b>Dosage Days:</b> ' + pres
                                 .usage + '</div>' +
-                                '<div class="col-md-4"><b>Selling Price:</b> $' + pres.sale_price +
+                                '<div class="col-md-4"><b>Selling Price:</b> Rs. ' + pres.sale_price +
                                 '</div>' +
-                                '<div class="col-md-4"><b>Price:</b> $' + pres.price + '</div>' +
+                                '<div class="col-md-4"><b>Price:</b> Rs. ' + pres.price + '</div>' +
                                 '</div></div></div></div></div></div>'
                             );
                         } else {
@@ -258,9 +258,9 @@
                                 '</div></div>' +
                                 '<div class="row"><div class="col-md-4"><b>Dosage Days:</b> ' + pres
                                 .usage + '</div>' +
-                                '<div class="col-md-4"><b>Selling Price:</b> $' + pres.sale_price +
+                                '<div class="col-md-4"><b>Selling Price:</b> Rs. ' + pres.sale_price +
                                 '</div>' +
-                                '<div class="col-md-4"><b>Price:</b> $' + pres.price +
+                                '<div class="col-md-4"><b>Price:</b> Rs. ' + pres.price +
                                 '</div></div></div>'
                             );
                         }
@@ -275,7 +275,7 @@
                         'data-bs-target="#flush-collapse" aria-expanded="false" aria-controls="flush-collapse">' +
                         '<div class="accord-data"><div><i class=""></i>&nbsp; Total Prescriptions: &nbsp;<span>' +
                         data.length + '</span></div>' +
-                        '<div><i class="fa fa-usd"></i>&nbsp;Total Earning: <strong>' + total +
+                        '<div>Total Earning: <strong>Rs. ' + total +
                         '</strong></div>' +
                         '<div>' + date + ' &nbsp;</div>' +
                         '</div></button><div><div>'
@@ -387,9 +387,9 @@
                             '<div class="col-md-6"><b>Order ID:</b> ' + on.order_id + '</div>' +
                             '<div class="col-md-6"><b>Product ID:</b> ' + on.product_id +
                             '</div></div>' +
-                            '<div class="row"><div class="col-md-6"><b>Selling Price:</b> $' + on
+                            '<div class="row"><div class="col-md-6"><b>Selling Price:</b> Rs.' + on
                             .sale_price + '</div>' +
-                            '<div class="col-md-6"><b>Price:</b> $' + on.price + '</div>' +
+                            '<div class="col-md-6"><b>Price:</b> Rs.' + on.price + '</div>' +
                             '</div></div></div></div></div></div>'
 
                         );
@@ -402,7 +402,7 @@
                         'data-bs-target="#flush-collapse" aria-expanded="false" aria-controls="flush-collapse">' +
                         '<div class="accord-data"><div><i class=""></i>&nbsp; Total Items: &nbsp;<span>' +
                         data.length + '</span></div>' +
-                        '<div><i class="fa fa-usd"></i>&nbsp;Total Earning: <strong>' + total +
+                        '<div>Total Earning: <strong>Rs. ' + total +
                         '</strong></div>' +
                         '<div>' + date + ' &nbsp;</div>' +
                         '</div></button><div><div>'
@@ -629,7 +629,7 @@
                                             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                                               <div class="accord-data">
                                                 <div><i class="fa fa-users"></i>&nbsp; Session ID &nbsp;<span>UEV-326</span></div>
-                                                <div>Earning <strong>$80.00</strong></div>
+                                                <div>Earning <strong>Rs. 80.00</strong></div>
                                                 <div>11am,Aug 19th 2022 &nbsp;<a class="btn process-pay" href="#" role="button">Details&nbsp;<i class="fa fa-arrow-down"></i></a></div>
 
                                               </div>
@@ -650,16 +650,13 @@
                                                                         </p>
                                                                     </div>
                                                                     <div class="flextwo">
-                                                                        <div><span> Patient Paid</span> <span>+$
+                                                                        <div><span> Patient Paid</span> <span>+Rs.
                                                                                 &nbsp;{{ $sessions->price }}</span></div>
                                                                         <div>Doctor {{ $sessions->doc_percent }}%<span
-                                                                                class="text-danger">-$
+                                                                                class="text-danger">-Rs.
                                                                                 &nbsp;{{ $sessions->doc_price }}</span>
                                                                         </div>
-                                                                        <div>Credit card Fee <span class="text-danger">-$
-                                                                                &nbsp;{{ $sessions->card_fee }}</span>
-                                                                        </div>
-                                                                        <div>Net Profit <span>+$
+                                                                        <div>Net Profit <span>+Rs.
                                                                                 &nbsp;{{ $sessions->Net_profit }}</span>
                                                                         </div>
 
@@ -713,75 +710,6 @@
                                             </div>
 
                                         </div>
-                                        <!-- -------------Accordion--------------- -->
-                                        {{--<div id="precriptionItem">
-                                            @foreach ($prescriptions as $press)
-                                                @if ($press->order_id != null)
-                                                    <div class="accordion accordion-flush "
-                                                        id="accordionFlushExample_{{ $press->order_id }}">
-                                                        <div class="accordion-item mb-2">
-                                                            <h2 class="accordion-header"
-                                                                id="flush-heading_{{ $press->order_id }}">
-                                                                <button class="accordion-button collapsed" type="button"
-                                                                    data-bs-toggle="collapse"
-                                                                    data-bs-target="#flush-collapse_{{ $press->order_id }}"
-                                                                    aria-expanded="false"
-                                                                    aria-controls="flush-collapse_{{ $press->order_id }}">
-                                                                    <div class="accord-data">
-                                                                        <div>Order id :
-                                                                            &nbsp;<span>{{ $press->order_id }}</span></div>
-                                                                        <div>Session ID : &nbsp;<span>
-                                                                                UEV-{{ $press->ses_id }}</span></div>
-                                                                        <div>
-                                                                            {{ $press->datetime['time'] }},{{ $press->datetime['date'] }}
-                                                                            &nbsp;<a class="btn process-pay"
-                                                                                href="#"
-                                                                                role="button">Details&nbsp;<i
-                                                                                    class="fa fa-arrow-down"></i></a></div>
-
-                                                                    </div>
-                                                                </button>
-                                                            </h2>
-                                                            <div id="flush-collapse_{{ $press->order_id }}"
-                                                                class="accordion-collapse collapse"
-                                                                aria-labelledby="flush-headingOne"
-                                                                data-bs-parent="#accordionFlushExample_{{ $press->order_id }}">
-                                                                <div class="accordion-body"
-                                                                    id="accorbody_{{ $press->order_id }}">
-                                                                    @foreach ($press->prescriptions as $pres)
-                                                                        <div class="p-3">
-                                                                            <!-- <div class="flexone"><p class="fw-bold">Dr.Haris Rohail</p><p>Session with:</p><p>Patient: <span class="fw-bold">Abdul Musavir</span></p>
-                                                </div> -->
-                                                                            <div class="row mb-1">
-                                                                                <div class="col-md-4"><b>Product Name:</b>
-                                                                                    {{ $pres->name }}</div>
-                                                                                <div class="col-md-4"><b>Product ID:</b>
-                                                                                    {{ $pres->pro_id }}</div>
-                                                                                <div class="col-md-4"><b>Product type:</b>
-                                                                                    {{ $pres->type }}</div>
-
-                                                                            </div>
-                                                                            <div class="row">
-                                                                                <div class="col-md-4"><b>Dosage Days:</b>
-                                                                                    {{ $pres->usage }}</div>
-                                                                                <div class="col-md-4"><b>Selling Price:</b>
-                                                                                    Rs. {{ $pres->sale_price }}</div>
-                                                                                <div class="col-md-4"><b>Price:</b>
-                                                                                    Rs. {{ $pres->price }}</div>
-
-                                                                            </div>
-
-                                                                        </div>
-                                                                    @endforeach
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                @endif
-                                            @endforeach
-                                            {{ $prescriptions->links('pagination::bootstrap-4') }}
-                                        </div>--}}
-                                        <!-- -------------AccordionEND--------------- -->
                                     </div>
 
                                     <div class="tab-pane container fade" id="onlineItems">
@@ -826,7 +754,7 @@
                                                                 <div class="accord-data">
                                                                     <div>Product Name:
                                                                         &nbsp;<span>{{ $ot->name }}</span></div>
-                                                                    <!-- <div>Selling Price: <strong>$80.00</strong></div> -->
+                                                                    <!-- <div>Selling Price: <strong>Rs. 80.00</strong></div> -->
                                                                     <div>
                                                                         {{ $ot->datetime['time'] }},{{ $ot->datetime['date'] }}
                                                                         &nbsp;<a class="btn process-pay" href="#"

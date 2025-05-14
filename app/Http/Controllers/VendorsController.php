@@ -19,6 +19,9 @@ class VendorsController extends Controller
     public function index()
     {
         $vendors = DB::table('vendor_accounts')->paginate(12);
+        foreach ($vendors as $key => $vendor) {
+            $vendor->image = \App\Helper::check_bucket_files_url($vendor->image);
+        }
         return view('website_pages.vendors.index', compact('vendors'));
     }
 
@@ -30,11 +33,11 @@ class VendorsController extends Controller
 public function showVendors(Request $request)
 {
     $search = $request->input('search', '');
-    
+
     $query = DB::table('vendor_accounts')
         ->join('users', 'vendor_accounts.user_id', '=', 'users.id')
         ->select('vendor_accounts.*', 'users.name as user_name', 'users.last_name as user_last_name');
-    
+
     if ($search) {
         $query->where(function($q) use ($search) {
             $q->where('users.name', 'LIKE', "%{$search}%")
@@ -42,13 +45,13 @@ public function showVendors(Request $request)
               ->orWhere('vendor_accounts.name', 'LIKE', "%{$search}%");
         });
     }
-    
+
     $vendors = $query->paginate(12);
-    
+
     if ($request->ajax()) {
         return view('website_pages.vendors.all_vendors', compact('vendors'))->render();
     }
-    
+
     return view('website_pages.vendors.all_vendors', compact('vendors'));
 }
 
@@ -208,7 +211,7 @@ public function showVendors(Request $request)
 {
     try {
         $vendor = VendorAccount::findOrFail($id);
-        $user = User::findOrFail($vendor->user_id); 
+        $user = User::findOrFail($vendor->user_id);
         return view('website_pages.vendors.edit_vendor', compact('vendor', 'user'));
     } catch (\Exception $e) {
         Log::error('Error fetching vendor for editing: ' . $e->getMessage());
@@ -244,7 +247,7 @@ public function update(Request $request, $id)
 
         // Find the vendor account
         $vendor = VendorAccount::findOrFail($id);
-        
+
         // Find the associated user
         $user = User::findOrFail($vendor->user_id);
 
@@ -253,7 +256,7 @@ public function update(Request $request, $id)
         // Update user details
         $user->name = $request->vendor_name;
         $user->last_name = $request->last_name;
-        
+
         // Check if email has changed
         if ($user->email !== $request->email) {
             // Verify if the new email is available
@@ -264,16 +267,16 @@ public function update(Request $request, $id)
             }
             $user->email = $request->email;
         }
-        
+
         // Update password if provided
         if ($request->filled('password')) {
             $user->password = Hash::make($request->password);
         }
-        
+
         $user->date_of_birth = date('Y-m-d', strtotime($request->date_of_birth));
         $user->phone_number = $request->phone_number;
         $user->gender = $request->gender;
-        
+
         if (!$user->save()) {
             throw new \Exception('Failed to update user record');
         }
@@ -290,7 +293,7 @@ public function update(Request $request, $id)
             try {
                 $file = $request->file('image');
                 $imageName = Storage::disk('s3')->put('vendors', $file);
-                
+
                 // Delete old image if exists
                 if ($vendor->image) {
                     try {
@@ -299,7 +302,7 @@ public function update(Request $request, $id)
                         Log::error('Failed to delete old image: ' . $e->getMessage());
                     }
                 }
-                
+
                 $vendor->image = $imageName;
             } catch (\Exception $e) {
                 Log::error('Image upload failed: ' . $e->getMessage());
