@@ -67,18 +67,11 @@
                                             </div>
                                         </div>
                                         <div class="row mb-3">
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <label class="fw-bolder mb-2 required-field" for="email">Email</label>
                                                 <input type="email" name="email" id="email" class="form-control" required
                                                     placeholder="Enter Email Address...">
                                             </div>
-                                            <div class="col-md-6">
-                                                <label class="fw-bolder mb-2 required-field" for="password">Password</label>
-                                                <input type="password" name="password" id="password" class="form-control"
-                                                    required placeholder="Enter Password...">
-                                            </div>
-                                        </div>
-                                        <div class="row mb-3">
                                             <div class="col-md-4">
                                                 <label class="fw-bolder mb-2 required-field" for="phone_number">Phone
                                                     Number</label>
@@ -87,20 +80,9 @@
                                                     pattern="\d{11}" title="Phone number must be 11 digits">
                                             </div>
                                             <div class="col-md-4">
-                                                <label class="fw-bolder mb-2 required-field" for="date_of_birth">Date of
-                                                    Birth</label>
-                                                <input type="date" name="date_of_birth" id="date_of_birth"
-                                                    class="form-control" required
-                                                    value="{{ date('Y-m-d', strtotime('-30 years')) }}">
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label class="fw-bolder mb-2 required-field" for="gender">Gender</label>
-                                                <select name="gender" id="gender" class="form-control" required>
-                                                    <option value="" selected disabled>Select Gender</option>
-                                                    <option value="male">Male</option>
-                                                    <option value="female">Female</option>
-                                                    <option value="other">Other</option>
-                                                </select>
+                                                <label class="fw-bolder mb-2 required-field" for="password">Password</label>
+                                                <input type="password" name="password" id="password" class="form-control"
+                                                    required placeholder="Enter Password...">
                                             </div>
                                         </div>
                                     </div>
@@ -111,9 +93,11 @@
                                         <div class="row mb-3">
                                             <div class="col-md-6">
                                                 <label class="fw-bolder mb-2 required-field" for="vendor_number">Vendor
+                                                    Account
                                                     Number</label>
                                                 <input type="text" name="vendor_number" id="vendor_number"
-                                                    class="form-control" required placeholder="Enter Vendor Number...">
+                                                    class="form-control" required
+                                                    placeholder="Enter Vendor Account Number...">
                                             </div>
                                             <div class="col-md-6">
                                                 <label class="fw-bolder mb-2 required-field"
@@ -132,11 +116,27 @@
                                                     <option value="labs">Labs</option>
                                                 </select>
                                             </div>
-
                                             <div class="col-md-6">
                                                 <label class="fw-bolder mb-2" for="vendor_logo">Vendor Logo</label>
                                                 <input type="file" name="image" id="vendor_logo" class="form-control"
                                                     accept="image/*">
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label class="fw-bolder mb-2" for="check_image">Check-book Image</label>
+                                                <input type="file" name="check_image" id="check_image" class="form-control"
+                                                    accept="image/*">
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="fw-bolder mb-2 required-field"
+                                                    for="location_id">Location</label>
+                                                <select name="location_id" id="location_id" class="form-control" required>
+                                                    <option value="" selected disabled>Select Location</option>
+                                                    @foreach($locations ?? [] as $location)
+                                                        <option value="{{ $location['id'] }}">{{ $location['name'] }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="row mb-3">

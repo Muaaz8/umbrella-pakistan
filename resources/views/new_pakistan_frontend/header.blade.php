@@ -261,9 +261,8 @@
             <img width="220px" src="{{ asset('assets/new_frontend/logo.png') }}" alt="" />
             <hr />
             <a href="{{ url('/') }}">Home</a>
-            <a href="{{ route('vendor') }}">Shops</a>
-            <a href="{{ route('labs') }}">Lab Tests</a>
-            <a href="{{ route('imaging') }}">Imaging</a>
+            <a href="{{ route('vendor', ['shop_type' => 'pharmacy']) }}">Pharmacy</a>
+            <a href="{{ route('vendor', ['shop_type' => 'labs']) }}">Lab Tests</a>
             <a href="{{ route('e-visit') }}">E-Visit</a>
             <a href="{{ route('doc_profile_page_list') }}">Our Doctors</a>
             <a href="{{ route('about_us') }}">About Us</a>
@@ -291,9 +290,8 @@
         </div>
         <div class="flex gap-15" id="nav-left-side">
             <a href="{{ url('/') }}">Home</a>
-            <a href="{{ route('vendor') }}">Shops</a>
-            <a href="{{ route('labs') }}">Lab Tests</a>
-            <a href="{{ route('imaging') }}">Imaging</a>
+            <a href="{{ route('vendor', ['shop_type' => 'pharmacy']) }}">Pharmacy</a>
+            <a href="{{ route('vendor', ['shop_type' => 'labs']) }}">Lab Tests</a>
             <a href="{{ route('e-visit') }}">E-Visit</a>
             <a href="{{ route('doc_profile_page_list') }}">Our Doctors</a>
             <a href="{{ route('about_us') }}">About Us</a>

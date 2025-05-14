@@ -75,18 +75,11 @@
                                             </div>
                                         </div>
                                         <div class="row mb-3">
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <label class="fw-bolder mb-2 required-field" for="email">Email</label>
                                                 <input type="email" name="email" id="email" class="form-control" required
                                                     placeholder="Enter Email Address..." value="{{ $user->email }}">
                                             </div>
-                                            <div class="col-md-6">
-                                                <label class="fw-bolder mb-2" for="password">Password (Leave blank to keep current)</label>
-                                                <input type="password" name="password" id="password" class="form-control"
-                                                    placeholder="Enter New Password...">
-                                            </div>
-                                        </div>
-                                        <div class="row mb-3">
                                             <div class="col-md-4">
                                                 <label class="fw-bolder mb-2 required-field" for="phone_number">Phone
                                                     Number</label>
@@ -95,19 +88,9 @@
                                                     pattern="\d{11}" title="Phone number must be 11 digits" value="{{ $user->phone_number }}">
                                             </div>
                                             <div class="col-md-4">
-                                                <label class="fw-bolder mb-2 required-field" for="date_of_birth">Date of
-                                                    Birth</label>
-                                                <input type="date" name="date_of_birth" id="date_of_birth"
-                                                    class="form-control" required value="{{ $user->date_of_birth }}">
-                                            </div>
-                                            <div class="col-md-4">
-                                                <label class="fw-bolder mb-2 required-field" for="gender">Gender</label>
-                                                <select name="gender" id="gender" class="form-control" required>
-                                                    <option value="" disabled>Select Gender</option>
-                                                    <option value="male" {{ $user->gender == 'male' ? 'selected' : '' }}>Male</option>
-                                                    <option value="female" {{ $user->gender == 'female' ? 'selected' : '' }}>Female</option>
-                                                    <option value="other" {{ $user->gender == 'other' ? 'selected' : '' }}>Other</option>
-                                                </select>
+                                                <label class="fw-bolder mb-2" for="password">Password (Leave blank to keep current)</label>
+                                                <input type="password" name="password" id="password" class="form-control"
+                                                    placeholder="Enter New Password...">
                                             </div>
                                         </div>
                                     </div>
@@ -117,10 +100,10 @@
                                         <h5 class="form-section-title">Vendor Details</h5>
                                         <div class="row mb-3">
                                             <div class="col-md-6">
-                                                <label class="fw-bolder mb-2 required-field" for="vendor_number">Vendor
+                                                <label class="fw-bolder mb-2 required-field" for="vendor_number">Vendor Account
                                                     Number</label>
                                                 <input type="text" name="vendor_number" id="vendor_number"
-                                                    class="form-control" required placeholder="Enter Vendor Number..." value="{{ $vendor->vendor_number }}">
+                                                    class="form-control" required placeholder="Enter Vendor Account Number..." value="{{ $vendor->vendor_number }}">
                                             </div>
                                             <div class="col-md-6">
                                                 <label class="fw-bolder mb-2 required-field"
@@ -139,15 +122,31 @@
                                                     <option value="labs" {{ $vendor->vendor == 'labs' ? 'selected' : '' }}>Labs</option>
                                                 </select>
                                             </div>
-
                                             <div class="col-md-6">
                                                 <label class="fw-bolder mb-2" for="vendor_logo">Vendor Logo</label>
                                                 <input type="file" name="image" id="vendor_logo" class="form-control"
                                                     accept="image/*">
-                                                @if($vendor->image)
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3">
+                                            <div class="col-md-6">
+                                                <label class="fw-bolder mb-2 required-field"
+                                                    for="location_id">Location</label>
+                                                <select name="location_id" id="location_id" class="form-control" required>
+                                                    <option value="" disabled>Select Location</option>
+                                                    @foreach($locations ?? [] as $location)
+                                                        <option value="{{ $location['id'] }}">{{ $location['name'] }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label class="fw-bolder mb-2" for="check_image">Checkbook Image</label>
+                                                <input type="file" name="check_image" id="check_image" class="form-control"
+                                                    accept="image/*">
+                                                @if($vendor->check_image)
                                                     <div class="mt-2">
-                                                        <img src="{{ Storage::disk('s3')->url($vendor->image) }}" alt="Current Logo" class="vendor-logo-preview">
-                                                        <p class="small text-muted mt-1">Current logo</p>
+                                                        <img src="{{ Storage::disk('s3')->url($vendor->check_image) }}" alt="Current Checkbook Image" class="vendor-logo-preview">
+                                                        <p class="small text-muted mt-1">Current checkbook image</p>
                                                     </div>
                                                 @endif
                                             </div>
@@ -164,6 +163,7 @@
 
                                     <!-- Hidden field for user_id -->
                                     <input type="hidden" name="user_id" value="{{ $user->id }}">
+                                    <input type="hidden" name="user_type" value="vendor">
 
                                     @if(session('error'))
                                         <div class="alert alert-danger">

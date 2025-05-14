@@ -16,44 +16,56 @@ use Image;
 
 class VendorsController extends Controller
 {
-    public function index()
+    public function index($shop_type)
     {
-        $vendors = DB::table('vendor_accounts')->paginate(12);
+        $vendors = DB::table('vendor_accounts')->where('vendor' , $shop_type)->paginate(12);
         foreach ($vendors as $key => $vendor) {
             $vendor->image = \App\Helper::check_bucket_files_url($vendor->image);
         }
         return view('website_pages.vendors.index', compact('vendors'));
     }
 
-    public function create_vendor_page()
-    {
-        return view('website_pages.vendors.create');
-    }
-
-public function showVendors(Request $request)
+public function create_vendor_page()
 {
-    $search = $request->input('search', '');
+    $locations = [
+        [
+            'id' => '1',
+            'name' => 'shah faisal colony'
+        ],
+        [
+            'id' => '2',
+            'name' => 'johor'
+        ]
+    ];
 
-    $query = DB::table('vendor_accounts')
-        ->join('users', 'vendor_accounts.user_id', '=', 'users.id')
-        ->select('vendor_accounts.*', 'users.name as user_name', 'users.last_name as user_last_name');
-
-    if ($search) {
-        $query->where(function($q) use ($search) {
-            $q->where('users.name', 'LIKE', "%{$search}%")
-              ->orWhere('vendor_accounts.vendor_number', 'LIKE', "%{$search}%")
-              ->orWhere('vendor_accounts.name', 'LIKE', "%{$search}%");
-        });
-    }
-
-    $vendors = $query->paginate(12);
-
-    if ($request->ajax()) {
-        return view('website_pages.vendors.all_vendors', compact('vendors'))->render();
-    }
-
-    return view('website_pages.vendors.all_vendors', compact('vendors'));
+    return view('website_pages.vendors.create', compact('locations'));
 }
+
+
+    public function showVendors(Request $request)
+    {
+        $search = $request->input('search', '');
+
+        $query = DB::table('vendor_accounts')
+            ->join('users', 'vendor_accounts.user_id', '=', 'users.id')
+            ->select('vendor_accounts.*', 'users.name as user_name', 'users.last_name as user_last_name');
+
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('users.name', 'LIKE', "%{$search}%")
+                    ->orWhere('vendor_accounts.vendor_number', 'LIKE', "%{$search}%")
+                    ->orWhere('vendor_accounts.name', 'LIKE', "%{$search}%");
+            });
+        }
+
+        $vendors = $query->paginate(12);
+
+        if ($request->ajax()) {
+            return view('website_pages.vendors.all_vendors', compact('vendors'))->render();
+        }
+
+        return view('website_pages.vendors.all_vendors', compact('vendors'));
+    }
 
 
     public function create(Request $request)
@@ -66,8 +78,6 @@ public function showVendors(Request $request)
                 'email' => 'required|email|unique:users,email',
                 'password' => 'required|string|min:6',
                 'phone_number' => 'required|string',
-                'date_of_birth' => 'required|date',
-                'gender' => 'required|in:male,female,other',
                 'vendor_number' => 'required|string',
                 'name' => 'required|string',
                 'vendor' => 'required|in:pharmacy,labs',
@@ -78,7 +88,6 @@ public function showVendors(Request $request)
 
             DB::beginTransaction();
 
-            $newd_o_b = date('Y-m-d', strtotime($request->date_of_birth));
             $timeZone = 'Asia/Karachi';
 
             $user = User::create([
@@ -91,11 +100,11 @@ public function showVendors(Request $request)
                 'city_id' => $request->city ?? null,
                 'state_id' => '',
                 'password' => Hash::make($request->password),
-                'date_of_birth' => $newd_o_b,
+                'date_of_birth' => null,
                 'phone_number' => $request->phone_number,
                 'office_address' => "",
                 'zip_code' => '',
-                'gender' => $request->gender,
+                'gender' => null,
                 'terms_and_cond' => $request->terms_and_cond ?? false,
                 'timeZone' => $timeZone,
             ]);
@@ -105,12 +114,23 @@ public function showVendors(Request $request)
             }
 
             $imagePath = null;
+            $checkImagePath = null;
 
             if ($request->hasFile('image')) {
                 try {
                     $file = $request->file('image');
                     $imageName = Storage::disk('s3')->put('vendors', $file);
                     $imagePath = $imageName;
+                } catch (\Exception $e) {
+                    Log::error('Image upload failed: ' . $e->getMessage());
+                }
+            }
+
+            if ($request->hasFile('check_image')) {
+                try {
+                    $file = $request->file('check_image');
+                    $imageName = Storage::disk('s3')->put('vendors_check', $file);
+                    $checkImagePath = $imageName;
                 } catch (\Exception $e) {
                     Log::error('Image upload failed: ' . $e->getMessage());
                 }
@@ -127,13 +147,15 @@ public function showVendors(Request $request)
             ];
 
             $vendorAccount = VendorAccount::create([
-                'number' => $request->phone_number,
+                'number' => $request->vendor_number,
                 'name' => $request->name,
                 'address' => $request->address,
                 'vendor' => $request->vendor,
-                'vendor_number' => $request->vendor_number,
+                'vendor_number' => $request->phone_number,
                 'image' => $imagePath,
                 'user_id' => $user->id,
+                'checkbook_image' => $checkImagePath,
+                'location_id' => $request->location_id ?? null,
             ]);
 
             if (!$vendorAccount) {
@@ -208,137 +230,158 @@ public function showVendors(Request $request)
     }
 
     public function edit($id)
-{
-    try {
-        $vendor = VendorAccount::findOrFail($id);
-        $user = User::findOrFail($vendor->user_id);
-        return view('website_pages.vendors.edit_vendor', compact('vendor', 'user'));
-    } catch (\Exception $e) {
-        Log::error('Error fetching vendor for editing: ' . $e->getMessage());
-        return redirect()->route('all_vendors_page')
-            ->with('error', 'Vendor not found or could not be edited.');
+    {
+    $locations = [
+        [
+            'id' => '1',
+            'name' => 'shah faisal colony'
+        ],
+        [
+            'id' => '2',
+            'name' => 'johor'
+        ]
+    ];
+        try {
+            $vendor = VendorAccount::findOrFail($id);
+            $user = User::findOrFail($vendor->user_id);
+            return view('website_pages.vendors.edit_vendor', compact('vendor', 'user', 'locations'));
+        } catch (\Exception $e) {
+            Log::error('Error fetching vendor for editing: ' . $e->getMessage());
+            return redirect()->route('all_vendors_page')
+                ->with('error', 'Vendor not found or could not be edited.');
+        }
     }
-}
 
-public function update(Request $request, $id)
-{
-    try {
-        // Validate the request data
-        $rules = [
-            'vendor_name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'email' => 'required|email',
-            'phone_number' => 'required|string',
-            'date_of_birth' => 'required|date',
-            'gender' => 'required|in:male,female,other',
-            'vendor_number' => 'required|string',
-            'name' => 'required|string',
-            'vendor' => 'required|in:pharmacy,labs',
-            'address' => 'required|string',
-            'image' => 'nullable|image|max:2048',
-        ];
+    public function update(Request $request, $id)
+    {
+        try {
+            // Validate the request data
+            $rules = [
+                'vendor_name' => 'required|string|max:255',
+                'last_name' => 'required|string|max:255',
+                'email' => 'required|email',
+                'phone_number' => 'required|string',
+                'vendor_number' => 'required|string',
+                'name' => 'required|string',
+                'vendor' => 'required|in:pharmacy,labs',
+                'address' => 'required|string',
+                'image' => 'nullable|image|max:2048',
+            ];
 
-        // Only validate password if it's provided
-        if ($request->filled('password')) {
-            $rules['password'] = 'string|min:6';
-        }
-
-        $validated = $request->validate($rules);
-
-        // Find the vendor account
-        $vendor = VendorAccount::findOrFail($id);
-
-        // Find the associated user
-        $user = User::findOrFail($vendor->user_id);
-
-        DB::beginTransaction();
-
-        // Update user details
-        $user->name = $request->vendor_name;
-        $user->last_name = $request->last_name;
-
-        // Check if email has changed
-        if ($user->email !== $request->email) {
-            // Verify if the new email is available
-            if (User::where('email', $request->email)->where('id', '!=', $user->id)->exists()) {
-                return redirect()->back()
-                    ->withInput()
-                    ->with('error', 'The email address is already in use by another account.');
+            // Only validate password if it's provided
+            if ($request->filled('password')) {
+                $rules['password'] = 'string|min:6';
             }
-            $user->email = $request->email;
-        }
 
-        // Update password if provided
-        if ($request->filled('password')) {
-            $user->password = Hash::make($request->password);
-        }
+            $validated = $request->validate($rules);
 
-        $user->date_of_birth = date('Y-m-d', strtotime($request->date_of_birth));
-        $user->phone_number = $request->phone_number;
-        $user->gender = $request->gender;
+            $vendor = VendorAccount::findOrFail($id);
 
-        if (!$user->save()) {
-            throw new \Exception('Failed to update user record');
-        }
+            $user = User::findOrFail($vendor->user_id);
 
-        // Update vendor account details
-        $vendor->number = $request->phone_number;
-        $vendor->name = $request->name;
-        $vendor->address = $request->address;
-        $vendor->vendor = $request->vendor;
-        $vendor->vendor_number = $request->vendor_number;
+            DB::beginTransaction();
 
-        // Handle image upload if provided
-        if ($request->hasFile('image')) {
-            try {
-                $file = $request->file('image');
-                $imageName = Storage::disk('s3')->put('vendors', $file);
+            $user->name = $request->vendor_name;
+            $user->last_name = $request->last_name;
 
-                // Delete old image if exists
-                if ($vendor->image) {
-                    try {
-                        Storage::disk('s3')->delete($vendor->image);
-                    } catch (\Exception $e) {
-                        Log::error('Failed to delete old image: ' . $e->getMessage());
-                    }
+            if ($user->email !== $request->email) {
+                if (User::where('email', $request->email)->where('id', '!=', $user->id)->exists()) {
+                    return redirect()->back()
+                        ->withInput()
+                        ->with('error', 'The email address is already in use by another account.');
                 }
-
-                $vendor->image = $imageName;
-            } catch (\Exception $e) {
-                Log::error('Image upload failed: ' . $e->getMessage());
+                $user->email = $request->email;
             }
+
+            if ($request->filled('password')) {
+                $user->password = Hash::make($request->password);
+            }
+            ;
+            $user->phone_number = $request->phone_number;
+
+            if (!$user->save()) {
+                throw new \Exception('Failed to update user record');
+            }
+
+            // Update vendor account details
+            $vendor->number = $request->phone_number;
+            $vendor->name = $request->name;
+            $vendor->address = $request->address;
+            $vendor->vendor = $request->vendor;
+            $vendor->vendor_number = $request->vendor_number;
+            $vendor->location_id = $request->location_id ?? null;
+
+            // Handle image upload if provided
+            if ($request->hasFile('image')) {
+                try {
+                    $file = $request->file('image');
+                    $imageName = Storage::disk('s3')->put('vendors', $file);
+
+                    // Delete old image if exists
+                    if ($vendor->image) {
+                        try {
+                            Storage::disk('s3')->delete($vendor->image);
+                        } catch (\Exception $e) {
+                            Log::error('Failed to delete old image: ' . $e->getMessage());
+                        }
+                    }
+
+                    $vendor->image = $imageName;
+                } catch (\Exception $e) {
+                    Log::error('Image upload failed: ' . $e->getMessage());
+                }
+            }
+
+            // Handle checkbook image upload if provided
+            if ($request->hasFile('check_image')) {
+                try {
+                    $file = $request->file('check_image');
+                    $imageName = Storage::disk('s3')->put('vendors_check', $file);
+
+                    if ($vendor->checkbook_image) {
+                        try {
+                            Storage::disk('s3')->delete($vendor->checkbook_image);
+                        } catch (\Exception $e) {
+                            Log::error('Failed to delete old checkbook image: ' . $e->getMessage());
+                        }
+                    }
+
+                    $vendor->checkbook_image = $imageName;
+                } catch (\Exception $e) {
+                    Log::error('Checkbook image upload failed: ' . $e->getMessage());
+                }
+            }
+
+            if (!$vendor->save()) {
+                throw new \Exception('Failed to update vendor account');
+            }
+
+            DB::commit();
+
+            return redirect()->route('all_vendors_page')
+                ->with('success', 'Vendor updated successfully.');
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return redirect()->back()
+                ->withErrors($e->validator)
+                ->withInput()
+                ->with('error', 'Please check the form for errors.');
+
+        } catch (\Illuminate\Database\QueryException $e) {
+            DB::rollBack();
+            Log::error('Database error during vendor update: ' . $e->getMessage());
+
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'A database error occurred. Please try again later.');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            Log::error('Error updating vendor: ' . $e->getMessage());
+
+            return redirect()->back()
+                ->withInput()
+                ->with('error', 'An error occurred while updating the vendor. Please try again later.');
         }
-
-        if (!$vendor->save()) {
-            throw new \Exception('Failed to update vendor account');
-        }
-
-        DB::commit();
-
-        return redirect()->route('all_vendors_page')
-            ->with('success', 'Vendor updated successfully.');
-
-    } catch (\Illuminate\Validation\ValidationException $e) {
-        return redirect()->back()
-            ->withErrors($e->validator)
-            ->withInput()
-            ->with('error', 'Please check the form for errors.');
-
-    } catch (\Illuminate\Database\QueryException $e) {
-        DB::rollBack();
-        Log::error('Database error during vendor update: ' . $e->getMessage());
-
-        return redirect()->back()
-            ->withInput()
-            ->with('error', 'A database error occurred. Please try again later.');
-
-    } catch (\Exception $e) {
-        DB::rollBack();
-        Log::error('Error updating vendor: ' . $e->getMessage());
-
-        return redirect()->back()
-            ->withInput()
-            ->with('error', 'An error occurred while updating the vendor. Please try again later.');
     }
-}
 }

@@ -409,9 +409,9 @@ Route::group(['middleware' => 'redirecttovideo'], function () {
     Route::post('search_imaging_item', 'unAuthController@searchImagingItem')->name('search_imaging_item');
     Route::post('fetch_labtest_item_by_category', 'unAuthController@fetchLabtestItemByCategory')->name('fetch_labtest_item_by_category');
     Route::post('fetch_imaging_item_by_category', 'unAuthController@fetchImagingItemByCategory')->name('fetch_imaging_item_by_category');
-    Route::get('/labtests', 'PharmacyController@index')->name('labs');
     Route::get('/pharmacy', 'PharmacyController@index')->name('pharmacy_products');
-    Route::get( '/shops', 'VendorsController@index')->name('vendor');
+    Route::get('/labtests', 'PharmacyController@index')->name('labs_products');
+    Route::get( '/shops/{shop_type}', 'VendorsController@index')->name('vendor');
     Route::get('/imaging', 'PharmacyController@index')->name('imaging');
     Route::get('/pharmacy/{slug}', 'PharmacyController@index')->name('pharmacy.category');
     Route::get('/labtests/{slug}', 'PharmacyController@index')->name('slug.labtest');
@@ -427,6 +427,7 @@ Route::group(['middleware' => 'redirecttovideo'], function () {
     Route::post('/verify_nip_unique', 'Auth\RegisterController@verify_nip_unique');
     Route::post('/verify_username_unique', 'Auth\RegisterController@verify_username_unique');
     Route::get('/pharmacy/items', 'PharmacyController@index')->name('pharmacy');
+    Route::get('/labtests/items', 'PharmacyController@index')->name('labs');
 
     Route::post('/symptom_checker_cookie_store',"unAuthController@symptom_checker_cookie_store");
     Route::post('/symptom_chat',"unAuthController@chat");

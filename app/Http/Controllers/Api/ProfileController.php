@@ -253,6 +253,9 @@ class ProfileController extends BaseController
         DB::table('users')->where('id', $user->id)->update([
             'user_image' => $filename,
         ]);
+
+        $user->user_image = \App\Helper::check_bucket_files_url($user->user_image);
+
         if ($user->user_type == 'patient') {
             return $this->sendResponse(['user' => $user], 'Profile picture updated successfully.');
         } else if ($user->user_type == 'doctor') {

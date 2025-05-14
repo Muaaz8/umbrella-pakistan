@@ -92,8 +92,9 @@ class PharmacyController extends Controller
 
     // PRODUCTS & E-COMMERCE
 
-    public function index(Request $request, $slug = '')
+    public function index(Request $request, $slug = '' )
     {
+        $vendor_id = $request->query('id');
         $pageName = $request->segment(1);
         $slug_name = "";
         // For Categories

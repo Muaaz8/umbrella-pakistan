@@ -93,15 +93,22 @@
                             </div>
                             <div class="med-img2">
                                 <img src="{{$vendor->image}}" alt="img">
-                                {{-- <img src="{{ asset('assets/new_frontend/panadol2.png') }}" alt="img"> --}}
                             </div>
                             <h4 class="truncate m-0 p-0">{{ $vendor->name }}</h4>
                             <h6 class="truncate mb-2 p-0">{{ $vendor->address }}</h6>
                             <div class="pharmacy_btn2">
-                                <a class="add-to-cart w-100 text-center btn" style="font-size: 14px; font-weight: 700;"
-                                    href="{{ route('pharmacy_products', ['id' => $vendor->id]) }}">
-                                    View Products
-                                </a>
+                                @if ($vendor->vendor == 'pharmacy')
+                                    <a class="add-to-cart w-100 text-center btn" style="font-size: 14px; font-weight: 700;"
+                                        href="{{ route('pharmacy_products', ['id' => $vendor->id]) }}">
+                                        View Products
+                                    </a>
+                                @elseif ($vendor->vendor == 'labs')
+                                    <a class="add-to-cart w-100 text-center btn" style="font-size: 14px; font-weight: 700;"
+                                        href="{{ route('labs_products', ['id' => $vendor->id]) }}">
+                                        View Products
+                                    </a>
+
+                                @endif
                             </div>
                         </div>
                     @endforeach

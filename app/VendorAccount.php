@@ -16,5 +16,7 @@ class VendorAccount extends Model
         'image',
         'category',
         'is_active',
+        'checkbook_image',
+        'location_id'
     ];
 }
