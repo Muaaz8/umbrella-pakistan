@@ -1414,7 +1414,7 @@ class PaymentController extends Controller
                     ->first();
                     $pres->name = $test->name;
                     $pres->sale_price = $order->update_price;
-                    $pres->price = $order->update_price;
+                    $pres->price = $order->update_price-(($order->update_price/100)*10);;
                     if ($order != null) {
                         $pres->order_id = $order->order_main_id;
                     } else {
@@ -1624,7 +1624,7 @@ class PaymentController extends Controller
                         ->first();
                     $pres->name = $test->name;
                     $pres->sale_price = $order->update_price;
-                    $pres->price = $order->update_price;
+                    $pres->price = $order->update_price-(($order->update_price/100)*10);
                     $pres->order_id = $order->order_main_id;
                     $pres->pro_id = $pres->medicine_id;
                 }
@@ -1813,7 +1813,7 @@ class PaymentController extends Controller
                         ->first();
                     $pres->name = $test->name;
                     $pres->sale_price = $order->update_price;
-                    $pres->price = $order->update_price;
+                    $pres->price = $order->update_price-(($order->update_price/100)*10);;
                     $pres->order_id = $order->order_main_id;
                     $pres->pro_id = $pres->medicine_id;
                 }
@@ -1930,8 +1930,8 @@ class PaymentController extends Controller
                         ->where('id', $pres->price)
                         ->first();
                         $pres->name = $test->name;
-                        $pres->sale_price = $price->sale_price;
-                        $pres->price = $price->price;
+                        $pres->sale_price = $order->update_price;
+                        $pres->price = $order->update_price-(($order->update_price/100)*10);;
                         $pres->order_id = $order->order_main_id;
                         $pres->pro_id = $pres->medicine_id;
                     }
