@@ -169,75 +169,107 @@ class PatientsController extends BaseController
         ], 'Patient Dashboard Info');
     }
 
-    public function patient_medical_prfile_save(Request $request)
-    {
-        $symptoms = "";
-        if ($request['symp'] != null) {
-            foreach ($request['symp'] as $symp) {
-                $symptoms .= $symp . ",";
-            }
+public function patient_medical_prfile_save(Request $request)
+{
+    try {
+
+        $user = auth()->user()->id;
+        
+        $symptomsArray = [];
+        if ($request->has('symp')) {
+            $symptomsArray = json_decode($request->symp, true);
+
+            $symptoms = implode(',', $symptomsArray);
+        } else {
+            $symptoms = "";
         }
-        $immunization_history = array();
-        $immunization = array("pneumovax", "h1n1", "annual_flu", "hepatitis_b", "tetanus", "others");
-        if ($request['immun_name'] != null) {
-            for ($i = 0; $i < count($request->immun_when); $i++) {
-                $temp['name'] = $request->immun_name[$i];
-                $temp['when'] = $request->immun_when[$i];
-                $temp['flag'] = 'yes';
-                array_push($immunization_history, $temp);
+        $immunization_history = [];
+        if ($request->has('immun_name') && $request->has('immun_when')) {
+            $immun_names = json_decode($request->immun_name, true);
+            $immun_whens = json_decode($request->immun_when, true);
+            
+            if (is_array($immun_names) && is_array($immun_whens)) {
+                for ($i = 0; $i < count($immun_names); $i++) {
+                    if (isset($immun_names[$i]) && isset($immun_whens[$i])) {
+                        $temp['name'] = $immun_names[$i];
+                        $temp['when'] = $immun_whens[$i];
+                        $temp['flag'] = 'yes';
+                        $immunization_history[] = $temp;
+                    }
+                }
             }
         }
         $immunization_history = json_encode($immunization_history);
 
-        $family_history = array();
-        $diseases = array("cancer", "hypertension", "heart-disease", "diabetes", "stroke", "mental", "drugs", "glaucoma", "bleeding", "others");
-        if ($request['family'] != null) {
-            for ($i = 0; $i < count($request->family); $i++) {
-                $fam_arr['family'] = $request->family[$i];
-                $fam_arr['disease'] = $request->disease[$i];
-                $fam_arr['age'] = $request->age[$i];
-                array_push($family_history, $fam_arr);
+        $family_history = [];
+        if ($request->has('family') && $request->has('disease') && $request->has('age')) {
+            $families = json_decode($request->family, true);
+            $diseases = json_decode($request->disease, true);
+            $ages = json_decode($request->age, true);
+            
+            if (is_array($families) && is_array($diseases) && is_array($ages)) {
+                for ($i = 0; $i < count($families); $i++) {
+                    if (isset($families[$i]) && isset($diseases[$i]) && isset($ages[$i])) {
+                        $fam_arr['family'] = $families[$i];
+                        $fam_arr['disease'] = $diseases[$i];
+                        $fam_arr['age'] = $ages[$i];
+                        $family_history[] = $fam_arr;
+                    }
+                }
             }
         }
         $family_history = json_encode($family_history);
 
-
-        $medication_history = array();
-        if ($request['med_name'] != null) {
-            for ($i = 0; $i < count($request->med_name); $i++) {
-                $med_arr['med_name'] = $request->med_name[$i];
-                $med_arr['med_dosage'] = $request->med_dosage[$i];
-                array_push($medication_history, $med_arr);
+        $medication_history = [];
+        if ($request->has('med_name') && $request->has('med_dosage')) {
+            $med_names = json_decode($request->med_name, true);
+            $med_dosages = json_decode($request->med_dosage, true);
+            
+            if (is_array($med_names) && is_array($med_dosages)) {
+                for ($i = 0; $i < count($med_names); $i++) {
+                    if (isset($med_names[$i]) && isset($med_dosages[$i])) {
+                        $med_arr['med_name'] = $med_names[$i];
+                        $med_arr['med_dosage'] = $med_dosages[$i];
+                        $medication_history[] = $med_arr;
+                    }
+                }
             }
         }
         $medication_history = json_encode($medication_history);
-        $user = auth()->user()->id;
-        $med = MedicalProfile::where('user_id', $user)->get()->count();
+
+        $med = MedicalProfile::where('user_id', $user)->count();
+        
         if ($med > 0) {
-            $update = true;
-            $pro = MedicalProfile::where('user_id', $user)->orderByDesc('id')
-                ->first()->update([
-                        'allergies' => $request['allergies'],
-                        'previous_symp' => $symptoms,
-                        'immunization_history' => $immunization_history,
-                        'family_history' => $family_history,
-                        'surgeries' => $request['surgeries'],
-                        'comment' => $request['comm'],
-                        'medication' => $medication_history,
-                    ]);
-        } else {
-            $update = false;
-            $pro = MedicalProfile::create([
-                'user_id' => $user,
-                'allergies' => $request['allergies'],
+            $profile = MedicalProfile::where('user_id', $user)
+                ->orderByDesc('id')
+                ->first();
+                
+            $profile->update([
+                'allergies' => $request->input('allergies', ''),
                 'previous_symp' => $symptoms,
                 'immunization_history' => $immunization_history,
                 'family_history' => $family_history,
-                'surgeries' => $request['surgeries'],
-                'comment' => $request['comm'],
+                'surgeries' => $request->input('surgeries', ''),
+                'comment' => $request->input('comm', ''),
                 'medication' => $medication_history,
             ]);
+            
+            $update = true;
+        } else {
+            $profile = MedicalProfile::create([
+                'user_id' => $user,
+                'allergies' => $request->input('allergies', ''),
+                'previous_symp' => $symptoms,
+                'immunization_history' => $immunization_history,
+                'family_history' => $family_history,
+                'surgeries' => $request->input('surgeries', ''),
+                'comment' => $request->input('comm', ''),
+                'medication' => $medication_history,
+            ]);
+            
+            $update = false;
         }
+
         if ($request->hasFile('certificate')) {
             $images = $request->file('certificate');
             foreach ($images as $image) {
@@ -245,17 +277,23 @@ class PatientsController extends BaseController
                 DB::table('medical_records')->insert([
                     'user_id' => $user,
                     'record_file' => $filename,
-                    'created_at' => date('Y-m-d H:i:s'),
-                    'updated_at' => date('Y-m-d H:i:s'),
+                    'created_at' => now(),
+                    'updated_at' => now(),
                 ]);
             }
         }
-        if ($update) {
-            return $this->sendResponse($pro, 'Successfully Updated Medical History Record');
-        } else {
-            return $this->sendResponse($pro, 'Successfully Created Medical History Record');
-        }
+
+        $responseMessage = $update ? 
+            'Successfully Updated Medical History Record' : 
+            'Successfully Created Medical History Record';
+            
+        return $this->sendResponse($profile, $responseMessage);
+        
+    } catch (\Exception $e) {
+        \Log::error('Medical profile update error: ' . $e->getMessage());
+        return $this->sendError('Error updating medical profile', $e->getMessage(), 500);
     }
+}
     public function pat_medical_profile()
     {
         $user_id = auth()->user()->id;
