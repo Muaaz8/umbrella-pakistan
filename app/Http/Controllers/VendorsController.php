@@ -392,4 +392,158 @@ class VendorsController extends Controller
         $vendor = VendorAccount::where('user_id', $user->id)->first();
         return view('dashboard_vendor.vendor');
     }
+
+    public function add_product_page(){
+        $vendor = VendorAccount::where('user_id', auth()->user()->id)->first();
+        $products = [];
+        if ($vendor->vendor == 'pharmacy'){ {
+            $products = DB::table('tbl_products')
+            ->select('id', 'name')
+            ->where('mode','medicine')
+            ->get();
+            return view('dashboard_vendor.add_product', compact('products'));
+        }
+        } else {
+            $products = DB::table('quest_data_test_codes')
+            ->select('TEST_CD AS id', 'TEST_NAME AS name')
+            ->where('mode','lab-test')
+            ->orWhere('mode','imaging')
+            ->get();
+            return view('dashboard_vendor.add_product', compact('products'));
+        }
+    }
+
+    public function store_vendor_product(Request $request)
+    {
+        $request->validate([
+            'product_id' => 'required',
+            'actual_price' => 'required',
+            'selling_price' => 'required',
+            'discount_percentage' => 'nullable|min:0|max:100',
+        ]);
+
+        $vendorId = auth()->user()->id;
+        $vendorAccount = VendorAccount::where('user_id', $vendorId)->first();
+        $vendor_type = '';
+
+        if($vendorAccount->vendor == 'pharmacy'){
+            $vendor_type = 'pharmacy';
+        } else {
+            $vendor_type = 'lab';
+        }
+
+        DB::table('vendor_products')->insert([
+            'vendor_id' => $vendorAccount->id,
+            'product_id' => $request->product_id,
+            'available_stock' => $request->available_stock,
+            'actual_price' => $request->actual_price,
+            'selling_price' => $request->selling_price,
+            'discount' => $request->discount_percentage,
+            'product_type' => $vendor_type,
+        ]);
+
+        return redirect()->back()
+            ->with('success', 'Product added successfully.');
+    }
+
+    public function vendor_products()
+    {
+        $vendor = VendorAccount::where('user_id', auth()->user()->id)->first();
+        $vendor_type = $vendor->vendor == 'pharmacy' ? 'pharmacy' : 'lab';
+        if ($vendor->vendor == 'pharmacy') {
+            $products = DB::table('vendor_products')
+                ->join('tbl_products', 'vendor_products.product_id', '=', 'tbl_products.id')
+                ->select('vendor_products.*', 'tbl_products.name')
+                ->where('vendor_products.vendor_id', $vendor->id)
+                ->paginate(10);
+                return view('dashboard_vendor.vendor_products', compact('products', 'vendor_type'));
+        } else {
+            $products = DB::table('vendor_products')
+                ->join('quest_data_test_codes', 'vendor_products.product_id', '=', 'quest_data_test_codes.TEST_CD')
+                ->select('vendor_products.*', 'quest_data_test_codes.TEST_NAME AS name')
+                ->where('vendor_products.vendor_id', $vendor->id)
+                ->paginate(10);
+                return view('dashboard_vendor.vendor_products', compact('products', 'vendor_type'));
+        }
+    }
+
+    public function toggle_product_status(Request $request)
+    {
+        $product = DB::table('vendor_products')->where('id', $request->product_id)->first();
+        if ($product) {
+            DB::table('vendor_products')->where('id', $request->product_id)->update(['is_active' => !$product->is_active]);
+            return response()->json([
+                'success' => true,
+                'message' => 'Product status updated successfully.',
+                'new_status' => !$product->is_active,
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Product not found.',
+            ]);
+        }
+    }
+
+     public function edit_product($id)
+    {
+        $vendorId = auth()->user()->id;
+        $vendorProduct = DB::table('vendor_products')
+            ->where('id', $id)
+            ->first();
+            
+        if (!$vendorProduct) {
+            return redirect()->route('vendor_products')
+                ->with('error', 'Product not found or you do not have permission to edit this product.');
+        }
+
+        if($vendorProduct->product_type == 'pharmacy'){
+            $product = DB::table('tbl_products')
+                ->where('id', $vendorProduct->product_id)
+                ->first();
+                $productName = $product->name;
+            } else {
+                $product = DB::table('quest_data_test_codes')
+                ->where('TEST_CD', $vendorProduct->product_id)
+                ->first();
+                $productName = $product->TEST_NAME;
+        }
+                
+        
+        return view('dashboard_vendor.edit_product', compact('vendorProduct', 'productName'));
+    }
+    
+    public function update_vendor_product(Request $request, $id)
+    {
+        $request->validate([
+            'actual_price' => 'required|min:0',
+            'selling_price' => 'required|min:0',
+            'discount_percentage' => 'nullable|min:0|max:100',
+            'available_stock' => 'required|min:0',
+        ]);
+        
+        $vendorProduct = DB::table('vendor_products')
+            ->where('id', $id)
+            ->first();
+            
+        if (!$vendorProduct) {
+            return redirect()->route('vendor_products')
+                ->with('error', 'Product not found or you do not have permission to update this product.');
+        }
+        
+        DB::table('vendor_products')
+            ->where('id', $id)
+            ->update([
+                'actual_price' => $request->actual_price,
+                'selling_price' => $request->selling_price,
+                'discount' => $request->discount_percentage,
+                'available_stock' => $request->available_stock,
+                'is_active' => $request->is_active,
+                'updated_at' => now(),
+            ]);
+            
+        return redirect()->route('vendor_products')
+            ->with('success', 'Product updated successfully.');
+    }
+
 }

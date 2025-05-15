@@ -113,7 +113,7 @@
                                                 <select name="vendor" id="vendor" class="form-control" required>
                                                     <option value="" selected disabled>Select Vendor Type</option>
                                                     <option value="pharmacy">Pharmacy</option>
-                                                    <option value="labs">Labs</option>
+                                                    <option value="labs">Labs / Imaging</option>
                                                 </select>
                                             </div>
                                             <div class="col-md-6">

@@ -10,6 +10,13 @@
       </div>
       <nav class="dashboard-nav-list">
         <a href="/vendor/dash" class="dashboard-nav-item"><i class="fa-solid fa-house"></i> Dashboard </a>
+        <div class="dashboard-nav-dropdown">
+            <a href="javascript:void(0)" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i class="fas fa-file-contract"></i> Products </a>
+                <div class="dashboard-nav-dropdown-menu">
+                    <a href="{{ route('add_product_page') }}" class="dashboard-nav-dropdown-item">Add Products</a>
+                    <a href="{{ route('vendor_products') }}" class="dashboard-nav-dropdown-item">My Products</a>
+                </div>
+            </div>
 
       </nav>
     </div>

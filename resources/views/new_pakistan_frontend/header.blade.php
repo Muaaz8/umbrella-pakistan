@@ -291,7 +291,7 @@
         <div class="flex gap-15" id="nav-left-side">
             <a href="{{ url('/') }}">Home</a>
             <a href="{{ route('vendor', ['shop_type' => 'pharmacy']) }}">Pharmacy</a>
-            <a href="{{ route('vendor', ['shop_type' => 'labs']) }}">Lab Tests</a>
+            <a href="{{ route('vendor', ['shop_type' => 'labs']) }}">Lab Tests / Imaging</a>
             <a href="{{ route('e-visit') }}">E-Visit</a>
             <a href="{{ route('doc_profile_page_list') }}">Our Doctors</a>
             <a href="{{ route('about_us') }}">About Us</a>

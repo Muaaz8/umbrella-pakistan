@@ -592,6 +592,12 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
 
     // All Vendor Routes
     Route::get('/vendor/dash','VendorsController@vendor_dash')->name('vendor_dash');
+    Route::get('/vendor/add/product','VendorsController@add_product_page')->name('add_product_page');
+    Route::get('/vendor/products','VendorsController@vendor_products')->name('vendor_products');
+    Route::get('/vendor/products/edit/{id}','VendorsController@edit_product')->name('edit_product');
+    Route::post('/vendor/add/product','VendorsController@store_vendor_product')->name('store_vendor_product');
+    Route::post('/vendor/product/status_update','VendorsController@toggle_product_status')->name('toggle_product_status');
+    Route::put('/vendor/products/update/{id}','VendorsController@update_vendor_product')->name('update_vendor_product');
 
 
     Route::group(['middleware' => ['lab_auth']], function () {
