@@ -45,6 +45,17 @@
                                 <h3>Add New Vendor</h3>
                             </div>
                         </div>
+                        // show success message
+                        @if(session('success'))
+                            <div class="alert alert-success mt-3">
+                                {{ session('success') }}
+                            </div>
+                        @endif
+                        @if(session('error'))
+                            <div class="alert alert-danger mt-3">
+                                {{ session('error') }}
+                            </div>
+                        @endif
                         <div class="wallet-table" style="border-radius: 18px;">
                             <form action="{{ route('add_vender') }}" method="POST" enctype="multipart/form-data">
                                 @csrf

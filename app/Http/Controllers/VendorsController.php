@@ -146,7 +146,7 @@ class VendorsController extends Controller
                 'otp' => $otp,
             ];
 
-            DB::table('user_verification')->insert($data1);
+            DB::table('users_email_verification')->insert($data1);
 
             $vendorAccount = VendorAccount::create([
                 'number' => $request->vendor_number,
@@ -491,7 +491,7 @@ class VendorsController extends Controller
         $vendorProduct = DB::table('vendor_products')
             ->where('id', $id)
             ->first();
-            
+
         if (!$vendorProduct) {
             return redirect()->route('vendor_products')
                 ->with('error', 'Product not found or you do not have permission to edit this product.');
@@ -508,11 +508,11 @@ class VendorsController extends Controller
                 ->first();
                 $productName = $product->TEST_NAME;
         }
-                
-        
+
+
         return view('dashboard_vendor.edit_product', compact('vendorProduct', 'productName'));
     }
-    
+
     public function update_vendor_product(Request $request, $id)
     {
         $request->validate([
@@ -521,16 +521,16 @@ class VendorsController extends Controller
             'discount_percentage' => 'nullable|min:0|max:100',
             'available_stock' => 'required|min:0',
         ]);
-        
+
         $vendorProduct = DB::table('vendor_products')
             ->where('id', $id)
             ->first();
-            
+
         if (!$vendorProduct) {
             return redirect()->route('vendor_products')
                 ->with('error', 'Product not found or you do not have permission to update this product.');
         }
-        
+
         DB::table('vendor_products')
             ->where('id', $id)
             ->update([
@@ -541,7 +541,7 @@ class VendorsController extends Controller
                 'is_active' => $request->is_active,
                 'updated_at' => now(),
             ]);
-            
+
         return redirect()->route('vendor_products')
             ->with('success', 'Product updated successfully.');
     }
