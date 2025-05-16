@@ -140,9 +140,8 @@ class VendorsController extends Controller
             $otp = rand(100000, 999999);
             $hash_to_verify = base_convert($x, 10, 36);
             $data1 = [
-                'hash' => $hash_to_verify,
+                'verification_hash_code' => $hash_to_verify,
                 'user_id' => $user->id,
-                'to_mail' => $user->email,
                 'otp' => $otp,
             ];
 

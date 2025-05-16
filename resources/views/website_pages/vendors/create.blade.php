@@ -45,7 +45,6 @@
                                 <h3>Add New Vendor</h3>
                             </div>
                         </div>
-                        // show success message
                         @if(session('success'))
                             <div class="alert alert-success mt-3">
                                 {{ session('success') }}
