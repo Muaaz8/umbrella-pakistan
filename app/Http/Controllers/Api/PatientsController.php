@@ -301,6 +301,14 @@ public function patient_medical_prfile_save(Request $request)
         $update = false;
         $med_files = DB::table('medical_records')->where('user_id',$user_id)->get();
 
+        if ($med_files->isEmpty()) {
+            $med_files = null;
+        } else {
+            foreach ($med_files as $file) {
+                $file->record_file = \App\Helper::check_bucket_files_url($file->record_file);
+            }
+        }
+
         if ($med_prof_exists >= 1) {
             $update = true;
             $profile = DB::table('medical_profiles')->where('user_id', $user_id)->orderByDesc('id')->first();
