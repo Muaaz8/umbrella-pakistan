@@ -56,6 +56,14 @@
                     <a href="{{ route('all_vendors_page') }}" class="dashboard-nav-dropdown-item">All Vendors</a>
                 </div>
             </div>
+            <div class="dashboard-nav-dropdown">
+                <a href="javascript:void(0)" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
+                        class="fa fa-user-plus"></i> Locations </a>
+                <div class="dashboard-nav-dropdown-menu">
+                    <a href="{{ route('locations.index') }}" class="dashboard-nav-dropdown-item"> All Location</a>
+                    <a href="{{ route('locations.create') }}" class="dashboard-nav-dropdown-item">Add Location</a>
+                </div>
+            </div>
             {{-- <a href="{{ route('admin_error_log_view') }}" class="dashboard-nav-item"><i
                     class="fa-solid fa-circle-exclamation"></i> Error Log </a>
             <div class="dashboard-nav-dropdown">

@@ -89,7 +89,7 @@
                     @foreach ($vendors as $key => $vendor)
                         <div class="card">
                             <div class="products_available">
-                                <p>Products: 20000</p>
+                                <p>Available Products: {{$vendor->products_count}}</p>
                             </div>
                             <div class="med-img2">
                                 <img src="{{$vendor->image}}" alt="img">

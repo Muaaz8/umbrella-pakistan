@@ -40,6 +40,51 @@ Route::get('sitemap', function () {
     return "sitemap created";
 });
 
+Route::get('/labs-add' , function(){
+            $products = DB::table('quest_data_test_codes')
+    ->where(function($query) {
+        $query->where('mode', 'lab-test')
+              ->orWhere('mode', 'imaging');
+    })
+    ->whereNotNull('actual_price')
+    ->whereNotNull('SALE_PRICE')
+    ->get();
+    
+    foreach($products as $product){
+        DB::table('vendor_products')->insert([
+            'vendor_id' => '1',
+            'product_id' => $product->TEST_CD,
+            'available_stock' => '1',
+            'actual_price' => $product->actual_price,
+            'selling_price' => $product->SALE_PRICE,
+            'discount' => $product->discount_percentage ?? 0,
+            'product_type' => 'labs',
+            'is_active' => '1',
+        ]);
+    };
+
+    return "done";
+});
+
+Route::get('/pharmacy-add' , function(){
+            $products = DB::table('tbl_products')
+            
+            ->where('mode','medicine')
+            ->get();
+    
+    foreach($products as $product){
+        DB::table('vendor_products')->insert([
+            'vendor_id' => '2',
+            'product_id' => $product->id,
+            'available_stock' => '1',
+            'actual_price' => $product->actual_price,
+            'selling_price' => $product->SALE_PRICE,
+            'discount' => $product->discount_percentage,
+            'product_type' => 'labs',
+        ]);
+    };
+});
+
 Route::get('testing/mail',function(){
     // Mail::to('adviyat@yopmail.com')->send(new AdviyatOrderEmail());
     $inclinic_data = \App\Models\InClinics::with(['user','prescriptions'])->where('id', 1)->first();
@@ -1201,6 +1246,14 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
         //Manage Users
         Route::get('admin/manage/all/users/{id}', 'AdminController@manage_all_users')->name('manage_all_users')->middleware('admin_auth');
         Route::get('admin/manage/all/users', 'AdminController@manage_all_user')->name('manage_all_user')->middleware('admin_auth');
+
+        Route::get('/locations', 'LocationController@index')->name('locations.index');
+        Route::get('/locations/create', 'LocationController@create')->name('locations.create');
+        Route::post('/locations', 'LocationController@store')->name('locations.store');
+        Route::get('/locations/{location}', 'LocationController@show')->name('locations.show');
+        Route::get('/locations/{location}/edit', 'LocationController@edit')->name('locations.edit');
+        Route::put('/locations/{location}', 'LocationController@update')->name('locations.update');
+        Route::delete('/locations/{location}', 'LocationController@destroy')->name('locations.destroy');
 
 
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Mail\UserVerificationEmail;
+use App\Models\Location;
 use App\User;
 use App\VendorAccount;
 use Exception;
@@ -19,24 +20,20 @@ class VendorsController extends Controller
     public function index($shop_type)
     {
         $vendors = DB::table('vendor_accounts')->where('vendor' , $shop_type)->paginate(12);
+
         foreach ($vendors as $key => $vendor) {
             $vendor->image = \App\Helper::check_bucket_files_url($vendor->image);
+            $vendor->products_count = DB::table('vendor_products')
+                ->where('vendor_id', $vendor->id)
+                ->where('is_active', 1)
+                ->count();
         }
         return view('website_pages.vendors.index', compact('vendors'));
     }
 
     public function create_vendor_page()
     {
-        $locations = [
-            [
-                'id' => '1',
-                'name' => 'shah faisal colony'
-            ],
-            [
-                'id' => '2',
-                'name' => 'johor'
-            ]
-        ];
+        $locations = Location::latest()->get();
 
         return view('website_pages.vendors.create', compact('locations'));
     }
