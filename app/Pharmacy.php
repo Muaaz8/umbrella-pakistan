@@ -55,7 +55,7 @@ class Pharmacy extends Model
                 DB::raw("CONCAT(tbl_map_markers.name,',',tbl_map_markers.address,'|', tbl_map_markers.zip_code) AS zip_code_location")
             )
             ->where('tbl_cart.user_id', $user_id)
-            ->where('tbl_cart.status','!=', 'purchased')
+            ->where('tbl_cart.status', '!=', 'purchased')
             ->when($text == 'prescribed', function ($query) {
                 return $query->where('tbl_cart.status', 'recommended');
             })
@@ -364,11 +364,11 @@ class Pharmacy extends Model
             //dd($data);
         } else {
             $data = DB::table('tbl_products')
-                ->join('products_sub_categories', 'products_sub_categories.id', 'tbl_products.sub_category')
-                ->join('medicine_pricings', 'medicine_pricings.product_id', 'tbl_products.id')
-                ->join('vendor_products', 'vendor_products.product_id', 'tbl_products.id')
+                ->join('products_sub_categories', 'products_sub_categories.id', '=', 'tbl_products.sub_category')
+                ->join('medicine_pricings', 'medicine_pricings.product_id', '=', 'tbl_products.id')
+                ->join('vendor_products', 'vendor_products.product_id', '=', 'tbl_products.id')
+                ->join('vendor_accounts', 'vendor_accounts.id', '=', 'vendor_products.vendor_id')
                 ->select(
-                    // Select specific columns from tbl_products instead of using tbl_products.*
                     'tbl_products.id',
                     'tbl_products.name',
                     'tbl_products.panel_name',
@@ -378,8 +378,6 @@ class Pharmacy extends Model
                     'tbl_products.featured_image',
                     'tbl_products.gallery',
                     'tbl_products.tags',
-                    'tbl_products.sale_price',
-                    'tbl_products.regular_price',
                     'tbl_products.quantity',
                     'tbl_products.keyword',
                     'tbl_products.mode',
@@ -395,24 +393,83 @@ class Pharmacy extends Model
                     'tbl_products.stock_status',
                     'tbl_products.medicine_warnings',
                     'tbl_products.medicine_directions',
-                    // Don't select tbl_products.vendor_id to avoid the duplicate column
 
-                    // Vendor product specific columns
                     'vendor_products.vendor_id',
-                    'vendor_products.id AS vendor_product_id',
-                    'vendor_products.selling_price',
+                    'vendor_products.id as vendor_product_id',
+                    'vendor_products.selling_price as sale_price',
                     'vendor_products.actual_price',
                     'vendor_products.discount',
                     'vendor_products.available_stock',
 
-                    // Category columns
                     'products_sub_categories.title as sub_category_name',
                     'products_sub_categories.slug as sub_category_slug',
 
-                    // Price aggregation
                     DB::raw('MIN(medicine_pricings.sale_price) as sale_prices')
                 )
+                ->where('tbl_products.product_status', 1)
+                ->where('tbl_products.is_approved', 1)
+                ->where('vendor_products.vendor_id', $vendor_id)
+                ->where('vendor_products.is_active', 1)
+                ->where('vendor_accounts.is_active', 1)
                 ->groupBy(
+                    'tbl_products.id',
+                    'vendor_products.id',
+                    'products_sub_categories.id'
+                )
+                ->orderBy('tbl_products.name', 'asc')
+                ->paginate(12);
+
+            foreach ($data as $product) {
+                $product->short_description = strip_tags($product->short_description);
+                $product->featured_image = \App\Helper::check_bucket_files_url($product->featured_image);
+
+                if ($product->featured_image == env('APP_URL') . "/assets/images/user.png") {
+                    $product->featured_image = asset('assets/new_frontend/panadol2.png');
+                }
+            }
+        }
+
+
+        return $data;
+    }
+
+    public function getSingleProduct($type, $slug)
+    {
+
+        if ($type == 'labtests') {
+
+            $data = DB::table('quest_data_test_codes')
+                ->Join('vendor_products', 'quest_data_test_codes.TEST_CD', '=', 'vendor_products.product_id')
+                ->join('vendor_accounts', 'vendor_accounts.id', '=', 'vendor_products.vendor_id')
+                ->select(
+                    'vendor_products.vendor_id',
+                    'vendor_products.id AS vendor_product_id',
+                    'vendor_products.selling_price AS sale_price',
+                    'vendor_products.actual_price  AS actual_price',
+                    'vendor_products.discount AS discount_percentage',
+                    'vendor_products.available_stock',
+                    'quest_data_test_codes.TEST_CD AS id',
+                    'quest_data_test_codes.TEST_NAME AS name',
+                    'quest_data_test_codes.DETAILS AS short_description',
+                    'quest_data_test_codes.DETAILS AS description',
+                    DB::raw('SLUG as slug'),
+                    DB::raw('"quest_data_test_codes" as tbl_name')
+                )
+                ->where([
+                    ['quest_data_test_codes.PARENT_CATEGORY', '!=', ""],
+                    // ['quest_data_test_codes.DETAILS', '!=', ""], /* WILL REMOVE */
+                ])
+                // ->union($first)
+                ->where([['quest_data_test_codes.slug', $slug]])
+                ->get();
+            // dd($data);
+        } else {
+            $data = DB::table('tbl_products')
+                ->join('products_sub_categories', 'products_sub_categories.id', '=', 'tbl_products.sub_category')
+                ->join('medicine_pricings', 'medicine_pricings.product_id', '=', 'tbl_products.id')
+                ->join('vendor_products', 'vendor_products.product_id', '=', 'tbl_products.id')
+                ->join('vendor_accounts', 'vendor_accounts.id', '=', 'vendor_products.vendor_id')
+                ->select(
                     'tbl_products.id',
                     'tbl_products.name',
                     'tbl_products.panel_name',
@@ -422,6 +479,7 @@ class Pharmacy extends Model
                     'tbl_products.featured_image',
                     'tbl_products.gallery',
                     'tbl_products.tags',
+                    'tbl_products.quantity',
                     'tbl_products.keyword',
                     'tbl_products.mode',
                     'tbl_products.medicine_type',
@@ -436,69 +494,16 @@ class Pharmacy extends Model
                     'tbl_products.stock_status',
                     'tbl_products.medicine_warnings',
                     'tbl_products.medicine_directions',
+
                     'vendor_products.vendor_id',
-                    'vendor_products.id AS vendor_product_id',
-                    'vendor_products.selling_price AS sale_price',
-                    'vendor_products.actual_price AS actual_price',
-                    'vendor_products.discount AS discount',
+                    'vendor_products.id as vendor_product_id',
+                    'vendor_products.selling_price as sale_price',
+                    'vendor_products.actual_price',
+                    'vendor_products.discount',
                     'vendor_products.available_stock',
-                    'products_sub_categories.title',
-                    'products_sub_categories.slug'
-                )
-                ->where('product_status', 1)
-                ->where('is_approved', 1)
-                ->where('vendor_products.vendor_id', $vendor_id)
-                ->where('vendor_products.is_active', '1')
-                ->orderBy('name', 'asc')
-                ->paginate(12);
 
-            foreach ($data as $product) {
-                $product->short_description = strip_tags($product->short_description);
-                $product->featured_image = \App\Helper::check_bucket_files_url($product->featured_image);
-                if ($product->featured_image == env('APP_URL') . "/assets/images/user.png") {
-                    $product->featured_image = asset('assets/new_frontend/panadol2.png');
-                }
-            }
-        }
-
-        return $data;
-    }
-
-    public function getSingleProduct($type, $slug)
-    {
-
-        if ($type == 'labtests') {
-
-            $data = DB::table('quest_data_test_codes')
-                ->select(
-                    'quest_data_test_codes.TEST_CD AS id',
-                    'quest_data_test_codes.mode',
-                    'quest_data_test_codes.TEST_NAME AS name',
-                    'quest_data_test_codes.SALE_PRICE AS sale_price',
-                    'quest_data_test_codes.DETAILS AS short_description',
-                    'quest_data_test_codes.DETAILS AS description',
-                    'quest_data_test_codes.discount_percentage AS discount_percentage',
-                    'quest_data_test_codes.actual_price AS actual_price',
-                    DB::raw('quest_data_test_codes.SLUG as slug'),
-                    DB::raw('"quest_data_test_codes" as tbl_name')
-                )
-                ->where([
-                    ['quest_data_test_codes.PARENT_CATEGORY', '!=', ""],
-                    // ['quest_data_test_codes.DETAILS', '!=', ""], /* WILL REMOVE */
-                ])
-                // ->union($first)
-                ->where([['quest_data_test_codes.slug', $slug]])
-                ->get();
-            // dd($data);
-        } else {
-            $data = DB::table('tbl_products')
-                ->leftJoin('product_categories', 'tbl_products.parent_category', '=', 'product_categories.id')
-                ->leftJoin('products_sub_categories', 'tbl_products.sub_category', '=', 'products_sub_categories.id')
-                ->select(
                     'products_sub_categories.title as sub_category_name',
                     'products_sub_categories.slug as sub_category_slug',
-                    'tbl_products.*',
-                    DB::raw('"tbl_products" as tbl_name')
                 )
                 ->where('tbl_products.slug', '=', $slug)
                 ->where('product_status', 1)

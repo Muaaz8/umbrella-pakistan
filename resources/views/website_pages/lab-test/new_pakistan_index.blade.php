@@ -108,7 +108,7 @@
                                                     <span class="discounted-price">Rs. ${value.SALE_PRICE}</span>
                                                     ${value.actual_price ? '<span class="actual-price">Rs. '+value.actual_price+'</span>' : ''}
                                                 </div>
-                                                <button class="learn_btn ${value.TEST_CD} ${mode}" onclick="addedItem(this)" type="button">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
+                                                <button class="learn_btn ${value.vendor_product_id} ${mode}" onclick="addedItem(this)" type="button">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
                                             </div>
                                         </div>`
                                     );
@@ -188,7 +188,7 @@
                                                     <span class="discounted-price">Rs. ${value.SALE_PRICE}</span>
                                                     ${value.actual_price ? '<span class="actual-price">Rs. '+value.actual_price+'</span>' : ''}
                                                 </div>
-                                                <button class="learn_btn ${value.TEST_CD} ${mode}" onclick="addedItem(this)" type="button">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
+                                                <button class="learn_btn ${value.vendor_product_id} ${mode}" onclick="addedItem(this)" type="button">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
                                             </div>
                                         </div>`
                                     );
@@ -206,6 +206,8 @@
         function addedItem(a) {
             var all_classes = $(a).attr('class');
             var class_split = all_classes.split(' ');
+            console.log("class_split",class_split);
+            
             var pro_id = class_split[1];
             var pro_mode = class_split[2];
             var pro_qty = 1;
@@ -355,7 +357,7 @@
                             @endif
                         </div>
                         @if (Auth::check())
-                        <button class="learn_btn {{ $item->id }} lab-test" onclick="addedItem(this)">Add To Cart
+                        <button class="learn_btn {{ $item->vendor_product_id }} lab-test" onclick="addedItem(this)">Add To Cart
                             <i class="fa-solid fa-cart-shopping mx-2"></i>
                         </button>
                         @else

@@ -122,7 +122,7 @@ function getLabtestProductByCategory(cat_id,limit)
                                     <h4 class="truncate" title="${value.TEST_NAME}">${value.TEST_NAME}</h4>
                                     <p class="truncate-overflow">${value.DETAILS}</p>
                                     <div class="test-card-price">Rs. ${value.SALE_PRICE}</div>
-                                    <button class="learn_btn ${value.TEST_CD} ${mode}" onclick="addedItem(this)" type="button">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
+                                    <button class="learn_btn ${value.vendor_product_id} ${mode}" onclick="addedItem(this)" type="button">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
                                 </div>
                             </div>`
                         );
@@ -201,7 +201,7 @@ function getImagingProductByCategory(cat_id,limit)
                                         <h4 class="truncate" title="${value.TEST_NAME}">${value.TEST_NAME}</h4>
                                         <p class="truncate-overflow">${value.DETAILS}</p>
                                         <div class="test-card-price">Rs. ${value.SALE_PRICE}</div>
-                                        <button class="learn_btn ${value.TEST_CD} ${mode}" onclick="addedItem(this)" type="button">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
+                                        <button class="learn_btn ${value.vendor_product_id} ${mode}" onclick="addedItem(this)" type="button">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
                                     </div>
                                 </div>`
                             );

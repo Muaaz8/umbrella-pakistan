@@ -94,7 +94,7 @@
                         <span class="discount-no">{{ $products[0]->discount_percentage}}% Off</span>
                         @endif
                         @if(Auth::check())
-                            <button class="btn-outline-primary {{ $products[0]->id }} lab-test btn" onclick="addedItem(this)">
+                            <button class="btn-outline-primary {{ $products[0]->vendor_product_id }} lab-test btn" onclick="addedItem(this)">
                                 Add to Cart <i class="fa-solid fa-shopping-cart mx-2"></i>
                             </button>
                         @else

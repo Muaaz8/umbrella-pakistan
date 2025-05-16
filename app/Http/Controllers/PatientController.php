@@ -362,15 +362,16 @@ class PatientController extends Controller
             else
             {
                 $getProductMetaData = DB::table('quest_data_test_codes')
+                ->join('vendor_products','quest_data_test_codes.TEST_CD','vendor_products.id')
                 ->select(
-                    'TEST_CD AS product_id',
-                    'mode',
-                    'TEST_NAME AS name',
-                    'SALE_PRICE AS sale_price',
-                    'featured_image',
+                    'vendor_products.id AS product_id',
+                    'quest_data_test_codes.mode',
+                    'quest_data_test_codes.TEST_NAME AS name',
+                    'vendor_products.selling_price AS sale_price',
+                    'quest_data_test_codes.featured_image',
                     DB::raw('"quest_data_test_codes" as tbl_name')
                 )
-                ->where('TEST_CD', $request->pro_id)
+                ->where('vendor_products.id', $request->pro_id)
                 ->first();
                 $data['session_id'] = '';
                 $data['cart_row_id'] = rand();
@@ -433,12 +434,13 @@ class PatientController extends Controller
             else
             {
                 $getProductMetaData = DB::table('tbl_products')
+                    ->join('vendor_products','tbl_products.id','vendor_products.product_id')
                     ->select(
-                        'id as product_id',
-                        'name',
-                        'sale_price',
-                        'mode',
-                        'featured_image'
+                        'vendor_products.id as product_id',
+                        'tbl_products.name',
+                        'vendor_products.sale_price',
+                        'tbl_products.mode',
+                        'tbl_products.featured_image'
                     )
                     ->where('id', $request->pro_id)
                     // ->where('quantity', '>=', (int) $request->quantity)
@@ -454,7 +456,7 @@ class PatientController extends Controller
                 $data['design_view'] = '';
                 $data['strip_per_pack'] = 0;
                 $data['quantity'] = $request->quantity;
-                $data['price'] = $pricing->sale_price*$request->quantity;
+                $data['price'] = $getProductMetaData->sale_price*$request->quantity;
                 $data['discount'] = 0;
                 $data['created_at'] = Carbon::now();
                 $data['updated_at'] = Carbon::now();
@@ -462,7 +464,7 @@ class PatientController extends Controller
                 $data['doc_session_id'] = 0;
                 $data['doc_id'] = 0;
                 $data['pres_id'] = 0;
-                $data['update_price'] = $pricing->sale_price*$request->quantity;
+                $data['update_price'] = $getProductMetaData->sale_price*$request->quantity;
                 $data['product_mode'] = $getProductMetaData->mode;
                 $data['item_type'] = 'counter';
                 $data['status'] = 'recommended';

@@ -153,7 +153,7 @@
                     <div class="col-md-4">
                     <form action="#" method="post" onsubmit="return false;">
                         @csrf
-                        <input type="hidden" name="pro_id" id="product_id" value="{{ $products[0]->id }}">
+                        <input type="hidden" name="pro_id" id="product_id" value="{{ $products[0]->vendor_product_id }}">
                             <div class="d-flex justify-content-end ">
                                 <label for="Price" class="form-label medicine-total fw-bold" id="price">Rs. {{ number_format($products[0]->units[0]->sale_price,2) }}</label>
                             </div>
