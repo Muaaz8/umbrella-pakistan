@@ -207,7 +207,7 @@
             var all_classes = $(a).attr('class');
             var class_split = all_classes.split(' ');
             console.log("class_split",class_split);
-            
+
             var pro_id = class_split[1];
             var pro_mode = class_split[2];
             var pro_qty = 1;
@@ -236,7 +236,7 @@
 <main>
     <div class="contact-section">
         <div class="contact-content">
-            <h1>Labtests</h1>
+            <h1>{{ $vendor->name }}</h1>
             <div class="underline3"></div>
         </div>
         <div class="custom-shape-divider-bottom-17311915372">
@@ -345,15 +345,15 @@
                                 Learn More
                             </button>
                         </div>
-                        @if($item->discount_percentage)
-                        <span class="discount-no">{{ $item->discount_percentage }}% Off</span>
+                        @if($item->discount_percentage != null && $item->discount_percentage != 0)
+                            <span class="discount-no">{{ $item->discount_percentage }}% Off</span>
                         @endif
                         <h4 class="truncate">{{ $item->name }}</h4>
                         <p class="truncate-overflow">{!! strip_tags($item->short_description) !!}</p>
                         <div class="test-card-price d-flex flex-column gap-2 align-items-center">
-                            <span class="discounted-price">Rs. {{ $item->sale_price }}.00</span>
-                            @if ($item->actual_price)
-                            <span class="actual-price">Rs. {{ $item->actual_price }}</span>
+                            <span class="discounted-price">Rs. {{ number_format($item->sale_price,2) }}</span>
+                            @if($item->discount_percentage != null && $item->discount_percentage != 0)
+                                <span class="actual-price">Rs. {{ number_format($item->actual_price,2) }}</span>
                             @endif
                         </div>
                         @if (Auth::check())

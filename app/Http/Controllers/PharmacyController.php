@@ -191,7 +191,8 @@ class PharmacyController extends Controller
         $url = url()->current();
         $meta_tags = DB::table('meta_tags')->where('url',$url)->get();
         $title = DB::table('meta_tags')->where('url',$url)->where('name','title')->first();
-        return view($viewName, compact('data', 'slug', 'slug_name','title','meta_tags'));
+        $vendor = DB::table('vendor_accounts')->where('id',$vendor_id)->first();
+        return view($viewName, compact('data', 'slug', 'slug_name','title','meta_tags','vendor'));
     }
 
     public function single_product($slug)

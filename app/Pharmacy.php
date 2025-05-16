@@ -311,7 +311,7 @@ class Pharmacy extends Model
     public function getProductOrderByDesc($modeType, $vendor_id)
     {
 
-        if ($modeType == 'lab-test') {
+        if ($modeType == 'lab-test' || $modeType == 'imaging') {
             $data = DB::table('quest_data_test_codes')
                 ->Join('vendor_products', 'quest_data_test_codes.TEST_CD', '=', 'vendor_products.product_id')
                 ->join('vendor_accounts', 'vendor_accounts.id', '=', 'vendor_products.vendor_id')
@@ -339,29 +339,35 @@ class Pharmacy extends Model
                 ->where('vendor_accounts.is_active', '1')
                 ->orderBy('name', 'ASC')
                 ->paginate(12);
-        } elseif ($modeType == 'imaging') {
-            $data = DB::table('quest_data_test_codes')
-                ->select(
-                    'TEST_CD AS id',
-                    'TEST_NAME AS name',
-                    'SALE_PRICE AS sale_price',
-                    'DETAILS AS short_description',
-                    'DETAILS AS description',
-                    'actual_price AS actual_price',
-                    'discount_percentage AS discount_percentage',
-                    DB::raw('SLUG as slug'),
-                    DB::raw('"quest_data_test_codes" as tbl_name')
-                )
-                ->where([
-                    ['PARENT_CATEGORY', '!=', ""],
-                    ['AOES_exist', null],
-                    ['DETAILS', '!=', ""], /* WILL REMOVE */
-                    ['SALE_PRICE', '!=', ""], /* WILL REMOVE */
-                ])
-                ->where('mode', $modeType)
-                ->orderBy('name', 'ASC')
-                ->paginate(12);
-            //dd($data);
+                foreach ($data as $product) {
+                    if($product->discount_percentage != null){
+                        $product->actual_price = $product->sale_price;
+                        $product->sale_price = $product->sale_price - ($product->sale_price * $product->discount_percentage / 100);
+                    }
+                }
+        // } elseif ($modeType == 'imaging') {
+        //     $data = DB::table('quest_data_test_codes')
+        //         ->select(
+        //             'TEST_CD AS id',
+        //             'TEST_NAME AS name',
+        //             'SALE_PRICE AS sale_price',
+        //             'DETAILS AS short_description',
+        //             'DETAILS AS description',
+        //             'actual_price AS actual_price',
+        //             'discount_percentage AS discount_percentage',
+        //             DB::raw('SLUG as slug'),
+        //             DB::raw('"quest_data_test_codes" as tbl_name')
+        //         )
+        //         ->where([
+        //             ['PARENT_CATEGORY', '!=', ""],
+        //             ['AOES_exist', null],
+        //             ['DETAILS', '!=', ""], /* WILL REMOVE */
+        //             ['SALE_PRICE', '!=', ""], /* WILL REMOVE */
+        //         ])
+        //         ->where('mode', $modeType)
+        //         ->orderBy('name', 'ASC')
+        //         ->paginate(12);
+        //     //dd($data);
         } else {
             $data = DB::table('tbl_products')
                 ->join('products_sub_categories', 'products_sub_categories.id', '=', 'tbl_products.sub_category')
@@ -452,6 +458,7 @@ class Pharmacy extends Model
                     'quest_data_test_codes.TEST_NAME AS name',
                     'quest_data_test_codes.DETAILS AS short_description',
                     'quest_data_test_codes.DETAILS AS description',
+                    'quest_data_test_codes.mode',
                     DB::raw('SLUG as slug'),
                     DB::raw('"quest_data_test_codes" as tbl_name')
                 )
@@ -462,6 +469,12 @@ class Pharmacy extends Model
                 // ->union($first)
                 ->where([['quest_data_test_codes.slug', $slug]])
                 ->get();
+                foreach ($data as $product) {
+                    if($product->discount_percentage != null){
+                        $product->actual_price = $product->sale_price;
+                        $product->sale_price = $product->sale_price - ($product->sale_price * $product->discount_percentage / 100);
+                    }
+                }
             // dd($data);
         } else {
             $data = DB::table('tbl_products')

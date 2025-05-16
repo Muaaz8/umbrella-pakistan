@@ -362,9 +362,10 @@ class PatientController extends Controller
             else
             {
                 $getProductMetaData = DB::table('quest_data_test_codes')
-                ->join('vendor_products','quest_data_test_codes.TEST_CD','vendor_products.id')
+                ->join('vendor_products','quest_data_test_codes.TEST_CD','vendor_products.product_id')
                 ->select(
                     'vendor_products.id AS product_id',
+                    'vendor_products.discount',
                     'quest_data_test_codes.mode',
                     'quest_data_test_codes.TEST_NAME AS name',
                     'vendor_products.selling_price AS sale_price',
@@ -382,7 +383,11 @@ class PatientController extends Controller
                 $data['design_view'] = '';
                 $data['strip_per_pack'] = 0;
                 $data['quantity'] = $request->pro_qty;
-                $data['price'] = $getProductMetaData->sale_price;
+                if($getProductMetaData->discount != null){
+                    $data['price'] = $getProductMetaData->sale_price - ($getProductMetaData->sale_price * $getProductMetaData->discount) / 100;
+                }else{
+                    $data['price'] = $getProductMetaData->sale_price;
+                }
                 $data['discount'] = 0;
                 $data['created_at'] = Carbon::now();
                 $data['updated_at'] = Carbon::now();
@@ -390,7 +395,11 @@ class PatientController extends Controller
                 $data['doc_session_id'] = 0;
                 $data['doc_id'] = 0;
                 $data['pres_id'] = 0;
-                $data['update_price'] = $getProductMetaData->sale_price;
+                if($getProductMetaData->discount != null){
+                    $data['update_price'] = $getProductMetaData->sale_price - ($getProductMetaData->sale_price * $getProductMetaData->discount) / 100;
+                }else{
+                    $data['update_price'] = $getProductMetaData->sale_price;
+                }
                 $data['product_mode'] = $getProductMetaData->mode;
                 $data['item_type'] = 'counter';
                 $data['status'] = 'recommended';

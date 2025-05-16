@@ -166,6 +166,12 @@ class VendorsController extends Controller
             DB::commit();
 
             try {
+                $data1 = [
+                    'hash' => $hash_to_verify,
+                    'user_id' => $user->id,
+                    'to_mail' => $user->email,
+                    'otp' => $otp,
+                ];
                 Mail::to($user->email)->send(new UserVerificationEmail($data1));
             } catch (\Exception $e) {
                 Log::error('Email sending failed: ' . $e->getMessage());

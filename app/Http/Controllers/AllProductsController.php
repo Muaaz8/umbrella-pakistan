@@ -46,7 +46,6 @@ class AllProductsController extends AppBaseController
 
             $user_cart_items = DB::table('tbl_cart')->where('user_id', Auth::user()->id)->where('status', 'recommended')->get();
             foreach ($user_cart_items as $item) {
-
                 if ($item->item_type == 'prescribed') {
                     $pres = DB::table('prescriptions')->where('id', $item->pres_id)->first();
                     $item->prescription_date = $pres->created_at;
