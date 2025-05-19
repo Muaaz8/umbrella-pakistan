@@ -76,6 +76,8 @@ $page = DB::table('pages')->where('url', '/')->first();
                 <a href="https://www.facebook.com/share/15m4ofYggZ/" target="_blank"><i class="fa-brands fa-facebook"></i></a>
                 <a href="https://www.linkedin.com/company/community-health-care-clinics/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
                 <a href="https://www.instagram.com/community_healthcare_clinics?igsh=MXh6aHRzM2NrNThlMw==" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                <a href='https://www.youtube.com/@CommunityHealthcareClinics' target="_blank"><i class="fa-brands fa-youtube"></i></a>
+                <a href="https://www.tiktok.com/@community.healthc" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
             </div>
         </div>
         <div id="footer-2" class="footer-new">

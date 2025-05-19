@@ -665,12 +665,10 @@ class DoctorsController extends BaseController
 
                 if ($currentRole === 'doctor') {
 
-                    $totalPatient = DB::table('sessions')
-                        ->where('doctor_id', $userId)
-                        ->where('status', '!=', 'pending')
-                        ->select('patient_id')
-                        ->distinct()
-                        ->count();
+                        $totalPatient = Session::where('doctor_id', $user->id)
+                            ->where('status','!=','pending')
+                            ->groupBy('patient_id')->get()
+                            ->count();
 
                     $totalPendingAppoint = DB::table('appointments')
                         ->join('sessions', 'sessions.appointment_id', '=', 'appointments.id')

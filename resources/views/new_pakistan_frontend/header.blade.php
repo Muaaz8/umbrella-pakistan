@@ -2,40 +2,101 @@
     .activetab {
         border-bottom: 2px solid #c80919 !important;
     }
+
+    .social-icons-wrapper {
+        top: 5px;
+        right: 15px;
+        z-index: 1050;
+    }
+
+    .social-icons-container {
+        background-color: #0048b1;
+        border-radius: 30px;
+        padding: 8px 15px;
+        transition: all 0.3s ease;
+    }
+
+
+    .social-icon {
+        transition: transform 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        text-decoration: none;
+    }
+
+    .social-icon:hover {
+        transform: scale(1.2);
+        text-decoration: none;
+    }
+
+    .social-icon i {
+        font-size: 20px;
+    }
+
+    .social-icon .fa-facebook {
+        color: #3b5998;
+    }
+
+    .social-icon .fa-linkedin {
+        color: #0077b5;
+    }
+
+    .social-icon .fa-instagram {
+        color: #e1306c;
+    }
+
+    .social-icon .fa-youtube {
+        color: #ff0000;
+    }
+
+    .social-icon .fa-tiktok {
+        color: #000000;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 767px) {
+        .social-icons-wrapper {
+            display: none;
+        }
+    }
 </style>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
 
-      $(".search-btn-mob").on("click", function() {
-          $(".header-search-container").css("display", "block");
-      });
+        $(".search-btn-mob").on("click", function () {
+            $(".header-search-container").css("display", "block");
+        });
 
-      $(document).on("click", function(event) {
-          if (!$(event.target).closest(".header-search-container") && !$(event.target).closest(".search-btn-mob")) {
-              $(".header-search-container").css("display", "none");
-          }
-      });
+        $(document).on("click", function (event) {
+            if (!$(event.target).closest(".header-search-container") && !$(event.target).closest(".search-btn-mob")) {
+                $(".header-search-container").css("display", "none");
+            }
+        });
 
-      $('#new-search2').on('input', function () {
-      const searchTerm = $(this).val().trim().toLowerCase();
+        $('#new-search2').on('input', function () {
+            const searchTerm = $(this).val().trim().toLowerCase();
 
-        if (searchTerm.length === 0) {
-            $('.header-search-result').empty().hide();
-            return;
-        }
+            if (searchTerm.length === 0) {
+                $('.header-search-result').empty().hide();
+                return;
+            }
 
-        $.ajax({
-            url: `/search_items/${searchTerm}`,
-            type: 'GET',
-            dataType: 'json',
-            success: function (response) {
-                const { products, test_codes } = response;
+            $.ajax({
+                url: `/search_items/${searchTerm}`,
+                type: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    const { products, test_codes } = response;
 
-                $('.header-search-result').empty();
+                    $('.header-search-result').empty();
 
-                if (products.length > 0 || test_codes.length > 0) {
-                    products.forEach(product => {
-                        $('.header-search-result').append(`
+                    if (products.length > 0 || test_codes.length > 0) {
+                        products.forEach(product => {
+                            $('.header-search-result').append(`
                             <li>
                                 <a href="/medicines/${product.slug}" class="d-flex flex-column justify-content-between align-items-start w-100">
                                     <span class="product-name">${product.name}</span>
@@ -43,10 +104,10 @@
                                 </a>
                             </li>
                         `);
-                    });
+                        });
 
-                    test_codes.forEach(test => {
-                        $('.header-search-result').append(`
+                        test_codes.forEach(test => {
+                            $('.header-search-result').append(`
                             <li>
                                 <a href="/labtest/${test.SLUG}" class="d-flex flex-column justify-content-between align-items-start w-100">
                                     <span class="product-name">${test.TEST_NAME}</span>
@@ -54,38 +115,38 @@
                                 </a>
                             </li>
                         `);
-                    });
+                        });
 
-                    $('.header-search-result').show();
-                } else {
-                    $('.header-search-result').hide();
+                        $('.header-search-result').show();
+                    } else {
+                        $('.header-search-result').hide();
+                    }
+                },
+                error: function (error) {
+                    console.error('Error fetching search results:', error);
                 }
-            },
-            error: function (error) {
-                console.error('Error fetching search results:', error);
-            }
+            });
         });
-      });
-      $('#new-search').on('input', function () {
-      const searchTerm = $(this).val().trim().toLowerCase();
+        $('#new-search').on('input', function () {
+            const searchTerm = $(this).val().trim().toLowerCase();
 
-        if (searchTerm.length === 0) {
-            $('.header-search-result').empty().hide();
-            return;
-        }
+            if (searchTerm.length === 0) {
+                $('.header-search-result').empty().hide();
+                return;
+            }
 
-        $.ajax({
-            url: `/search_items/${searchTerm}`,
-            type: 'GET',
-            dataType: 'json',
-            success: function (response) {
-                const { products, test_codes } = response;
+            $.ajax({
+                url: `/search_items/${searchTerm}`,
+                type: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    const { products, test_codes } = response;
 
-                $('.header-search-result').empty();
+                    $('.header-search-result').empty();
 
-                if (products.length > 0 || test_codes.length > 0) {
-                    products.forEach(product => {
-                        $('.header-search-result').append(`
+                    if (products.length > 0 || test_codes.length > 0) {
+                        products.forEach(product => {
+                            $('.header-search-result').append(`
                             <li>
                                 <a href="/medicines/${product.slug}" class="d-flex flex-column justify-content-between align-items-start w-100">
                                     <span class="product-name">${product.name}</span>
@@ -93,10 +154,10 @@
                                 </a>
                             </li>
                         `);
-                    });
+                        });
 
-                    test_codes.forEach(test => {
-                        $('.header-search-result').append(`
+                        test_codes.forEach(test => {
+                            $('.header-search-result').append(`
                             <li>
                                 <a href="/labtest/${test.SLUG}" class="d-flex flex-column justify-content-between align-items-start w-100">
                                     <span class="product-name">${test.TEST_NAME}</span>
@@ -104,51 +165,51 @@
                                 </a>
                             </li>
                         `);
-                    });
+                        });
 
-                    $('.header-search-result').show();
-                } else {
-                    $('.header-search-result').hide();
+                        $('.header-search-result').show();
+                    } else {
+                        $('.header-search-result').hide();
+                    }
+                },
+                error: function (error) {
+                    console.error('Error fetching search results:', error);
                 }
-            },
-            error: function (error) {
-                console.error('Error fetching search results:', error);
+            });
+        });
+
+
+
+        $(document).on('click', function (event) {
+            if (!$(event.target).closest('.header-search-container')) {
+                $('.header-search-result').hide();
             }
         });
-      });
 
+        $('#new-search').on('focus', function () {
+            if ($('.header-search-result').children().length > 0) {
+                $('.header-search-result').show();
+            }
+        });
 
+        $('#new-search').on('blur', function () {
+            if ($(this).val() === "") {
+                $('.header-search-result').hide();
+            }
+        });
 
-  $(document).on('click', function(event) {
-      if (!$(event.target).closest('.header-search-container')) {
-          $('.header-search-result').hide();
-        }
-      });
+        $('#new-search2').on('focus', function () {
+            if ($('.header-search-result').children().length > 0) {
+                $('.header-search-result').show();
+            }
+        });
 
-      $('#new-search').on('focus', function() {
-          if ($('.header-search-result').children().length > 0) {
-              $('.header-search-result').show();
-          }
-      });
-
-      $('#new-search').on('blur', function() {
-          if ($(this).val() === "") {
-              $('.header-search-result').hide();
-          }
-      });
-
-      $('#new-search2').on('focus', function() {
-          if ($('.header-search-result').children().length > 0) {
-              $('.header-search-result').show();
-          }
-      });
-
-      $('#new-search2').on('blur', function() {
-          if ($(this).val() === "") {
-              $('.header-search-result').hide();
-          }
-      });
-  });
+        $('#new-search2').on('blur', function () {
+            if ($(this).val() === "") {
+                $('.header-search-result').hide();
+            }
+        });
+    });
 
 </script>
 
@@ -157,184 +218,209 @@
 <div id="offerBanner" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
         @php
-            $top_banners = DB::table('services')->where('name','ticker')->get();
+            $top_banners = DB::table('services')->where('name', 'ticker')->get();
         @endphp
+        <div class="social-icons-wrapper position-absolute" style="top: -2px; right: 15px; z-index: 1050;">
+            <div class="social-icons-container" id="social-icons">
+                <a style="min-height: 15px; min-width: 15px; padding: 6px; margin: 0px 2px;" href="https://www.facebook.com/share/15m4ofYggZ/" target="_blank"><i style="font-size: 15px" class="fa-brands fa-facebook"></i></a>
+                <a style="min-height: 15px; min-width: 15px; padding: 6px; margin: 0px 2px;" href="https://www.linkedin.com/company/community-health-care-clinics/" target="_blank"><i style="font-size: 15px" class="fa-brands fa-linkedin"></i></a>
+                <a style="min-height: 15px; min-width: 15px; padding: 6px; margin: 0px 2px;" href="https://www.instagram.com/community_healthcare_clinics?igsh=MXh6aHRzM2NrNThlMw==" target="_blank"><i style="font-size: 15px" class="fa-brands fa-instagram"></i></a>
+                <a style="min-height: 15px; min-width: 15px; padding: 6px; margin: 0px 2px;" href='https://www.youtube.com/@CommunityHealthcareClinics' target="_blank"><i style="font-size: 15px" class="fa-brands fa-youtube"></i></a>
+                <a style="min-height: 15px; min-width: 15px; padding: 6px; margin: 0px 2px;" href="https://www.tiktok.com/@community.healthc" target="_blank"><i style="font-size: 15px" class="fa-brands fa-tiktok"></i></a>
+            </div>
+        </div>
+
+        <!-- Carousel items -->
         @foreach ($top_banners as $key => $banner)
-            <div class="carousel-item {{$key==0?'active':''}}">
+            <div class="carousel-item {{$key == 0 ? 'active' : ''}}">
                 <div class="offer-banner primary-bg text-white text-center py-2">
                     <span>{{ $banner->status }}</span>
                 </div>
             </div>
         @endforeach
-      {{-- <div class="carousel-item active">
-        <div class="offer-banner primary-bg text-white text-center py-2">
-          <span>Get 20% off on your first purchase! Use code: FIRST20</span>
+        {{-- <div class="carousel-item active">
+            <div class="offer-banner primary-bg text-white text-center py-2">
+                <span>Get 20% off on your first purchase! Use code: FIRST20</span>
+            </div>
         </div>
-      </div>
-      <div class="carousel-item">
-        <div class="offer-banner primary-bg text-white text-center py-2">
-          <span>Free delivery on orders above $50!</span>
+        <div class="carousel-item">
+            <div class="offer-banner primary-bg text-white text-center py-2">
+                <span>Free delivery on orders above $50!</span>
+            </div>
         </div>
-      </div>
-      <div class="carousel-item">
-        <div class="offer-banner primary-bg text-white text-center py-2">
-          <span>Limited Time Offer: Buy 1 Get 1 Free!</span>
-        </div>
-      </div> --}}
+        <div class="carousel-item">
+            <div class="offer-banner primary-bg text-white text-center py-2">
+                <span>Limited Time Offer: Buy 1 Get 1 Free!</span>
+            </div>
+        </div> --}}
     </div>
-  </div>
+</div>
 
 <header class="py-2">
     <nav>
-      <section id="navbar">
-        <div class="wrap flex gap-15 between position-relative">
-          <div id="nav-logo" class="logo" onclick="window.location.href='{{ url('/') }}'" style="cursor: pointer;">
-            <img src="{{ asset('assets/new_frontend/logo.png') }}" alt="umbrella-logo" />
-          </div>
-          <div class="flex gap-2" id="nav-right-side">
-            <div class="header-search-container w-100 w-lg-50 form-control px-2 py-2 position-relative">
-                <div class="d-flex align-items-center justify-content-between">
-                    <input type="search" name="header-search" placeholder="Search" class="header-search-field w-100" id="new-search">
-                    <ul class="header-search-result categories-list rounded-3"></ul>
-                    <button type="button" class="header-search-btn px-2"><i class="fa-solid fa-magnifying-glass"></i></button>
+        <section id="navbar">
+            <div class="wrap flex gap-15 between position-relative">
+                <div id="nav-logo" class="logo" onclick="window.location.href='{{ url('/') }}'"
+                    style="cursor: pointer;">
+                    <img src="{{ asset('assets/new_frontend/logo.png') }}" alt="umbrella-logo" />
                 </div>
-            </div>
-            @if (Auth::check())
-            <div class="dropdown" >
-                <button class="dropdown-toggle w-100" type="button" id="joinDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa-solid fa-user-group"></i> Hi {{ Auth::user()->name}}
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="joinDropdown">
-                    <li><a class="dropdown-item" href="{{ route('home') }}">Go to Dashboard</a></li>
-                    <li><a class="dropdown-item"  href="{{ route('logout') }}"
-                        onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a></li>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
-                </ul>
-              </div>
-              @else
-                <div class="dropdown" >
-                    <button class="dropdown-toggle w-100" type="button" id="joinDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fa-solid fa-user-group"></i> Join Us
+                <div class="flex gap-2" id="nav-right-side">
+                    <div class="header-search-container w-100 w-lg-50 form-control px-2 py-2 position-relative">
+                        <div class="d-flex align-items-center justify-content-between">
+                            <input type="search" name="header-search" placeholder="Search"
+                                class="header-search-field w-100" id="new-search">
+                            <ul class="header-search-result categories-list rounded-3"></ul>
+                            <button type="button" class="header-search-btn px-2"><i
+                                    class="fa-solid fa-magnifying-glass"></i></button>
+                        </div>
+                    </div>
+                    @if (Auth::check())
+                        <div class="dropdown">
+                            <button class="dropdown-toggle w-100" type="button" id="joinDropdown" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <i class="fa-solid fa-user-group"></i> Hi {{ Auth::user()->name}}
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="joinDropdown">
+                                <li><a class="dropdown-item" href="{{ route('home') }}">Go to Dashboard</a></li>
+                                <li><a class="dropdown-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
+                                </li>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </ul>
+                        </div>
+                    @else
+                        <div class="dropdown">
+                            <button class="dropdown-toggle w-100" type="button" id="joinDropdown" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                <i class="fa-solid fa-user-group"></i> Join Us
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="joinDropdown">
+                                <li><a class="dropdown-item" href="{{ route('login') }}">Login</a></li>
+                                <li><a class="dropdown-item" href="{{ route('doc_register') }}">Register as Doctor</a></li>
+                                <li><a class="dropdown-item" href="{{ route('pat_register') }}">Register as Patient</a></li>
+                            </ul>
+                        </div>
+                    @endif
+                    <button class="nav_btns">
+                        <i class="fa-brands fa-whatsapp"></i>
+                        <a href="https://wa.me/923372350684" target="_blank">0337-2350684</a>
                     </button>
-                    <ul class="dropdown-menu" aria-labelledby="joinDropdown">
-                        <li><a class="dropdown-item" href="{{ route('login') }}">Login</a></li>
-                        <li><a class="dropdown-item" href="{{ route('doc_register') }}" >Register as Doctor</a></li>
-                        <li><a class="dropdown-item" href="{{ route('pat_register') }}" >Register as Patient</a></li>
+                    <div class="position-relative" onclick="window.location.href='{{ url('/my/cart') }}'">
+                        <img src="{{ asset('assets/new_frontend/purchase-icon.svg') }}" alt="shop-icon" />
+                        @if (Auth::check())
+                            <div class="cart-count">
+                                <span>{{ app('item_count_cart_responsive') }}</span>
+                            </div>
+                        @endif
+                    </div>
+                </div>
+                <div class="d-flex gap-3 align-items-center cart-search-container">
+                    <div class="position-relative cart-mob" onclick="window.location.href='{{ url('/my/cart') }}'">
+                        <img src="{{ asset('assets/new_frontend/purchase-icon.svg') }}" alt="shop-icon" />
+                        @if (Auth::check())
+                            <div class="cart-count">
+                                <span>{{ app('item_count_cart_responsive') }}</span>
+                            </div>
+                        @endif
+                    </div>
+                    <i class="fa-solid fa-magnifying-glass search-btn-mob text-danger"></i>
+                    <div class="hamburger_container" onclick="toggleDrawer()">
+                        <div class="hamburger">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="drawer" id="drawer">
+                    <span class="close-btn" onclick="toggleDrawer()">×</span>
+                    <img width="220px" src="{{ asset('assets/new_frontend/logo.png') }}" alt="" />
+                    <hr />
+                    <a href="{{ url('/') }}">Home</a>
+                    <a href="{{ route('vendor', ['shop_type' => 'pharmacy']) }}">Pharmacy</a>
+                    <a href="{{ route('vendor', ['shop_type' => 'labs']) }}">Lab Tests</a>
+                    <a href="{{ route('e-visit') }}">E-Visit</a>
+                    <a href="{{ route('doc_profile_page_list') }}">Our Doctors</a>
+                    <a href="{{ route('about_us') }}">About Us</a>
+                    <a href="{{ route('contact_us') }}">Contact Us</a>
+                    <hr />
+                    @if (Auth::check())
+                        <a href="{{ route('home') }}">Go to Dashboard</a></li>
+                        <a href="{{ route('logout') }}"
+                            onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    @else
+                        <a class="drawer-item" href="{{ route('login') }}">Login</a>
+                        <a class="drawer-item" href="{{ route('doc_register') }}">Register as Doctor</a>
+                        <a class="drawer-item" href="{{ route('pat_register') }}">Register as Patient</a>
+                    @endif
+                    <a href="https://wa.me/923372350684" target="_blank">0337-2350684</a>
+
+                    <div style="position: absolute; bottom: 2%; left: 50%; transform: translate(-51%);" class="d-flex align-items-center justify-content-start" id="social-icons">
+                        <a class="m-1" href="https://www.facebook.com/share/15m4ofYggZ/" target="_blank"><i
+                                class="fa-brands fa-facebook"></i></a>
+                        <a class="m-1" href="https://www.linkedin.com/company/community-health-care-clinics/" target="_blank"><i
+                                class="fa-brands fa-linkedin"></i></a>
+                        <a class="m-1" href="https://www.instagram.com/community_healthcare_clinics?igsh=MXh6aHRzM2NrNThlMw=="
+                            target="_blank"><i class="fa-brands fa-instagram"></i></a>
+                        <a class="m-1" href='https://www.youtube.com/@CommunityHealthcareClinics' target="_blank"><i
+                                class="fa-brands fa-youtube"></i></a>
+                        <a class="m-1" href="https://www.tiktok.com/@community.healthc" target="_blank"><i
+                                class="fa-brands fa-tiktok"></i></a>
+                    </div>
+                </div>
+                <div class="blur-overlay" id="blurOverlay" onclick="toggleDrawer()"></div>
+            </div>
+            <div class="flex gap-15" id="nav-left-side">
+                <a href="{{ url('/') }}">Home</a>
+                <a href="{{ route('vendor', ['shop_type' => 'pharmacy']) }}">Pharmacy</a>
+                <a href="{{ route('vendor', ['shop_type' => 'labs']) }}">Lab Tests / Imaging</a>
+                <a href="{{ route('e-visit') }}">E-Visit</a>
+                <a href="{{ route('doc_profile_page_list') }}">Our Doctors</a>
+                <a href="{{ route('about_us') }}">About Us</a>
+                <a href="{{ route('contact_us') }}">Contact Us</a>
+                <a href="{{ route('doc_profile_page_list', ['online' => true]) }}"
+                    class="text-success online_docs d-flex gap-1 align-items-center"><span
+                        class="blink-dot"></span><span style="font-weight: 800;">Online Doctors</span></a>
+
+
+
+                {{-- <div class="dropdown">
+                    <a class="dropdown-toggle" href="#" role="button" id="servicesDropdown" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                        Services
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
+                        <li><a class="dropdown-item" href="{{ route('pharmacy') }}">Pharmacy</a></li>
+                        <li><a class="dropdown-item" href="{{ route('labs') }}">Lab Tests</a></li>
+                        <li><a class="dropdown-item" href="{{ route('imaging') }}">Imaging</a></li>
+                        <li><a class="dropdown-item" href="{{ route('psychiatry',['slug'=>'anxiety']) }}">Psychiatry</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{{ route('pain.management') }}">Pain Management</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{{ route('substance',['slug'=>'first-visit']) }}">Substance
+                                Abuse</a>
+                        </li>
                     </ul>
-                </div>
-              @endif
-              <button class="nav_btns">
-                <i class="fa-brands fa-whatsapp"></i>
-                <a href="https://wa.me/923372350684" target="_blank">0337-2350684</a>
-              </button>
-            <div class="position-relative" onclick="window.location.href='{{ url('/my/cart') }}'">
-              <img src="{{ asset('assets/new_frontend/purchase-icon.svg') }}" alt="shop-icon" />
-              @if (Auth::check())
-                <div class="cart-count">
-                    <span>{{ app('item_count_cart_responsive') }}</span>
-                </div>
-              @endif
+                </div> --}}
             </div>
-          </div>
-          <div class="d-flex gap-3 align-items-center cart-search-container">
-            <div class="position-relative cart-mob" onclick="window.location.href='{{ url('/my/cart') }}'">
-                <img src="{{ asset('assets/new_frontend/purchase-icon.svg') }}" alt="shop-icon" />
-                @if (Auth::check())
-                  <div class="cart-count">
-                      <span>{{ app('item_count_cart_responsive') }}</span>
-                  </div>
-                @endif
-            </div>
-            <i class="fa-solid fa-magnifying-glass search-btn-mob text-danger"></i>
-            <div class="hamburger_container" onclick="toggleDrawer()">
-              <div class="hamburger">
-                <div></div>
-                <div></div>
-                <div></div>
-              </div>
-            </div>
-          </div>
-          <div class="drawer" id="drawer">
-            <span class="close-btn" onclick="toggleDrawer()">×</span>
-            <img width="220px" src="{{ asset('assets/new_frontend/logo.png') }}" alt="" />
-            <hr />
-            <a href="{{ url('/') }}">Home</a>
-            <a href="{{ route('vendor', ['shop_type' => 'pharmacy']) }}">Pharmacy</a>
-            <a href="{{ route('vendor', ['shop_type' => 'labs']) }}">Lab Tests</a>
-            <a href="{{ route('e-visit') }}">E-Visit</a>
-            <a href="{{ route('doc_profile_page_list') }}">Our Doctors</a>
-            <a href="{{ route('about_us') }}">About Us</a>
-            <a href="{{ route('contact_us') }}">Contact Us</a>
-            <hr />
-            @if (Auth::check())
-              <a href="{{ route('home') }}">Go to Dashboard</a></li>
-              <a href="{{ route('logout') }}"
-              onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
-              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                @csrf
-              </form>
-            @else
-            <a class="drawer-item" href="{{ route('login') }}">Login</a>
-            <a class="drawer-item" href="{{ route('doc_register') }}" >Register as Doctor</a>
-            <a class="drawer-item" href="{{ route('pat_register') }}" >Register as Patient</a>
-            @endif
-            <a href="https://wa.me/923372350684" target="_blank">0337-2350684</a>
-          </div>
-          <div
-            class="blur-overlay"
-            id="blurOverlay"
-            onclick="toggleDrawer()"
-          ></div>
-        </div>
-        <div class="flex gap-15" id="nav-left-side">
-            <a href="{{ url('/') }}">Home</a>
-            <a href="{{ route('vendor', ['shop_type' => 'pharmacy']) }}">Pharmacy</a>
-            <a href="{{ route('vendor', ['shop_type' => 'labs']) }}">Lab Tests / Imaging</a>
-            <a href="{{ route('e-visit') }}">E-Visit</a>
-            <a href="{{ route('doc_profile_page_list') }}">Our Doctors</a>
-            <a href="{{ route('about_us') }}">About Us</a>
-            <a href="{{ route('contact_us') }}">Contact Us</a>
-            <a href="{{ route('doc_profile_page_list', ['online' => true]) }}" class="text-success online_docs d-flex gap-1 align-items-center"><span class="blink-dot"></span><span style="font-weight: 800;">Online Doctors</span></a>
-
-
-
-            {{--            <div class="dropdown">
-                <a
-                  class="dropdown-toggle"
-                  href="#"
-                  role="button"
-                  id="servicesDropdown"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Services
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
-                  <li><a class="dropdown-item" href="{{ route('pharmacy') }}">Pharmacy</a></li>
-                  <li><a class="dropdown-item" href="{{ route('labs') }}">Lab Tests</a></li>
-                  <li><a class="dropdown-item" href="{{ route('imaging') }}">Imaging</a></li>
-                  <li><a class="dropdown-item" href="{{ route('psychiatry',['slug'=>'anxiety']) }}">Psychiatry</a></li>
-                  <li>
-                    <a class="dropdown-item" href="{{ route('pain.management') }}">Pain Management</a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="{{ route('substance',['slug'=>'first-visit']) }}">Substance Abuse</a>
-                  </li>
-                </ul>
-              </div> --}}
-          </div>
-      </section>
+        </section>
     </nav>
     <div class="header-search-container w-100 w-lg-50 form-control px-2 py-2 position-relative">
-      <div class="d-flex align-items-center justify-content-between">
-          <input type="search" name="header-search" placeholder="Search" class="header-search-field w-100" id="new-search2">
-          <ul class="header-search-result categories-list rounded-3"></ul>
-          <button type="button" class="header-search-btn px-2"><i class="fa-solid fa-magnifying-glass"></i></button>
-      </div>
+        <div class="d-flex align-items-center justify-content-between">
+            <input type="search" name="header-search" placeholder="Search" class="header-search-field w-100"
+                id="new-search2">
+            <ul class="header-search-result categories-list rounded-3"></ul>
+            <button type="button" class="header-search-btn px-2"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
     </div>
-  </header>
+</header>
 
 {{-- after registration and login modal --}}
 <!-- ----------symptoms Checker Modal------- -->
@@ -342,175 +428,217 @@
 
 <!-- Modal -->
 <div class="modal fade" id="symptomsOpen" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-  aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Automated Symptoms Checker</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <div>
-          <div class="">
-            <div class="row justify-content-center p-0 m-0">
-              <div class=" text-center p-0">
-                <div class="card px-0 ">
-                  <form id="msform">
-                    <fieldset>
-                      <div class="form-card">
-                        <div class="row">
-                          <div class="col-7">
-                            <h2 class="fs-title">Patient Information:</h2>
-                          </div>
-                          <div class="col-5">
-                          </div>
-                        </div>
-
-                        <div class="row">
-                          <div class="col-md-6">
-                            <label class="fieldlabels">Name: *</label>
-                            <input class="custom_input symptom_checker_name name" type="text" name="name" placeholder="Name" value="{{ (Auth::check())? auth()->user()->name : '' }}" required/>
-                            <small class="text-danger symptom_checker_name_error invalid-feedback "></small>
-                          </div>
-                          <div class="col-md-6">
-                            <label class="fieldlabels">Email: *</label>
-                            <input class="custom_input symptom_checker_email email" type="email" name="email" placeholder="Email" value="{{ (Auth::check())? auth()->user()->email : '' }}" required/>
-                            <small class="text-danger symptom_checker_email_error invalid-feedback"></small>
-                          </div>
-                          <div class="col-md-6">
-                            @php
-                                if(Auth::check()){
-                                    $dob = auth()->user()->date_of_birth;
-                                    if ($dob) {
-                                        $formattedDob = Carbon\Carbon::parse($dob)->format('Y-m-d');
-                                        $age = Carbon\Carbon::parse($formattedDob)->age;
-                                    } else {
-                                        // Handle the case where the date of birth is not set
-                                        $age = '';
-                                    }
-                                }
-                            @endphp
-                            <label class="fieldlabels">Age: *</label>
-                            @if (Auth::check())
-                                <input class="custom_input symptom_checker_age age" type="age" name="text" value="{{ isset($age)? $age : '' }}" placeholder="19" required/>
-                            @else
-                            <input class="custom_input symptom_checker_age age" type="age" name="text" placeholder="19" required/>
-                            @endif
-                            <small class="text-danger symptom_checker_age_error invalid-feedback"></small>
-                          </div>
-                          <div class="col-md-6">
-                              <label class="fieldlabels">Gender: *</label>
-                              <select name="gender" class="custom_input symptom_checker_gender gender">
-                                <option selected disabled> Select Gender </option>
-                               @if (Auth::check())
-                                    <option value="male" {{ (auth()->user()->gender == 'male')? 'selected': '' }}> Male </option>
-                                    <option value="female" {{ (auth()->user()->gender == 'female')? 'selected': '' }}> Female </option>
-                                    <option value="other" {{ (auth()->user()->gender == 'other')? 'selected': '' }}> Other </option>
-                               @else
-                                    <option value="male" > Male </option>
-                                    <option value="female" > Female </option>
-                                    <option value="other"> Other </option>
-                               @endif
-                              </select>
-                              <small class="text-danger symptom_checker_gender_error invalid-feedback"></small>
-                        </div>
-                        </div>
-
-                      </div> <input type="button" name="next" class="next action-button" value="Next" />
-                    </fieldset>
-                    <fieldset>
-                      <div class="form-card">
-                        <div class="row">
-                          <div class="col-7">
-                            <h2 class="fs-title">Disclaimer</h2>
-                          </div>
-                          <div class="col-5">
-                          </div>
-                        </div>
-
-                        <div class="accordion-body border rounded-2">
-                            <p style="text-align: justify;">
-                                Kindly be aware that this tool is not designed to offer medical advice.
-                            </p><br>
-                            <p style="text-align: justify;">
-                                Our tool is not a substitute for professional medical advice, diagnosis, or treatment. It is crucial to thoroughly review the label of any over-the-counter (OTC) medications you may be considering. The label provides information about active ingredients and includes critical details such as potential drug interactions and side effects. Always consult with your physician or a qualified healthcare provider for any questions regarding a medical condition. Never disregard professional medical advice or delay seeking it due to information found on our website. If you suspect a medical emergency, please contact your doctor or call 911 without delay. Community Healthcare Clinics does not endorse or recommend specific products or services. Any reliance on information provided by Community Healthcare Clinics is solely at your discretion and risk.
-                            </p>
-                        </div>
-                        <input type="checkbox" id="agree" class="agreeCheckbox" required>
-                        <label for="agree"> By checking this box, It is considered you have read and agreed to the disclaimer.</label>
-                        <small class="text-danger symptom_checker_check_error"></small>
-                        </div> <input type="button" name="next" class="next action-button" value="Next" />
-                    </fieldset>
-                    <fieldset>
-                      <div>
-                        <div class="chat__main__">
-                          <div class="text-start right__user">
-                            <p class="right_p">Hello, How may i help you today??</p>
-                            <img class="right__user_img" height="30" width="30" src="../../assets/images/doc__.jpg"
-                              alt="">
-                          </div>
-                        </div>
-                        <div>
-                          <i class="loader fa fa-spinner fa-spin d-none" style="font-size:45px;"></i>
-                          <div class="message__div">
-                            <input type="text" class="form-control chat_answer" placeholder="Type symptoms...." name="answer">
-                            <div>
-                                <button type="submit" class="send_button" id="send_button"><i class="fa-regular fa-paper-plane me-0 send_icon send_button"></i></button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <button type="button" name="next" class="next action-button chat_next_button skip d-none" > Skip </button>
-                      <input type="button" name="next" class="next action-button chat_next_button d-none" value="Next" />
-                    </fieldset>
-                    <fieldset>
-                      <div>
-                        <div class="text-start conclusions">
-                            <i class="conclusion_loader fa fa-spinner fa-spin d-none d-flex justify-content-center" style="font-size:45px;"></i>
-                            <h3 class="CEva_heading">Clinical Evaluation</h3>
-                            <p class="CEva" style="text-align: justify;"></p>
-                            <h3 class="HRep_heading">Hypothesis Report</h3>
-                            <p class="HRep" style="text-align: justify;"></p>
-                            <h3 class="INote_heading">Intake Notes</h3>
-                            <p class="INote" style="text-align: justify;"></p>
-                            <h3 class="RAT_heading">Referrals And Tests</h3>
-                            <p class="RAT" style="text-align: justify;"></p>
-                        </div>
-
-                      </div>
-                      <input type="button" name="next" class="next action-button" value="Submit" /> <input type="button"
-                        name="previous" class="previous action-button-previous" value="Previous" />
-                    </fieldset>
-                    <fieldset>
-                      <div class="form-card">
-                        <div class="row">
-                          <div class="col-7">
-                            <h2 class="fs-title">Finish:</h2>
-                          </div>
-                          <div class="col-5">
-                            <h2 class="steps">Step 4 - 4</h2>
-                          </div>
-                        </div> <br><br>
-                        <h2 class="purple-text text-center"><strong>SUCCESS !</strong></h2> <br>
-                        <div class="row justify-content-center">
-                          <div class="col-3"> <img src="https://i.imgur.com/GwStPmg.png" class="fit-image"> </div>
-                        </div> <br><br>
-                        <div class="row justify-content-center">
-                          <div class="col-7 text-center">
-                            {{-- <h5 class="purple-text text-center">You Have Successfully Signed Up</h5> --}}
-                          </div>
-                        </div>
-                      </div>
-                    </fieldset>
-                  </form>
-                </div>
-              </div>
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Automated Symptoms Checker</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-          </div>
+            <div class="modal-body">
+                <div>
+                    <div class="">
+                        <div class="row justify-content-center p-0 m-0">
+                            <div class=" text-center p-0">
+                                <div class="card px-0 ">
+                                    <form id="msform">
+                                        <fieldset>
+                                            <div class="form-card">
+                                                <div class="row">
+                                                    <div class="col-7">
+                                                        <h2 class="fs-title">Patient Information:</h2>
+                                                    </div>
+                                                    <div class="col-5">
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label class="fieldlabels">Name: *</label>
+                                                        <input class="custom_input symptom_checker_name name"
+                                                            type="text" name="name" placeholder="Name"
+                                                            value="{{ (Auth::check()) ? auth()->user()->name : '' }}"
+                                                            required />
+                                                        <small
+                                                            class="text-danger symptom_checker_name_error invalid-feedback "></small>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class="fieldlabels">Email: *</label>
+                                                        <input class="custom_input symptom_checker_email email"
+                                                            type="email" name="email" placeholder="Email"
+                                                            value="{{ (Auth::check()) ? auth()->user()->email : '' }}"
+                                                            required />
+                                                        <small
+                                                            class="text-danger symptom_checker_email_error invalid-feedback"></small>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        @php
+                                                            if (Auth::check()) {
+                                                                $dob = auth()->user()->date_of_birth;
+                                                                if ($dob) {
+                                                                    $formattedDob = Carbon\Carbon::parse($dob)->format('Y-m-d');
+                                                                    $age = Carbon\Carbon::parse($formattedDob)->age;
+                                                                } else {
+                                                                    // Handle the case where the date of birth is not set
+                                                                    $age = '';
+                                                                }
+                                                            }
+                                                        @endphp
+                                                        <label class="fieldlabels">Age: *</label>
+                                                        @if (Auth::check())
+                                                            <input class="custom_input symptom_checker_age age" type="age"
+                                                                name="text" value="{{ isset($age) ? $age : '' }}"
+                                                                placeholder="19" required />
+                                                        @else
+                                                            <input class="custom_input symptom_checker_age age" type="age"
+                                                                name="text" placeholder="19" required />
+                                                        @endif
+                                                        <small
+                                                            class="text-danger symptom_checker_age_error invalid-feedback"></small>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class="fieldlabels">Gender: *</label>
+                                                        <select name="gender"
+                                                            class="custom_input symptom_checker_gender gender">
+                                                            <option selected disabled> Select Gender </option>
+                                                            @if (Auth::check())
+                                                                <option value="male" {{ (auth()->user()->gender == 'male') ? 'selected' : '' }}> Male </option>
+                                                                <option value="female" {{ (auth()->user()->gender == 'female') ? 'selected' : '' }}>
+                                                                    Female </option>
+                                                                <option value="other" {{ (auth()->user()->gender == 'other') ? 'selected' : '' }}> Other </option>
+                                                            @else
+                                                                <option value="male"> Male </option>
+                                                                <option value="female"> Female </option>
+                                                                <option value="other"> Other </option>
+                                                            @endif
+                                                        </select>
+                                                        <small
+                                                            class="text-danger symptom_checker_gender_error invalid-feedback"></small>
+                                                    </div>
+                                                </div>
+
+                                            </div> <input type="button" name="next" class="next action-button"
+                                                value="Next" />
+                                        </fieldset>
+                                        <fieldset>
+                                            <div class="form-card">
+                                                <div class="row">
+                                                    <div class="col-7">
+                                                        <h2 class="fs-title">Disclaimer</h2>
+                                                    </div>
+                                                    <div class="col-5">
+                                                    </div>
+                                                </div>
+
+                                                <div class="accordion-body border rounded-2">
+                                                    <p style="text-align: justify;">
+                                                        Kindly be aware that this tool is not designed to offer medical
+                                                        advice.
+                                                    </p><br>
+                                                    <p style="text-align: justify;">
+                                                        Our tool is not a substitute for professional medical advice,
+                                                        diagnosis, or treatment. It is crucial to thoroughly review the
+                                                        label of any over-the-counter (OTC) medications you may be
+                                                        considering. The label provides information about active
+                                                        ingredients and includes critical details such as potential drug
+                                                        interactions and side effects. Always consult with your
+                                                        physician or a qualified healthcare provider for any questions
+                                                        regarding a medical condition. Never disregard professional
+                                                        medical advice or delay seeking it due to information found on
+                                                        our website. If you suspect a medical emergency, please contact
+                                                        your doctor or call 911 without delay. Community Healthcare
+                                                        Clinics does not endorse or recommend specific products or
+                                                        services. Any reliance on information provided by Community
+                                                        Healthcare Clinics is solely at your discretion and risk.
+                                                    </p>
+                                                </div>
+                                                <input type="checkbox" id="agree" class="agreeCheckbox" required>
+                                                <label for="agree"> By checking this box, It is considered you have read
+                                                    and agreed to the disclaimer.</label>
+                                                <small class="text-danger symptom_checker_check_error"></small>
+                                            </div> <input type="button" name="next" class="next action-button"
+                                                value="Next" />
+                                        </fieldset>
+                                        <fieldset>
+                                            <div>
+                                                <div class="chat__main__">
+                                                    <div class="text-start right__user">
+                                                        <p class="right_p">Hello, How may i help you today??</p>
+                                                        <img class="right__user_img" height="30" width="30"
+                                                            src="../../assets/images/doc__.jpg" alt="">
+                                                    </div>
+                                                </div>
+                                                <div>
+                                                    <i class="loader fa fa-spinner fa-spin d-none"
+                                                        style="font-size:45px;"></i>
+                                                    <div class="message__div">
+                                                        <input type="text" class="form-control chat_answer"
+                                                            placeholder="Type symptoms...." name="answer">
+                                                        <div>
+                                                            <button type="submit" class="send_button"
+                                                                id="send_button"><i
+                                                                    class="fa-regular fa-paper-plane me-0 send_icon send_button"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button type="button" name="next"
+                                                class="next action-button chat_next_button skip d-none"> Skip </button>
+                                            <input type="button" name="next"
+                                                class="next action-button chat_next_button d-none" value="Next" />
+                                        </fieldset>
+                                        <fieldset>
+                                            <div>
+                                                <div class="text-start conclusions">
+                                                    <i class="conclusion_loader fa fa-spinner fa-spin d-none d-flex justify-content-center"
+                                                        style="font-size:45px;"></i>
+                                                    <h3 class="CEva_heading">Clinical Evaluation</h3>
+                                                    <p class="CEva" style="text-align: justify;"></p>
+                                                    <h3 class="HRep_heading">Hypothesis Report</h3>
+                                                    <p class="HRep" style="text-align: justify;"></p>
+                                                    <h3 class="INote_heading">Intake Notes</h3>
+                                                    <p class="INote" style="text-align: justify;"></p>
+                                                    <h3 class="RAT_heading">Referrals And Tests</h3>
+                                                    <p class="RAT" style="text-align: justify;"></p>
+                                                </div>
+
+                                            </div>
+                                            <input type="button" name="next" class="next action-button"
+                                                value="Submit" /> <input type="button" name="previous"
+                                                class="previous action-button-previous" value="Previous" />
+                                        </fieldset>
+                                        <fieldset>
+                                            <div class="form-card">
+                                                <div class="row">
+                                                    <div class="col-7">
+                                                        <h2 class="fs-title">Finish:</h2>
+                                                    </div>
+                                                    <div class="col-5">
+                                                        <h2 class="steps">Step 4 - 4</h2>
+                                                    </div>
+                                                </div> <br><br>
+                                                <h2 class="purple-text text-center"><strong>SUCCESS !</strong></h2> <br>
+                                                <div class="row justify-content-center">
+                                                    <div class="col-3"> <img src="https://i.imgur.com/GwStPmg.png"
+                                                            class="fit-image"> </div>
+                                                </div> <br><br>
+                                                <div class="row justify-content-center">
+                                                    <div class="col-7 text-center">
+                                                        {{-- <h5 class="purple-text text-center">You Have Successfully
+                                                            Signed Up</h5> --}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
 
 <div class="modal fade" id="registar_open" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
@@ -540,12 +668,12 @@
     </div>
 </div>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#registar_open').modal('hide');
         $.ajax({
             type: "get",
             url: "/check_cookie",
-            success: function(response) {
+            success: function (response) {
                 if (response == 'UnAuth') {
                     $('#registar_open').modal('hide');
                 } else if (response != 0) {
@@ -554,16 +682,16 @@
                         '<i class="conclusion_loader fa fa-spinner fa-spin d-none d-flex justify-content-center" style="font-size:45px;"></i>' +
                         '<h3 class="CEva_heading">Clinical Evaluation</h3>' +
                         '<p class="CEva" style="text-align: justify;">' + response
-                        .clinical_evaluation + '</p>' +
+                            .clinical_evaluation + '</p>' +
                         '<h3 class="HRep_heading">Hypothesis Report</h3>' +
                         '<p class="HRep" style="text-align: justify;">' + response
-                        .hypothesis_report + '</p>' +
+                            .hypothesis_report + '</p>' +
                         '<h3 class="INote_heading">Intake Notes</h3>' +
                         '<p class="INote" style="text-align: justify;">' + response.intake_notes +
                         '</p>' +
                         '<h3 class="RAT_heading">Referrals And Tests</h3>' +
                         '<p class="RAT" style="text-align: justify;">' + response
-                        .referrals_and_tests + '</p>' +
+                            .referrals_and_tests + '</p>' +
                         '</div>' +
                         '<input type="button" name="next" class="next action-button btn_finish" value="Submit" />';
                     $('.model_body').html(html);
@@ -584,7 +712,7 @@
 
         setProgressBar(current);
 
-        $(".next").click(async function() {
+        $(".next").click(async function () {
             if (current == 1) {
                 var name = $('.symptom_checker_name').val();
                 var syemail = $('.symptom_checker_email').val();
@@ -600,9 +728,9 @@
                         age: age,
                         gender: gender,
                     },
-                    success: function(response) {
+                    success: function (response) {
                         if (response.errors) {
-                            $.each(response.errors, function(key, value) {
+                            $.each(response.errors, function (key, value) {
                                 var element = $('.' + key);
                                 element.addClass('is-invalid');
                                 element.closest('.col-md-6').find(
@@ -629,14 +757,14 @@
                     data: {
                         session_id: session_id,
                     },
-                    beforeSend: function() {
+                    beforeSend: function () {
                         $(".CEva_heading").addClass('d-none');
                         $(".HRep_heading").addClass('d-none');
                         $(".INote_heading").addClass('d-none');
                         $(".RAT_heading").addClass('d-none');
                         $(".conclusion_loader").removeClass('d-none');
                     },
-                    success: function(response) {
+                    success: function (response) {
                         if (response.auth == 0) {
                             var fullUrl = window.location.href;
                             html = ' <div class="modal-login-reg-btn my-3">' +
@@ -681,7 +809,7 @@
                 current_fs.animate({
                     opacity: 0
                 }, {
-                    step: function(now) {
+                    step: function (now) {
                         opacity = 1 - now;
                         current_fs.css({
                             'display': 'none',
@@ -698,7 +826,7 @@
             }
         });
 
-        $(".previous").click(function() {
+        $(".previous").click(function () {
 
             current_fs = $(this).parent();
             previous_fs = $(this).parent().prev();
@@ -713,7 +841,7 @@
             current_fs.animate({
                 opacity: 0
             }, {
-                step: function(now) {
+                step: function (now) {
                     // for making fielset appear animation
                     opacity = 1 - now;
 
@@ -729,7 +857,7 @@
             });
             setProgressBar(--current);
         });
-        $("#send_button").click(function(e) {
+        $("#send_button").click(function (e) {
             e.preventDefault();
             var answer = $('.chat_answer').val();
             var userImage =
@@ -799,11 +927,11 @@
                         message: answer,
                         session_id: session_id,
                     },
-                    beforeSend: function() {
+                    beforeSend: function () {
                         $(".loader").removeClass('d-none');
                         // $('#acceptIcon_'+order_id).html('<i class="fa fa-spinner fa-spin"></i>');
                     },
-                    success: function(response) {
+                    success: function (response) {
                         $(".loader").addClass('d-none');
                         $('.chat__main__').append('<div class="text-start right__user">' +
                             '<p class="right_p">' + response.response + '</p>' +
@@ -817,7 +945,7 @@
                         }, 'slow');
                         $('.chat_answer').val('');
                     },
-                    error: function(response) {}
+                    error: function (response) { }
                 });
             }
             if (questions >= 3) {
@@ -838,17 +966,17 @@
                 .css("width", percent + "%")
         }
 
-        $(".submit").click(function() {
+        $(".submit").click(function () {
             return false;
         })
     });
-    $(document).ready(function() {
-        $(document).on('click', '.btn_finish', function(e) {
+    $(document).ready(function () {
+        $(document).on('click', '.btn_finish', function (e) {
             e.preventDefault();
             $.ajax({
                 type: "get",
                 url: "/forget_cookie",
-                success: function(response) {
+                success: function (response) {
                     if (response == 1) {
                         $('#registar_open').modal('hide');
                     } else {
@@ -857,12 +985,12 @@
                 }
             });
         });
-        $(document).on('click', '.btn-close', function(e) {
+        $(document).on('click', '.btn-close', function (e) {
             e.preventDefault();
             $.ajax({
                 type: "get",
                 url: "/forget_cookie",
-                success: function(response) {
+                success: function (response) {
                     if (response == 1) {
                         $('#registar_open').modal('hide');
                     } else {
@@ -873,10 +1001,10 @@
         });
     });
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         var url = window.location.href;
         var activePage = url;
-        $('#nav-left-side a').each(function() {
+        $('#nav-left-side a').each(function () {
             var linkPage = this.href;
             if (activePage == linkPage) {
                 $(this).closest("a").addClass("activetab");
