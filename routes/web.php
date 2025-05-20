@@ -49,7 +49,7 @@ Route::get('/labs-add' , function(){
     ->whereNotNull('actual_price')
     ->whereNotNull('SALE_PRICE')
     ->get();
-    
+
     foreach($products as $product){
         DB::table('vendor_products')->insert([
             'vendor_id' => '1',
@@ -68,10 +68,10 @@ Route::get('/labs-add' , function(){
 
 Route::get('/pharmacy-add' , function(){
             $products = DB::table('tbl_products')
-            
+
             ->where('mode','medicine')
             ->get();
-    
+
     foreach($products as $product){
         DB::table('vendor_products')->insert([
             'vendor_id' => '2',
@@ -592,7 +592,8 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
     Route::get('/seo/admin/account/settings','SEOAdminController@seo_admin_acc_setting')->name('seo_admin_acc_setting');
     Route::post('/insert/meta/tag','SEOAdminController@save_meta_tag')->name('save_meta_tag');
     Route::get('/pages/meta/tag','SEOAdminController@pages_meta_tag')->name('pages_meta_tag');
-
+    Route::get('/get/pages/meta/tag/{id}','SEOAdminController@get_pages_meta_tag')->name('get_pages_meta_tag');
+    Route::post('/update/pages/meta/tag/{id}','SEOAdminController@update_pages_meta_tag')->name('update_pages_meta_tag');
     Route::get('/get/sections/by/page/{id}','SEOAdminController@get_sections_by_page_id')->name('get_sections_by_page_id');
     Route::get('/get/sequences/by/section/{id}','SEOAdminController@get_sequences_by_section_id')->name('get_sequences_by_section_id');
     Route::get('/get/content/by/content_id/{id}','SEOAdminController@get_content_by_content_id')->name('get_content_by_content_id');
