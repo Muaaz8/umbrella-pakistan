@@ -40,17 +40,10 @@ Route::get('sitemap', function () {
     return "sitemap created";
 });
 
-Route::get('/firebase', function () {
-    $firebase = (new \Kreait\Firebase\Factory)
-        ->withServiceAccount('firebase_credentials.json')
-        ->create();
-    dd($firebase);
-    $messaging = $firebase->getMessaging();
-    $token = 'asd8a4sd9a84sd9a4sda9s84da9s8d4a9s8d4a9s8d4asd48a9sd51a6d1asd8';
-    $message = CloudMessage::withTarget('token', $token)
-        ->withNotification(Notification::create('Test Title', 'Test Body'));
-
-    $messaging->send($message);
+Route::get('/firebase', function (App\Services\FirebaseService $firebaseService) {
+    $token = 'DEVICE_FCM_TOKEN';
+    $firebaseService->sendNotification($token, 'Hello', 'This is a test message!');
+    return 'Notification sent!';
 });
 
 Route::get('/labs-add' , function(){

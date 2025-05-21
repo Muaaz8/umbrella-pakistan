@@ -12,7 +12,7 @@ class FirebaseService
 
     public function __construct()
     {
-        $factory = (new Factory)->withServiceAccount('firebase_credentials.json');
+        $factory = (new Factory)->withServiceAccount(base_path('firebase_credentials.json'));
         $this->messaging = $factory->createMessaging();
     }
 
