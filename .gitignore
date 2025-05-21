@@ -47,3 +47,5 @@ Homestead.json
 
 /public/blog
 /public/sitemap.xml
+
+firebase_credentials.json

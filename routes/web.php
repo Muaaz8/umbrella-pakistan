@@ -42,9 +42,9 @@ Route::get('sitemap', function () {
 
 Route::get('/firebase', function () {
     $firebase = (new \Kreait\Firebase\Factory)
-        ->withServiceAccount('/firebase_credentials.json')
+        ->withServiceAccount('firebase_credentials.json')
         ->create();
-
+    dd($firebase);
     $messaging = $firebase->getMessaging();
     $token = 'asd8a4sd9a84sd9a4sda9s84da9s8d4a9s8d4a9s8d4asd48a9sd51a6d1asd8';
     $message = CloudMessage::withTarget('token', $token)
