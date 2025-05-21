@@ -232,43 +232,46 @@ class RegistrationController extends BaseController
         $login = $request->input('email');
         $password = $request->input('password');
         $timeZone = 'Asia/Karachi';
-    
+
         if (!$login || !$password) {
             return $this->sendError([], "Invalid email or password", Response::HTTP_UNAUTHORIZED);
         }
-    
+
         $fieldType = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'phone_number';
         $credentials = [$fieldType => $login, 'password' => $password];
-    
+
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
-    
+
             if (!$user || !$user->id) {
                 return $this->sendError([], "User authentication failed.", Response::HTTP_UNAUTHORIZED);
             }
-    
+
             \DB::table('users')->where('id', $user->id)->update(['timeZone' => $timeZone]);
-    
+            if($request->has('device_token')) {
+                User::where('id', $user->id)->update(['device_token' => $request->device_token]);
+            }
             $user_info = DB::table('users')
                 ->leftJoin('users_email_verification', 'users.id', '=', 'users_email_verification.user_id')
                 ->where('users.id', $user->id)
                 ->select('users.name', 'users.status' , 'users.id', 'users.last_name','users.email', 'users.username', 'users.user_image', 'users.phone_number' , 'users_email_verification.status as email_status')
                 ->first();
-    
+
             if ($user->user_type == 'doctor' && $user->active != '1') {
                 return $this->sendError([], "Your account is not active.", Response::HTTP_UNAUTHORIZED);
             }
             $user_info->user_image = \App\Helper::check_bucket_files_url($user_info->user_image);
             $token = $user->createToken('MyApp')->plainTextToken;
-    
+
             return $this->sendResponse([
                 'user' => $user_info,
                 'user_type' => $user->user_type,
                 'token' => $token,
                 'email_verification_status' => $user_info->email_status ?? null,
+                'device_token' => $user_info->device_token ?? null,
             ], 'User logged in successfully.');
         }
-    
+
         return $this->sendError([], "Invalid email or password", Response::HTTP_UNAUTHORIZED);
     }
     //logout
@@ -382,21 +385,21 @@ class RegistrationController extends BaseController
         // if (!isset($request->g_recaptcha_response)) {
         //     return $this->sendError([], 'Captcha not found');
         // }
-        
+
         // $captcha = $request->g_recaptcha_response;
         // $secretKey = "6LctFXkqAAAAAIMmlIukFW8I-pb_-iUeAhB-LQ7O";
         // $response = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . $secretKey . '&response=' . $captcha);
         // $responseData = json_decode($response, true);
-        
+
         // if ($responseData['success'] !== true) {
         //     return $this->sendError([], 'Captcha not verified');
         // }
-        
+
         $user_type = $request->user_type;
-        
+
         $datecheck = $request->date_of_birth;
         $newd_o_b = $this->formatDateOfBirth($datecheck);
-        
+
         $userData = [
             'user_type' => $user_type,
             'name' => $request->name,
@@ -413,7 +416,7 @@ class RegistrationController extends BaseController
             'terms_and_cond' => $request->terms_and_cond,
             'timeZone' => $request->timezone,
         ];
-        
+
         if ($user_type == 'patient') {
             $userData += [
                 'office_address' => "",
@@ -431,36 +434,36 @@ class RegistrationController extends BaseController
                 'specialization' => $request->specializations,
                 'signature' => $request->signature,
             ];
-            
+
             $userData += $this->processImageUploads();
         }
-        
+
         $user = User::create($userData);
-        
+
         $hash_to_verify = base_convert(rand(10e12, 10e16), 10, 36);
         $otp = rand(100000, 999999);
-        
+
         DB::table('users_email_verification')->insert([
             'verification_hash_code' => $hash_to_verify,
             'user_id' => $user->id,
             'otp' => $otp,
         ]);
-        
+
         $emailData = [
             'hash' => $hash_to_verify,
             'user_id' => $user->id,
             'to_mail' => $user->email,
             'otp' => $otp,
         ];
-        
+
         $this->sendNotifications($user, $emailData, $otp);
-        
+
         if ($user_type != 'patient') {
             DB::table('doctor_percentage')->insert([
                 'doc_id' => $user->id,
                 'percentage' => 70,
             ]);
-            
+
             Contract::create([
                 'slug' => 'UMB' . time(),
                 'provider_id' => $user->id,
@@ -474,7 +477,7 @@ class RegistrationController extends BaseController
                 'status' => 'signed',
             ]);
         }
-        
+
         return $this->sendResponse($user, 'User Created Successfully!');
     }
 
@@ -483,7 +486,7 @@ class RegistrationController extends BaseController
         if (str_contains($datecheck, "/")) {
             return date("Y-m-d", strtotime($datecheck));
         }
-        
+
         $date = str_replace('-', '/', $datecheck);
         return date("Y-m-d", strtotime($date));
     }
@@ -495,34 +498,34 @@ class RegistrationController extends BaseController
             'id_card_back' => 'doctors/' . date('YmdHis'),
             'user_image' => 'user.png'
         ];
-        
+
         $uploadFields = [
             'id_front_side' => 'id_card_front',
             'id_back_side' => 'id_card_back',
             'profile_pic' => 'user_image'
         ];
-        
+
         foreach ($uploadFields as $requestField => $dataField) {
             if (request()->hasFile($requestField)) {
                 $file = request()->file($requestField);
                 $folder = $dataField === 'user_image' ? 'user_profile_images/' : 'doctors/';
                 $imageName = $folder . date('YmdHis') . $file->getClientOriginalName();
-                
+
                 $img = Image::make($file);
                 $img->resize(1000, 1000, function ($constraint) {
                     $constraint->aspectRatio();
                 });
-                
+
                 $resource = $img->stream()->detach();
                 \Storage::disk('s3')->put($imageName, $resource);
-                
+
                 $imageData[$dataField] = $imageName;
             }
         }
-        
+
         return $imageData;
     }
-    
+
     private function sendNotifications($user, $emailData, $otp)
     {
         try {
@@ -542,42 +545,42 @@ class RegistrationController extends BaseController
     public function autoLogin(Request $request)
     {
         $token = $request->bearerToken() ?? $request->token;
-    
+
         if (!$token) {
             return $this->sendError([], "Token not provided.");
         }
-    
+
         $accessToken = PersonalAccessToken::findToken($token);
-    
+
         if (!$accessToken || !$accessToken->tokenable) {
             return $this->sendError([], "Invalid or expired token.");
         }
-    
+
         $user = $accessToken->tokenable;
-    
+
         if (!$user || !$user->id) {
             return $this->sendError([], "User authentication failed.");
         }
-    
+
         // Optional: Update timezone
         $timeZone = 'Asia/Karachi';
         DB::table('users')->where('id', $user->id)->update(['timeZone' => $timeZone]);
-    
+
         $user_info = DB::table('users')
             ->leftJoin('users_email_verification', 'users.id', '=', 'users_email_verification.user_id')
             ->where('users.id', $user->id)
             ->select('users.name','users.status', 'users.id', 'users.username', 'users.user_image', 'users.last_name', 'users.email', 'users.phone_number', 'users_email_verification.status as email_status')
             ->first();
-    
+
         if ($user->user_type === 'doctor' && $user->active != '1') {
             return $this->sendError([], "Your account is not active.");
         }
-    
-        
+
+
         $user_info->user_image = \App\Helper::check_bucket_files_url($user_info->user_image);
         // Optional: create a new token (or reuse the old one if desired)
         $newToken = $user->createToken('MyApp')->plainTextToken;
-    
+
         return $this->sendResponse([
             'user' => $user_info,
             'user_type' => $user->user_type,
@@ -594,20 +597,20 @@ class RegistrationController extends BaseController
         $user = DB::table('users_email_verification')->where('user_id', $user_id)->first();
         if ($otp == $user->otp) {
             DB::table('users_email_verification')->where('user_id', $user_id)->update(['status' => '1']);
-            
+
             $timeZone = 'Asia/Karachi';
             DB::table('users')->where('id', $user_id)->update(['timeZone' => $timeZone]);
-        
-            
+
+
             $user_info = DB::table('users')
             ->leftJoin('users_email_verification', 'users.id', '=', 'users_email_verification.user_id')
             ->where('users.id', $user_id)
             ->select('users.name', 'users.status', 'users.id', 'users.last_name', 'users.email', 'users.phone_number', 'users_email_verification.status as email_status','users.user_type')
             ->first();
-            
+
             $authUser = User::find($user_id);
             $newToken = $authUser->createToken('MyApp')->plainTextToken;
-        
+
             return $this->sendResponse([
                 'user' => $user_info,
                 'user_type' => $user_info->user_type,

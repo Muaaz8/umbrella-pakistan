@@ -40,6 +40,19 @@ Route::get('sitemap', function () {
     return "sitemap created";
 });
 
+Route::get('/firebase', function () {
+    $firebase = (new \Kreait\Firebase\Factory)
+        ->withServiceAccount('/firebase_credentials.json')
+        ->create();
+
+    $messaging = $firebase->getMessaging();
+    $token = 'asd8a4sd9a84sd9a4sda9s84da9s8d4a9s8d4a9s8d4asd48a9sd51a6d1asd8';
+    $message = CloudMessage::withTarget('token', $token)
+        ->withNotification(Notification::create('Test Title', 'Test Body'));
+
+    $messaging->send($message);
+});
+
 Route::get('/labs-add' , function(){
             $products = DB::table('quest_data_test_codes')
     ->where(function($query) {

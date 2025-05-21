@@ -303,10 +303,10 @@
                             </ul>
                         </div>
                     @endif
-                    <button class="nav_btns">
-                        <i class="fa-brands fa-whatsapp"></i>
-                        <a href="https://wa.me/923372350684" target="_blank">0337-2350684</a>
-                    </button>
+
+                    <a href="https://wa.me/923372350684" target="_blank">
+                        <i class="fa-brands fa-whatsapp" style="font-size: 25px; color:#35b518"></i>
+                    </a>
                     <div class="position-relative" onclick="window.location.href='{{ url('/my/cart') }}'">
                         <img src="{{ asset('assets/new_frontend/purchase-icon.svg') }}" alt="shop-icon" />
                         @if (Auth::check())
