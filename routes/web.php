@@ -643,6 +643,10 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
     Route::post('/vendor/add/product','VendorsController@store_vendor_product')->name('store_vendor_product');
     Route::post('/vendor/product/status_update','VendorsController@toggle_product_status')->name('toggle_product_status');
     Route::put('/vendor/products/update/{id}','VendorsController@update_vendor_product')->name('update_vendor_product');
+    Route::get('/vendor/products/upload','VendorsController@upload_page')->name('upload_page');
+    Route::post('/vendor/products/process', 'VendorsController@processBulkUpload')->name('product_process');
+    Route::get('/vendor/products/process', 'VendorsController@downloadTemplate')->name('template');
+
 
 
     Route::group(['middleware' => ['lab_auth']], function () {

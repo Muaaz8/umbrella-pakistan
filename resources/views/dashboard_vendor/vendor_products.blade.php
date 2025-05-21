@@ -134,7 +134,7 @@
                                         @if ($vendor_type == 'pharmacy')
                                             <th scope="col">Available Stock</th>
                                         @endif
-                                        <th scope="col">Actual Price</th>
+                                        <th scope="col">SKU</th>
                                         <th scope="col">Selling Price</th>
                                         <th scope="col">Discount</th>
                                         <th scope="col">Action</th>
@@ -149,7 +149,7 @@
                                             @if ($vendor_type == 'pharmacy')
                                                 <td data-label="Stock">{{ $product->available_stock }}</td>
                                             @endif
-                                            <td data-label="Actual Price">{{ $product->actual_price }}</td>
+                                            <td data-label="Actual Price">{{ $product->SKU }}</td>
                                             <td data-label="Selling Price">{{ $product->selling_price }}</td>
                                             <td data-label="Discount">{{ $product->discount }}%</td>
                                             <td class="d-flex align-items-center justify-content-center" data-label="Action">

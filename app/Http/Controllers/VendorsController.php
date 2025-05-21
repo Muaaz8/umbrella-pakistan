@@ -14,12 +14,14 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Image;
+use Illuminate\Support\Facades\Validator;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class VendorsController extends Controller
 {
     public function index($shop_type)
     {
-        $vendors = DB::table('vendor_accounts')->where('vendor' , $shop_type)->paginate(12);
+        $vendors = DB::table('vendor_accounts')->where('vendor', $shop_type)->paginate(12);
 
         foreach ($vendors as $key => $vendor) {
             $vendor->image = \App\Helper::check_bucket_files_url($vendor->image);
@@ -389,28 +391,30 @@ class VendorsController extends Controller
         }
     }
 
-    public function vendor_dash(){
+    public function vendor_dash()
+    {
         $user = auth()->user();
         $vendor = VendorAccount::where('user_id', $user->id)->first();
         return view('dashboard_vendor.vendor');
     }
 
-    public function add_product_page(){
+    public function add_product_page()
+    {
         $vendor = VendorAccount::where('user_id', auth()->user()->id)->first();
         $products = [];
-        if ($vendor->vendor == 'pharmacy'){ {
-            $products = DB::table('tbl_products')
-            ->select('id', 'name')
-            ->where('mode','medicine')
-            ->get();
-            return view('dashboard_vendor.add_product', compact('products'));
-        }
+        if ($vendor->vendor == 'pharmacy') { {
+                $products = DB::table('tbl_products')
+                    ->select('id', 'name')
+                    ->where('mode', 'medicine')
+                    ->get();
+                return view('dashboard_vendor.add_product', compact('products'));
+            }
         } else {
             $products = DB::table('quest_data_test_codes')
-            ->select('TEST_CD AS id', 'TEST_NAME AS name')
-            ->where('mode','lab-test')
-            ->orWhere('mode','imaging')
-            ->get();
+                ->select('TEST_CD AS id', 'TEST_NAME AS name')
+                ->where('mode', 'lab-test')
+                ->orWhere('mode', 'imaging')
+                ->get();
             return view('dashboard_vendor.add_product', compact('products'));
         }
     }
@@ -419,16 +423,15 @@ class VendorsController extends Controller
     {
         $request->validate([
             'product_id' => 'required',
-            'actual_price' => 'required',
             'selling_price' => 'required',
-            'discount_percentage' => 'nullable|min:0|max:100',
         ]);
+
 
         $vendorId = auth()->user()->id;
         $vendorAccount = VendorAccount::where('user_id', $vendorId)->first();
         $vendor_type = '';
 
-        if($vendorAccount->vendor == 'pharmacy'){
+        if ($vendorAccount->vendor == 'pharmacy') {
             $vendor_type = 'pharmacy';
         } else {
             $vendor_type = 'lab';
@@ -440,6 +443,7 @@ class VendorsController extends Controller
             'available_stock' => $request->available_stock,
             'actual_price' => $request->actual_price,
             'selling_price' => $request->selling_price,
+            'SKU' => $request->SKU,
             'discount' => $request->discount_percentage,
             'product_type' => $vendor_type,
         ]);
@@ -458,14 +462,14 @@ class VendorsController extends Controller
                 ->select('vendor_products.*', 'tbl_products.name')
                 ->where('vendor_products.vendor_id', $vendor->id)
                 ->paginate(10);
-                return view('dashboard_vendor.vendor_products', compact('products', 'vendor_type'));
+            return view('dashboard_vendor.vendor_products', compact('products', 'vendor_type'));
         } else {
             $products = DB::table('vendor_products')
                 ->join('quest_data_test_codes', 'vendor_products.product_id', '=', 'quest_data_test_codes.TEST_CD')
                 ->select('vendor_products.*', 'quest_data_test_codes.TEST_NAME AS name')
                 ->where('vendor_products.vendor_id', $vendor->id)
                 ->paginate(10);
-                return view('dashboard_vendor.vendor_products', compact('products', 'vendor_type'));
+            return view('dashboard_vendor.vendor_products', compact('products', 'vendor_type'));
         }
     }
 
@@ -487,7 +491,7 @@ class VendorsController extends Controller
         }
     }
 
-     public function edit_product($id)
+    public function edit_product($id)
     {
         $vendorId = auth()->user()->id;
         $vendorProduct = DB::table('vendor_products')
@@ -499,16 +503,16 @@ class VendorsController extends Controller
                 ->with('error', 'Product not found or you do not have permission to edit this product.');
         }
 
-        if($vendorProduct->product_type == 'pharmacy'){
+        if ($vendorProduct->product_type == 'pharmacy') {
             $product = DB::table('tbl_products')
                 ->where('id', $vendorProduct->product_id)
                 ->first();
-                $productName = $product->name;
-            } else {
-                $product = DB::table('quest_data_test_codes')
+            $productName = $product->name;
+        } else {
+            $product = DB::table('quest_data_test_codes')
                 ->where('TEST_CD', $vendorProduct->product_id)
                 ->first();
-                $productName = $product->TEST_NAME;
+            $productName = $product->TEST_NAME;
         }
 
 
@@ -518,10 +522,7 @@ class VendorsController extends Controller
     public function update_vendor_product(Request $request, $id)
     {
         $request->validate([
-            'actual_price' => 'required|min:0',
             'selling_price' => 'required|min:0',
-            'discount_percentage' => 'nullable|min:0|max:100',
-            'available_stock' => 'required|min:0',
         ]);
 
         $vendorProduct = DB::table('vendor_products')
@@ -540,12 +541,221 @@ class VendorsController extends Controller
                 'selling_price' => $request->selling_price,
                 'discount' => $request->discount_percentage,
                 'available_stock' => $request->available_stock,
+                'SKU' => $request->SKU,
                 'is_active' => $request->is_active,
                 'updated_at' => now(),
             ]);
 
         return redirect()->route('vendor_products')
             ->with('success', 'Product updated successfully.');
+    }
+
+
+    public function upload_page()
+    {
+        return view('dashboard_vendor.upload_products');
+    }
+
+public function processBulkUpload(Request $request)
+{
+    $request->validate([
+        'excel_file' => 'required|file|max:30048',
+    ]);
+
+    $file = $request->file('excel_file');
+    $extension = $file->getClientOriginalExtension();
+    
+    if (!in_array(strtolower($extension), ['xlsx', 'xls', 'csv'])) {
+        return redirect()->back()->withErrors(['excel_file' => 'The excel file must be a file of type: xlsx, xls, csv.']);
+    }
+
+    $vendorId = auth()->user()->id;
+    $vendorAccount = VendorAccount::where('user_id', $vendorId)->first();
+
+    $vendor_type = $vendorAccount->vendor == 'pharmacy' ? 'pharmacy' : 'lab';
+
+    try {
+        $spreadsheet = IOFactory::load($file->getPathname());
+        $worksheet = $spreadsheet->getActiveSheet();
+        $rows = $worksheet->toArray();
+
+        $header = array_shift($rows);
+
+        $added = 0;
+        $updated = 0;
+        $errors = 0;
+        $errorMessages = [];
+
+        foreach ($rows as $index => $row) {
+
+            if (empty(array_filter($row))) {
+                continue;
+            }
+
+            $productData = [
+                'product_id' => $row[0],
+                'available_stock' => $row[2],
+                'actual_price' => $row[3],
+                'selling_price' => $row[4],
+                'SKU' => $row[5],
+                'discount' => $row[6],
+                'is_active' => $row[7] ?? 0,
+            ];
+
+            $validator = Validator::make($productData, [
+                'product_id' => 'required',
+                'selling_price' => 'required|numeric',
+                'SKU' => 'required',
+            ]);
+
+            if ($validator->fails()) {
+                $errors++;
+                $errorMessages[] = "Row " . ($index + 2) . ": " . implode(', ', $validator->errors()->all());
+                continue;
+            }
+
+            try {
+                $existingProduct = DB::table('vendor_products')
+                    ->where('vendor_id', $vendorAccount->id)
+                    ->where('SKU', $productData['SKU'])
+                    ->first();
+
+                if ($existingProduct) {
+                    DB::table('vendor_products')
+                        ->where('vendor_id', $vendorAccount->id)
+                        ->where('SKU', $productData['SKU'])
+                        ->update([
+                            'product_id' => $productData['product_id'],
+                            'available_stock' => $productData['available_stock'],
+                            'actual_price' => $productData['actual_price'],
+                            'selling_price' => $productData['selling_price'],
+                            'discount' => $productData['discount'],
+                            'updated_at' => now()
+                        ]);
+                    $updated++;
+                } else {
+                    DB::table('vendor_products')->insert([
+                        'vendor_id' => $vendorAccount->id,
+                        'product_id' => $productData['product_id'],
+                        'available_stock' => $productData['available_stock'],
+                        'actual_price' => $productData['actual_price'],
+                        'selling_price' => $productData['selling_price'],
+                        'SKU' => $productData['SKU'],
+                        'discount' => $productData['discount'],
+                        'product_type' => $vendor_type,
+                        'created_at' => now(),
+                        'updated_at' => now()
+                    ]);
+                    $added++;
+                }
+            } catch (\Exception $e) {
+                $errors++;
+                $errorMessages[] = "Row " . ($index + 2) . ": " . $e->getMessage();
+            }
+        }
+
+        $successMessage = "Products processed successfully. Added: $added, Updated: $updated";
+        if ($errors > 0) {
+            $successMessage .= ", Errors: $errors";
+        }
+
+        return redirect()->route('upload_page')->with('success', $successMessage);
+    } catch (\Exception $e) {
+        return redirect()->back()->withErrors(['file_error' => 'Error processing file: ' . $e->getMessage()]);
+    }
+}
+
+    public function getVendorProducts()
+    {
+        $vendor = VendorAccount::where('user_id', auth()->user()->id)->first();
+        $products = [];
+
+        if ($vendor->vendor == 'pharmacy') {
+            $products = DB::table('tbl_products')
+                ->select('id', 'name', 'sele_price')
+                ->where('mode', 'medicine')
+                ->get();
+        } else {
+            $products = DB::table('quest_data_test_codes')
+                ->select(
+                    'TEST_CD AS id',
+                    'TEST_NAME AS name',
+                    'PRICE AS price',
+                    'SALE_PRICE AS selling_price',
+                    'discount_percentage AS discount'
+                )
+                ->where(function ($query) {
+                    $query->where('mode', 'lab-test')
+                        ->orWhere('mode', 'imaging');
+                })
+                ->get();
+        }
+
+        return $products;
+    }
+
+    public function downloadTemplate()
+    {
+        $products = $this->getVendorProducts();
+
+        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Set headers
+        $sheet->setCellValue('A1', 'Product ID');
+        $sheet->setCellValue('B1', 'Product Name');
+        $sheet->setCellValue('C1', 'Available Stock');
+        $sheet->setCellValue('D1', 'Actual Price');
+        $sheet->setCellValue('E1', 'Selling Price');
+        $sheet->setCellValue('F1', 'SKU');
+        $sheet->setCellValue('G1', 'Discount (%)');
+        $sheet->setCellValue('H1', 'Is Active (1/0)');
+
+        // Make headers bold
+        $sheet->getStyle('A1:H1')->getFont()->setBold(true);
+
+        // Fill product data
+        $row = 2;
+        foreach ($products as $product) {
+            $sheet->setCellValue('A' . $row, $product->id);
+            $sheet->setCellValue('B' . $row, $product->name);
+            $sheet->setCellValue('C' . $row, $product->stock ?? 0);
+            $sheet->setCellValue('D' . $row, $product->price ?? 0);
+            $sheet->setCellValue('E' . $row, $product->selling_price ?? 0);
+            $sheet->setCellValue('F' . $row, $product->sku ?? '');
+            $sheet->setCellValue('G' . $row, $product->discount ?? 0);
+            $sheet->setCellValue('H' . $row, $product->is_active ?? 1);
+
+            $row++;
+        }
+
+        $protection = $sheet->getProtection();
+        $protection->setSheet(true);
+        $protection->setPassword('vendorTemplate123');
+
+
+        foreach (range('A', 'H') as $col) {
+            if (in_array($col, ['A', 'B'])) {
+                $sheet->getStyle($col . '2:' . $col . $row)->getProtection()
+                    ->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_PROTECTED);
+            } else {
+                $sheet->getStyle($col . '2:' . $col . $row)->getProtection()
+                    ->setLocked(\PhpOffice\PhpSpreadsheet\Style\Protection::PROTECTION_UNPROTECTED);
+            }
+        }
+
+        foreach (range('A', 'H') as $col) {
+            $sheet->getColumnDimension($col)->setAutoSize(true);
+        }
+
+        $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');
+        $filename = 'vendor_products_template.xlsx';
+        $tempFile = tempnam(sys_get_temp_dir(), $filename);
+        $writer->save($tempFile);
+
+        return response()->download($tempFile, $filename, [
+            'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        ])->deleteFileAfterSend(true);
     }
 
 }

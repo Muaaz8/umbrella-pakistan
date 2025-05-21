@@ -35,31 +35,14 @@
 
 @section('bottom_import_file')
     <script>
-        document.getElementById('actual_price').addEventListener('input', function () {
-            calculateDiscount();
-        });
-
         document.getElementById('selling_price').addEventListener('input', function () {
-            calculateDiscount();
+            calculateDiscountedPrice();
         });
         
         document.getElementById('discount_percentage').addEventListener('input', function () {
             calculateDiscountedPrice();
         });
 
-        function calculateDiscount() {
-            const actualPrice = parseFloat(document.getElementById('actual_price').value) || 0;
-            const sellingPrice = parseFloat(document.getElementById('selling_price').value) || 0;
-
-            if (actualPrice > 0 && sellingPrice > 0 && actualPrice >= sellingPrice) {
-                const discountAmount = actualPrice - sellingPrice;
-                const discountPercentage = (discountAmount / actualPrice) * 100;
-                document.getElementById('discount').value = discountPercentage.toFixed(2);
-            } else {
-                document.getElementById('discount').value = '';
-            }
-        }
-        
         function calculateDiscountedPrice() {
             const sellingPrice = parseFloat(document.getElementById('selling_price').value) || 0;
             const discountPercentage = parseFloat(document.getElementById('discount_percentage').value) || 0;
@@ -116,7 +99,7 @@
                                                     Stock</label>
                                                 <input id="available_stock" type="number" min="0"
                                                     class="form-control @error('available_stock') is-invalid @enderror"
-                                                    name="available_stock" value="{{ old('available_stock', 0) }}" required
+                                                    name="available_stock" value="{{ old('available_stock', 0) }}"
                                                     placeholder="Enter Stock Quantity">
                                                 @error('available_stock')
                                                     <span class="invalid-feedback" role="alert">
@@ -128,13 +111,12 @@
 
                                         <div class="row mb-3">
                                             <div class="col-md-6">
-                                                <label class="fw-bolder mb-2 required-field" for="actual_price">Actual
-                                                    Price</label>
-                                                <input id="actual_price" type="number" step="0.01" min="0"
-                                                    class="form-control @error('actual_price') is-invalid @enderror"
-                                                    name="actual_price" value="{{ old('actual_price') }}" required
-                                                    placeholder="Enter Actual Price">
-                                                @error('actual_price')
+                                                <label class="fw-bolder mb-2 required-field" for="SKU">SKU #</label>
+                                                <input id="SKU" type="text"
+                                                    class="form-control @error('SKU') is-invalid @enderror"
+                                                    name="SKU" value="{{ old('SKU') }}" required
+                                                    placeholder="Enter SKU Number">
+                                                @error('SKU')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
                                                     </span>
