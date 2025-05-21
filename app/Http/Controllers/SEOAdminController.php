@@ -421,4 +421,49 @@ class SEOAdminController extends Controller
         return redirect()->back();
     }
 
+    public function get_pages_meta_tag($id){
+        $meta = DB::table('meta_tags')->where('id',$id)->first();
+        $data = DB::table('meta_tags')->where('url',$meta->url)->get();
+        foreach($data as $key => $value)
+        {
+            if($value->name == 'title')
+            {
+                $data[$key]->name = 'Title';
+            }
+            elseif($value->name == 'description')
+            {
+                $data[$key]->name = 'Description';
+            }
+            elseif($value->name == 'keywords')
+            {
+                $data[$key]->name = 'Keywords';
+            }
+        }
+        return response()->json($data);
+    }
+
+    public function update_pages_meta_tag(Request $request,$id){
+        $meta = DB::table('meta_tags')->where('id',$id)->first();
+        if($meta)
+        {
+            $data = DB::table('meta_tags')->where('url',$meta->url)->get();
+        }
+        foreach($data as $key => $value)
+        {
+            if($value->name == 'title')
+            {
+                DB::table('meta_tags')->where('id',$value->id)->update(['content'=>$request->title]);
+            }
+            elseif($value->name == 'description')
+            {
+                DB::table('meta_tags')->where('id',$value->id)->update(['content'=>$request->description]);
+            }
+            elseif($value->name == 'keywords')
+            {
+                DB::table('meta_tags')->where('id',$value->id)->update(['content'=>$request->keywords]);
+            }
+        }
+        return redirect()->back()->with('Tag Updated Successfully');
+    }
+
 }

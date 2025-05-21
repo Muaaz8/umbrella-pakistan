@@ -14,75 +14,67 @@
 @endsection
 
 @section('bottom_import_file')
-<script type="text/javascript">
-    @php header("Access-Control-Allow-Origin: *"); @endphp
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    <script type="text/javascript">
+        @php header("Access-Control-Allow-Origin: *"); @endphp
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        function edit(id) {
+            console.log(id);
+            $.ajax({
+                type: "GET",
+                url: "/get/pages/meta/tag/" + id,
+                success: function(response) {
+                    $.each(response, function (indexInArray, valueOfElement) {
+                        if(valueOfElement.name == "Title") {
+                            document.getElementById("title").value = valueOfElement.content;
+                        } else if(valueOfElement.name == "Description") {
+                            document.getElementById("site_description").value = valueOfElement.content;
+                        } else if(valueOfElement.name == "Keywords") {
+                            document.getElementById("Site_Keywords").value = valueOfElement.content;
+                        }
+                    });
+                    document.getElementById("meta_tag_form").setAttribute("action", "/update/pages/meta/tag/" + id);
+                    document.getElementById("save_btn").innerHTML = "Update Meta Tags";
+                    //Window scroll to top
+                    window.scrollTo(0, 0);
+                }
+            });
         }
-    });
+    </script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/28.0.0/classic/ckeditor.js"></script>
+    <script>
+        ClassicEditor.create(document.querySelector("#editor"));
 
-    $('#mode').change(function(){
-      var mode = $('#mode').val();
-      if(mode == 'lab-test')
-      {
-        var labs = $('#labs').val();
-        $('#pro').html('<option selected>Select Product</option>');
-        $.each (JSON.parse(labs), function (key, lab) {
-          $('#pro').append('<option value="'+lab.TEST_CD+'">'+lab.TEST_NAME+'</option>');
+        document.querySelector("form").addEventListener("submit", (e) => {
+            e.preventDefault();
+            console.log(document.getElementById("editor").value);
         });
-      }
-      else if(mode == 'medicine')
-      {
-        var meds = $('#meds').val();
-        $('#pro').html('<option selected>Select Product</option>');
-        $.each (JSON.parse(meds), function (key, med) {
-          $('#pro').append('<option value="'+med.id+'">'+med.name+'</option>');
-        });
-      }
-      else if(mode == 'imaging')
-      {
-        var imgs = $('#imgs').val();
-        $('#pro').html('<option selected>Select Product</option>');
-        $.each (JSON.parse(imgs), function (key, img) {
-          $('#pro').append('<option value="'+img.id+'">'+img.name+'</option>');
-        });
-      }
-      else
-      {
-        $('#pro').html('<option selected>Select Product</option>');
-      }
-    });
-</script>
-<script src="https://cdn.ckeditor.com/ckeditor5/28.0.0/classic/ckeditor.js"></script>
-<script>
-    ClassicEditor.create(document.querySelector("#editor"));
+    </script>
+    <script>
+        ClassicEditor.create(document.querySelector("#editors"));
 
-document.querySelector("form").addEventListener("submit", (e) => {
-  e.preventDefault();
-  console.log(document.getElementById("editor").value);
-});
-  </script>
-  <script>
-    ClassicEditor.create(document.querySelector("#editors"));
-
-document.querySelector("form").addEventListener("submit", (e) => {
-  e.preventDefault();
-  console.log(document.getElementById("editors").value);
-});
-  </script>
+        document.querySelector("form").addEventListener("submit", (e) => {
+            e.preventDefault();
+            console.log(document.getElementById("editors").value);
+        });
+    </script>
 @endsection
 @section('content')
-<div class="col-11 m-auto">
-            <div class="account-setting-wrapper bg-white">
-            <form action="/insert/pages/meta/tag" method="POST">
-              @csrf
+    <div class="col-11 m-auto">
+        <div class="account-setting-wrapper bg-white">
+            <form action="/insert/pages/meta/tag" id="meta_tag_form" method="POST">
+                @csrf
                 <h4 class="pb-4 border-bottom">Seo Form</h4>
                 <div class="py-2">
                     <div class="row py-2">
                         <div class="col-md-6">
                             <label for="firstname">Product Mode</label>
-                            <select class="form-select" name="url" required aria-label="Default select example" required>
+                            <select class="form-select" name="url" required aria-label="Default select example"
+                                required>
                                 <option selected>Select Page</option>
                                 <option value="">Home</option>
                                 <option value="/about-us">About</option>
@@ -95,22 +87,13 @@ document.querySelector("form").addEventListener("submit", (e) => {
                                 <option value="/pharmacy">Pharmacy</option>
                                 <option value="/labtests">Lab Test</option>
                                 <option value="/imaging">Imaging</option>
-                                <!-- <option value="/login">Login</option>
-                                <option value="/doctor_register">Doctor Register</option>
-                                <option value="/patient_register">Patient Register</option> -->
-                              </select>
+                            </select>
                         </div>
-                        <!-- <div class="col-md-6 pt-md-0 pt-3">
-                            <label for="lastname">Product Name</label>
-                            <select id="pro" name="pro_id" class="form-select" required aria-label="Default select example">
-                                <option selected>Select Product</option>
-                              </select>
-                        </div> -->
                     </div>
                     <div class="row py-2">
                         <div class="col-md-12">
                             <label for="firstname">Set Title</label>
-                            <input type="text" name="title" class="form-control" placeholder="" required>
+                            <input type="text" name="title" id="title" class="form-control" placeholder="" required>
                         </div>
                     </div>
                     <div class="row py-2">
@@ -124,69 +107,55 @@ document.querySelector("form").addEventListener("submit", (e) => {
                         </div>
                     </div>
                     <div class="py-3 pb-4">
-                        <button type="submit" class="btn btn-primary mr-3">Save Meta Tags</button>
+                        <button type="submit" id="save_btn" class="btn btn-primary mr-3">Save Meta Tags</button>
                         <button class="btn border button">Cancel</button>
                     </div>
                 </div>
-                </form>
-                <div class="container">
+            </form>
+            <div class="container">
                 <div class="row m-auto">
-                  <div class="col-md-12">
-                    <div class="row m-auto">
-                      <div class="wallet-table">
-                        <table class="table">
-                            <thead>
-                              <tr>
-                                <th scope="col">URL</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Content</th>
-                                <th scope="col">Action</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($tags as $tag)
-                              <tr>
-                                <th scope="row">{{$tag->url}}</th>
-                                <td>{{$tag->name}}</td>
-                                <td>{{$tag->content}}</td>
-                                <td>
-                                  <button class="btn option-view-btn"  type="button" onclick="window.location.href='/del/pages/meta/tag/{{$tag->id}}'">
-                                    Delete
-                                  </button>
-                                </td>
-                              </tr>
-                              @endforeach
-                          </table>
-                          <div class="row d-flex justify-content-center">
-                              <div id="pag" class="paginateCounter">
-                                  {{ $tags->links('pagination::bootstrap-4') }}
-                              </div>
-                          </div>
-                        <!-- <nav aria-label="..." class="float-end pe-3">
-                          <ul class="pagination">
-                            <li class="page-item disabled">
-                              <span class="page-link">Previous</span>
-                            </li>
-                            <li class="page-item">
-                              <a class="page-link" href="#">1</a>
-                            </li>
-                            <li class="page-item active" aria-current="page">
-                              <span class="page-link">2</span>
-                            </li>
-                            <li class="page-item">
-                              <a class="page-link" href="#">3</a>
-                            </li>
-                            <li class="page-item">
-                              <a class="page-link" href="#">Next</a>
-                            </li>
-                          </ul>
-                        </nav> -->
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+                    <div class="col-md-12">
+                        <div class="row m-auto">
+                            <div class="wallet-table">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">URL</th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col">Content</th>
+                                            <th scope="col">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($tags as $tag)
+                                            <tr>
+                                                <th scope="row">{{ $tag->url }}</th>
+                                                <td>{{ $tag->name }}</td>
+                                                <td>{{ $tag->content }}</td>
+                                                <td>
+                                                    <button class="btn option-view-btn" type="button"
+                                                        onclick="window.location.href='/del/pages/meta/tag/{{ $tag->id }}'">
+                                                        Delete
+                                                    </button>
 
+                                                    <button class="btn option-view-btn" type="button"
+                                                        onclick="edit({{ $tag->id }})">
+                                                        Edit
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                </table>
+                                <div class="row d-flex justify-content-center">
+                                    <div id="pag" class="paginateCounter">
+                                        {{ $tags->links('pagination::bootstrap-4') }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-  @endsection
+    </div>
+@endsection
