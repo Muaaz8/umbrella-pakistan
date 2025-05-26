@@ -17,8 +17,8 @@
                     <a href="{{ route('vendor_products') }}" class="dashboard-nav-dropdown-item">My Products</a>
                     <a href="{{ route('upload_page') }}" class="dashboard-nav-dropdown-item">Upload Products</a>
                 </div>
-            </div>
-
+        </div>
+        <a href="{{ route('vendor_all_order') }}" class="dashboard-nav-item"><i class="fa-solid fa-cart-shopping"></i> Orders </a>
       </nav>
     </div>
 

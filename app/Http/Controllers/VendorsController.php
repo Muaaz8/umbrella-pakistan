@@ -604,8 +604,7 @@ public function processBulkUpload(Request $request)
 
             $validator = Validator::make($productData, [
                 'product_id' => 'required',
-                'selling_price' => 'required|numeric',
-                'SKU' => 'required',
+                'selling_price' => 'required',
             ]);
 
             if ($validator->fails()) {
@@ -618,18 +617,21 @@ public function processBulkUpload(Request $request)
                 $existingProduct = DB::table('vendor_products')
                     ->where('vendor_id', $vendorAccount->id)
                     ->where('SKU', $productData['SKU'])
+                    ->where('product_id', $productData['product_id'])
                     ->first();
 
                 if ($existingProduct) {
                     DB::table('vendor_products')
                         ->where('vendor_id', $vendorAccount->id)
                         ->where('SKU', $productData['SKU'])
+                        ->where('product_id', $productData['product_id'])
                         ->update([
                             'product_id' => $productData['product_id'],
                             'available_stock' => $productData['available_stock'],
                             'actual_price' => $productData['actual_price'],
                             'selling_price' => $productData['selling_price'],
                             'discount' => $productData['discount'],
+                            'is_active' => $productData['is_active'],
                             'updated_at' => now()
                         ]);
                     $updated++;
@@ -642,6 +644,7 @@ public function processBulkUpload(Request $request)
                         'selling_price' => $productData['selling_price'],
                         'SKU' => $productData['SKU'],
                         'discount' => $productData['discount'],
+                        'is_active' => $productData['is_active'],
                         'product_type' => $vendor_type,
                         'created_at' => now(),
                         'updated_at' => now()
