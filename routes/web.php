@@ -23,6 +23,7 @@ use Spatie\Sitemap\SitemapGenerator;
 use Illuminate\Http\Request;
 use Twilio\Rest\Client;
 use App\Mail\AdviyatOrderEmail;
+use App\Services\FirebaseService;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,10 +41,16 @@ Route::get('sitemap', function () {
     return "sitemap created";
 });
 
-Route::get('/firebase', function (App\Services\FirebaseService $firebaseService) {
-    $token = 'DEVICE_FCM_TOKEN';
-    $firebaseService->sendNotification($token, 'Hello', 'This is a test message!');
-    return 'Notification sent!';
+Route::get('/firebase', function () {
+    $token = 'dHNI9XBWQa6Dyd0J8b7lCD:APA91bHoo9pA_fz2jRTwiyyrMhycXGfNTOnBi9oSRQXSUpzWhQPauU5zbB8xbott2X4yGAn_f2ft_sOwoP2KK4vP_bxSHPpz1Xph4TUlAf3xLPTfwJ72xjc';
+    $firebase = new FirebaseService();
+    $response = $firebase->sendNotification(
+        $token,
+        'Test Title',
+        'This is a test push notification.',
+        'https://example.com/image.png',
+    );
+    dd('Notification sent!', $response);
 });
 
 Route::get('/labs-add' , function(){

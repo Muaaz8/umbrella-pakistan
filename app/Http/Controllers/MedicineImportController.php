@@ -534,35 +534,7 @@ class MedicineImportController extends Controller
             $pricingData = [];
             foreach ($fileData as $item) {
                 $product_id = $this->payloadProducts($item, $user_id);
-                $units = explode(",", $item['Units']);
-                $prices = explode(",", $item['Price']);
-                foreach ($units as $key => $unitName) {
-                    $unit = MedicineUOM::where('unit', $unitName)->first();
-                    if($unit){
-                        $unit_id = $unit->id;
-                    }else{
-                        $new_unit = MedicineUOM::create([
-                            'unit'=> $unitName,
-                            'status'=> 1,
-                        ])->first();
-                        $unit_id = $new_unit->id;
-
-                    }
-                    $price = $prices[$key];
-                    $pricingData[] = [
-                        'product_id' => $product_id,
-                        'unit_id' => $unit_id,
-                        'price' => $price,
-                        'sale_price' => $price,
-                        'created_by' => $user_id,
-                    ];
-                }
             }
-
-            foreach ($pricingData as $pricing) {
-                $addPricing = MedicinePricing::create($pricing);
-            }
-
             Flash::success("Successfully Uploaded.");
             return redirect()->back();
         } else {
@@ -575,18 +547,25 @@ class MedicineImportController extends Controller
 
     public function payloadProducts($item, $user_id)
     {
-        $main = ProductCategory::where('slug',$this->slugify($item['MainCategory']))->first();
-        $sub = ProductsSubCategory::where('slug',$this->slugify($item['SubCategory']))->first();
-        $prod = AllProducts::where('name',$item['ProductName'])->where('parent_category',$main->id)->where('sub_category',$sub->id)->first();
+        $sub = ProductsSubCategory::where('slug',$this->slugify($item['category']))->first();
+        if(!$sub){
+            $sub = ProductsSubCategory::create([
+                'title' => $item['category'],
+                'slug' => $this->slugify($item['category']),
+                'parent_id' => 38,
+                'is_active' => 1,
+            ]);
+        }
+        $prod = AllProducts::where('name',$item['ProductName'])->where('parent_category',"38")->where('sub_category',$sub->id)->first();
         if($prod){
             $product_id = $prod->id;
         }else{
             $arr = [
                 'name' => $item['ProductName'],
                 'slug' => $this->slugify($item['ProductName']),
-                'generic' => $item['Generic'],
-                'class' => $item['Class'],
-                'parent_category' => $main->id,
+                'generic' => "",
+                'class' => "",
+                'parent_category' => "38",
                 'sub_category' => $sub->id,
                 'featured_image' => 'dummy_medicine.png',
                 'sale_price' => 0,
@@ -595,8 +574,8 @@ class MedicineImportController extends Controller
                 'mode' => 'medicine',
                 'medicine_type' => 'prescribed',
                 'is_featured' => 0,
-                'short_description' => $item['Description'],
-                'description' => $item['Description'],
+                'short_description' => "",
+                'description' => "",
                 'medicine_ingredients' => '0',
                 'stock_status' => 'in_stock',
                 'medicine_warnings' => '0',
@@ -604,7 +583,8 @@ class MedicineImportController extends Controller
                 'user_id' => $user_id,
                 'product_status' => 1,
                 'is_approved' => 1,
-                'is_single' => $item['Is_single'],
+                'is_single' => 1,
+                'is_otc' => $item['tags']==""? 0 : 1,
             ];
 
             $product_id = AllProducts::create($arr)->id;
@@ -617,45 +597,12 @@ class MedicineImportController extends Controller
         $i = 2;
         $result = [];
         foreach ($data as $item) {
-            if (empty($item['ProductName']) || empty($item['MainCategory']) || empty($item['Units']) || empty($item['Price'])) {
+            if (empty($item['ProductName']) || empty($item['price']) || empty($item['category']) || empty($item['sku'])) {
                 $result[] = [
                     'message' => 'Empty Column found at line ' . $i,
                     'status' => 'ERROR',
                 ];
             }
-
-            // if (count(explode(",", $item['Price'])) != count(explode(",", $item['Days']))) {
-            //     $result[] = [
-            //         'message' => 'Check Price and Days at line ' . $i,
-            //         'status' => 'ERROR',
-            //     ];
-            // }
-
-
-            $units = explode(",", $item['Units']);
-
-            foreach ($units as $unitName) {
-                $unit = MedicineUOM::where('unit', $unitName)->count();
-                if ($unit == 0) {
-                    $newUnit = MedicineUOM::create([
-                        'unit' => $unitName,
-                        'status' => 1,
-                    ]);
-                }
-            }
-
-            // $days = explode(",", $item['Days']);
-
-            // foreach ($days as $day) {
-            //     $day_data = MedicineDays::where('days', 'like', '%' . $day . '%')->count();
-            //     if ($day_data == 0) {
-            //         $result[] = [
-            //             'message' => $day . ' Days  not found in our records at line ' . $i,
-            //             'status' => 'ERROR',
-            //         ];
-            //     }
-            // }
-
             $i++;
         }
         return $result;
