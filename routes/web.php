@@ -48,7 +48,6 @@ Route::get('/firebase', function () {
         $token,
         'Test Title',
         'This is a test push notification.',
-        'https://example.com/image.png',
     );
     dd('Notification sent!', $response);
 });
