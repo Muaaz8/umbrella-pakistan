@@ -338,7 +338,11 @@ class Pharmacy extends Model
                 ->where('vendor_products.is_active', '1')
                 ->where('vendor_accounts.is_active', '1')
                 ->orderBy('name', 'ASC')
-                ->paginate(12);
+                ->paginate(12)->appends(
+                    [
+                        'id' => $vendor_id
+                    ]
+                );
                 foreach ($data as $product) {
                     if($product->discount_percentage != null){
                         $product->actual_price = $product->sale_price;
@@ -420,7 +424,11 @@ class Pharmacy extends Model
                     'products_sub_categories.id'
                 )
                 ->orderBy('tbl_products.name', 'asc')
-                ->paginate(12);
+                ->paginate(12)->appends(
+                    [
+                        'id' => $vendor_id
+                    ]
+                );
                 
             foreach ($data as $product) {
                 $product->short_description = strip_tags($product->short_description);

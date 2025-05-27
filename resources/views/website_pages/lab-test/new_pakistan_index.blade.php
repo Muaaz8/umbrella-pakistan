@@ -48,9 +48,10 @@
         $('.searchPharmacyProduct').click(function() {
             var text = $('#pharmacySearchText').val();
             var cat_id = $('#pharmacy_cat_name').val();
+            var vendor_id = "{{ $vendor->id }}";
             $.ajax({
                     type: "POST",
-                    url: "/search_lab_item_by_category",
+                    url: "/search_lab_item_by_category/"+vendor_id,
                     data: {
                         text: text,
                         cat_id: "all"
@@ -128,9 +129,10 @@
             if (event.key === "Enter") {
                 event.preventDefault();
                 var text = $('#pharmacySearchText').val();
+                var vendor_id = "{{ $vendor->id }}";
                 $.ajax({
                     type: "POST",
-                    url: "/search_lab_item_by_category",
+                    url: "/search_lab_item_by_category/"+vendor_id,
                     data: {
                         text: text,
                         cat_id: "all"

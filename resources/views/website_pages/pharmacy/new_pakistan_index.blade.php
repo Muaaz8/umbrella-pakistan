@@ -45,9 +45,11 @@
     $('.searchPharmacyProduct').click(function(){
         var text=$('#pharmacySearchText').val();
         var cat_id=$('#pharmacy_cat_name').val();
+        var vendor_id = "{{ $vendor->id }}";
+
         $.ajax({
             type: "POST",
-            url: "/search_pharmacy_item_by_category",
+            url: "/search_pharmacy_item_by_category/"+vendor_id,
             data: {
                 text:text,
                 cat_id:"all"
@@ -77,7 +79,7 @@
                                     <p style="background: ${value.is_otc==1?'green':'red'}">${value.is_otc==1?'over the counter':'prescription required'}</p>
                                 </div>
                                 <div class="price">
-                                    <p>Rs: ${value.sale_price}</p>
+                                    <p>Rs: ${value.sale_prices}</p>
                                 </div>
                                 <div class="med-img"><img src="${value.featured_image?value.featured_image:'assets/new_frontend/panadol2.png'}" alt="img"></div>
                                 <h4 class="truncate m-0 p-0" title="${value.name}">${value.name}</h4>
@@ -103,9 +105,10 @@
     if (event.key === "Enter") {
         event.preventDefault();
         var text=$('#pharmacySearchText').val();
+        var vendor_id = "{{ $vendor->id }}";
         $.ajax({
             type: "POST",
-            url: "/search_pharmacy_item_by_category",
+            url: "/search_pharmacy_item_by_category/"+vendor_id,
             data: {
                 text:text,
                 cat_id:"all"
@@ -135,7 +138,7 @@
                                     <p style="background: ${value.is_otc==1?'green':'red'}">${value.is_otc==1?'over the counter':'prescription required'}</p>
                                 </div>
                                 <div class="price">
-                                    <p>Rs: ${value.sale_price}</p>
+                                    <p>Rs: ${value.sale_prices}</p>
                                 </div>
                                 <div class="med-img"><img src="${value.featured_image?value.featured_image:'assets/new_frontend/panadol2.png'}" alt="img"></div>
                                 <h4 class="truncate m-0 p-0" title="${value.name}">${value.name}</h4>
@@ -186,7 +189,7 @@
                 </svg>
             </div>
         </div>
-        @php
+   {{--     @php
             $alpha = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z'];
             $len = count($alpha);
         @endphp
@@ -217,7 +220,7 @@
                     <hr>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <div class="container-fluid px-3 px-sm-5">
             <h3>Community Healthcare Clinics - Medicines</h3>

@@ -67,9 +67,9 @@ Route::get('/labs-add' , function(){
             'vendor_id' => '1',
             'product_id' => $product->TEST_CD,
             'available_stock' => '1',
-            'actual_price' => $product->actual_price,
-            'selling_price' => $product->SALE_PRICE,
-            'discount' => $product->discount_percentage ?? 0,
+            'actual_price' => '0',
+            'selling_price' => '0',
+            'discount' => '0',
             'product_type' => 'labs',
             'is_active' => '1',
         ]);
@@ -89,10 +89,11 @@ Route::get('/pharmacy-add' , function(){
             'vendor_id' => '2',
             'product_id' => $product->id,
             'available_stock' => '1',
-            'actual_price' => $product->actual_price,
-            'selling_price' => $product->SALE_PRICE,
-            'discount' => $product->discount_percentage,
-            'product_type' => 'labs',
+            'actual_price' => '0',
+            'selling_price' => '0',
+            'discount' => '0',
+            'product_type' => 'pharmacy',
+            'is_active' => '1',
         ]);
     };
 });
@@ -459,9 +460,9 @@ Route::group(['middleware' => 'redirecttovideo'], function () {
     Route::get('order/complete/{id}', 'PharmacyController@orderComplete')->name('order.complete');
     Route::post('fetch_pharmacy_item_by_category', 'unAuthController@fetchPharmacyItemByCategory')->name('fetch_pharmacy_item_by_category');
     Route::post('search_pharmacy_item', 'unAuthController@searchPharmacyItem')->name('search_pharmacy_item');
-    Route::post('search_pharmacy_item_by_category', 'unAuthController@searchPharmacyItemByCategory')->name('search_pharmacy_item_by_category');
+    Route::post('search_pharmacy_item_by_category/{vendor_id}', 'unAuthController@searchPharmacyItemByCategory')->name('search_pharmacy_item_by_category');
     Route::post('search_imaging_item_by_category', 'unAuthController@searchImagingItemByCategory')->name('search_imaging_item_by_category');
-    Route::post('search_lab_item_by_category', 'unAuthController@searchLabItemByCategory')->name('search_lab_item_by_category');
+    Route::post('search_lab_item_by_category/{vendor_id}', 'unAuthController@searchLabItemByCategory')->name('search_lab_item_by_category');
     Route::post('search_lab_item', 'unAuthController@searchLabItem')->name('search_lab_item');
     Route::post('search_imaging_item', 'unAuthController@searchImagingItem')->name('search_imaging_item');
     Route::post('fetch_labtest_item_by_category', 'unAuthController@fetchLabtestItemByCategory')->name('fetch_labtest_item_by_category');
