@@ -216,11 +216,6 @@ class PharmacyController extends Controller
                 $meta_tags = DB::table('meta_tags')->where('product_id',$product->id)->get();
                 $title = DB::table('meta_tags')->where('name','title')->where('product_id',$product->id)->first();
                 $product->featured_image = \App\Helper::check_bucket_files_url($product->featured_image);
-                $product->units = DB::table('medicine_pricings')
-                                ->join('medicine_units','medicine_units.id','medicine_pricings.unit_id')
-                                ->where('product_id',$product->id)
-                                ->select('medicine_pricings.*','medicine_units.unit')
-                                ->get();
                 if($product->featured_image == env('APP_URL')."/assets/images/user.png"){
                     $product->featured_image = asset('assets/new_frontend/panadol2.png');
                 }

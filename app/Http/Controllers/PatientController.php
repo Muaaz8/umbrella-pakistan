@@ -436,7 +436,7 @@ class PatientController extends Controller
                     ->where('product_mode',$request->pro_mode)
                     ->where('item_type','counter')
                     ->where('status','recommended')
-                    ->update(['quantity'=>$qty,'price'=>$qty*$pricing->sellig_price]);
+                    ->update(['quantity'=>$qty,'price'=>$qty*$pricing->selling_price]);
                     event(new CountCartItem($user_id));
                     return "ok";
             }
@@ -451,7 +451,7 @@ class PatientController extends Controller
                         'tbl_products.mode',
                         'tbl_products.featured_image'
                     )
-                    ->where('id', $request->pro_id)
+                    ->where('vendor_products.id', $request->pro_id)
                     ->first();
                 $pricing = DB::table('vendor_products')->where('id',$request->pro_id)->first();
 
@@ -464,7 +464,7 @@ class PatientController extends Controller
                 $data['design_view'] = '';
                 $data['strip_per_pack'] = 0;
                 $data['quantity'] = $request->quantity;
-                $data['price'] = $getProductMetaData->sale_price*$request->quantity;
+                $data['price'] = $getProductMetaData->selling_price*$request->quantity;
                 $data['discount'] = 0;
                 $data['created_at'] = Carbon::now();
                 $data['updated_at'] = Carbon::now();
@@ -472,7 +472,7 @@ class PatientController extends Controller
                 $data['doc_session_id'] = 0;
                 $data['doc_id'] = 0;
                 $data['pres_id'] = 0;
-                $data['update_price'] = $getProductMetaData->sale_price*$request->quantity;
+                $data['update_price'] = $getProductMetaData->selling_price*$request->quantity;
                 $data['product_mode'] = $getProductMetaData->mode;
                 $data['item_type'] = 'counter';
                 $data['status'] = 'recommended';
