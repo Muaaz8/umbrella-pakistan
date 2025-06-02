@@ -429,14 +429,14 @@ class PatientController extends Controller
             if($count!=null)
             {
                 $qty=$count->quantity+$request->quantity;
-                $pricing = DB::table('medicine_pricings')->where('id',$request->unit)->first();
+                $pricing = DB::table('vendor_products')->where('id',$request->pro_id)->first();
                 $count=DB::table('tbl_cart')
                     ->where('user_id',$user_id)
                     ->where('product_id',$request->pro_id)
                     ->where('product_mode',$request->pro_mode)
                     ->where('item_type','counter')
                     ->where('status','recommended')
-                    ->update(['quantity'=>$qty,'price'=>$qty*$pricing->sale_price]);
+                    ->update(['quantity'=>$qty,'price'=>$qty*$pricing->sellig_price]);
                     event(new CountCartItem($user_id));
                     return "ok";
             }
@@ -447,14 +447,13 @@ class PatientController extends Controller
                     ->select(
                         'vendor_products.id as product_id',
                         'tbl_products.name',
-                        'vendor_products.sale_price',
+                        'vendor_products.selling_price',
                         'tbl_products.mode',
                         'tbl_products.featured_image'
                     )
                     ->where('id', $request->pro_id)
-                    // ->where('quantity', '>=', (int) $request->quantity)
                     ->first();
-                $pricing = DB::table('medicine_pricings')->where('id',$request->unit)->first();
+                $pricing = DB::table('vendor_products')->where('id',$request->pro_id)->first();
 
                 $data['session_id'] = '';
                 $data['cart_row_id'] = rand();
