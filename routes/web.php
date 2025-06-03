@@ -554,9 +554,9 @@ Route::group(['middleware' => 'redirecttovideo'], function () {
     Route::get('/get_maps_locations/{zipCode}', 'PharmacyController@get_lang_long');
     Route::get('/get_near_locations/{lat}/{long}', 'PharmacyController@get_near_location');
     Route::get('/product/{type}/{slug}', 'PharmacyController@single_product_oldroute')->name('single_product_view');
-    Route::get('/labtest/{slug}', 'PharmacyController@single_product')->name('single_product_view_labtest');
-    Route::get('/medicines/{slug}', 'PharmacyController@single_product')->name('single_product_view_medicines');
-    Route::get('/imagings/{slug}', 'PharmacyController@single_product')->name('single_product_view_imagings');
+    Route::get('/labtest/{slug}/{vendor_id}', 'PharmacyController@single_product')->name('single_product_view_labtest');
+    Route::get('/medicines/{slug}/{vendor_id}', 'PharmacyController@single_product')->name('single_product_view_medicines');
+    Route::get('/imagings/{slug}/{vendor_id}', 'PharmacyController@single_product')->name('single_product_view_imagings');
     Route::get('/primary-care', 'PharmacyController@index')->name('primary');
     Route::get('/substance-abuse/{slug}', 'PharmacyController@index')->name('substance');
     Route::get('/psychiatry/{slug}', 'PharmacyController@index')->name('psychiatry');

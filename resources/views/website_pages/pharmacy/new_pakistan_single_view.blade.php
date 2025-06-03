@@ -140,9 +140,9 @@
                     <form action="#" method="post" onsubmit="return false;">
                         @csrf
                         <input type="hidden" name="pro_id" id="product_id" value="{{ $products[0]->vendor_product_id }}">
-                        <input type="hidden" id="base_price" value="{{ $products[0]->sale_prices }}">
+                        <input type="hidden" id="base_price" value="{{ $products[0]->sale_prices - ($products[0]->sale_prices*$products[0]->discount)/100 }}">
                             <div class="d-flex justify-content-end ">
-                                <label for="Price" class="form-label medicine-total fw-bold" id="price">Rs. {{ $products[0]->sale_prices }}</label>
+                                <label for="Price" class="form-label medicine-total fw-bold" id="price">Rs. {{ $products[0]->sale_prices - ($products[0]->sale_prices*$products[0]->discount)/100 }}</label>
                             </div>
                             <div class="my-2">
                                 <label for="quantity" class="form-label fw-bold"><u>Quantity</u></label>

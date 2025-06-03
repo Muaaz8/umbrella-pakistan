@@ -383,19 +383,15 @@ class PatientController extends Controller
                 $data['design_view'] = '';
                 $data['strip_per_pack'] = 0;
                 $data['quantity'] = $request->pro_qty;
-                if($getProductMetaData->discount != null){
-                    $data['price'] = $getProductMetaData->sale_price - ($getProductMetaData->sale_price * $getProductMetaData->discount) / 100;
-                }else{
-                    $data['price'] = $getProductMetaData->sale_price;
-                }
-                $data['discount'] = 0;
+                $data['price'] = $getProductMetaData->sale_price;
+                $data['discount'] = $getProductMetaData->discount ?? 0;
                 $data['created_at'] = Carbon::now();
                 $data['updated_at'] = Carbon::now();
                 $data['user_id'] = $user_id;
                 $data['doc_session_id'] = 0;
                 $data['doc_id'] = 0;
                 $data['pres_id'] = 0;
-                if($getProductMetaData->discount != null){
+                if($getProductMetaData->discount != null && $getProductMetaData->discount > 0){
                     $data['update_price'] = $getProductMetaData->sale_price - ($getProductMetaData->sale_price * $getProductMetaData->discount) / 100;
                 }else{
                     $data['update_price'] = $getProductMetaData->sale_price;
@@ -446,6 +442,7 @@ class PatientController extends Controller
                     ->join('vendor_products','tbl_products.id','vendor_products.product_id')
                     ->select(
                         'vendor_products.id as product_id',
+                        'vendor_products.discount',
                         'tbl_products.name',
                         'vendor_products.selling_price',
                         'tbl_products.mode',
@@ -465,14 +462,18 @@ class PatientController extends Controller
                 $data['strip_per_pack'] = 0;
                 $data['quantity'] = $request->quantity;
                 $data['price'] = $getProductMetaData->selling_price*$request->quantity;
-                $data['discount'] = 0;
+                $data['discount'] = $getProductMetaData->discount ?? 0;
                 $data['created_at'] = Carbon::now();
                 $data['updated_at'] = Carbon::now();
                 $data['user_id'] = $user_id;
                 $data['doc_session_id'] = 0;
                 $data['doc_id'] = 0;
                 $data['pres_id'] = 0;
-                $data['update_price'] = $getProductMetaData->selling_price*$request->quantity;
+                if($getProductMetaData->discount != null && $getProductMetaData->discount > 0){
+                    $data['update_price'] = ($getProductMetaData->selling_price - ($getProductMetaData->selling_price * $getProductMetaData->discount) / 100)*$request->quantity;
+                }else{
+                    $data['update_price'] = $getProductMetaData->selling_price*$request->quantity;
+                }
                 $data['product_mode'] = $getProductMetaData->mode;
                 $data['item_type'] = 'counter';
                 $data['status'] = 'recommended';

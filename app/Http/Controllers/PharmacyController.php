@@ -195,7 +195,7 @@ class PharmacyController extends Controller
         return view($viewName, compact('data', 'slug', 'slug_name','title','meta_tags','vendor'));
     }
 
-    public function single_product($slug)
+    public function single_product($slug, $vendor_id)
     {
         $url = request()->segment(1);
         if($url=='labtest'){
@@ -206,7 +206,7 @@ class PharmacyController extends Controller
             $type = 'imaging';
         }
         if (!empty($slug)) {
-            $products = $this->Pharmacy->getSingleProduct($type, $slug);
+            $products = $this->Pharmacy->getSingleProduct($type, $slug, $vendor_id);
         } else {
             $products = [];
         }

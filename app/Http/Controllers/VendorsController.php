@@ -676,7 +676,7 @@ public function processBulkUpload(Request $request)
 
         if ($vendor->vendor == 'pharmacy') {
             $products = DB::table('tbl_products')
-                ->select('id', 'name', 'sele_price')
+                ->select('id', 'name', 'sale_price')
                 ->where('mode', 'medicine')
                 ->get();
         } else {
