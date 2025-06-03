@@ -470,6 +470,7 @@ Route::group(['middleware' => 'redirecttovideo'], function () {
     Route::get('/pharmacy', 'PharmacyController@index')->name('pharmacy_products');
     Route::get('/labtests', 'PharmacyController@index')->name('labs_products');
     Route::get( '/shops/{shop_type}', 'VendorsController@index')->name('vendor');
+    Route::post( '/location/vendors', 'VendorsController@findVendorbyLocation');
     Route::get('/imaging', 'PharmacyController@index')->name('imaging');
     Route::get('/pharmacy/{slug}', 'PharmacyController@index')->name('pharmacy.category');
     Route::get('/labtests/{slug}', 'PharmacyController@index')->name('slug.labtest');

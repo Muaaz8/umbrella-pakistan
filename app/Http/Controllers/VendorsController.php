@@ -22,6 +22,7 @@ class VendorsController extends Controller
     public function index($shop_type)
     {
         $vendors = DB::table('vendor_accounts')->where('vendor', $shop_type)->paginate(12);
+        $locations = DB::table('locations')->get();
 
         foreach ($vendors as $key => $vendor) {
             $vendor->image = \App\Helper::check_bucket_files_url($vendor->image);
@@ -30,7 +31,7 @@ class VendorsController extends Controller
                 ->where('is_active', 1)
                 ->count();
         }
-        return view('website_pages.vendors.index', compact('vendors'));
+        return view('website_pages.vendors.index', compact('vendors', 'locations', 'shop_type'));
     }
 
     public function create_vendor_page()
@@ -760,5 +761,57 @@ public function processBulkUpload(Request $request)
             'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         ])->deleteFileAfterSend(true);
     }
+
+public function findVendorbyLocation(Request $request)
+{
+    $locationId = $request->locationId;
+    $vendorType = $request->shop_type;
+    $searchText = $request->searchText;
+    
+    $query = DB::table('vendor_accounts')->where('vendor', $vendorType);
+    
+    if ($locationId && $locationId !== 'all') {
+        $query->where('location_id', $locationId);
+    }
+    
+    if ($searchText && trim($searchText) !== '') {
+        $searchTerm = '%' . trim($searchText) . '%';
+        $query->where(function($q) use ($searchTerm) {
+            $q->where('name', 'LIKE', $searchTerm)
+              ->orWhere('address', 'LIKE', $searchTerm);
+        });
+    }
+    
+    $vendors = $query->paginate(12);
+    
+    foreach ($vendors as $vendor) {
+        $vendor->image = \App\Helper::check_bucket_files_url($vendor->image);
+        $vendor->products_count = DB::table('vendor_products')
+            ->where('vendor_id', $vendor->id)
+            ->where('is_active', 1)
+            ->count();
+    }
+    
+    if ($vendors->isEmpty()) {
+        return response()->json([
+            'vendors' => [],
+            'message' => 'No vendors found for the specified criteria'
+        ], 200); 
+    }
+    
+    return response()->json([
+        'vendors' => $vendors->items(),
+        'pagination' => [
+            'current_page' => $vendors->currentPage(),
+            'last_page' => $vendors->lastPage(),
+            'per_page' => $vendors->perPage(),
+            'total' => $vendors->total(),
+            'from' => $vendors->firstItem(),
+            'to' => $vendors->lastItem(),
+            'has_more_pages' => $vendors->hasMorePages()
+        ],
+        'message' => 'Vendors retrieved successfully'
+    ]);
+}
 
 }
