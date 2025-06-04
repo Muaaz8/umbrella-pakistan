@@ -29,8 +29,8 @@
                     <div class="card" style="width: 100%">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><b>Order ID </b> : {{ $data['order_data']->order_id }}</li>
-                            <li class="list-group-item"><b> Date</b> : {{ $data['order_data']->created_at['date'] }}
-                            <li class="list-group-item"><b> Time</b> : {{ $data['order_data']->created_at['time'] }}
+                            <li class="list-group-item"><b>Date</b>: {{ \Carbon\Carbon::parse($data['order_data']->created_at)->format('Y-m-d H:i:s') }}</li>
+                            <li class="list-group-item"><b>Time</b>: {{ \Carbon\Carbon::parse($data['order_data']->created_at)->format('h:i A') }}</li>
                         </ul>
                     </div>
                 </div>
@@ -40,11 +40,13 @@
                             @if ($data['order_data']->order_status == 'paid')
                                 <li class="list-group-item d-flex justify-content-between"><b>Payment Status : </b><label
                                         class="order-paid">{{ $data['order_data']->order_status }}</label></li>
-                                {{-- <li class="list-group-item d-flex justify-content-between"><b>Order Status :  </b><label class="order-paid">{{ $data['order_data']->status }}</label></li> --}}
+                                {{-- <li class="list-group-item d-flex justify-content-between"><b>Order Status : </b><label
+                                        class="order-paid">{{ $data['order_data']->status }}</label></li> --}}
                             @else
                                 <li class="list-group-item d-flex justify-content-between"><b>Payment Status :</b> <label
                                         class="order-progess">{{ $data['order_data']->order_status }}</label></li>
-                                {{-- <li class="list-group-item d-flex justify-content-between"><b>Order Status : </b> <label class="order-progress">{{ $data['order_data']->status }}</label></li> --}}
+                                {{-- <li class="list-group-item d-flex justify-content-between"><b>Order Status : </b> <label
+                                        class="order-progress">{{ $data['order_data']->status }}</label></li> --}}
                             @endif
                             <li class="list-group-item d-flex justify-content-between"><b>Payment Type
                                     :</b>{{ $data['order_data']->payment_title }} </li>
@@ -76,7 +78,7 @@
                                     <tr>
                                         <!-- <th><i class="fa-solid fa fa-flask fs-4"></i></th> -->
                                         <td data-label="Product Name">{{ $med->name }}</td>
-                                        <td data-label="Quantity">{{ isset($med->usage)?$med->usage:"-" }}</td>
+                                        <td data-label="Quantity">{{ isset($med->usage) ? $med->usage : "-" }}</td>
                                         <td data-label="Price">Rs. {{ $med->update_price }}</td>
                                         <td data-label="Status">{{ $med->status }}</td>
                                         @php
@@ -84,7 +86,8 @@
                                             $itemCount += 1;
                                             $med = '1';
                                         @endphp
-                                        {{-- <td data-label=""><a href="{{ url('/viewQuestTestReport/1') }}">View Report</a></td> --}}
+                                        {{-- <td data-label=""><a href="{{ url('/viewQuestTestReport/1') }}">View Report</a>
+                                        </td> --}}
                                     </tr>
                                 @endforeach
                                 @foreach ($orderLabs as $labs)
@@ -98,7 +101,8 @@
                                             $priceTotal = $priceTotal + $labs->price;
                                             $itemCount += 1;
                                         @endphp
-                                        {{-- <td data-label=""><a href="{{ url('/viewQuestTestReport/1') }}">View Report</a></td> --}}
+                                        {{-- <td data-label=""><a href="{{ url('/viewQuestTestReport/1') }}">View Report</a>
+                                        </td> --}}
                                     </tr>
                                 @endforeach
                                 @foreach ($ordercntLabs as $labs)
@@ -113,7 +117,8 @@
                                             $itemCount += 1;
                                             $providerfee = 0;
                                         @endphp
-                                        {{-- <td data-label=""><a href="{{ url('/viewQuestTestReport/1') }}">View Report</a></td> --}}
+                                        {{-- <td data-label=""><a href="{{ url('/viewQuestTestReport/1') }}">View Report</a>
+                                        </td> --}}
                                     </tr>
                                 @endforeach
                                 @foreach ($orderImagings as $image)
@@ -127,7 +132,8 @@
                                             $priceTotal = $priceTotal + $image->price;
                                             $itemCount += 1;
                                         @endphp
-                                        {{-- <td data-label=""><a href="{{ url('/viewQuestTestReport/1') }}">View Report</a></td> --}}
+                                        {{-- <td data-label=""><a href="{{ url('/viewQuestTestReport/1') }}">View Report</a>
+                                        </td> --}}
                                     </tr>
                                 @endforeach
 

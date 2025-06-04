@@ -1,3 +1,6 @@
+@php
+    use Carbon\Carbon;
+@endphp
 <div class="dashboard">
 <div class="dashboard-nav" id="style-10">
       <div class="nav-info-div-wrapper">
@@ -16,6 +19,13 @@
                     <a href="{{ route('add_product_page') }}" class="dashboard-nav-dropdown-item">Add Products</a>
                     <a href="{{ route('vendor_products') }}" class="dashboard-nav-dropdown-item">My Products</a>
                     <a href="{{ route('upload_page') }}" class="dashboard-nav-dropdown-item">Upload Products</a>
+                </div>
+        </div>
+        <div class="dashboard-nav-dropdown">
+            <a href="javascript:void(0)" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i class="fas fa-file-contract"></i>Request Product </a>
+                <div class="dashboard-nav-dropdown-menu">
+                    <a href="{{ route('request_page') }}" class="dashboard-nav-dropdown-item">Request New Product</a>
+                    <a href="{{ route('pending_page') }}" class="dashboard-nav-dropdown-item">Requested Products</a>
                 </div>
         </div>
         <a href="{{ route('vendor_all_order') }}" class="dashboard-nav-item"><i class="fa-solid fa-cart-shopping"></i> Orders </a>

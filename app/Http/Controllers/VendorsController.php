@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\RealTimeMessage;
 use App\Mail\UserVerificationEmail;
 use App\Models\Location;
 use App\User;
@@ -12,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use App\Notification;
 use Illuminate\Support\Facades\Storage;
 use Image;
 use Illuminate\Support\Facades\Validator;
@@ -451,6 +453,76 @@ class VendorsController extends Controller
 
         return redirect()->back()
             ->with('success', 'Product added successfully.');
+    }
+
+    public function requestVendeorProduct(){
+        $vendor_type = VendorAccount::where('user_id', auth()->user()->id)->first()->vendor;
+        return view('dashboard_vendor.request_product' , compact('vendor_type'));
+    }
+
+    public function requestNewProduct(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'product_name' => 'required',
+            'vendor_type' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        try {
+            $vendorAccount = VendorAccount::where('user_id', auth()->user()->id)
+            ->join('users', 'vendor_accounts.user_id', '=', 'users.id')
+            ->select('vendor_accounts.id', 'users.name')
+            ->first();
+            $vendorId = $vendorAccount->id;
+            $vendorName = $vendorAccount->name . ' ' . $vendorAccount->last_name;
+            $admin_data = User::where('user_type', 'admin')->first();
+
+
+            DB::table('product_requests')->insert([
+                'name' => $vendorName,
+                'product' => $request->input('product_name'),
+                'vendor_type' => $request->input('vendor_type'),
+                'vendor_id' => $vendorId,
+                'status' => 'pending',
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+
+            Notification::create([
+                    'user_id' => $admin_data->id,
+                    'type' => '/admin/products/request',
+                    'text' => 'New product request from ' . $vendorName,
+                ]);
+
+            event(new RealTimeMessage($admin_data->id));
+
+            return redirect()->back()->with('success', 
+                $request->vendor_type === 'pharmacy' 
+                    ? 'Your medicine request has been submitted successfully. We will review it within 2 working days.'
+                    : 'Your lab test request has been submitted successfully. We will review it within 2 working days.'
+            );
+
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->with('error', 'Something went wrong. Please try again.')
+                ->withInput();
+        }
+    }
+
+    public function pendingVendeorProduct(){
+        $pendingRequests = DB::table('product_requests')
+            ->join('vendor_accounts', 'product_requests.vendor_id', '=', 'vendor_accounts.id')
+            ->join('users', 'vendor_accounts.user_id', '=', 'users.id')
+            ->select('product_requests.*', 'users.name as vendor_name', 'vendor_accounts.name as vendor_account_name')
+            ->where('users.id', auth()->user()->id)
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+        return view('dashboard_vendor.pending_request', compact('pendingRequests'));
     }
 
     public function vendor_products()
