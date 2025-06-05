@@ -479,36 +479,36 @@ public function vendor_order()
     $tblOrders = $this->tblOrdersRepository->all();
     if ($user->user_type == 'vendor' && $vendors->vendor == 'labs') {
         $tblOrders = DB::table('lab_orders')
-        ->join('quest_data_test_codes', 'lab_orders.product_id', '=', 'quest_data_test_codes.TEST_CD')
-        ->join('vendor_products', 'vendor_products.product_id', '=', 'lab_orders.product_id')
-            ->join('users', 'users.id', '=', 'lab_orders.user_id')
-            ->join('tbl_orders', 'tbl_orders.order_id', '=', 'lab_orders.order_id')
-            ->select(
-                'quest_data_test_codes.TEST_NAME as name',
-                'vendor_products.selling_price as total',
-                'vendor_products.discount as discount',
-                'lab_orders.id as lab_order_id',
-                'tbl_orders.id as id',
-                'lab_orders.product_id',
-                'lab_orders.user_id',
-                'lab_orders.order_id as original_order_id',
-                'lab_orders.sub_order_id',
-                'lab_orders.status',
-                'lab_orders.created_at',
-                'lab_orders.updated_at',
-                'users.name as fname',
-                'users.last_name as lname',
-                'users.office_address as address',
-                'lab_orders.status as order_status',
-                'tbl_orders.payment_title',
-                'tbl_orders.payment_method',
-                'tbl_orders.currency',
-                'lab_orders.sub_order_id as order_id'
-            )
-            ->where('vendor_products.vendor_id', $vendors->id)
-            ->groupBy('lab_orders.order_id')
-            ->orderBy('lab_orders.created_at', 'desc')
-            ->paginate(8);
+        ->join('vendor_products', 'vendor_products.id', '=', 'lab_orders.product_id')
+        ->join('quest_data_test_codes', 'vendor_products.product_id', '=', 'quest_data_test_codes.TEST_CD')
+        ->join('users', 'users.id', '=', 'lab_orders.user_id')
+        ->join('tbl_orders', 'tbl_orders.order_id', '=', 'lab_orders.order_id')
+        ->select(
+            'quest_data_test_codes.TEST_NAME as name',
+            'vendor_products.selling_price as total',
+            'vendor_products.discount as discount',
+            'lab_orders.id as lab_order_id',
+            'tbl_orders.id as id',
+            'lab_orders.product_id',
+            'lab_orders.user_id',
+            'lab_orders.order_id as original_order_id',
+            'lab_orders.sub_order_id',
+            'lab_orders.status',
+            'lab_orders.created_at',
+            'lab_orders.updated_at',
+            'users.name as fname',
+            'users.last_name as lname',
+            'users.office_address as address',
+            'lab_orders.status as order_status',
+            'tbl_orders.payment_title',
+            'tbl_orders.payment_method',
+            'tbl_orders.currency',
+            'lab_orders.sub_order_id as order_id'
+        )
+        ->where('vendor_products.vendor_id', $vendors->id)
+        ->groupBy('lab_orders.order_id')
+        ->orderBy('lab_orders.created_at', 'desc')
+        ->paginate(8);
     }else if($user->user_type == 'vendor' && $vendors->vendor == 'pharmacy') {
         $tblOrders = DB::table('medicine_order')
             ->join('vendor_products', 'vendor_products.id', '=', 'medicine_order.order_product_id')
@@ -644,19 +644,19 @@ public function vendor_order()
                 ->get();
             // dd($orderMeds);
             $orderLabs = DB::table('lab_orders')
-                ->join('quest_data_test_codes', 'quest_data_test_codes.TEST_CD', 'lab_orders.product_id')
-                ->join('prescriptions', 'prescriptions.test_id', 'lab_orders.product_id')
+                ->join('vendor_products', 'vendor_products.id', 'lab_orders.product_id')
+                ->join('quest_data_test_codes', 'quest_data_test_codes.TEST_CD', 'vendor_products.product_id')
+                // ->join('prescriptions', 'prescriptions.test_id', 'lab_orders.product_id')
                 ->where('lab_orders.order_id', $orderId)
-                ->where('lab_orders.type', 'Prescribed')
                 ->groupBy('lab_orders.id')
-                ->select('lab_orders.*', 'quest_data_test_codes.TEST_NAME', 'quest_data_test_codes.SALE_PRICE', 'prescriptions.quantity',)
+                ->select('lab_orders.*', 'quest_data_test_codes.TEST_NAME')
                 ->get();
 
-            $ordercntLabs = DB::table('lab_orders')
-                ->join('quest_data_test_codes', 'quest_data_test_codes.TEST_CD', 'lab_orders.product_id')
-                ->where('lab_orders.order_id', $orderId)
-                ->where('lab_orders.type', 'Counter')
-                ->select('lab_orders.*', 'quest_data_test_codes.TEST_NAME', 'quest_data_test_codes.SALE_PRICE')->get();
+            // $ordercntLabs = DB::table('lab_orders')
+            //     ->join('quest_data_test_codes', 'quest_data_test_codes.TEST_CD', 'lab_orders.product_id')
+            //     ->where('lab_orders.order_id', $orderId)
+            //     ->where('lab_orders.type', 'Counter')
+            //     ->select('lab_orders.*', 'quest_data_test_codes.TEST_NAME', 'quest_data_test_codes.SALE_PRICE')->get();
 
             $orderImagings = DB::table('imaging_orders')->where('order_id', $orderId)
                 ->join('tbl_products', 'tbl_products.id', 'imaging_orders.product_id')
@@ -671,7 +671,7 @@ public function vendor_order()
                 ->first();
                 $img->location = $loc->location;
             }
-            return view('dashboard_vendor.Order.details', compact('data', 'orderMeds', 'orderLabs', 'ordercntLabs', 'orderImagings'));
+            return view('dashboard_vendor.Order.details', compact('data', 'orderMeds', 'orderLabs', 'orderImagings'));
             }
 
         }

@@ -105,22 +105,6 @@
                                         </td> --}}
                                     </tr>
                                 @endforeach
-                                @foreach ($ordercntLabs as $labs)
-                                    <tr>
-                                        <!-- <th><i class="fa-solid fa fa-flask fs-4"></i></th> -->
-                                        <td data-label="Product Name">{{ $labs->TEST_NAME }}</td>
-                                        <td data-label="Quantity"></td>
-                                        <td data-label="Price">Rs. {{ $labs->price }}</td>
-                                        <td data-label="Status">{{ $labs->status }}</td>
-                                        @php
-                                            $priceTotal = (int) $priceTotal + (int) $labs->price;
-                                            $itemCount += 1;
-                                            $providerfee = 0;
-                                        @endphp
-                                        {{-- <td data-label=""><a href="{{ url('/viewQuestTestReport/1') }}">View Report</a>
-                                        </td> --}}
-                                    </tr>
-                                @endforeach
                                 @foreach ($orderImagings as $image)
                                     <tr>
                                         <!-- <th><i class="fa-solid fa fa-flask fs-4"></i></th> -->
