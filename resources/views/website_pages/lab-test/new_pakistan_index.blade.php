@@ -343,7 +343,7 @@
                     <div class="test-card-content">
                         <div class="add_to_cart_container">
                             <button class="add_to_cart_btn"
-                                onclick="window.location.href='{{ route('single_product_view_labtest', ['slug' => $item->slug, , 'vendor_id' => $item->vendor_id]) }}'">
+                                onclick="window.location.href='{{ route('single_product_view_labtest', ['slug' => $item->slug, 'vendor_id' => $item->vendor_id]) }}'">
                                 Learn More
                             </button>
                         </div>

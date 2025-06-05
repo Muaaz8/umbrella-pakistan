@@ -857,6 +857,83 @@ class PharmacyController extends Controller
             }else{
                 return redirect()->back()->with('msg','Sorry, we are currently facing server issues. Please try again later.');
             }
+        }elseif($request->payment_method == "online-cash"){
+            $user = Auth::user();
+            $cartPreLab = [];
+            $cartCntLab = [];
+            $cartPreMed = [];
+            $cartCntMed = [];
+            $cartPreImg = [];
+            $cartCntImg = [];
+            $orderAllIds = [];
+
+            $getAllCartProducts = DB::table('tbl_cart')->where('user_id', $user->id)->where('show_product', '1')->where('status', 'recommended')->get();
+
+            foreach ($getAllCartProducts as $item) {
+                if ($item->item_type == 'counter' && $item->product_mode == 'lab-test') {
+                    $item->orderSubId = $orderId . $item->product_id;
+                    $item->orderSystemId = $orderId;
+                    array_push($orderAllIds, $orderId . $item->product_id);
+                    array_push($cartCntLab, $item);
+                } else if ($item->item_type == 'prescribed' && $item->product_mode == 'lab-test') {
+                    $item->orderSubId = $orderId . $item->product_id;
+                    $item->orderSystemId = $orderId;
+                    array_push($orderAllIds, $orderId . $item->product_id);
+                    array_push($cartPreLab, $item);
+                } else if ($item->item_type == 'counter' && $item->product_mode == 'medicine') {
+                    $item->orderSubId = $orderId . $item->product_id;
+                    $item->orderSystemId = $orderId;
+                    array_push($orderAllIds, $orderId . $item->product_id);
+                    array_push($cartCntMed, $item);
+                } else if ($item->item_type == 'prescribed' && $item->product_mode == 'medicine') {
+                    $item->orderSubId = $orderId . $item->product_id;
+                    $item->orderSystemId = $orderId;
+                    array_push($orderAllIds, $orderId . $item->product_id);
+                    array_push($cartPreMed, $item);
+                } else if ($item->item_type == 'counter' && $item->product_mode == 'imaging') {
+                    $item->orderSubId = $orderId . $item->product_id;
+                    $item->orderSystemId = $orderId;
+                    array_push($orderAllIds, $orderId . $item->product_id);
+                    array_push($cartCntLab, $item);
+                } else if ($item->item_type == 'prescribed' && $item->product_mode == 'imaging') {
+                    $item->orderSubId = $orderId . $item->product_id;
+                    $item->orderSystemId = $orderId;
+                    array_push($orderAllIds, $orderId . $item->product_id);
+                    array_push($cartPreLab, $item);
+                }
+            }
+            $this->seprate_order_create($cartCntLab, $cartPreLab, $cartPreMed, $cartCntMed, $cartPreImg, $cartCntImg);
+            $shipping = session()->get('shipping_details');
+            DB::table('tbl_orders')->insert([
+                'order_id' => $orderId,
+                'order_sub_id' => serialize($orderAllIds),
+                // 'transaction_id' => $payment_request['transaction_id'],
+                'customer_id' => $user->id,
+                'total' => $request->payAble,
+                'total_tax' => 0,
+                'billing' => serialize($shipping),
+                'shipping' => serialize($shipping),
+                'payment' => "",
+                'payment_title' => 'Direct Bank Transfer',
+                'payment_method' => 'via Meezan Bank',
+                'cart_items' => '',
+                "lab_order_approvals" => '',
+                'currency' => 'PKR',
+                'order_status' => 'paid',
+                'agent' => "web",
+                'created_at' => now(),
+            ]);
+
+            $this->orderNotify($orderId, $getAllCartProducts->toArray(), $request->payAble);
+            foreach ($getAllCartProducts as $ci) {
+                DB::table('tbl_cart')->where('id', $ci->id)->update([
+                    'status' => 'purchased',
+                    'purchase_status' => '0',
+                    'checkout_status' => '0',
+
+                ]);
+            }
+            return redirect()->route('order.complete', ['id' => $orderId]);
         }else{
             return redirect()->back()->with('msg','Sorry, Can\'t process with this payment method right now.Kindly try different method.');
         }

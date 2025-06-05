@@ -508,18 +508,18 @@ public function vendor_order()
             ->where('vendor_products.vendor_id', $vendors->id)
             ->groupBy('lab_orders.order_id')
             ->orderBy('lab_orders.created_at', 'desc')
-            ->paginate(8);  
+            ->paginate(8);
     }else if($user->user_type == 'vendor' && $vendors->vendor == 'pharmacy') {
         $tblOrders = DB::table('medicine_order')
-            ->join('tbl_products', 'medicine_order.order_product_id', '=', 'tbl_products.id')
+            ->join('vendor_products', 'vendor_products.id', '=', 'medicine_order.order_product_id')
+            ->join('tbl_products', 'vendor_products.product_id', '=', 'tbl_products.id')
             ->join('users', 'users.id', '=', 'medicine_order.user_id')
-            ->join('vendor_products', 'vendor_products.product_id', '=', 'medicine_order.order_product_id')
             ->join('tbl_orders', 'tbl_orders.order_id', '=', 'medicine_order.order_main_id')
             ->select(
                 'tbl_products.name as name',
                 'vendor_products.selling_price as total',
+                'vendor_products.discount as discount',
                 'medicine_order.id as medicine_order_id',
-                'tbl_orders.id as id',
                 'medicine_order.user_id',
                 'medicine_order.order_product_id',
                 'medicine_order.order_main_id',
@@ -528,25 +528,26 @@ public function vendor_order()
                 'medicine_order.update_price',
                 'medicine_order.created_at as medicine_created_at',
                 'medicine_order.updated_at',
-                'vendor_products.discount as discount',
-                'users.name as fname',
-                'users.last_name as lname',
-                'users.office_address as address',
                 'medicine_order.status as order_status',
                 'medicine_order.session_id as session_id',
                 'medicine_order.order_product_id as product_id',
                 'medicine_order.update_price as price',
                 'medicine_order.order_main_id as order_id',
+                'users.name as fname',
+                'users.last_name as lname',
+                'users.office_address as address',
+                'tbl_orders.id as id',
                 'tbl_orders.payment_title',
                 'tbl_orders.payment_method',
                 'tbl_orders.currency',
                 'tbl_orders.created_at as created_at',
             )
             ->where('vendor_products.vendor_id', $vendors->id)
+            ->where('tbl_orders.order_status', 'paid')
             ->orderBy('medicine_order.id', 'desc')
             ->orderBy('order_status')
-            ->paginate(8); 
-        }
+            ->paginate(8);;
+    }
     foreach ($tblOrders as $tblOrder) {
         $datetime = date('Y-m-d h:i A', strtotime($tblOrder->created_at));
         $tblOrder->created_at = User::convert_utc_to_user_timezone($user->id, $datetime)['datetime'];
@@ -635,29 +636,31 @@ public function vendor_order()
             $data['order_data']->created_at = $datetime['date']." ".$datetime['time'];
 
             $orderMeds = DB::table('medicine_order')->where('order_main_id', $orderId)
-            ->join('tbl_products', 'tbl_products.id', 'medicine_order.order_product_id')
-            ->join('prescriptions', 'prescriptions.medicine_id', 'medicine_order.order_product_id')
-            ->groupBy('medicine_order.id')
-            ->select('tbl_products.name', 'medicine_order.update_price', 'medicine_order.status', 'prescriptions.usage',)->get();
-
+                ->join('vendor_products', 'vendor_products.id', 'medicine_order.order_product_id')
+                ->join('tbl_products', 'tbl_products.id', 'vendor_products.product_id')
+                // ->join('prescriptions', 'prescriptions.medicine_id', 'medicine_order.order_product_id')
+                ->groupBy('medicine_order.id')
+                ->select('tbl_products.name', 'medicine_order.update_price', 'medicine_order.status')
+                ->get();
+            // dd($orderMeds);
             $orderLabs = DB::table('lab_orders')
-            ->join('quest_data_test_codes', 'quest_data_test_codes.TEST_CD', 'lab_orders.product_id')
-            ->join('prescriptions', 'prescriptions.test_id', 'lab_orders.product_id')
-            ->where('lab_orders.order_id', $orderId)
-            ->where('lab_orders.type', 'Prescribed')
-            ->groupBy('lab_orders.id')
-            ->select('lab_orders.*', 'quest_data_test_codes.TEST_NAME', 'quest_data_test_codes.SALE_PRICE', 'prescriptions.quantity',)
-            ->get();
+                ->join('quest_data_test_codes', 'quest_data_test_codes.TEST_CD', 'lab_orders.product_id')
+                ->join('prescriptions', 'prescriptions.test_id', 'lab_orders.product_id')
+                ->where('lab_orders.order_id', $orderId)
+                ->where('lab_orders.type', 'Prescribed')
+                ->groupBy('lab_orders.id')
+                ->select('lab_orders.*', 'quest_data_test_codes.TEST_NAME', 'quest_data_test_codes.SALE_PRICE', 'prescriptions.quantity',)
+                ->get();
 
             $ordercntLabs = DB::table('lab_orders')
-            ->join('quest_data_test_codes', 'quest_data_test_codes.TEST_CD', 'lab_orders.product_id')
-            ->where('lab_orders.order_id', $orderId)
-            ->where('lab_orders.type', 'Counter')
-            ->select('lab_orders.*', 'quest_data_test_codes.TEST_NAME', 'quest_data_test_codes.SALE_PRICE')->get();
+                ->join('quest_data_test_codes', 'quest_data_test_codes.TEST_CD', 'lab_orders.product_id')
+                ->where('lab_orders.order_id', $orderId)
+                ->where('lab_orders.type', 'Counter')
+                ->select('lab_orders.*', 'quest_data_test_codes.TEST_NAME', 'quest_data_test_codes.SALE_PRICE')->get();
 
             $orderImagings = DB::table('imaging_orders')->where('order_id', $orderId)
-            ->join('tbl_products', 'tbl_products.id', 'imaging_orders.product_id')
-            ->select('tbl_products.name', 'imaging_orders.price','imaging_orders.status','imaging_orders.session_id','imaging_orders.product_id')->get();
+                ->join('tbl_products', 'tbl_products.id', 'imaging_orders.product_id')
+                ->select('tbl_products.name', 'imaging_orders.price','imaging_orders.status','imaging_orders.session_id','imaging_orders.product_id')->get();
             foreach($orderImagings as $img)
             {
                 $loc = DB::table('imaging_selected_location')
