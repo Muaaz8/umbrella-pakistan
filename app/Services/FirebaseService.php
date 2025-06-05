@@ -22,9 +22,10 @@ class FirebaseService
         $notification = Notification::fromArray([
             'title' => $title,
             'body' => $body,
+            'image' => 'https://dummyjson.com/image/150',
         ]);
         $message = CloudMessage::withTarget('token', $token)
-            ->withNotification($notification);
+            ->withNotification($notification)->withData(['imageUrl' => 'https://dummyjson.com/image/150']);
         try {
             $this->messaging->send($message);
             return ['success' => true, 'message' => 'Notification sent successfully'];

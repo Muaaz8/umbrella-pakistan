@@ -142,6 +142,8 @@
                     class="fa-regular fa-calendar-days"></i> Quest Failed Requests </a> --}}
             <a href="{{ route('admin_contact_us') }}" class="dashboard-nav-item"><i class="fa-regular fa-calendar-days"></i>
                 Contact us </a>
+            <a href="{{ route('admin_blog.index') }}" class="dashboard-nav-item"><i class="fa-solid fa-blog"></i>
+                Blog</a>
             <a href="{{ route('tbl_transaction') }}" class="dashboard-nav-item"><i class="fa-regular fa-calendar-days"></i>
                 Transactions</a>
             <div class="dashboard-nav-dropdown">

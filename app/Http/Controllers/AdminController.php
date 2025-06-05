@@ -3013,7 +3013,24 @@ class AdminController extends Controller
             ->where('TEST_NAME',$item['Test Name'])
             ->first();
         if($prod){
-            $product_id = $prod->id;
+            $cat = DB::table('product_categories')->where('name',$item['Category'])->first();
+            $arr = [
+                'TEST_NAME' => $item['Test Name'],
+                'SLUG' => \Str::slug($item['Test Name']),
+                'TEST_CD' => $item['Test ID'],
+                'PRICE' => $item['Rate'],
+                'SALE_PRICE' => $item['Rate After Discount'],
+                'PARENT_CATEGORY' => $cat->id,
+                'SPECIMEN_TYPE' => NULL,
+                'actual_price' => $item['Rate'],
+                'discount_percentage' => $item['Discount Percent'],
+                'mode' => 'lab-test',
+                'ACTIVE_IND' => 'A',
+                'UPDATE_USER' => 'OEAPP',
+                'INSERT_DATETIME' => date('Y-m-d H:i:s'),
+            ];
+            $product_id = DB::table('quest_data_test_codes')->where('TEST_CD',$item['Test ID'])
+            ->where('TEST_NAME',$item['Test Name'])->update($arr);
         }else{
             $cat = DB::table('product_categories')->where('name',$item['Category'])->first();
             $arr = [
@@ -3042,7 +3059,7 @@ class AdminController extends Controller
         $i = 2;
         $result = [];
         foreach ($data as $item) {
-            if (empty($item['Test ID']) || empty($item['Test Name']) || empty($item['Department']) || empty($item['Rate'])) {
+            if (empty($item['Test ID']) || empty($item['Test Name'])  || empty($item['Rate'])) {
                 $result[] = [
                     'message' => 'Empty Column found at line ' . $i,
                     'status' => 'ERROR',

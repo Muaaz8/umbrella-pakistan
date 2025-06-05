@@ -52,6 +52,10 @@ Route::get('/firebase', function () {
     dd('Notification sent!', $response);
 });
 
+
+Route::get('/blog','BlogController@blog_index')->name('blog_index');
+Route::get('/blog/{slug}','BlogController@blog_single')->name('blog_single');
+
 Route::get('/labs-add' , function(){
             $products = DB::table('quest_data_test_codes')
     ->where(function($query) {
@@ -1182,7 +1186,8 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
 
         //Related Products
         Route::resource('related_products', 'RelatedProductsController');
-
+        Route::resource('admin/blog', 'BlogController')->names('admin_blog');
+        Route::get('admin/blog/status/{id}', 'BlogController@status')->name('admin_blog.status');
         //  Route::get('/add/items/mental/condition', 'MentalConditionsController@view_condition')->name('mental_condition');
         //  Route::get('/add/items/faqs', 'TblFaqController@faqs')->name('FAQs');
         // Route::get('/add/items/faqs/create', 'TblFaqController@create_faqs')->name('create_faqs');
