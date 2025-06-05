@@ -47,7 +47,6 @@
     {
         var pro_id = $('#product_id').val();
         var quantity = $('#quantity').val();
-        var unit = $('#strength').val();
         var pro_mode = "medicine";
 
         $.ajax({
@@ -57,7 +56,6 @@
                 pro_id: pro_id,
                 pro_mode: pro_mode,
                 quantity: quantity,
-                unit:unit
             },
             success: function(data) {
                 console.log(data);
@@ -137,25 +135,14 @@
                                 </div>
                             @endif
                         </div>
-                            <div class="w-75 w-md-100">
-                            <label for="strength" class="form-label fw-bold"><u>Strength</u></label>
-                                <div class="col-lg-12 col-md-12 mb-2">
-                                    <select id="strength" class="form-select w-100 h-100" name="unit">
-                                        @foreach ($products[0]->units as $item)
-                                            <option value="{{ $item->id }}" data-sale-price="{{ $item->sale_price }}">{{ $item->unit!="-"?$item->unit:'' }} (Rs.
-                                                {{ $item->sale_price }})
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                            </div>
                     </div>
                     <div class="col-md-4">
                     <form action="#" method="post" onsubmit="return false;">
                         @csrf
                         <input type="hidden" name="pro_id" id="product_id" value="{{ $products[0]->vendor_product_id }}">
+                        <input type="hidden" id="base_price" value="{{ $products[0]->sale_prices - ($products[0]->sale_prices*$products[0]->discount)/100 }}">
                             <div class="d-flex justify-content-end ">
-                                <label for="Price" class="form-label medicine-total fw-bold" id="price">Rs. {{ number_format($products[0]->units[0]->sale_price,2) }}</label>
+                                <label for="Price" class="form-label medicine-total fw-bold" id="price">Rs. {{ $products[0]->sale_prices - ($products[0]->sale_prices*$products[0]->discount)/100 }}</label>
                             </div>
                             <div class="my-2">
                                 <label for="quantity" class="form-label fw-bold"><u>Quantity</u></label>
@@ -267,24 +254,23 @@
     </div>
 
     <script>
-
-        document.getElementById('strength').addEventListener('change', function() {
-            var strenght = $('#strength').val();
-            const selectedOption = this.options[this.selectedIndex];
-            const salePrice = selectedOption.dataset.salePrice;
-            var price = salePrice*quantityInput.value;
-            $('#price').html("Rs. "+parseFloat(price).toFixed(2));
-        });
-
         const quantityInput = document.getElementById('quantity');
         const incrementButton = document.getElementById('increment');
         const decrementButton = document.getElementById('decrement');
         const radioButtons = document.querySelectorAll('input[name="options"]');
+        const priceElement = document.getElementById('price');
+        const basePrice = parseFloat(document.getElementById('base_price').value);
+
+        function updatePrice() {
+            const quantity = parseInt(quantityInput.value, 10);
+            const totalPrice = basePrice * quantity;
+            priceElement.textContent = `Rs. ${totalPrice.toFixed(2)}`;
+        }
 
         radioButtons.forEach(radio => {
             radio.addEventListener('change', (event) => {
                 quantityInput.value = event.target.value;
-                document.getElementById('strength').dispatchEvent(new Event('change'));
+                updatePrice();
             });
         });
 
@@ -298,7 +284,7 @@
             const currentValue = parseInt(quantityInput.value, 10);
             quantityInput.value = currentValue + 1;
             deselectRadioButtons();
-            document.getElementById('strength').dispatchEvent(new Event('change'));
+            updatePrice();
         });
 
         decrementButton.addEventListener('click', () => {
@@ -306,9 +292,10 @@
             if (currentValue > 1) {
                 quantityInput.value = currentValue - 1;
                 deselectRadioButtons();
-                document.getElementById('strength').dispatchEvent(new Event('change'));
+                updatePrice();
             }
         });
 
+        updatePrice();
     </script>
 @endsection

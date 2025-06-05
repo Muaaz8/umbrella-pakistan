@@ -443,7 +443,7 @@ class Pharmacy extends Model
         return $data;
     }
 
-    public function getSingleProduct($type, $slug)
+    public function getSingleProduct($type, $slug, $vendor_id)
     {
 
         if ($type == 'labtests') {
@@ -468,10 +468,9 @@ class Pharmacy extends Model
                 )
                 ->where([
                     ['quest_data_test_codes.PARENT_CATEGORY', '!=', ""],
-                    // ['quest_data_test_codes.DETAILS', '!=', ""], /* WILL REMOVE */
                 ])
-                // ->union($first)
                 ->where([['quest_data_test_codes.slug', $slug]])
+                ->where('vendor_products.vendor_id', $vendor_id)
                 ->get();
                 foreach ($data as $product) {
                     if($product->discount_percentage != null){
@@ -513,18 +512,18 @@ class Pharmacy extends Model
                     'tbl_products.medicine_directions',
                     'tbl_products.generic',
                     'tbl_products.is_single',
-
                     'vendor_products.vendor_id',
-                    'vendor_products.id as vendor_product_id',
-                    'vendor_products.selling_price as sale_prices',
+                    'vendor_products.id AS vendor_product_id',
+                    'vendor_products.selling_price AS sale_prices',
                     'vendor_products.actual_price',
-                    'vendor_products.discount',
+                    'vendor_products.discount AS discount',
                     'vendor_products.available_stock',
 
                     'products_sub_categories.title as sub_category_name',
                     'products_sub_categories.slug as sub_category_slug',
                 )
                 ->where('tbl_products.slug', '=', $slug)
+                ->where('vendor_products.vendor_id', $vendor_id)
                 ->where('product_status', 1)
                 ->where('is_approved', 1)
                 ->get();

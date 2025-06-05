@@ -488,6 +488,7 @@ public function vendor_order()
                 'vendor_products.selling_price as total',
                 'vendor_products.discount as discount',
                 'lab_orders.id as lab_order_id',
+                'tbl_orders.id as id',
                 'lab_orders.product_id',
                 'lab_orders.user_id',
                 'lab_orders.order_id as original_order_id',
@@ -518,6 +519,7 @@ public function vendor_order()
                 'tbl_products.name as name',
                 'vendor_products.selling_price as total',
                 'medicine_order.id as medicine_order_id',
+                'tbl_orders.id as id',
                 'medicine_order.user_id',
                 'medicine_order.order_product_id',
                 'medicine_order.order_main_id',
@@ -618,8 +620,9 @@ public function vendor_order()
         $tblOrders = $this->tblOrdersRepository->getsOrderByID($id);
         if (empty($tblOrders)) {
             Flash::error('OrderID ' . $id . ' not found.');
-            return redirect(route('orders.index'));
-        } elseif (auth()->user()->user_type == 'admin') {
+            return redirect()->back();
+        }
+        if (auth()->user()->user_type == 'admin' || auth()->user()->user_type == 'vendor') {
             $data['order_data'] = $tblOrders;
             $orderId = $data['order_data']->order_id;
             // $data['cart_items'] = $this->tblOrdersRepository->productDetails($tblOrders->cart_items);
@@ -665,8 +668,9 @@ public function vendor_order()
                 ->first();
                 $img->location = $loc->location;
             }
-            return view('dashboard_vendor.Orders.order_details', compact('data', 'orderMeds', 'orderLabs', 'ordercntLabs', 'orderImagings'));
+            return view('dashboard_vendor.Order.details', compact('data', 'orderMeds', 'orderLabs', 'ordercntLabs', 'orderImagings'));
             }
+
         }
 
     public function dash_index(Request $request)

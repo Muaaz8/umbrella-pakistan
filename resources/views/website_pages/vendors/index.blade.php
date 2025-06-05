@@ -72,7 +72,12 @@
                     <div class="category-dropdown">
                         <select class="form-select custom-select" name="category" id="category" onchange="changed(this)">
                             <option value="all">Select By Location</option>
-
+                            @foreach ($locations as $location)
+                                <option value="{{ $location->id }}"
+                                    {{ request()->get('location') == $location->id ? 'selected' : '' }}>
+                                    {{ $location->name }}
+                                </option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="searchbar d-flex w-25">
@@ -81,8 +86,6 @@
                         <button class="btn custom-btn searchPharmacyProduct"><i class="fa-solid fa-search"></i></button>
                     </div>
                 </div>
-
-
 
 
                 <div class="medicines-container w-100" id="loadSearchPharmacyItemByCategory">
@@ -107,15 +110,123 @@
                                         href="{{ route('labs_products', ['id' => $vendor->id]) }}">
                                         View Products
                                     </a>
-
                                 @endif
                             </div>
                         </div>
                     @endforeach
-
                 </div>
-                <div class="pagination">{{ $vendors->links('pagination::bootstrap-4') }}</div>
+                
+                <div class="pagination" id="paginationContainer">{{ $vendors->links('pagination::bootstrap-4') }}</div>
             </div>
         </div>
     </main>
+
+    <script>
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        const shopType = '{{ $shop_type }}';
+
+        async function fetchVendors(locationId = null, searchText = null) {
+            try {
+                
+                const requestBody = {
+                    shop_type: shopType
+                };
+
+                if (locationId && locationId !== 'all') {
+                    requestBody.locationId = locationId;
+                }
+
+                if (searchText && searchText.trim() !== '') {
+                    requestBody.searchText = searchText.trim();
+                }
+
+                const response = await fetch('/location/vendors', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': csrfToken,
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(requestBody)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                
+                updateVendorsContainer(data.vendors || data);
+                
+
+            } catch (error) {
+                console.error('Error fetching vendors:', error);
+            }
+        }
+
+        function updateVendorsContainer(vendors) {
+            const container = document.getElementById('loadSearchPharmacyItemByCategory');
+            
+            if (!vendors || vendors.length === 0) {
+                document.getElementById('paginationContainer').innerHTML = '';
+                return;
+            }
+
+            let html = '';
+            vendors.forEach(vendor => {
+                const viewProductsRoute = vendor.vendor === 'pharmacy' 
+                    ? `{{ route('pharmacy_products', ['id' => '__ID__']) }}`.replace('__ID__', vendor.id)
+                    : `{{ route('labs_products', ['id' => '__ID__']) }}`.replace('__ID__', vendor.id);
+
+                html += `
+                    <div class="card">
+                        <div class="products_available">
+                            <p>Available Products: ${vendor.products_count || 0}</p>
+                        </div>
+                        <div class="med-img2">
+                            <img src="${vendor.image}" alt="img">
+                        </div>
+                        <h4 class="truncate m-0 p-0">${vendor.name}</h4>
+                        <h6 class="truncate mb-2 p-0">${vendor.address}</h6>
+                        <div class="pharmacy_btn2">
+                            <a class="add-to-cart w-100 text-center btn" style="font-size: 14px; font-weight: 700;"
+                               href="${viewProductsRoute}">
+                                View Products
+                            </a>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+        }
+
+        function changed(select) {
+            const selectedValue = select.value;
+            const searchText = document.getElementById('pharmacySearchText').value;
+            fetchVendors(selectedValue, searchText);
+        }
+
+        document.querySelector('.searchPharmacyProduct').addEventListener('click', function() {
+            const searchText = document.getElementById('pharmacySearchText').value;
+            const selectedLocation = document.getElementById('category').value;
+            console.log("Search Text:", searchText);
+            fetchVendors(selectedLocation, searchText);
+        });
+
+        document.getElementById('pharmacySearchText').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const searchText = this.value;
+                const selectedLocation = document.getElementById('category').value;
+                fetchVendors(selectedLocation, searchText);
+            }
+        });
+
+        document.getElementById('pharmacySearchText').addEventListener('input', function() {
+            if (this.value === '') {
+                const selectedLocation = document.getElementById('category').value;
+                fetchVendors(selectedLocation, '');
+            }
+        });
+    </script>
 @endsection

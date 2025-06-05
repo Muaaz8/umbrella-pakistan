@@ -3240,6 +3240,61 @@ class AdminController extends Controller
         return view('dashboard_admin.fee_approval.index', compact('approvals'));
     }
 
+    public function products_request(){
+        $pendingRequests = DB::table('product_requests')
+            ->join('vendor_accounts', 'product_requests.vendor_id', '=', 'vendor_accounts.id')
+            ->join('users', 'vendor_accounts.user_id', '=', 'users.id')
+            ->select('product_requests.*', 'users.name as vendor_name', 'vendor_accounts.name as vendor_account_name')
+            ->where('product_requests.status', 'pending')
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+        return view('dashboard_admin.requested_products.index', compact('pendingRequests'));
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'status' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }
+
+        try {
+            DB::table('product_requests')
+                ->where('id', $id)
+                ->update([
+                    'status' => $request->status,
+                    'updated_at' => now()
+                ]);
+
+            $vendor = DB::table('product_requests')
+                ->join('vendor_accounts', 'product_requests.vendor_id', '=', 'vendor_accounts.id')
+                ->join('users', 'vendor_accounts.user_id', '=', 'users.id')
+                ->select('users.id as user_id')
+                ->where('product_requests.id', $id)
+                ->first();
+
+
+            Notification::create([
+                    'user_id' => $vendor->user_id,
+                    'type' => '/vendor/pending/products',
+                    'text' => 'Request' . $request->status,
+                ]);
+
+            event(new RealTimeMessage($vendor->id));
+
+            return redirect()->back()->with('success', 
+                'Product request status updated to ' . ucfirst($request->status) . ' successfully.'
+            );
+
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to update status. Please try again.');
+        }
+    }
+
     public function confirm_approval(Request $request){
         $approve_req = DB::table('doctor_fee_approvals')->where('id', $request->approval_id)->update([
             'is_approved' => 'accepted',

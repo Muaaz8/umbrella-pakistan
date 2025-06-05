@@ -2292,7 +2292,7 @@ $('#new-search2').on('blur', function() {
                                                                             @endif
                                                                         </div>
                                                                         <div class="col price_{{ $counter }}">
-                                                                            Rs.{{ number_format($item->price, 2) }}
+                                                                            Rs.{{ number_format($item->update_price, 2) }}
                                                                             <span class="close">
                                                                                 <input type="checkbox"
                                                                                     id="item_{{ $counter }}"
