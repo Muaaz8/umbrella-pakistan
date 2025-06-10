@@ -308,30 +308,76 @@ class RegistrationController extends BaseController
     }
     // reset password
     public function reset_password(Request $request){
-        $user = DB::table('users')->where('email', '=', $request->email)->first();
+        $fieldType = filter_var($request->email, FILTER_VALIDATE_EMAIL) ? 'email' : 'phone_number';
+        $user = DB::table('users')->where($fieldType, '=', $request->email)->first();
         //Check if the user exists
         if($user == null) {
             return $this->sendError([],'User not found',Response::HTTP_NOT_FOUND);
         } else{
             $token = Str::random(20);
+            $otp = rand(100000, 999999);
             DB::table('password_resets')->insert([
-                'email' => $request->email,
+                'email' => $user->email,
+                'otp' => $otp,
                 'token' => $token,
                 'created_at' => Carbon::now()
             ]);
-            $this->sendResetEmail($request->email ,$token);
+            $this->sendResetEmail($user->email ,$token,$otp);
             return $this->sendResponse([],"email varified");
         }
 
     }
-    public function sendResetEmail($email, $token){
-        //Retrieve the user from the database
-        $user = DB::table('users')->where('email', $email)->select('name', 'email')->first();
-        // $tokenV = DB::table('password_resets')->where('email',$user->email)->where('token',$token)->select('token', 'email')->first();
-        //Generate, the password reset link. The token generated is embedded in the link
+    public function sendResetEmail($email, $token,$otp){
+        $fieldType = filter_var($email, FILTER_VALIDATE_EMAIL) ? 'email' : 'phone_number';
+        $user = DB::table('users')->where($fieldType, $email)->select('name', 'email','phone_number')->first();
+        try {
+            $whatsapp = new \App\Http\Controllers\WhatsAppController();
+            $res = $whatsapp->send_otp_message($user->phone_number,$otp);
+            Log::error($res);
+        } catch (Exception $e) {
+            Log::error($e);
+        }
+
         $link = url('').'/api/pasasword/reset/'. $token.'/'. urlencode($email);
-        Mail::to($user->email)->send(new ApiPasswordReset($link));
+        Mail::to($user->email)->send(new ApiPasswordReset(['otp'=>$otp, 'link'=>$link]));
     }
+
+    public function otp_varification(Request $request){
+        $fieldType = filter_var($request->email, FILTER_VALIDATE_EMAIL) ? 'email' : 'phone_number';
+        $user = DB::table('users')->where($fieldType, $request->email)->first();
+        if($user == null) {
+            return $this->sendError([],'User not found',Response::HTTP_NOT_FOUND);
+        }
+        $reset = DB::table('password_resets')->where('email', $user->email)->where('otp', $request->otp)->first();
+        if($reset == null) {
+            return $this->sendError([],'Invalid token',Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
+        return $this->sendResponse(['user_id'=>$user->id],'Token varified');
+    }
+
+    // new password set
+    public function new_password_set(Request $request){
+        $validator = Validator::make($request->all(), [
+            'email' => 'required',
+            'password' => 'required',
+            'c_password' => 'required|same:password',
+        ]);
+        if($validator->fails()) {
+            $data['validation_error'] =$validator->errors();
+            return $this->sendError($data,"validation Fail",Response::HTTP_UNPROCESSABLE_ENTITY);
+        } else{
+            $fieldType = filter_var($request->email, FILTER_VALIDATE_EMAIL) ? 'email' : 'phone_number';
+            $user = User::where($fieldType, $request->email)->first();
+            if($user == null) {
+                return $this->sendError([],'User not found',Response::HTTP_NOT_FOUND);
+            }
+            $user->password = Hash::make($request->password);
+            $user->save();
+            DB::table('password_resets')->where('email', $user->email)->delete();
+            return $this->sendResponse([],'Password updated successfully');
+        }
+    }
+
     public function email_varification(Request $request){
         $mail = $request->email;
         $user = User::where('email',$mail)->first();

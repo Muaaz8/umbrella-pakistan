@@ -94,14 +94,15 @@
                                         margin: 0;
                                       background: #f9f9f9 !important;
                                       padding: 9px 20px;
-                                      "> A request has been received to change password for your   account. </p>
+                                      "> <strong>OTP:</strong> {{ $data['otp'] }}
+                                      <br>A request has been received to change password for your   account. </p>
                                   </th>
                                 </tr>
                                 <!-- END SECTION: Introduction -->
                                 <!-- BEGIN SECTION: Order Number And Date -->
                                 <tr style="text-align: center;">
                                   <th class="bg-white" style="padding-top: 15px;">
-                                    <a href="{{ $data }}">
+                                    <a href="{{ $data['link'] }}">
                                       <button type="button" style="background-color: #08295a !important;
                                         color: #fff !important; border:none; padding:5px 15px; cursor:pointer !important;" class="btn">Reset Password</button>
                                     </a>
