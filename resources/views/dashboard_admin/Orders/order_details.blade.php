@@ -154,34 +154,55 @@
                     </div>
                 </div>
             </div>
-            <div class="row m-auto">
-                <div class="col-12">
-                    <div class="card mt-3">
-                        <h5 class="card-header">Billing Details</h5>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-6 mb-2">
-                                    <div class="card" style="width: 100%">
-                                        <ul class="list-group list-group-flush">
-                                            <li class="list-group-item"><b>Name : </b>
-                                                {{  $data['billing'][0] }}</li>
-                                            <li class="list-group-item"><b>Phone :</b>
-                                                {{  $data['billing'][2] }}</li>
-                                            </li>
-                                            <li class="list-group-item"><b>Email :</b>
-                                                {{ $data['billing'][1] }}</li>
-                                            <li class="list-group-item"><b>Address :</b>
-                                                {{ $data['billing'][3] }}</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="row m-auto">
+      @if($med == '1')
+      <div class="col-6">
+      <div class="card mt-3">
+      <h5 class="card-header">Shipping Details</h5>
+      <div class="card-body">
+      <div class="row">
+        <div class="col-md-12 mb-2">
+        <div class="card" style="width: 100%">
+        <ul class="list-group list-group-flush">
+        <li class="list-group-item"><b>Name : </b> {{  explode('|', $data['shipping'][0])[1] }}</li>
+        <li class="list-group-item"><b>Phone :</b> {{  explode('|', $data['shipping'][2])[1] }}</li>
+        <li class="list-group-item"><b>Email :</b> {{  explode('|', $data['shipping'][1])[1] }}</li>
+        <li class="list-group-item"><b>Address :</b> {{ explode('|', $data['shipping'][3])[1] }}</li>
+        </ul>
+        </div>
+        </div>
+      </div>
+
+      <div>
+      </div>
+      </div>
+      </div>
+      </div>
+    @endif
+      <div class="col-6">
+      <div class="card mt-3">
+        <h5 class="card-header">Vendor Details</h5>
+        <div class="card-body">
+        <div class="row">
+          <div class="col-md-12 mb-2">
+          <div class="card" style="width: 100%">
+            <ul class="list-group list-group-flush">
+            <li class="list-group-item"><b>Name : </b>
+              {{ $vendor_details['name'] }}</li>
+            <li class="list-group-item"><b>Phone :</b>
+              {{ $vendor_details['vendor_number'] }}</li>
+            <li class="list-group-item"><b>Address :</b>
+              {{$vendor_details['address'] }}</li>
+            </ul>
+          </div>
+          </div>
+        </div>
+        <div>
+        </div>
+        </div>
+      </div>
+      </div>
+    </div>
             {{-- <div class="row m-auto">
                 <div class="col-12">
                     <div class="card mt-3">

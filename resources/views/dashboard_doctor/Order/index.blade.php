@@ -52,7 +52,6 @@
                 <thead>
                     <!-- <th scope="col">S.No</th> -->
                     <th scope="col">Order ID</th>
-                    <th scope="col">Order State</th>
                     <th scope="col">Payment</th>
                     <th scope="col">Date</th>
                     <th scope="col">Time</th>
@@ -66,7 +65,6 @@
                   <tr>
                     <!-- <td data-label="S.No" scope="row">{{ $counter }}</td> -->
                     <td data-label="Order ID">{{ $order->order_id }}</td>
-                    <td data-label="Order State">{{ $order->order_state }}</td>
                     @if ($order->order_status == "paid")
                         <td data-label="Order State"><label class="order-paid">Paid</label></td>
                     @elseif ($order->order_status == "Pending")
@@ -84,7 +82,7 @@
                   @empty
 
                   <tr>
-                    <td colspan="6" >
+                    <td colspan="5" >
                         <div class="m-auto text-center for-empty-div">
                             <img src="{{ asset('assets/images/for-empty.png') }}" alt="">
                             <h6>No Orders</h6>

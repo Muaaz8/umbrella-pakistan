@@ -563,6 +563,11 @@ public function vendor_order()
     {
         $user = auth()->user();
         $tblOrders = $this->tblOrdersRepository->getsOrderByID($id);
+        $vendor_details = [
+            'name' => '',
+            'address' => '',
+            'vendor_number' => ''
+        ];
         if (empty($tblOrders)) {
             Flash::error('OrderID ' . $id . ' not found.');
             return redirect(route('orders.index'));
@@ -578,26 +583,36 @@ public function vendor_order()
             $datetime = User::convert_utc_to_user_timezone($user->id, $data['order_data']->created_at);
             $data['order_data']->created_at = $datetime['date']." ".$datetime['time'];
 
-            $orderMeds = DB::table('medicine_order')->where('order_main_id', $orderId)
-            ->join('tbl_products', 'tbl_products.id', 'medicine_order.order_product_id')
-            ->join('prescriptions', 'prescriptions.medicine_id', 'medicine_order.order_product_id')
-            ->groupBy('medicine_order.id')
-            ->select('tbl_products.name', 'medicine_order.update_price', 'medicine_order.status', 'prescriptions.usage',)->get();
+            $orderMeds = DB::table('medicine_order')
+                ->where('order_main_id', $orderId)
+                ->join('vendor_products', 'vendor_products.id', '=', 'medicine_order.order_product_id')
+                ->join('vendor_accounts', 'vendor_accounts.id', '=', 'vendor_products.vendor_id')
+                ->join('tbl_products', 'tbl_products.id', '=', 'vendor_products.product_id')
+                ->leftJoin('prescriptions', function ($join) {
+                    $join->on('prescriptions.medicine_id', '=', 'medicine_order.order_product_id')
+                        ->where('medicine_order.pro_mode', 'Prescribed');
+                })
+                ->groupBy('medicine_order.id')
+                ->select('tbl_products.name', 'medicine_order.update_price', 'medicine_order.status', 'prescriptions.usage','vendor_accounts.name', 'vendor_accounts.address', 'vendor_accounts.vendor_number')
+                ->get();
 
-            $orderLabs = DB::table('lab_orders')
-            ->join('quest_data_test_codes', 'quest_data_test_codes.TEST_CD', 'lab_orders.product_id')
-            ->join('prescriptions', 'prescriptions.test_id', 'lab_orders.product_id')
-            ->where('lab_orders.order_id', $orderId)
-            ->where('lab_orders.type', 'Prescribed')
-            ->groupBy('lab_orders.id')
-            ->select('lab_orders.*', 'quest_data_test_codes.TEST_NAME', 'quest_data_test_codes.SALE_PRICE', 'prescriptions.quantity',)
-            ->get();
-
+        $orderLabs = DB::table('lab_orders')
+                    ->join('vendor_products', 'vendor_products.id', 'lab_orders.product_id')
+                    ->join('vendor_accounts', 'vendor_accounts.id', '=', 'vendor_products.vendor_id')
+                    ->join('quest_data_test_codes', 'quest_data_test_codes.TEST_CD', 'vendor_products.product_id')
+                    ->join('prescriptions', 'prescriptions.test_id', 'lab_orders.product_id')
+                    ->where('lab_orders.order_id', $orderId)
+                    ->where('lab_orders.type', 'Prescribed')
+                    ->groupBy('lab_orders.id')
+                    ->select('lab_orders.*', 'quest_data_test_codes.DESCRIPTION', 'quest_data_test_codes.TEST_NAME', 'vendor_products.selling_price AS SALE_PRICE', 'prescriptions.quantity', 'vendor_accounts.name', 'vendor_accounts.address', 'vendor_accounts.vendor_number')
+                    ->get();
             $ordercntLabs = DB::table('lab_orders')
-            ->join('quest_data_test_codes', 'quest_data_test_codes.TEST_CD', 'lab_orders.product_id')
-            ->where('lab_orders.order_id', $orderId)
-            ->where('lab_orders.type', 'Counter')
-            ->select('lab_orders.*', 'quest_data_test_codes.TEST_NAME', 'quest_data_test_codes.SALE_PRICE')->get();
+                    ->join('vendor_products', 'vendor_products.id', 'lab_orders.product_id')
+                    ->join('vendor_accounts', 'vendor_accounts.id', '=', 'vendor_products.vendor_id')
+                    ->join('quest_data_test_codes', 'quest_data_test_codes.TEST_CD', 'vendor_products.product_id')
+                    ->where('lab_orders.order_id', $orderId)
+                    ->where('lab_orders.type', 'Counter')
+                    ->select('lab_orders.*', 'quest_data_test_codes.DESCRIPTION', 'quest_data_test_codes.TEST_NAME', 'vendor_products.selling_price AS SALE_PRICE','vendor_accounts.name', 'vendor_accounts.address', 'vendor_accounts.vendor_number')->get();
 
             $orderImagings = DB::table('imaging_orders')->where('order_id', $orderId)
             ->join('tbl_products', 'tbl_products.id', 'imaging_orders.product_id')
@@ -612,7 +627,18 @@ public function vendor_order()
                 ->first();
                 $img->location = $loc->location;
             }
-            return view('dashboard_admin.Orders.order_details', compact('data', 'orderMeds', 'orderLabs', 'ordercntLabs', 'orderImagings'));
+
+            if($orderMeds->count() > 0) {
+                $vendor_details['name'] = $orderMeds[0]->name;
+                $vendor_details['address'] = $orderMeds[0]->address;
+                $vendor_details['vendor_number'] = $orderMeds[0]->vendor_number;
+            } elseif($orderLabs->count() > 0) {
+                $vendor_details['name'] = $orderLabs[0]->name;
+                $vendor_details['address'] = $orderLabs[0]->address;
+                $vendor_details['vendor_number'] = $orderLabs[0]->vendor_number;
+            }
+
+            return view('dashboard_admin.Orders.order_details', compact('data', 'orderMeds', 'orderLabs', 'ordercntLabs', 'orderImagings', 'vendor_details'));
             }
         }
     public function vendor_order_details($id)
@@ -877,6 +903,11 @@ public function vendor_order()
     public function dash_show($id)
     {
         $tblOrders = $this->tblOrdersRepository->getsOrderByID($id);
+        $vendor_details = [
+            'name' => '',
+            'address' => '',
+            'vendor_number' => ''
+        ];
         $user = auth()->user();
         if (empty($tblOrders)) {
             Flash::error('OrderID ' . $id . ' not found.');
@@ -894,41 +925,47 @@ public function vendor_order()
             $orderId = $tblOrders->order_id;
             $orderMeds = DB::table('medicine_order')
                 ->where('order_main_id', $orderId)
-                ->join('tbl_products', 'tbl_products.id', '=', 'medicine_order.order_product_id')
+                ->join('vendor_products', 'vendor_products.id', '=', 'medicine_order.order_product_id')
+                ->join('vendor_accounts', 'vendor_accounts.id', '=', 'vendor_products.vendor_id')
+                ->join('tbl_products', 'tbl_products.id', '=', 'vendor_products.product_id')
                 ->leftJoin('prescriptions', function ($join) {
                     $join->on('prescriptions.medicine_id', '=', 'medicine_order.order_product_id')
                         ->where('medicine_order.pro_mode', 'Prescribed');
                 })
                 ->groupBy('medicine_order.id')
-                ->select('tbl_products.name', 'medicine_order.update_price', 'medicine_order.status', 'prescriptions.usage')
+                ->select('tbl_products.name', 'medicine_order.update_price', 'medicine_order.status', 'prescriptions.usage','vendor_accounts.name', 'vendor_accounts.address', 'vendor_accounts.vendor_number')
                 ->get();
 
             if (Auth::user()->user_type == 'patient') {
-                // $data=DB::table('prescriptions')->where('test_id','10285')->get();
-                // dd($data);
                 $orderLabs = DB::table('lab_orders')
-                    ->join('quest_data_test_codes', 'quest_data_test_codes.TEST_CD', 'lab_orders.product_id')
+                    ->join('vendor_products', 'vendor_products.id', 'lab_orders.product_id')
+                    ->join('vendor_accounts', 'vendor_accounts.id', '=', 'vendor_products.vendor_id')
+                    ->join('quest_data_test_codes', 'quest_data_test_codes.TEST_CD', 'vendor_products.product_id')
                     ->join('prescriptions', 'prescriptions.test_id', 'lab_orders.product_id')
                     ->where('lab_orders.order_id', $orderId)
                     ->where('lab_orders.type', 'Prescribed')
                     ->groupBy('lab_orders.id')
-                    ->select('lab_orders.*', 'quest_data_test_codes.DESCRIPTION', 'quest_data_test_codes.TEST_NAME', 'quest_data_test_codes.SALE_PRICE', 'prescriptions.quantity',)
+                    ->select('lab_orders.*', 'quest_data_test_codes.DESCRIPTION', 'quest_data_test_codes.TEST_NAME', 'vendor_products.selling_price AS SALE_PRICE', 'prescriptions.quantity', 'vendor_accounts.name', 'vendor_accounts.address', 'vendor_accounts.vendor_number')
                     ->get();
-                    // dd($orderLabs);
                     $ordercntLabs = DB::table('lab_orders')
-                    ->join('quest_data_test_codes', 'quest_data_test_codes.TEST_CD', 'lab_orders.product_id')
+                    ->join('vendor_products', 'vendor_products.id', 'lab_orders.product_id')
+                    ->join('vendor_accounts', 'vendor_accounts.id', '=', 'vendor_products.vendor_id')
+                    ->join('quest_data_test_codes', 'quest_data_test_codes.TEST_CD', 'vendor_products.product_id')
                     ->where('lab_orders.order_id', $orderId)
                     ->where('lab_orders.type', 'Counter')
-                    ->select('lab_orders.*', 'quest_data_test_codes.DESCRIPTION', 'quest_data_test_codes.TEST_NAME', 'quest_data_test_codes.SALE_PRICE')->get();
+                    ->select('lab_orders.*', 'quest_data_test_codes.DESCRIPTION', 'quest_data_test_codes.TEST_NAME', 'vendor_products.selling_price AS SALE_PRICE','vendor_accounts.name', 'vendor_accounts.address', 'vendor_accounts.vendor_number')->get();
             } elseif (Auth::user()->user_type == 'doctor') {
                 $ordercntLabs = DB::table('lab_orders')->where('order_id', $orderId)
-                    ->join('quest_data_test_codes', 'quest_data_test_codes.TEST_CD', 'lab_orders.product_id')
-                    ->select('lab_orders.*', 'quest_data_test_codes.DESCRIPTION', 'quest_data_test_codes.TEST_NAME', 'quest_data_test_codes.SALE_PRICE')->get();
+                    ->join('vendor_products', 'vendor_products.id', 'lab_orders.product_id')
+                    ->join('vendor_accounts', 'vendor_accounts.id', '=', 'vendor_products.vendor_id')
+                    ->join('quest_data_test_codes', 'quest_data_test_codes.TEST_CD', 'vendor_products.product_id')
+                    ->select('lab_orders.*', 'quest_data_test_codes.DESCRIPTION', 'quest_data_test_codes.TEST_NAME', 'vendor_products.selling_price AS SALE_PRICE','vendor_accounts.name', 'vendor_accounts.address', 'vendor_accounts.vendor_number')->get();
             }
 
             $orderImagings = DB::table('imaging_orders')->where('order_id', $orderId)
-                ->join('tbl_products', 'tbl_products.id', 'imaging_orders.product_id')
-                // ->join('prescriptions','prescriptions.imaging_id','imaging_orders.product_id')
+                ->join('vendor_products', 'vendor_products.id', 'imaging_orders.product_id')
+                ->join('vendor_accounts', 'vendor_accounts.id', '=', 'vendor_products.vendor_id')
+                ->join('tbl_products', 'tbl_products.id', 'vendor_products.product_id')
                 ->select('tbl_products.name', 'imaging_orders.price','imaging_orders.status','imaging_orders.session_id','imaging_orders.product_id')->get();
             // dd($orderImagings);
             foreach($orderImagings as $img)
@@ -942,11 +979,21 @@ public function vendor_order()
                 $img->location = $location->location;
             }
 
+            if($orderMeds->count() > 0) {
+                $vendor_details['name'] = $orderMeds[0]->name;
+                $vendor_details['address'] = $orderMeds[0]->address;
+                $vendor_details['vendor_number'] = $orderMeds[0]->vendor_number;
+            } elseif($orderLabs->count() > 0) {
+                $vendor_details['name'] = $orderLabs[0]->name;
+                $vendor_details['address'] = $orderLabs[0]->address;
+                $vendor_details['vendor_number'] = $orderLabs[0]->vendor_number;
+            }
+
             $data['order_data']->created_at = User::convert_utc_to_user_timezone($user->id, $data['order_data']->created_at);
             if ($user->user_type == 'patient') {
-                return view('dashboard_patient.Order.details', compact('data', 'orderMeds', 'orderLabs', 'orderImagings', 'ordercntLabs'));
+                return view('dashboard_patient.Order.details', compact('data', 'orderMeds', 'orderLabs', 'orderImagings', 'ordercntLabs', 'vendor_details'));
             } else if ($user->user_type == 'doctor') {
-                return view('dashboard_doctor.Order.order_details', compact('data', 'orderMeds', 'ordercntLabs', 'orderImagings'));
+                return view('dashboard_doctor.Order.order_details', compact('data', 'orderMeds', 'ordercntLabs', 'orderImagings', 'vendor_details'));
             }
         }
     }
