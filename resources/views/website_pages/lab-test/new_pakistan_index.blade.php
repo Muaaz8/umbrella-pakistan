@@ -48,9 +48,10 @@
         $('.searchPharmacyProduct').click(function() {
             var text = $('#pharmacySearchText').val();
             var cat_id = $('#pharmacy_cat_name').val();
+            var vendor_id = "{{ $vendor->id }}";
             $.ajax({
                     type: "POST",
-                    url: "/search_lab_item_by_category",
+                    url: "/search_lab_item_by_category/"+vendor_id,
                     data: {
                         text: text,
                         cat_id: "all"
@@ -128,9 +129,10 @@
             if (event.key === "Enter") {
                 event.preventDefault();
                 var text = $('#pharmacySearchText').val();
+                var vendor_id = "{{ $vendor->id }}";
                 $.ajax({
                     type: "POST",
-                    url: "/search_lab_item_by_category",
+                    url: "/search_lab_item_by_category/"+vendor_id,
                     data: {
                         text: text,
                         cat_id: "all"
@@ -177,7 +179,7 @@
                                         `<div class="tests-card">
                                             <div class="test-card-content">
                                                 <div class="add_to_cart_container">
-                                                    <button class="add_to_cart_btn" onclick="window.location.href='/labtest/${value.SLUG}'">
+                                                    <button class="add_to_cart_btn" onclick="window.location.href='/labtest/${value.SLUG}/${value.vendor_id}'">
                                                         Learn More
                                                     </button>
                                                 </div>
@@ -341,7 +343,7 @@
                     <div class="test-card-content">
                         <div class="add_to_cart_container">
                             <button class="add_to_cart_btn"
-                                onclick="window.location.href='{{ route('single_product_view_labtest', ['slug' => $item->slug]) }}'">
+                                onclick="window.location.href='{{ route('single_product_view_labtest', ['slug' => $item->slug, 'vendor_id' => $item->vendor_id]) }}'">
                                 Learn More
                             </button>
                         </div>

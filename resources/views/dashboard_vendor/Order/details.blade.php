@@ -1,4 +1,4 @@
-@extends('layouts.dashboard_patient')
+@extends('layouts.dashboard_vendor')
 
 @section('meta_tags')
     <meta charset="utf-8" />
@@ -29,8 +29,8 @@
                     <div class="card" style="width: 100%">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><b>Order ID </b> : {{ $data['order_data']->order_id }}</li>
-                            <li class="list-group-item"><b> Date</b> : {{ $data['order_data']->created_at['date'] }}
-                            <li class="list-group-item"><b> Time</b> : {{ $data['order_data']->created_at['time'] }}
+                            <li class="list-group-item"><b>Date</b>: {{ \Carbon\Carbon::parse($data['order_data']->created_at)->format('Y-m-d H:i:s') }}</li>
+                            <li class="list-group-item"><b>Time</b>: {{ \Carbon\Carbon::parse($data['order_data']->created_at)->format('h:i A') }}</li>
                         </ul>
                     </div>
                 </div>
@@ -105,22 +105,6 @@
                                         </td> --}}
                                     </tr>
                                 @endforeach
-                                @foreach ($ordercntLabs as $labs)
-                                    <tr>
-                                        <!-- <th><i class="fa-solid fa fa-flask fs-4"></i></th> -->
-                                        <td data-label="Product Name">{{ $labs->TEST_NAME }}</td>
-                                        <td data-label="Quantity"></td>
-                                        <td data-label="Price">Rs. {{ $labs->price }}</td>
-                                        <td data-label="Status">{{ $labs->status }}</td>
-                                        @php
-                                            $priceTotal = (int) $priceTotal + (int) $labs->price;
-                                            $itemCount += 1;
-                                            $providerfee = 0;
-                                        @endphp
-                                        {{-- <td data-label=""><a href="{{ url('/viewQuestTestReport/1') }}">View Report</a>
-                                        </td> --}}
-                                    </tr>
-                                @endforeach
                                 @foreach ($orderImagings as $image)
                                     <tr>
                                         <!-- <th><i class="fa-solid fa fa-flask fs-4"></i></th> -->
@@ -169,14 +153,55 @@
                     </div>
                 </div>
             </div>
-            <div class="row m-auto">
-                    @if ($med == '1')
-                    <div class="col-6">
+            {{-- <div class="row m-auto">
+                <div class="col-12">
+                    <div class="card mt-3">
+                        <h5 class="card-header">Billing Details</h5>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6 mb-2">
+                                    <div class="card" style="width: 100%">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item"><b>Name : </b>
+                                                {{ explode('|', $data['billing'][4])[1] }}</li>
+                                            <li class="list-group-item"><b>Phone :</b>
+                                                {{ explode('|', $data['billing'][10])[1] }}</li>
+                                            <li class="list-group-item"><b>Email :</b>
+                                                {{ explode('|', $data['billing'][5])[1] }}</li>
+                                            <li class="list-group-item"><b>Address :</b>
+                                                {{ explode('|', $data['billing'][6])[1] }}</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card" style="width: 100%">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item"><b>Zip : </b>
+                                                {{ explode('|', $data['billing'][9])[1] }}</li>
+                                            <li class="list-group-item"><b>State : </b>
+                                                {{ explode('|', $data['billing'][8])[1] }}</li>
+                                            <li class="list-group-item"><b>City : </b>
+                                                {{ explode('|', $data['billing'][7])[1] }}</li>
+                                            <li class="list-group-item"><b>Notes : </b> Nothing</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> --}}
+            @if ($med == '1')
+                <div class="row m-auto">
+                    <div class="col-12">
                         <div class="card mt-3">
                             <h5 class="card-header">Shipping Details</h5>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-12 mb-2">
+                                    <div class="col-md-6 mb-2">
                                         <div class="card" style="width: 100%">
                                             <ul class="list-group list-group-flush">
                                                 <li class="list-group-item"><b>Name : </b>
@@ -190,37 +215,28 @@
                                             </ul>
                                         </div>
                                     </div>
-                                </div>
-                                <div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    @endif
-                    <div class="col-6">
-                        <div class="card mt-3">
-                            <h5 class="card-header">Vendor Details</h5>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-12 mb-2">
+                                    {{-- <div class="col-md-6">
                                         <div class="card" style="width: 100%">
                                             <ul class="list-group list-group-flush">
-                                                <li class="list-group-item"><b>Name : </b>
-                                                    {{ $vendor_details['name'] }}</li>
-                                                <li class="list-group-item"><b>Phone :</b>
-                                                    {{ $vendor_details['vendor_number'] }}</li>
-                                                <li class="list-group-item"><b>Address :</b>
-                                                    {{$vendor_details['address'] }}</li>
+                                                <li class="list-group-item"><b>Zip : </b>
+                                                    {{ explode('|', $data['shipping'][6])[1] }}</li>
+                                                <li class="list-group-item"><b>State : </b>
+                                                    {{ explode('|', $data['shipping'][5])[1] }}</li>
+                                                <li class="list-group-item"><b>City : </b>
+                                                    {{ explode('|', $data['shipping'][4])[1] }}</li>
+                                                <li class="list-group-item"><b>Notes : </b> Nothing</li>
                                             </ul>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
+
                                 <div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            @endif
         </div>
     </div>
 @endsection

@@ -3013,7 +3013,24 @@ class AdminController extends Controller
             ->where('TEST_NAME',$item['Test Name'])
             ->first();
         if($prod){
-            $product_id = $prod->id;
+            $cat = DB::table('product_categories')->where('name',$item['Category'])->first();
+            $arr = [
+                'TEST_NAME' => $item['Test Name'],
+                'SLUG' => \Str::slug($item['Test Name']),
+                'TEST_CD' => $item['Test ID'],
+                'PRICE' => $item['Rate'],
+                'SALE_PRICE' => $item['Rate After Discount'],
+                'PARENT_CATEGORY' => $cat->id,
+                'SPECIMEN_TYPE' => NULL,
+                'actual_price' => $item['Rate'],
+                'discount_percentage' => $item['Discount Percent'],
+                'mode' => 'lab-test',
+                'ACTIVE_IND' => 'A',
+                'UPDATE_USER' => 'OEAPP',
+                'INSERT_DATETIME' => date('Y-m-d H:i:s'),
+            ];
+            $product_id = DB::table('quest_data_test_codes')->where('TEST_CD',$item['Test ID'])
+            ->where('TEST_NAME',$item['Test Name'])->update($arr);
         }else{
             $cat = DB::table('product_categories')->where('name',$item['Category'])->first();
             $arr = [
@@ -3042,7 +3059,7 @@ class AdminController extends Controller
         $i = 2;
         $result = [];
         foreach ($data as $item) {
-            if (empty($item['Test ID']) || empty($item['Test Name']) || empty($item['Department']) || empty($item['Rate'])) {
+            if (empty($item['Test ID']) || empty($item['Test Name'])  || empty($item['Rate'])) {
                 $result[] = [
                     'message' => 'Empty Column found at line ' . $i,
                     'status' => 'ERROR',
@@ -3221,6 +3238,61 @@ class AdminController extends Controller
             ->paginate(10);
 
         return view('dashboard_admin.fee_approval.index', compact('approvals'));
+    }
+
+    public function products_request(){
+        $pendingRequests = DB::table('product_requests')
+            ->join('vendor_accounts', 'product_requests.vendor_id', '=', 'vendor_accounts.id')
+            ->join('users', 'vendor_accounts.user_id', '=', 'users.id')
+            ->select('product_requests.*', 'users.name as vendor_name', 'vendor_accounts.name as vendor_account_name')
+            ->where('product_requests.status', 'pending')
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+
+        return view('dashboard_admin.requested_products.index', compact('pendingRequests'));
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'status' => 'required'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }
+
+        try {
+            DB::table('product_requests')
+                ->where('id', $id)
+                ->update([
+                    'status' => $request->status,
+                    'updated_at' => now()
+                ]);
+
+            $vendor = DB::table('product_requests')
+                ->join('vendor_accounts', 'product_requests.vendor_id', '=', 'vendor_accounts.id')
+                ->join('users', 'vendor_accounts.user_id', '=', 'users.id')
+                ->select('users.id as user_id')
+                ->where('product_requests.id', $id)
+                ->first();
+
+
+            Notification::create([
+                    'user_id' => $vendor->user_id,
+                    'type' => '/vendor/pending/products',
+                    'text' => 'Request' . $request->status,
+                ]);
+
+            event(new RealTimeMessage($vendor->id));
+
+            return redirect()->back()->with('success', 
+                'Product request status updated to ' . ucfirst($request->status) . ' successfully.'
+            );
+
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to update status. Please try again.');
+        }
     }
 
     public function confirm_approval(Request $request){

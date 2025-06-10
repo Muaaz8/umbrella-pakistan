@@ -37,6 +37,8 @@ Route::post('login', 'Api\RegistrationController@login');
 Route::post('logout', 'Api\RegistrationController@logout')->middleware('auth:sanctum');
 //reset password API
 Route::post('reset_password', 'Api\RegistrationController@reset_password');
+Route::post('otp_varification','Api\RegistrationController@otp_varification');
+Route::post('new_password_set','Api\RegistrationController@new_password_set');
 Route::post('email_varification','Api\RegistrationController@email_varification');
 Route::post('otp_verification','Api\RegistrationController@otp_verification');
 Route::post('resend_otp','Api\RegistrationController@resend_otp');
@@ -45,9 +47,9 @@ Route::post('resend_otp','Api\RegistrationController@resend_otp');
 
 Route::get('products/{name}', 'Api\ProductsController@index');
 Route::get('get/med/sub/category', 'Api\ProductsController@getMedPrescribeSubCategories');
-Route::get('product/{name}/{id}', 'Api\ProductsController@singleProduct'); 
-Route::post('pharmacy', 'Api\ProductsController@getPharmacyByCategory'); 
-Route::post('imaging', 'Api\ProductsController@getImagingByCategory'); 
+Route::get('product/{name}/{id}', 'Api\ProductsController@singleProduct');
+Route::post('pharmacy', 'Api\ProductsController@getPharmacyByCategory');
+Route::post('imaging', 'Api\ProductsController@getImagingByCategory');
 Route::get('categories/{name}','Api\ProductsController@getCategories');
 Route::get('category/{name}/{id}','Api\ProductsController@getProductsByCategory');
 Route::get('doctors','Api\DoctorsController@index');

@@ -45,9 +45,11 @@
     $('.searchPharmacyProduct').click(function(){
         var text=$('#pharmacySearchText').val();
         var cat_id=$('#pharmacy_cat_name').val();
+        var vendor_id = "{{ $vendor->id }}";
+
         $.ajax({
             type: "POST",
-            url: "/search_pharmacy_item_by_category",
+            url: "/search_pharmacy_item_by_category/"+vendor_id,
             data: {
                 text:text,
                 cat_id:"all"
@@ -77,14 +79,14 @@
                                     <p style="background: ${value.is_otc==1?'green':'red'}">${value.is_otc==1?'over the counter':'prescription required'}</p>
                                 </div>
                                 <div class="price">
-                                    <p>Rs: ${value.sale_price}</p>
+                                    <p>Rs: ${value.sale_prices}</p>
                                 </div>
                                 <div class="med-img"><img src="${value.featured_image?value.featured_image:'assets/new_frontend/panadol2.png'}" alt="img"></div>
                                 <h4 class="truncate m-0 p-0" title="${value.name}">${value.name}</h4>
                                 <h6 class="truncate m-0 p-0">${value.category_name}</h6>
                                 <div class="pharmacy_btn">
-                                    <a class="read-more btn btn-outline-danger" href="/medicines/${value.slug}">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
-                                    <a class="add-to-cart" href="/medicines/${value.slug}">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
+                                    <a class="read-more btn btn-outline-danger" href="/medicines/${value.slug}/${value.vendor_id}">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
+                                    <a class="add-to-cart" href="/medicines/${value.slug}/${value.vendor_id}">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
                                 </div>
                             </div>`
                         );
@@ -103,9 +105,10 @@
     if (event.key === "Enter") {
         event.preventDefault();
         var text=$('#pharmacySearchText').val();
+        var vendor_id = "{{ $vendor->id }}";
         $.ajax({
             type: "POST",
-            url: "/search_pharmacy_item_by_category",
+            url: "/search_pharmacy_item_by_category/"+vendor_id,
             data: {
                 text:text,
                 cat_id:"all"
@@ -135,7 +138,7 @@
                                     <p style="background: ${value.is_otc==1?'green':'red'}">${value.is_otc==1?'over the counter':'prescription required'}</p>
                                 </div>
                                 <div class="price">
-                                    <p>Rs: ${value.sale_price}</p>
+                                    <p>Rs: ${value.sale_prices}</p>
                                 </div>
                                 <div class="med-img"><img src="${value.featured_image?value.featured_image:'assets/new_frontend/panadol2.png'}" alt="img"></div>
                                 <h4 class="truncate m-0 p-0" title="${value.name}">${value.name}</h4>
@@ -186,7 +189,7 @@
                 </svg>
             </div>
         </div>
-        @php
+   {{--     @php
             $alpha = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z'];
             $len = count($alpha);
         @endphp
@@ -217,7 +220,7 @@
                     <hr>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <div class="container-fluid px-3 px-sm-5">
             <h3>Community Healthcare Clinics - Medicines</h3>
@@ -244,9 +247,6 @@
                     </div>
                 </div>
 
-
-
-
                 <div class="medicines-container w-100" id="loadSearchPharmacyItemByCategory">
                     @foreach ($data['products'] as $item)
                         <div class="card">
@@ -254,14 +254,14 @@
                                 <p style="background: {{ $item->is_otc==1?'green':'red'}}">{{$item->is_otc==1?'over the counter':'prescription required'}}</p>
                             </div>
                             <div class="price">
-                                <p>Rs: {{ $item->sale_prices}}</p>
+                                <p>Rs: {{ $item->sale_prices - (($item->sale_prices*$item->discount)/100)}}</p>
                             </div>
                             <div class="med-img"><img src="{{ $item->featured_image?$item->featured_image:asset('assets/new_frontend/panadol2.png') }}" alt="img"></div>
                             <h4 class="truncate m-0 p-0">{{ $item->name }}</h4>
                             <h6 class="truncate m-0 p-0">{{ $item->sub_category_name }}</h6>
                             <div class="pharmacy_btn">
-                                <a class="read-more btn btn-outline-danger" href="{{ route('single_product_view_medicines', ['slug' => $item->slug]) }}">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
-                                <a class="add-to-cart" href="{{ route('single_product_view_medicines', ['slug' => $item->slug]) }}">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
+                                <a class="read-more btn btn-outline-danger" href="{{ route('single_product_view_medicines', ['slug' => $item->slug , 'vendor_id' => $item->vendor_id]) }}">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
+                                <a class="add-to-cart" href="{{ route('single_product_view_medicines', ['slug' => $item->slug , 'vendor_id' => $item->vendor_id]) }}">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
                             </div>
                         </div>
                     @endforeach

@@ -338,7 +338,11 @@ class Pharmacy extends Model
                 ->where('vendor_products.is_active', '1')
                 ->where('vendor_accounts.is_active', '1')
                 ->orderBy('name', 'ASC')
-                ->paginate(12);
+                ->paginate(12)->appends(
+                    [
+                        'id' => $vendor_id
+                    ]
+                );
                 foreach ($data as $product) {
                     if($product->discount_percentage != null){
                         $product->actual_price = $product->sale_price;
@@ -371,7 +375,6 @@ class Pharmacy extends Model
         } else {
             $data = DB::table('tbl_products')
                 ->join('products_sub_categories', 'products_sub_categories.id', '=', 'tbl_products.sub_category')
-                ->join('medicine_pricings', 'medicine_pricings.product_id', '=', 'tbl_products.id')
                 ->join('vendor_products', 'vendor_products.product_id', '=', 'tbl_products.id')
                 ->join('vendor_accounts', 'vendor_accounts.id', '=', 'vendor_products.vendor_id')
                 ->select(
@@ -399,32 +402,34 @@ class Pharmacy extends Model
                     'tbl_products.stock_status',
                     'tbl_products.medicine_warnings',
                     'tbl_products.medicine_directions',
+                    'tbl_products.is_otc',
 
                     'vendor_products.vendor_id',
                     'vendor_products.id as vendor_product_id',
-                    'vendor_products.selling_price as sale_price',
+                    'vendor_products.selling_price as sale_prices',
                     'vendor_products.actual_price',
                     'vendor_products.discount',
                     'vendor_products.available_stock',
 
                     'products_sub_categories.title as sub_category_name',
                     'products_sub_categories.slug as sub_category_slug',
-
-                    DB::raw('MIN(medicine_pricings.sale_price) as sale_prices')
                 )
                 ->where('tbl_products.product_status', 1)
                 ->where('tbl_products.is_approved', 1)
                 ->where('vendor_products.vendor_id', $vendor_id)
                 ->where('vendor_products.is_active', 1)
-                ->where('vendor_accounts.is_active', 1)
                 ->groupBy(
                     'tbl_products.id',
                     'vendor_products.id',
                     'products_sub_categories.id'
                 )
                 ->orderBy('tbl_products.name', 'asc')
-                ->paginate(12);
-
+                ->paginate(12)->appends(
+                    [
+                        'id' => $vendor_id
+                    ]
+                );
+                
             foreach ($data as $product) {
                 $product->short_description = strip_tags($product->short_description);
                 $product->featured_image = \App\Helper::check_bucket_files_url($product->featured_image);
@@ -435,11 +440,10 @@ class Pharmacy extends Model
             }
         }
 
-
         return $data;
     }
 
-    public function getSingleProduct($type, $slug)
+    public function getSingleProduct($type, $slug, $vendor_id)
     {
 
         if ($type == 'labtests') {
@@ -464,10 +468,9 @@ class Pharmacy extends Model
                 )
                 ->where([
                     ['quest_data_test_codes.PARENT_CATEGORY', '!=', ""],
-                    // ['quest_data_test_codes.DETAILS', '!=', ""], /* WILL REMOVE */
                 ])
-                // ->union($first)
                 ->where([['quest_data_test_codes.slug', $slug]])
+                ->where('vendor_products.vendor_id', $vendor_id)
                 ->get();
                 foreach ($data as $product) {
                     if($product->discount_percentage != null){
@@ -479,7 +482,6 @@ class Pharmacy extends Model
         } else {
             $data = DB::table('tbl_products')
                 ->join('products_sub_categories', 'products_sub_categories.id', '=', 'tbl_products.sub_category')
-                ->join('medicine_pricings', 'medicine_pricings.product_id', '=', 'tbl_products.id')
                 ->join('vendor_products', 'vendor_products.product_id', '=', 'tbl_products.id')
                 ->join('vendor_accounts', 'vendor_accounts.id', '=', 'vendor_products.vendor_id')
                 ->select(
@@ -495,6 +497,7 @@ class Pharmacy extends Model
                     'tbl_products.quantity',
                     'tbl_products.keyword',
                     'tbl_products.mode',
+                    'tbl_products.is_otc',
                     'tbl_products.medicine_type',
                     'tbl_products.is_featured',
                     'tbl_products.short_description',
@@ -507,18 +510,20 @@ class Pharmacy extends Model
                     'tbl_products.stock_status',
                     'tbl_products.medicine_warnings',
                     'tbl_products.medicine_directions',
-
+                    'tbl_products.generic',
+                    'tbl_products.is_single',
                     'vendor_products.vendor_id',
-                    'vendor_products.id as vendor_product_id',
-                    'vendor_products.selling_price as sale_price',
+                    'vendor_products.id AS vendor_product_id',
+                    'vendor_products.selling_price AS sale_prices',
                     'vendor_products.actual_price',
-                    'vendor_products.discount',
+                    'vendor_products.discount AS discount',
                     'vendor_products.available_stock',
 
                     'products_sub_categories.title as sub_category_name',
                     'products_sub_categories.slug as sub_category_slug',
                 )
                 ->where('tbl_products.slug', '=', $slug)
+                ->where('vendor_products.vendor_id', $vendor_id)
                 ->where('product_status', 1)
                 ->where('is_approved', 1)
                 ->get();

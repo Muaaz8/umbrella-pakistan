@@ -78,6 +78,8 @@
             </div>--}}
             <a href="{{ route('fee_approval') }}" class="dashboard-nav-item"><i
                 class="fa-solid fa-dollar-sign"></i>Fee Approvals</a>
+            <a href="{{ route('products_request') }}" class="dashboard-nav-item"><i
+                class="fa-solid fa-box"></i></i>Products Request</a>
             <div class="dashboard-nav-dropdown">
                 <a href="javascript:void(0)" class="dashboard-nav-item dashboard-nav-dropdown-toggle"><i
                         class="fa-solid fas fa-user-md"></i> Doctors </a>
@@ -142,6 +144,8 @@
                     class="fa-regular fa-calendar-days"></i> Quest Failed Requests </a> --}}
             <a href="{{ route('admin_contact_us') }}" class="dashboard-nav-item"><i class="fa-regular fa-calendar-days"></i>
                 Contact us </a>
+            <a href="{{ route('admin_blog.index') }}" class="dashboard-nav-item"><i class="fa-solid fa-blog"></i>
+                Blog</a>
             <a href="{{ route('tbl_transaction') }}" class="dashboard-nav-item"><i class="fa-regular fa-calendar-days"></i>
                 Transactions</a>
             <div class="dashboard-nav-dropdown">

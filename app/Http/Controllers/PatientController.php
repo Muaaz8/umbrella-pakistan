@@ -383,19 +383,15 @@ class PatientController extends Controller
                 $data['design_view'] = '';
                 $data['strip_per_pack'] = 0;
                 $data['quantity'] = $request->pro_qty;
-                if($getProductMetaData->discount != null){
-                    $data['price'] = $getProductMetaData->sale_price - ($getProductMetaData->sale_price * $getProductMetaData->discount) / 100;
-                }else{
-                    $data['price'] = $getProductMetaData->sale_price;
-                }
-                $data['discount'] = 0;
+                $data['price'] = $getProductMetaData->sale_price;
+                $data['discount'] = $getProductMetaData->discount ?? 0;
                 $data['created_at'] = Carbon::now();
                 $data['updated_at'] = Carbon::now();
                 $data['user_id'] = $user_id;
                 $data['doc_session_id'] = 0;
                 $data['doc_id'] = 0;
                 $data['pres_id'] = 0;
-                if($getProductMetaData->discount != null){
+                if($getProductMetaData->discount != null && $getProductMetaData->discount > 0){
                     $data['update_price'] = $getProductMetaData->sale_price - ($getProductMetaData->sale_price * $getProductMetaData->discount) / 100;
                 }else{
                     $data['update_price'] = $getProductMetaData->sale_price;
@@ -429,14 +425,14 @@ class PatientController extends Controller
             if($count!=null)
             {
                 $qty=$count->quantity+$request->quantity;
-                $pricing = DB::table('medicine_pricings')->where('id',$request->unit)->first();
+                $pricing = DB::table('vendor_products')->where('id',$request->pro_id)->first();
                 $count=DB::table('tbl_cart')
                     ->where('user_id',$user_id)
                     ->where('product_id',$request->pro_id)
                     ->where('product_mode',$request->pro_mode)
                     ->where('item_type','counter')
                     ->where('status','recommended')
-                    ->update(['quantity'=>$qty,'price'=>$qty*$pricing->sale_price]);
+                    ->update(['quantity'=>$qty,'price'=>$qty*$pricing->selling_price]);
                     event(new CountCartItem($user_id));
                     return "ok";
             }
@@ -446,15 +442,15 @@ class PatientController extends Controller
                     ->join('vendor_products','tbl_products.id','vendor_products.product_id')
                     ->select(
                         'vendor_products.id as product_id',
+                        'vendor_products.discount',
                         'tbl_products.name',
-                        'vendor_products.sale_price',
+                        'vendor_products.selling_price',
                         'tbl_products.mode',
                         'tbl_products.featured_image'
                     )
-                    ->where('id', $request->pro_id)
-                    // ->where('quantity', '>=', (int) $request->quantity)
+                    ->where('vendor_products.id', $request->pro_id)
                     ->first();
-                $pricing = DB::table('medicine_pricings')->where('id',$request->unit)->first();
+                $pricing = DB::table('vendor_products')->where('id',$request->pro_id)->first();
 
                 $data['session_id'] = '';
                 $data['cart_row_id'] = rand();
@@ -465,15 +461,19 @@ class PatientController extends Controller
                 $data['design_view'] = '';
                 $data['strip_per_pack'] = 0;
                 $data['quantity'] = $request->quantity;
-                $data['price'] = $getProductMetaData->sale_price*$request->quantity;
-                $data['discount'] = 0;
+                $data['price'] = $getProductMetaData->selling_price*$request->quantity;
+                $data['discount'] = $getProductMetaData->discount ?? 0;
                 $data['created_at'] = Carbon::now();
                 $data['updated_at'] = Carbon::now();
                 $data['user_id'] = $user_id;
                 $data['doc_session_id'] = 0;
                 $data['doc_id'] = 0;
                 $data['pres_id'] = 0;
-                $data['update_price'] = $getProductMetaData->sale_price*$request->quantity;
+                if($getProductMetaData->discount != null && $getProductMetaData->discount > 0){
+                    $data['update_price'] = ($getProductMetaData->selling_price - ($getProductMetaData->selling_price * $getProductMetaData->discount) / 100)*$request->quantity;
+                }else{
+                    $data['update_price'] = $getProductMetaData->selling_price*$request->quantity;
+                }
                 $data['product_mode'] = $getProductMetaData->mode;
                 $data['item_type'] = 'counter';
                 $data['status'] = 'recommended';

@@ -52,6 +52,10 @@ Route::get('/firebase', function () {
     dd('Notification sent!', $response);
 });
 
+
+Route::get('/blog','BlogController@blog_index')->name('blog_index');
+Route::get('/blog/{slug}','BlogController@blog_single')->name('blog_single');
+
 Route::get('/labs-add' , function(){
             $products = DB::table('quest_data_test_codes')
     ->where(function($query) {
@@ -67,9 +71,9 @@ Route::get('/labs-add' , function(){
             'vendor_id' => '1',
             'product_id' => $product->TEST_CD,
             'available_stock' => '1',
-            'actual_price' => $product->actual_price,
-            'selling_price' => $product->SALE_PRICE,
-            'discount' => $product->discount_percentage ?? 0,
+            'actual_price' => '0',
+            'selling_price' => '0',
+            'discount' => '0',
             'product_type' => 'labs',
             'is_active' => '1',
         ]);
@@ -89,10 +93,11 @@ Route::get('/pharmacy-add' , function(){
             'vendor_id' => '2',
             'product_id' => $product->id,
             'available_stock' => '1',
-            'actual_price' => $product->actual_price,
-            'selling_price' => $product->SALE_PRICE,
-            'discount' => $product->discount_percentage,
-            'product_type' => 'labs',
+            'actual_price' => '0',
+            'selling_price' => '0',
+            'discount' => '0',
+            'product_type' => 'pharmacy',
+            'is_active' => '1',
         ]);
     };
 });
@@ -459,9 +464,9 @@ Route::group(['middleware' => 'redirecttovideo'], function () {
     Route::get('order/complete/{id}', 'PharmacyController@orderComplete')->name('order.complete');
     Route::post('fetch_pharmacy_item_by_category', 'unAuthController@fetchPharmacyItemByCategory')->name('fetch_pharmacy_item_by_category');
     Route::post('search_pharmacy_item', 'unAuthController@searchPharmacyItem')->name('search_pharmacy_item');
-    Route::post('search_pharmacy_item_by_category', 'unAuthController@searchPharmacyItemByCategory')->name('search_pharmacy_item_by_category');
+    Route::post('search_pharmacy_item_by_category/{vendor_id}', 'unAuthController@searchPharmacyItemByCategory')->name('search_pharmacy_item_by_category');
     Route::post('search_imaging_item_by_category', 'unAuthController@searchImagingItemByCategory')->name('search_imaging_item_by_category');
-    Route::post('search_lab_item_by_category', 'unAuthController@searchLabItemByCategory')->name('search_lab_item_by_category');
+    Route::post('search_lab_item_by_category/{vendor_id}', 'unAuthController@searchLabItemByCategory')->name('search_lab_item_by_category');
     Route::post('search_lab_item', 'unAuthController@searchLabItem')->name('search_lab_item');
     Route::post('search_imaging_item', 'unAuthController@searchImagingItem')->name('search_imaging_item');
     Route::post('fetch_labtest_item_by_category', 'unAuthController@fetchLabtestItemByCategory')->name('fetch_labtest_item_by_category');
@@ -469,6 +474,7 @@ Route::group(['middleware' => 'redirecttovideo'], function () {
     Route::get('/pharmacy', 'PharmacyController@index')->name('pharmacy_products');
     Route::get('/labtests', 'PharmacyController@index')->name('labs_products');
     Route::get( '/shops/{shop_type}', 'VendorsController@index')->name('vendor');
+    Route::post( '/location/vendors', 'VendorsController@findVendorbyLocation');
     Route::get('/imaging', 'PharmacyController@index')->name('imaging');
     Route::get('/pharmacy/{slug}', 'PharmacyController@index')->name('pharmacy.category');
     Route::get('/labtests/{slug}', 'PharmacyController@index')->name('slug.labtest');
@@ -552,9 +558,9 @@ Route::group(['middleware' => 'redirecttovideo'], function () {
     Route::get('/get_maps_locations/{zipCode}', 'PharmacyController@get_lang_long');
     Route::get('/get_near_locations/{lat}/{long}', 'PharmacyController@get_near_location');
     Route::get('/product/{type}/{slug}', 'PharmacyController@single_product_oldroute')->name('single_product_view');
-    Route::get('/labtest/{slug}', 'PharmacyController@single_product')->name('single_product_view_labtest');
-    Route::get('/medicines/{slug}', 'PharmacyController@single_product')->name('single_product_view_medicines');
-    Route::get('/imagings/{slug}', 'PharmacyController@single_product')->name('single_product_view_imagings');
+    Route::get('/labtest/{slug}/{vendor_id}', 'PharmacyController@single_product')->name('single_product_view_labtest');
+    Route::get('/medicines/{slug}/{vendor_id}', 'PharmacyController@single_product')->name('single_product_view_medicines');
+    Route::get('/imagings/{slug}/{vendor_id}', 'PharmacyController@single_product')->name('single_product_view_imagings');
     Route::get('/primary-care', 'PharmacyController@index')->name('primary');
     Route::get('/substance-abuse/{slug}', 'PharmacyController@index')->name('substance');
     Route::get('/psychiatry/{slug}', 'PharmacyController@index')->name('psychiatry');
@@ -659,6 +665,9 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
     Route::get('/vendor/products/upload','VendorsController@upload_page')->name('upload_page');
     Route::post('/vendor/products/process', 'VendorsController@processBulkUpload')->name('product_process');
     Route::get('/vendor/products/process', 'VendorsController@downloadTemplate')->name('template');
+    Route::get('/vendor/request/product', 'VendorsController@requestVendeorProduct')->name('request_page');
+    Route::get('/vendor/pending/products', 'VendorsController@pendingVendeorProduct')->name('pending_page');
+    Route::post('/submit-request', 'VendorsController@requestNewProduct');
 
 
 
@@ -693,6 +702,8 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
     });
     Route::get('/inclinic/pharmacy/all/orders','AdminController@inclinic_pharmacy_editor_orders')->name('inclinic_pharmacy_editor_orders');
     Route::get('admin/fee-approval' , 'AdminController@fee_approval')->name('fee_approval');
+    Route::get('admin/products/request' , 'AdminController@products_request')->name('products_request');
+    Route::post('admin/products/request/{id}' , 'AdminController@updateStatus')->name('updateStatus');
 
     Route::get('/inclinic/pharmacy/prescription/download/{id}','AdminController@inclinic_pharmacy_prescription_download')->name('dash_inclinic_pharmacy_prescription_download');
 
@@ -1181,7 +1192,8 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
 
         //Related Products
         Route::resource('related_products', 'RelatedProductsController');
-
+        Route::resource('admin/blog', 'BlogController')->names('admin_blog');
+        Route::get('admin/blog/status/{id}', 'BlogController@status')->name('admin_blog.status');
         //  Route::get('/add/items/mental/condition', 'MentalConditionsController@view_condition')->name('mental_condition');
         //  Route::get('/add/items/faqs', 'TblFaqController@faqs')->name('FAQs');
         // Route::get('/add/items/faqs/create', 'TblFaqController@create_faqs')->name('create_faqs');
@@ -1199,6 +1211,9 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
         Route::post('/admin/vendor/change_status', 'VendorsController@toggle_status')->name('toggle_status');
         Route::get('/admin/vendors/edit/{id}', 'VendorsController@edit')->name('edit_vendor');
         Route::put('/admin/vendors/update/{id}', 'VendorsController@update')->name('update_vendor');
+        Route::get('/vendor/all/orders', 'TblOrdersController@vendor_order')->name('vendor_all_order');
+        Route::get('/vendor/order/detail/{id}', 'TblOrdersController@vendor_order_details')->name('vendor_order_details');
+
 
 
 

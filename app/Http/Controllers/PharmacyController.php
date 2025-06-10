@@ -195,7 +195,7 @@ class PharmacyController extends Controller
         return view($viewName, compact('data', 'slug', 'slug_name','title','meta_tags','vendor'));
     }
 
-    public function single_product($slug)
+    public function single_product($slug, $vendor_id)
     {
         $url = request()->segment(1);
         if($url=='labtest'){
@@ -206,7 +206,7 @@ class PharmacyController extends Controller
             $type = 'imaging';
         }
         if (!empty($slug)) {
-            $products = $this->Pharmacy->getSingleProduct($type, $slug);
+            $products = $this->Pharmacy->getSingleProduct($type, $slug, $vendor_id);
         } else {
             $products = [];
         }
@@ -216,11 +216,6 @@ class PharmacyController extends Controller
                 $meta_tags = DB::table('meta_tags')->where('product_id',$product->id)->get();
                 $title = DB::table('meta_tags')->where('name','title')->where('product_id',$product->id)->first();
                 $product->featured_image = \App\Helper::check_bucket_files_url($product->featured_image);
-                $product->units = DB::table('medicine_pricings')
-                                ->join('medicine_units','medicine_units.id','medicine_pricings.unit_id')
-                                ->where('product_id',$product->id)
-                                ->select('medicine_pricings.*','medicine_units.unit')
-                                ->get();
                 if($product->featured_image == env('APP_URL')."/assets/images/user.png"){
                     $product->featured_image = asset('assets/new_frontend/panadol2.png');
                 }
@@ -862,6 +857,83 @@ class PharmacyController extends Controller
             }else{
                 return redirect()->back()->with('msg','Sorry, we are currently facing server issues. Please try again later.');
             }
+        }elseif($request->payment_method == "online-cash"){
+            $user = Auth::user();
+            $cartPreLab = [];
+            $cartCntLab = [];
+            $cartPreMed = [];
+            $cartCntMed = [];
+            $cartPreImg = [];
+            $cartCntImg = [];
+            $orderAllIds = [];
+
+            $getAllCartProducts = DB::table('tbl_cart')->where('user_id', $user->id)->where('show_product', '1')->where('status', 'recommended')->get();
+
+            foreach ($getAllCartProducts as $item) {
+                if ($item->item_type == 'counter' && $item->product_mode == 'lab-test') {
+                    $item->orderSubId = $orderId . $item->product_id;
+                    $item->orderSystemId = $orderId;
+                    array_push($orderAllIds, $orderId . $item->product_id);
+                    array_push($cartCntLab, $item);
+                } else if ($item->item_type == 'prescribed' && $item->product_mode == 'lab-test') {
+                    $item->orderSubId = $orderId . $item->product_id;
+                    $item->orderSystemId = $orderId;
+                    array_push($orderAllIds, $orderId . $item->product_id);
+                    array_push($cartPreLab, $item);
+                } else if ($item->item_type == 'counter' && $item->product_mode == 'medicine') {
+                    $item->orderSubId = $orderId . $item->product_id;
+                    $item->orderSystemId = $orderId;
+                    array_push($orderAllIds, $orderId . $item->product_id);
+                    array_push($cartCntMed, $item);
+                } else if ($item->item_type == 'prescribed' && $item->product_mode == 'medicine') {
+                    $item->orderSubId = $orderId . $item->product_id;
+                    $item->orderSystemId = $orderId;
+                    array_push($orderAllIds, $orderId . $item->product_id);
+                    array_push($cartPreMed, $item);
+                } else if ($item->item_type == 'counter' && $item->product_mode == 'imaging') {
+                    $item->orderSubId = $orderId . $item->product_id;
+                    $item->orderSystemId = $orderId;
+                    array_push($orderAllIds, $orderId . $item->product_id);
+                    array_push($cartCntLab, $item);
+                } else if ($item->item_type == 'prescribed' && $item->product_mode == 'imaging') {
+                    $item->orderSubId = $orderId . $item->product_id;
+                    $item->orderSystemId = $orderId;
+                    array_push($orderAllIds, $orderId . $item->product_id);
+                    array_push($cartPreLab, $item);
+                }
+            }
+            $this->seprate_order_create($cartCntLab, $cartPreLab, $cartPreMed, $cartCntMed, $cartPreImg, $cartCntImg);
+            $shipping = session()->get('shipping_details');
+            DB::table('tbl_orders')->insert([
+                'order_id' => $orderId,
+                'order_sub_id' => serialize($orderAllIds),
+                // 'transaction_id' => $payment_request['transaction_id'],
+                'customer_id' => $user->id,
+                'total' => $request->payAble,
+                'total_tax' => 0,
+                'billing' => serialize($shipping),
+                'shipping' => serialize($shipping),
+                'payment' => "",
+                'payment_title' => 'Direct Bank Transfer',
+                'payment_method' => 'via Meezan Bank',
+                'cart_items' => '',
+                "lab_order_approvals" => '',
+                'currency' => 'PKR',
+                'order_status' => 'paid',
+                'agent' => "web",
+                'created_at' => now(),
+            ]);
+
+            $this->orderNotify($orderId, $getAllCartProducts->toArray(), $request->payAble);
+            foreach ($getAllCartProducts as $ci) {
+                DB::table('tbl_cart')->where('id', $ci->id)->update([
+                    'status' => 'purchased',
+                    'purchase_status' => '0',
+                    'checkout_status' => '0',
+
+                ]);
+            }
+            return redirect()->route('order.complete', ['id' => $orderId]);
         }else{
             return redirect()->back()->with('msg','Sorry, Can\'t process with this payment method right now.Kindly try different method.');
         }

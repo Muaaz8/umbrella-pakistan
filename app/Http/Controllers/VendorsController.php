@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\RealTimeMessage;
 use App\Mail\UserVerificationEmail;
 use App\Models\Location;
 use App\User;
@@ -12,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use App\Notification;
 use Illuminate\Support\Facades\Storage;
 use Image;
 use Illuminate\Support\Facades\Validator;
@@ -22,6 +24,7 @@ class VendorsController extends Controller
     public function index($shop_type)
     {
         $vendors = DB::table('vendor_accounts')->where('vendor', $shop_type)->paginate(12);
+        $locations = DB::table('locations')->get();
 
         foreach ($vendors as $key => $vendor) {
             $vendor->image = \App\Helper::check_bucket_files_url($vendor->image);
@@ -30,7 +33,7 @@ class VendorsController extends Controller
                 ->where('is_active', 1)
                 ->count();
         }
-        return view('website_pages.vendors.index', compact('vendors'));
+        return view('website_pages.vendors.index', compact('vendors', 'locations', 'shop_type'));
     }
 
     public function create_vendor_page()
@@ -452,6 +455,76 @@ class VendorsController extends Controller
             ->with('success', 'Product added successfully.');
     }
 
+    public function requestVendeorProduct(){
+        $vendor_type = VendorAccount::where('user_id', auth()->user()->id)->first()->vendor;
+        return view('dashboard_vendor.request_product' , compact('vendor_type'));
+    }
+
+    public function requestNewProduct(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'product_name' => 'required',
+            'vendor_type' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        try {
+            $vendorAccount = VendorAccount::where('user_id', auth()->user()->id)
+            ->join('users', 'vendor_accounts.user_id', '=', 'users.id')
+            ->select('vendor_accounts.id', 'users.name')
+            ->first();
+            $vendorId = $vendorAccount->id;
+            $vendorName = $vendorAccount->name . ' ' . $vendorAccount->last_name;
+            $admin_data = User::where('user_type', 'admin')->first();
+
+
+            DB::table('product_requests')->insert([
+                'name' => $vendorName,
+                'product' => $request->input('product_name'),
+                'vendor_type' => $request->input('vendor_type'),
+                'vendor_id' => $vendorId,
+                'status' => 'pending',
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+
+            Notification::create([
+                    'user_id' => $admin_data->id,
+                    'type' => '/admin/products/request',
+                    'text' => 'New product request from ' . $vendorName,
+                ]);
+
+            event(new RealTimeMessage($admin_data->id));
+
+            return redirect()->back()->with('success', 
+                $request->vendor_type === 'pharmacy' 
+                    ? 'Your medicine request has been submitted successfully. We will review it within 2 working days.'
+                    : 'Your lab test request has been submitted successfully. We will review it within 2 working days.'
+            );
+
+        } catch (\Exception $e) {
+            return redirect()->back()
+                ->with('error', 'Something went wrong. Please try again.')
+                ->withInput();
+        }
+    }
+
+    public function pendingVendeorProduct(){
+        $pendingRequests = DB::table('product_requests')
+            ->join('vendor_accounts', 'product_requests.vendor_id', '=', 'vendor_accounts.id')
+            ->join('users', 'vendor_accounts.user_id', '=', 'users.id')
+            ->select('product_requests.*', 'users.name as vendor_name', 'vendor_accounts.name as vendor_account_name')
+            ->where('users.id', auth()->user()->id)
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+        return view('dashboard_vendor.pending_request', compact('pendingRequests'));
+    }
+
     public function vendor_products()
     {
         $vendor = VendorAccount::where('user_id', auth()->user()->id)->first();
@@ -604,8 +677,7 @@ public function processBulkUpload(Request $request)
 
             $validator = Validator::make($productData, [
                 'product_id' => 'required',
-                'selling_price' => 'required|numeric',
-                'SKU' => 'required',
+                'selling_price' => 'required',
             ]);
 
             if ($validator->fails()) {
@@ -618,18 +690,21 @@ public function processBulkUpload(Request $request)
                 $existingProduct = DB::table('vendor_products')
                     ->where('vendor_id', $vendorAccount->id)
                     ->where('SKU', $productData['SKU'])
+                    ->where('product_id', $productData['product_id'])
                     ->first();
 
                 if ($existingProduct) {
                     DB::table('vendor_products')
                         ->where('vendor_id', $vendorAccount->id)
                         ->where('SKU', $productData['SKU'])
+                        ->where('product_id', $productData['product_id'])
                         ->update([
                             'product_id' => $productData['product_id'],
                             'available_stock' => $productData['available_stock'],
                             'actual_price' => $productData['actual_price'],
                             'selling_price' => $productData['selling_price'],
                             'discount' => $productData['discount'],
+                            'is_active' => $productData['is_active'],
                             'updated_at' => now()
                         ]);
                     $updated++;
@@ -642,6 +717,7 @@ public function processBulkUpload(Request $request)
                         'selling_price' => $productData['selling_price'],
                         'SKU' => $productData['SKU'],
                         'discount' => $productData['discount'],
+                        'is_active' => $productData['is_active'],
                         'product_type' => $vendor_type,
                         'created_at' => now(),
                         'updated_at' => now()
@@ -672,7 +748,7 @@ public function processBulkUpload(Request $request)
 
         if ($vendor->vendor == 'pharmacy') {
             $products = DB::table('tbl_products')
-                ->select('id', 'name', 'sele_price')
+                ->select('id', 'name', 'sale_price')
                 ->where('mode', 'medicine')
                 ->get();
         } else {
@@ -757,5 +833,57 @@ public function processBulkUpload(Request $request)
             'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
         ])->deleteFileAfterSend(true);
     }
+
+public function findVendorbyLocation(Request $request)
+{
+    $locationId = $request->locationId;
+    $vendorType = $request->shop_type;
+    $searchText = $request->searchText;
+    
+    $query = DB::table('vendor_accounts')->where('vendor', $vendorType);
+    
+    if ($locationId && $locationId !== 'all') {
+        $query->where('location_id', $locationId);
+    }
+    
+    if ($searchText && trim($searchText) !== '') {
+        $searchTerm = '%' . trim($searchText) . '%';
+        $query->where(function($q) use ($searchTerm) {
+            $q->where('name', 'LIKE', $searchTerm)
+              ->orWhere('address', 'LIKE', $searchTerm);
+        });
+    }
+    
+    $vendors = $query->paginate(12);
+    
+    foreach ($vendors as $vendor) {
+        $vendor->image = \App\Helper::check_bucket_files_url($vendor->image);
+        $vendor->products_count = DB::table('vendor_products')
+            ->where('vendor_id', $vendor->id)
+            ->where('is_active', 1)
+            ->count();
+    }
+    
+    if ($vendors->isEmpty()) {
+        return response()->json([
+            'vendors' => [],
+            'message' => 'No vendors found for the specified criteria'
+        ], 200); 
+    }
+    
+    return response()->json([
+        'vendors' => $vendors->items(),
+        'pagination' => [
+            'current_page' => $vendors->currentPage(),
+            'last_page' => $vendors->lastPage(),
+            'per_page' => $vendors->perPage(),
+            'total' => $vendors->total(),
+            'from' => $vendors->firstItem(),
+            'to' => $vendors->lastItem(),
+            'has_more_pages' => $vendors->hasMorePages()
+        ],
+        'message' => 'Vendors retrieved successfully'
+    ]);
+}
 
 }
