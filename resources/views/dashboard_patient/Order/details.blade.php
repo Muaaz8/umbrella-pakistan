@@ -40,11 +40,13 @@
                             @if ($data['order_data']->order_status == 'paid')
                                 <li class="list-group-item d-flex justify-content-between"><b>Payment Status : </b><label
                                         class="order-paid">{{ $data['order_data']->order_status }}</label></li>
-                                {{-- <li class="list-group-item d-flex justify-content-between"><b>Order Status :  </b><label class="order-paid">{{ $data['order_data']->status }}</label></li> --}}
+                                {{-- <li class="list-group-item d-flex justify-content-between"><b>Order Status : </b><label
+                                        class="order-paid">{{ $data['order_data']->status }}</label></li> --}}
                             @else
                                 <li class="list-group-item d-flex justify-content-between"><b>Payment Status :</b> <label
                                         class="order-progess">{{ $data['order_data']->order_status }}</label></li>
-                                {{-- <li class="list-group-item d-flex justify-content-between"><b>Order Status : </b> <label class="order-progress">{{ $data['order_data']->status }}</label></li> --}}
+                                {{-- <li class="list-group-item d-flex justify-content-between"><b>Order Status : </b> <label
+                                        class="order-progress">{{ $data['order_data']->status }}</label></li> --}}
                             @endif
                             <li class="list-group-item d-flex justify-content-between"><b>Payment Type
                                     :</b>{{ $data['order_data']->payment_title }} </li>
@@ -76,7 +78,7 @@
                                     <tr>
                                         <!-- <th><i class="fa-solid fa fa-flask fs-4"></i></th> -->
                                         <td data-label="Product Name">{{ $med->name }}</td>
-                                        <td data-label="Quantity">{{ isset($med->usage)?$med->usage:"-" }}</td>
+                                        <td data-label="Quantity">{{ isset($med->usage) ? $med->usage : "-" }}</td>
                                         <td data-label="Price">Rs. {{ $med->update_price }}</td>
                                         <td data-label="Status">{{ $med->status }}</td>
                                         @php
@@ -84,7 +86,8 @@
                                             $itemCount += 1;
                                             $med = '1';
                                         @endphp
-                                        {{-- <td data-label=""><a href="{{ url('/viewQuestTestReport/1') }}">View Report</a></td> --}}
+                                        {{-- <td data-label=""><a href="{{ url('/viewQuestTestReport/1') }}">View Report</a>
+                                        </td> --}}
                                     </tr>
                                 @endforeach
                                 @foreach ($orderLabs as $labs)
@@ -98,7 +101,8 @@
                                             $priceTotal = $priceTotal + $labs->price;
                                             $itemCount += 1;
                                         @endphp
-                                        {{-- <td data-label=""><a href="{{ url('/viewQuestTestReport/1') }}">View Report</a></td> --}}
+                                        {{-- <td data-label=""><a href="{{ url('/viewQuestTestReport/1') }}">View Report</a>
+                                        </td> --}}
                                     </tr>
                                 @endforeach
                                 @foreach ($ordercntLabs as $labs)
@@ -113,7 +117,8 @@
                                             $itemCount += 1;
                                             $providerfee = 0;
                                         @endphp
-                                        {{-- <td data-label=""><a href="{{ url('/viewQuestTestReport/1') }}">View Report</a></td> --}}
+                                        {{-- <td data-label=""><a href="{{ url('/viewQuestTestReport/1') }}">View Report</a>
+                                        </td> --}}
                                     </tr>
                                 @endforeach
                                 @foreach ($orderImagings as $image)
@@ -127,7 +132,8 @@
                                             $priceTotal = $priceTotal + $image->price;
                                             $itemCount += 1;
                                         @endphp
-                                        {{-- <td data-label=""><a href="{{ url('/viewQuestTestReport/1') }}">View Report</a></td> --}}
+                                        {{-- <td data-label=""><a href="{{ url('/viewQuestTestReport/1') }}">View Report</a>
+                                        </td> --}}
                                     </tr>
                                 @endforeach
 
@@ -163,55 +169,14 @@
                     </div>
                 </div>
             </div>
-            {{-- <div class="row m-auto">
-                <div class="col-12">
-                    <div class="card mt-3">
-                        <h5 class="card-header">Billing Details</h5>
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-md-6 mb-2">
-                                    <div class="card" style="width: 100%">
-                                        <ul class="list-group list-group-flush">
-                                            <li class="list-group-item"><b>Name : </b>
-                                                {{ explode('|', $data['billing'][4])[1] }}</li>
-                                            <li class="list-group-item"><b>Phone :</b>
-                                                {{ explode('|', $data['billing'][10])[1] }}</li>
-                                            <li class="list-group-item"><b>Email :</b>
-                                                {{ explode('|', $data['billing'][5])[1] }}</li>
-                                            <li class="list-group-item"><b>Address :</b>
-                                                {{ explode('|', $data['billing'][6])[1] }}</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="card" style="width: 100%">
-                                        <ul class="list-group list-group-flush">
-                                            <li class="list-group-item"><b>Zip : </b>
-                                                {{ explode('|', $data['billing'][9])[1] }}</li>
-                                            <li class="list-group-item"><b>State : </b>
-                                                {{ explode('|', $data['billing'][8])[1] }}</li>
-                                            <li class="list-group-item"><b>City : </b>
-                                                {{ explode('|', $data['billing'][7])[1] }}</li>
-                                            <li class="list-group-item"><b>Notes : </b> Nothing</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
-            @if ($med == '1')
-                <div class="row m-auto">
-                    <div class="col-12">
+            <div class="row m-auto">
+                    @if ($med == '1')
+                    <div class="col-6">
                         <div class="card mt-3">
                             <h5 class="card-header">Shipping Details</h5>
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-6 mb-2">
+                                    <div class="col-md-12 mb-2">
                                         <div class="card" style="width: 100%">
                                             <ul class="list-group list-group-flush">
                                                 <li class="list-group-item"><b>Name : </b>
@@ -225,28 +190,37 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    {{-- <div class="col-md-6">
+                                </div>
+                                <div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
+                    <div class="col-6">
+                        <div class="card mt-3">
+                            <h5 class="card-header">Vendor Details</h5>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12 mb-2">
                                         <div class="card" style="width: 100%">
                                             <ul class="list-group list-group-flush">
-                                                <li class="list-group-item"><b>Zip : </b>
-                                                    {{ explode('|', $data['shipping'][6])[1] }}</li>
-                                                <li class="list-group-item"><b>State : </b>
-                                                    {{ explode('|', $data['shipping'][5])[1] }}</li>
-                                                <li class="list-group-item"><b>City : </b>
-                                                    {{ explode('|', $data['shipping'][4])[1] }}</li>
-                                                <li class="list-group-item"><b>Notes : </b> Nothing</li>
+                                                <li class="list-group-item"><b>Name : </b>
+                                                    {{ $vendor_details['name'] }}</li>
+                                                <li class="list-group-item"><b>Phone :</b>
+                                                    {{ $vendor_details['vendor_number'] }}</li>
+                                                <li class="list-group-item"><b>Address :</b>
+                                                    {{$vendor_details['address'] }}</li>
                                             </ul>
                                         </div>
-                                    </div> --}}
+                                    </div>
                                 </div>
-
                                 <div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            @endif
         </div>
     </div>
 @endsection
