@@ -73,6 +73,7 @@
                 else
                 {
                     $.each(res, function(key, value) {
+                        console.log(value);
                         $('#loadSearchPharmacyItemByCategory').append(
                             `<div class="card">
                                 <div class="prescription">
@@ -83,7 +84,7 @@
                                 </div>
                                 <div class="med-img"><img src="${value.featured_image?value.featured_image:'assets/new_frontend/panadol2.png'}" alt="img"></div>
                                 <h4 class="truncate m-0 p-0" title="${value.name}">${value.name}</h4>
-                                <h6 class="truncate m-0 p-0">${value.category_name}</h6>
+                                <h6 class="truncate m-0 p-0">${value.sub_category_name}</h6>
                                 <div class="pharmacy_btn">
                                     <a class="read-more btn btn-outline-danger" href="/medicines/${value.slug}/${value.vendor_id}">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
                                     <a class="add-to-cart" href="/medicines/${value.slug}/${value.vendor_id}">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
@@ -132,6 +133,7 @@
                 else
                 {
                     $.each(res, function(key, value) {
+                        console.log(value);
                         $('#loadSearchPharmacyItemByCategory').append(
                             `<div class="card">
                                 <div class="prescription">
@@ -142,7 +144,7 @@
                                 </div>
                                 <div class="med-img"><img src="${value.featured_image?value.featured_image:'assets/new_frontend/panadol2.png'}" alt="img"></div>
                                 <h4 class="truncate m-0 p-0" title="${value.name}">${value.name}</h4>
-                                <h6 class="truncate m-0 p-0">${value.category_name}</h6>
+                                <h6 class="truncate m-0 p-0">${value.sub_category_name}</h6>
                                 <div class="pharmacy_btn">
                                     <a class="read-more btn btn-outline-danger" href="/medicines/${value.slug}">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
                                     <a class="add-to-cart" href="/medicines/${value.slug}">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
@@ -234,12 +236,12 @@
                 class="p-4 background-secondary d-flex align-items-center justify-content-between flex-column rounded-4">
                 <div class="d-flex align-items-center justify-content-between custom-search-container">
                     <div class="category-dropdown">
-                        <select class="form-select custom-select" name="category" id="category" onchange="changed(this)">
+                        {{--<select class="form-select custom-select" name="category" id="category" onchange="changed(this)">
                             <option value="all">All</option>
                             @foreach ($data['sidebar'] as $val)
                                 <option value="{{ $val->slug }}" >{{ $val->title }}</option>
                             @endforeach
-                        </select>
+                        </select>--}}
                     </div>
                     <div class="searchbar d-flex">
                         <input type="text" class="form-control custom-input" placeholder="Search for products" id="pharmacySearchText">

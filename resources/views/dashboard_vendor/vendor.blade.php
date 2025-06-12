@@ -41,7 +41,7 @@
                                         <i class="fa-solid fa-hospital-user"></i>
                                         <div>
                                             <h6>All Orders</h6>
-                                            <p>100</p>
+                                            <p>{{ $data['orders']->count() }}</p>
                                         </div>
 
                                     </div>
@@ -55,7 +55,7 @@
                                         <i class="fa-regular fa-calendar-check"></i>
                                         <div>
                                             <h6>Active Products</h6>
-                                            <p>1000</p>
+                                            <p>{{ $data['products'] }}</p>
                                         </div>
 
                                     </div>
@@ -68,8 +68,8 @@
                                     <div class="d-flex dashboard-small-card-inner">
                                         <i class="fa-solid fa-laptop-medical"></i>
                                         <div>
-                                            <h6>Pendding Orders</h6>
-                                            <p>12</p>
+                                            <h6>Pending Orders</h6>
+                                            <p>{{ $data['pending_orders']->count() }}</p>
                                         </div>
 
                                     </div>
@@ -88,33 +88,33 @@
                                 <tr>
                                     <th scope="col">Name</th>
                                     <th scope="col">Date</th>
-                                    <th scope="col">Time</th>
                                     <th scope="col">Status</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- @forelse($appoints as $app) --}}
+                                @forelse($data['orders'] as $app)
                                 <tr>
-                                    <td data-label="Name" scope="row">zayan</td>
-                                    <td data-label="Date">12-05-2025</td>
-                                    <td data-label="Time">13:30</td>
-                                    <td data-label="Status">Pending</td>
+                                    <td data-label="Name" scope="row">{{$app->fname." ".$app->lname}}</td>
+                                    <td data-label="Date">{{ $app->created_at }}</td>
+                                    <td data-label="Status">{{ $app->order_status }}</td>
                                     <td data-label="Action">
-                                        <button id="view_"
+                                        <a href="/vendor/order/detail/{{ $app->id }}">
+                                            <button id="view_"
                                             class="view_btn btn btn-raised btn-primary btn-sm waves-effect">View</button>
+                                        </a>
                                     </td>
                                 </tr>
-                                {{-- @empty
+                                @empty
                                 <tr>
                                     <td colspan="4">
                                         <div class="m-auto text-center for-empty-div">
                                             <img src="{{ asset('assets/images/for-empty.png') }}" alt="">
-                                            <h6> No Appointments Pending</h6>
+                                            <h6> No Orders</h6>
                                         </div>
                                     </td>
                                 </tr>
-                                @endforelse --}}
+                                @endforelse
                             </tbody>
                         </table>
                     </div>
