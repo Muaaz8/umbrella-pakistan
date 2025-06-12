@@ -36,7 +36,6 @@
 
         function getDescription() {
             var id = $("#select2medicine").val();
-            console.log(id)
             $.ajax({
                 type: "get",
                 url: "/pharmacy/medicine/description",
@@ -45,8 +44,17 @@
                 },
                 success: function(response) {
                     var obj = jQuery.parseJSON(response);
+                    console.log(obj);
                     CKEDITOR.instances['short_description'].setData(obj.short_description);
                     CKEDITOR.instances['description'].setData(obj.description);
+                    if (obj.featured_image && obj.featured_image != "http://127.0.0.1:8000/assets/images/user.png") {
+                        $('#image-div').html(
+                            // '<img src="'+obj.featured_image+'" alt="Medicine Image" style="width: 100px; height: 100px; border-radius: 10px;">'
+                            `<img src="${obj.featured_image}" alt="Medicine Image" style="width: 100px; height: 100px; border-radius: 10px;">`
+                        );
+                    } else {
+                        $('#image-div').html('<p>No image available</p>');
+                    }
                 }
             });
         }
@@ -98,9 +106,13 @@
                                         </div>
                                     </div>
                                     <div class="row mt-2">
-                                        <div class="col-md-12">
+                                        <div class="col-md-6">
                                             <label class="fw-bolder" for="image">Image:</label>
                                             <input type="file" name="image" class="form-control">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label class="fw-bolder" for="image">Current Image:</label>
+                                            <div id="image-div"></div>
                                         </div>
                                     </div>
                                     <div class="row mt-2">

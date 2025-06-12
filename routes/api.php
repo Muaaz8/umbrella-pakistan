@@ -37,6 +37,7 @@ Route::post('login', 'Api\RegistrationController@login');
 Route::post('logout', 'Api\RegistrationController@logout')->middleware('auth:sanctum');
 //reset password API
 Route::post('reset_password', 'Api\RegistrationController@reset_password');
+Route::post('reset_password_resend_otp', 'Api\RegistrationController@reset_password_resend_otp');
 Route::post('otp_varification','Api\RegistrationController@otp_varification');
 Route::post('new_password_set','Api\RegistrationController@new_password_set');
 Route::post('email_varification','Api\RegistrationController@email_varification');

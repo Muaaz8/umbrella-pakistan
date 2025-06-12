@@ -699,5 +699,34 @@ class RegistrationController extends BaseController
             return $this->sendError([$emailSend],'not send');
         }
     }
+    public function reset_password_resend_otp(Request $request){
+        $user = User::find($request->id);
+        if($user == null){
+            return $this->sendError([],'User not found');
+        }
+        try {
+            $x = rand(10e12, 10e16);
+            $hash_to_verify = base_convert($x, 10, 36);
+            $otp = rand(100000, 999999);
+            $emailData = [
+                'hash' => $hash_to_verify,
+                'user_id' => $user->id,
+                'to_mail' => $user->email,
+                'otp' => $otp,
+            ];
+            DB::table('users_email_verification')->where('user_id', $user->id)->update([
+                'verification_hash_code' => $hash_to_verify,
+                'otp'=> $otp
+            ]);
+
+            $this->sendNotifications($user, $emailData, $otp);
+            $emailSend['status'] = 'Email Resend';
+            return $this->sendResponse([$emailSend],'Email Resend');
+        } catch (Exception $e) {
+            Log::error($e);
+            $emailSend['status'] = $e;
+            return $this->sendError([$emailSend],'not send');
+        }
+    }
 
 }

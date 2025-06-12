@@ -546,7 +546,7 @@ public function vendor_order()
             ->where('tbl_orders.order_status', 'paid')
             ->orderBy('medicine_order.id', 'desc')
             ->orderBy('order_status')
-            ->paginate(8);;
+            ->paginate(8);
     }
     foreach ($tblOrders as $tblOrder) {
         $datetime = date('Y-m-d h:i A', strtotime($tblOrder->created_at));

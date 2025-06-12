@@ -1642,7 +1642,8 @@ class AllProductsController extends AppBaseController
         // After Select any product from dropdown this check will autofill text editor
         if (isset($_GET['id'])) {
             $product_id = $_GET['id'];
-            $getDesc = AllProducts::select('description', 'short_description')->where('id', $product_id)->first();
+            $getDesc = AllProducts::select('description', 'short_description','featured_image')->where('id', $product_id)->first();
+            $getDesc->featured_image = \App\Helper::check_bucket_files_url($getDesc->featured_image);
             echo json_encode($getDesc);
             exit();
         }
