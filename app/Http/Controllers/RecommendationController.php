@@ -162,23 +162,23 @@ class RecommendationController extends Controller
                         $pres->price = $price->selling_price;
                     }
                     $up = DB::table('prescriptions')->where('id',$pres->id)->update(['price' => $price->id]);
-                    Cart::create([
-                        'product_id' => $pres->medicine_id,
-                        'name' => $product->name,
-                        'quantity' => $pres->quantity,
-                        'price' => $pres->price,
-                        'update_price' => $pres->price * $pres->quantity,
-                        'product_mode' => $pres->type,
-                        'user_id' => $session->patient_id,
-                        'doc_id' => $session->doctor_id,
-                        'doc_session_id' => $session_id,
-                        'pres_id' => $pres->id,
-                        'item_type' => 'prescribed',
-                        'status' => 'recommended',
-                        'checkout_status' => 1,
-                        'purchase_status' => 1,
-                        'product_image' => $product->featured_image
-                    ]);
+                    // Cart::create([
+                    //     'product_id' => $pres->medicine_id,
+                    //     'name' => $product->name,
+                    //     'quantity' => $pres->quantity,
+                    //     'price' => $pres->price,
+                    //     'update_price' => $pres->price * $pres->quantity,
+                    //     'product_mode' => $pres->type,
+                    //     'user_id' => $session->patient_id,
+                    //     'doc_id' => $session->doctor_id,
+                    //     'doc_session_id' => $session_id,
+                    //     'pres_id' => $pres->id,
+                    //     'item_type' => 'prescribed',
+                    //     'status' => 'recommended',
+                    //     'checkout_status' => 1,
+                    //     'purchase_status' => 1,
+                    //     'product_image' => $product->featured_image
+                    // ]);
                     $singleItemMedicine = [
                         'medicine_name' => $product->name,
                         // 'unit' => $pres->med_unit,
@@ -190,26 +190,27 @@ class RecommendationController extends Controller
                     array_push($prePharma, $singleItemMedicine);
                 } else if ($pres->type == "lab-test") {
                     $lab_test_price = DB::table('vendor_products')
+                        ->join('quest_data_test_codes', 'vendor_products.product_id', '=', 'quest_data_test_codes.TEST_CD')
                         ->where('product_id', $pres->medicine_id)
-                        // ->where('unit_id',$med_unit->id)
+                        ->select('vendor_products.*', 'quest_data_test_codes.TEST_NAME')
                         ->first();
-                    Cart::create([
-                        'product_id' => $pres->test_id,
-                        'name' => $lab_test_price->TEST_NAME,
-                        'quantity' => $pres->quantity,
-                        'price' => $lab_test_price->selling_price,
-                        'update_price' => $lab_test_price->selling_price * $pres->quantity,
-                        'product_mode' => $pres->type,
-                        'user_id' => $session->patient_id,
-                        'doc_id' => $session->doctor_id,
-                        'doc_session_id' => $session_id,
-                        'pres_id' => $pres->id,
-                        'item_type' => 'prescribed',
-                        'status' => 'recommended',
-                        'checkout_status' => 1,
-                        'purchase_status' => 1,
-                        'product_image' => $lab_test_price->featured_image,
-                    ]);
+                    // Cart::create([
+                    //     'product_id' => $pres->test_id,
+                    //     'name' => $lab_test_price->TEST_NAME,
+                    //     'quantity' => $pres->quantity,
+                    //     'price' => $lab_test_price->selling_price,
+                    //     'update_price' => $lab_test_price->selling_price * $pres->quantity,
+                    //     'product_mode' => $pres->type,
+                    //     'user_id' => $session->patient_id,
+                    //     'doc_id' => $session->doctor_id,
+                    //     'doc_session_id' => $session_id,
+                    //     'pres_id' => $pres->id,
+                    //     'item_type' => 'prescribed',
+                    //     'status' => 'recommended',
+                    //     'checkout_status' => 1,
+                    //     'purchase_status' => 1,
+                    //     'product_image' => $lab_test_price->featured_image,
+                    // ]);
                     $singleItemTest = [
                         'test_name' => $lab_test_price->TEST_NAME,
                         'quantity' => $pres->quantity,
@@ -218,26 +219,27 @@ class RecommendationController extends Controller
                     array_push($preLab, $singleItemTest);
                 } else if ($pres->type == "imaging") {
                     $lab_test_price = DB::table('vendor_products')
+                        ->join('quest_data_test_codes', 'vendor_products.product_id', '=', 'quest_data_test_codes.TEST_CD')
                         ->where('product_id', $pres->medicine_id)
-                        // ->where('unit_id',$med_unit->id)
+                        ->select('vendor_products.*', 'quest_data_test_codes.TEST_NAME')
                         ->first();
-                    Cart::create([
-                        'product_id' => $pres->test_id,
-                        'name' => $lab_test_price->TEST_NAME,
-                        'quantity' => $pres->quantity,
-                        'price' => $lab_test_price->selling_price,
-                        'update_price' => $lab_test_price->selling_price * $pres->quantity,
-                        'product_mode' => $pres->type,
-                        'user_id' => $session->patient_id,
-                        'doc_id' => $session->doctor_id,
-                        'doc_session_id' => $session_id,
-                        'pres_id' => $pres->id,
-                        'item_type' => 'prescribed',
-                        'status' => 'recommended',
-                        'checkout_status' => 1,
-                        'purchase_status' => 1,
-                        'product_image' => $lab_test_price->featured_image,
-                    ]);
+                    // Cart::create([
+                    //     'product_id' => $pres->test_id,
+                    //     'name' => $lab_test_price->TEST_NAME,
+                    //     'quantity' => $pres->quantity,
+                    //     'price' => $lab_test_price->selling_price,
+                    //     'update_price' => $lab_test_price->selling_price * $pres->quantity,
+                    //     'product_mode' => $pres->type,
+                    //     'user_id' => $session->patient_id,
+                    //     'doc_id' => $session->doctor_id,
+                    //     'doc_session_id' => $session_id,
+                    //     'pres_id' => $pres->id,
+                    //     'item_type' => 'prescribed',
+                    //     'status' => 'recommended',
+                    //     'checkout_status' => 1,
+                    //     'purchase_status' => 1,
+                    //     'product_image' => $lab_test_price->featured_image,
+                    // ]);
                     $singleItemTest = [
                         'test_name' => $lab_test_price->TEST_NAME,
                         'quantity' => $pres->quantity,
