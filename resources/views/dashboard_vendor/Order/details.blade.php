@@ -40,16 +40,15 @@
                             @if ($data['order_data']->order_status == 'paid')
                                 <li class="list-group-item d-flex justify-content-between"><b>Payment Status : </b><label
                                         class="order-paid">{{ $data['order_data']->order_status }}</label></li>
-                                {{-- <li class="list-group-item d-flex justify-content-between"><b>Order Status : </b><label
-                                        class="order-paid">{{ $data['order_data']->status }}</label></li> --}}
                             @else
                                 <li class="list-group-item d-flex justify-content-between"><b>Payment Status :</b> <label
                                         class="order-progess">{{ $data['order_data']->order_status }}</label></li>
-                                {{-- <li class="list-group-item d-flex justify-content-between"><b>Order Status : </b> <label
-                                        class="order-progress">{{ $data['order_data']->status }}</label></li> --}}
                             @endif
                             <li class="list-group-item d-flex justify-content-between"><b>Payment Type
                                     :</b>{{ $data['order_data']->payment_title }} </li>
+                            @if (isset($orderMeds[0]->status))
+                            <li class="list-group-item d-flex justify-content-between"><b>Order Status:</b>{{ $orderMeds[0]->status }}</li>
+                            @endif
                         </ul>
                     </div>
                 </div>

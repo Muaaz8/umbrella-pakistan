@@ -1212,6 +1212,7 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
         Route::get('/admin/vendors/edit/{id}', 'VendorsController@edit')->name('edit_vendor');
         Route::put('/admin/vendors/update/{id}', 'VendorsController@update')->name('update_vendor');
         Route::get('/vendor/all/orders', 'TblOrdersController@vendor_order')->name('vendor_all_order');
+        Route::get('/order/status/update/{id}', 'TblOrdersController@updateStatus')->name('order_status_update');
         Route::get('/vendor/order/detail/{id}', 'TblOrdersController@vendor_order_details')->name('vendor_order_details');
 
 
