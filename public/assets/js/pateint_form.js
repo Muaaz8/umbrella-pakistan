@@ -1202,30 +1202,30 @@ $(document).ready(function(){
                     //     $('#address').removeClass('border-danger');
                     // }
 
-                    var email=$('#email').val();
-                    // var checker=checkEmail(email);
-                    email_flag = emailExists(email);
-                    if(email_flag==1)
-                    {
-                        $('#email_error').text('this email already register');
-                        $('#email').addClass('border-danger');
-                        return false;
-                    }
-                    else{
-                        $('#email_error').text('');
-                        $('#email').removeClass('border-danger');
-                    }
-                    var emailRegex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-                    if(!emailRegex.test(email))
-                    {
-                        $('#email_error').text('invalid email');
-                        $('#email').addClass('border-danger');
-                        return false;
-                    }
-                    else{
-                        $('#email_error').text('');
-                        $('#email').removeClass('border-danger');
-                    }
+                    // var email=$('#email').val();
+                    // // var checker=checkEmail(email);
+                    // email_flag = emailExists(email);
+                    // if(email_flag==1)
+                    // {
+                    //     $('#email_error').text('this email already register');
+                    //     $('#email').addClass('border-danger');
+                    //     return false;
+                    // }
+                    // else{
+                    //     $('#email_error').text('');
+                    //     $('#email').removeClass('border-danger');
+                    // }
+                    // var emailRegex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+                    // if(!emailRegex.test(email))
+                    // {
+                    //     $('#email_error').text('invalid email');
+                    //     $('#email').addClass('border-danger');
+                    //     return false;
+                    // }
+                    // else{
+                    //     $('#email_error').text('');
+                    //     $('#email').removeClass('border-danger');
+                    // }
                     var username=$('#username').val();
 
                     username_flag = usernameExists(username);

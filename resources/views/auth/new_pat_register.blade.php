@@ -265,7 +265,7 @@ if (input.attr("type") == "password") {
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="mb-1">
-                                        <label for="Email" class="form-label">Email: *</label>
+                                        <label for="Email" class="form-label">Email:</label>
                                         <input type="text" class="form-control" name="email" id="email" placeholder="email@example.com">
                                         <small id="email_error" class="text-danger"></small>
                                     </div>

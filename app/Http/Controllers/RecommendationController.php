@@ -150,10 +150,10 @@ class RecommendationController extends Controller
             foreach ($pres_list as $pres) {
                 $product = DB::table('tbl_products')->where('id', $pres->medicine_id)->first();
                 if ($pres->type == "medicine") {
-                    $med_unit = DB::table('medicine_units')->where('unit',$pres->med_unit)->first();
+                    // $med_unit = DB::table('medicine_units')->where('unit',$pres->med_unit)->first();
                     $price = DB::table('medicine_pricings')
                         ->where('product_id', $pres->medicine_id)
-                        ->where('unit_id',$med_unit->id)
+                        // ->where('unit_id',$med_unit->id)
                         ->first();
                     $prescription = DB::table('prescriptions')->where('id',$pres->id)->first();
                     if($product->is_single){
@@ -181,7 +181,7 @@ class RecommendationController extends Controller
                     ]);
                     $singleItemMedicine = [
                         'medicine_name' => $product->name,
-                        'unit' => $pres->med_unit,
+                        // 'unit' => $pres->med_unit,
                         'days' => $pres->med_days,
                         'quantity' => $pres->quantity,
                         'usage' => $pres->usage,
