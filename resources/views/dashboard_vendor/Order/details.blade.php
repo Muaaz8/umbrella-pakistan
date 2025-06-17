@@ -29,8 +29,8 @@
                     <div class="card" style="width: 100%">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><b>Order ID </b> : {{ $data['order_data']->order_id }}</li>
-                            <li class="list-group-item"><b>Date</b>: {{ \Carbon\Carbon::parse($data['order_data']->created_at)->format('Y-m-d H:i:s') }}</li>
-                            <li class="list-group-item"><b>Time</b>: {{ \Carbon\Carbon::parse($data['order_data']->created_at)->format('h:i A') }}</li>
+                            <li class="list-group-item"><b>Date</b>: {{ $data['order_data']->created_at['date'] }}</li>
+                            <li class="list-group-item"><b>Time</b>: {{ $data['order_data']->created_at['time'] }}</li>
                         </ul>
                     </div>
                 </div>

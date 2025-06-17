@@ -659,7 +659,7 @@ public function vendor_order()
             $data['payment_method'] = $tblOrders->payment_title;
             $data['order_sub_id'] = $this->tblOrdersRepository->forOrderListView($tblOrders->order_sub_id);
             $datetime = User::convert_utc_to_user_timezone($user->id, $data['order_data']->created_at);
-            $data['order_data']->created_at = $datetime['date']." ".$datetime['time'];
+            $data['order_data']->created_at = $datetime;
 
             $orderMeds = DB::table('medicine_order')->where('order_main_id', $orderId)
                 ->join('vendor_products', 'vendor_products.id', 'medicine_order.order_product_id')

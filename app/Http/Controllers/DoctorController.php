@@ -802,6 +802,13 @@ class DoctorController extends Controller
             $session->status = "paid";
             $session->save();
             return redirect()->route('waiting_room_pat',['id' => \Crypt::encrypt($session_id)]);
+        }elseif($request->payment_method == "online-cash"){
+            $getSession = DB::table('sessions')->where('id', $session_id)->first();
+            Session::where('id', $session_id)->update(['status' => 'paid']);
+
+            event(new RealTimeMessage($getSession->doctor_id));
+            event(new updateQuePatient('update patient que'));
+            return redirect()->route('waiting_room_pat', ['id' => \Crypt::encrypt($getSession->id)]);
         }else{
             Session::find($session_id)->delete();
             return redirect()->back()->with('error','Sorry, Can\'t process with this payment method right now.Kindly try different method.');

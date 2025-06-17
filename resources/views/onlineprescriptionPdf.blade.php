@@ -454,7 +454,7 @@
                                 <tr>
                                     <th>Medicine Name</th>
                                     <th>Dosage</th>
-                                    <th>Unit</th>
+                                    {{-- <th>Unit</th> --}}
                                     <th>No. of Times/Day</th>
                                     <th>Special Instructions</th>
                                 </tr>
@@ -464,7 +464,7 @@
                                     <tr>
                                         <td>{{ $medicine['medicine_name'] }}</td>
                                         <td>{{ $medicine['usage'] }}</td>
-                                        <td>{{ $medicine['unit'] }}</td>
+                                        {{-- <td>{{ $medicine['unit'] }}</td> --}}
                                         <td>{{ $medicine['days'] }}</td>
                                         <td>
                                             @if ($medicine['comment'])

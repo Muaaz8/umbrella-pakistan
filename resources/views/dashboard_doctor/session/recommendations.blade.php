@@ -342,7 +342,7 @@
                                         <option value="1">1 Times</option>
                                     </select>
                                 </div>
-                                <div class="col-md-6">
+                                {{--<div class="col-md-6">
                                     <label for="Expirationmonth">Choose Unit</label>
                                     <select id="units" name="units" class="form-select" required>
                                         <option selected>1</option>
@@ -350,13 +350,13 @@
                                         <option value="2">3</option>
                                         <option value="3">4</option>
                                     </select>
-                                </div>
-                            </div>
-                            <div class="row mt-2 mb-2">
+                                </div>--}}
                                 <div class="col-md-6">
                                     <label for="Expirationmonth">Choose Number of Days</label>
                                     <input id="days" name="days" class="form-control" type="number">
                                 </div>
+                            </div>
+                            <div class="row mt-2 mb-2">
                                 <div class="col-md-6">
                                     <label for="instructions">Special Instructions</label>
                                     <input type="text" id="instructions" name="instructions"
