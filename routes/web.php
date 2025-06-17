@@ -57,14 +57,14 @@ Route::get('/blog','BlogController@blog_index')->name('blog_index');
 Route::get('/blog/{slug}','BlogController@blog_single')->name('blog_single');
 
 Route::get('/labs-add' , function(){
-            $products = DB::table('quest_data_test_codes')
-    ->where(function($query) {
-        $query->where('mode', 'lab-test')
-              ->orWhere('mode', 'imaging');
-    })
-    ->whereNotNull('actual_price')
-    ->whereNotNull('SALE_PRICE')
-    ->get();
+    $products = DB::table('quest_data_test_codes')
+        ->where(function($query) {
+            $query->where('mode', 'lab-test')
+                ->orWhere('mode', 'imaging');
+        })
+        ->whereNotNull('actual_price')
+        ->whereNotNull('SALE_PRICE')
+        ->get();
 
     foreach($products as $product){
         DB::table('vendor_products')->insert([

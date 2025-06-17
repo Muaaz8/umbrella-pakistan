@@ -191,7 +191,7 @@ class RecommendationController extends Controller
                 } else if ($pres->type == "lab-test") {
                     $lab_test_price = DB::table('vendor_products')
                         ->join('quest_data_test_codes', 'vendor_products.product_id', '=', 'quest_data_test_codes.TEST_CD')
-                        ->where('product_id', $pres->medicine_id)
+                        ->where('vendor_products.product_id', $pres->test_id)
                         ->select('vendor_products.*', 'quest_data_test_codes.TEST_NAME')
                         ->first();
                     // Cart::create([
@@ -220,7 +220,7 @@ class RecommendationController extends Controller
                 } else if ($pres->type == "imaging") {
                     $lab_test_price = DB::table('vendor_products')
                         ->join('quest_data_test_codes', 'vendor_products.product_id', '=', 'quest_data_test_codes.TEST_CD')
-                        ->where('product_id', $pres->medicine_id)
+                        ->where('vendor_products.product_id', $pres->test_id)
                         ->select('vendor_products.*', 'quest_data_test_codes.TEST_NAME')
                         ->first();
                     // Cart::create([
