@@ -384,6 +384,7 @@ class PharmacyController extends Controller
                 }
                 if ($item->doc_session_id != '0') {
                     $doctorDetails = User::find($item->doc_id);
+                    
                     $item->prescribed_by = 'Dr.' . $doctorDetails->name . ' ' . $doctorDetails->last_name;
                 } else {
                     $item->prescribed_by = '';
