@@ -1,72 +1,10 @@
 <style>
-    .activetab {
-        border-bottom: 2px solid #c80919 !important;
-    }
-
-    .social-icons-wrapper {
-        top: 5px;
-        right: 15px;
-        z-index: 1050;
-    }
-
-    .social-icons-container {
-        background-color: #0048b1;
-        border-radius: 30px;
-        padding: 8px 15px;
-        transition: all 0.3s ease;
-    }
-
-
-    .social-icon {
-        transition: transform 0.2s ease;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 15px;
-        height: 15px;
-        border-radius: 50%;
-        text-decoration: none;
-    }
-
-    .social-icon:hover {
-        transform: scale(1.2);
-        text-decoration: none;
-    }
-
-    .social-icon i {
-        font-size: 20px;
-    }
-
-    .social-icon .fa-facebook {
-        color: #3b5998;
-    }
-
-    .social-icon .fa-linkedin {
-        color: #0077b5;
-    }
-
-    .social-icon .fa-instagram {
-        color: #e1306c;
-    }
-
-    .social-icon .fa-youtube {
-        color: #ff0000;
-    }
-
-    .social-icon .fa-tiktok {
-        color: #000000;
-    }
-
-    /* Responsive adjustments */
-    @media (max-width: 767px) {
-        .social-icons-wrapper {
-            display: none;
-        }
+    .categories-list {
+        border: 2px solid var(--new-blue)
     }
 </style>
 <script>
     $(document).ready(function () {
-
         $(".search-btn-mob").on("click", function () {
             $(".header-search-container").css("display", "block");
         });
@@ -215,7 +153,7 @@
 
 
 <!-- header  -->
-<div id="offerBanner" class="carousel slide" data-bs-ride="carousel">
+<!-- <div id="offerBanner" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
         @php
             $top_banners = DB::table('services')->where('name', 'ticker')->get();
@@ -229,8 +167,6 @@
                 <a style="min-height: 15px; min-width: 15px; padding: 6px; margin: 0px 2px;" href="https://www.tiktok.com/@community.healthc" target="_blank"><i style="font-size: 15px" class="fa-brands fa-tiktok"></i></a>
             </div>
         </div>
-
-        <!-- Carousel items -->
         @foreach ($top_banners as $key => $banner)
             <div class="carousel-item {{$key == 0 ? 'active' : ''}}">
                 <div class="offer-banner primary-bg text-white text-center py-2">
@@ -254,9 +190,9 @@
             </div>
         </div> --}}
     </div>
-</div>
+</div> -->
 
-<header class="py-2">
+<!-- <header class="py-2">
     <nav>
         <section id="navbar">
             <div class="wrap flex gap-15 between position-relative">
@@ -420,7 +356,231 @@
             <button type="button" class="header-search-btn px-2"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
     </div>
-</header>
+</header> -->
+
+<!-- new header -->
+<header>
+      <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner top-head px-1 py-2">
+          @php
+            $top_banners = DB::table('services')->where('name', 'ticker')->get();
+          @endphp
+          @foreach ($top_banners as $key => $banner)
+            <div class="carousel-item {{$key == 0 ? 'active' : ''}} text-center">
+                <p>{{ $banner->status }}</p>
+            </div>
+          @endforeach
+        </div>
+      </div>
+      <nav class="navbar navbar-container container-fluid pt-0">
+        <div class="border-bottom mx-auto w-100 py-3 py-sm-4 row">
+          <div
+            class="w-85 mx-auto px-0 d-flex align-items-center justify-content-between w-100"
+          >
+            <div class="new-logo align-self-start navbar-brand">
+              <img src="{{ asset('assets/new_frontend/logo-new.png') }}" alt="logo" />
+            </div>
+            <div
+              class="d-none d-sm-flex align-items-center justify-content-center col-sm"
+            >
+              <div
+                class="search-container mx-4 d-flex align-items-center justify-content-center rounded-3 position-relative"
+              >
+                <input
+                  class="search-bar px-3 py-2"
+                  type="search"
+                  name="search"
+                  placeholder="Search"
+                  id="new-search"
+                />
+                <span class="px-3 py-2 search-icon"
+                  ><i class="fa-solid fa-magnifying-glass"></i
+                ></span>
+                <ul class="header-search-result categories-list rounded-3"></ul>
+              </div>
+            </div>
+            <div class="d-none d-lg-flex">
+              <div
+                class="join-btn d-flex align-items-center gap-2 position-relative px-3 py-1 rounded-2 shadow-sm"
+              >
+                <a class="whatsapp-icon p-1" href="https://wa.me/923372350684" target="_blank"
+                  ><img src="{{ asset('assets/new_frontend/whatsapp.svg') }}" alt="whatsapp"
+                /></a>
+                <span class="v-line"></span>
+                @if (Auth::check())
+                <div class="new-dropdown">
+                    <button
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                      class="dropdown-toggle"
+                    >
+                      Hi, {{ Auth::user()->name}}
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="{{ route('home') }}">Go to Dashboard</a></li>
+                      <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a></li>
+                      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    </ul>
+                </div>
+                @else
+                <div class="new-dropdown">
+                    <button
+                      type="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                      class="dropdown-toggle"
+                    >
+                      Join Us
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="{{ route('login') }}">Login</a></li>
+                      <li><a class="dropdown-item" href="{{ route('pat_register') }}">Register as Patient</a></li>
+                      <li>
+                        <a class="dropdown-item" href="{{ route('doc_register') }}">Register as Doctor</a>
+                      </li>
+                    </ul>
+                </div>
+                @endif
+              </div>
+            </div>
+            <div class="d-flex align-items-center gap-3">
+              <a class="nav-link d-block d-lg-none position-relative" href="saf">
+                <img src="{{ asset('assets/new_frontend/cart_new.svg') }}" alt="cart" />
+                <span
+                  class="cart-count-new position-absolute text-white text-center d-flex align-items-center justify-content-center rounded-circle fw-normal"
+                  >12</span
+                >
+              </a>
+              <button
+                class="navbar-toggler d-lg-none"
+                type="button"
+                data-bs-toggle="offcanvas"
+                data-bs-target="#offcanvasNavbar"
+                aria-controls="offcanvasNavbar"
+                aria-label="Toggle navigation"
+              >
+                <span class="navbar-toggler-icon"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="w-100 w-85 mx-auto px-0 d-none d-lg-flex">
+          <ul
+            class="d-flex list-unstyled justify-content-between align-items-center gap-3 w-100 py-3 mb-0"
+          >
+            <li class="nav-item"><a class="nav-link" href="{{ url('/') }}">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('vendor', ['shop_type' => 'pharmacy']) }}">Pharmacy</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('vendor', ['shop_type' => 'labs']) }}">Labtest / Imaging</a>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('e-visit') }}">E-Visit</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href="{{ route('doc_profile_page_list') }}">Our Doctors</a>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('about_us') }}">About Us</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ route('contact_us') }}">Contact Us</a></li>
+            <li class="nav-item">
+              <a class="nav-link position-relative" href="{{ url('/my/cart') }}">
+                <img src="{{ asset('assets/new_frontend/cart_new.svg') }}" alt="cart" />
+                @if (Auth::check())
+                <span
+                  class="cart-count-new position-absolute text-white text-center d-flex align-items-center justify-content-center rounded-circle fw-normal"
+                  >{{ app('item_count_cart_responsive') }}</span
+                >
+                @endif
+              </a>
+            </li>
+            <li class="nav-item">
+              <a
+                href="{{ route('doc_profile_page_list', ['online' => true]) }}"
+                class="online-btn nav-link px-3 py-2 rounded-5 d-flex align-items-center justify-content-center gap-2"
+                ><span class="online-dot-new rounded-circle"></span
+                ><span>Online Doctors</span></a
+              >
+            </li>
+          </ul>
+        </div>
+        <div
+          class="offcanvas offcanvas-end"
+          tabindex="-1"
+          id="offcanvasNavbar"
+          aria-labelledby="offcanvasNavbarLabel"
+        >
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="offcanvas"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="offcanvas-body">
+            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+              <li class="nav-item"><a class="nav-link" href="{{ url('/') }}">Home</a></li>
+              <li class="nav-item"><a class="nav-link" href="{{ route('vendor', ['shop_type' => 'pharmacy']) }}">Pharmacy</a></li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ route('vendor', ['shop_type' => 'labs']) }}">Labtest / Imaging</a>
+              </li>
+              <li class="nav-item"><a class="nav-link" href="{{ route('e-visit') }}">E-Visit</a></li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ route('doc_profile_page_list') }}">Our Doctors</a>
+              </li>
+              <li class="nav-item"><a class="nav-link" href="{{ route('about_us') }}">About Us</a></li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ route('contact_us') }}">Contact Us</a>
+              </li>
+              <li class="nav-item">
+                <a
+                    href="{{ route('doc_profile_page_list', ['online' => true]) }}"
+                    class="online-btn nav-link px-3 py-2 rounded-5 d-flex align-items-center justify-content-center gap-2"
+                    ><span class="online-dot-new rounded-circle"></span
+                    ><span>Online Doctors</span></a
+                >
+              </li>
+              <hr />
+              @if (Auth::check())
+              <li class="nav-item">
+                <a
+                 href="{{ route('home') }}"
+                 class="nav-link"
+                >Go to Dashboard</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
+              </li>
+              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+              </form>
+              @else
+              <li class="nav-item">
+                <a
+                 href="{{ route('login') }}"
+                 class="nav-link"
+                >Login</a>
+              </li>
+              <li class="nav-item">
+                <a
+                 href="{{ route('pat_register') }}"
+                 class="nav-link"
+                >Register as Patient</a>
+              </li>
+              <li class="nav-item">
+                <a
+                 href="{{ route('doc_register') }}"
+                 class="nav-link"
+                >Register as Doctor</a>
+              </li>
+              @endif
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+
 
 {{-- after registration and login modal --}}
 <!-- ----------symptoms Checker Modal------- -->

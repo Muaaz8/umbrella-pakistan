@@ -1,100 +1,165 @@
-$(document).ready(function(){
-    $('.imaging-penal').click(function(){
-        getImagingProductByCategory('all',12);
+$(document).ready(function () {
+    $(".imaging-penal").click(function () {
+        getImagingProductByCategory("all", 12);
     });
-    $('.pharmacy-penal').click(function(){
-        getPharmacyProductByCategory('all',8);
+    $(".pharmacy-penal").click(function () {
+        getPharmacyProductByCategory("all", 8);
     });
-    $('.labtest-penal').click(function(){
-        getLabtestProductByCategory('all',12);
+    $(".labtest-penal").click(function () {
+        getLabtestProductByCategory("all", 12);
     });
 });
 
-function getPharmacyProductByCategory(sub_cat_id,limit)
-{
-    $('#load_pharmacy_item_by_category').html('');
-    $('.no-product-loader').removeClass('d-none');
+// client testimonial carousel sliding function
+$(document).ready(function () {
+    var rem = (function rem() {
+        var html = document.getElementsByTagName("html")[0];
+
+        return function () {
+            return parseInt(window.getComputedStyle(html)["fontSize"]);
+        };
+    })();
+
+    const multipleItemCarousel = $("#clientTestimonial");
+    if (window.matchMedia("(min-width: 576px)").matches) {
+        const carousel = new bootstrap.Carousel(multipleItemCarousel, {
+            interval: false,
+        });
+        var carouselWidth = $("#clientTestimonial .carousel-inner")[0]
+            .scrollWidth;
+        console.log("carouselWidth", carouselWidth);
+        var cardWidth = $(
+            "#clientTestimonial .carousel-inner .carousel-item"
+        ).width();
+        console.log("cardWidth", cardWidth);
+
+        var scrollPosition = 0;
+
+        $(".carousel-control-next").on("click", function () {
+            if (scrollPosition < carouselWidth - cardWidth * 3) {
+                console.log("next");
+                scrollPosition += cardWidth + rem() * 1;
+                $("#clientTestimonial .carousel-inner").animate(
+                    { scrollLeft: scrollPosition },
+                    600
+                );
+            }
+        });
+
+        $(".carousel-control-prev").on("click", function () {
+            if (scrollPosition > 0) {
+                console.log("next");
+                scrollPosition -= cardWidth + rem() * 1;
+                $("#clientTestimonial .carousel-inner").animate(
+                    { scrollLeft: scrollPosition },
+                    600
+                );
+            }
+        });
+    } else {
+        $(multipleItemCarousel).addClass("slide");
+    }
+});
+
+function getPharmacyProductByCategory(sub_cat_id, limit) {
+    $("#load_pharmacy_item_by_category").html("");
+    $(".no-product-loader").removeClass("d-none");
     $.ajax({
         type: "POST",
         url: "/fetch_pharmacy_item_by_category",
         data: {
-            sub_cat_id:sub_cat_id,
-            limit:limit,
+            sub_cat_id: sub_cat_id,
+            limit: limit,
         },
-        success: function(res) {
-            $('#load_pharmacy_more_btn').html('');
-            if(res=="" || res==null)
-                {
-                    $('#load_pharmacy_item_by_category').append(
-                        '<div class="no-product-text d-flex justify-content-center align-items-center flex-column w-100">'+
-                            '<img src="/assets/images/exclamation.png" alt="">'+
-                            '<h1>NO ITEM Found</h1>'+
-                            '<p>There are no item that match your current filters. Try removing some of them to get better results.</p>'+
-                        '</div>'
-                    );
-                }
-                else
-                {
-                $.each(res, function(key, value) {
-                    $('#load_pharmacy_item_by_category').append(
+        success: function (res) {
+            $("#load_pharmacy_more_btn").html("");
+            if (res == "" || res == null) {
+                $("#load_pharmacy_item_by_category").append(
+                    '<div class="no-product-text d-flex justify-content-center align-items-center flex-column w-100">' +
+                        '<img src="/assets/images/exclamation.png" alt="">' +
+                        "<h1>NO ITEM Found</h1>" +
+                        "<p>There are no item that match your current filters. Try removing some of them to get better results.</p>" +
+                        "</div>"
+                );
+            } else {
+                $.each(res, function (key, value) {
+                    $("#load_pharmacy_item_by_category").append(
                         `<div class="card">
                                 <div class="prescription">
-                                    <p style="background: ${value.is_otc==1?'green':'red'}">${value.is_otc==1?'over the counter':'prescription required'}</p>
+                                    <p style="background: ${
+                                        value.is_otc == 1 ? "green" : "red"
+                                    }">${
+                            value.is_otc == 1
+                                ? "over the counter"
+                                : "prescription required"
+                        }</p>
                                 </div>
                                 <div class="price">
                                     <p>Rs: ${value.sale_price}</p>
                                 </div>
-                                <div class="med-img"><img src="${value.featured_image?value.featured_image:'assets/new_frontend/panadol2.png'}" alt="img"></div>
-                                <h4 class="truncate m-0 p-0" title="${value.name}">${value.name}</h4>
-                                <h6 class="truncate m-0 p-0">${value.category_name}</h6>
+                                <div class="med-img"><img src="${
+                                    value.featured_image
+                                        ? value.featured_image
+                                        : "assets/new_frontend/panadol2.png"
+                                }" alt="img"></div>
+                                <h4 class="truncate m-0 p-0" title="${
+                                    value.name
+                                }">${value.name}</h4>
+                                <h6 class="truncate m-0 p-0">${
+                                    value.category_name
+                                }</h6>
                                 <div class="pharmacy_btn">
-                                    <a class="read-more btn btn-outline-danger" href="/medicines/${value.slug}">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
-                                    <a class="add-to-cart" href="/medicines/${value.slug}">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
+                                    <a class="read-more btn btn-outline-danger" href="/medicines/${
+                                        value.slug
+                                    }">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
+                                    <a class="add-to-cart" href="/medicines/${
+                                        value.slug
+                                    }">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
                                 </div>
                             </div>`
                     );
                 });
-                if(sub_cat_id=='all')
-                {
-                    $('#load_pharmacy_more_btn').append(
+                if (sub_cat_id == "all") {
+                    $("#load_pharmacy_more_btn").append(
                         '<a href="/pharmacy"> <button>View All</button></a>'
                     );
-                }else{
-                    $('#load_pharmacy_more_btn').append(
-                        '<a href="/pharmacy/'+res[0].category_slug+'"> <button>View More </button></a>'
+                } else {
+                    $("#load_pharmacy_more_btn").append(
+                        '<a href="/pharmacy/' +
+                            res[0].category_slug +
+                            '"> <button>View More </button></a>'
                     );
                 }
             }
-            $('.no-product-loader').addClass('d-none');
-        }
+            $(".no-product-loader").addClass("d-none");
+        },
     });
 }
-function getLabtestProductByCategory(cat_id,limit)
-{
-    var mode='lab-test';
+function getLabtestProductByCategory(cat_id, limit) {
+    var mode = "lab-test";
     $.ajax({
         type: "POST",
         url: "/fetch_labtest_item_by_category",
         data: {
-            cat_id:cat_id,
-            limit:limit,
+            cat_id: cat_id,
+            limit: limit,
         },
-        success: function(res) {
-            $('#load_labtest_item_by_category').html('');
-            $('#load_more_btn_lab').html('');
-            if(res.products=="" || res.products==null){
-                $('#load_labtest_item_by_category').append(
-                    '<div class="no-product-text d-flex justify-content-center align-items-center flex-column w-100">'+
-                        '<img src="/assets/images/exclamation.png" alt="">'+
-                        '<h1>NO ITEM Found</h1>'+
-                        '<p>There are no item that match your current filters. Try removing some of them to get better results.</p>'+
-                    '</div>'
+        success: function (res) {
+            $("#load_labtest_item_by_category").html("");
+            $("#load_more_btn_lab").html("");
+            if (res.products == "" || res.products == null) {
+                $("#load_labtest_item_by_category").append(
+                    '<div class="no-product-text d-flex justify-content-center align-items-center flex-column w-100">' +
+                        '<img src="/assets/images/exclamation.png" alt="">' +
+                        "<h1>NO ITEM Found</h1>" +
+                        "<p>There are no item that match your current filters. Try removing some of them to get better results.</p>" +
+                        "</div>"
                 );
-            }else{
-                if(res.user_id==''){
-                    $.each(res.products, function(key, value) {
-                        $('#load_labtest_item_by_category').append(
-                           `<div class="tests-card">
+            } else {
+                if (res.user_id == "") {
+                    $.each(res.products, function (key, value) {
+                        $("#load_labtest_item_by_category").append(
+                            `<div class="tests-card">
                                 <div class="test-card-content">
                                     <div class="add_to_cart_container">
                                         <button class="add_to_cart_btn" onclick="window.location.href='/labtest/${value.SLUG}'">
@@ -109,10 +174,10 @@ function getLabtestProductByCategory(cat_id,limit)
                             </div>`
                         );
                     });
-                }else{
-                    $.each(res.products, function(key, value) {
-                        $('#load_labtest_item_by_category').append(
-                             `<div class="tests-card">
+                } else {
+                    $.each(res.products, function (key, value) {
+                        $("#load_labtest_item_by_category").append(
+                            `<div class="tests-card">
                                 <div class="test-card-content">
                                     <div class="add_to_cart_container">
                                         <button class="add_to_cart_btn" onclick="window.location.href='/labtest/${value.SLUG}'">
@@ -129,51 +194,48 @@ function getLabtestProductByCategory(cat_id,limit)
                     });
                 }
 
-                if(cat_id=='all')
-                {
-                    $('#load_more_btn_lab').append(
+                if (cat_id == "all") {
+                    $("#load_more_btn_lab").append(
                         '<a href="/labtests"> <button>View All</button></a>'
                     );
-                }else{
-                    $('#load_more_btn_lab').append(
-                        '<a href="/labtests/'+res[0].cat_name+'"> <button>View More </button></a>'
+                } else {
+                    $("#load_more_btn_lab").append(
+                        '<a href="/labtests/' +
+                            res[0].cat_name +
+                            '"> <button>View More </button></a>'
                     );
                 }
             }
-        }
+        },
     });
 }
 
-function getImagingProductByCategory(cat_id,limit)
-{
-    var mode='imaging';
+function getImagingProductByCategory(cat_id, limit) {
+    var mode = "imaging";
     $.ajax({
         type: "POST",
         url: "/fetch_imaging_item_by_category",
         data: {
-            cat_id:cat_id,
-            limit:limit,
+            cat_id: cat_id,
+            limit: limit,
         },
-        success: function(res) {
-            $('#load_imaging_item_by_category').html('');
-            $('#load_more_btn_imaging').html('');
+        success: function (res) {
+            $("#load_imaging_item_by_category").html("");
+            $("#load_more_btn_imaging").html("");
             console.log(res);
-            if(res.products=="" || res.products==null)
-                {
-                    $('#load_imaging_item_by_category').append(
-                        '<div class="no-product-text d-flex justify-content-center align-items-center flex-column w-100">'+
-                            '<img src="/assets/images/exclamation.png" alt="">'+
-                            '<h1>NO ITEM Found</h1>'+
-                            '<p>There are no item that match your current filters. Try removing some of them to get better results.</p>'+
-                        '</div>'
-                    );
-                }
-                else
-                {
-                    if(res.user_id==''){
-                        $.each(res.products, function(key, value) {
-                            $('#load_imaging_item_by_category').append(
-                               `<div class="tests-card">
+            if (res.products == "" || res.products == null) {
+                $("#load_imaging_item_by_category").append(
+                    '<div class="no-product-text d-flex justify-content-center align-items-center flex-column w-100">' +
+                        '<img src="/assets/images/exclamation.png" alt="">' +
+                        "<h1>NO ITEM Found</h1>" +
+                        "<p>There are no item that match your current filters. Try removing some of them to get better results.</p>" +
+                        "</div>"
+                );
+            } else {
+                if (res.user_id == "") {
+                    $.each(res.products, function (key, value) {
+                        $("#load_imaging_item_by_category").append(
+                            `<div class="tests-card">
                                     <div class="test-card-content">
                                         <div class="add_to_cart_container">
                                             <button class="add_to_cart_btn" onclick="window.location.href='/labtest/${value.SLUG}'">
@@ -186,12 +248,12 @@ function getImagingProductByCategory(cat_id,limit)
                                         <button class="learn_btn" data-bs-toggle="modal" data-bs-target="#loginModal" type="button">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
                                     </div>
                                 </div>`
-                            );
-                        });
-                    }else{
-                        $.each(res.products, function(key, value) {
-                            $('#load_imaging_item_by_category').append(
-                                 `<div class="tests-card">
+                        );
+                    });
+                } else {
+                    $.each(res.products, function (key, value) {
+                        $("#load_imaging_item_by_category").append(
+                            `<div class="tests-card">
                                     <div class="test-card-content">
                                         <div class="add_to_cart_container">
                                             <button class="add_to_cart_btn" onclick="window.location.href='/labtest/${value.SLUG}'">
@@ -204,22 +266,23 @@ function getImagingProductByCategory(cat_id,limit)
                                         <button class="learn_btn ${value.vendor_product_id} ${mode}" onclick="addedItem(this)" type="button">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
                                     </div>
                                 </div>`
-                            );
-                        });
-                    }
-
-                    if(cat_id=='all')
-                    {
-                        $('#load_more_btn_lab').append(
-                            '<a href="/labtests"> <button>View All</button></a>'
                         );
-                    }else{
-                        $('#load_more_btn_lab').append(
-                            '<a href="/labtests/'+res[0].cat_name+'"> <button>View More </button></a>'
-                        );
-                    }
+                    });
                 }
-        }
+
+                if (cat_id == "all") {
+                    $("#load_more_btn_lab").append(
+                        '<a href="/labtests"> <button>View All</button></a>'
+                    );
+                } else {
+                    $("#load_more_btn_lab").append(
+                        '<a href="/labtests/' +
+                            res[0].cat_name +
+                            '"> <button>View More </button></a>'
+                    );
+                }
+            }
+        },
     });
 }
 
@@ -508,7 +571,6 @@ function getImagingProductByCategory(cat_id,limit)
 //                         });
 //                     }
 
-
 //                 }
 //             }
 //         });
@@ -736,7 +798,6 @@ function getImagingProductByCategory(cat_id,limit)
 //   }
 // });
 
-
 // $('.searchPharmacyProduct').click(function(){
 //     var text=$('#pharmacySearchText').val();
 //     var limit=12;
@@ -845,7 +906,6 @@ function getImagingProductByCategory(cat_id,limit)
 //                     });
 
 //                 }
-
 
 //             }
 //         });
@@ -964,27 +1024,23 @@ function getImagingProductByCategory(cat_id,limit)
 
 //                 }
 
-
 //             }
 //         });
 //     }
 //   }
 // });
 
-function openBeforeModal()
-{
-    $('#beforeLogin').modal('show');
+function openBeforeModal() {
+    $("#beforeLogin").modal("show");
 }
 
-
-function addedItem(a)
-{
-    var all_classes=$(a).attr('class');
-    var class_split = all_classes.split(' ');
-    var pro_id=class_split[1];
-    var pro_mode=class_split[2];
-    var pro_qty=1;
-    console.log(class_split,pro_id,pro_mode,pro_qty);
+function addedItem(a) {
+    var all_classes = $(a).attr("class");
+    var class_split = all_classes.split(" ");
+    var pro_id = class_split[1];
+    var pro_mode = class_split[2];
+    var pro_qty = 1;
+    console.log(class_split, pro_id, pro_mode, pro_qty);
     $.ajax({
         type: "POST",
         url: "/add_to_cart",
@@ -993,12 +1049,11 @@ function addedItem(a)
             pro_mode: pro_mode,
             pro_qty: pro_qty,
         },
-        success: function(data) {
-            if(data.check=='1'){
-                $('#alreadyadded').modal('show');
-            }
-            else{
-                console.log('item added into cart');
+        success: function (data) {
+            if (data.check == "1") {
+                $("#alreadyadded").modal("show");
+            } else {
+                console.log("item added into cart");
             }
         },
     });

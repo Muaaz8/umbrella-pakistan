@@ -7,7 +7,7 @@
 <meta name="{{ $tag->name }}" content="{{ $tag->content }}">
 @endforeach
 <link rel="icon" href="{{ asset('asset_frontend/new_frontend/fav_ico.png') }}" type="image/x-icon">
-<style>
+{{-- <style>
     .custom-card-body h1,
     .custom-card-body h2,
     .custom-card-body h3,
@@ -62,6 +62,33 @@
     .doc-btn:hover{
         color: #ffffff
     }
+</style> --}}
+<style>
+    .card {
+        display: block !important;
+        max-width: none !important;
+        height: auto !important;
+        background-color: white !important;
+        color: rgb(0, 0, 0) !important;
+        text-align: left !important;
+        position: static !important;
+        box-shadow: none !important;
+        margin-bottom: auto !important; 
+        padding: initial !important;
+    }
+
+    @media only screen and (min-width: 1400px) {
+        .card {
+            min-height: auto !important;
+            max-width: none !important;
+        }
+    }
+
+    @media only screen and (max-width: 1200px) {
+        .card {
+            max-width: none !important;
+        }
+    }
 </style>
 @endsection
 
@@ -92,1169 +119,1098 @@
 @endsection
 @section('content')
 <main>
-
-    <section class="px-2 main-hero-section">
-        <div class="container-fluid parent">
-            <div class="div2 order-1 order-md-1 order-lg-2">
-                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-                    <div class="carousel-indicators">
-                        @foreach ($banners as $key => $banner)
-                        <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{$key}}"
-                            class="{{$key==0?'active':''}}"></button>
-                        @endforeach
-                    </div>
-                    <div class="carousel-inner rounded-4">
-                        @foreach ($banners as $key => $banner)
-                        <div class="carousel-item {{$key==0?'active':''}}">
-                            <img src="{{ $banner->img }}" class="d-block w-100 carousel-img" alt="Slide {{$key}}" />
-                        </div>
-                        @endforeach
-                    </div>
+      <!-- Section 1: Hero Section -->
+      <section
+        class="container-fluid px-0 d-flex justify-content-center pt-2 pb-4"
+      >
+        <div class="row g-4 w-85">
+          <div class="ps-md-0 col-md-8">
+            <div id="mainBanner" class="carousel slide" data-bs-ride="carousel">
+              <div class="carousel-indicators">
+                <button
+                  type="button"
+                  data-bs-target="#mainBanner"
+                  data-bs-slide-to="0"
+                  class="active"
+                  aria-current="true"
+                  aria-label="Slide 1"
+                ></button>
+                <button
+                  type="button"
+                  data-bs-target="#mainBanner"
+                  data-bs-slide-to="1"
+                  aria-label="Slide 2"
+                ></button>
+                <button
+                  type="button"
+                  data-bs-target="#mainBanner"
+                  data-bs-slide-to="2"
+                  aria-label="Slide 3"
+                ></button>
+              </div>
+              <div class="carousel-inner rounded-3">
+                <div class="carousel-item active">
+                  <img src="{{ asset('assets/new_frontend/new-banner.webp') }}" class="d-block w-100" alt="..." />
                 </div>
-            </div>
-
-            <div class="div1 order-2 order-md-2 order-lg-1">
-
-                <div class="row g-2 h-100">
-
-                    <div class="col-lg-12 col-md-6 col-12 custom-card animate__animated animate__fadeInLeft"
-                        style="animation-delay: 0s;">
-                        <div class="custom-card-body">
-                            @if($groupedSections["box-1"]["contents"])
-                            {!! $groupedSections["box-1"]["contents"][0]["content"] !!}
-                            @else
-                            <h5 class="custom-card-title">Doctor consultation</h5>
-                            <p class="custom-card-text">
-                                Short description of the first card.
-                            </p>
-                            @endif
-                            <button class="btn btn-primary custom-btn2"
-                                onclick="window.location.href='{{route('e-visit')}}'">E-visit</button>
-                        </div>
-                        <div class="custom-card-img">
-                            <img width="70" height="70" src="{{ asset('assets/new_frontend/doc1.png') }}"
-                                alt="Image 1" />
-                        </div>
-                    </div>
-                    <div class="col-lg-12 col-md-6 col-12 custom-card animate__animated animate__fadeInLeft"
-                        style="animation-delay: 0.2s;">
-                        <div class="custom-card-body">
-                            @if($groupedSections["box-2"]["contents"])
-                            {!! $groupedSections["box-2"]["contents"][0]["content"] !!}
-                            @else
-                            <h5 class="custom-card-title">Pharmacy</h5>
-                            <p class="custom-card-text">
-                                Short description of the first card.
-                            </p>
-                            @endif
-                            <button class="btn btn-success custom-btn2"
-                                onclick="window.location.href='{{route('pharmacy')}}'">Visit Our Store</button>
-                        </div>
-                        <div class="custom-card-img">
-                            <img src="{{ asset('assets/new_frontend/med1.png') }}" alt="Image 1" />
-                        </div>
-                    </div>
-                    <div class="col-lg-12 col-md-12 custom-card animate__animated animate__fadeInLeft"
-                        style="animation-delay: 0.5s;">
-                        <div class="custom-card-body">
-                            @if($groupedSections["box-3"]["contents"])
-                            {!! $groupedSections["box-3"]["contents"][0]["content"] !!}
-                            @else
-                            <h5 class="custom-card-title">Online Lab Tests</h5>
-                            <p class="custom-card-text">
-                                Short description of the first card.
-                            </p>
-                            @endif
-                            <button class="btn btn-danger custom-btn2"
-                                onclick="window.location.href='{{route('labs')}}'">Online Tests</button>
-                        </div>
-                        <div class="custom-card-img">
-                            <img width="70" height="70" src="{{ asset('assets/new_frontend/lab3.png') }}"
-                                alt="Image 1" />
-                        </div>
-                    </div>
-
+                <div class="carousel-item">
+                  <img src="{{ asset('assets/new_frontend/new-banner.webp') }}" class="d-block w-100" alt="..." />
                 </div>
-            </div>
-
-            <div class="div3 row order-3 py-3">
-                <div class="w-50 fw-bold">
-                    <h2>
-                        Featured
-                        <span class="red">Categories</span>
-                    </h2>
-                    <div class="underline w-25"></div>
+                <div class="carousel-item">
+                  <img src="{{ asset('assets/new_frontend/new-banner.webp') }}" class="d-block w-100" alt="..." />
                 </div>
+              </div>
             </div>
-
+          </div>
+          <div class="pe-md-0 col-md-4">
+            <div
+              class="p-4 p-sm-5 py-md-3 px-md-4 w-100 promo-card d-flex flex-column align-items-center justify-content-center gap-2 rounded-3 h-100"
+            >
+              <h4 class="text-center fw-semibold">
+                Enjoy a 25% Discount on Lab Tests at
+                <span class="highlight-blue">Essa Lab!</span>
+              </h4>
+              <img class="w-100 w-sm-50 w-md-100" src="{{ asset('assets/new_frontend/dr-essa-logo.webp') }}" alt="" />
+            </div>
+          </div>
+          <div class="ps-md-0 col-md-4">
+            <div
+              class="w-100 d-flex align-items-stretch justify-content-between service-card p-4 rounded-3 h-100"
+            >
+              <div class="w-60 card-text-cont">
+                <h5 class="fs-6 fw-semibold">Consult Doctor Online</h5>
+                <p class="service-card-para fs-14">
+                  Consult a doctor online, book now!
+                </p>
+                <a
+                  href=""
+                  class="card-btn bg-blue d-flex align-items-center gap-2 my-3 px-3 py-1 rounded-2 text-white fs-12"
+                  ><span class="fw-semibold">E-Visit</span
+                  ><i class="fa-solid fa-arrow-right fs-14"></i
+                ></a>
+              </div>
+              <div class="d-flex align-items-end justify-content-center w-40">
+                <img class="w-100" src="{{ asset('assets/new_frontend/e-visit-img.png') }}" alt="" />
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div
+              class="w-100 d-flex align-items-stretch justify-content-between service-card p-4 rounded-3 h-100"
+            >
+              <div class="w-60 card-text-cont">
+                <h5 class="fs-6 fw-semibold">Order Medicines Online</h5>
+                <p class="service-card-para fs-14">
+                  Order medicines online, get them today!
+                </p>
+                <a
+                  href=""
+                  class="card-btn bg-green d-flex align-items-center gap-2 my-3 px-3 py-1 rounded-2 text-white fs-12"
+                  ><span class="fw-semibold">Visit our Store</span
+                  ><i class="fa-solid fa-arrow-right fs-14"></i
+                ></a>
+              </div>
+              <div
+                class="d-flex align-items-end justify-content-center w-40 ps-2"
+              >
+                <img class="w-100" src="{{ asset('assets/new_frontend/tab-cart.png') }}" alt="" />
+              </div>
+            </div>
+          </div>
+          <div class="pe-md-0 col-md-4">
+            <div
+              class="w-100 d-flex align-items-stretch justify-content-between service-card rounded-3 h-100"
+            >
+              <div class="w-60 p-4 pe-0 card-text-cont">
+                <h5 class="fs-6 fw-semibold">Online Lab Test</h5>
+                <p class="service-card-para fs-14">
+                  Book lab tests online, Schedule now!
+                </p>
+                <a
+                  href=""
+                  class="card-btn bg-red d-flex align-items-center gap-2 my-3 px-3 py-1 rounded-2 text-white fs-12"
+                  ><span class="fw-semibold">Online Test</span
+                  ><i class="fa-solid fa-arrow-right fs-14"></i
+                ></a>
+              </div>
+              <div
+                class="d-flex align-items-end justify-content-center w-40 pe-4"
+              >
+                <img class="w-100" src="{{ asset('assets/new_frontend/person.png') }}" alt="" />
+              </div>
+            </div>
+          </div>
         </div>
+      </section>
 
-        <div class="row px-3 gy-2">
-            <div class="col-lg-3 col-md-6 col-12 card-secondary-div animate__animated animate__fadeInUp"
-                style="animation-delay: 0s;">
-                <div class="card-secondary d-flex flex-row align-items-center justify-content-between">
-                    <div>
-                        @if($groupedSections["box-4"]["contents"])
-                        {!! $groupedSections["box-4"]["contents"][0]["content"] !!}
-                        @else
-                        <h5>Personal Care</h5>
-                        <p>Lorem ipsum dolor sit amet.</p>
-                        @endif
-                        <button class="btn btn-success custom-btn2"
-                            onclick="window.location.href='{{route('pharmacy.category',['slug'=>'personal-care'])}}'">View
-                            More</button>
-                        <div class="custom-card-img">
-                            <img width="60" height="60" src="{{ asset('assets/new_frontend/bottom1.png') }}"
-                                alt="Image 1" />
-                        </div>
+      <!-- Section 2: Our Guide Section -->
+      <section
+        class="our-guide-section container-fluid px-0 d-flex flex-column align-items-center justify-content-center py-2"
+      >
+        <div class="w-100 bg-light-blue rounded-3 pt-3 pb-2 px-2 w-85">
+          <h2 class="text-center">
+            Our Guide for <span class="fw-bold">New Users</span>
+          </h2>
+          <div>
+            <ul
+              class="nav justify-content-between nav-pills my-3 bg-white p-2 rounded-2"
+              id="pills-tab"
+              role="tablist"
+            >
+              <li class="nav-item" role="presentation">
+                <button
+                  class="text-navy-blue py-2 px-4 fw-semibold nav-link active"
+                  id="pills-register-patient-tab"
+                  data-bs-toggle="pill"
+                  data-bs-target="#pills-register-patient"
+                  type="button"
+                  role="tab"
+                  aria-controls="pills-register-patient"
+                  aria-selected="true"
+                >
+                  Register as a Patient
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="text-navy-blue py-2 px-4 fw-semibold nav-link"
+                  id="pills-register-doctor-tab"
+                  data-bs-toggle="pill"
+                  data-bs-target="#pills-register-doctor"
+                  type="button"
+                  role="tab"
+                  aria-controls="pills-register-doctor"
+                  aria-selected="false"
+                >
+                  Register as a Doctor
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="text-navy-blue py-2 px-4 fw-semibold nav-link"
+                  id="pills-order-medicine-tab"
+                  data-bs-toggle="pill"
+                  data-bs-target="#pills-order-medicine"
+                  type="button"
+                  role="tab"
+                  aria-controls="pills-order-medicine"
+                  aria-selected="false"
+                >
+                  Order Medicine
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="text-navy-blue py-2 px-4 fw-semibold nav-link"
+                  id="pills-order-lab-tab"
+                  data-bs-toggle="pill"
+                  data-bs-target="#pills-order-lab"
+                  type="button"
+                  role="tab"
+                  aria-controls="pills-order-lab-tab"
+                  aria-selected="false"
+                >
+                  Order Lab
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="text-navy-blue py-2 px-4 fw-semibold nav-link"
+                  id="pills-checkout-tab"
+                  data-bs-toggle="pill"
+                  data-bs-target="#pills-checkout"
+                  type="button"
+                  role="tab"
+                  aria-controls="pills-checkout"
+                  aria-selected="false"
+                >
+                  Checkout
+                </button>
+              </li>
+            </ul>
+            <div class="tab-content" id="pills-tabContent">
+              <div
+                class="tab-pane fade show active"
+                id="pills-register-patient"
+                role="tabpanel"
+                aria-labelledby="pills-register-patient"
+                tabindex="0"
+              >
+                <div
+                  class="guide-img-container d-flex align-items-center justify-content-between position-relative p-3"
+                >
+                  <div class="wave-arrow">
+                    <img
+                      class="w-100 object-fit-contain"
+                      src="{{ asset('assets/new_frontend/arrow-wave.png') }}"
+                      alt=""
+                    />
+                  </div>
+                  <div
+                    class="row w-100 align-items-center justify-content-between position-relative flex-row gx-4"
+                  >
+                    <div class="col-md-3">
+                      <div class="w-100 h-100">
+                        <h5
+                          class="bg-navy-blue px-4 fs-14 py-1 rounded-2 text-white mb-2 w-max mx-auto"
+                        >
+                          Step 01
+                        </h5>
+                        <img
+                          class="w-100 object-fit-contain"
+                          src="{{ asset('assets/new_frontend/r-step-1.png') }}"
+                          alt=""
+                        />
+                      </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-12 card-secondary-div animate__animated animate__fadeInUp"
-                style="animation-delay: 0.2s;">
-                <div class="card-secondary d-flex flex-row align-items-center justify-content-between">
-                    <div>
-                        @if($groupedSections["box-5"]["contents"])
-                        {!! $groupedSections["box-5"]["contents"][0]["content"] !!}
-                        @else
-                        <h5>Mother & Baby Care</h5>
-                        <p>Lorem ipsum dolor sit amet.</p>
-                        @endif
-                        <button class="btn btn-success custom-btn2"
-                            onclick="window.location.href='{{route('pharmacy.category',['slug'=>'baby-mothercare'])}}'">View
-                            More</button>
-                        <div class="custom-card-img">
-                            <img width="60" height="60" src="{{ asset('assets/new_frontend/bottom2.png') }}"
-                                alt="Image 1" />
-                        </div>
+                    <div class="col-md-5">
+                      <div class="w-100 h-100">
+                        <h5
+                          class="bg-navy-blue px-4 fs-14 py-1 rounded-2 text-white mb-2 w-max mx-auto"
+                        >
+                          Step 02
+                        </h5>
+                        <img
+                          class="w-100 object-fit-contain"
+                          src="{{ asset('assets/new_frontend/laptop.webp') }}"
+                          alt=""
+                        />
+                      </div>
                     </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-12 card-secondary-div animate__animated animate__fadeInUp"
-                style="animation-delay: 0.4s;">
-                <div class="card-secondary d-flex flex-row align-items-center justify-content-between">
-                    <div>
-                        @if($groupedSections["box-6"]["contents"])
-                        {!! $groupedSections["box-6"]["contents"][0]["content"] !!}
-                        @else
-                        <h5>Dermatology</h5>
-                        <p>Lorem ipsum dolor sit amet.</p>
-                        @endif
-                        <button class="btn btn-success custom-btn2"
-                            onclick="window.location.href='{{route('pharmacy.category',['slug'=>'dermatology'])}}'">View
-                            More</button>
-                        <div class="custom-card-img">
-                            <img width="60" height="60" src="{{ asset('assets/new_frontend/bottom3.png') }}"
-                                alt="Image 1" />
-                        </div>
+                    <div class="col-md-3">
+                      <div class="w-100 h-100">
+                        <h5
+                          class="bg-navy-blue px-4 fs-14 py-1 rounded-2 text-white mb-2 w-max mx-auto"
+                        >
+                          Step 03
+                        </h5>
+                        <img
+                          class="w-100 object-fit-contain"
+                          src="{{ asset('assets/new_frontend/email-verify.png') }}"
+                          alt=""
+                        />
+                      </div>
                     </div>
+                  </div>
                 </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-12 card-secondary-div animate__animated animate__fadeInUp"
-                style="animation-delay: 0.6s;">
-                <div class="card-secondary d-flex flex-row align-items-center justify-content-between">
-                    <div>
-                        @if($groupedSections["box-7"]["contents"])
-                        {!! $groupedSections["box-7"]["contents"][0]["content"] !!}
-                        @else
-                        <h5>Multi-Vitamins</h5>
-                        <p>Lorem ipsum dolor sit amet.</p>
-                        @endif
-                        <button class="btn btn-success custom-btn2"
-                            onclick="window.location.href='{{route('pharmacy.category',['slug'=>'multivitamins'])}}'">View
-                            More</button>
-                        <div class="custom-card-img">
-                            <img width="60" height="60" src="{{ asset('assets/new_frontend/bottom4.png') }}"
-                                alt="Image 1" />
-                        </div>
+              </div>
+              <div
+                class="tab-pane fade"
+                id="pills-register-doctor"
+                role="tabpanel"
+                aria-labelledby="pills-register-doctor"
+                tabindex="0"
+              >
+                <div
+                  class="guide-img-container d-flex align-items-center justify-content-between position-relative p-3"
+                >
+                  <div class="wave-arrow">
+                    <img
+                      class="w-100 object-fit-contain"
+                      src="{{ asset('assets/new_frontend/arrow-wave.png') }}"
+                      alt=""
+                    />
+                  </div>
+                  <div
+                    class="row w-100 align-items-center justify-content-between position-relative flex-row gx-4"
+                  >
+                    <div class="col-md-3">
+                      <div class="w-100 h-100">
+                        <h5
+                          class="bg-navy-blue px-4 fs-14 py-1 rounded-2 text-white mb-2 w-max mx-auto"
+                        >
+                          Step 01
+                        </h5>
+                        <img
+                          class="w-100 object-fit-contain"
+                          src="{{ asset('assets/new_frontend/r-step-1.png') }}"
+                          alt=""
+                        />
+                      </div>
                     </div>
+                    <div class="col-md-5">
+                      <div class="w-100 h-100">
+                        <h5
+                          class="bg-navy-blue px-4 fs-14 py-1 rounded-2 text-white mb-2 w-max mx-auto"
+                        >
+                          Step 02
+                        </h5>
+                        <img
+                          class="w-100 object-fit-contain"
+                          src="{{ asset('assets/new_frontend/laptop.webp') }}"
+                          alt=""
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="w-100 h-100">
+                        <h5
+                          class="bg-navy-blue px-4 fs-14 py-1 rounded-2 text-white mb-2 w-max mx-auto"
+                        >
+                          Step 03
+                        </h5>
+                        <img
+                          class="w-100 object-fit-contain"
+                          src="{{ asset('assets/new_frontend/email-verify.png') }}"
+                          alt=""
+                        />
+                      </div>
+                    </div>
+                  </div>
                 </div>
+              </div>
+              <div
+                class="tab-pane fade"
+                id="pills-order-medicine"
+                role="tabpanel"
+                aria-labelledby="pills-order-medicine"
+                tabindex="0"
+              >
+                <div class="guide-img-container d-flex position-relative p-3">
+                  <div class="wave-arrow min-w-80">
+                    <img
+                      class="w-100 object-fit-contain"
+                      src="{{ asset('assets/new_frontend/arrow-wave-2.png') }}"
+                      alt=""
+                    />
+                  </div>
+                  <div
+                    class="row w-100 d-flex align-items-center justify-content-between position-relative flex-row gx-5"
+                  >
+                    <div class="col-md-3 align-self-center">
+                      <div class="w-100 h-100">
+                        <h5
+                          class="bg-navy-blue px-4 fs-14 py-1 rounded-2 text-white mb-2 w-max mx-auto"
+                        >
+                          Step 01
+                        </h5>
+                        <img
+                          class="w-100 object-fit-contain"
+                          src="{{ asset('assets/new_frontend/order-med-1.webp') }}"
+                          alt=""
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-3 align-self-start">
+                      <div class="w-100 h-100">
+                        <h5
+                          class="bg-navy-blue px-4 fs-14 py-1 rounded-2 text-white mb-2 w-max mx-auto"
+                        >
+                          Step 02
+                        </h5>
+                        <img
+                          class="w-100 object-fit-contain"
+                          src="{{ asset('assets/new_frontend/order-med-2.webp') }}"
+                          alt=""
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-3 align-self-end">
+                      <div class="w-100 h-100">
+                        <h5
+                          class="bg-navy-blue px-4 fs-14 py-1 rounded-2 text-white mb-2 w-max mx-auto"
+                        >
+                          Step 03
+                        </h5>
+                        <img
+                          class="w-100 object-fit-contain"
+                          src="{{ asset('assets/new_frontend/order-med-3.webp') }}"
+                          alt=""
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-3 align-self-center">
+                      <div class="w-100 h-100">
+                        <h5
+                          class="bg-navy-blue px-4 fs-14 py-1 rounded-2 text-white mb-2 w-max mx-auto"
+                        >
+                          Step 04
+                        </h5>
+                        <img
+                          class="w-100 object-fit-contain"
+                          src="{{ asset('assets/new_frontend/order-med-4.webp') }}"
+                          alt=""
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="tab-pane fade"
+                id="pills-order-lab"
+                role="tabpanel"
+                aria-labelledby="pills-order-lab"
+                tabindex="0"
+              >
+                <div class="guide-img-container d-flex position-relative p-3">
+                  <div class="wave-arrow min-w-80">
+                    <img
+                      class="w-100 object-fit-contain"
+                      src="{{ asset('assets/new_frontend/arrow-wave-3.png') }}"
+                      alt=""
+                    />
+                  </div>
+                  <div
+                    class="row w-100 d-flex align-items-center justify-content-between position-relative flex-row gx-3"
+                  >
+                    <div class="col-md-5">
+                      <div class="w-100 h-100">
+                        <h5
+                          class="bg-navy-blue px-4 fs-14 py-1 rounded-2 text-white mb-2 w-max mx-auto"
+                        >
+                          Step 01
+                        </h5>
+                        <img
+                          class="w-100 object-fit-contain"
+                          src="{{ asset('assets/new_frontend/order-lab-1.webp') }}"
+                          alt=""
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-5">
+                      <div class="w-100 h-100">
+                        <h5
+                          class="bg-navy-blue px-4 fs-14 py-1 rounded-2 text-white mb-2 w-max mx-auto"
+                        >
+                          Step 02
+                        </h5>
+                        <img
+                          class="w-100 object-fit-contain"
+                          src="{{ asset('assets/new_frontend/order-lab-2.webp') }}"
+                          alt=""
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="tab-pane fade"
+                id="pills-checkout"
+                role="tabpanel"
+                aria-labelledby="pills-checkout"
+                tabindex="0"
+              >
+                <div class="guide-img-container d-flex position-relative p-3">
+                  <div class="wave-arrow">
+                    <img
+                      class="w-100 object-fit-contain"
+                      src="{{ asset('assets/new_frontend/arrow-wave-4.png') }}"
+                      alt=""
+                    />
+                  </div>
+                  <div
+                    class="row w-100 d-flex align-items-center justify-content-between position-relative flex-row"
+                  >
+                    <div class="col-md-3">
+                      <div class="w-100 h-100">
+                        <h5
+                          class="bg-navy-blue px-4 fs-14 py-1 rounded-2 text-white mb-2 w-max mx-auto"
+                        >
+                          Step 01
+                        </h5>
+                        <img
+                          class="w-100 object-fit-contain"
+                          src="{{ asset('assets/new_frontend/checkout-1.webp') }}"
+                          alt=""
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="w-100 h-100">
+                        <h5
+                          class="bg-navy-blue px-4 fs-14 py-1 rounded-2 text-white mb-2 w-max mx-auto"
+                        >
+                          Step 02
+                        </h5>
+                        <img
+                          class="w-100 object-fit-contain"
+                          src="{{ asset('assets/new_frontend/checkout-2.webp') }}"
+                          alt=""
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="w-100 h-100">
+                        <h5
+                          class="bg-navy-blue px-4 fs-14 py-1 rounded-2 text-white mb-2 w-max mx-auto"
+                        >
+                          Step 03
+                        </h5>
+                        <img
+                          class="w-100 object-fit-contain"
+                          src="{{ asset('assets/new_frontend/checkout-3.webp') }}"
+                          alt=""
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-
+          </div>
         </div>
+      </section>
 
-    </section>
+      <!-- Section 3: Promotional Products Section -->
+      <section
+        class="container-fluid px-0 d-flex justify-content-center pt-2 pb-4"
+      >
+        <div class="w-85">
+          <div class="row g-3">
+            <div class="col-md-7">
+              <div class="row g-3">
+                <div class="col-md-12">
+                  <div
+                    class="w-100 h-100 p-4 bg-blue text-white rounded-3 d-flex justify-content-between"
+                  >
+                    <div class="w-65">
+                      <h2 class="fs-28">
+                        Community Healthcare Clinics - Medicines
+                      </h2>
+                      <p class="fs-15">
+                        Our pharmacy offers Over the Counter medicines and
+                        wellbeing products.
+                      </p>
+                      <a
+                        class="mt-4 px-xxl-4 py-xxl-2 px-3 py-1 bg-white d-flex align-items-center gap-2 rounded-5 consult-btn"
+                        href=""
+                      >
+                        <span>Explore More</span>
+                        <span
+                          class="bg-white rounded-circle border-blue new-arrow-icon text-blue d-flex align-items-center justify-content-center"
+                          ><i class="fa-solid fa-arrow-right"></i
+                        ></span>
+                      </a>
+                    </div>
+                    <div
+                      class="w-35 d-flex align-items-end justify-content-center"
+                    >
+                      <img class="w-100" src="{{ asset('assets/new_frontend/product.webp') }}" alt="" />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div
+                    class="w-100 h-100 bg-light-red p-3 rounded-3 d-flex flex-column align-items-center justify-content-end"
+                  >
+                    <img class="w-100" src="{{ asset('assets/new_frontend/baby-care.webp') }}" alt="" />
+                    <div class="bg-white text-center px-4 py-3 rounded-3">
+                      <h5 class="m-0 promotion-product-name">
+                        Baby & Mothercare
+                      </h5>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div
+                    class="w-100 h-100 bg-light-sky-blue p-3 rounded-3 d-flex flex-column align-items-center justify-content-end"
+                  >
+                    <img class="w-100" src="{{ asset('assets/new_frontend/multi-vitamins.webp') }}" alt="" />
+                    <div class="bg-white text-center px-4 py-3 rounded-3">
+                      <h5 class="m-0 promotion-product-name">Multi-Vitamins</h5>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-5">
+              <div
+                class="w-100 h-100 bg-light-sky-blue p-3 rounded-3 d-flex flex-column align-items-center justify-content-end"
+              >
+                <img class="w-75" src="{{ asset('assets/new_frontend/personal-care.webp') }}" alt="" />
+                <div class="bg-white text-center px-4 py-3 rounded-3">
+                  <h5 class="m-0 promotion-product-name">Personal Care</h5>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
+      <!-- Section 4: Mission Statement Section -->
+      <section
+        class="mission-section container-fluid px-0 d-flex justify-content-center py-5 bg-light-gray-var"
+      >
+        <div class="w-85">
+          <h6 class="fs-14 fw-semibold mb-1 small-head">Mission Statement</h6>
+          <h2 class="fw-bold fs-3">
+            Consult the best Pakistani and American Doctors Online!
+          </h2>
+          <div class="row gx-3 mt-3">
+            <div class="col-md-3">
+              <div class="w-100 h-100">
+                <img
+                  class="w-100 h-100 rounded-3 object-fit-cover"
+                  src="{{ asset('assets/new_frontend/mission-1.webp') }}"
+                  alt=""
+                />
+              </div>
+            </div>
+            <div class="col-md-5">
+              <div class="w-100 h-100">
+                <p class="fs-14">
+                  At Community Healthcare Clinics, we are redefining how
+                  healthcare is accessed and delivered. As a next-generation
+                  telemedicine platform, our mission is to bridge the gap
+                  between patients and quality medical care anytime, anywhere.
+                  We specialize in building meaningful B2B partnerships with
+                  hospitals, empowering them to digitize their services by
+                  onboarding doctors and pharmacy units onto our secure,
+                  user-friendly platform. With a growing network of patients
+                  seeking convenient, affordable, and trusted healthcare, we
+                  offer hospitals the opportunity to expand their reach, reduce
+                  operational pressure, and enhance care delivery through
+                  virtual consultations and integrated pharmacy support.
+                  Together, we aim to build a stronger, tech-enabled healthcare
+                  ecosystem that prioritizes accessibility and impact.
+                </p>
+                <a
+                  class="mt-4 px-4 py-2 bg-zinc d-flex align-items-center gap-2 rounded-5 text-white consult-btn"
+                  href=""
+                >
+                  <span>Consult Now</span>
+                  <span
+                    class="bg-blue rounded-circle new-arrow-icon d-flex align-items-center justify-content-center"
+                    ><i class="fa-solid fa-arrow-right"></i
+                  ></span>
+                </a>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div
+                class="w-100 h-100 d-flex flex-column justify-content-between gap-2"
+              >
+                <img
+                  class="w-100 h-50 rounded-3 object-fit-cover"
+                  src="{{ asset('assets/new_frontend/mission-2.webp') }}"
+                  alt=""
+                />
+                <img
+                  class="w-100 h-50 rounded-3 object-fit-cover"
+                  src="{{ asset('assets/new_frontend/mission-3.webp') }}"
+                  alt=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-    <section id="steps-section">
-        <div id="steps-wrapper">
-            <div id="step-heading">
-                <h2>
-                    Our Guide for
-                    <span class="red">New Users</span>
+      <!-- Section 5: Our Partners -->
+      <section
+        class="our-partners-section container-fluid px-0 d-flex justify-content-center py-5"
+      >
+        <div class="row w-85 text-center position-relative z-1">
+          <h5 class="fs-14">Our Partners</h5>
+          <h2 class="fs-22 fw-bold">Collaborating Partners</h2>
+          <div
+            class="partner-scroll w-100 d-flex gap-4 overflow-hidden px-0 mt-4"
+          >
+            <div
+              class="partner-logo-container w-100 d-flex align-items-center justify-content-between gap-4"
+            >
+              <img src="{{ asset('assets/new_frontend/adviyaat-logo.webp') }}" alt="" />
+              <img src="{{ asset('assets/new_frontend/AGP-Logo.webp') }}" alt="" />
+              <img src="{{ asset('assets/new_frontend/dr-essa-logo.webp') }}" alt="" />
+              <img src="{{ asset('assets/new_frontend/HHS-Logo.webp') }}" alt="" />
+              <img src="{{ asset('assets/new_frontend/khayal-rakhna-logo.webp') }}" alt="" />
+              <img src="{{ asset('assets/new_frontend/peridots-logo.webp') }}" alt="" />
+            </div>
+            <div
+              aria-hidden="true"
+              class="partner-logo-container w-100 d-flex align-items-center justify-content-between gap-4"
+            >
+              <img src="{{ asset('assets/new_frontend/adviyaat-logo.webp') }}" alt="" />
+              <img src="{{ asset('assets/new_frontend/AGP-Logo.webp') }}" alt="" />
+              <img src="{{ asset('assets/new_frontend/dr-essa-logo.webp') }}" alt="" />
+              <img src="{{ asset('assets/new_frontend/HHS-Logo.webp') }}" alt="" />
+              <img src="{{ asset('assets/new_frontend/khayal-rakhna-logo.webp') }}" alt="" />
+              <img src="{{ asset('assets/new_frontend/peridots-logo.webp') }}" alt="" />
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Section 6: Client Testimonials -->
+      <section
+        class="container-fluid px-0 d-flex justify-content-center py-5 bg-light-blue"
+      >
+        <div class="row px-0 g-5 align-items-center flex-row w-85">
+          <div class="ps-0 col-md-4">
+            <div class="w-100 d-flex flex-column gap-3">
+              <div>
+                <h2 class="m-0 fs-28 me-md-1 d-md-block d-xl-inline">
+                  What Our
                 </h2>
-                <div class="underline"></div>
+                <span class="fw-bold fs-28">Client Says</span>
+              </div>
+              <p class="new-para">
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+              </p>
+              <div class="d-flex align-items-center gap-2">
+                <button
+                  class="carousel-control-prev position-static w-auto opacity-100"
+                  type="button"
+                  data-bs-target="#clientTestimonial"
+                  data-bs-slide="prev"
+                >
+                  <span
+                    class="bg-blue rounded-circle new-arrow-icon d-flex align-items-center justify-content-center text-white"
+                    ><i class="fa-solid fa-arrow-left"></i
+                  ></span>
+                </button>
+                <button
+                  class="carousel-control-next position-static w-auto opacity-100"
+                  type="button"
+                  data-bs-target="#clientTestimonial"
+                  data-bs-slide="next"
+                >
+                  <span
+                    class="bg-blue rounded-circle new-arrow-icon d-flex align-items-center justify-content-center text-white"
+                    ><i class="fa-solid fa-arrow-right"></i
+                  ></span>
+                </button>
+              </div>
             </div>
-            <div id="steps">
-                <div class="step" data-bs-toggle="modal" data-bs-target="#loginModal">
-                    <div class="step-icon">
-                        1
-                    </div>
-                    <span class="num"> <span class="vr"></span> </span>
-                    <div class="step-heading">
-                        <h3> LOGIN / REGISTER</h3>
-                    </div>
-                </div>
-                <div class="arrow arrow1">
-                    <i class="right_arrow fa-solid fa-angle-right mx-2"></i>
-                    <i class="down_arrow fa-solid fa-angle-down"></i>
-                </div>
-                <div class="step" data-bs-toggle="modal" data-bs-target="#e-visitModal">
-                    <div class="step-icon">
-                        2
-                    </div>
-                    <span class="num"><span class="vr"></span> </span>
-                    <div class="step-heading">
-                        <h3> E-VISIT/ LABTEST/ PHARMACY</h3>
-                    </div>
-                </div>
-                <div class="arrow arrow1">
-                    <i class="right_arrow fa-solid fa-angle-right mx-2"></i>
-                    <i class="down_arrow fa-solid fa-angle-down"></i>
-                </div>
-                <div class="step" onclick="window.location.href='{{ route('login') }}'">
-                    <div class="step-icon">
-                        3
-                    </div>
-                    <span class="num"><span class="vr"></span> </span>
-                    <div class="step-heading">
-                        <h3>CONFIRM ORDER</h3>
-                    </div>
-                </div>
-                <div class="arrow arrow1">
-                    <i class="right_arrow fa-solid fa-angle-right mx-2"></i>
-                    <i class="down_arrow fa-solid fa-angle-down"></i>
-                </div>
-                <div class="step" onclick="window.location.href='{{ route('login') }}'">
-                    <div class="step-icon">
-                        4
-                    </div>
-                    <span class="num"> <span class="vr"></span> </span>
-                    <div class="step-heading">
-                        <h3>CHECKOUT</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    {{--
-    <section class="mx-3 my-4 doctor-carousel-container">
-        <div class="d-flex justify-content-between align-items-center">
-            <div class="d-flex flex-column">
-                <h2 class="">
-                    List of
-                    <span class="red">Doctors</span>
-                </h2>
-                <div class="underline w-50"></div>
-            </div>
-            <div class="d-flex align-items-center justify-content-end gap-3">
-                <a class="carousel-control-prev bg-transparent w-aut" href="#recipeCarousel" role="button"
-                    data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                </a>
-                <a class="carousel-control-next bg-transparent w-aut" href="#recipeCarousel" role="button"
-                    data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                </a>
-            </div>
-        </div>
-        <div class="row mx-auto my-auto justify-content-center">
-            <div id="recipeCarousel" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner px-0 py-3 px-0" role="listbox">
-                    <div class="carousel-item active">
-                        <div class="col-12 col-sm-6 col-md-3 col-lg-2 px-sm-1 px-md-3">
-                            <div
-                                class="doctor-carousel-card-container d-flex flex-column align-items-center justify-content-center text-center rounded-2 py-1">
-                                <div class="carousel-pic-container rounded-circle p-1">
-                                    <img src="{{ asset('assets/new_frontend/doctor-3.png') }}" alt="Doctor Page"
-                                        class="rounded-circle object-fit-cover w-100 h-100" />
-                                </div>
-                                <div class="carousel-doctor-ratings mt-1">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                </div>
-                                <div class="d-flex flex-column mt-1">
-                                    <h5 class="mb-0">Dr. Allama Iqbal</h5>
-                                    <p class="">M.B.B.S, B.D.S.</p>
-                                </div>
-                                <h6 class="mt-1 rounded-5 px-2 py-1">DERMATOLOGY</h6>
-                            </div>
+          </div>
+          <div class="pe-0 col-md-8">
+            <div
+              class="w-100 d-flex gap-3 justify-content-between align-items-center"
+            >
+              <div
+                id="clientTestimonial"
+                class="carousel w-100"
+                data-bs-ride="carousel"
+              >
+                <div class="carousel-inner w-100">
+                  <div class="carousel-item px-2 w-50">
+                    <div class="card w-100">
+                      <div class="card-body w-100 card-min-size">
+                        <div
+                          class="w-100 d-flex align-items-center justify-content-between"
+                        >
+                          <div>
+                            <h5 class="card-title mb-0 fs-14">Irfan Khan</h5>
+                            <span
+                              class="card-subtitle client-rating gap-small text-gold fs-6 mt-0 d-flex align-items-center"
+                            >
+                              <span class="">★</span>
+                              <span class="">★</span>
+                              <span class="">★</span>
+                              <span class="">★</span>
+                              <span class="">★</span>
+                            </span>
+                          </div>
+                          <div
+                            class="client-pic rounded-circle overflow-hidden"
+                          >
+                            <img
+                              class="object-fit-cover w-100 h-100"
+                              src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D"
+                              alt=""
+                            />
+                          </div>
                         </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="col-12 col-sm-6 col-md-3 col-lg-2 px-sm-1 px-md-3">
-                            <div
-                                class="doctor-carousel-card-container d-flex flex-column align-items-center justify-content-center text-center rounded-2 py-1">
-                                <div class="carousel-pic-container rounded-circle p-1">
-                                    <img src="{{ asset('assets/new_frontend/doctor-3.png') }}" alt="Doctor Page"
-                                        class="rounded-circle object-fit-cover w-100 h-100" />
-                                </div>
-                                <div class="carousel-doctor-ratings mt-1">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                </div>
-                                <div class="d-flex flex-column mt-1">
-                                    <h5 class="mb-0">Dr. Allama Iqbal</h5>
-                                    <p class="">M.B.B.S, B.D.S.</p>
-                                </div>
-                                <h6 class="mt-1 rounded-5 px-2 py-1">DERMATOLOGY</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="col-12 col-sm-6 col-md-3 col-lg-2 px-sm-1 px-md-3">
-                            <div
-                                class="doctor-carousel-card-container d-flex flex-column align-items-center justify-content-center text-center rounded-2 py-1">
-                                <div class="carousel-pic-container rounded-circle p-1">
-                                    <img src="{{ asset('assets/new_frontend/doctor-3.png') }}" alt="Doctor Page"
-                                        class="rounded-circle object-fit-cover w-100 h-100" />
-                                </div>
-                                <div class="carousel-doctor-ratings mt-1">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                </div>
-                                <div class="d-flex flex-column mt-1">
-                                    <h5 class="mb-0">Dr. Felix Cadreal</h5>
-                                    <p class="">M.B.B.S, B.D.S.</p>
-                                </div>
-                                <h6 class="mt-1 rounded-5 px-2 py-1">DERMATOLOGY</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="col-12 col-sm-6 col-md-3 col-lg-2 px-sm-1 px-md-3">
-                            <div
-                                class="doctor-carousel-card-container d-flex flex-column align-items-center justify-content-center text-center rounded-2 py-1">
-                                <div class="carousel-pic-container rounded-circle p-1">
-                                    <img src="{{ asset('assets/new_frontend/doctor-3.png') }}" alt="Doctor Page"
-                                        class="rounded-circle object-fit-cover w-100 h-100" />
-                                </div>
-                                <div class="carousel-doctor-ratings mt-1">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                </div>
-                                <div class="d-flex flex-column mt-1">
-                                    <h5 class="mb-0">Dr. Allama Iqbal</h5>
-                                    <p class="">M.B.B.S, B.D.S.</p>
-                                </div>
-                                <h6 class="mt-1 rounded-5 px-2 py-1">DERMATOLOGY</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="col-12 col-sm-6 col-md-3 col-lg-2 px-sm-1 px-md-3">
-                            <div
-                                class="doctor-carousel-card-container d-flex flex-column align-items-center justify-content-center text-center rounded-2 py-1">
-                                <div class="carousel-pic-container rounded-circle p-1">
-                                    <img src="{{ asset('assets/new_frontend/doctor-3.png') }}" alt="Doctor Page"
-                                        class="rounded-circle object-fit-cover w-100 h-100" />
-                                </div>
-                                <div class="carousel-doctor-ratings mt-1">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                </div>
-                                <div class="d-flex flex-column mt-1">
-                                    <h5 class="mb-0">Dr. Allama Iqbal</h5>
-                                    <p class="">M.B.B.S, B.D.S.</p>
-                                </div>
-                                <h6 class="mt-1 rounded-5 px-2 py-1">DERMATOLOGY</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="col-12 col-sm-6 col-md-3 col-lg-2 px-sm-1 px-md-3">
-                            <div
-                                class="doctor-carousel-card-container d-flex flex-column align-items-center justify-content-center text-center rounded-2 py-1">
-                                <div class="carousel-pic-container rounded-circle p-1">
-                                    <img src="{{ asset('assets/new_frontend/doctor-3.png') }}" alt="Doctor Page"
-                                        class="rounded-circle object-fit-cover w-100 h-100" />
-                                </div>
-                                <div class="carousel-doctor-ratings mt-1">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                </div>
-                                <div class="d-flex flex-column mt-1">
-                                    <h5 class="mb-0">Dr. Allama Iqbal</h5>
-                                    <p class="">M.B.B.S, B.D.S.</p>
-                                </div>
-                                <h6 class="mt-1 rounded-5 px-2 py-1">DERMATOLOGY</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="col-12 col-sm-6 col-md-3 col-lg-2 px-sm-1 px-md-3">
-                            <div
-                                class="doctor-carousel-card-container d-flex flex-column align-items-center justify-content-center text-center rounded-2 py-1">
-                                <div class="carousel-pic-container rounded-circle p-1">
-                                    <img src="{{ asset('assets/new_frontend/doctor-3.png') }}" alt="Doctor Page"
-                                        class="rounded-circle object-fit-cover w-100 h-100" />
-                                </div>
-                                <div class="carousel-doctor-ratings mt-1">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                </div>
-                                <div class="d-flex flex-column mt-1">
-                                    <h5 class="mb-0">Dr. Allama Iqbal</h5>
-                                    <p class="">M.B.B.S, B.D.S.</p>
-                                </div>
-                                <h6 class="mt-1 rounded-5 px-2 py-1">DERMATOLOGY</h6>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <div class="col-12 col-sm-6 col-md-3 col-lg-2 px-sm-1 px-md-3">
-                            <div
-                                class="doctor-carousel-card-container d-flex flex-column align-items-center justify-content-center text-center rounded-2 py-1">
-                                <div class="carousel-pic-container rounded-circle p-1">
-                                    <img src="{{ asset('assets/new_frontend/doctor-3.png') }}" alt="Doctor Page"
-                                        class="rounded-circle object-fit-cover w-100 h-100" />
-                                </div>
-                                <div class="carousel-doctor-ratings mt-1">
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                    <i class="fa-solid fa-star"></i>
-                                </div>
-                                <div class="d-flex flex-column mt-1">
-                                    <h5 class="mb-0">Dr. Allama Iqbal</h5>
-                                    <p class="">M.B.B.S, B.D.S.</p>
-                                </div>
-                                <h6 class="mt-1 rounded-5 px-2 py-1">DERMATOLOGY</h6>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    </section>
-    --}}
-
-
-
-    <section id="buttons-section" class="container-fluid mt-5">
-        <div class="button-section nav nav-tabs" id="nav-tab" role="tablist">
-            <div id="e-visit-tab" class="nav-link active" data-bs-toggle="tab" data-bs-target="#e-visit" type="button"
-                role="tab" aria-controls="e-visit" aria-selected="true">
-                <i class="fa-solid fa-desktop "></i>
-                <div>E-Visit</div>
-            </div>
-            <div id="pharmacy-tab" class="nav-link pharmacy-penal" data-bs-toggle="tab" data-bs-target="#pharmacy"
-                type="button" role="tab" aria-controls="pharmacy" aria-selected="false">
-                <i class="fa-solid fa-pills "></i>
-                <div>Pharmacy</div>
-            </div>
-            <div id="tests-tab" class="nav-link labtest-penal" data-bs-toggle="tab" data-bs-target="#tests"
-                type="button" role="tab" aria-controls="tests" aria-selected="false">
-                <i class="fa-solid fa-flask "></i>
-                <div>Lab Tests</div>
-            </div>
-            <div id="imaging-tab" class="nav-link imaging-penal" data-bs-toggle="tab" data-bs-target="#imaging"
-                type="button" role="tab" aria-controls="imaging" aria-selected="false">
-                <i class="fa-solid fa-flask-vial "></i>
-                <div>Imaging</div>
-            </div>
-            <div id="primary-care-tab" class="nav-link" data-bs-toggle="tab" data-bs-target="#primary-care"
-                type="button" role="tab" aria-controls="primary-care" aria-selected="false">
-                <i class="fa-solid fa-hand-holding-medical "></i>
-                <div>Primary Care</div>
-            </div>
-            <div id="psychiatry-tab" class="nav-link" data-bs-toggle="tab" data-bs-target="#psychiatry" type="button"
-                role="tab" aria-controls="psychiatry" aria-selected="false">
-                <i class="fa-solid fa-user-doctor "></i>
-                <div>Psychiatry</div>
-            </div>
-            {{--<div id="pain-management-tab" class="nav-link" data-bs-toggle="tab" data-bs-target="#pain-management"
-                type="button" role="tab" aria-controls="pain-management" aria-selected="false">
-                <div>Pain Management</div>
-            </div>
-            <div id="substance-abuse-tab" class="nav-link" data-bs-toggle="tab" data-bs-target="#substance-abuse"
-                type="button" role="tab" aria-controls="substance-abuse" aria-selected="false">
-                <div>Substance Abuse</div>
-            </div>--}}
-        </div>
-    </section>
-    <div class="container1 container-fluid tab-content" id="nav-tabContent">
-        <section class="tab-pane fade show active" id="e-visit" role="tabpanel" aria-labelledby="e-visit-tab"
-            tabindex="0">
-            <div class="tabs-section-container e-visit-section">
-                <div class="e-visit-content">
-                    <div class="left">
-                        @if($groupedSections["E-visit"]["contents"])
-                        {!! $groupedSections["E-visit"]["contents"][0]["content"] !!}
-                        @else
-                        <p>
-                            Umbrella Health Care Systems provide you with facility to
-                            visit doctors, therapist, or medical expert online. Find
-                            best Doctors to get instant medical advice for your health
-                            problems. Ask the doctors online and consult them on
-                            face-to-face video calls, chat, or voice calls at your
-                            convenience. Umbrella Health Care Systems offer a wide range
-                            of specialists in various medical fields, including general
-                            physicians, dermatologists, pediatricians, psychiatrists,
-                            and more. Whether you're seeking advice on minor health
-                            concerns, mental health support, or urgent medical queries,
-                            you can easily connect with qualified healthcare
-                            professionals from the comfort of your home.
+                        <p class="card-text text-overflow mt-3 fs-12">
+                          Community healthcare clinics provide an excellent
+                          platform for both online consultations and in-person
+                          meetings.Online or inclinics sessions the process went
+                          smoothly for both sides.The physicians treat their
+                          patients with professionalism and good manners.Highly
+                          recommend for anyone.
                         </p>
-                        @endif
-                        <div class="doc-btn-container">
-                            <div class="doctor-button">
-                                <i class="fa-solid fa-user-doctor"></i>
-                                <a class="doc-btn" @if (Auth::check()) href="{{ route('patient_evisit_specialization') }}"
-                                    @else data-bs-toggle="modal" data-bs-target="#loginModal" @endif>TALK TO
-                                    DOCTORS</a>
-                            </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="carousel-item px-2 w-50">
+                    <div class="card w-100">
+                      <div class="card-body w-100 card-min-size">
+                        <div
+                          class="w-100 d-flex align-items-center justify-content-between"
+                        >
+                          <div>
+                            <h5 class="card-title mb-0 fs-14">Irfan Khan</h5>
+                            <span
+                              class="card-subtitle client-rating gap-small text-gold fs-6 mt-0 d-flex align-items-center"
+                            >
+                              <span class="">★</span>
+                              <span class="">★</span>
+                              <span class="">★</span>
+                              <span class="">★</span>
+                              <span class="">★</span>
+                            </span>
+                          </div>
+                          <div
+                            class="client-pic rounded-circle overflow-hidden"
+                          >
+                            <img
+                              class="object-fit-cover w-100 h-100"
+                              src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D"
+                              alt=""
+                            />
+                          </div>
                         </div>
-                    </div>
-                    <div class="right">
-                        <img src=" {{ asset('assets/new_frontend/Evisit.jpg') }}" alt="" />
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="tab-pane fade" id="pharmacy" role="tabpanel" aria-labelledby="pharmacy-tab" tabindex="0">
-            <div class="tabs-section-container">
-                @if($groupedSections["Pharmacy"]["contents"])
-                {!! $groupedSections["Pharmacy"]["contents"][0]["content"] !!}
-                @else
-                <div class="tabs-section-heading">
-                    <h2>Pharmacy</h2>
-                    {{-- <div class="underline"></div> --}}
-                </div>
-                <p class="tabs-section-para">
-                    Our Pharmacy Offers prescription drugs at discounted prices
-                </p>
-                @endif
-
-                <div class="pharmacy-content">
-                    <div class="pharmacy-categories">
-                        @foreach ($data['prescribed_medicines_category'] as $item)
-                        <div class="pharmacy-category" onclick="getPharmacyProductByCategory({{ $item->id }},8)">
-                            <i class="fa-solid fa-pills"></i>
-                            <div title="{{ $item->title }}">{{ \Str::limit($item->title, 15, '...') }}</div>
-                        </div>
-                        @endforeach
-                        <div class="pharmacy-category">
-                            <i class="fa-solid fa-pills"></i>
-                            <div onclick="location.href='{{ route('pharmacy') }}'">View More</div>
-                        </div>
-                    </div>
-
-                    <hr />
-
-                    <div class="medicines-container" id="load_pharmacy_item_by_category">
-                        <div class="card">
-                            <div class="prescription">
-                                <p style="background: red">prescription required</p>
-                            </div>
-                            <div class="price">
-                                <p>Rs: 200</p>
-                            </div>
-                            <div class="med-img"><img src="{{ asset('assets/new_frontend/panadol.png') }}" alt="img">
-                            </div>
-                            <h4 class="truncate m-0 p-0">Niacin ER tablet</h4>
-                            <h6 class="truncate m-0 p-0">Heart Disease</h6>
-                            <div class="pharmacy_btn">
-                                <a class="read-more btn btn-outline-danger" href="#">Read More <i
-                                        class="fa-solid fa-sheet-plastic mx-2"></i></a>
-                                <a class="add-to-cart" href="#">Add to Cart <i
-                                        class="fa-solid fa-cart-shopping mx-2"></i></a>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="prescription">
-                                <p style="background: #35b518">prescription required</p>
-                            </div>
-                            <div class="med-img"><img src="https://placehold.co/70" alt="img"></div>
-                            <h4 class="truncate">Niacin ER tablet</h4>
-                            <h6 class="truncate">Heart Disease</h6>
-                            <div class="pharmacy_btn">
-                                <a class="read-more btn btn-outline-danger" href="#">Read More <i
-                                        class="fa-solid fa-sheet-plastic mx-2"></i></a>
-                                <a class="add-to-cart" href="#">Add to Cart <i
-                                        class="fa-solid fa-cart-shopping mx-2"></i></a>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="prescription">
-                                <p>prescription required</p>
-                            </div>
-                            <div class="med-img"><img src="https://placehold.co/70" alt="img"></div>
-                            <h4 class="truncate">Niacin ER tablet</h4>
-                            <h6 class="truncate">Heart Disease</h6>
-                            <div class="pharmacy_btn">
-                                <a class="read-more btn btn-outline-danger" href="#">Read More <i
-                                        class="fa-solid fa-sheet-plastic mx-2"></i></a>
-                                <a class="add-to-cart" href="#">Add to Cart <i
-                                        class="fa-solid fa-cart-shopping mx-2"></i></a>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="prescription">
-                                <p>prescription required</p>
-                            </div>
-                            <div class="med-img"><img src="https://placehold.co/70" alt="img"></div>
-                            <h4 class="truncate">Niacin ER tablet</h4>
-                            <h6 class="truncate">Heart Disease</h6>
-                            <div class="pharmacy_btn">
-                                <a class="read-more btn btn-outline-danger" href="#">Read More <i
-                                        class="fa-solid fa-sheet-plastic mx-2"></i></a>
-                                <a class="add-to-cart" href="#">Add to Cart <i
-                                        class="fa-solid fa-cart-shopping mx-2"></i></a>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="prescription">
-                                <p>prescription required</p>
-                            </div>
-                            <div class="med-img"><img src="https://placehold.co/70" alt="img"></div>
-                            <h4 class="truncate">Niacin ER tablet</h4>
-                            <h6 class="truncate">Heart Disease</h6>
-                            <div class="pharmacy_btn">
-                                <a class="read-more btn btn-outline-danger" href="#">Read More <i
-                                        class="fa-solid fa-sheet-plastic mx-2"></i></a>
-                                <a class="add-to-cart" href="#">Add to Cart <i
-                                        class="fa-solid fa-cart-shopping mx-2"></i></a>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="prescription">
-                                <p>prescription required</p>
-                            </div>
-                            <div class="med-img"><img src="https://placehold.co/70" alt="img"></div>
-                            <h4 class="truncate">Niacin ER tablet</h4>
-                            <h6 class="truncate">Heart Disease</h6>
-                            <div class="pharmacy_btn">
-                                <a class="read-more btn btn-outline-danger" href="#">Read More <i
-                                        class="fa-solid fa-sheet-plastic mx-2"></i></a>
-                                <a class="add-to-cart" href="#">Add to Cart <i
-                                        class="fa-solid fa-cart-shopping mx-2"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="d-flex justify-content-center align-items-center no-product-loader">
-                        <i class="fa fa-spinner fa-spin fs-1"></i>
-                    </div>
-
-                    <div class="btn-div">
-                        <button onclick="location.href='{{ route('pharmacy') }}'" class="view_all">View All</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="tab-pane fade" id="tests" role="tabpanel" aria-labelledby="tests-tab" tabindex="0">
-            <div class="tabs-section-container">
-                @if($groupedSections["lab-test"]["contents"])
-                {!! $groupedSections["lab-test"]["contents"][0]["content"] !!}
-                @else
-                <div class="tabs-section-heading">
-                    <h2>Lab Tests</h2>
-                    {{-- <div class="underline"></div> --}}
-                </div>
-                <p class="tabs-section-para">
-                    Umbrella Health Care Systems medical labs are state of the art
-                    lab services , we several reference labs to bring you best price
-                    and precise lab work.
-                </p>
-                @endif
-                {{--<div class="pharmacy-categories">
-                    @foreach ($data['labtest_category'] as $item)
-                    <div class="pharmacy-category" onclick="getLabtestProductByCategory({{ $item->id }},5)">
-                        <i class="fa-solid fa-flask"></i>
-                        <div title="{{ $item->product_parent_category }}">
-                            {{ \Str::limit($item->product_parent_category, 15, '...') }}</div>
-                    </div>
-                    @endforeach
-                    <div class="pharmacy-category">
-                        <i class="fa-solid fa-flask"></i>
-                        <div onclick="location.href='{{ route('labs') }}'">View More</div>
-                    </div>
-                </div>--}}
-
-
-                <hr class="hr" />
-
-                <h2 class="text-center">Most Popular Labtests</h2>
-                <div class="tests-container" id="load_labtest_item_by_category">
-                    {{-- <div class="tests-card">
-                        <div class="test-card-content">
-                            <div class="add_to_cart_container">
-                                <button class="add_to_cart_btn">
-                                    Learn More
-                                </button>
-                            </div>
-                            <h4 class="truncate">Complete Blood Count</h4>
-                            <p class="truncate-overflow">
-                                Complete Blood Count (CBC) is a blood test used to
-                                evaluate your overall health and detect a wide range of
-                                disorders, including anemia, infection and leukemia.
-                            </p>
-                            <div class="test-card-price">Rs. 2000</div>
-                            <button class="learn_btn">Add To Cart <i
-                                    class="fa-solid fa-cart-shopping mx-2"></i></button>
-                        </div>
-                    </div>
-                    <div class="tests-card">
-                        <div class="test-card-content">
-                            <div class="add_to_cart_container">
-                                <button class="add_to_cart_btn">
-                                    Learn More
-                                </button>
-                            </div>
-                            <h4 class="truncate">Complete Blood Count</h4>
-                            <p class="truncate-overflow">
-                                Complete Blood Count (CBC) is a blood test used to
-                                evaluate your overall health and detect a wide range of
-                                disorders, including anemia, infection and leukemia.
-                            </p>
-                            <button class="learn_btn">Add To Cart <i
-                                    class="fa-solid fa-cart-shopping mx-2"></i></button>
-                        </div>
-                    </div>
-                    <div class="tests-card">
-                        <div class="test-card-content">
-                            <div class="add_to_cart_container">
-                                <button class="add_to_cart_btn">
-                                    Learn More
-                                </button>
-                            </div>
-                            <h4 class="truncate">Complete Blood Count</h4>
-                            <p class="truncate-overflow">
-                                Complete Blood Count (CBC) is a blood test used to
-                                evaluate your overall health and detect a wide range of
-                                disorders, including anemia, infection and leukemia.
-                            </p>
-                            <button class="learn_btn">Add To Cart <i
-                                    class="fa-solid fa-cart-shopping mx-2"></i></button>
-                        </div>
-                    </div>
-                    <div class="tests-card">
-                        <div class="test-card-content">
-                            <div class="add_to_cart_container">
-                                <button class="add_to_cart_btn">
-                                    Learn More
-                                </button>
-                            </div>
-                            <h4 class="truncate">Complete Blood Count</h4>
-                            <p class="truncate-overflow">
-                                Complete Blood Count (CBC) is a blood test used to
-                                evaluate your overall health and detect a wide range of
-                                disorders, including anemia, infection and leukemia.
-                            </p>
-                            <button class="learn_btn">Add To Cart <i
-                                    class="fa-solid fa-cart-shopping mx-2"></i></button>
-                        </div>
-                    </div>
-                    <div class="tests-card">
-                        <div class="test-card-content">
-                            <div class="add_to_cart_container">
-                                <button class="add_to_cart_btn">
-                                    Learn More
-                                </button>
-                            </div>
-                            <h4 class="truncate">Complete Blood Count</h4>
-                            <p class="truncate-overflow">
-                                Complete Blood Count (CBC) is a blood test used to
-                                evaluate your overall health and detect a wide range of
-                                disorders, including anemia, infection and leukemia.
-                            </p>
-                            <button class="learn_btn">Add To Cart <i
-                                    class="fa-solid fa-cart-shopping mx-2"></i></button>
-                        </div>
-                    </div> --}}
-                    <div class="no-product-text d-flex justify-content-center align-items-center flex-column">
-                        <i class="fa fa-spinner fa-spin fs-1"></i>
-                        <p>Loading</p>
-                    </div>
-                </div>
-                <div class="btn-div">
-                    <button class="view_all" onclick="location.href='{{ route('labs') }}'">View All</button>
-                </div>
-            </div>
-        </section>
-        <section class="tab-pane fade" id="imaging" role="tabpanel" aria-labelledby="imaging-tab" tabindex="0">
-            <div class="tabs-section-container">
-                @if($groupedSections["imaging"]["contents"])
-                {!! $groupedSections["imaging"]["contents"][0]["content"] !!}
-                @else
-                <div class="tabs-section-heading">
-                    <h2>Imaging</h2>
-                    {{-- <div class="underline"></div> --}}
-                </div>
-                <p class="tabs-section-para">
-                    Umbrella Health Care Systems medical labs are state of the art
-                    lab services , we several reference labs to bring you best price
-                    and precise lab work.
-                </p>
-                @endif
-                <div class="pharmacy-categories">
-                    @foreach ($data['imaging_category'] as $item)
-                    <div class="pharmacy-category" onclick="getImagingProductByCategory({{ $item->id }},10)">
-                        <i class="fa-solid fa-flask"></i>
-                        <div title="{{ $item->product_parent_category }}">
-                            {{ \Str::limit($item->product_parent_category, 15, '...') }}</div>
-                    </div>
-                    @endforeach
-                    <div class="pharmacy-category">
-                        <i class="fa-solid fa-flask"></i>
-                        <div onclick="location.href='{{ route('imaging') }}'">View More</div>
-                    </div>
-                </div>
-
-                <hr class="hr" />
-
-                <h2 class="text-center">Most Popular Labtests</h2>
-                <div class="tests-container" id="load_imaging_item_by_category">
-                    {{--<div class="tests-card">
-                        <div class="test-card-content">
-                            <div class="add_to_cart_container">
-                                <button class="add_to_cart_btn">
-                                    <i class="fa-solid fa-cart-shopping"></i>
-                                </button>
-                            </div>
-                            <h4 class="truncate">Complete Blood Count</h4>
-                            <p class="truncate-overflow">
-                                Complete Blood Count (CBC) is a blood test used to
-                                evaluate your overall health and detect a wide range of
-                                disorders, including anemia, infection and leukemia.
-                            </p>
-                            <button class="learn_btn">Learn More</button>
-                        </div>
-                    </div>
-                    <div class="tests-card">
-                        <div class="test-card-content">
-                            <div class="add_to_cart_container">
-                                <button class="add_to_cart_btn">
-                                    <i class="fa-solid fa-cart-shopping"></i>
-                                </button>
-                            </div>
-                            <h4 class="truncate">Complete Blood Count</h4>
-                            <p class="truncate-overflow">
-                                Complete Blood Count (CBC) is a blood test used to
-                                evaluate your overall health and detect a wide range of
-                                disorders, including anemia, infection and leukemia.
-                            </p>
-                            <button class="learn_btn">Learn More</button>
-                        </div>
-                    </div>
-                    <div class="tests-card">
-                        <div class="test-card-content">
-                            <div class="add_to_cart_container">
-                                <button class="add_to_cart_btn">
-                                    <i class="fa-solid fa-cart-shopping"></i>
-                                </button>
-                            </div>
-                            <h4 class="truncate">Complete Blood Count</h4>
-                            <p class="truncate-overflow">
-                                Complete Blood Count (CBC) is a blood test used to
-                                evaluate your overall health and detect a wide range of
-                                disorders, including anemia, infection and leukemia.
-                            </p>
-                            <button class="learn_btn">Learn More</button>
-                        </div>
-                    </div>
-                    <div class="tests-card">
-                        <div class="test-card-content">
-                            <div class="add_to_cart_container">
-                                <button class="add_to_cart_btn">
-                                    <i class="fa-solid fa-cart-shopping"></i>
-                                </button>
-                            </div>
-                            <h4 class="truncate">Complete Blood Count</h4>
-                            <p class="truncate-overflow">
-                                Complete Blood Count (CBC) is a blood test used to
-                                evaluate your overall health and detect a wide range of
-                                disorders, including anemia, infection and leukemia.
-                            </p>
-                            <button class="learn_btn">Learn More</button>
-                        </div>
-                    </div>
-                    <div class="tests-card">
-                        <div class="test-card-content">
-                            <div class="add_to_cart_container">
-                                <button class="add_to_cart_btn">
-                                    <i class="fa-solid fa-cart-shopping"></i>
-                                </button>
-                            </div>
-                            <h4 class="truncate">Complete Blood Count</h4>
-                            <p class="truncate-overflow">
-                                Complete Blood Count (CBC) is a blood test used to
-                                evaluate your overall health and detect a wide range of
-                                disorders, including anemia, infection and leukemia.
-                            </p>
-                            <button class="learn_btn">Learn More</button>
-                        </div>
-                    </div>--}}
-                    <div class="no-product-text d-flex justify-content-center align-items-center flex-column">
-                        <i class="fa fa-spinner fa-spin fs-1"></i>
-                        <p>Loading</p>
-                    </div>
-                </div>
-
-                <div class="btn-div">
-                    <button class="view_all" onclick="location.href='{{ route('imaging') }}'">View All</button>
-                </div>
-            </div>
-        </section>
-        <section class="tab-pane fade" id="primary-care" role="tabpanel" aria-labelledby="primary-care-tab"
-            tabindex="0">
-            <div class="tabs-section-container">
-                <div class="e-visit-content">
-                    <div class="left">
-                        @if($groupedSections["primary-care"]["contents"])
-                        {!! $groupedSections["primary-care"]["contents"][0]["content"] !!}
-                        @else
-                        <p>
-                            Umbrella Health Care Systems provide you with facility to
-                            visit doctors, therapist, or medical expert online. Find
-                            best Doctors to get instant medical advice for your health
-                            problems. Ask the doctors online and consult them on
-                            face-to-face video calls, chat, or voice calls at your
-                            convenience. Umbrella Health Care Systems offer a wide range
-                            of specialists in various medical fields, including general
-                            physicians, dermatologists, pediatricians, psychiatrists,
-                            and more. Whether you're seeking advice on minor health
-                            concerns, mental health support, or urgent medical queries,
-                            you can easily connect with qualified healthcare
-                            professionals from the comfort of your home.
+                        <p class="card-text mt-3 fs-12 text-overflow">
+                          Community healthcare clinics provide an excellent
+                          platform for both online consultations and in-person
+                          meetings.Online or inclinics sessions the process went
+                          smoothly for both sides.The physicians treat their
+                          patients with professionalism and good manners.Highly
+                          recommend for anyone.
                         </p>
-                        @endif
-                        <div class="doc-btn-container">
-                            <div class="doctor-button">
-                                <i class="fa-solid fa-user-doctor"></i>
-                                <a class="doc-btn" @if (Auth::check()) href="{{ route('patient_online_doctors', ['id' => 1]) }}"
-                                    @else data-bs-toggle="modal" data-bs-target="#loginModal" @endif>TALK TO
-                                    DOCTORS</a>
-                            </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="carousel-item px-2 w-50">
+                    <div class="card w-100">
+                      <div class="card-body w-100 card-min-size">
+                        <div
+                          class="w-100 d-flex align-items-center justify-content-between"
+                        >
+                          <div>
+                            <h5 class="card-title mb-0 fs-14">Irfan Khan</h5>
+                            <span
+                              class="card-subtitle client-rating gap-small text-gold fs-6 mt-0 d-flex align-items-center"
+                            >
+                              <span class="">★</span>
+                              <span class="">★</span>
+                              <span class="">★</span>
+                              <span class="">★</span>
+                              <span class="">★</span>
+                            </span>
+                          </div>
+                          <div
+                            class="client-pic rounded-circle overflow-hidden"
+                          >
+                            <img
+                              class="object-fit-cover w-100 h-100"
+                              src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D"
+                              alt=""
+                            />
+                          </div>
                         </div>
+                        <p class="card-text mt-3 fs-12 text-overflow">
+                          Community healthcare clinics provide an excellent
+                          platform for both online consultations and in-person
+                          meetings.Online or inclinics sessions the process went
+                          smoothly for both sides.The physicians treat their
+                          patients with professionalism and good manners.Highly
+                          recommend for anyone.
+                        </p>
+                      </div>
                     </div>
-                    <div class="right">
-                        <img width="500px" src=" {{ asset('assets/new_frontend/primary-care.jpg') }}" alt="" />
+                  </div>
+                  <div class="carousel-item px-2 w-50">
+                    <div class="card w-100">
+                      <div class="card-body w-100 card-min-size">
+                        <div
+                          class="w-100 d-flex align-items-center justify-content-between"
+                        >
+                          <div>
+                            <h5 class="card-title mb-0 fs-14">Irfan Khan</h5>
+                            <span
+                              class="card-subtitle client-rating gap-small text-gold fs-6 mt-0 d-flex align-items-center"
+                            >
+                              <span class="">★</span>
+                              <span class="">★</span>
+                              <span class="">★</span>
+                              <span class="">★</span>
+                              <span class="">★</span>
+                            </span>
+                          </div>
+                          <div
+                            class="client-pic rounded-circle overflow-hidden"
+                          >
+                            <img
+                              class="object-fit-cover w-100 h-100"
+                              src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlcnxlbnwwfHwwfHx8MA%3D%3D"
+                              alt=""
+                            />
+                          </div>
+                        </div>
+                        <p class="card-text mt-3 fs-12 text-overflow">
+                          Community healthcare clinics provide an excellent
+                          platform for both online consultations and in-person
+                          meetings.Online or inclinics sessions the process went
+                          smoothly for both sides.The physicians treat their
+                          patients with professionalism and good manners.Highly
+                          recommend for anyone.
+                        </p>
+                      </div>
                     </div>
+                  </div>
                 </div>
+              </div>
             </div>
-        </section>
-        <section class="tab-pane fade" id="psychiatry" role="tabpanel" aria-labelledby="psychiatry-tab" tabindex="0">
-            <div class="tabs-section-container">
-                <div class="tabs-section-heading">
-                    <h2>Psychiatry</h2>
-                    {{-- <div class="underline"></div> --}}
-                </div>
-                @if($groupedSections["psychiatry"]["contents"])
-                {!! $groupedSections["psychiatry"]["contents"][0]["content"] !!}
-                @else
-                <p class="tabs-section-para">
-                    Getting the support you need has never been simpler thanks to
-                    Umbrella Health Care System’s skilled team of psychiatrists, who
-                    are known for offering their patients compassionate.
-                </p>
-                @endif
-                <hr />
-
-                <div class="psychiatry-container">
-                    @foreach ($data['psychiatrist'] as $key => $item)
-                    <div class="psychiatry-box">
-                        <img src=" {{ asset('assets/new_frontend/depression.png') }}" alt="{{ $item->title }}" />
-                        <p>{{ $item->title }}</p>
-                    </div>
-                    @endforeach
-                </div>
-
-                <div class="btn-div">
-                    <button class="view_all" onclick="location.href='{{ route('psychiatry',['slug'=>" anxiety"])
-                        }}'">View All</button>
-                </div>
-            </div>
-        </section>
-        {{--
-        <section class="tab-pane fade" id="pain-management" role="tabpanel" aria-labelledby="pain-management-tab"
-            tabindex="0">
-            <div class="tabs-section-container">
-                <div class="tabs-section-heading">
-                    <h2>Pain Management</h2>
-                    <div class="underline"></div>
-                </div>
-                @if($groupedSections["pain-management"]["contents"])
-                {!! $groupedSections["pain-management"]["contents"][0]["content"] !!}
-                @else
-                <p class="tabs-section-para">
-                    Getting the support you need has never been simpler thanks to
-                    Umbrella Health Care System’s skilled team of psychiatrists, who
-                    are known for offering their patients compassionate.
-                </p>
-                @endif
-                <hr />
-
-                <div class="pain-management-container">
-                    @foreach ($data['pain_categories'] as $key => $item)
-                    <div class="pain-management-box">
-                        <img src=" {{ asset('assets/new_frontend/cancer-icon-umbrella.png') }}"
-                            alt="{{ $item->title }}" />
-                        <p>{{ $item->title }}</p>
-                    </div>
-                    @endforeach
-
-                </div>
-
-                <div class="btn-div">
-                    <button class="view_all" onclick="location.href='{{ route('pain.management') }}'">View All</button>
-                </div>
-            </div>
-        </section>
-        <section class="tab-pane fade" id="substance-abuse" role="tabpanel" aria-labelledby="substance-abuse-tab"
-            tabindex="0">
-            <div class="tabs-section-container">
-                <div class="tabs-section-heading">
-                    <h2>Substance Abuse</h2>
-                    <div class="underline"></div>
-                </div>
-                @if($groupedSections["substance-abuse"]["contents"])
-                {!! $groupedSections["substance-abuse"]["contents"][0]["content"] !!}
-                @else
-                <p class="tabs-section-para">
-                    Getting the support you need has never been simpler thanks to
-                    Umbrella Health Care System’s skilled team of psychiatrists, who
-                    are known for offering their patients compassionate.
-                </p>
-                @endif
-                <hr />
-
-                <div class="substance-abuse-container">
-                    @foreach ($data['substance_categories'] as $item)
-                    <div class="substance-abuse-box">
-                        <img src=" {{ asset('assets/new_frontend/self-pay.png') }}" alt="{{ $item->title }}" />
-                        <p>{{ $item->title }}</p>
-                    </div>
-                    @endforeach
-
-                </div>
-
-                <div class="btn-div">
-                    <button class="view_all"
-                        onclick="location.href='{{ route('substance',['slug'=>'first-visit']) }}'">View All</button>
-                </div>
-            </div>
-        </section>
-        --}}
-    </div>
-
-    <section id="problems-section" class="py-2">
-        <div class="blob position-absolute">
-            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                <path fill="#E8DAFF"
-                    d="M37.8,-66.6C45.1,-61.4,44.4,-43.3,47,-30C49.7,-16.8,55.7,-8.4,62.3,3.8C68.8,15.9,75.8,31.9,69.9,39.5C64.1,47.2,45.3,46.6,31.5,46.7C17.7,46.8,8.9,47.5,-0.6,48.7C-10.1,49.8,-20.3,51.2,-28,47.6C-35.8,44,-41.1,35.4,-48.7,26.7C-56.4,17.9,-66.3,8.9,-72.3,-3.5C-78.3,-15.9,-80.5,-31.8,-76,-46C-71.4,-60.2,-60.3,-72.6,-46.5,-74.2C-32.8,-75.7,-16.4,-66.3,-0.5,-65.4C15.3,-64.4,30.6,-71.9,37.8,-66.6Z"
-                    transform="translate(100 100)" />
-            </svg>
+          </div>
         </div>
-        {{--<div class="blob2 position-absolute">
-            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                <path fill="#E8DAFF"
-                    d="M42.5,-52.1C58.1,-47.2,75.8,-38.8,84.6,-24.5C93.4,-10.1,93.4,10.1,83.4,22.9C73.5,35.8,53.7,41.2,38.1,47.5C22.6,53.9,11.3,61.1,-1.7,63.4C-14.7,65.8,-29.4,63.2,-37.9,54.6C-46.4,46,-48.8,31.3,-54.2,17.1C-59.6,2.8,-68,-11,-68.4,-26C-68.7,-41,-61,-57.1,-48.2,-62.9C-35.5,-68.7,-17.7,-64,-2.1,-61.1C13.5,-58.2,27,-56.9,42.5,-52.1Z"
-                    transform="translate(100 100)" />
-            </svg>
-        </div>--}}
-        <div class="container-fluid">
-            <div class="row align-items-center w-100">
-                <div class="col-md-5 col-xl-6 p-4 border-right">
-                    <div>
-                        <h1 class="font-weight-bold partner-heading">Our Collaborating <br><span
-                                class="text-danger">Partners</span></h1>
-                        <div class="underline bg-danger w-25"></div>
+      </section>
+      <!-- Section 7: FAQs -->
+      <section class="container-fluid py-5 new-faq-section px-0 w-85">
+        <div class="row py-3">
+          <div class="col-md-8">
+            <div class="w-100">
+              <h2 class="fs-22 fw-bold">Frequently Asked Questions</h2>
+              <div class="accordion accordion-flush mt-4" id="faqsSection">
+                <div class="accordion-item border-blue-2 rounded-2 my-1">
+                  <h2 class="accordion-header border-none my-1">
+                    <button
+                      class="accordion-button collapsed border-none"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#flush-collapseOne"
+                      aria-expanded="false"
+                      aria-controls="flush-collapseOne"
+                    >
+                      How do I book a consultation with an American doctor?
+                    </button>
+                  </h2>
+                  <div
+                    id="flush-collapseOne"
+                    class="accordion-collapse collapse"
+                    data-bs-parent="#faqsSection"
+                  >
+                    <div class="accordion-body border-none pt-0">
+                      Placeholder content for this accordion, which is intended
+                      to demonstrate the <code>.accordion-flush</code> class.
+                      This is the first item’s accordion body.
                     </div>
+                  </div>
                 </div>
-                <div class="col-md-7 col-xl-6">
-                    <div class="d-flex flex-wrap gap-3 justify-content-center align-items-center partners_logos">
-                        <img src="{{ asset('assets/new_frontend/partner2.png') }}" alt="Partner 2 Logo" />
-                        <img src="{{ asset('assets/new_frontend/partner1.png') }}" alt="Partner 1 Logo" />
+                <div class="accordion-item border-blue-2 rounded-2 my-1">
+                  <h2 class="accordion-header border-none my-1">
+                    <button
+                      class="accordion-button collapsed border-none"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#flush-collapseTwo"
+                      aria-expanded="false"
+                      aria-controls="flush-collapseTwo"
+                    >
+                      Accordion Item #2
+                    </button>
+                  </h2>
+                  <div
+                    id="flush-collapseTwo"
+                    class="accordion-collapse collapse"
+                    data-bs-parent="#faqsSection"
+                  >
+                    <div class="accordion-body border-none pt-0">
+                      Placeholder content for this accordion, which is intended
+                      to demonstrate the <code>.accordion-flush</code> class.
+                      This is the second item’s accordion body. Let’s imagine
+                      this being filled with some actual content.
                     </div>
+                  </div>
                 </div>
+                <div class="accordion-item border-blue-2 rounded-2 my-1">
+                  <h2 class="accordion-header border-none my-1">
+                    <button
+                      class="accordion-button collapsed"
+                      type="button"
+                      data-bs-toggle="collapse"
+                      data-bs-target="#flush-collapseThree"
+                      aria-expanded="false"
+                      aria-controls="flush-collapseThree"
+                    >
+                      Accordion Item #3
+                    </button>
+                  </h2>
+                  <div
+                    id="flush-collapseThree"
+                    class="accordion-collapse collapse"
+                    data-bs-parent="#faqsSection"
+                  >
+                    <div class="accordion-body border-none pt-0">
+                      Placeholder content for this accordion, which is intended
+                      to demonstrate the <code>.accordion-flush</code> class.
+                      This is the third item’s accordion body. Nothing more
+                      exciting happening here in terms of content, but just
+                      filling up the space to make it look, at least at first
+                      glance, a bit more representative of how this would look
+                      in a real-world application.
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
-    </section>
-
-
-    <section id="solution-section" class="image-content">
-        <div class="content">
-            <div id="solution-content" class="last-content">
-                <div id="solution-heading" class="heading">
-                    @if($groupedSections["last-section-header"]["contents"])
-                    {!! $groupedSections["last-section-header"]["contents"][0]["content"] !!}
-                    @else
-                    <h2>
-                        Umbrella Health Care Systems is the
-                        <span class="red">Best Health Care Website</span>
-                    </h2>
-                    @endif
-                    <div class="underline"></div>
-                </div>
-                <div id="solution-para" class="para">
-                    @if($groupedSections["last-section-description"]["contents"])
-                    {!! $groupedSections["last-section-description"]["contents"][0]["content"] !!}
-                    @else
-                    <p>
-                        Get started now! Doctors are ready to help you get the care
-                        you need, anywhere and anytime in the United States. Access to
-                        doctors, psychiatrists, psychologists, therapists and other
-                        medical experts, care is available from 07:00 AM to 08:00 PM.
-                    </p>
-                    @endif
-                </div>
-                <a class="doctor-button" href="{{ route('american-doctors') }}">
-                    <i class="fa-solid fa-user-doctor"></i>
-                    <span style="color: black">American Doctors</span>
-                </a>
+      </section>
+      <!-- Section 8: Mobile App Promotion -->
+      <section
+        class="container-fluid py-5 mob-app-section px-0 d-flex justify-content-center align-items-end"
+      >
+        <div
+          class="row gx-5 bg-white p-4 w-100 w-80 position-relative z-1 rounded-4"
+        >
+          <div class="col-md-4 position-relative">
+            <div class="w-100 position-absolute bottom-0">
+              <img class="w-100 app-img" src="{{ asset('assets/new_frontend/mob-app.webp') }}" alt="" />
             </div>
-            <aside id="solution-image" class="first-content">
-                <img src=" {{ asset('assets/new_frontend/AmericanDoc.jpg') }}" alt="conference-image" />
-            </aside>
-        </div>
-        {{-- <div class="image-bg"></div> --}}
-    </section>
-    <section id="faqs">
-        <div>
-            <h2>Frequently Asked <span class="red">Questions</span></h2>
-            <div class="underline"></div>
-        </div>
-        <div id="faq-content">
-            @foreach ($faqs as $faq)
-            <div class="faq">
-                <div class="faq-question">
-                    <h3>{{ $faq->question }}</h3>
-                    <i class="fa-solid fa-plus"></i>
+          </div>
+          <div class="col-md-8">
+            <div class="w-100 px-4">
+              <h2 class="fs-22 fw-semibold text-capitalize app-head">
+                <span class="highlight-blue">Community HealthCare Clinics</span>
+                Medical Apps that make Personal Health Easier
+              </h2>
+              <p class="text-capitalize new-para mt-3">
+                “to build an effective healthcare app, start by identifying the
+                needs of your patients and the features that will bring them the
+                most value."
+              </p>
+              <div class="row flex-row mt-4 app-link-container">
+                <div class="col-6">
+                  <button
+                    class="w-100 d-flex align-items-center gap-3 bg-navy-blue rounded-3 p-3"
+                  >
+                    <img
+                      class="app-icon object-fit-contain"
+                      src="{{ asset('assets/new_frontend/apple-logo.webp') }}"
+                      alt=""
+                    />
+                    <div
+                      class="text-start text-white d-flex flex-column justify-content-between h-100"
+                    >
+                      <h6 class="m-0 fs-12">Download on the</h6>
+                      <h5 class="m-0 promotion-product-name">App Store</h5>
+                    </div>
+                  </button>
+                  <button
+                    class="mt-2 w-100 d-flex align-items-center gap-3 bg-navy-blue rounded-3 p-3"
+                  >
+                    <img
+                      class="app-icon object-fit-contain"
+                      src="{{ asset('assets/new_frontend/google-play-logo.webp') }}"
+                      alt=""
+                    />
+                    <div
+                      class="text-start text-white d-flex flex-column justify-content-between h-100"
+                    >
+                      <h6 class="m-0 fs-12">Get it on</h6>
+                      <h5 class="m-0 promotion-product-name">Google Play</h5>
+                    </div>
+                  </button>
                 </div>
-                <div class="faq-answer">
-                    <p>{!! $faq->answer !!}</p>
+                <div class="col-2 px-0">
+                  <div class="w-100">
+                    <h6 class="text-uppercase fw-semibold mb-0">
+                      Scan to Download
+                    </h6>
+                    <img
+                      class="mt-1 w-100 object-fit-contain"
+                      src="{{ asset('assets/new_frontend/scan.webp') }}"
+                      alt=""
+                    />
+                  </div>
                 </div>
+              </div>
             </div>
-            @endforeach
+          </div>
         </div>
-    </section>
-</main>
+      </section>
+    </main>
 
 <!-- Modal -->
 <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
@@ -1516,21 +1472,21 @@
     </div>
 </div>
 <script>
-    let carouselParent = document.querySelector(".doctor-carousel-container");
-      let newItems = carouselParent.querySelectorAll(".carousel .carousel-item");
+    // let carouselParent = document.querySelector(".doctor-carousel-container");
+    // let newItems = carouselParent.querySelectorAll(".carousel .carousel-item");
 
-      newItems.forEach((el) => {
-        const minPerSlide = 6;
-        let next = el.nextElementSibling;
-        for (var i = 1; i < minPerSlide; i++) {
-          if (!next) {
-            next = newItems[0];
-          }
-          let cloneChild = next.cloneNode(true);
-          el.appendChild(cloneChild.children[0]);
-          next = next.nextElementSibling;
-        }
-      });
+    //   newItems.forEach((el) => {
+    //     const minPerSlide = 6;
+    //     let next = el.nextElementSibling;
+    //     for (var i = 1; i < minPerSlide; i++) {
+    //       if (!next) {
+    //         next = newItems[0];
+    //       }
+    //       let cloneChild = next.cloneNode(true);
+    //       el.appendChild(cloneChild.children[0]);
+    //       next = next.nextElementSibling;
+    //     }
+    //   });
 </script>
 <!-- ----------symptoms Checker Modal------- -->
 @endsection
