@@ -51,125 +51,124 @@ button {
 
 /* Utilities */
 .gap-small {
-  gap: 0.1rem !important;
+    gap: 0.1rem !important;
 }
 
 .fs-18 {
-  font-size: 1.125rem !important;
+    font-size: 1.125rem !important;
 }
 
 .fs-14 {
-  font-size: 0.875rem !important;
+    font-size: 0.875rem !important;
 }
 
 .fs-15 {
-  font-size: 0.9375rem !important;
+    font-size: 0.9375rem !important;
 }
 
 .fs-12 {
-  font-size: 0.75rem !important;
+    font-size: 0.75rem !important;
 }
 
 .fs-22 {
-  font-size: 1.375rem !important;
+    font-size: 1.375rem !important;
 }
 
 .fs-28 {
-  font-size: 1.75rem !important;
+    font-size: 1.75rem !important;
 }
 
 .bg-blue {
-  background-color: var(--new-blue);
+    background-color: var(--new-blue);
 }
 
 .bg-light-blue {
-  background-color: var(--new-light-blue);
+    background-color: var(--new-light-blue);
 }
 
 .bg-light-sky-blue {
-  background-color: var(--new-light-sky-blue);
+    background-color: var(--new-light-sky-blue);
 }
 
 .bg-green {
-  background-color: var(--new-green);
+    background-color: var(--new-green);
 }
 
 .bg-red {
-  background-color: var(--new-red);
+    background-color: var(--new-red);
 }
 
 .bg-light-red {
-  background-color: var(--new-light-red);
+    background-color: var(--new-light-red);
 }
 
 .bg-zinc {
-  background-color: var(--zinc);
+    background-color: var(--zinc);
 }
 
 .bg-light-gray-var {
-  background-color: var(--new-light-gray-variant);
+    background-color: var(--new-light-gray-variant);
 }
 
 .bg-navy-blue {
-  background-color: var(--navy-blue);
+    background-color: var(--navy-blue);
 }
 
 .border-blue {
-  border: 3px solid var(--new-blue) !important;
+    border: 3px solid var(--new-blue) !important;
 }
 
 .border-blue-2 {
-  border: 2px solid var(--new-blue) !important;
+    border: 2px solid var(--new-blue) !important;
 }
 
 .border-blue-3 {
-  border: 1px solid var(--new-blue);
+    border: 1px solid var(--new-blue);
 }
 
 .text-blue {
-  color: var(--new-blue);
+    color: var(--new-blue);
 }
 
 .text-gold {
-  color: var(--star-color);
+    color: var(--star-color);
 }
 
 .text-navy-blue {
-  color: var(--navy-blue);
+    color: var(--navy-blue);
 }
 
 .w-max {
-  width: max-content;
+    width: max-content;
 }
 
 .w-60 {
-  width: 60% !important;
+    width: 60% !important;
 }
 
 .w-40 {
-  width: 40% !important;
+    width: 40% !important;
 }
 
 .w-65 {
-  width: 65% !important;
+    width: 65% !important;
 }
 
 .w-35 {
-  width: 35% !important;
+    width: 35% !important;
 }
 
 .w-85 {
-  max-width: 85%;
+    max-width: 85%;
 }
 
 .w-80 {
-  max-width: 80%;
+    max-width: 80%;
 }
 
 .min-w-80 {
-  min-width: 80%;
+    min-width: 80%;
 }
-
 
 /* Header Styles */
 .top-head {
@@ -190,6 +189,14 @@ button {
     width: 2px;
     color: var(--white);
     background-color: var(--white);
+}
+
+.sm-toggler .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='3' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+.sm-toggler:focus {
+    box-shadow: none !important;
 }
 
 .new-logo img {
@@ -261,6 +268,12 @@ button {
     }
 }
 
+@media screen and (max-width: 360px) {
+    .new-logo img {
+        max-width: 160px;
+    }
+}
+
 /* end header styles */
 
 /* Footer Styles */
@@ -300,53 +313,95 @@ button {
 /* Hero Section Styles */
 
 .highlight-blue {
-  color: var(--new-blue);
+    color: var(--new-blue);
 }
 
 .promo-card {
-  background-color: var(--new-light-green);
+    background-color: var(--new-light-green);
 }
 
 .service-card {
-  background-color: var(--new-light-gray);
+    background-color: var(--new-light-gray);
 }
 
 .card-text-cont h5 {
-  white-space: nowrap;
+    white-space: nowrap;
 }
 
 .card-btn {
-  width: max-content;
+    width: max-content;
+}
+
+@media screen and (max-width: 769px) {
+    .service-card {
+        max-height: 150px;
+    }
+
+    .card-text-cont .fs-6 {
+        font-size: 0.95rem !important;
+    }
 }
 
 /* Our Guide Section */
 .our-guide-section .nav-item .active {
-  background-color: var(--navy-blue);
+    background-color: var(--navy-blue);
 }
 
 .guide-img-container {
-  user-select: none;
-  min-height: 370px;
+    user-select: none;
+    min-height: 370px;
 }
 
 .wave-arrow {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 65%;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 65%;
 }
+
+/* Promotion Section */
+
+@media screen and (max-width: 576px) {
+    .promotion-section .w-65,
+    .promotion-section .w-35 {
+        width: 100% !important;
+    }
+
+    .promotion-section .consult-btn {
+        position: absolute;
+        bottom: 15%;
+        border: 2px solid var(--new-blue);
+    }
+}
+
+/* Promotion Section End */
 
 /* Mission Statement Section */
 
 .consult-btn {
-  width: max-content;
+    width: max-content;
 }
 
 .new-arrow-icon {
-  min-width: 2rem;
-  min-height: 2rem;
-  border: 3px solid white;
+    min-width: 2rem;
+    min-height: 2rem;
+    border: 3px solid white;
+}
+
+@media screen and (max-width: 576px) {
+    .mission-section {
+        background-color: var(--white) !important;
+    }
+
+    .mission-section .consult-btn {
+        position: absolute;
+        bottom: 7%;
+        left: 50%;
+        transform: translate(-50%, -7%);
+        margin-block: auto;
+        border: 2px solid var(--new-blue);
+    }
 }
 
 /* Mission Statement Section End */
@@ -354,48 +409,58 @@ button {
 /* Our Partners Section */
 
 .our-partners-section {
-  background-image: url("doodles.webp");
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  position: relative;
+    background-image: url("doodles.webp");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
 }
 
 .our-partners-section::after {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  top: 0;
-  left: 0;
-  background-color: rgba(255, 255, 255, 0.95);
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.95);
 }
 
 .partner-scroll {
-  user-select: none;
+    user-select: none;
 }
 
 .partner-logo-container {
-  min-width: 100%;
-  flex-shrink: 0;
-  animation: marquee 15s linear infinite;
+    min-width: 100%;
+    flex-shrink: 0;
+    animation: marquee 15s linear infinite;
 }
 
 .partner-logo-container img {
-  width: calc((100% / 6) - 2.5%);
-  aspect-ratio: 3/2;
-  object-fit: contain;
-  mix-blend-mode: color-burn;
+    width: calc((100% / 6) - 2.5%);
+    aspect-ratio: 3/2;
+    object-fit: contain;
+    mix-blend-mode: color-burn;
 }
 
 .partner-scroll:hover .partner-logo-container {
-  animation-play-state: paused;
+    animation-play-state: paused;
 }
 
 @keyframes marquee {
-  to {
-    transform: translateX(calc(-100% - 1.5rem));
-  }
+    to {
+        transform: translateX(calc(-100% - 1.5rem));
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .partner-logo-container img {
+        width: calc((100% / 3) - 2.5%);
+    }
+
+    .partner-logo-container {
+        animation: marquee 10s linear infinite;
+    }
 }
 
 /* Our Partners Section End */
@@ -403,291 +468,378 @@ button {
 /* Client Testimonials Section Start */
 
 .card-min-size {
-  min-height: 210px;
+    min-height: 210px;
 }
 
 .client-pic {
-  max-width: 3.125rem;
-  max-height: 3.125rem;
+    max-width: 3.125rem;
+    max-height: 3.125rem;
 }
 
 .client-pic img {
-  object-position: top center;
+    object-position: top center;
 }
 
 .text-overflow {
-  display: -webkit-box;
-  overflow: hidden;
-  -webkit-line-clamp: 6;
-  line-clamp: 6;
-  -webkit-box-orient: vertical;
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: 6;
+    line-clamp: 6;
+    -webkit-box-orient: vertical;
 }
 
 @media screen and (min-width: 576px) {
-  #clientTestimonial .carousel-inner {
-    display: flex;
-  }
-  #clientTestimonial .carousel-item {
-    display: block;
-    margin-right: 0;
-    flex: 0 0 calc(100% / 2) !important;
-  }
+    #clientTestimonial .carousel-inner {
+        display: flex;
+    }
+    #clientTestimonial .carousel-item {
+        display: block;
+        margin-right: 0;
+        flex: 0 0 calc(100% / 2) !important;
+    }
 }
 
 /* FAQs Section */
 
 .new-faq-section {
-  background-image: url(faq.svg);
-  background-position: top right;
-  background-repeat: no-repeat;
-  background-size: 14%;
+    background-image: url(faq.svg);
+    background-position: top right;
+    background-repeat: no-repeat;
+    background-size: 14%;
 }
 
 #faqsSection .accordion-button {
-  box-shadow: none;
+    box-shadow: none;
 }
 
 #faqsSection .accordion-button:not(.collapsed) {
-  color: #000;
-  background-color: var(--white);
-  box-shadow: none;
+    color: #000;
+    background-color: var(--white);
+    box-shadow: none;
 }
 
 #faqsSection .accordion-item {
-  border: none;
+    border: none;
 }
 
 #faqsSection .accordion-button::after {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3Cpath d='M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3Cpath d='M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32l0 144L48 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l144 0 0 144c0 17.7 14.3 32 32 32s32-14.3 32-32l0-144 144 0c17.7 0 32-14.3 32-32s-14.3-32-32-32l-144 0 0-144z'/%3E%3C/svg%3E");
 }
 
 .accordion-button:not(.collapsed)::after {
-  transform: rotate(180deg);
-  transition: transform 0.3s ease;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3Cpath d='M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z'/%3E%3C/svg%3E") !important;
+    transform: rotate(180deg);
+    transition: transform 0.3s ease;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'%3E%3Cpath d='M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z'/%3E%3C/svg%3E") !important;
+}
+
+@media screen and (max-width: 769px) {
+    .new-faq-section {
+        background-image: none;
+    }
 }
 
 /* Moile App Promotion Section */
 
 .mob-app-section {
-  background-image: url(app-promotion-bg.webp);
-  background-position: left;
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: relative;
-  min-height: 650px;
+    background-image: url(app-promotion-bg.webp);
+    background-position: left;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    min-height: 650px;
 }
 
 .mob-app-section::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #e4ffdbb2;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #e4ffdbb2;
 }
 
 .mob-app-section > div {
-  max-height: 450px;
+    max-height: 450px;
 }
 
 .app-img {
-  max-width: 350px;
+    max-width: 350px;
 }
 
 .app-head {
-  line-height: 34px;
-  letter-spacing: 0.5px;
+    line-height: 34px;
+    letter-spacing: 0.5px;
 }
 
 .app-para {
-  text-transform: capitalize;
+    text-transform: capitalize;
 }
 
 .app-icon {
-  max-width: 40px;
-  max-height: 40px;
+    max-width: 40px;
+    max-height: 40px;
 }
 
 .app-link-container button {
-  height: 48%;
-}
-
-@media screen and (min-width: 1440px) {
-  /* utility classes */
-  .fs-28 {
-    font-size: calc(1.75rem + 0.25vw) !important;
-  }
-
-  .fs-15 {
-    font-size: calc(0.9rem + 0.25vw) !important;
-  }
-
-  .small-head {
-    font-size: calc(0.75rem + 0.25vw) !important;
-  }
-
-  .fs-12 {
-    font-size: calc(0.75rem + 0.25vw) !important;
-  }
-
-  .fs-14 {
-    font-size: calc(0.75rem + 0.25vw) !important;
-  }
-
-  .fs-22 {
-    font-size: calc(1.75rem + 0.25vw) !important;
-  }
-
-  .new-arrow-icon {
-    min-width: calc(2rem + 0.25vw);
-    min-height: calc(2rem + 0.25vw);
-  }
-
-  .new-arrow-icon i {
-    font-size: calc(1rem + 0.25vw);
-  }
-
-  .new-para {
-    font-size: calc(1rem + 0.25vw);
-  }
-
-  /* header styles */
-  .navbar-container .nav-link, #carouselExample p, .join-btn button, .join-btn .dropdown-item, .search-bar {
-    font-size: calc(0.95rem + 0.25vw);
-  }
-
-  .cart-count-new {
-    width: calc(25px + 0.25vw);
-    height: calc(25px + 0.25vw);
-    font-size: calc(0.85rem + 0.25vw);
-  }
-
-  .whatsapp-icon img {
-    width: calc(25px + 0.25vw);
-    height: calc(25px + 0.25vw);
-  }
-
-  .search-icon i {
-    font-size: calc(1rem + 0.75vw);
-  }
-
-  .navbar-container .nav-link img {
-    width: calc(30px + 0.25vw);
-    height: calc(30px + 0.25vw);
-  }
-
-  .logo img {
-    max-width: 100%;
-  }
-
-  .card-heading {
-    font-size: calc(1.5rem + 0.25vw);
-  }
-
-  .search-container {
-    max-width: 70%;
-  }
-
-  /* hero section styles */
-  .card-text-cont h5 {
-    font-size: calc(1rem + 0.25vw) !important;
-  }
-
-  .card-text-cont p, .card-text-cont a {
-    font-size: calc(0.8rem + 0.25vw) !important;
-  }
-
-  /* our guide section styles */
-  .our-guide-section h2 {
-    font-size: calc(1.75rem + 0.5vw);
-  }
-
-  .our-guide-section .nav-item {
-    font-size: calc(0.95rem + 0.25vw);
-  }
-
-  .guide-img-container {
-    min-height: calc(400px + 5vw);
-  }
-
-  .guide-img-container h5 {
-    font-size: calc(0.85rem + 0.5vw) !important;
-  }
-
-  /* promotion section styles */
-  .consult-btn span:first-child {
-    font-size: calc(0.95rem + 0.25vw);
-  }
-
-  .promotion-product-name {
-    font-size: calc(1.25rem + 0.25vw);
-  }
-
-  /* mission statement styles */
-  .mission-section .fs-3 {
-    font-size: calc(1.3rem + .6vw) !important;
-  }
-
-  /* client testimonial styles */
-
-  .client-rating span {
-    font-size: calc(1rem + 0.25vw);
-  }
-
-  .client-pic {
-    min-width: calc(3.125rem + 0.4vw);
-    min-height: calc(3.125rem + 0.4vw);
-  }
-
-  /* faq section styles */
-  .new-faq-section {
-    background-size: 13%;
-  }
-
-  #faqsSection .accordion-button {
-    font-size: calc(1rem + 0.25vw);
-  }
-
-  /* mobile app promo section */
-  .mob-app-section {
-    min-height: 700px;
-  }
-
-  /* footer styles */
-  .social-links-container a {
-    min-width: calc(2rem + 0.25vw);
-    min-height: calc(2rem + 0.25vw);
-  }
-
-  .social-links-container a i {
-    font-size: calc(1rem + 0.15vw);
-  }
-
-  .new-footer-heading {
-    font-size: calc(1.25rem + 0.25vw);
-  }
-
-  .social-links-section a {
-    font-size: calc(1rem);
-  }
-}
-
-@media screen and (min-width: 2560px) {
-  .navbar-container .nav-link, #carouselExample p, .join-btn button, .join-btn .dropdown-item {
-    font-size: calc(1.25rem + 0.5vw);
-  }
-
-  .navbar-container .nav-link img {
-    width: calc(40px + 0.35vw);
-    height: calc(40px + 0.35vw);
-  }
+    height: 48%;
 }
 
 @media screen and (max-width: 769px) {
-    .w-85 {
+    .mob-app-section {
+        min-height: 800px;
+    }
+
+    .mob-app-section > div {
+        max-height: fit-content;
+    }
+
+    .app-img-cont {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .app-img {
+        max-width: 225px;
+    }
+
+    .mob-app-section .w-80 {
+        max-width: 90%;
+    }
+
+    .promotion-product-name {
+        font-size: 1rem !important;
+    }
+
+    .app-icon {
+        max-width: 25px;
+        max-height: 25px;
+    }
+
+    .scan-btn {
+        font-size: 0.875rem !important;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .mob-app-section .w-80 {
         max-width: 95%;
+    }
+
+    .mob-app-section .fs-22 {
+        font-size: 1.25rem !important;
+    }
+
+    .new-para {
+        font-size: 0.875rem !important;
+    }
+}
+
+@media screen and (max-width: 330px) {
+    .scan-btn {
+        font-size: 0.75rem !important;
+    }
+}
+
+/* mobile app promotion section ended */
+
+@media screen and (min-width: 1440px) {
+    /* utility classes */
+    .fs-28 {
+        font-size: calc(1.75rem + 0.25vw) !important;
+    }
+
+    .fs-15 {
+        font-size: calc(0.9rem + 0.25vw) !important;
+    }
+
+    .small-head {
+        font-size: calc(0.75rem + 0.25vw) !important;
+    }
+
+    .fs-12 {
+        font-size: calc(0.75rem + 0.25vw) !important;
+    }
+
+    .fs-14 {
+        font-size: calc(0.875rem + 0.25vw) !important;
+    }
+
+    .fs-22 {
+        font-size: calc(1.75rem + 0.25vw) !important;
+    }
+
+    .new-arrow-icon {
+        min-width: calc(2rem + 0.25vw);
+        min-height: calc(2rem + 0.25vw);
+    }
+
+    .new-arrow-icon i {
+        font-size: calc(1rem + 0.25vw);
+    }
+
+    .new-para {
+        font-size: calc(1rem + 0.25vw);
+    }
+
+    /* header styles */
+    .navbar-container .nav-link,
+    #carouselExample p,
+    .join-btn button,
+    .join-btn .dropdown-item,
+    .search-bar {
+        font-size: calc(0.95rem + 0.25vw);
+    }
+
+    .cart-count-new {
+        width: calc(25px + 0.25vw);
+        height: calc(25px + 0.25vw);
+        font-size: calc(0.85rem + 0.25vw);
+    }
+
+    .whatsapp-icon img {
+        width: calc(25px + 0.25vw);
+        height: calc(25px + 0.25vw);
+    }
+
+    .search-icon i {
+        font-size: calc(1rem + 0.75vw);
+    }
+
+    .navbar-container .nav-link img {
+        width: calc(30px + 0.25vw);
+        height: calc(30px + 0.25vw);
+    }
+
+    .logo img {
+        max-width: 100%;
+    }
+
+    .card-heading {
+        font-size: calc(1.5rem + 0.25vw);
+    }
+
+    .search-container {
+        max-width: 70%;
+    }
+
+    /* hero section styles */
+    .card-text-cont h5 {
+        font-size: calc(1rem + 0.25vw) !important;
+    }
+
+    .card-text-cont p,
+    .card-text-cont a {
+        font-size: calc(0.8rem + 0.25vw) !important;
+    }
+
+    /* our guide section styles */
+    .our-guide-section h2 {
+        font-size: calc(1.75rem + 0.5vw);
+    }
+
+    .our-guide-section .nav-item {
+        font-size: calc(0.95rem + 0.25vw);
+    }
+
+    .guide-img-container {
+        min-height: calc(400px + 5vw);
+    }
+
+    .guide-img-container h5 {
+        font-size: calc(0.85rem + 0.5vw) !important;
+    }
+
+    /* promotion section styles */
+    .consult-btn span:first-child {
+        font-size: calc(0.95rem + 0.25vw);
+    }
+
+    .promotion-product-name {
+        font-size: calc(1.25rem + 0.25vw);
+    }
+
+    /* mission statement styles */
+    .mission-section .fs-3 {
+        font-size: calc(1.3rem + 0.6vw) !important;
+    }
+
+    /* client testimonial styles */
+
+    .client-rating span {
+        font-size: calc(1rem + 0.25vw);
+    }
+
+    .client-pic {
+        min-width: calc(3.125rem + 0.4vw);
+        min-height: calc(3.125rem + 0.4vw);
+    }
+
+    /* faq section styles */
+    .new-faq-section {
+        background-size: 13%;
+    }
+
+    #faqsSection .accordion-button {
+        font-size: calc(1rem + 0.25vw);
+    }
+
+    /* mobile app promo section */
+    .mob-app-section {
+        min-height: 700px;
+    }
+
+    /* footer styles */
+    .social-links-container a {
+        min-width: calc(2rem + 0.25vw);
+        min-height: calc(2rem + 0.25vw);
+    }
+
+    .social-links-container a i {
+        font-size: calc(1rem + 0.15vw);
+    }
+
+    .new-footer-heading {
+        font-size: calc(1.25rem + 0.25vw);
+    }
+
+    .social-links-section a {
+        font-size: calc(1rem);
+    }
+}
+
+@media screen and (min-width: 2560px) {
+    .navbar-container .nav-link,
+    #carouselExample p,
+    .join-btn button,
+    .join-btn .dropdown-item {
+        font-size: calc(1.25rem + 0.5vw);
+    }
+
+    .navbar-container .nav-link img {
+        width: calc(40px + 0.35vw);
+        height: calc(40px + 0.35vw);
+    }
+}
+
+/* utility media screen styles */
+@media screen and (max-width: 769px) {
+    .w-85 {
+        max-width: 92%;
+    }
+
+    .fs-14 {
+        font-size: 0.75rem !important;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .fs-28 {
+        font-size: 1.375rem !important;
+    }
+
+    .fs-15 {
+        font-size: 0.875rem !important;
     }
 }
 

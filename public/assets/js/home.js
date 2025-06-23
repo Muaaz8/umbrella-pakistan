@@ -57,8 +57,14 @@ $(document).ready(function () {
             }
         });
     } else {
-        $(multipleItemCarousel).addClass("slide");
+        multipleItemCarousel.addClass("slide");
+        multipleItemCarousel.find(".carousel-item").first().addClass("active");
     }
+
+    $("#guideCarousel").on("slid.bs.carousel", function () {
+        var newTitle = $("#guideCarousel .carousel-item.active").data("title");
+        $("#carousel-title").text(newTitle);
+    });
 });
 
 function getPharmacyProductByCategory(sub_cat_id, limit) {

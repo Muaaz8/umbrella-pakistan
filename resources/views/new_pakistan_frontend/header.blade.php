@@ -360,226 +360,181 @@
 
 <!-- new header -->
 <header>
-      <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
+    <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner top-head px-1 py-2">
-          @php
+            @php
             $top_banners = DB::table('services')->where('name', 'ticker')->get();
-          @endphp
-          @foreach ($top_banners as $key => $banner)
+            @endphp
+            @foreach ($top_banners as $key => $banner)
             <div class="carousel-item {{$key == 0 ? 'active' : ''}} text-center">
                 <p>{{ $banner->status }}</p>
             </div>
-          @endforeach
+            @endforeach
         </div>
-      </div>
-      <nav class="navbar navbar-container container-fluid pt-0">
-        <div class="border-bottom mx-auto w-100 py-3 py-sm-4 row">
-          <div
-            class="w-85 mx-auto px-0 d-flex align-items-center justify-content-between w-100"
-          >
-            <div class="new-logo align-self-start navbar-brand">
-              <img src="{{ asset('assets/new_frontend/logo-new.png') }}" alt="logo" />
-            </div>
-            <div
-              class="d-none d-sm-flex align-items-center justify-content-center col-sm"
-            >
-              <div
-                class="search-container mx-4 d-flex align-items-center justify-content-center rounded-3 position-relative"
-              >
-                <input
-                  class="search-bar px-3 py-2"
-                  type="search"
-                  name="search"
-                  placeholder="Search"
-                  id="new-search"
-                />
-                <span class="px-3 py-2 search-icon"
-                  ><i class="fa-solid fa-magnifying-glass"></i
-                ></span>
-                <ul class="header-search-result categories-list rounded-3"></ul>
-              </div>
-            </div>
-            <div class="d-none d-lg-flex">
-              <div
-                class="join-btn d-flex align-items-center gap-2 position-relative px-3 py-1 rounded-2 shadow-sm"
-              >
-                <a class="whatsapp-icon p-1" href="https://wa.me/923372350684" target="_blank"
-                  ><img src="{{ asset('assets/new_frontend/whatsapp.svg') }}" alt="whatsapp"
-                /></a>
-                <span class="v-line"></span>
-                @if (Auth::check())
-                <div class="new-dropdown">
-                    <button
-                      type="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                      class="dropdown-toggle"
-                    >
-                      Hi, {{ Auth::user()->name}}
-                    </button>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="{{ route('home') }}">Go to Dashboard</a></li>
-                      <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a></li>
-                      <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                            @csrf
-                        </form>
-                    </ul>
+    </div>
+    <nav class="navbar navbar-container container-fluid pt-0">
+        <div class="border-sm-bottom mx-auto w-100 pt-3 py-sm-4 row">
+            <div class="w-85 mx-auto px-0 d-flex align-items-center justify-content-between w-100">
+                <button class="navbar-toggler d-block d-sm-none border-0 p-0 sm-toggler" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="new-logo align-self-center me-0 me-sm-auto align-self-sm-start navbar-brand">
+                    <img src="{{ asset('assets/new_frontend/logo-new.png') }}" alt="logo" />
                 </div>
-                @else
-                <div class="new-dropdown">
-                    <button
-                      type="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                      class="dropdown-toggle"
-                    >
-                      Join Us
-                    </button>
-                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="{{ route('login') }}">Login</a></li>
-                      <li><a class="dropdown-item" href="{{ route('pat_register') }}">Register as Patient</a></li>
-                      <li>
-                        <a class="dropdown-item" href="{{ route('doc_register') }}">Register as Doctor</a>
-                      </li>
-                    </ul>
+                <div class="d-none d-sm-flex align-items-center justify-content-center col-sm">
+                    <div
+                        class="search-container mx-4 d-flex align-items-center justify-content-center rounded-3 position-relative">
+                        <input class="search-bar px-3 py-2" type="search" name="search" placeholder="Search"
+                            id="new-search" />
+                        <span class="px-3 py-2 search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+                        <ul class="header-search-result categories-list rounded-3"></ul>
+                    </div>
                 </div>
-                @endif
-              </div>
+                <div class="d-none d-lg-flex">
+                    <div
+                        class="join-btn d-flex align-items-center gap-2 position-relative px-3 py-1 rounded-2 shadow-sm">
+                        <a class="whatsapp-icon p-1" href="https://wa.me/923372350684" target="_blank"><img
+                                src="{{ asset('assets/new_frontend/whatsapp.svg') }}" alt="whatsapp" /></a>
+                        <span class="v-line"></span>
+                        @if (Auth::check())
+                        <div class="new-dropdown">
+                            <button type="button" data-bs-toggle="dropdown" aria-expanded="false"
+                                class="dropdown-toggle">
+                                Hi, {{ Auth::user()->name}}
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{ route('home') }}">Go to Dashboard</a></li>
+                                <li><a class="dropdown-item" href="{{ route('logout') }}"
+                                        onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
+                                </li>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                    style="display: none;">
+                                    @csrf
+                                </form>
+                            </ul>
+                        </div>
+                        @else
+                        <div class="new-dropdown">
+                            <button type="button" data-bs-toggle="dropdown" aria-expanded="false"
+                                class="dropdown-toggle">
+                                Join Us
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="{{ route('login') }}">Login</a></li>
+                                <li><a class="dropdown-item" href="{{ route('pat_register') }}">Register as Patient</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ route('doc_register') }}">Register as Doctor</a>
+                                </li>
+                            </ul>
+                        </div>
+                        @endif
+                    </div>
+                </div>
+                <div class="d-flex align-items-center gap-2 gap-sm-3">
+                    <a class="nav-link d-flex align-items-center justify-content-center d-sm-none" id="new-search"
+                        href="">
+                        <i class="fa-solid fa-magnifying-glass fs-4"></i>
+                    </a>
+                    <a class="nav-link d-block d-lg-none position-relative" href="saf">
+                        <img src="{{ asset('assets/new_frontend/cart_new.svg') }}" alt="cart" />
+                        <span
+                            class="cart-count-new position-absolute text-white text-center d-flex align-items-center justify-content-center rounded-circle fw-normal">12</span>
+                    </a>
+                    <button class="navbar-toggler d-none d-sm-block d-lg-none" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"
+                        aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
             </div>
-            <div class="d-flex align-items-center gap-3">
-              <a class="nav-link d-block d-lg-none position-relative" href="saf">
-                <img src="{{ asset('assets/new_frontend/cart_new.svg') }}" alt="cart" />
-                <span
-                  class="cart-count-new position-absolute text-white text-center d-flex align-items-center justify-content-center rounded-circle fw-normal"
-                  >12</span
-                >
-              </a>
-              <button
-                class="navbar-toggler d-lg-none"
-                type="button"
-                data-bs-toggle="offcanvas"
-                data-bs-target="#offcanvasNavbar"
-                aria-controls="offcanvasNavbar"
-                aria-label="Toggle navigation"
-              >
-                <span class="navbar-toggler-icon"></span>
-              </button>
-            </div>
-          </div>
         </div>
         <div class="w-100 w-85 mx-auto px-0 d-none d-lg-flex">
-          <ul
-            class="d-flex list-unstyled justify-content-between align-items-center gap-3 w-100 py-3 mb-0"
-          >
-            <li class="nav-item"><a class="nav-link" href="{{ url('/') }}">Home</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ route('vendor', ['shop_type' => 'pharmacy']) }}">Pharmacy</a></li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ route('vendor', ['shop_type' => 'labs']) }}">Labtest / Imaging</a>
-            </li>
-            <li class="nav-item"><a class="nav-link" href="{{ route('e-visit') }}">E-Visit</a></li>
-            <li class="nav-item">
-              <a class="nav-link" href="{{ route('doc_profile_page_list') }}">Our Doctors</a>
-            </li>
-            <li class="nav-item"><a class="nav-link" href="{{ route('about_us') }}">About Us</a></li>
-            <li class="nav-item"><a class="nav-link" href="{{ route('contact_us') }}">Contact Us</a></li>
-            <li class="nav-item">
-              <a class="nav-link position-relative" href="{{ url('/my/cart') }}">
-                <img src="{{ asset('assets/new_frontend/cart_new.svg') }}" alt="cart" />
-                @if (Auth::check())
-                <span
-                  class="cart-count-new position-absolute text-white text-center d-flex align-items-center justify-content-center rounded-circle fw-normal"
-                  >{{ app('item_count_cart_responsive') }}</span
-                >
-                @endif
-              </a>
-            </li>
-            <li class="nav-item">
-              <a
-                href="{{ route('doc_profile_page_list', ['online' => true]) }}"
-                class="online-btn nav-link px-3 py-2 rounded-5 d-flex align-items-center justify-content-center gap-2"
-                ><span class="online-dot-new rounded-circle"></span
-                ><span>Online Doctors</span></a
-              >
-            </li>
-          </ul>
-        </div>
-        <div
-          class="offcanvas offcanvas-end"
-          tabindex="-1"
-          id="offcanvasNavbar"
-          aria-labelledby="offcanvasNavbarLabel"
-        >
-          <div class="offcanvas-header">
-            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="offcanvas"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="offcanvas-body">
-            <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-              <li class="nav-item"><a class="nav-link" href="{{ url('/') }}">Home</a></li>
-              <li class="nav-item"><a class="nav-link" href="{{ route('vendor', ['shop_type' => 'pharmacy']) }}">Pharmacy</a></li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{ route('vendor', ['shop_type' => 'labs']) }}">Labtest / Imaging</a>
-              </li>
-              <li class="nav-item"><a class="nav-link" href="{{ route('e-visit') }}">E-Visit</a></li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{ route('doc_profile_page_list') }}">Our Doctors</a>
-              </li>
-              <li class="nav-item"><a class="nav-link" href="{{ route('about_us') }}">About Us</a></li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{ route('contact_us') }}">Contact Us</a>
-              </li>
-              <li class="nav-item">
-                <a
-                    href="{{ route('doc_profile_page_list', ['online' => true]) }}"
-                    class="online-btn nav-link px-3 py-2 rounded-5 d-flex align-items-center justify-content-center gap-2"
-                    ><span class="online-dot-new rounded-circle"></span
-                    ><span>Online Doctors</span></a
-                >
-              </li>
-              <hr />
-              @if (Auth::check())
-              <li class="nav-item">
-                <a
-                 href="{{ route('home') }}"
-                 class="nav-link"
-                >Go to Dashboard</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
-              </li>
-              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                @csrf
-              </form>
-              @else
-              <li class="nav-item">
-                <a
-                 href="{{ route('login') }}"
-                 class="nav-link"
-                >Login</a>
-              </li>
-              <li class="nav-item">
-                <a
-                 href="{{ route('pat_register') }}"
-                 class="nav-link"
-                >Register as Patient</a>
-              </li>
-              <li class="nav-item">
-                <a
-                 href="{{ route('doc_register') }}"
-                 class="nav-link"
-                >Register as Doctor</a>
-              </li>
-              @endif
+            <ul class="d-flex list-unstyled justify-content-between align-items-center gap-3 w-100 py-3 mb-0">
+                <li class="nav-item"><a class="nav-link" href="{{ url('/') }}">Home</a></li>
+                <li class="nav-item"><a class="nav-link"
+                        href="{{ route('vendor', ['shop_type' => 'pharmacy']) }}">Pharmacy</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('vendor', ['shop_type' => 'labs']) }}">Labtest / Imaging</a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('e-visit') }}">E-Visit</a></li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('doc_profile_page_list') }}">Our Doctors</a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('about_us') }}">About Us</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('contact_us') }}">Contact Us</a></li>
+                <li class="nav-item">
+                    <a class="nav-link position-relative" href="{{ url('/my/cart') }}">
+                        <img src="{{ asset('assets/new_frontend/cart_new.svg') }}" alt="cart" />
+                        @if (Auth::check())
+                        <span
+                            class="cart-count-new position-absolute text-white text-center d-flex align-items-center justify-content-center rounded-circle fw-normal">{{
+                            app('item_count_cart_responsive') }}</span>
+                        @endif
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('doc_profile_page_list', ['online' => true]) }}"
+                        class="online-btn nav-link px-3 py-2 rounded-5 d-flex align-items-center justify-content-center gap-2"><span
+                            class="online-dot-new rounded-circle"></span><span>Online Doctors</span></a>
+                </li>
             </ul>
-          </div>
         </div>
-      </nav>
-    </header>
+        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                    <li class="nav-item"><a class="nav-link" href="{{ url('/') }}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link"
+                            href="{{ route('vendor', ['shop_type' => 'pharmacy']) }}">Pharmacy</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('vendor', ['shop_type' => 'labs']) }}">Labtest / Imaging</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('e-visit') }}">E-Visit</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('doc_profile_page_list') }}">Our Doctors</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('about_us') }}">About Us</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('contact_us') }}">Contact Us</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('doc_profile_page_list', ['online' => true]) }}"
+                            class="online-btn nav-link px-3 py-2 rounded-5 d-flex align-items-center justify-content-center gap-2"><span
+                                class="online-dot-new rounded-circle"></span><span>Online Doctors</span></a>
+                    </li>
+                    <hr />
+                    @if (Auth::check())
+                    <li class="nav-item">
+                        <a href="{{ route('home') }}" class="nav-link">Go to Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('logout') }}"
+                            onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
+                    </li>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                    @else
+                    <li class="nav-item">
+                        <a href="{{ route('login') }}" class="nav-link">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('pat_register') }}" class="nav-link">Register as Patient</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('doc_register') }}" class="nav-link">Register as Doctor</a>
+                    </li>
+                    @endif
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
 
 
 {{-- after registration and login modal --}}
@@ -633,25 +588,25 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         @php
-                                                            if (Auth::check()) {
-                                                                $dob = auth()->user()->date_of_birth;
-                                                                if ($dob) {
-                                                                    $formattedDob = Carbon\Carbon::parse($dob)->format('Y-m-d');
-                                                                    $age = Carbon\Carbon::parse($formattedDob)->age;
-                                                                } else {
-                                                                    // Handle the case where the date of birth is not set
-                                                                    $age = '';
-                                                                }
-                                                            }
+                                                        if (Auth::check()) {
+                                                        $dob = auth()->user()->date_of_birth;
+                                                        if ($dob) {
+                                                        $formattedDob = Carbon\Carbon::parse($dob)->format('Y-m-d');
+                                                        $age = Carbon\Carbon::parse($formattedDob)->age;
+                                                        } else {
+                                                        // Handle the case where the date of birth is not set
+                                                        $age = '';
+                                                        }
+                                                        }
                                                         @endphp
                                                         <label class="fieldlabels">Age: *</label>
                                                         @if (Auth::check())
-                                                            <input class="custom_input symptom_checker_age age" type="age"
-                                                                name="text" value="{{ isset($age) ? $age : '' }}"
-                                                                placeholder="19" required />
+                                                        <input class="custom_input symptom_checker_age age" type="age"
+                                                            name="text" value="{{ isset($age) ? $age : '' }}"
+                                                            placeholder="19" required />
                                                         @else
-                                                            <input class="custom_input symptom_checker_age age" type="age"
-                                                                name="text" placeholder="19" required />
+                                                        <input class="custom_input symptom_checker_age age" type="age"
+                                                            name="text" placeholder="19" required />
                                                         @endif
                                                         <small
                                                             class="text-danger symptom_checker_age_error invalid-feedback"></small>
@@ -662,14 +617,17 @@
                                                             class="custom_input symptom_checker_gender gender">
                                                             <option selected disabled> Select Gender </option>
                                                             @if (Auth::check())
-                                                                <option value="male" {{ (auth()->user()->gender == 'male') ? 'selected' : '' }}> Male </option>
-                                                                <option value="female" {{ (auth()->user()->gender == 'female') ? 'selected' : '' }}>
-                                                                    Female </option>
-                                                                <option value="other" {{ (auth()->user()->gender == 'other') ? 'selected' : '' }}> Other </option>
+                                                            <option value="male" {{ (auth()->user()->gender == 'male') ?
+                                                                'selected' : '' }}> Male </option>
+                                                            <option value="female" {{ (auth()->user()->gender ==
+                                                                'female') ? 'selected' : '' }}>
+                                                                Female </option>
+                                                            <option value="other" {{ (auth()->user()->gender == 'other')
+                                                                ? 'selected' : '' }}> Other </option>
                                                             @else
-                                                                <option value="male"> Male </option>
-                                                                <option value="female"> Female </option>
-                                                                <option value="other"> Other </option>
+                                                            <option value="male"> Male </option>
+                                                            <option value="female"> Female </option>
+                                                            <option value="other"> Other </option>
                                                             @endif
                                                         </select>
                                                         <small
