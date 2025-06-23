@@ -42,9 +42,12 @@ class CartController extends BaseController
             $countItem = 0;
             $itemSum = 0;
             $providerFee = 0;
+            // Get User Cart Items
+            $cards = DB::table('card_details')->where('user_id', $user->id)->get();
             $user_cart_items = DB::table('tbl_cart')->where('user_id', Auth::user()->id)->where('status', 'recommended')->get();
             foreach ($user_cart_items as $item) {
                 if ($item->item_type == 'prescribed') {
+                    // dd(Auth::user()->id,$item->pres_id);
                     $pres = DB::table('prescriptions')->where('id', $item->pres_id)->first();
                     $item->prescription_date = $pres->created_at;
                     $item->medicine_usage = $pres->usage;
@@ -66,6 +69,7 @@ class CartController extends BaseController
                 }
                 if ($item->doc_session_id != '0') {
                     $doctorDetails = User::find($item->doc_id);
+
                     $item->prescribed_by = 'Dr.' . $doctorDetails->name . ' ' . $doctorDetails->last_name;
                 } else {
                     $item->prescribed_by = '';
@@ -301,15 +305,17 @@ class CartController extends BaseController
             else
             {
                 $getProductMetaData = DB::table('quest_data_test_codes')
+                ->join('vendor_products','quest_data_test_codes.TEST_CD','vendor_products.product_id')
                 ->select(
-                    'TEST_CD AS product_id',
-                    'mode',
-                    'TEST_NAME AS name',
-                    'SALE_PRICE AS sale_price',
-                    'featured_image',
+                    'vendor_products.id AS product_id',
+                    'vendor_products.discount',
+                    'quest_data_test_codes.mode',
+                    'quest_data_test_codes.TEST_NAME AS name',
+                    'vendor_products.selling_price AS sale_price',
+                    'quest_data_test_codes.featured_image',
                     DB::raw('"quest_data_test_codes" as tbl_name')
                 )
-                ->where('TEST_CD', $request->pro_id)
+                ->where('vendor_products.id', $request->pro_id)
                 ->first();
                 $data['session_id'] = '';
                 $data['cart_row_id'] = rand();
@@ -321,14 +327,18 @@ class CartController extends BaseController
                 $data['strip_per_pack'] = 0;
                 $data['quantity'] = $request->pro_qty;
                 $data['price'] = $getProductMetaData->sale_price;
-                $data['discount'] = 0;
+                $data['discount'] = $getProductMetaData->discount ?? 0;
                 $data['created_at'] = Carbon::now();
                 $data['updated_at'] = Carbon::now();
                 $data['user_id'] = $user_id;
                 $data['doc_session_id'] = 0;
                 $data['doc_id'] = 0;
                 $data['pres_id'] = 0;
-                $data['update_price'] = $getProductMetaData->sale_price;
+                if($getProductMetaData->discount != null && $getProductMetaData->discount > 0){
+                    $data['update_price'] = $getProductMetaData->sale_price - ($getProductMetaData->sale_price * $getProductMetaData->discount) / 100;
+                }else{
+                    $data['update_price'] = $getProductMetaData->sale_price;
+                }
                 $data['product_mode'] = $getProductMetaData->mode;
                 $data['item_type'] = 'counter';
                 $data['status'] = 'recommended';
@@ -336,7 +346,12 @@ class CartController extends BaseController
                 $data['location_id'] = '';
                 $cart = AppTblCart::Create($data);
                 event(new CountCartItem($user_id));
-                return $this->sendResponse([], 'add to cart successfully.');
+                try {
+                    // \App\Helper::firebase(Auth()->user()->id,'cart',$cart->id,$data);
+                } catch (\Throwable $th) {
+                    //throw $th;
+                }
+                return $this->sendResponse([], 'Product added to cart successfully.');
             }
 
         }
@@ -353,30 +368,32 @@ class CartController extends BaseController
             if($count!=null)
             {
                 $qty=$count->quantity+$request->quantity;
-                $pricing = DB::table('medicine_pricings')->where('id',$request->unit)->first();
+                $pricing = DB::table('vendor_products')->where('id',$request->pro_id)->first();
                 $count=DB::table('tbl_cart')
                     ->where('user_id',$user_id)
                     ->where('product_id',$request->pro_id)
                     ->where('product_mode',$request->pro_mode)
                     ->where('item_type','counter')
                     ->where('status','recommended')
-                    ->update(['quantity'=>$qty,'price'=>$qty*$pricing->sale_price]);
+                    ->update(['quantity'=>$qty,'price'=>$qty*$pricing->selling_price]);
                     event(new CountCartItem($user_id));
-                    return $this->sendResponse([], 'add to cart successfully.');
+                    return $this->sendResponse([], 'Product quantity updated successfully.');
             }
             else
             {
                 $getProductMetaData = DB::table('tbl_products')
+                    ->join('vendor_products','tbl_products.id','vendor_products.product_id')
                     ->select(
-                        'id as product_id',
-                        'name',
-                        'sale_price',
-                        'mode',
-                        'featured_image'
+                        'vendor_products.id as product_id',
+                        'vendor_products.discount',
+                        'tbl_products.name',
+                        'vendor_products.selling_price',
+                        'tbl_products.mode',
+                        'tbl_products.featured_image'
                     )
-                    ->where('id', $request->pro_id)
+                    ->where('vendor_products.id', $request->pro_id)
                     ->first();
-                $pricing = DB::table('medicine_pricings')->where('id',$request->unit)->first();
+                $pricing = DB::table('vendor_products')->where('id',$request->pro_id)->first();
 
                 $data['session_id'] = '';
                 $data['cart_row_id'] = rand();
@@ -387,15 +404,19 @@ class CartController extends BaseController
                 $data['design_view'] = '';
                 $data['strip_per_pack'] = 0;
                 $data['quantity'] = $request->quantity;
-                $data['price'] = $pricing->sale_price*$request->quantity;
-                $data['discount'] = 0;
+                $data['price'] = $getProductMetaData->selling_price*$request->quantity;
+                $data['discount'] = $getProductMetaData->discount ?? 0;
                 $data['created_at'] = Carbon::now();
                 $data['updated_at'] = Carbon::now();
                 $data['user_id'] = $user_id;
                 $data['doc_session_id'] = 0;
                 $data['doc_id'] = 0;
                 $data['pres_id'] = 0;
-                $data['update_price'] = $pricing->sale_price*$request->quantity;
+                if($getProductMetaData->discount != null && $getProductMetaData->discount > 0){
+                    $data['update_price'] = ($getProductMetaData->selling_price - ($getProductMetaData->selling_price * $getProductMetaData->discount) / 100)*$request->quantity;
+                }else{
+                    $data['update_price'] = $getProductMetaData->selling_price*$request->quantity;
+                }
                 $data['product_mode'] = $getProductMetaData->mode;
                 $data['item_type'] = 'counter';
                 $data['status'] = 'recommended';
@@ -404,7 +425,7 @@ class CartController extends BaseController
 
                 $cart = AppTblCart::Create($data);
                 event(new CountCartItem($user_id));
-                return $this->sendResponse([], 'add to cart successfully.');
+                return  $this->sendResponse([], 'Product added to cart successfully.');
             }
         }
     }

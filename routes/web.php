@@ -57,22 +57,22 @@ Route::get('/blog','BlogController@blog_index')->name('blog_index');
 Route::get('/blog/{slug}','BlogController@blog_single')->name('blog_single');
 
 Route::get('/labs-add' , function(){
-            $products = DB::table('quest_data_test_codes')
-    ->where(function($query) {
-        $query->where('mode', 'lab-test')
-              ->orWhere('mode', 'imaging');
-    })
-    ->whereNotNull('actual_price')
-    ->whereNotNull('SALE_PRICE')
-    ->get();
+    $products = DB::table('quest_data_test_codes')
+        ->where(function($query) {
+            $query->where('mode', 'lab-test')
+                ->orWhere('mode', 'imaging');
+        })
+        ->whereNotNull('actual_price')
+        ->whereNotNull('SALE_PRICE')
+        ->get();
 
     foreach($products as $product){
         DB::table('vendor_products')->insert([
             'vendor_id' => '1',
             'product_id' => $product->TEST_CD,
             'available_stock' => '1',
-            'actual_price' => '0',
-            'selling_price' => '0',
+            'actual_price' => $product->actual_price,
+            'selling_price' => $product->SALE_PRICE,
             'discount' => '0',
             'product_type' => 'labs',
             'is_active' => '1',
@@ -1212,6 +1212,7 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
         Route::get('/admin/vendors/edit/{id}', 'VendorsController@edit')->name('edit_vendor');
         Route::put('/admin/vendors/update/{id}', 'VendorsController@update')->name('update_vendor');
         Route::get('/vendor/all/orders', 'TblOrdersController@vendor_order')->name('vendor_all_order');
+        Route::get('/order/status/update/{id}', 'TblOrdersController@updateStatus')->name('order_status_update');
         Route::get('/vendor/order/detail/{id}', 'TblOrdersController@vendor_order_details')->name('vendor_order_details');
 
 

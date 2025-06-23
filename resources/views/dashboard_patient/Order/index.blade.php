@@ -22,7 +22,7 @@
 @section('content')
 <div class="dashboard-content">
     <div class="container-fluid">
-      <div class="row m-auto">
+      <div class="ss">
         <div class="col-md-12">
           <div class="row m-auto">
             <div class="d-flex align-items-baseline justify-content-between flex-wrap p-0">

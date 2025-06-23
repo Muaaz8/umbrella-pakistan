@@ -31,9 +31,9 @@
                             <li class="list-group-item"><b>Order ID </b> : {{ $data['order_data']->order_id }}</li>
                             <li class="list-group-item"><b> Date</b> : {{ $data['order_data']->created_at['date'] }}
                             <li class="list-group-item"><b> Time</b> : {{ $data['order_data']->created_at['time'] }}
-                        </ul>
+                            </ul>
+                        </div>
                     </div>
-                </div>
                 <div class="col-md-6">
                     <div class="card" style="width: 100%">
                         <ul class="list-group list-group-flush">
@@ -50,10 +50,12 @@
                             @endif
                             <li class="list-group-item d-flex justify-content-between"><b>Payment Type
                                     :</b>{{ $data['order_data']->payment_title }} </li>
-                        </ul>
+                            @if (isset($orderMeds[0]->status))
+                            <li class="list-group-item d-flex justify-content-between"><b>Order Status:</b>{{ $orderMeds[0]->status }}</li>
+                            @endif
+                         </ul>
                     </div>
                 </div>
-
             </div>
             <div class="row m-auto mt-3">
                 <div class="col-md-8">

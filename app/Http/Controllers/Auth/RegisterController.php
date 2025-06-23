@@ -119,7 +119,7 @@ class RegisterController extends Controller
                 return Validator::make($data, [
                 'name' => ['required'],
                 'last_name' => ['required'],
-                'email' => ['required'],
+                // 'email' => ['required'],
                 'password' => ['required'],
             ]);
             // }

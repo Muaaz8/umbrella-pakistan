@@ -95,11 +95,11 @@
 
 
 @section('page_title')
-@if ($title != null)
-<title>{{ $title->content }}</title>
-@else
-<title>Community Healthcare Clinics</title>
-@endif
+    @if ($title != null)
+        <title>{{ $title->content }}</title>
+    @else
+        <title>Community Healthcare Clinics</title>
+    @endif
 @endsection
 
 @section('top_import_file')
@@ -116,7 +116,7 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-</script>
+    </script>
 @endsection
 @section('content')
 <main>

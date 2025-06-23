@@ -474,90 +474,114 @@ public function vendor_order()
 {
     $user = auth()->user();
     $vendors = DB::table('vendor_accounts')
-    ->where('user_id', $user->id)
-    ->first();
-    $tblOrders = $this->tblOrdersRepository->all();
+        ->where('user_id', $user->id)
+        ->first();
+
+    $tblOrders = collect(); // Initialize empty collection
+
     if ($user->user_type == 'vendor' && $vendors->vendor == 'labs') {
         $tblOrders = DB::table('lab_orders')
-        ->join('vendor_products', 'vendor_products.id', '=', 'lab_orders.product_id')
-        ->join('quest_data_test_codes', 'vendor_products.product_id', '=', 'quest_data_test_codes.TEST_CD')
-        ->join('users', 'users.id', '=', 'lab_orders.user_id')
-        ->join('tbl_orders', 'tbl_orders.order_id', '=', 'lab_orders.order_id')
-        ->select(
-            'quest_data_test_codes.TEST_NAME as name',
-            'vendor_products.selling_price as total',
-            'vendor_products.discount as discount',
-            'lab_orders.id as lab_order_id',
-            'tbl_orders.id as id',
-            'lab_orders.product_id',
-            'lab_orders.user_id',
-            'lab_orders.order_id as original_order_id',
-            'lab_orders.sub_order_id',
-            'lab_orders.status',
-            'lab_orders.created_at',
-            'lab_orders.updated_at',
-            'users.name as fname',
-            'users.last_name as lname',
-            'users.office_address as address',
-            'lab_orders.status as order_status',
-            'tbl_orders.payment_title',
-            'tbl_orders.payment_method',
-            'tbl_orders.currency',
-            'lab_orders.sub_order_id as order_id'
-        )
-        ->where('vendor_products.vendor_id', $vendors->id)
-        ->groupBy('lab_orders.order_id')
-        ->orderBy('lab_orders.created_at', 'desc')
-        ->paginate(8);
-    }else if($user->user_type == 'vendor' && $vendors->vendor == 'pharmacy') {
+            ->join('vendor_products', 'vendor_products.id', '=', 'lab_orders.product_id')
+            ->join('quest_data_test_codes', 'vendor_products.product_id', '=', 'quest_data_test_codes.TEST_CD')
+            ->join('users', 'users.id', '=', 'lab_orders.user_id')
+            ->join('tbl_orders', 'tbl_orders.order_id', '=', 'lab_orders.order_id')
+            ->select(
+                'lab_orders.order_id as order_id',
+                'tbl_orders.id as id',
+                'lab_orders.user_id',
+                'lab_orders.status as order_status',
+                'lab_orders.created_at',
+                'lab_orders.updated_at',
+                'users.name as fname',
+                'users.last_name as lname',
+                'users.office_address as address',
+                'tbl_orders.payment_title',
+                'tbl_orders.payment_method',
+                'tbl_orders.currency',
+                // Get total amount and item count for the entire order
+                DB::raw('SUM(vendor_products.selling_price) as total_amount'),
+                DB::raw('COUNT(lab_orders.id) as total_items'),
+                DB::raw('MIN(lab_orders.created_at) as first_item_date')
+            )
+            ->where('vendor_products.vendor_id', $vendors->id)
+            ->groupBy([
+                'lab_orders.order_id',
+                'tbl_orders.id',
+                'lab_orders.user_id',
+                'lab_orders.status',
+                'users.name',
+                'users.last_name',
+                'users.office_address',
+                'tbl_orders.payment_title',
+                'tbl_orders.payment_method',
+                'tbl_orders.currency'
+            ])
+            ->orderBy('first_item_date', 'desc')
+            ->paginate(8);
+
+    } else if ($user->user_type == 'vendor' && $vendors->vendor == 'pharmacy') {
         $tblOrders = DB::table('medicine_order')
             ->join('vendor_products', 'vendor_products.id', '=', 'medicine_order.order_product_id')
             ->join('tbl_products', 'vendor_products.product_id', '=', 'tbl_products.id')
             ->join('users', 'users.id', '=', 'medicine_order.user_id')
             ->join('tbl_orders', 'tbl_orders.order_id', '=', 'medicine_order.order_main_id')
             ->select(
-                'tbl_products.name as name',
-                'vendor_products.selling_price as total',
-                'vendor_products.discount as discount',
-                'medicine_order.id as medicine_order_id',
-                'medicine_order.user_id',
-                'medicine_order.order_product_id',
-                'medicine_order.order_main_id',
-                'medicine_order.status',
-                'medicine_order.session_id',
-                'medicine_order.update_price',
-                'medicine_order.created_at as medicine_created_at',
-                'medicine_order.updated_at',
-                'medicine_order.status as order_status',
-                'medicine_order.session_id as session_id',
-                'medicine_order.order_product_id as product_id',
-                'medicine_order.update_price as price',
                 'medicine_order.order_main_id as order_id',
+                'tbl_orders.id as id',
+                'medicine_order.user_id',
+                'medicine_order.status as order_status',
+                'medicine_order.session_id',
                 'users.name as fname',
                 'users.last_name as lname',
                 'users.office_address as address',
-                'tbl_orders.id as id',
                 'tbl_orders.payment_title',
                 'tbl_orders.payment_method',
                 'tbl_orders.currency',
-                'tbl_orders.created_at as created_at',
+                'tbl_orders.created_at',
+                // Get total amount and item count for the entire order
+                DB::raw('SUM(COALESCE(medicine_order.update_price, vendor_products.selling_price)) as total_amount'),
+                DB::raw('COUNT(medicine_order.id) as total_items'),
+                DB::raw('MIN(medicine_order.created_at) as first_item_date')
             )
             ->where('vendor_products.vendor_id', $vendors->id)
             ->where('tbl_orders.order_status', 'paid')
-            ->orderBy('medicine_order.id', 'desc')
-            ->orderBy('order_status')
+            ->groupBy([
+                'medicine_order.order_main_id',
+                'tbl_orders.id',
+                'medicine_order.user_id',
+                'medicine_order.status',
+                'medicine_order.session_id',
+                'users.name',
+                'users.last_name',
+                'users.office_address',
+                'tbl_orders.payment_title',
+                'tbl_orders.payment_method',
+                'tbl_orders.currency',
+                'tbl_orders.created_at'
+            ])
+            ->orderBy('first_item_date', 'desc')
             ->paginate(8);
     }
+
+    // Convert timezone for each order
     foreach ($tblOrders as $tblOrder) {
-        $datetime = date('Y-m-d h:i A', strtotime($tblOrder->created_at));
+        $datetime = date('Y-m-d h:i A', strtotime($tblOrder->created_at ?? $tblOrder->first_item_date));
         $tblOrder->created_at = User::convert_utc_to_user_timezone($user->id, $datetime)['datetime'];
         $tblOrder->created_at = date("m-d-Y h:iA", strtotime($tblOrder->created_at));
     }
 
     return view('dashboard_vendor.Order.index')
         ->with('tblOrders', $tblOrders)
-        ->with('user', $user);
+        ->with('user', $user)
+        ->with('vendors', $vendors);
 }
+
+    public function updateStatus($id){
+        DB::table('medicine_order')
+        ->where('order_main_id', $id)
+        ->update(['status' => 'picked up']);
+        return redirect()->back()->with('success', 'Order status updated successfully.');
+    }
 
     public function order_details($id)
     {
@@ -659,7 +683,7 @@ public function vendor_order()
             $data['payment_method'] = $tblOrders->payment_title;
             $data['order_sub_id'] = $this->tblOrdersRepository->forOrderListView($tblOrders->order_sub_id);
             $datetime = User::convert_utc_to_user_timezone($user->id, $data['order_data']->created_at);
-            $data['order_data']->created_at = $datetime['date']." ".$datetime['time'];
+            $data['order_data']->created_at = $datetime;
 
             $orderMeds = DB::table('medicine_order')->where('order_main_id', $orderId)
                 ->join('vendor_products', 'vendor_products.id', 'medicine_order.order_product_id')

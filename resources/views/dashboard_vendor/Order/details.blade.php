@@ -29,8 +29,8 @@
                     <div class="card" style="width: 100%">
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item"><b>Order ID </b> : {{ $data['order_data']->order_id }}</li>
-                            <li class="list-group-item"><b>Date</b>: {{ \Carbon\Carbon::parse($data['order_data']->created_at)->format('Y-m-d H:i:s') }}</li>
-                            <li class="list-group-item"><b>Time</b>: {{ \Carbon\Carbon::parse($data['order_data']->created_at)->format('h:i A') }}</li>
+                            <li class="list-group-item"><b>Date</b>: {{ $data['order_data']->created_at['date'] }}</li>
+                            <li class="list-group-item"><b>Time</b>: {{ $data['order_data']->created_at['time'] }}</li>
                         </ul>
                     </div>
                 </div>
@@ -40,16 +40,15 @@
                             @if ($data['order_data']->order_status == 'paid')
                                 <li class="list-group-item d-flex justify-content-between"><b>Payment Status : </b><label
                                         class="order-paid">{{ $data['order_data']->order_status }}</label></li>
-                                {{-- <li class="list-group-item d-flex justify-content-between"><b>Order Status : </b><label
-                                        class="order-paid">{{ $data['order_data']->status }}</label></li> --}}
                             @else
                                 <li class="list-group-item d-flex justify-content-between"><b>Payment Status :</b> <label
                                         class="order-progess">{{ $data['order_data']->order_status }}</label></li>
-                                {{-- <li class="list-group-item d-flex justify-content-between"><b>Order Status : </b> <label
-                                        class="order-progress">{{ $data['order_data']->status }}</label></li> --}}
                             @endif
                             <li class="list-group-item d-flex justify-content-between"><b>Payment Type
                                     :</b>{{ $data['order_data']->payment_title }} </li>
+                            @if (isset($orderMeds[0]->status))
+                            <li class="list-group-item d-flex justify-content-between"><b>Order Status:</b>{{ $orderMeds[0]->status }}</li>
+                            @endif
                         </ul>
                     </div>
                 </div>

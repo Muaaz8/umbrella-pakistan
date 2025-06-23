@@ -44,11 +44,15 @@ Route::post('email_varification','Api\RegistrationController@email_varification'
 Route::post('otp_verification','Api\RegistrationController@otp_verification');
 Route::post('resend_otp','Api\RegistrationController@resend_otp');
 
-// products api
+Route::get('get_locations', 'Api\VendorController@getLoaction');
+Route::get('shops/{type}', 'Api\VendorController@getVendors');
+Route::get('/products/shops/{modeType}', 'Api\VendorController@getVendorProducts');
+Route::get('product/{name}/{vendor_id}', 'Api\VendorController@getSingleProduct');
 
+// products api
 Route::get('products/{name}', 'Api\ProductsController@index');
 Route::get('get/med/sub/category', 'Api\ProductsController@getMedPrescribeSubCategories');
-Route::get('product/{name}/{id}', 'Api\ProductsController@singleProduct');
+// Route::get('product/{name}/{id}', 'Api\ProductsController@singleProduct');
 Route::post('pharmacy', 'Api\ProductsController@getPharmacyByCategory');
 Route::post('imaging', 'Api\ProductsController@getImagingByCategory');
 Route::get('categories/{name}','Api\ProductsController@getCategories');
