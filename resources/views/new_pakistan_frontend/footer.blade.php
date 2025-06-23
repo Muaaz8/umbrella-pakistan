@@ -62,7 +62,7 @@ $page = DB::table('pages')->where('url', '/')->first();
       <hr class="col-12 border-blue-3 text-blue mt-2 mt-lg-5 mb-0" />
       <div class="col-sm-12 px-0">
         <div class="w-100 d-flex flex-column-reverse flex-md-row gap-2 gap-lg-0 flex-wrap align-items-center justify-content-between">
-          <div class="w-100 w-sm-auto d-flex align-items-center justify-content-between gap-4 fs-14">
+          <div class="d-flex align-items-center justify-content-between gap-4 fs-14">
             <a href="">Terms of Use</a>
             <a href="">Privacy Environmental Policy</a>
           </div>
