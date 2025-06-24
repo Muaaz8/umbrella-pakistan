@@ -121,7 +121,7 @@
 @section('content')
 <main>
   <!-- Section 1: Hero Section -->
-  <section class="container-fluid px-0 px-md-auto d-flex justify-content-center pt-2 pb-4">
+  <section class="new-hero-section container-fluid px-0 px-md-auto d-flex justify-content-center pt-2 pb-4">
     <div class="row gy-3 gx-0 g-sm-4 w-85">
       <div class="ps-md-0 col-md-8">
         <div id="mainBanner" class="carousel slide" data-bs-ride="carousel">
@@ -155,7 +155,7 @@
         </div>
       </div>
       <div class="ps-md-0 col-md-4">
-        <div class="w-100 d-flex align-items-stretch justify-content-between service-card p-3 p-sm-4 rounded-3 h-100">
+        <div class="w-100 d-flex align-items-stretch justify-content-between service-card p-3 p-sm-4 p-md-2 p-lg-4 rounded-3 h-100">
           <div class="w-60 card-text-cont">
             <h5 class="fs-6 fw-semibold">Consult Doctor Online</h5>
             <p class="service-card-para fs-14">
@@ -166,13 +166,13 @@
                 class="fw-semibold">E-Visit</span><i class="fa-solid fa-arrow-right fs-14"></i></a>
           </div>
           <div class="d-flex align-items-end justify-content-center w-40">
-            <img class="w-100 h-100 object-fit-contain" src="{{ asset('assets/new_frontend/e-visit-img.png') }}"
+            <img class="w-100 object-fit-contain" src="{{ asset('assets/new_frontend/e-visit-img.png') }}"
               alt="" />
           </div>
         </div>
       </div>
       <div class="px-md-auto col-md-4">
-        <div class="w-100 d-flex align-items-stretch justify-content-between service-card p-3 p-sm-4 rounded-3 h-100">
+        <div class="w-100 d-flex align-items-stretch justify-content-between service-card p-3 p-sm-4 p-md-2 p-lg-4 rounded-3 h-100">
           <div class="w-60 card-text-cont">
             <h5 class="fs-6 fw-semibold">Order Medicines Online</h5>
             <p class="service-card-para fs-14">
@@ -182,14 +182,14 @@
               class="card-btn bg-green d-flex align-items-center gap-2 my-3 px-3 py-1 rounded-2 text-white fs-12"><span
                 class="fw-semibold">Visit our Store</span><i class="fa-solid fa-arrow-right fs-14"></i></a>
           </div>
-          <div class="d-flex align-items-end justify-content-center w-40 ps-2">
-            <img class="w-100 h-100 object-fit-contain" src="{{ asset('assets/new_frontend/tab-cart.png') }}" alt="" />
+          <div class="d-flex align-items-end justify-content-center w-40 ps-md-3 ps-lg-2">
+            <img class="w-100 object-fit-contain" src="{{ asset('assets/new_frontend/tab-cart.png') }}" alt="" />
           </div>
         </div>
       </div>
       <div class="pe-md-0 col-md-4">
         <div class="w-100 d-flex align-items-stretch justify-content-between service-card rounded-3 h-100">
-          <div class="w-60 p-3 p-sm-4 pe-0 card-text-cont">
+          <div class="w-60 p-3 p-sm-4 p-md-2 p-lg-4 pe-0 card-text-cont">
             <h5 class="fs-6 fw-semibold">Online Lab Test</h5>
             <p class="service-card-para fs-14">
               Book lab tests online, Schedule now!
@@ -198,8 +198,8 @@
               class="card-btn bg-red d-flex align-items-center gap-2 my-3 px-3 py-1 rounded-2 text-white fs-12"><span
                 class="fw-semibold">Online Test</span><i class="fa-solid fa-arrow-right fs-14"></i></a>
           </div>
-          <div class="d-flex align-items-end justify-content-center w-40 pe-3 pe-sm-4">
-            <img class="w-100 h-100 object-fit-contain" src="{{ asset('assets/new_frontend/person.png') }}" alt="" />
+          <div class="d-flex align-items-end justify-content-center w-40 pe-3 pe-sm-4 pe-md-2 pe-lg-4">
+            <img class="w-100 object-fit-contain" src="{{ asset('assets/new_frontend/person.png') }}" alt="" />
           </div>
         </div>
       </div>
