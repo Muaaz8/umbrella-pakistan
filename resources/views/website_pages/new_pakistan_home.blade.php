@@ -148,7 +148,7 @@
         <div
           class="p-4 p-sm-5 py-md-3 px-md-4 w-100 promo-card d-flex flex-column align-items-center justify-content-center gap-2 rounded-3 h-100">
           <h4 class="text-center fw-semibold">
-            Enjoy a 25% Discount on Lab Tests at
+            Get upto 30% Discount on Lab Tests at
             <span class="highlight-blue">Essa Lab!</span>
           </h4>
           <img class="w-75 w-sm-50 w-md-100" src="{{ asset('assets/new_frontend/dr-essa-logo.webp') }}" alt="" />
@@ -214,36 +214,36 @@
         Our Guide for <span class="fw-bold">New Users</span>
       </h2>
       <div class="d-none d-sm-block">
-        <ul class="nav justify-content-between nav-pills my-3 bg-white p-2 rounded-2" id="pills-tab" role="tablist">
-          <li class="nav-item" role="presentation">
+        <ul class="nav justify-content-center nav-pills my-3 bg-white p-2 rounded-2" id="pills-tab" role="tablist">
+          <li class="nav-item px-4" role="presentation">
             <button class="text-navy-blue py-2 px-4 fw-semibold nav-link active" id="pills-register-patient-tab"
               data-bs-toggle="pill" data-bs-target="#pills-register-patient" type="button" role="tab"
               aria-controls="pills-register-patient" aria-selected="true">
-              Register as a Patient
+              Register as Patient / Doctor
             </button>
           </li>
-          <li class="nav-item" role="presentation">
+        {{--<li class="nav-item" role="presentation">
             <button class="text-navy-blue py-2 px-4 fw-semibold nav-link" id="pills-register-doctor-tab"
               data-bs-toggle="pill" data-bs-target="#pills-register-doctor" type="button" role="tab"
               aria-controls="pills-register-doctor" aria-selected="false">
               Register as a Doctor
             </button>
-          </li>
-          <li class="nav-item" role="presentation">
+          </li>--}}
+          <li class="nav-item px-4" role="presentation">
             <button class="text-navy-blue py-2 px-4 fw-semibold nav-link" id="pills-order-medicine-tab"
               data-bs-toggle="pill" data-bs-target="#pills-order-medicine" type="button" role="tab"
               aria-controls="pills-order-medicine" aria-selected="false">
               Order Medicine
             </button>
           </li>
-          <li class="nav-item" role="presentation">
+          <li class="nav-item px-4" role="presentation">
             <button class="text-navy-blue py-2 px-4 fw-semibold nav-link" id="pills-order-lab-tab" data-bs-toggle="pill"
               data-bs-target="#pills-order-lab" type="button" role="tab" aria-controls="pills-order-lab-tab"
               aria-selected="false">
               Order Lab
             </button>
           </li>
-          <li class="nav-item" role="presentation">
+          <li class="nav-item px-4" role="presentation">
             <button class="text-navy-blue py-2 px-4 fw-semibold nav-link" id="pills-checkout-tab" data-bs-toggle="pill"
               data-bs-target="#pills-checkout" type="button" role="tab" aria-controls="pills-checkout"
               aria-selected="false">
