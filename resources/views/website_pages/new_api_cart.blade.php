@@ -1,4 +1,4 @@
-@extends('layouts.new_web_layout')
+@extends('layouts.new_pakistan_layout')
 
 @section('meta_tags')
     <meta charset="utf-8" />
@@ -50,7 +50,6 @@
 
         .process-pay {
             background: linear-gradient(to top, #08295a, #165dc8);
-            /* background-image: linear-gradient(#2c66bb, #08295a); */
             color: #fff !important;
             border: none;
         }
@@ -61,1063 +60,751 @@
         }
 
         .buttonload {
-
             padding: 12px 16px;
-            /* Some padding */
-
-        }
-    </style>
-    <style>
-        :root {
-            --red: #c80919;
-            --blue: #2964bc;
-            --maroon: #c80919;
-            --navy-blue: #082755;
-            --green: #35b518;
-            --lh: 1.4rem;
-            --lightgray: #f5f5f5;
-            --lightblue: #2964BCA3;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-            transition: all 0.3s ease-out;
+
+        .dot-pulse {
+            position: relative;
+            left: -9999px;
+            color: #08295a;
+            box-shadow: 9999px 0 0 -5px #08295a;
+            animation: 1.5s linear 0.25s infinite dotPulse;
         }
 
-        .offer-banner>span {
-            font-size: 16px;
+        .dot-pulse::after,
+        .dot-pulse::before {
+            content: "";
+            display: inline-block;
+            position: absolute;
+            top: 0;
+            color: #08295a;
         }
 
-        i {
-            margin-right: auto !important;
+        .dot-pulse::before {
+            box-shadow: 9984px 0 0 -5px #08295a;
+            animation: 1.5s linear infinite dotPulseBefore;
         }
 
-        p {
-            margin-bottom: 0;
+        .dot-pulse::after {
+            box-shadow: 10014px 0 0 -5px #08295a;
+            animation: 1.5s linear 0.5s infinite dotPulseAfter;
         }
 
-        ::-webkit-scrollbar {
-            width: 6px;
+        .payment-form-wrap .card,
+        .payment-order-summary-wrap .card,
+        .payment-your-order-wrap .accordion-body,
+        .shopping-cart-all-wrap .card {
+            box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19);
         }
 
-        ::-webkit-scrollbar-track {
-            background: #c7c7c7;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #3b35ac;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #082755;
-        }
-
-        html,
-        body {
-            width: 100%;
-            overflow-x: hidden;
-        }
-
-        header {
-            background-color: white;
-        }
-
-        #contact-bar {
-            height: 50px;
-            background-color: var(--red);
-            color: white;
-            font-size: small;
-        }
-
-        #navbar {
-            background-color: white;
-        }
-
-        #left-side>div>div,
-        #right-side>div,
-        #social-icons>a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid white;
-            border-radius: 30px;
-            padding: 6px;
-        }
-
-        .checkout-steps-wrap #checkoutform .action-button:disabled {
-            background: #334a6d;
-            color: #ffff;
-        }
-
-        #contact-bar img {
-            width: 15px;
-        }
-
-        .dropdown-item.active,
-        .dropdown-item:active {
-            color: white !important;
-            text-decoration: none;
-            background-color: var(--navy-blue);
-        }
-
-        .wrap {
+        .payment-form-wrap .card {
             height: 100%;
-            width: 93%;
-            margin: 0 auto;
-            border-bottom: 1px solid #e0e0e0;
         }
 
-        .logo {
-            border-radius: 100%;
+        .stage {
             display: flex;
-            align-items: center;
-            justify-content: start;
-        }
-
-        .logo>img {
-            width: 250px;
-        }
-
-        #nav-right-side {
-            justify-content: flex-end;
-        }
-
-        #nav-left-side,
-        #nav-right-side {
-            gap: 20px;
-        }
-
-        #nav-left-side {
             justify-content: center;
-            margin-top: 0.6rem;
+            margin: 20px 0;
         }
 
-        #navbar a {
-            text-decoration: none;
-            color: black;
-            border-bottom: 2px solid transparent;
-            font-size: 15px;
-            padding: 3px 0;
-            font-weight: 600;
-            width: max-content;
-        }
+        @keyframes dotPulseBefore {
 
-        [type="search"]::-webkit-search-cancel-button,
-        [type="search"]::-webkit-search-decoration {
-            -webkit-appearance: none;
-            appearance: none;
-        }
-
-        .blink-dot {
-            width: 10px;
-            height: 10px;
-            background-color: var(--green);
-            border-radius: 50%;
-            animation: blink 1.5s infinite;
-        }
-
-        @keyframes blink {
-            0% {
-                opacity: 1;
+            0%,
+            100%,
+            60% {
+                box-shadow: 9984px 0 0 -5px #08295a;
             }
-            50% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
+
+            30% {
+                box-shadow: 9984px 0 0 2px #08295a;
             }
         }
 
-        .online_docs {
-            border: 2px solid var(--green) !important;
-            padding: 0.25rem 0.75rem !important;
-            border-radius: 1.5rem;
+        @keyframes dotPulse {
+
+            0%,
+            100%,
+            60% {
+                box-shadow: 9999px 0 0 -5px #08295a;
+            }
+
+            30% {
+                box-shadow: 9999px 0 0 2px #08295a;
+            }
         }
 
-        .online_docs:hover {
-            background: var(--green);
-            color: white;
+        @keyframes dotPulseAfter {
+
+            0%,
+            100%,
+            60% {
+                box-shadow: 10014px 0 0 -5px #08295a;
+            }
+
+            30% {
+                box-shadow: 10014px 0 0 2px #08295a;
+            }
         }
 
-        .online_docs:hover .blink-dot {
-            background-color: white;
-        }
-
-        .online_docs:hover span {
-            color: white;
-        }
-
-        .header-search-container {
-            width: 325px !important;
-        }
-
-        header > .header-search-container {
-            display: none;
-            margin: 10px auto 0 auto;
-            width: 90% !important;
-        }
-
-        .header-search-field {
-            border: none;
-            outline: none;
-        }
-
-        .header-search-result {
-            /* position: absolute;
-            left: 0; */
-            top: 100% !important;
-            display: none;
-            /* background-color: red; */
-            /* max-height: 300px; */
-            /* height: 300px; */
-            width: 100%;
-            /* border: 2px solid black; */
-            /* overflow-y: hidden; */
-            /* z-index: 2; */
-        }
-
-        .header-search-result li {
-            min-width: 100% !important;
-        }
-
-        .header-search-result li:hover {
-            background-color: #0048b1 !important;
-        }
-
-        .header-search-result li:hover .product-name {
-            color: white;
-        }
-
-        .header-search-result li:hover .category-name {
-            color: gainsboro;
-        }
-
-        .header-search-result li a {
-            text-decoration: none;
-            color: black;
-        }
-
-        .product-name {
-            max-width: 100%;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            white-space: nowrap;
-            color: black;
-            font-weight: 600 !important;
-        }
-
-        .category-name {
-            font-size: 0.75rem;
-            color: gray;
-        }
-
-        .header-search-field:focus ~ .header-search-result {
-            display: block;
-        }
-
-        .header-search-container:hover .header-search-result {
-            display: block;
-        }
-
-        .header-search-btn {
-            border: none;
-            background: none;
-        }
-
-        .header-search-result::-webkit-scrollbar {
-            width: 6px;
-            border-radius: 10px;
-        }
-
-        .header-search-result::-webkit-scrollbar-track {
-            background: transparent;
-            border-radius: 10px;
-        }
-
-        .header-search-result::-webkit-scrollbar-thumb {
-            background: #888;
-            border-radius: 10px;
-        }
-
-        .header-search-result::-webkit-scrollbar-thumb:hover {
-            background: #555;
-        }
-
-        .cart-search-container {
-            display: none !important;
-        }
-
-        .cart-mob, .search-btn-mob {
-            font-size: 20px;
-        }
-
-        .cart-mob img {
-            width: 25px;
-        }
-
-        .dropdown .fa-user-group {
-            font-size: 0.8rem;
-        }
-
-        .categories-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            position: absolute;
-            max-height: 300px;
-            min-height: 0;
-            overflow-y: auto;
-            top: 114%;
-            left: 0;
-            background-color: white;
-            border: 1px solid var(--red);
-            border-radius: 4px;
-            display: none;
-            /* Initially hidden */
-            min-width: 0;
-            z-index: 1000;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .categories-list li {
-            min-width: 150px;
-            max-width: 200px;
-            text-align: left;
-            padding: 0.5rem 1rem;
-            border-bottom: 1px solid #dadada;
-            color: var(--dark-gray);
-        }
-
-        .categories-list li:last-child {
-            border-bottom: none;
-        }
-
-        .categories-list li:hover {
-            background-color: #4f8be6;
-            color: white;
-        }
-
-        /* Show Dropdown on Hover */
-        .alphabet-group:hover .categories-list {
-            display: block;
-        }
-
-        #drawer a {
-            margin-left: 1rem;
-        }
-
-        #nav-left-side>a:hover {
-            border-bottom: 2px solid var(--red);
-        }
-
-        #checker,
-        #joinDropdown {
-            border: 2px solid var(--green);
-            padding: 5px 15px;
-            border-radius: 30px;
-            background: #ffff;
-            font-weight: 600;
-        }
-
-        #checker>img,
-        #joinDropdown>img {
-            width: 25px;
-        }
-
-        #checker:hover,
-        #joinDropdown:hover {
-            border: 2px solid var(--red);
-        }
-
-        .nav_btns {
-            display: flex;
-            align-items: center;
-            justify-content: between;
-            border: 2px solid var(--green);
-            border-radius: 30px;
-            background: #ffff;
-            padding: 3px 15px;
-        }
-
-        .nav_btns>a {
-            font-size: 16px !important;
-            text-decoration: none;
-            color: black;
-            padding: 0px !important;
-            margin-bottom: 0 !important;
-            margin-left: 5px;
-            font-weight: 500;
-        }
-
-        .nav_btns:hover {
-            border: 2px solid var(--red);
-        }
-
-
-        #nav-right-side>div:last-child>img {
-            width: 30px;
-        }
-
-        #checker,
-        #joinDropdown {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .primary-bg {
-            background: #0048b1;
-        }
-
-        .cart-count {
-            position: absolute;
-            top: -45%;
-            right: -50%;
-            background: var(--red);
-            color: white;
-            height: 25px;
-            width: 25px;
-            border-radius: 50%;
+        .go-back {
+            position: fixed;
+            top: 3.5em;
+            left: 15px;
+            color: #08295a;
             font-size: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .drawer img[alt="shop-icon"] {
-            width: 25px;
-            margin-left: 1rem;
-        }
-
-        .drawer div {
-            margin-top: 0.35rem;
-        }
-
-        .drawer .cart-count {
-            top: -8px;
-            left: 32px;
-            color: white;
-            height: 15px;
-            width: 15px;
-            font-size: 8px;
-        }
-
-        #disclaimer {
-            background-position: cover center;
-            background-repeat: no-repeat;
-            background-size: 100vw;
-            position: relative;
-            /* min-height: 410px; */
-            padding-bottom: 70px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .disclaimer-box {
-            width: 100%;
-            background-color: white;
-            opacity: 0.82;
-        }
-
-        #disclaimer-content {
-            /* display: flex; */
+            z-index: 889;
             display: none;
-            /* flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 20px;
-            position: relative;
-            z-index: 2; */
+            cursor: pointer;
         }
 
-        /* #disclaimer-content>div:first-child>.underline {
-            background-color: var(--navy-blue);
-        }
-
-        #disclaimer-content>div:first-child {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            align-items: center;
-            font-size: 40px;
-            color: var(--red);
-        }
-
-        #disclaimer-content>div:first-child>h2 {
-            color: var(--red);
-            font-size: 2.5rem;
-            margin-top: 1rem;
-        }
-
-        #disclaimer-content>div:last-child {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
-        #disclaimer-content>div>p {
-            font-size: 16px;
-            padding: 0 50px;
-            color: var(--navy-blue);
-            text-align: justify;
-            text-align-last: center;
-            font-weight: 400;
-        } */
-
-        .disclaimer-blob {
-            /* position: absolute;
-            left: -300px;
-            top: -100px;
-            opacity: 0.2;
-            width: 700px;
-            z-index: -1; */
-            display: none;
-        }
-
-        .custom-shape-divider-bottom-1731257443 {
-            position: absolute;
-            bottom: -1%;
-            left: 0;
-            width: 100%;
-            overflow: hidden;
-            line-height: 0;
-            z-index: 2;
-        }
-
-        .custom-shape-divider-bottom-1731257443 svg {
-            position: relative;
-            display: block;
-            width: calc(100% + 1.3px);
-            height: 56px;
-        }
-
-        .custom-shape-divider-bottom-1731257443 .shape-fill {
-            fill: #082755;
-        }
-
-        .new-footer-cont {
-            max-width: 100vw;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--navy-blue);
-            padding: 40px 0 20px 0;
-            gap: 20px;
-        }
-
-        #footer-section {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            align-items: flex-start;
-            width: 90%;
-            gap: 20px;
-            color: white;
-        }
-
-        .footer-new {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-            align-items: start;
-        }
-
-        #footer-1 {
+        .med-price,
+        .payment-order-summary-wrap .list-group-flush>.list-group-item,
+        .shopping-cart-all-wrap .title {
             display: flex;
             justify-content: space-between;
         }
 
-        .footer-content-new {
+        .shopping-cart-all-wrap .title {
+            margin-bottom: 5vh;
+            align-items: baseline;
+        }
+
+        .shopping-cart-all-wrap .card {
+            margin: auto;
+            width: 100%;
+            border: transparent;
+            padding: 20px;
+        }
+
+        .shopping-cart-all-wrap .summary {
+            background-color: #ddd;
+            border-top-right-radius: 1rem;
+            border-bottom-right-radius: 1rem;
+            padding: 4vh;
+            color: #414141;
+        }
+
+        .text-prescribed {
+            font-size: 11px;
+            color: red;
+        }
+
+        .qty-num {
+            padding: 4px 10px;
+        }
+
+        .item-tag-name {
+            text-align: center;
+            transform: rotate(-90deg);
+            position: absolute;
+            left: -11px;
+            top: 30%;
+            font-size: 11px;
+            color: #fff;
+            padding: 2px 5px;
+            font-weight: 500;
+        }
+
+        .tag-name-imaging {
+            background-color: #ff8400;
+        }
+
+        .tag-name-lab {
+            background-color: purple;
+        }
+
+        .tag-name-pharmacy {
+            background: red;
+        }
+
+        .cart-img-div {
+            position: relative;
+            text-align: center;
+        }
+
+        @media (max-width: 767px) {
+            .shopping-cart-all-wrap .card {
+                margin: 3vh auto;
+            }
+
+            .shopping-cart-all-wrap .summary {
+                border-top-right-radius: unset;
+                border-bottom-left-radius: 1rem;
+            }
+        }
+
+        .shopping-cart-all-wrap #myList,
+        .shopping-cart-all-wrap .summary .col-10,
+        .shopping-cart-all-wrap .summary .col-2 {
+            padding: 0;
+        }
+
+        .shopping-cart-all-wrap .title b {
+            font-size: 1.5rem;
+        }
+
+        .shopping-cart-all-wrap .main {
+            margin: 0;
+            padding: 1vh 0;
+            width: 100%;
+        }
+
+        .shopping-cart-all-wrap .close {
+            margin-left: auto;
+            float: right;
+            color: red;
+        }
+
+        .shopping-cart-all-wrap .close input {
+            position: absolute;
+            top: 0;
+            right: 0;
+            transform: scale(2);
+            width: auto !important;
+        }
+
+        .shopping-cart-all-wrap img {
+            width: 3.5rem;
+        }
+
+        hr {
+            margin-top: 1.25rem;
+        }
+
+        .shopping-cart-all-wrap form {
+            padding: 2vh 0;
+        }
+
+        .shopping-cart-all-wrap select {
+            border: 1px solid rgba(0, 0, 0, 0.137);
+            padding: 1.5vh 1vh;
+            margin-bottom: 4vh;
+            outline: 0;
+            width: 100%;
+            background-color: #f7f7f7;
+        }
+
+        .tag-prescribed {
+            display: inline-block;
+            width: auto;
+            height: 20px;
+            background-color: red;
+            -webkit-border-radius: 3px 4px 4px 3px;
+            -moz-border-radius: 3px 4px 4px 3px;
+            border-radius: 3px 4px 4px 3px;
+            border-left: 1px solid #979797;
+            margin-left: 19px;
+            position: relative;
+            color: #fff;
+            font-weight: 300;
+            font-family: "Source Sans Pro", sans-serif;
+            font-size: 12px;
+            line-height: 23px;
+            padding: 0 10px;
+        }
+
+        .tag-prescribed:before {
+            content: "";
+            position: absolute;
+            display: block;
+            left: -13px;
+            width: 0;
+            height: 0;
+            border-top: 12px solid transparent;
+            border-bottom: 7px solid transparent;
+            border-right: 12px solid red;
+        }
+
+        .tag-prescribed:after {
+            content: "";
+            background-color: #fff;
+            border-radius: 50%;
+            width: 4px;
+            height: 4px;
+            display: block;
+            position: absolute;
+            left: -9px;
+            top: 9px;
+        }
+
+        .detail-cart-btn h4 {
+            font-size: 20px;
+            float: right;
+            font-weight: 800;
+            color: #fff;
+            margin-right: 20px;
+        }
+
+        .add-to-cart-detail {
+            box-shadow: rgba(149, 157, 165, 0.2) 0 8px 24px;
+            margin: 0;
+            background-color: #08295a;
+            color: #fff;
+            text-align: center;
+            padding: 10px 30px;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
             display: flex;
-            flex-direction: column;
-            gap: 10px;
-            align-items: start;
+            justify-content: space-between;
+            align-items: end;
         }
 
-        .footer-heading {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .footer-heading>h3 {
-            font-size: 24px;
-        }
-
-        .footer-content-new>h4 {
-            font-weight: 400;
-            color: gainsboro;
-        }
-
-        .footer-content-new>div>a {
-            text-decoration: none;
-            color: gainsboro;
-        }
-
-        .footer-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .footer-info>img {
-            width: 10px;
-        }
-
-        .footer-info>a {
-            border-bottom: 1px solid transparent;
-        }
-
-        .footer-info>a:hover {
-            border-bottom: 1px solid var(--red);
-            color: white;
-        }
-
-        .footer-highlight {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background-color: var(--red);
-            padding: 10px 15px;
+        .detail-pharmcy-wrapper {
+            box-shadow: rgb(14 30 37 / 12%) 0 2px 4px 0, rgb(14 30 37 / 32%) 0 2px 16px 0;
+            margin: 20px 0;
             border-radius: 20px;
         }
 
-        .footer-highlight>img {
-            width: 20px;
+        .detail-pharmcy-content {
+            padding: 30px;
+            margin: 0;
+            border-radius: 0;
+            box-shadow: none;
         }
 
-        .footer-highlight>a:hover {
-            color: gainsboro;
+        .add-to-cart-detail h3 {
+            font-size: 20px;
         }
 
-        #footer-logo-new {
-            display: block;
+        .selected-option:first-child {
+            margin-left: 10px;
         }
 
-        #footer-logo-new>img {
-            width: 80%;
-            padding: 1rem;
-            background-color: white;
-            border-radius: 0.5rem;
-            min-width: 220px;
-        }
-
-        #footer-2>.footer-content-new>h4 {
-            text-decoration: 1px solid underline;
-        }
-
-        #social-icons {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        #social-icons>a {
-            background-color: var(--red);
+        .selected-option {
             border: none;
-            padding: 8px;
-            color: white;
-            text-decoration: none;
-            min-width: 33px;
-            min-height: 33px;
+            padding: 2px 10px;
+            font-size: 12px;
+            border-radius: 22px;
+            margin-bottom: 5px;
+            background-color: #08295a;
+            color: #fff;
+            box-shadow: rgba(149, 157, 165, 0.2) 0 8px 24px;
         }
 
-        #social-icons>a>i {
-            font-size: 17px;
-        }
-
-        #footer-4>div>h4 {
-            font-weight: 500;
-            color: white;
-            font-size: 18px;
-        }
-
-        #copyright>p {
-            color: gainsboro;
-            text-align: center;
-            padding: 0 0.5rem;
-        }
-
-        #copyright>span {
-            font-weight: bold;
-        }
-
-        .seperation {
-            width: 100%;
-            height: 1px;
-            background-color: gainsboro;
-        }
-
-        .hamburger_container {
+        .selected-option i {
+            margin: 0;
             cursor: pointer;
-            display: none;
-            z-index: 1000;
         }
 
-        .hamburger div {
-            width: 30px;
+        .payment-form-wrap .card {
+            margin: auto;
+            padding: 3rem 2rem;
+        }
+
+        .mt-50 {
+            margin-top: 50px;
+        }
+
+        .mb-50 {
+            margin-bottom: 50px;
+        }
+
+        .payment-form-wrap .card-title {
+            font-weight: 700;
+            font-size: 2.5em;
+        }
+
+        .payment-form-wrap .form-label {
+            margin: 0;
+            font-weight: 600;
+            text-align: left;
+            width: 100%;
+        }
+
+        .payment-form-wrap .form-control {
+            background-color: #c0d1dc38;
+            line-height: 2;
+        }
+
+        .payment-form-wrap button {
+            border: none;
+            background-color: #08295a;
+            font-size: 20px;
+            font-weight: 800;
+            border-radius: 10px;
+            padding: 15px 0;
+            width: 100%;
+        }
+
+        .payment-order-summary-wrap .card {
+            padding: 0;
+        }
+
+        .payment-your-order-wrap .accordion-button {
+            box-shadow: rgba(0, 0, 0, 0.16) 0 3px 6px, rgba(0, 0, 0, 0.23) 0 3px 6px;
+            font-weight: 800;
+        }
+
+        .payment-order-summary-wrap .card-header,
+        .payment-order-summary-wrap .list-group-flush>.list-group-item span {
+            font-weight: 800;
+        }
+
+        .payment-your-order-wrap .card {
+            border: 1px solid #00000038;
+            height: 95px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-size: 12px;
+            padding: 0;
+        }
+
+        .payment-your-order-wrap .card .card-body {
+            padding: 0;
+            text-align: left;
+        }
+
+        .payment-your-order-wrap .image-wrap-inner {
+            display: flex;
+            align-items: center;
+            width: 20%;
+            height: 100%;
+        }
+
+        .payment-your-order-wrap .image-wrap-inner img {
+            width: 60px;
+            height: 60px;
+        }
+
+        .checkout-steps-wrap #checkoutform .action-button {
+            width: 100%;
+            background: #08295a;
+            font-weight: 700;
+            color: #fff;
+            border: 0;
+            border-radius: 1px;
+            cursor: pointer;
+            padding: 10px 5px;
+            margin: 10px 5px;
+        }
+
+        .checkout-steps-wrap #checkoutform .action-button:focus,
+        .checkout-steps-wrap #checkoutform .action-button:hover {
+            box-shadow: 0 0 0 2px #fff, 0 0 0 3px #08295a;
+        }
+
+        .checkout-steps-wrap #progressbar {
+            margin: 20px 0;
+            overflow: hidden;
+            counter-reset: step;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+        }
+
+        .checkout-steps-wrap #progressbar li {
+            list-style-type: none;
+            color: #333;
+            text-transform: uppercase;
+            font-size: 12px;
+            width: 33.33%;
+            float: left;
+            position: relative;
+        }
+
+        .checkout-steps-wrap #progressbar li:before {
+            content: counter(step);
+            counter-increment: step;
+            width: 40px !important;
+            height: 40px !important;
+            line-height: 40px;
+            display: block;
+            font-size: 18px;
+            color: #333;
+            background: #ccc;
+            border-radius: 3px;
+            margin: 0 auto 5px;
+        }
+
+        .checkout-steps-wrap #progressbar li:after {
+            content: "";
+            width: 100%;
             height: 3px;
-            background-color: #333;
-            margin: 5px 0;
+            background: #ccc;
+            position: absolute;
+            left: -50%;
+            top: 24px;
+            z-index: -1;
+        }
+
+        .checkout-steps-wrap #progressbar li:first-child:after {
+            content: none;
+        }
+
+        .affiliate-selected,
+        .checkout-steps-wrap #progressbar li.active:after,
+        .checkout-steps-wrap #progressbar li.active:before {
+            background: #08295a;
+            color: #fff;
+        }
+
+        .proceed-checkou-btn button {
+            width: 100%;
+            background-color: #08295a;
+            color: #fff;
+            border: none;
+            padding: 8px 0;
+        }
+
+        .affiliate-grid input[type="checkbox"] {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: none;
+        }
+
+        .affiliate-grid-details>span {
+            display: block;
+            padding-left: 10px;
+            color: #7f7e7e;
+            font-family: helvetica;
+            font-size: 14px;
+            text-align: left;
+            line-height: 1.5;
+            width: 200px;
+            -ms-text-overflow: ellipsis;
+        }
+
+        .affiliate-exported {
+            position: absolute;
+            top: 40%;
+            display: block;
+            width: 100%;
+            height: 40px;
+            background: rgba(#666, 0.95);
+        }
+
+        .affiliate-exported:after {
+            text-align: center;
+            content: "Exported";
+            display: inline-block;
+            font-family: helvetica;
+            padding-top: 10px;
+            font-size: 14px;
+            color: #ddd;
+        }
+
+        .shopping-cart-all-wrap #myList>li {
+            border: 1px solid #ccc;
+            list-style: none;
+            padding: 5px;
+            margin-bottom: 2px;
+            color: #333;
+            cursor: pointer;
+        }
+
+        .shopping-cart-all-wrap #myList>li.selected {
+            background-color: #08295a;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .payment-back {
+            font-size: 35px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            color: #08295a;
+        }
+
+        .payment_toggole_form .switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .payment_toggole_form .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .payment_toggole_form .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: 0.4s;
             transition: 0.4s;
         }
 
-        .drawer-item {
-            color: var(--blue);
-        }
-
-        .drawer {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 250px;
-            height: 100%;
-            background-color: #ffffff;
-            color: #202020;
-            transform: translateX(-100%);
-            transition: transform 0.4s ease;
-            padding-top: 40px;
-            z-index: 999;
-            border-right: 1px solid #ff5757;
-        }
-
-        .drawer a {
-            padding: 15px 30px;
-            text-decoration: none;
-            font-size: 16px;
-            color: #fff;
-            display: block;
-            transition: 0.3s;
-            border-bottom: 1px solid transparent;
-        }
-
-        .drawer hr {
-            width: 90%;
-            margin: 0 auto;
-            border: 1px solid #ff5757;
-        }
-
-        .drawer a:hover {
-            border-bottom: 1px solid var(--red) !important;
-        }
-
-        .drawer.active {
-            transform: translateX(0);
-        }
-
-        .close-btn {
+        .payment_toggole_form .slider:before {
             position: absolute;
-            top: 10px;
-            right: 20px;
-            font-size: 24px;
-            cursor: pointer;
-            color: #202020;
-            transition: 0.3s;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: red;
+            -webkit-transition: 0.4s;
+            transition: 0.4s;
         }
 
-        .close-btn:hover {
-            color: #ff5757;
+        .payment_toggole_form input:checked+.slider::before {
+            background-color: #26e826;
         }
 
-        .blur-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 998;
-            display: none;
+        .payment_toggole_form input:focus+.slider {
+            box-shadow: 0 0 1px #2196f3;
         }
 
-        .blur-overlay.active {
-            display: block;
+        .payment_toggole_form input:checked+.slider:before {
+            -webkit-transform: translateX(26px);
+            -ms-transform: translateX(26px);
+            transform: translateX(26px);
         }
 
-        .hamburger.active div:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
+        .payment_toggole_form .slider.round {
+            border-radius: 34px;
+            background-color: #08295a;
         }
 
-        .hamburger.active div:nth-child(2) {
-            opacity: 0;
+        .payment_toggole_form .slider.round:before {
+            border-radius: 50%;
         }
 
-        .hamburger.active div:nth-child(3) {
-            transform: rotate(-45deg) translate(5px, -5px);
-        }
-
-        .dropdown-menu li a {
-            color: #000;
-            font-size: 14px !important;
-            padding: 10px !important;
-            display: block;
-            font-weight: 500 !important;
-            text-decoration: none !important;
-            color: #000 !important;
-            font-size: 14px !important;
-            padding: 8px !important;
-            text-decoration: none;
-            width: 100% !important;
-        }
-
-        .footer-content-new>p {
-            font-size: 0.9rem;
-        }
-
-        .footer-content-new>div>a {
-            font-size: 0.8rem;
-        }
-
-        /* utility.css  */
-
-        .text-center {
-            text-align: center;
-        }
-
-        .flex {
+        .payment_toggole_form {
             display: flex;
+            justify-content: space-between;
             align-items: center;
         }
 
-        .gap-5 {
-            gap: 5px;
+        .health_cards:hover {
+            box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
         }
 
-        .gap-10 {
-            gap: 10px;
+        .health_cards {
+            border: 1px solid #00000030;
         }
 
-        .gap-15 {
-            gap: 10px;
+        .thankyoucontent .wrapper-1 {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
         }
 
-        .between {
-            justify-content: space-between;
+        .thankyoucontent .wrapper-2 {
+            padding: 20px;
+            text-align: center;
         }
 
-        @media screen and (min-width: 1400px) {
-            .offer-banner>span {
-                font-size: 1.1rem;
-            }
-
-            .logo>img {
-                width: 40%;
-            }
-
-            .dropdown-menu li a {
-                font-size: 1.1rem !important;
-            }
-
-            #joinDropdown,
-            #navbar a,
-            .nav_btns>i {
-                font-size: 1.1rem !important;
-            }
-
-            #nav-right-side>div:last-child>img {
-                width: 35px;
-            }
-
-            #nav-right-side>div:last-child {
-                width: 6%;
-            }
-
-            .footer-heading>h3 {
-                font-size: 1.75rem;
-            }
-
-            .footer-content-new>p {
-                font-size: 1.1rem;
-            }
-
-            .footer-content-new>div>a {
-                font-size: 1.1rem;
-            }
-
-            #social-icons>a>i {
-                font-size: 1.3rem;
-            }
-
-            #social-icons {
-                gap: 1.5rem;
-            }
-
-            #copyright>p {
-                font-size: 1.15rem;
-            }
-
-            #disclaimer-content>div:first-child>h2 {
-                font-size: 2.5rem;
-            }
-
-            #disclaimer-content>div>p {
-                font-size: 1.2rem;
-            }
-
-            .footer-content-new>iframe {
-                width: 400px !important;
-                height: 200px;
-            }
-
-            #footer-logo-new>img {
-                width: 100%;
-                min-width: 225px;
-            }
-
+        .thankyoucontent h1 {
+            font-family: Raleway, Arial Black, Sans-Serif;
+            font-size: 3em;
+            font-weight: 900;
+            letter-spacing: 3px;
+            color: #08295a;
+            margin: 20px 0;
         }
 
-        @media screen and (min-width: 2000px) {
-            .offer-banner>span {
-                font-size: 1.2rem;
-            }
-
-            .logo>img {
-                width: 40%;
-            }
-
-            .dropdown-menu li a {
-                font-size: 1.2rem !important;
-            }
-
-            #joinDropdown,
-            #navbar a,
-            .nav_btns>i {
-                font-size: 1.2rem !important;
-            }
-
-            #nav-right-side>div:last-child {
-                width: 6%;
-            }
-
-            #nav-right-side>div:last-child>img {
-                width: 65%;
-            }
-
-            .footer-heading>h3 {
-                font-size: 2rem;
-            }
-
-            .footer-content-new>p {
-                font-size: 1.3rem;
-            }
-
-            .footer-content-new>div>a {
-                font-size: 1.3rem;
-            }
-
-            #social-icons>a>i {
-                font-size: 1.5rem;
-            }
-
-            #social-icons {
-                gap: 1.3rem;
-            }
-
-            #copyright>p {
-                font-size: 1.3rem;
-            }
-
-            #footer-logo-new>img {
-                width: 50%;
-            }
+        .thankyoucontent .wrapper-2 p {
+            margin: 0;
+            font-size: 1.3em;
+            color: #08295a;
+            font-family: Raleway, sans-serif;
+            letter-spacing: 1px;
+            line-height: 1.5;
         }
 
-        @media screen and (max-width: 1200px) {
-            .w-100 {
-                height: auto !important;
-            }
+        .thankyoucontent .go-home {
+            background: #08295a;
+            color: #fff;
+            border: none;
+            padding: 12px 30px;
+            margin: 30px 0;
+            border-radius: 5px;
+            cursor: pointer;
         }
 
-        @media screen and (max-width: 1024px) {
-
-            #footer-section {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            #navbar a {
-                font-size: 12px;
-            }
-
+        .thankyoucontent .go-home:hover {
+            opacity: 0.9;
         }
 
-        @media screen and (max-width: 980px) {
-
-            #nav-left-side,
-            #nav-right-side {
-                display: none;
-            }
-
-            .hamburger_container {
-                display: block;
-            }
-
-            .cart-search-container {
-                display: flex !important;
-            }
-
+        .thankyoucontent .go-home a {
+            font-family: Raleway, Arial Black;
+            font-size: 1rem;
+            font-weight: 700 !important;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #fff !important;
         }
 
-        @media screen and (max-width: 768px) {
-            #footer-logo-new>img {
-                max-width: 400px;
-            }
-
-            #footer-section {
-                grid-template-columns: 1fr;
-            }
+        .thankyoucontent img {
+            width: 15%;
+            filter: drop-shadow(2px 4px 6px black);
         }
 
-        @media screen and (max-width: 650px) {
-            #disclaimer-content>div>p {
-                font-size: 12px;
-            }
-
-            #disclaimer-content>div:first-child>h2 {
-                font-size: 1.5rem;
-            }
+        .Email-confirm-wrap {
+            box-shadow: rgb(0 0 0 / 15%) 0 5px 15px 0;
+            padding: 0 40px 40px;
+            margin: auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            height: 400px;
+            justify-content: space-around;
+            background-color: #fff;
+            border-radius: 20px;
         }
 
-        @media screen and (max-width: 576px) {
-            .disclaimer-blob {
-                /* width: 500px;
-                left: -250px;
-                top: 100px; */
-                display: none;
-            }
+        .Email-confirm-wrap button {
+            background: linear-gradient(to top, #08295a, #165dc8);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 40px;
         }
 
-        @media screen and (max-width: 540px) {
-            #disclaimer-content>div:first-child>h2 {
-                font-size: 32px;
-            }
+        .psychiatrist-div ul {
+            margin: auto;
+            padding: revert;
         }
 
-        @media screen and (max-width: 480px) {
-            #disclaimer-content>div>p {
-                padding: 0 1.5rem;
-            }
-
-            .footer-content-new i {
-                margin-left: 0 !important;
-            }
-
-            .footer-content-new iframe {
-                width: 280px !important;
-            }
-
-            .logo > img {
-                width: 200px;
-            }
+        .psychiatrist-div ul li {
+            list-style: disc;
         }
 
-        @media only screen and (max-width: 373px) {
-            .logo>img {
-                width: 170px;
-            }
+        .api_saved_card {
+            box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px 0px;
+            border-radius: 10px;
+            padding: 0 20px 0 10px;
+        }
+
+        .api_saved_card img {
+            width: 50px;
+        }
+
+        .list-group {
+            width: 100%;
+        }
+
+        /* add bootstrap default card class css  */
+        .card {
+            border: 1px solid #dee2e6 !important;
+            border-radius: 0.25rem !important;
+            box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075) !important;
+            margin-bottom: 1.5rem;
+            background-color: #fff !important;
+            padding: 1.25rem !important;
+            position: relative !important;
+            overflow: hidden !important;
+            transition: box-shadow 0.15s ease-in-out !important;
+            display: flex !important;
+            flex-direction: column !important;
+            width: 100% !important;
+            min-width: 100% !important;
+            flex: 1 1 auto !important;
+        }
+
+        #myList {
+            width: 100%;
         }
     </style>
 @endsection
@@ -1149,31 +836,35 @@
             });
 
             $(document).on("click", function(event) {
-                if (!$(event.target).closest(".header-search-container") && !$(event.target).closest(".search-btn-mob")) {
+                if (!$(event.target).closest(".header-search-container") && !$(event.target).closest(
+                        ".search-btn-mob")) {
                     $(".header-search-container").css("display", "none");
                 }
             });
 
-            $('#new-search2').on('input', function () {
-            const searchTerm = $(this).val().trim().toLowerCase();
+            $('#new-search2').on('input', function() {
+                const searchTerm = $(this).val().trim().toLowerCase();
 
-            if (searchTerm.length === 0) {
-                $('.header-search-result').empty().hide();
-                return;
-            }
+                if (searchTerm.length === 0) {
+                    $('.header-search-result').empty().hide();
+                    return;
+                }
 
-  $.ajax({
-      url: `/search_items/${searchTerm}`,
-      type: 'GET',
-      dataType: 'json',
-      success: function (response) {
-          const { products, test_codes } = response;
+                $.ajax({
+                    url: `/search_items/${searchTerm}`,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(response) {
+                        const {
+                            products,
+                            test_codes
+                        } = response;
 
-          $('.header-search-result').empty();
+                        $('.header-search-result').empty();
 
-          if (products.length > 0 || test_codes.length > 0) {
-              products.forEach(product => {
-                  $('.header-search-result').append(`
+                        if (products.length > 0 || test_codes.length > 0) {
+                            products.forEach(product => {
+                                $('.header-search-result').append(`
                       <li>
                           <a href="/medicines/${product.slug}" class="d-flex flex-column justify-content-between align-items-start w-100">
                               <span class="product-name">${product.name}</span>
@@ -1181,10 +872,10 @@
                           </a>
                       </li>
                   `);
-              });
+                            });
 
-              test_codes.forEach(test => {
-                  $('.header-search-result').append(`
+                            test_codes.forEach(test => {
+                                $('.header-search-result').append(`
                       <li>
                           <a href="/labtest/${test.SLUG}" class="d-flex flex-column justify-content-between align-items-start w-100">
                               <span class="product-name">${test.TEST_NAME}</span>
@@ -1192,38 +883,41 @@
                           </a>
                       </li>
                   `);
-              });
+                            });
 
-              $('.header-search-result').show();
-          } else {
-              $('.header-search-result').hide();
-          }
-      },
-      error: function (error) {
-          console.error('Error fetching search results:', error);
-      }
-  });
-});
-$('#new-search').on('input', function () {
-const searchTerm = $(this).val().trim().toLowerCase();
+                            $('.header-search-result').show();
+                        } else {
+                            $('.header-search-result').hide();
+                        }
+                    },
+                    error: function(error) {
+                        console.error('Error fetching search results:', error);
+                    }
+                });
+            });
+            $('#new-search').on('input', function() {
+                const searchTerm = $(this).val().trim().toLowerCase();
 
-  if (searchTerm.length === 0) {
-      $('.header-search-result').empty().hide();
-      return;
-  }
+                if (searchTerm.length === 0) {
+                    $('.header-search-result').empty().hide();
+                    return;
+                }
 
-  $.ajax({
-      url: `/search_items/${searchTerm}`,
-      type: 'GET',
-      dataType: 'json',
-      success: function (response) {
-          const { products, test_codes } = response;
+                $.ajax({
+                    url: `/search_items/${searchTerm}`,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(response) {
+                        const {
+                            products,
+                            test_codes
+                        } = response;
 
-          $('.header-search-result').empty();
+                        $('.header-search-result').empty();
 
-          if (products.length > 0 || test_codes.length > 0) {
-              products.forEach(product => {
-                  $('.header-search-result').append(`
+                        if (products.length > 0 || test_codes.length > 0) {
+                            products.forEach(product => {
+                                $('.header-search-result').append(`
                       <li>
                           <a href="/medicines/${product.slug}" class="d-flex flex-column justify-content-between align-items-start w-100">
                               <span class="product-name">${product.name}</span>
@@ -1231,10 +925,10 @@ const searchTerm = $(this).val().trim().toLowerCase();
                           </a>
                       </li>
                   `);
-              });
+                            });
 
-              test_codes.forEach(test => {
-                  $('.header-search-result').append(`
+                            test_codes.forEach(test => {
+                                $('.header-search-result').append(`
                       <li>
                           <a href="/labtest/${test.SLUG}" class="d-flex flex-column justify-content-between align-items-start w-100">
                               <span class="product-name">${test.TEST_NAME}</span>
@@ -1242,51 +936,51 @@ const searchTerm = $(this).val().trim().toLowerCase();
                           </a>
                       </li>
                   `);
-              });
+                            });
 
-              $('.header-search-result').show();
-          } else {
-              $('.header-search-result').hide();
-          }
-      },
-      error: function (error) {
-          console.error('Error fetching search results:', error);
-      }
-  });
-});
+                            $('.header-search-result').show();
+                        } else {
+                            $('.header-search-result').hide();
+                        }
+                    },
+                    error: function(error) {
+                        console.error('Error fetching search results:', error);
+                    }
+                });
+            });
 
 
 
-$(document).on('click', function(event) {
-if (!$(event.target).closest('.header-search-container')) {
-    $('.header-search-result').hide();
-  }
-});
+            $(document).on('click', function(event) {
+                if (!$(event.target).closest('.header-search-container')) {
+                    $('.header-search-result').hide();
+                }
+            });
 
-$('#new-search').on('focus', function() {
-    if ($('.header-search-result').children().length > 0) {
-        $('.header-search-result').show();
-    }
-});
+            $('#new-search').on('focus', function() {
+                if ($('.header-search-result').children().length > 0) {
+                    $('.header-search-result').show();
+                }
+            });
 
-$('#new-search').on('blur', function() {
-    if ($(this).val() === "") {
-        $('.header-search-result').hide();
-    }
-});
+            $('#new-search').on('blur', function() {
+                if ($(this).val() === "") {
+                    $('.header-search-result').hide();
+                }
+            });
 
-$('#new-search2').on('focus', function() {
-    if ($('.header-search-result').children().length > 0) {
-        $('.header-search-result').show();
-    }
-});
+            $('#new-search2').on('focus', function() {
+                if ($('.header-search-result').children().length > 0) {
+                    $('.header-search-result').show();
+                }
+            });
 
-$('#new-search2').on('blur', function() {
-    if ($(this).val() === "") {
-        $('.header-search-result').hide();
-    }
-});
-});
+            $('#new-search2').on('blur', function() {
+                if ($(this).val() === "") {
+                    $('.header-search-result').hide();
+                }
+            });
+        });
         @php header("Access-Control-Allow-Origin: *"); @endphp
         $.ajaxSetup({
             headers: {
@@ -1380,7 +1074,7 @@ $('#new-search2').on('blur', function() {
                                 '"/>' +
                                 '</div>' +
                                 '<div class="card-body">' +
-                                '<h5 class="card-title">' + product.name + '</h5>' +
+                                '<h5 class="card-title fs-5">' + product.name + '</h5>' +
                                 '<h5 class="checkoutItem_prod" id="' + product.product_id +
                                 '" hidden></h5>' +
                                 '<h5 class="checkoutItem_cart" id="' + product.id +
@@ -1400,7 +1094,7 @@ $('#new-search2').on('blur', function() {
                                 '<div class="d-flex">' +
                                 '<div class="image-wrap-inner">' +
                                 '<img src="' + product.product_image +
-                                '" class="img-fluid rounded-start" alt="' + product.name +
+                                '" class="img-fluid rounded-start fs-5" alt="' + product.name +
                                 '"/>' +
                                 '</div>' +
                                 '<div class="card-body">' +
@@ -1841,7 +1535,7 @@ $('#new-search2').on('blur', function() {
                                             '<div class="image-wrap-inner">' +
                                             '<img src="' + product
                                             .product_image +
-                                            '" class="img-fluid rounded-start" alt="' +
+                                            '" class="img-fluid rounded-start fs-5" alt="' +
                                             product.name + '"/>' +
                                             '</div>' +
                                             '<div class="card-body">' +
@@ -1871,7 +1565,7 @@ $('#new-search2').on('blur', function() {
                                             '<div class="image-wrap-inner">' +
                                             '<img src="' + product
                                             .product_image +
-                                            '" class="img-fluid rounded-start" alt="' +
+                                            '" class="img-fluid rounded-start fs-5" alt="' +
                                             product.name + '"/>' +
                                             '</div>' +
                                             '<div class="card-body">' +
@@ -1938,164 +1632,6 @@ $('#new-search2').on('blur', function() {
 
 @section('content')
 
-<header class="py-2">
-    <nav>
-      <section id="navbar">
-        <div class="wrap flex gap-15 between position-relative">
-          <div id="nav-logo" class="logo" onclick="window.location.href='{{ url('/') }}'" style="cursor: pointer;">
-            <img src="{{ asset('assets/new_frontend/logo.png') }}" alt="umbrella-logo" />
-          </div>
-          <div class="flex gap-2" id="nav-right-side">
-            <div class="header-search-container w-lg-50 form-control px-2 py-2 position-relative">
-                <div class="d-flex align-items-center justify-content-between">
-                    <input type="search" name="header-search" placeholder="Search" class="header-search-field w-100" id="new-search">
-                    <ul class="header-search-result categories-list rounded-3"></ul>
-                    <button type="button" class="header-search-btn px-2"><i class="fa-solid fa-magnifying-glass"></i></button>
-                </div>
-            </div>
-            @if (Auth::check())
-            <div class="dropdown" >
-                <button class="dropdown-toggle w-100" type="button" id="joinDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fa-solid fa-user-group"></i> Hi {{ Auth::user()->name}}
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="joinDropdown">
-                    <li><a class="dropdown-item" href="{{ route('home') }}">Go to Dashboard</a></li>
-                    <li><a class="dropdown-item"  href="{{ route('logout') }}"
-                        onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a></li>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                        @csrf
-                    </form>
-                </ul>
-              </div>
-              @else
-                <div class="dropdown" >
-                    <button class="dropdown-toggle w-100" type="button" id="joinDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    <i class="fa-solid fa-user-group"></i> Join Us
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="joinDropdown">
-                        <li><a class="dropdown-item" href="{{ route('login') }}">Login</a></li>
-                        <li><a class="dropdown-item" href="{{ route('doc_register') }}" >Register as Doctor</a></li>
-                        <li><a class="dropdown-item" href="{{ route('pat_register') }}" >Register as Patient</a></li>
-                    </ul>
-                </div>
-              @endif
-              <button class="nav_btns">
-                <i class="fa-brands fa-whatsapp"></i>
-                <a href="https://wa.me/923372350684" target="_blank">0337-2350684</a>
-              </button>
-            <div class="position-relative" onclick="window.location.href='{{ url('/my/cart') }}'">
-              <img src="{{ asset('assets/new_frontend/purchase-icon.svg') }}" alt="shop-icon" />
-              @if (Auth::check())
-                <div class="cart-count">
-                    <span>{{ app('item_count_cart_responsive') }}</span>
-                </div>
-              @endif
-            </div>
-          </div>
-          <div class="gap-3 align-items-center cart-search-container">
-            <div class="position-relative cart-mob" onclick="window.location.href='{{ url('/my/cart') }}'">
-                <img src="{{ asset('assets/new_frontend/purchase-icon.svg') }}" alt="shop-icon" />
-                @if (Auth::check())
-                  <div class="cart-count">
-                      <span>{{ app('item_count_cart_responsive') }}</span>
-                  </div>
-                @endif
-            </div>
-            <i class="fa-solid fa-magnifying-glass search-btn-mob text-danger"></i>
-            <div class="hamburger_container" onclick="toggleDrawer()">
-              <div class="hamburger">
-                <div></div>
-                <div></div>
-                <div></div>
-              </div>
-            </div>
-          </div>
-          <div class="drawer" id="drawer">
-            <span class="close-btn" onclick="toggleDrawer()">×</span>
-            <img width="220px" src="{{ asset('assets/new_frontend/logo.png') }}" alt="" />
-            <hr />
-            <a href="{{ url('/') }}">Home</a>
-            <a href="{{ route('pharmacy') }}">Pharmacy</a>
-            <a href="{{ route('labs') }}">Lab Tests</a>
-            <a href="{{ route('imaging') }}">Imaging</a>
-            <a href="{{ route('e-visit') }}">E-Visit</a>
-            <a href="{{ route('doc_profile_page_list') }}">Our Doctors</a>
-            <a href="{{ route('about_us') }}">About Us</a>
-            <a href="{{ route('contact_us') }}">Contact Us</a>
-            <hr />
-            @if (Auth::check())
-              <a href="{{ route('home') }}">Go to Dashboard</a></li>
-              <a href="{{ route('logout') }}"
-              onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
-              <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                @csrf
-              </form>
-            @else
-            <a class="drawer-item" href="{{ route('login') }}">Login</a>
-            <a class="drawer-item" href="{{ route('doc_register') }}" >Register as Doctor</a>
-            <a class="drawer-item" href="{{ route('pat_register') }}" >Register as Patient</a>
-            @endif
-            <a href="https://wa.me/923372350684" target="_blank">0337-2350684</a>
-          </div>
-          <div
-            class="blur-overlay"
-            id="blurOverlay"
-            onclick="toggleDrawer()"
-          ></div>
-        </div>
-        <div class="flex gap-15" id="nav-left-side">
-            <a href="{{ url('/') }}">Home</a>
-            <a href="{{ route('pharmacy') }}">Pharmacy</a>
-            <a href="{{ route('labs') }}">Lab Tests</a>
-            <a href="{{ route('imaging') }}">Imaging</a>
-            <a href="{{ route('e-visit') }}">E-Visit</a>
-            <a href="{{ route('doc_profile_page_list') }}">Our Doctors</a>
-            <a href="{{ route('about_us') }}">About Us</a>
-            <a href="{{ route('contact_us') }}">Contact Us</a>
-            <a href="{{ route('doc_profile_page_list', ['online' => true]) }}" class="text-success online_docs d-flex gap-1 align-items-center"><span class="blink-dot"></span><span style="font-weight: 800;">Online Doctors</span></a>
-
-
-
-            {{--            <div class="dropdown">
-                <a
-                  class="dropdown-toggle"
-                  href="#"
-                  role="button"
-                  id="servicesDropdown"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  Services
-                </a>
-                <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
-                  <li><a class="dropdown-item" href="{{ route('pharmacy') }}">Pharmacy</a></li>
-                  <li><a class="dropdown-item" href="{{ route('labs') }}">Lab Tests</a></li>
-                  <li><a class="dropdown-item" href="{{ route('imaging') }}">Imaging</a></li>
-                  <li><a class="dropdown-item" href="{{ route('psychiatry',['slug'=>'anxiety']) }}">Psychiatry</a></li>
-                  <li>
-                    <a class="dropdown-item" href="{{ route('pain.management') }}">Pain Management</a>
-                  </li>
-                  <li>
-                    <a class="dropdown-item" href="{{ route('substance',['slug'=>'first-visit']) }}">Substance Abuse</a>
-                  </li>
-                </ul>
-              </div> --}}
-          </div>
-      </section>
-    </nav>
-    <div class="header-search-container w-100 w-lg-50 form-control px-2 py-2 position-relative">
-      <div class="d-flex align-items-center justify-content-between">
-          <input type="search" name="header-search" placeholder="Search" class="header-search-field w-100" id="new-search2">
-          <ul class="header-search-result categories-list rounded-3"></ul>
-          <button type="button" class="header-search-btn px-2"><i class="fa-solid fa-magnifying-glass"></i></button>
-      </div>
-    </div>
-  </header>
-
-
-
-    {{-- after registration and login modal --}}
-
     <div class="container-fluid pt-1">
         <div>
             @if (session()->get('msg'))
@@ -2110,7 +1646,7 @@ $('#new-search2').on('blur', function() {
             @include('flash::message')
         </div>
         @if (count($user_cart_items) != 0)
-            <div class="left checkout-steps-wrap">
+            <div class="checkout-steps-wrap">
                 <div id="checkoutform">
                     <ul id="progressbar">
                         <li class="active">Checkout</li>
@@ -2121,11 +1657,11 @@ $('#new-search2').on('blur', function() {
                     <fieldset class="mb-3">
                         <section>
                             <div class="container-fluid px-3">
-                                <div class="row" style="--bs-gutter-x: 0.5rem;">
+                                <div class="row w-100" style="--bs-gutter-x: 0.5rem;">
                                     <div class="col-md-8 shopping-cart-all-wrap">
                                         <div class="cart">
                                             <div class="card">
-                                                <div class="row">
+                                                <div class="row w-100">
                                                     <div class="title">
                                                         <div class="">
                                                             <h4><b>Shopping Cart</b></h4>
@@ -2162,8 +1698,7 @@ $('#new-search2').on('blur', function() {
                                                                                     src="{{ asset('assets/images/' . $item->product_image) }}" />
                                                                             @endif
                                                                             @if ($item->product_mode == 'medicine')
-                                                                                <h6
-                                                                                    class="item-tag-name tag-name-pharmacy">
+                                                                                <h6 class="item-tag-name tag-name-pharmacy">
                                                                                     Pharmacy</h6>
                                                                             @elseif($item->product_mode == 'lab-test')
                                                                                 <h6 class="item-tag-name tag-name-lab">Lab
@@ -2363,7 +1898,7 @@ $('#new-search2').on('blur', function() {
                         <section>
                             <div class="container-fluid">
                                 <div class="row">
-                                    <div class="col-md-7 mb-3 px-md-2 p-0 ">
+                                    <div class="col-md-8 mb-3 px-md-2 p-0 ">
                                         {{-- //////////////////////////////////// --}}
                                         <div class="payment-form-wrap" id="div1" style="display: none;">
                                             <div class="card">
@@ -2371,8 +1906,8 @@ $('#new-search2').on('blur', function() {
                                                 <form method="post" id="formWithCard"
                                                     action="{{ route('order.payment') }}">
                                                     @csrf
-                                                    <input type="hidden" class="payAble" id="payAble"
-                                                        name="payAble" value="{{ $totalPrice }}">
+                                                    <input type="hidden" class="payAble" id="payAble" name="payAble"
+                                                        value="{{ $totalPrice }}">
                                                     <input type="hidden" name="payment_method" id="payment_method">
                                                     <div class="row gap-2 mb-2">
                                                         <div class="col-md-12">
@@ -2409,8 +1944,7 @@ $('#new-search2').on('blur', function() {
                                                     <div class="col-md-12 pt-3 phd border-top">
                                                         <div class="row">
                                                             <div class="col-md-6 mb-1">
-                                                                <label for="exampleInputEmail1"
-                                                                    class="form-label">Full
+                                                                <label for="exampleInputEmail1" class="form-label">Full
                                                                     Name*</label>
                                                                 <input required name="shipping_customer_name"
                                                                     type="text" class="form-control mt-1"
@@ -2421,8 +1955,7 @@ $('#new-search2').on('blur', function() {
                                                                     class="form-label">Email</label>
                                                                 <input name="shipping_customer_email" type="text"
                                                                     class="form-control mt-1" id="exampleInputEmail1"
-                                                                    placeholder="Email"
-                                                                    aria-describedby="emailHelp" />
+                                                                    placeholder="Email" aria-describedby="emailHelp" />
                                                             </div>
                                                             <div class="col-md-6 mb-1">
                                                                 <label for="exampleInputEmail1"
@@ -2432,8 +1965,7 @@ $('#new-search2').on('blur', function() {
                                                                     placeholder="Phone" maxlength="11" />
                                                             </div>
                                                             <div class="col-md-6 mb-3">
-                                                                <label for="ship_city"
-                                                                    class="form-label">City*</label>
+                                                                <label for="ship_city" class="form-label">City*</label>
                                                                 <input required name="shipping_customer_city"
                                                                     type="text" id="ship_city"
                                                                     class="form-control mt-1" placeholder="City" />
@@ -2455,7 +1987,7 @@ $('#new-search2').on('blur', function() {
                                         </div>
                                         {{-- //////////////////////////////////// --}}
                                     </div>
-                                    <div class="col-md-5">
+                                    <div class="col-md-4">
                                         <div>
                                             <div class="row payment-order-summary-wrap">
                                                 <div class="mb-2 promo_maIN_div">
@@ -2531,162 +2063,6 @@ $('#new-search2').on('blur', function() {
         @endif
     </div>
     @php
-$page = DB::table('pages')->where('url', '/')->first();
-@endphp
-<section id="disclaimer">
-    <div class="disclaimer-box"></div>
-    <div id="disclaimer-content">
-        <div>
-            <h2>DISCLAIMER</h2>
-            <div class="underline"></div>
-        </div>
-        <div>
-            @php
-            $section = DB::table('section')
-            ->where('page_id', $page->id)
-            ->where('section_name', 'disclaimer')
-            ->where('sequence_no', '1')
-            ->first();
-            $top_content = DB::table('content')
-            ->where('section_id', $section->id)
-            ->first();
-            $image_content = DB::table('images_content')
-            ->where('section_id', $section->id)
-            ->first();
-            @endphp
-            @if ($top_content)
-            {!! $top_content->content !!}
-            @else
-            <p>
-                The information on this site is not intended or implied to be a
-                substitute for professional medical advice, diagnosis or
-                treatment. All content, including text, graphics, images and
-                Information, contained on or available through this web site is
-                for general information purposes only. Umbrellamd.com makes no
-                representation and assumes no responsibility for the accuracy of
-                information contained on or available through this web site, and
-                such information is subject to change without notice. You are
-                encouraged to confirm any information obtained from or through
-                this web site with other sources, and review all information
-                regarding any medical condition or treatment with your
-                physician.
-            </p>
-            <p>
-                Never disregard professional medical advice or delay seeking
-                medical treatment because of something you have read on or
-                accessed through this web site. Community Healthcare Clinics not
-                responsible nor liable for any advice, course of treatment,
-                diagnosis or any other information, services or products that
-                you obtain through this website.
-            </p>
-            @endif
-        </div>
-    </div>
-    <div class="custom-shape-divider-bottom-1731257443">
-        <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"
-            preserveAspectRatio="none">
-            <path
-                d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z"
-                class="shape-fill"></path>
-        </svg>
-    </div>
-    <div class="disclaimer-blob">
-        <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-            <path fill="gray"
-                d="M46,-39.1C56.3,-35.6,59.3,-17.8,54.9,-4.4C50.5,9.1,38.9,18.1,28.5,30.5C18.1,42.9,9.1,58.5,-2.6,61.1C-14.2,63.7,-28.4,53.2,-43.7,40.8C-59.1,28.4,-75.5,14.2,-75.6,-0.1C-75.6,-14.3,-59.3,-28.6,-44,-32.2C-28.6,-35.7,-14.3,-28.4,1.7,-30.2C17.8,-31.9,35.6,-42.7,46,-39.1Z"
-                transform="translate(100 100)" />
-        </svg>
-    </div>
-</section>
-    <footer class="new-footer-cont">
-        <section id="footer-section">
-            <div id="footer-1" class="footer-new">
-                <div class="logo" id="footer-logo-new">
-                    <img src="{{ asset('assets/new_frontend/logo.png') }}" alt="umbrella-logo" />
-                </div>
-                <div class="flex gap-15" id="social-icons">
-                    <a href="https://www.facebook.com/share/15m4ofYggZ/" target="_blank"><i
-                            class="fa-brands fa-facebook"></i></a>
-                    <a href="https://www.linkedin.com/company/community-health-care-clinics/" target="_blank"><i
-                            class="fa-brands fa-linkedin"></i></a>
-                    <a href="https://www.instagram.com/community_healthcare_clinics?igsh=MXh6aHRzM2NrNThlMw=="
-                        target="_blank"><i class="fa-brands fa-instagram"></i></a>
-                </div>
-            </div>
-            <div id="footer-2" class="footer-new">
-                <div class="footer-heading">
-                    <h3>Contact Us</h3>
-                    <div class="underline"></div>
-                </div>
-                <div class="footer-content-new">
-                    <p class="d-flex align-items-center"><i class="fa-solid mx-2 fa-envelope"></i>
-                        <span>contact@communityhealthcareclinics.com</span></p>
-                    <p class="d-flex align-items-center"><i class="fa-solid mx-2 fa-envelope"></i>
-                        <span>support@communityhealthcareclinics.com</span></p>
-                    <p class="d-flex align-items-center"><i class="fa-solid mx-2 fa-location-dot"></i> <span>Progressive
-                            Center, 4th Floor Suite#410, Main Shahrah Faisal, Karachi</span></p>
-
-                    <div class="footer-highlight">
-                        <i class="fa-solid fa-phone"></i>
-                        <a href="tel:+14076938484">+1 (407) 693-8484</a>
-                    </div>
-                    <div class="footer-highlight">
-                        <i class="fa-brands fa-whatsapp"></i>
-                        <a href="https://wa.me/923372350684" target="_blank">0337-2350684</a>
-                    </div>
-                </div>
-            </div>
-            <div id="footer-3" class="footer-new">
-                <div class="footer-heading">
-                    <h3>Working Hours</h3>
-                    <div class="underline"></div>
-                </div>
-                <div class="footer-content-new">
-                    <p><b>Inclinic:</b> 9am - 9pm</p>
-                    <p><b>Online:</b> 24 hours</p>
-                    <p>Community Healthcare Clinics</p>
-                    <div class="footer-info">
-                        <i class="fa-solid fa-chevron-right"></i>
-                        <a href="{{ route('about_us') }}">About Us</a>
-                    </div>
-                    <div class="footer-info">
-                        <i class="fa-solid fa-chevron-right"></i>
-                        <a href="{{ route('contact_us') }}">Contact Us</a>
-                    </div>
-                    <div class="footer-info">
-                        <i class="fa-solid fa-chevron-right"></i>
-                        <a href="{{ route('faq') }}">FAQs</a>
-                    </div>
-                    {{-- <div class="footer-info">
-                    <i class="fa-solid fa-chevron-right"></i>
-                    <a href="{{ route('privacy_policy') }}">Privacy Policy</a>
-                </div> --}}
-                </div>
-            </div>
-            <div id="footer-4" class="footer-new">
-                <div class="footer-heading">
-                    <h3>Find Us</h3>
-                    <div class="underline"></div>
-                </div>
-
-                <div class="footer-content-new">
-
-                    <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3620.017148282561!2d67.0743981!3d24.8632639!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33f3f9ba7181d%3A0x99571ff4d3fb7e52!2sCommunity%20Health%20Care%20Clinics!5e0!3m2!1sen!2s!4v1734451314564!5m2!1sen!2s"
-                        width="300" height="150" style="border:0;" allowfullscreen="" loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade"></iframe>
-
-                </div>
-
-        </section>
-
-        <div class="seperation"></div>
-        <section id="copyright">
-            <p>
-                Copyright &copy; {{ date('Y') }}.
-                <span>Community Healthcare Clinics. All Rights Reserved</span>
-            </p>
-        </section>
-    </footer>
-
+        $page = DB::table('pages')->where('url', '/')->first();
+    @endphp
 @endsection
