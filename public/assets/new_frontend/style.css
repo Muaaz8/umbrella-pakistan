@@ -2552,6 +2552,10 @@ header > .header-search-container {
     display: block;
 }
 
+.border-sm-bottom{
+    border-bottom: 1px solid #eeeeee;
+}
+
 .hamburger.active div:nth-child(1) {
     transform: rotate(45deg) translate(5px, 5px);
 }
@@ -5993,6 +5997,9 @@ header > .header-search-container {
 @media only screen and (max-width: 576px) {
     .alphabet {
         font-size: 0.8rem;
+    }
+    .border-sm-bottom{
+        border: none;
     }
 
     .page-link {
