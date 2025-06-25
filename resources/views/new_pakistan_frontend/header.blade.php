@@ -36,9 +36,10 @@
                         products.forEach(product => {
                             $('.header-search-result').append(`
                             <li>
-                                <a href="/medicines/${product.slug}" class="d-flex flex-column justify-content-between align-items-start w-100">
+                                <a href="/medicines/${product.slug}/${product.vendor_id}" class="d-flex flex-column justify-content-between align-items-start w-100">
                                     <span class="product-name">${product.name}</span>
-                                    <span class="category-name">Pharmacy</span>
+                                    <span class="category-name">Rs. ${(product.price-(product.price*product.discount)/100)}</span>
+                                    <span class="category-name">Pharmacy - (${product.vendor_name})</span>
                                 </a>
                             </li>
                         `);
@@ -47,9 +48,10 @@
                         test_codes.forEach(test => {
                             $('.header-search-result').append(`
                             <li>
-                                <a href="/labtest/${test.SLUG}" class="d-flex flex-column justify-content-between align-items-start w-100">
-                                    <span class="product-name">${test.TEST_NAME}</span>
-                                      <span class="category-name">Lab Test</span>
+                                <a href="/labtest/${test.slug}/${product.vendor_id}" class="d-flex flex-column justify-content-between align-items-start w-100">
+                                    <span class="product-name">${test.name} </span>
+                                    <span class="category-name">Rs. ${(test.price-(test.price*test.discount)/100)} </span>
+                                    <span class="category-name">Lab Test - (${test.vendor_name})</span>
                                 </a>
                             </li>
                         `);
@@ -86,9 +88,10 @@
                         products.forEach(product => {
                             $('.header-search-result').append(`
                             <li>
-                                <a href="/medicines/${product.slug}" class="d-flex flex-column justify-content-between align-items-start w-100">
+                                <a href="/medicines/${product.slug}/${product.vendor_id}" class="d-flex flex-column justify-content-between align-items-start w-100">
                                     <span class="product-name">${product.name}</span>
-                                    <span class="category-name">Pharmacy</span>
+                                    <span class="category-name">Rs. ${(product.price-(product.price*product.discount)/100)}</span>
+                                    <span class="category-name">Pharmacy - (${product.vendor_name})</span>
                                 </a>
                             </li>
                         `);
@@ -97,9 +100,10 @@
                         test_codes.forEach(test => {
                             $('.header-search-result').append(`
                             <li>
-                                <a href="/labtest/${test.SLUG}" class="d-flex flex-column justify-content-between align-items-start w-100">
-                                    <span class="product-name">${test.TEST_NAME}</span>
-                                      <span class="category-name">Lab Test</span>
+                                <a href="/labtest/${test.slug}/${product.vendor_id}" class="d-flex flex-column justify-content-between align-items-start w-100">
+                                    <span class="product-name">${test.name} </span>
+                                    <span class="category-name">Rs. ${(test.price-(test.price*test.discount)/100)}</span>
+                                    <span class="category-name">Lab Test - (${test.vendor_name})</span>
                                 </a>
                             </li>
                         `);
@@ -437,10 +441,13 @@
                         href="">
                         <i class="fa-solid fa-magnifying-glass fs-4"></i>
                     </a>
-                    <a class="nav-link d-block d-lg-none position-relative" href="saf">
+                    <a class="nav-link d-block d-lg-none position-relative" href="{{ url('/my/cart') }}">
                         <img src="{{ asset('assets/new_frontend/cart_new.svg') }}" alt="cart" />
+                        @if (Auth::check())
                         <span
-                            class="cart-count-new position-absolute text-white text-center d-flex align-items-center justify-content-center rounded-circle fw-normal">12</span>
+                            class="cart-count-new position-absolute text-white text-center d-flex align-items-center justify-content-center rounded-circle fw-normal">{{
+                            app('item_count_cart_responsive') }}</span>
+                        @endif
                     </a>
                     <button class="navbar-toggler d-none d-sm-block d-lg-none" type="button" data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"

@@ -1,101 +1,256 @@
 @extends('layouts.new_pakistan_layout')
 
 @section('meta_tags')
-<meta charset="utf-8" />
-<meta name="google-site-verification" content="Zgq0W54U_oOpntcqrKICmQpKyIPsJWhntAVoGqDCqV0" />
-<meta name="csrf-token" content="{{ csrf_token() }}" />
-<meta name="language" content="en-us">
-<meta name="robots" content="index,follow" />
-<meta name="copyright" content="© 2022 All Rights Reserved. Powered By Community Healthcare Clinics">
-<meta name="url" content="https://www.communityhealthcareclinics.com">
-<meta property="og:locale" content="en_US" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://www.umbrellamd.com" />
-<meta property="og:site_name" content="Community Healthcare Clinics | communityhealthcareclinics.com" />
-<meta name="twitter:site" content="@umbrellamd">
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="author" content="Umbrellamd">
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="icon" href="{{ asset('asset_frontend/images/logo.ico') }}" type="image/x-icon">
+    <meta charset="utf-8" />
+    <meta name="google-site-verification" content="Zgq0W54U_oOpntcqrKICmQpKyIPsJWhntAVoGqDCqV0" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <meta name="language" content="en-us">
+    <meta name="robots" content="index,follow" />
+    <meta name="copyright" content="© 2022 All Rights Reserved. Powered By Community Healthcare Clinics">
+    <meta name="url" content="https://www.communityhealthcareclinics.com">
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.umbrellamd.com" />
+    <meta property="og:site_name" content="Community Healthcare Clinics | communityhealthcareclinics.com" />
+    <meta name="twitter:site" content="@umbrellamd">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="author" content="Umbrellamd">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="{{ asset('asset_frontend/images/logo.ico') }}" type="image/x-icon">
 @endsection
 
 
 @section('page_title')
-<title>Cart | Community Healthcare Clinics</title>
-<style>
-    .payment-method {
-        cursor: pointer;
-        border: 2px solid #ddd;
-        border-radius: 10px;
-        padding: 15px;
-        text-align: center;
-        transition: 0.3s;
-    }
+    <title>Cart | Community Healthcare Clinics</title>
+    <style>
+        .payment-method {
+            cursor: pointer;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            transition: 0.3s;
+        }
 
-    .payment-method:hover,
-    .payment-method.active {
-        border-color: #007bff;
-        background-color: #f8f9fa;
-    }
+        .payment-method:hover,
+        .payment-method.active {
+            border-color: #007bff;
+            background-color: #f8f9fa;
+        }
 
-    .payment-method h5 {
-        font-size: 16px;
-        font-weight: 700;
-    }
+        .payment-method h5 {
+            font-size: 16px;
+            font-weight: 700;
+        }
 
-    .icon {
-        height: 35px;
-        object-fit: cover;
-    }
+        .icon {
+            height: 35px;
+            object-fit: cover;
+        }
 
-    .process-pay {
-        background: linear-gradient(to top, #08295a, #165dc8);
-        /* background-image: linear-gradient(#2c66bb, #08295a); */
-        color: #fff !important;
-        border: none;
-    }
+        .process-pay {
+            background: linear-gradient(to top, #08295a, #165dc8);
+            /* background-image: linear-gradient(#2c66bb, #08295a); */
+            color: #fff !important;
+            border: none;
+        }
 
-    .process-pay:hover {
-        background-image: linear-gradient(#568fe6, #051b3b);
-        color: #fff;
-    }
+        .process-pay:hover {
+            background-image: linear-gradient(#568fe6, #051b3b);
+            color: #fff;
+        }
 
-    .buttonload {
+        .buttonload {
 
-        padding: 12px 16px;
-        /* Some padding */
+            padding: 12px 16px;
+            /* Some padding */
 
-    }
+        }
 
-    .w-100 {
-        width: 100% !important;
-        height: auto !important;
-        object-fit: none !important;
-    }
+        .w-100 {
+            width: 100% !important;
+            height: auto !important;
+            object-fit: none !important;
+        }
 
-    .icon {
-        width: auto !important;
-        filter: none !important;
-    }
+        .icon {
+            width: auto !important;
+            filter: none !important;
+        }
 
-    /* .left {
-        box-shadow: none;
-        padding: 20px;
-        width: 100%;
-        text-align: justify;
-    } */
-</style>
+        /* .left {
+                box-shadow: none;
+                padding: 20px;
+                width: 100%;
+                text-align: justify;
+            } */
+    </style>
 @endsection
 
 @section('top_import_file')
-<link rel="stylesheet" href="{{ asset('assets/css/minifyStyle.css?n=1') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/minifyStyle.css?n=1') }}" />
 @endsection
 
 
 @section('bottom_import_file')
-<script src="https://thecodeplayer.com/uploads/js/jquery.easing.min.js" type="text/javascript"></script>
-<script>
-    @php header("Access-Control-Allow-Origin: *"); @endphp
+    <script src="https://thecodeplayer.com/uploads/js/jquery.easing.min.js" type="text/javascript"></script>
+ <script>
+        function toggleDrawer() {
+            const drawer = document.getElementById("drawer");
+            const blurOverlay = document.getElementById("blurOverlay");
+            const hamburger = document.querySelector(".hamburger");
+
+            drawer.classList.toggle("active");
+            blurOverlay.classList.toggle("active");
+            hamburger.classList.toggle("active");
+        }
+
+        $(document).ready(function() {
+
+            $(".search-btn-mob").on("click", function() {
+                $(".header-search-container").css("display", "block");
+            });
+
+            $(document).on("click", function(event) {
+                if (!$(event.target).closest(".header-search-container") && !$(event.target).closest(".search-btn-mob")) {
+                    $(".header-search-container").css("display", "none");
+                }
+            });
+
+            $('#new-search2').on('input', function () {
+            const searchTerm = $(this).val().trim().toLowerCase();
+
+            if (searchTerm.length === 0) {
+                $('.header-search-result').empty().hide();
+                return;
+            }
+
+  $.ajax({
+      url: `/search_items/${searchTerm}`,
+      type: 'GET',
+      dataType: 'json',
+      success: function (response) {
+          const { products, test_codes } = response;
+
+          $('.header-search-result').empty();
+
+          if (products.length > 0 || test_codes.length > 0) {
+              products.forEach(product => {
+                  $('.header-search-result').append(`
+                      <li>
+                          <a href="/medicines/${product.slug}" class="d-flex flex-column justify-content-between align-items-start w-100">
+                              <span class="product-name">${product.name}</span>
+                              <span class="category-name">Pharmacy</span>
+                          </a>
+                      </li>
+                  `);
+              });
+
+              test_codes.forEach(test => {
+                  $('.header-search-result').append(`
+                      <li>
+                          <a href="/labtest/${test.SLUG}" class="d-flex flex-column justify-content-between align-items-start w-100">
+                              <span class="product-name">${test.TEST_NAME}</span>
+                                <span class="category-name">Lab Test</span>
+                          </a>
+                      </li>
+                  `);
+              });
+
+              $('.header-search-result').show();
+          } else {
+              $('.header-search-result').hide();
+          }
+      },
+      error: function (error) {
+          console.error('Error fetching search results:', error);
+      }
+  });
+});
+$('#new-search').on('input', function () {
+const searchTerm = $(this).val().trim().toLowerCase();
+
+  if (searchTerm.length === 0) {
+      $('.header-search-result').empty().hide();
+      return;
+  }
+
+  $.ajax({
+      url: `/search_items/${searchTerm}`,
+      type: 'GET',
+      dataType: 'json',
+      success: function (response) {
+          const { products, test_codes } = response;
+
+          $('.header-search-result').empty();
+
+          if (products.length > 0 || test_codes.length > 0) {
+              products.forEach(product => {
+                  $('.header-search-result').append(`
+                      <li>
+                          <a href="/medicines/${product.slug}" class="d-flex flex-column justify-content-between align-items-start w-100">
+                              <span class="product-name">${product.name}</span>
+                              <span class="category-name">Pharmacy</span>
+                          </a>
+                      </li>
+                  `);
+              });
+
+              test_codes.forEach(test => {
+                  $('.header-search-result').append(`
+                      <li>
+                          <a href="/labtest/${test.SLUG}" class="d-flex flex-column justify-content-between align-items-start w-100">
+                              <span class="product-name">${test.TEST_NAME}</span>
+                                <span class="category-name">Lab Test</span>
+                          </a>
+                      </li>
+                  `);
+              });
+
+              $('.header-search-result').show();
+          } else {
+              $('.header-search-result').hide();
+          }
+      },
+      error: function (error) {
+          console.error('Error fetching search results:', error);
+      }
+  });
+});
+
+
+
+$(document).on('click', function(event) {
+if (!$(event.target).closest('.header-search-container')) {
+    $('.header-search-result').hide();
+  }
+});
+
+$('#new-search').on('focus', function() {
+    if ($('.header-search-result').children().length > 0) {
+        $('.header-search-result').show();
+    }
+});
+
+$('#new-search').on('blur', function() {
+    if ($(this).val() === "") {
+        $('.header-search-result').hide();
+    }
+});
+
+$('#new-search2').on('focus', function() {
+    if ($('.header-search-result').children().length > 0) {
+        $('.header-search-result').show();
+    }
+});
+
+$('#new-search2').on('blur', function() {
+    if ($(this).val() === "") {
+        $('.header-search-result').hide();
+    }
+});
+});
+        @php header("Access-Control-Allow-Origin: *"); @endphp
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -299,6 +454,8 @@
 
             current_fs = $(this).parent();
             previous_fs = $(this).parent().prev();
+            $('.payment-order-summary-wrap').css({ display: 'block', opacity: '1' });
+            $("#progressbar li").removeClass("active").first().addClass("active");
 
             //de-activate current step on progressbar
             $("#progressbar li")
@@ -741,13 +898,13 @@
             });
 
         });
-</script>
+    </script>
 @endsection
 
 @section('content')
-{{-- after registration and login modal --}}
+    {{-- after registration and login modal --}}
 
-<div class="container-fluid pt-1">
+    <div class="container-fluid pt-1">
         <div>
             @if (session()->get('msg'))
                 <div id="errorDiv1" class="alert alert-danger col-12 col-md-6 offset-md-3 mt-2">
@@ -813,8 +970,7 @@
                                                                                     src="{{ asset('assets/images/' . $item->product_image) }}" />
                                                                             @endif
                                                                             @if ($item->product_mode == 'medicine')
-                                                                                <h6
-                                                                                    class="item-tag-name tag-name-pharmacy">
+                                                                                <h6 class="item-tag-name tag-name-pharmacy">
                                                                                     Pharmacy</h6>
                                                                             @elseif($item->product_mode == 'lab-test')
                                                                                 <h6 class="item-tag-name tag-name-lab">Lab
@@ -975,19 +1131,11 @@
                                     <div class="col-md-4">
                                         <div class="row">
                                             <div class="payment-order-summary-wrap">
-
                                                 <div class="card">
                                                     <div class="card-header">Order Summary</div>
                                                     <ul class="list-group list-group-flush">
                                                         <li class="list-group-item">Total Item <span
                                                                 id="totalItem">{{ $countItem }}</span></li>
-
-                                                        {{-- <li class="list-group-item">Provider Fee<span id="provider_fee">
-
-                                                                Rs.{{ number_format($providerFee, 2) ?? '' }}
-
-                                                            </span></li> --}}
-
                                                         <li class="list-group-item">Total Cost <span
                                                                 id="totalCast">Rs.{{ number_format($itemSum, 2) }}</span>
                                                         </li>
@@ -1022,8 +1170,8 @@
                                                 <form method="post" id="formWithCard"
                                                     action="{{ route('order.payment') }}">
                                                     @csrf
-                                                    <input type="hidden" class="payAble" id="payAble"
-                                                        name="payAble" value="{{ $totalPrice }}">
+                                                    <input type="hidden" class="payAble" id="payAble" name="payAble"
+                                                        value="{{ $totalPrice }}">
                                                     <input type="hidden" name="payment_method" id="payment_method">
                                                     <div class="row gap-2 mb-2">
                                                         <div class="col-md-12">
@@ -1060,8 +1208,7 @@
                                                     <div class="col-md-12 pt-3 phd border-top">
                                                         <div class="row">
                                                             <div class="col-md-6 mb-1">
-                                                                <label for="exampleInputEmail1"
-                                                                    class="form-label">Full
+                                                                <label for="exampleInputEmail1" class="form-label">Full
                                                                     Name*</label>
                                                                 <input required name="shipping_customer_name"
                                                                     type="text" class="form-control mt-1"
@@ -1072,8 +1219,7 @@
                                                                     class="form-label">Email</label>
                                                                 <input name="shipping_customer_email" type="text"
                                                                     class="form-control mt-1" id="exampleInputEmail1"
-                                                                    placeholder="Email"
-                                                                    aria-describedby="emailHelp" />
+                                                                    placeholder="Email" aria-describedby="emailHelp" />
                                                             </div>
                                                             <div class="col-md-6 mb-1">
                                                                 <label for="exampleInputEmail1"
@@ -1083,8 +1229,7 @@
                                                                     placeholder="Phone" maxlength="11" />
                                                             </div>
                                                             <div class="col-md-6 mb-3">
-                                                                <label for="ship_city"
-                                                                    class="form-label">City*</label>
+                                                                <label for="ship_city" class="form-label">City*</label>
                                                                 <input required name="shipping_customer_city"
                                                                     type="text" id="ship_city"
                                                                     class="form-control mt-1" placeholder="City" />
@@ -1166,8 +1311,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-
                                 </div>
                             </div>
                         </section>
@@ -1182,7 +1325,7 @@
         @endif
     </div>
     @php
-$page = DB::table('pages')->where('url', '/')->first();
-@endphp
+        $page = DB::table('pages')->where('url', '/')->first();
+    @endphp
 
 @endsection
