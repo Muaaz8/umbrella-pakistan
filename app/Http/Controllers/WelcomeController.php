@@ -228,7 +228,7 @@ class WelcomeController extends Controller
 
     public function terms_of_use(){
         $term_of_use=Document::where('name','term of use')->orderByDesc('id')->first();
-        return view('site.term_of_use',compact('term_of_use'));
+        return view('website_pages.term_of_use',compact('term_of_use'));
     }
 
     public function policy_privacy(){

@@ -1304,7 +1304,7 @@ Route::group(['middleware' => ['auth', 'user-email-verify', 'activeUser']], func
         Route::get('/all_patients', 'AdminController@all_patients')->name('admin_patients');
         Route::get('/view_terms_of_use', 'AdminController@view_terms_of_use')->name('view_terms_of_use');
         Route::get('/view_psychiatrist_services', 'AdminController@view_psychiatrist_services')->name('view_psychiatrist_services');
-        Route::get('/add_terms_of_use', 'AdminController@terms_of_use')->name('terms_of_use');
+        // Route::get('/add_terms_of_use', 'AdminController@terms_of_use')->name('terms_of_use');
         Route::get('/view_privacy_policy', 'AdminController@view_privacy_policy')->name('view_privacy_policy');
         Route::get('/add_privacy_policy', 'AdminController@privacy_policy');
         Route::get('/admin_contact', 'AdminController@admin_contact')->name('admin_contact');

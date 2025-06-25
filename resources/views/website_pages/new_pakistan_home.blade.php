@@ -108,7 +108,6 @@
 
 @section('bottom_import_file')
 <script>
-  $(document).ready(function () {
     var rem = (function rem() {
         var html = document.getElementsByTagName("html")[0];
 
@@ -162,19 +161,19 @@
         var newTitle = $("#guideCarousel .carousel-item.active").data("title");
         $("#carousel-title").text(newTitle);
     });
-});
-        <?php
-        header('Access-Control-Allow-Origin: *');
-        ?>
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+
+    <?php
+    header('Access-Control-Allow-Origin: *');
+    ?>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 </script>
 @endsection
 @section('content')
-<main>
+<main class="new-home-design">
   <!-- Section 1: Hero Section -->
   <section class="new-hero-section container-fluid px-0 px-md-auto d-flex justify-content-center pt-2 pb-4">
     <div class="row gy-3 gx-0 g-md-4 w-85">
@@ -625,7 +624,7 @@
               <div
                 class="w-100 h-100 p-3 p-sm-4 bg-blue text-white rounded-4 rounded-sm-3 d-flex flex-column flex-sm-row align-items-center justify-content-sm-between position-relative gap-3 gap-sm-0">
                 <div
-                  class="w-65 d-flex flex-column text-sm-start text-center align-items-center justify-content-center">
+                  class="w-65 d-flex flex-column text-sm-start text-center align-items-center align-items-sm-start justify-content-center">
                   <h2 class="fs-28">
                     Community Healthcare Clinics - Medicines
                   </h2>
@@ -756,7 +755,7 @@
       <h5 class="fs-14">Our Partners</h5>
       <h2 class="fs-22 fw-bold">Collaborating Partners</h2>
       <div class="partner-scroll w-100 d-flex gap-4 overflow-hidden px-0 mt-4">
-        <div class="partner-logo-container w-100 d-flex align-items-center justify-content-between gap-4">
+        <div class="partner-logo-container d-flex align-items-center justify-content-sm-between gap-4">
           <img src="{{ asset('assets/new_frontend/adviyaat-logo.webp') }}" alt="" />
           <img src="{{ asset('assets/new_frontend/AGP-Logo.webp') }}" alt="" />
           <img src="{{ asset('assets/new_frontend/dr-essa-logo.webp') }}" alt="" />
@@ -765,7 +764,7 @@
           <img src="{{ asset('assets/new_frontend/peridots-logo.webp') }}" alt="" />
         </div>
         <div aria-hidden="true"
-          class="partner-logo-container w-100 d-flex align-items-center justify-content-between gap-4">
+          class="partner-logo-container d-flex align-items-center justify-content-sm-between gap-4">
           <img src="{{ asset('assets/new_frontend/adviyaat-logo.webp') }}" alt="" />
           <img src="{{ asset('assets/new_frontend/AGP-Logo.webp') }}" alt="" />
           <img src="{{ asset('assets/new_frontend/dr-essa-logo.webp') }}" alt="" />
@@ -779,7 +778,7 @@
   <!-- Section 6: Client Testimonials -->
   <section class="container-fluid px-0 d-flex justify-content-center py-5 bg-light-blue">
     <div class="row px-0 gy-3 g-sm-5 align-items-center flex-row w-85">
-      <div class="px-0 ps-sm-0 col-md-4">
+      <div class="ps-0 col-md-4">
         <div class="w-100 d-flex flex-column gap-3">
           <div class="text-center text-md-start">
             <h2 class="m-0 fs-28 me-md-1 d-inline d-lg-block d-xl-inline">
@@ -788,7 +787,7 @@
             <span class="fw-bold fs-28">Client Says</span>
           </div>
           <p class="new-para text-center text-md-start">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+            Trusted by our clients for care, convenience, and professionalism. Hear it from them.
           </p>
           <div class="d-none d-md-flex align-items-center gap-2">
             <button class="carousel-control-prev position-static w-auto opacity-100" type="button"

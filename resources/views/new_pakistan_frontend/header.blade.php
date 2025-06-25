@@ -359,7 +359,7 @@
 </header> -->
 
 <!-- new header -->
-<header>
+<header class="new-header-design">
     <div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-inner top-head px-1 py-2">
             @php

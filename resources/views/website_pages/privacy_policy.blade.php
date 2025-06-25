@@ -21,7 +21,7 @@
 
 
 @section('page_title')
-    <title>Privacy Policy | Umbrella Health Care Systems</title>
+    <title>Privacy Policy | Community Healthcare Clinics</title>
 @endsection
 
 @section('top_import_file')
