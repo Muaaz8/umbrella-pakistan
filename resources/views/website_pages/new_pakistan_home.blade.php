@@ -108,7 +108,7 @@
 
 @section('bottom_import_file')
 <script>
-    var rem = (function rem() {
+  var rem = (function rem() {
         var html = document.getElementsByTagName("html")[0];
 
         return function () {
@@ -216,8 +216,9 @@
             <p class="service-card-para fs-14">
               Consult a doctor online, book now!
             </p>
-            <a href=""
-              class="card-btn bg-blue d-flex align-items-center gap-2 my-3 px-3 py-1 rounded-2 text-white fs-12"><span
+            <a @if (Auth::check()) href="{{ route('patient_evisit_specialization') }}" @else data-bs-toggle="modal"
+              data-bs-target="#loginModal" @endif
+              class="card-btn bg-blue d-flex align-items-center gap-2 my-3 px-3 py-1 rounded-2 text-white fs-12 cursor-pointer"><span
                 class="fw-semibold">E-Visit</span><i class="fa-solid fa-arrow-right fs-14"></i></a>
           </div>
           <div class="d-flex align-items-end justify-content-center w-40">
@@ -233,7 +234,7 @@
             <p class="service-card-para fs-14">
               Order medicines online, get them today!
             </p>
-            <a href=""
+            <a href="{{ route('vendor', ['shop_type' => 'pharmacy']) }}"
               class="card-btn bg-green d-flex align-items-center gap-2 my-3 px-3 py-1 rounded-2 text-white fs-12"><span
                 class="fw-semibold">Visit our Store</span><i class="fa-solid fa-arrow-right fs-14"></i></a>
           </div>
@@ -249,7 +250,7 @@
             <p class="service-card-para fs-14">
               Book lab tests online, Schedule now!
             </p>
-            <a href=""
+            <a href="{{ route('vendor', ['shop_type' => 'labs']) }}"
               class="card-btn bg-red d-flex align-items-center gap-2 my-3 px-3 py-1 rounded-2 text-white fs-12"><span
                 class="fw-semibold">Online Test</span><i class="fa-solid fa-arrow-right fs-14"></i></a>
           </div>
