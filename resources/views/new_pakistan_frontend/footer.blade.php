@@ -42,7 +42,7 @@ $page = DB::table('pages')->where('url', '/')->first();
       <div class="col-sm-6 col-md-12 col-lg-4 mt-2 mt-sm-4 mt-lg-0 px-md-0">
         <h5 class="new-footer-heading fw-semibold mt-2">CONTACT US</h5>
         <ul class="list-unstyled mt-3 links d-flex flex-column gap-2">
-          <li class="fs-14"><a href="https://wa.me/923372350684"><span class="fw-semibold">Phone: </span> 0337-2350684</a>
+          <li class="fs-14 d-flex align-items-center gap-2"><a href="https://wa.me/923372350684"><span class="fw-semibold">Phone: </span> 0337-2350684</a><a href="tel:+14076938484"><span class="fw-semibold"> | </span> +1 (407) 693-8484</a>
           </li>
           <li class="fs-14">
             <a target="_blank"
