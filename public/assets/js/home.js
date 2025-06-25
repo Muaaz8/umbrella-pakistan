@@ -11,62 +11,6 @@ $(document).ready(function () {
 });
 
 // client testimonial carousel sliding function
-$(document).ready(function () {
-    var rem = (function rem() {
-        var html = document.getElementsByTagName("html")[0];
-
-        return function () {
-            return parseInt(window.getComputedStyle(html)["fontSize"]);
-        };
-    })();
-
-    const multipleItemCarousel = $("#clientTestimonial");
-    if (window.matchMedia("(min-width: 576px)").matches) {
-        const carousel = new bootstrap.Carousel(multipleItemCarousel, {
-            interval: false,
-        });
-        var carouselWidth = $("#clientTestimonial .carousel-inner")[0]
-            .scrollWidth;
-        console.log("carouselWidth", carouselWidth);
-        var cardWidth = $(
-            "#clientTestimonial .carousel-inner .carousel-item"
-        ).width();
-        console.log("cardWidth", cardWidth);
-
-        var scrollPosition = 0;
-
-        $(".carousel-control-next").on("click", function () {
-            if (scrollPosition < carouselWidth - cardWidth * 3) {
-                console.log("next");
-                scrollPosition += cardWidth + rem() * 1;
-                $("#clientTestimonial .carousel-inner").animate(
-                    { scrollLeft: scrollPosition },
-                    600
-                );
-            }
-        });
-
-        $(".carousel-control-prev").on("click", function () {
-            if (scrollPosition > 0) {
-                console.log("next");
-                scrollPosition -= cardWidth + rem() * 1;
-                $("#clientTestimonial .carousel-inner").animate(
-                    { scrollLeft: scrollPosition },
-                    600
-                );
-            }
-        });
-    } else {
-        multipleItemCarousel.addClass("slide");
-        multipleItemCarousel.find(".carousel-item").first().addClass("active");
-    }
-
-    $("#guideCarousel").on("slid.bs.carousel", function () {
-        var newTitle = $("#guideCarousel .carousel-item.active").data("title");
-        $("#carousel-title").text(newTitle);
-    });
-});
-
 function getPharmacyProductByCategory(sub_cat_id, limit) {
     $("#load_pharmacy_item_by_category").html("");
     $(".no-product-loader").removeClass("d-none");
