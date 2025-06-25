@@ -338,17 +338,17 @@ button {
     }
 }
 
-@media screen and (max-width: 769px) {
+@media screen and (max-width: 768px) {
     .new-hero-section .fs-14 {
         font-size: 0.875rem !important;
     }
 
-    .service-card img {
-        height: 100% !important;
-    }
-
     .service-card {
         max-height: 150px;
+    }
+
+    .service-card img {
+        height: 100% !important;
     }
 
     .card-text-cont .fs-6 {
@@ -378,6 +378,18 @@ button {
     top: 50%;
     transform: translate(-50%, -50%);
     width: 65%;
+}
+
+@media screen and (max-width: 991px) {
+    .our-guide-section button {
+        font-size: 0.875rem !important;
+    }
+}
+
+@media screen and (max-width: 769px) {
+    .our-guide-section button {
+        font-size: 0.75rem !important;
+    }
 }
 
 /* Promotion Section */
@@ -2552,7 +2564,7 @@ header > .header-search-container {
     display: block;
 }
 
-.border-sm-bottom{
+.border-sm-bottom {
     border-bottom: 1px solid #eeeeee;
 }
 
@@ -5998,7 +6010,7 @@ header > .header-search-container {
     .alphabet {
         font-size: 0.8rem;
     }
-    .border-sm-bottom{
+    .border-sm-bottom {
         border: none;
     }
 

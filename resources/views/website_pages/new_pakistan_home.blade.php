@@ -122,7 +122,7 @@
 <main>
   <!-- Section 1: Hero Section -->
   <section class="new-hero-section container-fluid px-0 px-md-auto d-flex justify-content-center pt-2 pb-4">
-    <div class="row gy-3 gx-0 g-sm-4 w-85">
+    <div class="row gy-3 gx-0 g-md-4 w-85">
       <div class="ps-md-0 col-md-8">
         <div id="mainBanner" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-indicators">
@@ -215,9 +215,9 @@
       </h2>
       <div class="d-none d-sm-block">
         <ul class="nav justify-content-center nav-pills my-3 bg-white p-2 rounded-2" id="pills-tab" role="tablist">
-          <li class="nav-item px-4" role="presentation">
+          <li class="nav-item px-4 px-sm-2 px-lg-4" role="presentation">
             <button class="text-navy-blue py-2 px-4 fw-semibold nav-link active" id="pills-register-patient-tab"
-              data-bs-toggle="pill" data-bs-target="#pills-register-patient" type="button" role="tab"
+              data-bs-toggle="pill" data-bs-target="#pills-register" type="button" role="tab"
               aria-controls="pills-register-patient" aria-selected="true">
               Register as Patient / Doctor
             </button>
@@ -229,21 +229,21 @@
               Register as a Doctor
             </button>
           </li>--}}
-          <li class="nav-item px-4" role="presentation">
+          <li class="nav-item px-4 px-sm-2 px-lg-4" role="presentation">
             <button class="text-navy-blue py-2 px-4 fw-semibold nav-link" id="pills-order-medicine-tab"
               data-bs-toggle="pill" data-bs-target="#pills-order-medicine" type="button" role="tab"
               aria-controls="pills-order-medicine" aria-selected="false">
               Order Medicine
             </button>
           </li>
-          <li class="nav-item px-4" role="presentation">
+          <li class="nav-item px-4 px-sm-2 px-lg-4" role="presentation">
             <button class="text-navy-blue py-2 px-4 fw-semibold nav-link" id="pills-order-lab-tab" data-bs-toggle="pill"
               data-bs-target="#pills-order-lab" type="button" role="tab" aria-controls="pills-order-lab-tab"
               aria-selected="false">
               Order Lab
             </button>
           </li>
-          <li class="nav-item px-4" role="presentation">
+          <li class="nav-item px-4 px-sm-2 px-lg-4" role="presentation">
             <button class="text-navy-blue py-2 px-4 fw-semibold nav-link" id="pills-checkout-tab" data-bs-toggle="pill"
               data-bs-target="#pills-checkout" type="button" role="tab" aria-controls="pills-checkout"
               aria-selected="false">
@@ -252,44 +252,8 @@
           </li>
         </ul>
         <div class="tab-content" id="pills-tabContent">
-          <div class="tab-pane fade show active" id="pills-register-patient" role="tabpanel"
-            aria-labelledby="pills-register-patient" tabindex="0">
-            <div class="guide-img-container d-flex align-items-center justify-content-between position-relative p-3">
-              <div class="wave-arrow">
-                <img class="w-100 object-fit-contain" src="{{ asset('assets/new_frontend/arrow-wave.png') }}" alt="" />
-              </div>
-              <div class="row w-100 align-items-center justify-content-between position-relative flex-row gx-4">
-                <div class="col-md-3">
-                  <div class="w-100 h-100">
-                    <h5 class="bg-navy-blue px-4 fs-14 py-1 rounded-2 text-white mb-2 w-max mx-auto">
-                      Step 01
-                    </h5>
-                    <img class="w-100 object-fit-contain" src="{{ asset('assets/new_frontend/r-step-1.png') }}"
-                      alt="" />
-                  </div>
-                </div>
-                <div class="col-md-5">
-                  <div class="w-100 h-100">
-                    <h5 class="bg-navy-blue px-4 fs-14 py-1 rounded-2 text-white mb-2 w-max mx-auto">
-                      Step 02
-                    </h5>
-                    <img class="w-100 object-fit-contain" src="{{ asset('assets/new_frontend/laptop.webp') }}" alt="" />
-                  </div>
-                </div>
-                <div class="col-md-3">
-                  <div class="w-100 h-100">
-                    <h5 class="bg-navy-blue px-4 fs-14 py-1 rounded-2 text-white mb-2 w-max mx-auto">
-                      Step 03
-                    </h5>
-                    <img class="w-100 object-fit-contain" src="{{ asset('assets/new_frontend/email-verify.png') }}"
-                      alt="" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="tab-pane fade" id="pills-register-doctor" role="tabpanel" aria-labelledby="pills-register-doctor"
-            tabindex="0">
+          <div class="tab-pane fade show active" id="pills-register" role="tabpanel"
+            aria-labelledby="pills-register" tabindex="0">
             <div class="guide-img-container d-flex align-items-center justify-content-between position-relative p-3">
               <div class="wave-arrow">
                 <img class="w-100 object-fit-contain" src="{{ asset('assets/new_frontend/arrow-wave.png') }}" alt="" />
@@ -448,7 +412,7 @@
                 class="bg-blue rounded-circle new-arrow-icon d-flex align-items-center justify-content-center text-white"><i
                   class="fa-solid fa-arrow-left"></i></span>
             </button>
-            <h5 id="carousel-title" class="text-white mb-0 text-center">Register as a Patient</h5>
+            <h5 id="carousel-title" class="text-white mb-0 text-center">Register as Patient / Doctor</h5>
             <button class="carousel-control-next position-static w-auto opacity-100" type="button"
               data-bs-target="#guideCarousel" data-bs-slide="next">
               <span
@@ -457,40 +421,7 @@
             </button>
           </div>
           <div class="carousel-inner">
-            <div class="carousel-item active" data-title="Register as a Patient">
-              <div class="mt-3 d-flex align-items-center justify-content-between position-relative p-3">
-                <div class="w-100 d-flex flex-column align-items-center justify-content-between gap-4">
-                  <div class="col-md-3">
-                    <div class="w-100 h-100">
-                      <h5 class="bg-navy-blue px-4 fs-14 py-1 rounded-2 text-white mb-2 w-max mx-auto">
-                        Step 01
-                      </h5>
-                      <img class="w-100 object-fit-contain" src="{{ asset('assets/new_frontend/r-step-1.png') }}"
-                        alt="" />
-                    </div>
-                  </div>
-                  <div class="col-md-5">
-                    <div class="w-100 h-100">
-                      <h5 class="bg-navy-blue px-4 fs-14 py-1 rounded-2 text-white mb-2 w-max mx-auto">
-                        Step 02
-                      </h5>
-                      <img class="w-100 object-fit-contain" src="{{ asset('assets/new_frontend/laptop.webp') }}"
-                        alt="" />
-                    </div>
-                  </div>
-                  <div class="col-md-3">
-                    <div class="w-100 h-100">
-                      <h5 class="bg-navy-blue px-4 fs-14 py-1 rounded-2 text-white mb-2 w-max mx-auto">
-                        Step 03
-                      </h5>
-                      <img class="w-100 object-fit-contain" src="{{ asset('assets/new_frontend/email-verify.png') }}"
-                        alt="" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="carousel-item" data-title="Register as a Doctor">
+            <div class="carousel-item active" data-title="Register as Patient / Doctor">
               <div class="mt-3 d-flex align-items-center justify-content-between position-relative p-3">
                 <div class="w-100 d-flex flex-column align-items-center justify-content-between gap-4">
                   <div class="col-md-3">
