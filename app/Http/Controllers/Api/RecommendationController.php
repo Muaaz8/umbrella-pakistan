@@ -48,6 +48,7 @@ class RecommendationController extends BaseController
                     $product = DB::table('tbl_products')->where('id', $pres->medicine_id)->first();
                     $singleItemMedicine = [
                         'medicine_name' => $product->name,
+                        // 'unit' => $pres->med_unit,
                         'days' => $pres->med_days,
                         'quantity' => $pres->quantity,
                         'usage' => $pres->usage,
@@ -85,44 +86,46 @@ class RecommendationController extends BaseController
         }
 
         // try {
-        array_push($dataMarge, array('patient' => $patient_user));
-        array_push($dataMarge, array('doctor' => $doctor_user));
-        array_push($dataMarge, array('rec_test' => $preLab));
-        array_push($dataMarge, array('rec_pharma' => $prePharma));
-        array_push($dataMarge, array('rec_imaging' => $preImaging));
-        array_push($dataMarge, array('pat_email' => ucwords($patient_user->email)));
-        array_push($dataMarge, array('session' => $session));
-        $pdf = PDF::loadView('onlineprescriptionPdf', compact('dataMarge'));
-        Mail::send('emails.prescriptionEmail', ['user_data' => $patient_user], function ($message) use ($patient_user, $dataMarge, $pdf) {
-            $message->to($patient_user->email)->subject('patient prescription')->attachData($pdf->output(), "prescription.pdf");
-        });
+            array_push($dataMarge, array('patient' => $patient_user));
+            array_push($dataMarge, array('doctor' => $doctor_user));
+            array_push($dataMarge, array('rec_test' => $preLab));
+            array_push($dataMarge, array('rec_pharma' => $prePharma));
+            array_push($dataMarge, array('rec_imaging' => $preImaging));
+            array_push($dataMarge, array('pat_email' => ucwords($patient_user->email)));
+            array_push($dataMarge, array('session' => $session));
+            $pdf = PDF::loadView('onlineprescriptionPdf',compact('dataMarge'));
+            Mail::send('emails.prescriptionEmail', ['user_data'=>$patient_user], function ($message) use ($patient_user,$dataMarge,$pdf) {
+                $message->to($patient_user->email)->subject('patient prescription')->attachData($pdf->output(), "prescription.pdf");
+            });
 
-        $pdfData = $pdf->output();
+            $pdfData = $pdf->output();
 
-        $tempFile = tmpfile();
-        fwrite($tempFile, $pdfData);
-        $metaData = stream_get_meta_data($tempFile);
-        $filePath = $metaData['uri'];
+            $tempFile = tmpfile();
+            fwrite($tempFile, $pdfData);
+            $metaData = stream_get_meta_data($tempFile);
+            $filePath = $metaData['uri'];
 
-        UploadMediaJob::dispatch($filePath, $patient_user);
+            UploadMediaJob::dispatch($filePath,$patient_user);
 
-        $text = "Session Complete Please Check Recommendations";
-        $notification_id = Notification::create([
-            'user_id' => $patient_user->id,
-            'type' => '/my/cart',
-            'text' => $text,
-            'session_id' => $session_id,
-        ]);
-        $data = [
-            'user_id' => $patient_user->id,
-            'type' => '/my/cart',
-            'text' => $text,
-            'session_id' => $session_id,
-            'received' => 'false',
-            'appoint_id' => 'null',
-            'refill_id' => 'null',
-        ];
-        event(new RealTimeMessage($patient_user->id));
+            $text = "Session Complete Please Check Recommendations";
+            $notification_id = Notification::create([
+                'user_id' => $patient_user->id,
+                'type' => '/my/cart',
+                'text' => $text,
+                'session_id' => $session_id,
+            ]);
+            $data = [
+                'user_id' => $patient_user->id,
+                'type' => '/my/cart',
+                'text' => $text,
+                'session_id' => $session_id,
+                'received' => 'false',
+                'appoint_id' => 'null',
+                'refill_id' => 'null',
+            ];
+
+            event(new RealTimeMessage($patient_user->id));
+
         if ($items > 0) {
             ActivityLog::create([
                 'activity' => 'Create session recommendations for ' . $patient_user->name . " " . $patient_user->last_name,
@@ -161,7 +164,6 @@ class RecommendationController extends BaseController
                 'pat_email' => $pat_detail->email,
                 'comment' => $referal->comment,
             ];
-            // dd($data,$data1);
 
             try {
                 Mail::to($pat_detail->email)->send(new ReferDoctorToPatientMail($data));
@@ -175,18 +177,18 @@ class RecommendationController extends BaseController
                     'status' => 'new',
                     'session_id' => $session_id,
                 ]);
-                $text = 'Dr.' . $refer_doc_detail->name . ' ' . $refer_doc_detail->last_name . ' reffered (Click & book an appointment)';
+                $text = 'Dr.'.$refer_doc_detail->name.' '.$refer_doc_detail->last_name.' reffered (Click & book an appointment)';
                 $notification_id2 = Notification::create([
                     'user_id' => $referal->patient_id,
                     'text' => $text,
-                    'type' => '/view/doctor/' . \Crypt::encrypt($refer_doc_detail->id),
+                    'type' => '/view/doctor/'.\Crypt::encrypt($refer_doc_detail->id),
                     'status' => 'new',
                     'session_id' => $session_id,
                 ]);
                 $data = [
                     'user_id' => $referal->patient_id,
                     'text' => $text,
-                    'type' => '/view/doctor/' . \Crypt::encrypt($refer_doc_detail->id),
+                    'type' => '/view/doctor/'.\Crypt::encrypt($refer_doc_detail->id),
                     'session_id' => $session_id,
                     'received' => 'false',
                     'appoint_id' => 'null',
@@ -208,11 +210,13 @@ class RecommendationController extends BaseController
                 $sessionData->received = false;
                 event(new redirectToCart($session->id));
                 return $this->sendResponse(['action' => 'OnlineWaitingRoom'], 'Recommendation Created Successfully');
+
             }
         }
         $sessionData = Session::find($session_id);
         $sessionData->received = false;
         event(new redirectToCart($session->id));
         return $this->sendResponse(['action' => 'OnlineWaitingRoom'], 'Recommendation Created Successfully');
+
     }
 }
