@@ -437,17 +437,46 @@ Route::get('/new/patient/not/join/call/{id}', 'VideoController@patient_NotJoinin
 Route::get('search_items/{text}', function($text){
 
     $products = DB::table('tbl_products')
-                ->select('id', 'name', 'slug')
-                ->where('name', 'like', '%' . $text . '%')
-                ->where('mode' , 'medicine')
-                ->limit(20)
+                ->join('vendor_products', 'tbl_products.id', '=', 'vendor_products.product_id')
+                ->join('vendor_accounts', 'vendor_products.vendor_id', '=', 'vendor_accounts.id')
+                ->select(
+                    'vendor_products.id AS id',
+                    'tbl_products.id AS product_id',
+                    'tbl_products.name AS name',
+                    'tbl_products.slug AS slug',
+                    'vendor_products.selling_price AS price',
+                    'vendor_products.discount',
+                    'vendor_accounts.name AS vendor_name',
+                    'vendor_accounts.address',
+                    'vendor_accounts.id as vendor_id'
+                )
+                ->where('tbl_products.name', 'like', '%' . $text . '%')
+                ->where('tbl_products.mode', 'medicine')
+                ->where('vendor_products.is_active', 1)
+                ->orderBy('tbl_products.name')
+                ->orderBy('vendor_products.selling_price')
+                ->limit(50)
                 ->get();
 
-
     $testCodes = DB::table('quest_data_test_codes')
-                ->select('TEST_CD', 'TEST_NAME', 'SLUG')
-                ->where('TEST_NAME', 'like', '%' . $text . '%')
-                ->limit(20)
+                ->join('vendor_products', 'quest_data_test_codes.id', '=', 'vendor_products.product_id')
+                ->join('vendor_accounts', 'vendor_products.vendor_id', '=', 'vendor_accounts.id')
+                ->select(
+                    'vendor_products.id AS id',
+                    'quest_data_test_codes.id AS test_code_id',
+                    'quest_data_test_codes.TEST_NAME AS name',
+                    'quest_data_test_codes.SLUG AS slug',
+                    'vendor_products.selling_price AS price',
+                    'vendor_products.discount',
+                    'vendor_accounts.name AS vendor_name',
+                    'vendor_accounts.address',
+                    'vendor_accounts.id as vendor_id'
+                )
+                ->where('quest_data_test_codes.TEST_NAME', 'like', '%' . $text . '%')
+                ->where('vendor_products.is_active', 1)
+                ->orderBy('quest_data_test_codes.TEST_NAME')
+                ->orderBy('vendor_products.selling_price')
+                ->limit(50)
                 ->get();
 
     return response()->json([
