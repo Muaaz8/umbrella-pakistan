@@ -39,12 +39,7 @@ p {
 }
 
 /* New Home Design Styles */
-.new-home-design a,
-.new-home-design button,
-.new-header-design a,
-.new-header-design button,
-.new-footer a,
-.new-footer button {
+a, button {
     border: none;
     outline: none;
     background-color: transparent;
