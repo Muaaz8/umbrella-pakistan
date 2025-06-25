@@ -1,753 +1,560 @@
 @extends('layouts.new_pakistan_layout')
 
 @section('meta_tags')
-<meta charset="utf-8" />
-<meta name="google-site-verification" content="Zgq0W54U_oOpntcqrKICmQpKyIPsJWhntAVoGqDCqV0" />
-<meta name="csrf-token" content="{{ csrf_token() }}" />
-<meta name="language" content="en-us">
-<meta name="robots" content="index,follow" />
-<meta name="copyright" content="© 2022 All Rights Reserved. Powered By Community Healthcare Clinics">
-<meta name="url" content="https://www.communityhealthcareclinics.com">
-<meta property="og:locale" content="en_US" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://www.umbrellamd.com" />
-<meta property="og:site_name" content="Community Healthcare Clinics | communityhealthcareclinics.com" />
-<meta name="twitter:site" content="@umbrellamd">
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="author" content="Umbrellamd">
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="icon" href="{{ asset('asset_frontend/images/logo.ico') }}" type="image/x-icon">
+    <meta charset="utf-8" />
+    <meta name="google-site-verification" content="Zgq0W54U_oOpntcqrKICmQpKyIPsJWhntAVoGqDCqV0" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <meta name="language" content="en-us">
+    <meta name="robots" content="index,follow" />
+    <meta name="copyright" content="© 2022 All Rights Reserved. Powered By Community Healthcare Clinics">
+    <meta name="url" content="https://www.communityhealthcareclinics.com">
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.umbrellamd.com" />
+    <meta property="og:site_name" content="Community Healthcare Clinics | communityhealthcareclinics.com" />
+    <meta name="twitter:site" content="@umbrellamd">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="author" content="Umbrellamd">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" href="{{ asset('asset_frontend/images/logo.ico') }}" type="image/x-icon">
 @endsection
 
 
 @section('page_title')
-<title>Cart | Community Healthcare Clinics</title>
-<style>
-    .payment-method {
-        cursor: pointer;
-        border: 2px solid #ddd;
-        border-radius: 10px;
-        padding: 15px;
-        text-align: center;
-        transition: 0.3s;
-    }
+    <title>Cart | Community Healthcare Clinics</title>
+    <style>
+        .payment-method {
+            cursor: pointer;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            transition: 0.3s;
+        }
 
-    .payment-method:hover,
-    .payment-method.active {
-        border-color: #007bff;
-        background-color: #f8f9fa;
-    }
+        .payment-method:hover,
+        .payment-method.active {
+            border-color: #007bff;
+            background-color: #f8f9fa;
+        }
 
-    .payment-method h5 {
-        font-size: 16px;
-        font-weight: 700;
-    }
+        .payment-method h5 {
+            font-size: 16px;
+            font-weight: 700;
+        }
 
-    .icon {
-        height: 35px;
-        object-fit: cover;
-    }
+        .icon {
+            height: 35px;
+            object-fit: cover;
+        }
 
-    .process-pay {
-        background: linear-gradient(to top, #08295a, #165dc8);
-        /* background-image: linear-gradient(#2c66bb, #08295a); */
-        color: #fff !important;
-        border: none;
-    }
+        .process-pay {
+            background: linear-gradient(to top, #08295a, #165dc8);
+            /* background-image: linear-gradient(#2c66bb, #08295a); */
+            color: #fff !important;
+            border: none;
+        }
 
-    .process-pay:hover {
-        background-image: linear-gradient(#568fe6, #051b3b);
-        color: #fff;
-    }
+        .process-pay:hover {
+            background-image: linear-gradient(#568fe6, #051b3b);
+            color: #fff;
+        }
 
-    .buttonload {
+        .buttonload {
 
-        padding: 12px 16px;
-        /* Some padding */
+            padding: 12px 16px;
+            /* Some padding */
 
-    }
+        }
 
-    .w-100 {
-        width: 100% !important;
-        height: auto !important;
-        object-fit: none !important;
-    }
+        .w-100 {
+            width: 100% !important;
+            height: auto !important;
+            object-fit: none !important;
+        }
 
-    .icon {
-        width: auto !important;
-        filter: none !important;
-    }
+        .icon {
+            width: auto !important;
+            filter: none !important;
+        }
 
-    /* .left {
-        box-shadow: none;
-        padding: 20px;
-        width: 100%;
-        text-align: justify;
-    } */
-</style>
+        /* .left {
+                box-shadow: none;
+                padding: 20px;
+                width: 100%;
+                text-align: justify;
+            } */
+    </style>
 @endsection
 
 @section('top_import_file')
-<link rel="stylesheet" href="{{ asset('assets/css/minifyStyle.css?n=1') }}" />
+    <link rel="stylesheet" href="{{ asset('assets/css/minifyStyle.css?n=1') }}" />
 @endsection
 
 
 @section('bottom_import_file')
-<script src="https://thecodeplayer.com/uploads/js/jquery.easing.min.js" type="text/javascript"></script>
+    <script src="https://thecodeplayer.com/uploads/js/jquery.easing.min.js" type="text/javascript"></script>
 <script>
-    @php header("Access-Control-Allow-Origin: *"); @endphp
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-        //jQuery time
-        var current_fs, next_fs, previous_fs; //fieldsets
-        var left, opacity, scale; //fieldset properties which we will animate
-        var animating; //flag to prevent quick multi-click glitches
-        var check; //for enabling and disabling checkout button
-        function addHyphen(element) {
-            let ele = document.getElementById(element.id);
-            ele = ele.value.split('-').join(''); // Remove dash (-) if mistakenly entered.
-            if (ele.length <= 16) {
-                let finalVal = ele.match(/.{1,4}/g).join('-');
-                document.getElementById(element.id).value = finalVal;
-            }
+    // CSRF Token Setup
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
-        $(document).ready(function() {
-            //get the divs to show/hide
-            // alert('ok');
-            check = $('input:checked', this).length;
-            if (check == 0) {
-                $('.next').attr('disabled', true);
-            } else {
-                $('.next').attr('disabled', false);
-            }
-        });
+    });
 
-        $(document).ready(function() {
-            var dd = "{{ count($cards) }}";
-            if (dd == 0) {
-                $("#div1").show();
-                $('#div2').hide();
-            }
-            $("#card_num").keyup(function() {
-                // $("#card_num").css("background-color", "green");
-                var e = $("#card_num").val();
-                if (e.substring(0, 1) == 3) {
-                    $(".card-pic").html('');
-                    $(".card-pic").html(
-                        "<img src='{{ asset('assets/images/american-express.png') }}'' class='pay-image w-100' alt=''>"
-                    );
-                } else if (e.substring(0, 1) == 4) {
-                    $(".card-pic").html('');
-                    $(".card-pic").html(
-                        "<img src='{{ asset('assets/images/visa.png') }}'' class='pay-image w-100' alt=''>"
-                    );
-                } else if (e.substring(0, 1) == 5) {
-                    $(".card-pic").html('');
-                    $(".card-pic").html(
-                        "<img src='{{ asset('assets/images/master.png') }}'' class='pay-image w-100' alt=''>"
-                    );
-                } else if (e.substring(0, 1) == 6) {
-                    $(".card-pic").html('');
-                    $(".card-pic").html(
-                        "<img src='{{ asset('assets/images/discover.png') }}'' class='pay-image w-100' alt=''>"
-                    );
+    // Global Variables
+    let current_fs, next_fs, previous_fs;
+    let left, opacity, scale;
+    let animating = false;
+    let check = 0;
+
+    // Utility Functions
+    function addHyphen(element) {
+        let ele = document.getElementById(element.id);
+        if (!ele) return;
+
+        let value = ele.value.replace(/-/g, ''); // Remove existing hyphens
+        if (value.length <= 16) {
+            let finalVal = value.match(/.{1,4}/g)?.join('-') || value;
+            ele.value = finalVal;
+        }
+    }
+
+    function updateCheckoutTotals(res) {
+        $('#totalItem').text(res.countItem || 0);
+        $('#totalCast').text('Rs. ' + (res.itemSum || 0));
+        $('#totalPaid').text('Rs. ' + (res.totalPrice || 0));
+        $('.payAble').val(res.totalPrice || 0);
+    }
+
+    function loadFinalCheckoutItems() {
+        $('#loadItemChecoutFinal').empty();
+
+        $.ajax({
+            type: 'POST',
+            url: window.routes?.show_product_on_final_checkout || '/show-product-on-final-checkout',
+            success: function(res) {
+                $('#totalCastFinal').text('Rs.' + (res.itemSum || 0));
+                $('#totalPaidFinal').text('Rs.' + (res.totalPrice || 0));
+
+                let showShipping = 0;
+
+                if (res.allProducts && Array.isArray(res.allProducts)) {
+                    res.allProducts.forEach(function(product) {
+                        if (product.product_mode === "medicine") {
+                            showShipping++;
+                        }
+
+                        const itemHtml = createProductItemHtml(product);
+                        $('#loadItemChecoutFinal').append(itemHtml);
+                    });
+                }
+
+                if (showShipping > 0) {
+                    $('.payment_toggole_form').show();
                 } else {
-                    $(".card-pic1").html('');
+                    $('.payment_toggole_form').hide();
                 }
-            });
-        });
-
-        $(".next").click(function() {
-            $('#loadItemChecoutFinal').text('');
-            $.ajax({
-                type: 'POST',
-                url: "{{ route('show_product_on_final_checkout') }}",
-                success: function(res) {
-                    $('#totalCastFinal').text('Rs.' + res.itemSum);
-                    $('#totalPaidFinal').text('Rs.' + res.totalPrice);
-                    //if (res.providerFee > 0) {
-                    //    $('#final_provider_fee').html('$6.00');
-                    //} else {
-                    //$('#final_provider_fee').html('$0.00');
-                    //}
-                    var showShipping = 0;
-                    $.each(res.allProducts, function(key, product) {
-                        if (product.product_mode == "medicine") {
-                            showShipping += 1;
-                        }
-                        if (product.item_type == 'prescribed') {
-                            $('#loadItemChecoutFinal').append('<div class="card mb-1">' +
-                                '<div class="row g-0">' +
-                                '<div class="d-flex">' +
-                                '<div class="image-wrap-inner">' +
-                                '<img src="' + product.product_image +
-                                '" class="img-fluid rounded-start" alt="' + product.name +
-                                '"/>' +
-                                '</div>' +
-                                '<div class="card-body">' +
-                                '<h5 class="card-title">' + product.name + '</h5>' +
-                                '<h5 class="checkoutItem_prod" id="' + product.product_id +
-                                '" hidden></h5>' +
-                                '<h5 class="checkoutItem_cart" id="' + product.id +
-                                '" hidden>' +
-                                product.id + '</h5>' +
-                                '<p class="card-text">Qty:1 <span class="float-end pe-3"><b> Price: Rs.' +
-                                product.update_price + '</b></span></p>' +
-                                '<p class="card-text">Prescribed by ' + product.prescribed +
-                                '</p>' +
-                                '</div>' +
-                                '</div>' +
-                                '</div>' +
-                                '</div>');
-                        } else {
-                            $('#loadItemChecoutFinal').append('<div class="card mb-1">' +
-                                '<div class="row g-0">' +
-                                '<div class="d-flex">' +
-                                '<div class="image-wrap-inner">' +
-                                '<img src="' + product.product_image +
-                                '" class="img-fluid rounded-start" alt="' + product.name +
-                                '"/>' +
-                                '</div>' +
-                                '<div class="card-body">' +
-                                '<h5 class="card-title">' + product.name + '</h5>' +
-                                '<h5 class="checkoutItem_prod" id="' + product.product_id +
-                                '" hidden>' + product.product_id + '</h5>' +
-                                '<h5 class="checkoutItem_cart" id="' + product.id +
-                                '" hidden>' +
-                                product.id + '</h5>' +
-                                '<p class="card-text">Qty:1 <span class="float-end pe-3"><b> Price: Rs.' +
-                                product.update_price + '</b></span></p>' +
-                                '<p class="card-text">Counter Purchased</p>' +
-                                '</div>' +
-                                '</div>' +
-                                '</div>' +
-                                '</div>');
-                        }
-
-                    });
-                    if (showShipping > 0) {
-                        $('.payment_toggole_form').show();
-                    } else {
-                        $('.payment_toggole_form').hide();
-                    }
-                }
-            });
-
-            $.ajax({
-                type: "get",
-                url: "/admin/coupon/check",
-                success: function(response) {
-                    if (response == true) {
-                        $('#promo_added').show();
-                        $('#coupon_code').prop("disabled", true);
-                        $('.coupon_apply').prop("disabled", true);
-                    } else {
-                        $('#promo_added').hide();
-                        $('#coupon_code').prop("disabled", false);
-                        $('.coupon_apply').prop("disabled", false);
-                    }
-
-                }
-            });
-
-            if (animating) return false;
-            animating = true;
-            current_fs = $(this).parent().parent().parent().parent().parent().parent().parent();
-            next_fs = $(this).parent().parent().parent().parent().parent().parent().parent().next();
-            //activate next step on progressbar using the index of next_fs
-            $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
-            //show the next fieldset
-            next_fs.show();
-            //hide the current fieldset with style
-            current_fs.animate({
-                opacity: 0
-            }, {
-                step: function(now, mx) {
-                    //as the opacity of current_fs reduces to 0 - stored in "now"
-                    //1. scale current_fs down to 80%
-                    scale = 1 - (1 - now) * 0.2;
-                    //2. bring next_fs from the right(50%)
-                    left = now * 50 + "%";
-                    //3. increase opacity of next_fs to 1 as it moves in
-                    opacity = 1 - now;
-                    current_fs.css({
-                        transform: "scale(" + scale + ")"
-                    });
-                    next_fs.css({
-                        left: left,
-                        opacity: opacity
-                    });
-                },
-                duration: 800,
-                complete: function() {
-                    current_fs.hide();
-                    animating = false;
-                },
-                //this comes from the custom easing plugin
-                easing: "easeInOutBack",
-            });
-        });
-
-
-
-        $(".previous").click(function() {
-            if (animating) return false;
-            animating = true;
-
-            current_fs = $(this).parent();
-            previous_fs = $(this).parent().prev();
-
-            //de-activate current step on progressbar
-            $("#progressbar li")
-                .eq($("fieldset").index(current_fs))
-                .removeClass("active");
-
-            //show the previous fieldset
-            previous_fs.show();
-            //hide the current fieldset with style
-            current_fs.animate({
-                opacity: 0
-            }, {
-                step: function(now, mx) {
-                    //as the opacity of current_fs reduces to 0 - stored in "now"
-                    //1. scale previous_fs from 80% to 100%
-                    scale = 0.8 + (1 - now) * 0.2;
-                    //2. take current_fs to the right(50%) - from 0%
-                    left = (1 - now) * 50 + "%";
-                    //3. increase opacity of previous_fs to 1 as it moves in
-                    opacity = 1 - now;
-                    current_fs.css({
-                        left: left
-                    });
-                    previous_fs.css({
-                        transform: "scale(" + scale + ")",
-                        opacity: opacity,
-                    });
-                },
-                duration: 800,
-                complete: function() {
-                    current_fs.hide();
-                    animating = false;
-                },
-                //this comes from the custom easing plugin
-                easing: "easeInOutBack",
-            });
-        });
-
-
-        function checkboxFunction(a) {
-
-            var classes = $(a).parent().parent().parent().parent().parent().attr('class');
-            var counter = classes.split('_');
-            if ($('#' + classes).is(':checked')) {
-                check++;
-                $('.next').attr('disabled', false);
-                $('.heading_' + counter[1]).css('color', 'white');
-                $('.price_' + counter[1]).css('color', 'white');
-                $('#' + classes).prop("checked", true);
-                $('.' + classes).css('background-color', '#08295a');
-                var cartitemid = $('#cartitemid_' + counter[1]).val();
-
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ route('show_product_on_checkout') }}",
-                    data: {
-                        item_id: cartitemid,
-                    },
-                    success: function(res) {
-                        var countItem = res.countItem;
-                        var itemSum = res.itemSum;
-                        var totalPrice = res.totalPrice;
-                        $('#totalItem').text(countItem);
-                        $('#totalCast').text('Rs. ' + itemSum);
-                        $('#totalPaid').text('Rs. ' + totalPrice);
-                        $('.payAble').val(totalPrice);
-
-                        // if (typeof res.providerFee == 'undefined') {
-                        //     $('#provider_fee').html('Rs. 0.00');
-
-                        // } else {
-                        //     $('#provider_fee').html('Rs. ' + res.providerFee);
-                        // }
-                    }
-                });
-            } else {
-                $('.heading_' + counter[1]).css('color', '#333');
-                $('.price_' + counter[1]).css('color', '#333');
-                $('#' + classes).prop("checked", false);
-                $('.' + classes).css('background-color', 'white');
-                var cartitemid = $('#cartitemid_' + counter[1]).val();
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ route('remove_product_on_checkout') }}",
-                    data: {
-                        item_id: cartitemid,
-                    },
-                    success: function(res) {
-                        check--;
-                        if (check == 0) {
-                            $('.next').attr('disabled', true)
-                        }
-                        var countItem = res.countItem;
-                        var itemSum = res.itemSum;
-                        var totalPrice = res.totalPrice;
-                        $('#totalItem').text(countItem);
-                        $('#totalCast').text('Rs. ' + itemSum);
-                        $('#totalPaid').text('Rs. ' + totalPrice);
-                        $('.payAble').val(totalPrice);
-                        // if (typeof res.providerFee == 'undefined') {
-                        //     $('#provider_fee').html('Rs. 0.00');
-
-                        // } else {
-                        //     $('#provider_fee').html('Rs. ' + res.providerFee);
-                        // }
-
-                    }
-                });
+            },
+            error: function(xhr, status, error) {
+                console.error('Error loading checkout items:', error);
             }
+        });
+    }
+
+    function createProductItemHtml(product) {
+        const prescribedText = product.item_type === 'prescribed'
+            ? `<p class="card-text">Prescribed by ${product.prescribed || 'N/A'}</p>`
+            : '<p class="card-text">Counter Purchased</p>';
+
+        return `
+            <div class="card mb-1">
+                <div class="row g-0">
+                    <div class="d-flex">
+                        <div class="image-wrap-inner">
+                            <img src="${product.product_image || ''}"
+                                 class="img-fluid rounded-start"
+                                 alt="${product.name || ''}" />
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">${product.name || 'Unknown Product'}</h5>
+                            <h5 class="checkoutItem_prod" id="${product.product_id || ''}" hidden>${product.product_id || ''}</h5>
+                            <h5 class="checkoutItem_cart" id="${product.id || ''}" hidden>${product.id || ''}</h5>
+                            <p class="card-text">Qty:1 <span class="float-end pe-3"><b>Price: Rs.${product.update_price || 0}</b></span></p>
+                            ${prescribedText}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    function detectCardType(cardNumber) {
+        const firstDigit = cardNumber.charAt(0);
+        const cardImages = {
+            '3': 'american-express.png',
+            '4': 'visa.png',
+            '5': 'master.png',
+            '6': 'discover.png'
+        };
+
+        if (cardImages[firstDigit]) {
+            const imagePath = window.assetPath
+                ? `${window.assetPath}/assets/images/${cardImages[firstDigit]}`
+                : `/assets/images/${cardImages[firstDigit]}`;
+
+            $(".card-pic").html(`<img src="${imagePath}" class="pay-image w-100" alt="Card Type">`);
+        } else {
+            $(".card-pic").empty();
+        }
+    }
+
+    function populateCardDetails(response) {
+        if (!response.billing) return;
+
+        const billing = response.billing;
+        const fields = {
+            'billing_name': billing.name,
+            'billing_last_name': billing.last_name,
+            'billing_email': billing.email,
+            'billing_card_number': billing.number,
+            'billing_month': billing.expiration_month,
+            'billing_year': billing.expiration_year,
+            'billing_csc': billing.csc,
+            'billing_address': billing.street_address,
+            'billing_city': billing.city,
+            'billing_state': billing.state,
+            'billing_zip': billing.zip,
+            'billing_phone': billing.phoneNumber
+        };
+
+        Object.entries(fields).forEach(([fieldId, value]) => {
+            const field = document.getElementById(fieldId);
+            if (field && value !== undefined) {
+                field.value = value;
+            }
+        });
+    }
+
+    function populateLocationFromZip(zipCode, stateField, cityField) {
+        if (zipCode.length < 5) return;
+
+        $(stateField).val('');
+        $(cityField).val('');
+
+        $.ajax({
+            type: "POST",
+            url: "/get_states_cities",
+            data: { zip: zipCode },
+            success: function(data) {
+                if (data && data.abbreviation && data.city) {
+                    $(stateField).val(data.abbreviation);
+                    $(cityField).val(data.city);
+
+                    if (stateField === '#state_code' && cityField === '#city') {
+                        $(stateField).attr('readonly', true);
+                        $(cityField).attr('readonly', true);
+                    }
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching location data:', error);
+            }
+        });
+    }
+
+    // Event Handlers
+    $(document).ready(function() {
+        // Initial setup
+        const cardCount = window.cardCount || 0;
+
+        if (cardCount === 0) {
+            $("#div1").show();
+            $('#div2').hide();
         }
 
+        // Check initial checkbox states
+        check = $('input:checked').length;
+        $('.next').prop('disabled', check === 0);
 
-        function create_custom_dropdowns() {}
+        // Card number input handler
+        $("#card_num").on('input', function() {
+            detectCardType($(this).val());
+        });
 
-        function divClick(e) {
-            var value = $(e).data('card');
-            var radioBtn = $(e).find('input[type="radio"]');
-            radioBtn.prop('checked', true);
-            if (value == 0) {
-                $('#div2').hide();
-                $("#div1").show()
-            } else {
-                $('#div1').hide();
-                $('#div2').show();
-                $("#card_no").attr("value", value);
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ URL('/get_card_details') }}",
-                    data: {
-                        id: value
-                    },
-                    success: function(response) {
-                        $("#billing_name").val(response.billing.name);
-                        $("#billing_last_name").val(response.billing.last_name);
-                        $("#billing_email").val(response.billing.email);
-                        $("#billing_card_number").val(response.billing.number);
-                        $("#billing_month").val(response.billing.expiration_month);
-                        $("#billing_year").val(response.billing.expiration_year);
-                        $("#billing_csc").val(response.billing.csc);
-                        // $("#billing_name").val(response.billing.name);
-                        $("#billing_address").val(response.billing.street_address);
-                        $("#billing_city").val(response.billing.city);
-                        $("#billing_state").val(response.billing.state);
-                        $("#billing_zip").val(response.billing.zip);
-                        $("#billing_phone").val(response.billing.phoneNumber);
-                    }
-                });
-                // $('.payment_toggole_form').show();
-            }
+        // Zip code handlers
+        $("#zipcode").on('input', function() {
+            populateLocationFromZip($(this).val(), '#state_code', '#city');
+        });
+
+        $("#zip_code").on('input', function() {
+            populateLocationFromZip($(this).val(), '#ship_state_code', '#ship_city');
+        });
+
+        $("#shipping_customer_zip").on('input', function() {
+            populateLocationFromZip($(this).val(), '#shipping_customer_state', '#shipping_customer_city');
+        });
+
+        // Payment method selection
+        $(".payment-method").on('click', function() {
+            $(".payment-method").removeClass("active");
+            $(this).addClass("active");
+
+            const selectedMethod = $(this).data("method");
+            $("#final-pay-button").prop("disabled", false);
+            $("#payment_method").val(selectedMethod);
+        });
+
+        // Disable browser back button
+        function disableBack() {
+            window.history.forward();
         }
+        window.onload = disableBack;
+        window.onpageshow = function(e) {
+            if (e.persisted) disableBack();
+        };
+    });
 
-        function radioClick(e) {
-            // var e = document.getElementById("cardNo");
-            var value = $(e).attr('class');
-            // alert(value);
-            if (value == 0) {
-                $('#div2').hide();
-                $("#div1").show()
-            } else {
-                $('#div1').hide();
-                $('#div2').show();
-                $("#card_no").attr("value", value);
-                $.ajax({
-                    type: 'POST',
-                    url: "{{ URL('/get_card_details') }}",
-                    data: {
-                        id: value
-                    },
-                    success: function(response) {
-                        $("#billing_name").val(response.billing.name);
-                        $("#billing_last_name").val(response.billing.last_name);
-                        $("#billing_email").val(response.billing.email);
-                        $("#billing_card_number").val(response.billing.number);
-                        $("#billing_month").val(response.billing.expiration_month);
-                        $("#billing_year").val(response.billing.expiration_year);
-                        $("#billing_csc").val(response.billing.csc);
-                        // $("#billing_name").val(response.billing.name);
-                        $("#billing_address").val(response.billing.street_address);
-                        $("#billing_city").val(response.billing.city);
-                        $("#billing_state").val(response.billing.state);
-                        $("#billing_zip").val(response.billing.zip);
-                        $("#billing_phone").val(response.billing.phoneNumber);
-                    }
-                });
-                // $('.payment_toggole_form').show();
+    // Navigation Functions
+    $(".next").on('click', function() {
+        if (animating) return false;
+
+        loadFinalCheckoutItems();
+        checkCouponStatus();
+
+        animating = true;
+        current_fs = $(this).closest('fieldset');
+        next_fs = current_fs.next('fieldset');
+
+        // Activate next step on progress bar
+        $("#progressbar li").eq($("fieldset").index(next_fs)).addClass("active");
+
+        // Animate transition
+        next_fs.show();
+        current_fs.animate({ opacity: 0 }, {
+            step: function(now) {
+                scale = 1 - (1 - now) * 0.2;
+                left = now * 50 + "%";
+                opacity = 1 - now;
+
+                current_fs.css({ transform: "scale(" + scale + ")" });
+                next_fs.css({ left: left, opacity: opacity });
+            },
+            duration: 800,
+            complete: function() {
+                current_fs.hide();
+                animating = false;
+            },
+            easing: "easeInOutBack"
+        });
+    });
+
+    $(".previous").on('click', function() {
+        if (animating) return false;
+
+        animating = true;
+        current_fs = $(this).parent();
+        previous_fs = current_fs.prev();
+
+        $('.payment-order-summary-wrap').css({ display: 'block', opacity: '1' });
+        $("#progressbar li").removeClass("active").first().addClass("active");
+
+        previous_fs.show();
+        current_fs.animate({ opacity: 0 }, {
+            step: function(now) {
+                scale = 0.8 + (1 - now) * 0.2;
+                left = (1 - now) * 50 + "%";
+                opacity = 1 - now;
+
+                current_fs.css({ left: left });
+                previous_fs.css({ transform: "scale(" + scale + ")", opacity: opacity });
+            },
+            duration: 800,
+            complete: function() {
+                current_fs.hide();
+                animating = false;
+            },
+            easing: "easeInOutBack"
+        });
+    });
+
+    // Checkbox Functions
+    function checkboxFunction(element) {
+        const classes = $(element).closest('.item-container').attr('class');
+        if (!classes) return;
+
+        const counter = classes.split('_')[1];
+        const isChecked = $('#' + classes).is(':checked');
+        const cartItemId = $('#cartitemid_' + counter).val();
+
+        if (isChecked) {
+            check++;
+            $('.next').prop('disabled', false);
+            $('.heading_' + counter).css('color', 'white');
+            $('.price_' + counter).css('color', 'white');
+            $('.' + classes).css('background-color', '#08295a');
+
+            updateProductCheckout(cartItemId, true);
+        } else {
+            check--;
+            if (check === 0) {
+                $('.next').prop('disabled', true);
             }
-        }
 
-        function addCard() {
-            var e = document.getElementById("cardNo");
-            $("input[name='card']").each(function() {
-                if ($(this).val() !== "1") {
-                    $(this).prop("checked", false);
-                }
-            });
-            e.value = 0;
-            // alert(e.value);
+            $('.heading_' + counter).css('color', '#333');
+            $('.price_' + counter).css('color', '#333');
+            $('.' + classes).css('background-color', 'white');
+
+            updateProductCheckout(cartItemId, false);
+        }
+    }
+
+    function updateProductCheckout(itemId, isAdding) {
+        const url = isAdding
+            ? window.routes?.show_product_on_checkout || '/show-product-on-checkout'
+            : window.routes?.remove_product_on_checkout || '/remove-product-on-checkout';
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: { item_id: itemId },
+            success: updateCheckoutTotals,
+            error: function(xhr, status, error) {
+                console.error('Error updating checkout:', error);
+            }
+        });
+    }
+
+    // Card Management Functions
+    function divClick(element) {
+        const value = $(element).data('card');
+        const radioBtn = $(element).find('input[type="radio"]');
+        radioBtn.prop('checked', true);
+
+        handleCardSelection(value);
+    }
+
+    function radioClick(element) {
+        const value = $(element).attr('class');
+        handleCardSelection(value);
+    }
+
+    function handleCardSelection(value) {
+        if (value == 0) {
             $('#div2').hide();
             $("#div1").show();
-        }
-        $('#formWithCard').submit(function() {
-            $('#final-pay-button').attr('disabled', true);
-            $('button').attr('disabled', true);
-            $('#slider_round').attr('disabled', true);
-            var element = $(".pay");
-            element.addClass("buttonload");
-            element.html('<i class="fa fa-spinner fa-spin"></i>Processing...');
-        });
-        $('#formWithCard1').submit(function() {
-            $('#final-pay-button1').attr('disabled', true);
-            $('button').attr('disabled', true);
-            $('#slider_round').attr('disabled', true);
-            var element = $(".pay");
-            element.addClass("buttonload");
-            element.html('<i class="fa fa-spinner fa-spin"></i>Processing...');
-        });
+        } else {
+            $('#div1').hide();
+            $('#div2').show();
+            $("#card_no").attr("value", value);
 
-        $("#zipcode").keyup(function() {
-            var zip = $("#zipcode").val();
-            var length = $("#zipcode").val().length;
-            if (length >= 5) {
-                $('#state_code').val('');
-                $('#city').val('');
-                $.ajax({
-                    type: "POST",
-                    url: "/get_states_cities",
-                    data: {
-                        zip: zip,
-                    },
-                    success: function(data) {
-                        if (data == "") {
-                            return false;
-                        } else {
-                            $('#state_code').val(data.abbreviation);
-                            $('#city').val(data.city);
-                            $('#state_code').attr('readonly', true);
-                            $('#city').attr('readonly', true);
-                        }
-                    },
-                });
-            }
-        });
-
-        $("#zip_code").keyup(function() {
-            var zip = $("#zip_code").val();
-            var length = $("#zip_code").val().length;
-            if (length >= 5) {
-                $('#ship_state_code').val('');
-                $('#ship_city').val('');
-                $.ajax({
-                    type: "POST",
-                    url: "/get_states_cities",
-                    data: {
-                        zip: zip,
-                    },
-                    success: function(data) {
-                        if (data == "") {
-                            return false;
-                        } else {
-                            $('#ship_state_code').val(data.abbreviation);
-                            $('#ship_city').val(data.city);
-                        }
-                    },
-                });
-            }
-        });
-
-        $("#shipping_customer_zip").keyup(function() {
-            var zip = $("#shipping_customer_zip").val();
-            var length = $("#shipping_customer_zip").val().length;
-            if (length >= 5) {
-                $('#shipping_customer_state').val('');
-                $('#shipping_customer_city').val('');
-                $.ajax({
-                    type: "POST",
-                    url: "/get_states_cities",
-                    data: {
-                        zip: zip,
-                    },
-                    success: function(data) {
-                        if (data == "") {
-                            return false;
-                        } else {
-                            $('#shipping_customer_state').val(data.abbreviation);
-                            $('#shipping_customer_city').val(data.city);
-                        }
-                    },
-                });
-            }
-        });
-
-        $('.coupon_apply').click(function() {
-            var code = $('#coupon_code').val();
-            var htmlProd = document.getElementsByClassName("checkoutItem_prod");
-            var htmlCart = document.getElementsByClassName("checkoutItem_cart");
-            var html = Array.from(htmlProd);
-            var prod_id = '';
-            html.forEach(element => {
-                prod_id += element.id + ',';
-            });
-            html = Array.from(htmlCart);
-            var cart_id = '';
-            html.forEach(element => {
-                cart_id += element.id + ',';
-            });
             $.ajax({
-                type: "post",
-                url: "/coupon/apply/discount",
-                data: {
-                    code: code,
-                    prod_id: prod_id,
-                    cart_id: cart_id,
-                },
-                success: function(response) {
-                    console.log(response);
-                    if (response == 'true') {
-                        $('#coupon_code').attr('disabled', true);
-                        $('#promo_success').show();
-                    } else if (response == 'false') {
-                        $('#promo_already_used').show();
-                    }
-                    if (response == 'Date Expired!!') {
-                        $('#promo_danger').show();
-                    } else {
-                        $('#loadItemChecoutFinal').text('');
-                        $.ajax({
-                            type: 'POST',
-                            url: "{{ route('show_product_on_final_checkout') }}",
-                            success: function(res) {
-                                $('#totalCastFinal').text('Rs.' + res.itemSum);
-                                $('#totalPaidFinal').text('Rs.' + res.totalPrice);
-                                // if (res.providerFee > 0) {
-                                //     $('#final_provider_fee').html('$6.00');
-                                // } else {
-
-                                //     $('#final_provider_fee').html('$0.00');
-                                // }
-                                var showShipping = 0;
-                                $.each(res.allProducts, function(key, product) {
-                                    if (product.product_mode == "medicine") {
-                                        showShipping += 1;
-                                    }
-                                    if (product.item_type == 'prescribed') {
-                                        $('#loadItemChecoutFinal').append(
-                                            '<div class="card mb-1">' +
-                                            '<div class="row g-0">' +
-                                            '<div class="d-flex">' +
-                                            '<div class="image-wrap-inner">' +
-                                            '<img src="' + product
-                                            .product_image +
-                                            '" class="img-fluid rounded-start" alt="' +
-                                            product.name + '"/>' +
-                                            '</div>' +
-                                            '<div class="card-body">' +
-                                            '<h5 class="card-title">' + product
-                                            .name + '</h5>' +
-                                            '<h5 class="checkoutItem" id="' +
-                                            product.product_id +
-                                            '" hidden></h5>' +
-                                            '<h5 class="checkoutItem" id="' +
-                                            product.id + '" hidden>' + product
-                                            .id +
-                                            '</h5>' +
-                                            '<p class="card-text">Qty:1 <span class="float-end pe-3"><b> Price: Rs.' +
-                                            product.update_price +
-                                            '</b></span></p>' +
-                                            '<p class="card-text">Prescribed by ' +
-                                            product.prescribed + '</p>' +
-                                            '</div>' +
-                                            '</div>' +
-                                            '</div>' +
-                                            '</div>');
-                                    } else {
-                                        $('#loadItemChecoutFinal').append(
-                                            '<div class="card mb-1">' +
-                                            '<div class="row g-0">' +
-                                            '<div class="d-flex">' +
-                                            '<div class="image-wrap-inner">' +
-                                            '<img src="' + product
-                                            .product_image +
-                                            '" class="img-fluid rounded-start" alt="' +
-                                            product.name + '"/>' +
-                                            '</div>' +
-                                            '<div class="card-body">' +
-                                            '<h5 class="card-title">' + product
-                                            .name + '</h5>' +
-                                            '<h5 class="checkoutItem" id="' +
-                                            product.product_id + '" hidden>' +
-                                            product.product_id + '</h5>' +
-                                            '<h5 class="checkoutItem" id="' +
-                                            product.id + '" hidden>' + product
-                                            .id +
-                                            '</h5>' +
-                                            '<p class="card-text">Qty:1 <span class="float-end pe-3"><b> Price: Rs.' +
-                                            product.update_price +
-                                            '</b></span></p>' +
-                                            '<p class="card-text">Counter Purchased</p>' +
-                                            '</div>' +
-                                            '</div>' +
-                                            '</div>' +
-                                            '</div>');
-                                    }
-
-                                });
-                                if (showShipping > 0) {
-                                    $('.payment_toggole_form').show();
-                                } else {
-                                    $('.payment_toggole_form').hide();
-                                }
-                                $(".payAble").val(res.totalPrice);
-                            }
-                        });
-                    }
+                type: 'POST',
+                url: '/get_card_details',
+                data: { id: value },
+                success: populateCardDetails,
+                error: function(xhr, status, error) {
+                    console.error('Error fetching card details:', error);
                 }
             });
-        });
+        }
+    }
 
-        $(document).ready(function() {
-            function disableBack() {
-                window.history.forward()
-            }
-            window.onload = disableBack();
-            window.onpageshow = function(e) {
-                if (e.persisted)
-                    disableBack();
+    function addCard() {
+        $("input[name='card']").each(function() {
+            if ($(this).val() !== "1") {
+                $(this).prop("checked", false);
             }
         });
 
+        document.getElementById("cardNo").value = 0;
+        $('#div2').hide();
+        $("#div1").show();
+    }
 
-        $(document).ready(function() {
-            $(".payment-method").click(function() {
-                $(".payment-method").removeClass("active");
-                $(this).addClass("active");
+    // Form Submission Handlers
+    $('#formWithCard, #formWithCard1').on('submit', function() {
+        $('#final-pay-button, #final-pay-button1').prop('disabled', true);
+        $('button').prop('disabled', true);
+        $('#slider_round').prop('disabled', true);
 
-                let selectedMethod = $(this).data("method");
-                console.log(selectedMethod);
+        const element = $(".pay");
+        element.addClass("buttonload");
+        element.html('<i class="fa fa-spinner fa-spin"></i>Processing...');
+    });
 
-                $("#final-pay-button").attr("disabled", false);
-                $("#payment_method").val(selectedMethod);
-            });
-
+    // Coupon Functions
+    function checkCouponStatus() {
+        $.ajax({
+            type: "GET",
+            url: "/admin/coupon/check",
+            success: function(response) {
+                if (response === true) {
+                    $('#promo_added').show();
+                    $('#coupon_code').prop("disabled", true);
+                    $('.coupon_apply').prop("disabled", true);
+                } else {
+                    $('#promo_added').hide();
+                    $('#coupon_code').prop("disabled", false);
+                    $('.coupon_apply').prop("disabled", false);
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error checking coupon status:', error);
+            }
         });
+    }
+
+    $('.coupon_apply').on('click', function() {
+        const code = $('#coupon_code').val();
+        if (!code.trim()) return;
+
+        const prodIds = Array.from(document.getElementsByClassName("checkoutItem_prod"))
+            .map(el => el.id).join(',');
+        const cartIds = Array.from(document.getElementsByClassName("checkoutItem_cart"))
+            .map(el => el.id).join(',');
+
+        $.ajax({
+            type: "POST",
+            url: "/coupon/apply/discount",
+            data: {
+                code: code,
+                prod_id: prodIds,
+                cart_id: cartIds
+            },
+            success: function(response) {
+                // Hide all messages first
+                $('#promo_success, #promo_already_used, #promo_danger').hide();
+
+                if (response === 'true') {
+                    $('#coupon_code').prop('disabled', true);
+                    $('#promo_success').show();
+                    loadFinalCheckoutItems(); // Refresh items with discount
+                } else if (response === 'false') {
+                    $('#promo_already_used').show();
+                } else if (response === 'Date Expired!!') {
+                    $('#promo_danger').show();
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error applying coupon:', error);
+            }
+        });
+    });
+
+    // Make functions globally available
+    window.checkboxFunction = checkboxFunction;
+    window.divClick = divClick;
+    window.radioClick = radioClick;
+    window.addCard = addCard;
+    window.addHyphen = addHyphen;
 </script>
 @endsection
 
 @section('content')
-{{-- after registration and login modal --}}
+    {{-- after registration and login modal --}}
 
-<div class="container-fluid pt-1">
+    <div class="container-fluid pt-1">
         <div>
             @if (session()->get('msg'))
                 <div id="errorDiv1" class="alert alert-danger col-12 col-md-6 offset-md-3 mt-2">
@@ -813,8 +620,7 @@
                                                                                     src="{{ asset('assets/images/' . $item->product_image) }}" />
                                                                             @endif
                                                                             @if ($item->product_mode == 'medicine')
-                                                                                <h6
-                                                                                    class="item-tag-name tag-name-pharmacy">
+                                                                                <h6 class="item-tag-name tag-name-pharmacy">
                                                                                     Pharmacy</h6>
                                                                             @elseif($item->product_mode == 'lab-test')
                                                                                 <h6 class="item-tag-name tag-name-lab">Lab
@@ -975,19 +781,11 @@
                                     <div class="col-md-4">
                                         <div class="row">
                                             <div class="payment-order-summary-wrap">
-
                                                 <div class="card">
                                                     <div class="card-header">Order Summary</div>
                                                     <ul class="list-group list-group-flush">
                                                         <li class="list-group-item">Total Item <span
                                                                 id="totalItem">{{ $countItem }}</span></li>
-
-                                                        {{-- <li class="list-group-item">Provider Fee<span id="provider_fee">
-
-                                                                Rs.{{ number_format($providerFee, 2) ?? '' }}
-
-                                                            </span></li> --}}
-
                                                         <li class="list-group-item">Total Cost <span
                                                                 id="totalCast">Rs.{{ number_format($itemSum, 2) }}</span>
                                                         </li>
@@ -1022,8 +820,8 @@
                                                 <form method="post" id="formWithCard"
                                                     action="{{ route('order.payment') }}">
                                                     @csrf
-                                                    <input type="hidden" class="payAble" id="payAble"
-                                                        name="payAble" value="{{ $totalPrice }}">
+                                                    <input type="hidden" class="payAble" id="payAble" name="payAble"
+                                                        value="{{ $totalPrice }}">
                                                     <input type="hidden" name="payment_method" id="payment_method">
                                                     <div class="row gap-2 mb-2">
                                                         <div class="col-md-12">
@@ -1060,8 +858,7 @@
                                                     <div class="col-md-12 pt-3 phd border-top">
                                                         <div class="row">
                                                             <div class="col-md-6 mb-1">
-                                                                <label for="exampleInputEmail1"
-                                                                    class="form-label">Full
+                                                                <label for="exampleInputEmail1" class="form-label">Full
                                                                     Name*</label>
                                                                 <input required name="shipping_customer_name"
                                                                     type="text" class="form-control mt-1"
@@ -1072,8 +869,7 @@
                                                                     class="form-label">Email</label>
                                                                 <input name="shipping_customer_email" type="text"
                                                                     class="form-control mt-1" id="exampleInputEmail1"
-                                                                    placeholder="Email"
-                                                                    aria-describedby="emailHelp" />
+                                                                    placeholder="Email" aria-describedby="emailHelp" />
                                                             </div>
                                                             <div class="col-md-6 mb-1">
                                                                 <label for="exampleInputEmail1"
@@ -1083,8 +879,7 @@
                                                                     placeholder="Phone" maxlength="11" />
                                                             </div>
                                                             <div class="col-md-6 mb-3">
-                                                                <label for="ship_city"
-                                                                    class="form-label">City*</label>
+                                                                <label for="ship_city" class="form-label">City*</label>
                                                                 <input required name="shipping_customer_city"
                                                                     type="text" id="ship_city"
                                                                     class="form-control mt-1" placeholder="City" />
@@ -1166,8 +961,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-
                                 </div>
                             </div>
                         </section>
@@ -1182,7 +975,7 @@
         @endif
     </div>
     @php
-$page = DB::table('pages')->where('url', '/')->first();
-@endphp
+        $page = DB::table('pages')->where('url', '/')->first();
+    @endphp
 
 @endsection
