@@ -175,8 +175,8 @@
 @section('content')
 <main class="new-home-design">
   <!-- Section 1: Hero Section -->
-  <section class="new-hero-section container-fluid px-0 px-md-auto d-flex justify-content-center pt-2 pb-4">
-    <div class="row gy-3 gx-0 g-md-4 w-85">
+  <section class="new-hero-section container-fluid px-0 px-md-auto d-flex justify-content-center pb-4">
+    <div class="row gy-3 gx-0 g-md-3 w-85">
       <div class="ps-md-0 col-md-8">
         <div id="mainBanner" class="carousel slide" data-bs-ride="carousel">
           <div class="carousel-indicators">
@@ -187,13 +187,13 @@
           </div>
           <div class="carousel-inner rounded-3">
             <div class="carousel-item active">
-              <img src="{{ asset('assets/new_frontend/new-banner.webp') }}" class="d-block w-100" alt="..." />
+              <img src="{{ asset('assets/new_frontend/new-banner-size.jpg') }}" class="d-block w-100" alt="..." />
             </div>
             <div class="carousel-item">
-              <img src="{{ asset('assets/new_frontend/new-banner.webp') }}" class="d-block w-100" alt="..." />
+              <img src="{{ asset('assets/new_frontend/new-banner-size.jpg') }}" class="d-block w-100" alt="..." />
             </div>
             <div class="carousel-item">
-              <img src="{{ asset('assets/new_frontend/new-banner.webp') }}" class="d-block w-100" alt="..." />
+              <img src="{{ asset('assets/new_frontend/new-banner-size.jpg') }}" class="d-block w-100" alt="..." />
             </div>
           </div>
         </div>
@@ -209,7 +209,7 @@
       </div>
       <div class="ps-md-0 col-md-4">
         <div
-          class="w-100 d-flex align-items-stretch justify-content-between service-card p-3 p-sm-4 p-md-2 p-lg-4 rounded-3 h-100">
+          class="w-100 d-flex align-items-xxl-center align-items-stretch justify-content-between service-card p-3 p-sm-4 p-md-2 p-lg-4 rounded-3 h-100">
           <div class="w-60 card-text-cont">
             <h5 class="fs-6 fw-semibold">Consult Doctor Online</h5>
             <p class="service-card-para fs-14">
@@ -227,7 +227,7 @@
       </div>
       <div class="px-md-auto col-md-4">
         <div
-          class="w-100 d-flex align-items-stretch justify-content-between service-card p-3 p-sm-4 p-md-2 p-lg-4 rounded-3 h-100">
+          class="w-100 d-flex align-items-xxl-center align-items-stretch justify-content-between service-card p-3 p-sm-4 p-md-2 p-lg-4 rounded-3 h-100">
           <div class="w-60 card-text-cont">
             <h5 class="fs-6 fw-semibold">Order Medicines Online</h5>
             <p class="service-card-para fs-14">
@@ -244,7 +244,7 @@
       </div>
       <div class="pe-md-0 col-md-4">
         <div class="w-100 d-flex align-items-stretch justify-content-between service-card rounded-3 h-100">
-          <div class="w-60 p-3 p-sm-4 p-md-2 p-lg-4 pe-0 card-text-cont">
+          <div class="w-60 p-3 p-sm-4 p-md-2 p-lg-4 pe-0 card-text-cont align-self-xxl-center">
             <h5 class="fs-6 fw-semibold">Online Lab Test</h5>
             <p class="service-card-para fs-14">
               Book lab tests online, Schedule now!

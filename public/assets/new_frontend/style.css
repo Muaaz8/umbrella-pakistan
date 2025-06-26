@@ -696,8 +696,7 @@ a, button {
 
 /* mobile app promotion section ended */
 
-@media screen and (min-width: 1440px) {
-    /* utility classes */
+/* @media screen and (min-width: 1440px) {
     .fs-28 {
         font-size: calc(1.65rem + 0.25vw) !important;
     }
@@ -735,7 +734,6 @@ a, button {
         font-size: calc(1rem + 0.25vw);
     }
 
-    /* header styles */
     .navbar-container .nav-link,
     #carouselExample p,
     .join-btn button,
@@ -778,7 +776,6 @@ a, button {
         width: 70%;
     }
 
-    /* hero section styles */
     .card-text-cont h5 {
         font-size: calc(1rem + 0.25vw) !important;
     }
@@ -788,7 +785,6 @@ a, button {
         font-size: calc(0.8rem + 0.25vw) !important;
     }
 
-    /* our guide section styles */
     .our-guide-section h2 {
         font-size: calc(1.75rem + 0.5vw);
     }
@@ -805,7 +801,6 @@ a, button {
         font-size: calc(0.85rem + 0.5vw) !important;
     }
 
-    /* promotion section styles */
     .consult-btn span:first-child {
         font-size: calc(0.95rem + 0.25vw);
     }
@@ -814,7 +809,6 @@ a, button {
         font-size: calc(1.25rem + 0.25vw);
     }
 
-    /* mission statement styles */
     .mission-section .fs-3 {
         font-size: calc(1.3rem + 0.6vw) !important;
     }
@@ -822,8 +816,6 @@ a, button {
     .mission-section .fs-14 {
         font-size: calc(0.875rem + 0.25vw) !important;
     }
-
-    /* client testimonial styles */
 
     .client-rating span {
         font-size: calc(1rem + 0.25vw);
@@ -838,7 +830,6 @@ a, button {
         min-height: 248px;
     }
 
-    /* faq section styles */
     .new-faq-section {
         background-size: 13%;
     }
@@ -847,12 +838,10 @@ a, button {
         font-size: calc(1rem + 0.25vw);
     }
 
-    /* mobile app promo section */
     .mob-app-section {
         min-height: 700px;
     }
 
-    /* footer styles */
     .social-links-container a {
         min-width: calc(2rem + 0.25vw);
         min-height: calc(2rem + 0.25vw);
@@ -869,7 +858,7 @@ a, button {
     .social-links-section a {
         font-size: calc(1rem);
     }
-}
+} */
 
 @media screen and (min-width: 2560px) {
     .navbar-container .nav-link,
