@@ -4,14 +4,22 @@
     }
 </style>
 <script>
-    $(document).ready(function () {
-        $(".search-btn-mob").on("click", function () {
-            $(".header-search-container").css("display", "block");
-        });
+        $(document).ready(function () {
+            $("#new-search-btn-mob").on("click", function () {
+                if ($(".new-search-container").hasClass("d-flex")) {
+                    $("#new-search-btn-mob i").removeClass('fa-xmark').addClass('fa-magnifying-glass');
+                    $(".new-search-container").removeClass("d-flex").addClass("d-none");
+                } else if ($(".new-search-container").hasClass("d-none")) {
+                    $("#new-search-btn-mob i").removeClass('fa-magnifying-glass').addClass('fa-xmark');
+                    $(".new-search-container").removeClass("d-none").addClass("d-flex");
+                }
+            }
+        );
+
 
         $(document).on("click", function (event) {
-            if (!$(event.target).closest(".header-search-container") && !$(event.target).closest(".search-btn-mob")) {
-                $(".header-search-container").css("display", "none");
+            if (!$(event.target).closest(".new-search-container") && !$(event.target).closest("#new-search-btn-mob")) {
+                $(".new-search-container").removeClass('d-flex').addClass('d-none');
             }
         });
 
@@ -123,7 +131,7 @@
 
 
         $(document).on('click', function (event) {
-            if (!$(event.target).closest('.header-search-container')) {
+            if (!$(event.target).closest('.new-search-container')) {
                 $('.header-search-result').hide();
             }
         });
@@ -172,8 +180,9 @@
     <nav class="navbar navbar-container container-fluid pt-0">
         <div class="border-sm-bottom mx-auto w-100 pt-3 py-sm-3 row">
             <div class="w-85 mx-auto px-0 d-flex align-items-center justify-content-between w-100">
-                <button class="navbar-toggler d-block d-sm-none border-0 p-0 sm-toggler" type="button" data-bs-toggle="offcanvas"
-                    data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                <button class="navbar-toggler d-block d-sm-none border-0 p-0 sm-toggler" type="button"
+                    data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"
+                    aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="new-logo align-self-center me-0 me-sm-auto align-self-sm-start navbar-brand">
@@ -230,8 +239,7 @@
                     </div>
                 </div>
                 <div class="d-flex align-items-center gap-2 gap-sm-3">
-                    <a class="nav-link d-flex align-items-center justify-content-center d-sm-none" id="new-search"
-                        href="">
+                    <a class="nav-link d-flex align-items-center justify-content-center d-sm-none" id="new-search-btn-mob">
                         <i class="fa-solid fa-magnifying-glass fs-4"></i>
                     </a>
                     <a class="nav-link d-block d-lg-none position-relative" href="{{ url('/my/cart') }}">
@@ -281,9 +289,17 @@
                 </li>
             </ul>
         </div>
+        <div class="new-search-container d-none d-sm-none align-items-center justify-content-center col-12 px-0 mt-3">
+            <div
+                class="search-container mx-3 d-flex align-items-center justify-content-center rounded-3 position-relative">
+                <input class="search-bar px-2 py-1" type="search" name="search" placeholder="Search" id="new-search2">
+                <span class="px-2 py-1 search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
+                <ul class="header-search-result categories-list rounded-3"></ul>
+            </div>
+        </div>
         <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
             <div class="offcanvas-header">
-                <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Offcanvas</h5>
+                <img class="w-50" src="{{ asset('assets/new_frontend/logo-new.png') }}" alt="">
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
             </div>
             <div class="offcanvas-body">

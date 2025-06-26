@@ -199,13 +199,12 @@
         </div>
       </div>
       <div class="pe-md-0 col-md-4">
-        <div
-          class="p-4 p-sm-5 py-md-3 px-md-4 w-100 promo-card d-flex flex-column align-items-center justify-content-center gap-2 rounded-3 h-100">
-          <h4 class="text-center fw-semibold">
+        <div class="p-3 p-sm-5 py-md-3 px-md-4 w-100 promo-card d-flex flex-column align-items-center justify-content-center gap-2 rounded-3 h-100">
+          <h4 class="mb-1 mb-sm-2 text-center fw-semibold">
             Get upto 30% Discount on Lab Tests at
             <span class="highlight-blue">Essa Lab!</span>
           </h4>
-          <img class="w-75 w-sm-50 w-md-100" src="{{ asset('assets/new_frontend/dr-essa-logo.webp') }}" alt="" />
+          <img class="w-sm-50 w-75 w-md-100" src="http://127.0.0.1:8000/assets/new_frontend/dr-essa-logo.webp" alt="">
         </div>
       </div>
       <div class="ps-md-0 col-md-4">
@@ -275,7 +274,7 @@
             <button class="text-navy-blue py-2 px-4 fw-semibold nav-link active" id="pills-register-patient-tab"
               data-bs-toggle="pill" data-bs-target="#pills-register" type="button" role="tab"
               aria-controls="pills-register-patient" aria-selected="true">
-              Register as Patient / Doctor
+              Registeration
             </button>
           </li>
           {{--<li class="nav-item" role="presentation">
@@ -468,7 +467,7 @@
                 class="bg-blue rounded-circle new-arrow-icon d-flex align-items-center justify-content-center text-white"><i
                   class="fa-solid fa-arrow-left"></i></span>
             </button>
-            <h5 id="carousel-title" class="text-white mb-0 text-center">Register as Patient / Doctor</h5>
+            <h5 id="carousel-title" class="text-white mb-0 text-center">Registeration</h5>
             <button class="carousel-control-next position-static w-auto opacity-100" type="button"
               data-bs-target="#guideCarousel" data-bs-slide="next">
               <span
@@ -477,7 +476,7 @@
             </button>
           </div>
           <div class="carousel-inner">
-            <div class="carousel-item active" data-title="Register as Patient / Doctor">
+            <div class="carousel-item active" data-title="Registeration">
               <div class="mt-3 d-flex align-items-center justify-content-between position-relative p-3">
                 <div class="w-100 d-flex flex-column align-items-center justify-content-between gap-4">
                   <div class="col-md-3">
@@ -633,7 +632,7 @@
                     Our pharmacy offers Over the Counter medicines and
                     wellbeing products.
                   </p>
-                  <a class="mt-4 px-xxl-4 py-xxl-2 px-3 py-1 bg-white d-flex align-items-center gap-2 rounded-5 consult-btn"
+                  <a class="mt-4 px-xxl-4 py-xxl-2 px-3 py-1 bg-white d-none d-sm-flex align-items-center gap-2 rounded-5 consult-btn"
                     href="{{ route('vendor', ['shop_type' => 'pharmacy']) }}">
                     <span>Explore More</span>
                     <span
@@ -641,8 +640,15 @@
                         class="fa-solid fa-arrow-right"></i></span>
                   </a>
                 </div>
-                <div class="w-35 d-flex align-items-end justify-content-center">
+                <div class="w-35 d-flex flex-column flex-sm-row align-items-center align-items-sm-end justify-content-center">
                   <img class="w-75 w-sm-100" src="{{ asset('assets/new_frontend/product.webp') }}" alt="" />
+                  <a class="mt-4 px-xxl-4 py-xxl-2 px-3 py-1 bg-white d-flex d-sm-none align-items-center gap-2 rounded-5 consult-btn"
+                    href="{{ route('vendor', ['shop_type' => 'pharmacy']) }}">
+                    <span>Explore More</span>
+                    <span
+                      class="bg-white rounded-circle border-blue new-arrow-icon text-blue d-flex align-items-center justify-content-center"><i
+                        class="fa-solid fa-arrow-right"></i></span>
+                  </a>
                 </div>
               </div>
             </div>
@@ -723,7 +729,7 @@
               Together, we aim to build a stronger, tech-enabled healthcare
               ecosystem that prioritizes accessibility and impact.
             </p>
-            <a class="cursor-pointer mt-4 px-4 py-2 bg-zinc d-flex align-items-center gap-2 rounded-5 text-white consult-btn"
+            <a class="cursor-pointer d-none d-sm-flex mt-4 px-4 py-2 bg-zinc d-flex align-items-center gap-2 rounded-5 text-white consult-btn"
               @if (Auth::check()) href="{{ route('patient_evisit_specialization') }}" @else data-bs-toggle="modal"
               data-bs-target="#loginModal" @endif>
               <span>Consult Now</span>
@@ -741,9 +747,16 @@
           </div>
         </div>
         <div class="col-12 mt-3 d-block d-sm-none">
-          <div class="w-100">
-            <img class="w-100 h-50 rounded-3 object-fit-cover" src="{{ asset('assets/new_frontend/mission-3.webp') }}"
+          <div class="w-100 position-relative mission-section-last-img">
+            <img class="w-100 rounded-3 object-fit-contain" src="{{ asset('assets/new_frontend/mission-3.webp') }}"
               alt="" />
+            <a class="cursor-pointer d-flex d-sm-none px-4 py-2 bg-zinc d-flex align-items-center gap-2 rounded-5 text-white consult-btn"
+              @if (Auth::check()) href="{{ route('patient_evisit_specialization') }}" @else data-bs-toggle="modal"
+              data-bs-target="#loginModal" @endif>
+              <span>Consult Now</span>
+              <span class="bg-blue rounded-circle new-arrow-icon d-flex align-items-center justify-content-center"><i
+                  class="fa-solid fa-arrow-right"></i></span>
+            </a>
           </div>
         </div>
       </div>
@@ -777,7 +790,7 @@
     </div>
   </section>
   <!-- Section 6: Client Testimonials -->
-  <section class="container-fluid px-0 d-flex justify-content-center py-5 bg-light-blue">
+  <section class="container-fluid px-0 d-flex justify-content-center py-sm-5 py-3 bg-light-blue">
     <div class="row px-0 gy-3 g-sm-5 align-items-center flex-row w-85">
       <div class="ps-0 col-md-4">
         <div class="w-100 d-flex flex-column gap-3">
@@ -916,7 +929,7 @@
     </div>
   </section>
   <!-- Section 7: FAQs -->
-  <section class="container-fluid py-5 new-faq-section px-0 w-85">
+  <section class="container-fluid py-3 py-sm-5 new-faq-section px-0 w-85">
     <div class="row py-3">
       <div class="col-md-8">
         <div class="w-100">
