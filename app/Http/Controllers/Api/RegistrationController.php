@@ -423,10 +423,10 @@ class RegistrationController extends BaseController
     protected function create(Request $request)
     {
 
-        $user = User::where('email', $request['email'])->first();
-        if (isset($user->id)) {
-            return $this->sendError([], 'Email already exists');
-        }
+        // $user = User::where('email', $request['email'])->first();
+        // if (isset($user->id)) {
+        //     return $this->sendError([], 'Email already exists');
+        // }
 
         // if (!isset($request->g_recaptcha_response)) {
         //     return $this->sendError([], 'Captcha not found');
