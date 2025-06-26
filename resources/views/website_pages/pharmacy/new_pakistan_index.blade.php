@@ -86,8 +86,8 @@
                                 <h4 class="truncate m-0 p-0" title="${value.name}">${value.name}</h4>
                                 <h6 class="truncate m-0 p-0">${value.sub_category_name}</h6>
                                 <div class="pharmacy_btn">
-                                    <a class="read-more btn btn-outline-danger" href="/medicines/${value.slug}/${value.vendor_id}">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
-                                    <a class="add-to-cart" href="/medicines/${value.slug}/${value.vendor_id}">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
+                                    <a class="read-more btn btn-outline-danger" href="/medicines/${value.slug}/${value.vendor_id}">Read More <i class="fa-solid fa-sheet-plastic mx-2 ms-xxl-2 me-xxl-0"></i></a>
+                                    <a class="add-to-cart" href="/medicines/${value.slug}/${value.vendor_id}">Add to Cart <i class="fa-solid fa-cart-shopping mx-2 ms-xxl-2 me-xxl-0"></i></a>
                                 </div>
                             </div>`
                         );
@@ -146,8 +146,8 @@
                                 <h4 class="truncate m-0 p-0" title="${value.name}">${value.name}</h4>
                                 <h6 class="truncate m-0 p-0">${value.sub_category_name}</h6>
                                 <div class="pharmacy_btn">
-                                    <a class="read-more btn btn-outline-danger" href="/medicines/${value.slug}/${value.vendor_id}">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
-                                    <a class="add-to-cart" href="/medicines/${value.slug}/${value.vendor_id}">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
+                                    <a class="read-more btn btn-outline-danger" href="/medicines/${value.slug}/${value.vendor_id}">Read More <i class="fa-solid fa-sheet-plastic mx-2 ms-xxl-2 me-xxl-0"></i></a>
+                                    <a class="add-to-cart" href="/medicines/${value.slug}/${value.vendor_id}">Add to Cart <i class="fa-solid fa-cart-shopping mx-2 ms-xxl-2 me-xxl-0"></i></a>
                                 </div>
                             </div>`
                         );
@@ -259,11 +259,11 @@
                                 <p>Rs: {{ $item->sale_prices - (($item->sale_prices*$item->discount)/100)}}</p>
                             </div>
                             <div class="med-img"><img src="{{ $item->featured_image?$item->featured_image:asset('assets/new_frontend/panadol2.png') }}" alt="img"></div>
-                            <h4 class="truncate m-0 p-0">{{ $item->name }}</h4>
+                            <h4 title="{{ $item->name }}" class="truncate m-0 p-0">{{ $item->name }}</h4>
                             <h6 class="truncate m-0 p-0">{{ $item->sub_category_name }}</h6>
                             <div class="pharmacy_btn">
-                                <a class="read-more btn btn-outline-danger" href="{{ route('single_product_view_medicines', ['slug' => $item->slug , 'vendor_id' => $item->vendor_id]) }}">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
-                                <a class="add-to-cart" href="{{ route('single_product_view_medicines', ['slug' => $item->slug , 'vendor_id' => $item->vendor_id]) }}">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
+                                <a class="read-more btn btn-outline-danger" href="{{ route('single_product_view_medicines', ['slug' => $item->slug , 'vendor_id' => $item->vendor_id]) }}">Read More <i class="fa-solid fa-sheet-plastic mx-2 ms-xxl-2 me-xxl-0"></i></a>
+                                <a class="add-to-cart" href="{{ route('single_product_view_medicines', ['slug' => $item->slug , 'vendor_id' => $item->vendor_id]) }}">Add to Cart <i class="fa-solid fa-cart-shopping mx-2 ms-xxl-2 me-xxl-0"></i></a>
                             </div>
                         </div>
                     @endforeach
