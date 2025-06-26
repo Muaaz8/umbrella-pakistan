@@ -5894,6 +5894,7 @@ header > .header-search-container {
     display: inline-block;
     vertical-align: middle;
     transform: translate3d(0, 0, 0);
+    font-size: 14px;
 }
 
 .checkbox-wrapper-47 .cbx span:first-child {
