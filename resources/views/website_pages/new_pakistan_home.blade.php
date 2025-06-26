@@ -199,12 +199,13 @@
         </div>
       </div>
       <div class="pe-md-0 col-md-4">
-        <div class="p-3 p-sm-5 py-md-3 px-md-4 w-100 promo-card d-flex flex-column align-items-center justify-content-center gap-2 rounded-3 h-100">
+        <div
+          class="p-3 p-sm-5 py-md-3 px-md-4 w-100 promo-card d-flex flex-column align-items-center justify-content-center gap-2 rounded-3 h-100">
           <h4 class="mb-1 mb-sm-2 text-center fw-semibold">
             Get upto 30% Discount on Lab Tests at
             <span class="highlight-blue">Essa Lab!</span>
           </h4>
-          <img class="w-sm-50 w-75 w-md-100" src="http://127.0.0.1:8000/assets/new_frontend/dr-essa-logo.webp" alt="">
+          <img class="w-sm-50 w-75 w-md-100" src="{{ asset('assets/new_frontend/dr-essa-logo.webp') }}" alt="">
         </div>
       </div>
       <div class="ps-md-0 col-md-4">
@@ -307,8 +308,8 @@
           </li>
         </ul>
         <div class="tab-content" id="pills-tabContent">
-          <div class="tab-pane fade show active" id="pills-register" role="tabpanel" aria-labelledby="pills-register"
-            tabindex="0">
+          <div class="tab-pane fade show active w-100" id="pills-register" role="tabpanel"
+            aria-labelledby="pills-register" tabindex="0">
             <div class="guide-img-container d-flex align-items-center justify-content-between position-relative p-3">
               <div class="wave-arrow">
                 <img class="w-100 object-fit-contain" src="{{ asset('assets/new_frontend/arrow-wave.png') }}" alt="" />
@@ -342,6 +343,17 @@
                 </div>
               </div>
             </div>
+            @if (!Auth::check())
+            <div class="d-flex align-items-center justify-content-center">
+              <a data-bs-toggle="modal" data-bs-target="#loginModal"
+                class="mb-2 px-xxl-4 py-xxl-2 px-3 py-1 bg-white d-none d-sm-flex align-items-center gap-2 rounded-5 consult-btn border-blue">
+                <span>Register Now</span>
+                <span
+                  class="bg-white rounded-circle border-blue new-arrow-icon text-blue d-flex align-items-center justify-content-center"><i
+                    class="fa-solid fa-arrow-right"></i></span>
+              </a>
+            </div>
+            @endif
           </div>
           <div class="tab-pane fade" id="pills-order-medicine" role="tabpanel" aria-labelledby="pills-order-medicine"
             tabindex="0">
@@ -389,6 +401,15 @@
                 </div>
               </div>
             </div>
+            <div class="d-flex align-items-center justify-content-center">
+              <a class="mb-2 px-xxl-4 py-xxl-2 px-3 py-1 bg-white d-none d-sm-flex align-items-center gap-2 rounded-5 consult-btn border-blue"
+                href="{{ route('vendor', ['shop_type' => 'pharmacy']) }}">
+                <span>Order Now</span>
+                <span
+                  class="bg-white rounded-circle border-blue new-arrow-icon text-blue d-flex align-items-center justify-content-center"><i
+                    class="fa-solid fa-arrow-right"></i></span>
+              </a>
+            </div>
           </div>
           <div class="tab-pane fade" id="pills-order-lab" role="tabpanel" aria-labelledby="pills-order-lab"
             tabindex="0">
@@ -417,6 +438,15 @@
                   </div>
                 </div>
               </div>
+            </div>
+            <div class="d-flex align-items-center justify-content-center">
+              <a class="mb-2 px-xxl-4 py-xxl-2 px-3 py-1 bg-white d-none d-sm-flex align-items-center gap-2 rounded-5 consult-btn border-blue"
+                href="{{ route('vendor', ['shop_type' => 'labs']) }}">
+                <span>Order Now</span>
+                <span
+                  class="bg-white rounded-circle border-blue new-arrow-icon text-blue d-flex align-items-center justify-content-center"><i
+                    class="fa-solid fa-arrow-right"></i></span>
+              </a>
             </div>
           </div>
           <div class="tab-pane fade" id="pills-checkout" role="tabpanel" aria-labelledby="pills-checkout" tabindex="0">
@@ -454,6 +484,15 @@
                   </div>
                 </div>
               </div>
+            </div>
+            <div class="d-flex align-items-center justify-content-center">
+              <a class="mb-2 px-xxl-4 py-xxl-2 px-3 py-1 bg-white d-none d-sm-flex align-items-center gap-2 rounded-5 consult-btn border-blue"
+                href="{{ url('/my/cart') }}">
+                <span>Checkout Now</span>
+                <span
+                  class="bg-white rounded-circle border-blue new-arrow-icon text-blue d-flex align-items-center justify-content-center"><i
+                    class="fa-solid fa-arrow-right"></i></span>
+              </a>
             </div>
           </div>
         </div>
@@ -640,7 +679,8 @@
                         class="fa-solid fa-arrow-right"></i></span>
                   </a>
                 </div>
-                <div class="w-35 d-flex flex-column flex-sm-row align-items-center align-items-sm-end justify-content-center">
+                <div
+                  class="w-35 d-flex flex-column flex-sm-row align-items-center align-items-sm-end justify-content-center">
                   <img class="w-75 w-sm-100" src="{{ asset('assets/new_frontend/product.webp') }}" alt="" />
                   <a class="mt-4 px-xxl-4 py-xxl-2 px-3 py-1 bg-white d-flex d-sm-none align-items-center gap-2 rounded-5 consult-btn"
                     href="{{ route('vendor', ['shop_type' => 'pharmacy']) }}">

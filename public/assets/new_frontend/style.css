@@ -39,7 +39,8 @@ p {
 }
 
 /* New Home Design Styles */
-a, button {
+a,
+button {
     border: none;
     outline: none;
     background-color: transparent;
@@ -124,8 +125,16 @@ a, button {
     border: 1px solid var(--new-blue);
 }
 
+.border-navy-blue-2 {
+    border: 2px solid var(--navy-blue);
+}
+
 .text-blue {
     color: var(--new-blue);
+}
+
+.text-blue {
+    color: var(--navy-blue);
 }
 
 .text-gold {
@@ -282,8 +291,13 @@ a, button {
 
 /* Footer Styles */
 
+.footer-logo-container {
+    width: min-content;
+}
+
 .new-footer-logo img {
     width: 100%;
+    /* max-width: 80%; */
 }
 
 .social-links-section {
@@ -307,6 +321,18 @@ a, button {
 
 .social-links-container i {
     margin-right: 0px;
+}
+
+@media screen and (max-width: 768px) {
+    .footer-logo-container {
+        width: 50%;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    .footer-logo-container {
+        width: 100%;
+    }
 }
 
 /* Hero Section Styles */
@@ -443,7 +469,7 @@ a, button {
         border: 2px solid var(--new-blue);
     }
     .mission-section-last-img:after {
-        content: '';
+        content: "";
         position: absolute;
         border-radius: 0.5rem;
         top: 0;

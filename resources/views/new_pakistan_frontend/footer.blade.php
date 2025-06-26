@@ -5,7 +5,7 @@ $page = DB::table('pages')->where('url', '/')->first();
   <section class="container-fluid px-0">
     <div
       class="row gx-0 gx-sm-3 gx-md-0 gy-2 gy-sm-2 gy-md-3 gx-lg-4 w-85 mx-auto justify-content-between justify-content-sm-start justify-content-md-between">
-      <div class="col-sm-6 col-md-4 col-lg-4 d-flex flex-column gap-4 gap-md-0 justify-content-sm-between mt-0 ps-sm-0 py-2 py-sm-auto">
+      <div class="footer-logo-container col-sm-6 col-md-4 col-lg-4 d-flex flex-column gap-4 gap-md-0 justify-content-sm-between mt-0 ps-sm-0 py-2 py-sm-auto">
         <div class="new-footer-logo">
           <img src="{{ asset('assets/new_frontend/logo-new.png') }}" alt="logo" />
         </div>
