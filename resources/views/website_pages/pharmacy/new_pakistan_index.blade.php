@@ -161,11 +161,100 @@
 
     }
     });
-
-    function changed(e){
+    function changed(){
         var svalue = $(".custom-select").val()
-        window.location.href = '/pharmacy/'+svalue;
+        var vendor_id = "{{ $vendor->id }}";
+
+        const url = new URL(window.location);
+        url.searchParams.set('sub_id', svalue); // set or update sub_id param
+        window.history.pushState({}, '', url);
+
+        $.ajax({
+            type: "POST",
+            url: "/search_pharmacy_item_by_sub_id/"+vendor_id,
+            data: {
+                sub_id:svalue,
+            },
+            beforeSend: function() {
+                $('#loadSearchPharmacyItemByCategory').html(
+                    '<div class="d-flex justify-content-center align-items-center w-100 h-100"><i class="fa fa-spinner fa-spin fa-4x" /></div>'
+                );
+            },
+            success: function(res)
+            {
+                $('.prescription-req-view-btn').hide();
+                $('#loadSearchPharmacyItemByCategory').html('');
+                if(res.data=="" || res.data==null){
+                    $('#loadSearchPharmacyItemByCategory').append(
+                        '<div class="no-product-text d-flex justify-content-center align-items-center flex-column w-100 py-4">'+
+                            '<img src="/assets/images/exclamation.png" alt="">'+
+                            '<h1>NO ITEM Found</h1>'+
+                            '<p>There are no item that match your current filters. Try removing some of them to get better results.</p>'+
+                        '</div>'
+                    );
+                }
+                else{
+                    $.each(res.data, function(key, value) {
+                        $('#loadSearchPharmacyItemByCategory').append(
+                            `<div class="card">
+                                <div class="prescription">
+                                    <p style="background: ${value.is_otc==1?'green':'red'}">${value.is_otc==1?'over the counter':'prescription required'}</p>
+                                </div>
+                                <div class="price">
+                                    <p>Rs: ${value.sale_prices}</p>
+                                </div>
+                                <div class="med-img"><img src="${value.featured_image?value.featured_image:'assets/new_frontend/panadol2.png'}" alt="img"></div>
+                                <h4 class="truncate m-0 p-0" title="${value.name}">${value.name}</h4>
+                                <h6 class="truncate m-0 p-0">${value.sub_category_name}</h6>
+                                <div class="pharmacy_btn">
+                                    <a class="read-more btn btn-outline-danger" href="/medicines/${value.slug}/${value.vendor_id}">Read More <i class="fa-solid fa-sheet-plastic mx-2"></i></a>
+                                    <a class="add-to-cart" href="/medicines/${value.slug}/${value.vendor_id}">Add to Cart <i class="fa-solid fa-cart-shopping mx-2"></i></a>
+                                </div>
+                            </div>`
+                        );
+                    });
+                }
+                if(res.data.length > 0){
+                    updatePagination(res);
+                } else {
+                    $('.pagination').hide();
+                }
+            }
+        });
     }
+
+    function updatePagination(res){
+        var svalue = $(".custom-select").val()
+        let paginationHTML = '';
+        console.log(paginationHTML);
+        if (res.links && res.links.length > 0) {
+            paginationHTML += '<ul class="pagination justify-content-center">';
+
+            $.each(res.links, function (index, link) {
+                let url = link.url;
+                if (url) {
+                    const urlObj = new URL(url, window.location.origin);
+                    urlObj.searchParams.set('sub_id', svalue);
+                    url = urlObj.toString();
+                }
+                let label = link.label.replace('&laquo;', '«').replace('&raquo;', '»');
+
+                paginationHTML += `<li class="page-item ${link.active ? 'active' : ''} ${link.url === null ? 'disabled' : ''}">
+                    <a class="page-link" href="${url || '#'}">${label}</a>
+                </li>`;
+            });
+            paginationHTML += '</ul>';
+            $('.pagination').html(paginationHTML);
+        }
+    }
+
+    // $(document).ready(function () {
+    //     var sub_id = "{{ request()->get('sub_id') }}";
+    //     var page = "{{ request()->get('page', 1) }}";
+    //     if (sub_id && page == 1) {
+    //         changed();
+    //     }
+    // });
 </script>
 @endsection
 
@@ -191,39 +280,6 @@
                 </svg>
             </div>
         </div>
-   {{--     @php
-            $alpha = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'X', 'Y', 'Z'];
-            $len = count($alpha);
-        @endphp
-        <div class="container-fluid px-3 px-sm-5">
-            <h3>Categories By Alphabets</h3>
-            <div class="container-fluid ">
-                <div class="alphabetical-categories">
-                    <div class="alphabets">
-                        @for ($i = 0; $i < $len; $i++)
-                            @php
-                                $alphabit = $alpha[$i];
-                            @endphp
-                            <div class="alphabet-group">
-                                <span class="alphabet" >{{ $alphabit }}</span>
-                                    <ul class="categories-list">
-                                    @foreach ($data['sidebar'] as $val)
-                                        @php
-                                            $first_char = substr($val->title, 0, 1);
-                                        @endphp
-                                            @if ($first_char == $alphabit)
-                                                <li onclick="window.location.href='{{ route('pharmacy.category', ['slug' => $val->slug]) }}'">{{ $val->title }}</li>
-                                        @endif
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endfor
-                    </div>
-                    <hr>
-                </div>
-            </div>
-        </div> --}}
-
         <div class="container-fluid px-3 px-sm-5">
             <h3>Community Healthcare Clinics - Medicines</h3>
             <p>
@@ -232,16 +288,19 @@
         </div>
 
         <div class="container-fluid px-5 mt-3 pharmacy-page-container">
+            @php
+                $sub_id = request()->get('sub_id');
+            @endphp
             <div
                 class="p-4 background-secondary d-flex align-items-center justify-content-between flex-column rounded-4">
                 <div class="d-flex align-items-center justify-content-between custom-search-container">
                     <div class="category-dropdown">
-                        {{--<select class="form-select custom-select" name="category" id="category" onchange="changed(this)">
+                        <select class="form-select custom-select" name="category" id="category" onchange="changed()">
                             <option value="all">All</option>
                             @foreach ($data['sidebar'] as $val)
-                                <option value="{{ $val->slug }}" >{{ $val->title }}</option>
+                                <option value="{{ $val->id }}" @if ($sub_id == $val->id) selected @endif>{{ $val->title }}</option>
                             @endforeach
-                        </select>--}}
+                        </select>
                     </div>
                     <div class="searchbar d-flex">
                         <input type="text" class="form-control custom-input" placeholder="Search for products" id="pharmacySearchText">

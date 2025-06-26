@@ -432,7 +432,7 @@ class PatientController extends Controller
                     ->where('product_mode',$request->pro_mode)
                     ->where('item_type','counter')
                     ->where('status','recommended')
-                    ->update(['quantity'=>$qty,'price'=>$qty*$pricing->selling_price]);
+                    ->update(['quantity'=>$qty,'price'=>$qty*$pricing->selling_price,'update_price'=>$qty*$pricing->selling_price]);
                     event(new CountCartItem($user_id));
                     return "ok";
             }

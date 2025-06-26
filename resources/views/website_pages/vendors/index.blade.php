@@ -102,7 +102,7 @@
                             <div class="pharmacy_btn2">
                                 @if ($vendor->vendor == 'pharmacy')
                                     <a class="add-to-cart w-100 text-center btn" style="font-size: 14px; font-weight: 700;"
-                                        href="{{ route('pharmacy_products', ['id' => $vendor->id]) }}">
+                                        href="{{ route('pharmacy_products', ['id' => $vendor->id,'sub_id'=>request()->query('sub_id', null)]) }}">
                                         View Products
                                     </a>
                                 @elseif ($vendor->vendor == 'labs')
@@ -115,7 +115,7 @@
                         </div>
                     @endforeach
                 </div>
-                
+
                 <div class="pagination" id="paginationContainer">{{ $vendors->links('pagination::bootstrap-4') }}</div>
             </div>
         </div>
@@ -127,7 +127,7 @@
 
         async function fetchVendors(locationId = null, searchText = null) {
             try {
-                
+
                 const requestBody = {
                     shop_type: shopType
                 };
@@ -155,9 +155,9 @@
                 }
 
                 const data = await response.json();
-                
+
                 updateVendorsContainer(data.vendors || data);
-                
+
 
             } catch (error) {
                 console.error('Error fetching vendors:', error);
@@ -166,7 +166,7 @@
 
         function updateVendorsContainer(vendors) {
             const container = document.getElementById('loadSearchPharmacyItemByCategory');
-            
+
             if (!vendors || vendors.length === 0) {
                 document.getElementById('paginationContainer').innerHTML = '';
                 return;
@@ -174,7 +174,7 @@
 
             let html = '';
             vendors.forEach(vendor => {
-                const viewProductsRoute = vendor.vendor === 'pharmacy' 
+                const viewProductsRoute = vendor.vendor === 'pharmacy'
                     ? `{{ route('pharmacy_products', ['id' => '__ID__']) }}`.replace('__ID__', vendor.id)
                     : `{{ route('labs_products', ['id' => '__ID__']) }}`.replace('__ID__', vendor.id);
 

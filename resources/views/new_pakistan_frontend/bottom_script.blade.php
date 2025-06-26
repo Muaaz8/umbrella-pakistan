@@ -57,10 +57,11 @@
 
     Echo.channel('count_user_cart_item')
         .listen('CountCartItem', (e) => {
+            console.log('here');
             var user_id = "{{ Auth::user()->id ?? '0' }}";
             if (e.user_id == user_id) {
                 $('#afterLogin').modal('show');
-                $('.cart-count').text(e.cart_conunt);
+                $('.cart-count-new').text(e.cart_conunt);
                 // $('#cart_counter_res').text(e.cart_conunt);
             }
         });

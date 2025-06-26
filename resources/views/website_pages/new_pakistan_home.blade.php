@@ -170,6 +170,10 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
+
+    function redirect(sub_id) {
+        window.location.href = "/shops/pharmacy?sub_id=" + sub_id;
+    }
 </script>
 @endsection
 @section('content')
@@ -693,8 +697,12 @@
               </div>
             </div>
             <div class="col-md-6">
+            @php
+                $sub_id = DB::table('products_sub_categories')->where('slug', 'baby-mothercare')->value('id');
+            @endphp
               <div
-                class="w-100 h-100 bg-light-red p-3 rounded-4 rounded-sm-3 d-flex flex-column align-items-center justify-content-end">
+                class="w-100 h-100 bg-light-red p-3 rounded-4 rounded-sm-3 d-flex flex-column align-items-center justify-content-end"
+                onclick="redirect({{ $sub_id }})" style="cursor: pointer;">
                 <img class="w-100" src="{{ asset('assets/new_frontend/baby-care.webp') }}" alt="" />
                 <div class="bg-white text-center px-4 py-3 rounded-3">
                   <h5 class="m-0 promotion-product-name">
@@ -704,8 +712,12 @@
               </div>
             </div>
             <div class="col-md-6">
+            @php
+                $sub_id = DB::table('products_sub_categories')->where('slug', 'multivitamins')->value('id');
+            @endphp
               <div
-                class="w-100 h-100 bg-light-sky-blue p-3 rounded-4 rounded-sm-3 d-flex flex-column align-items-center justify-content-end">
+                class="w-100 h-100 bg-light-sky-blue p-3 rounded-4 rounded-sm-3 d-flex flex-column align-items-center justify-content-end"
+                    onclick="redirect({{ $sub_id }})" style="cursor: pointer;">
                 <img class="w-100" src="{{ asset('assets/new_frontend/multi-vitamins.webp') }}" alt="" />
                 <div class="bg-white text-center px-4 py-3 rounded-3">
                   <h5 class="m-0 promotion-product-name">Multi-Vitamins</h5>
@@ -715,8 +727,12 @@
           </div>
         </div>
         <div class="col-md-5 px-sm-auto">
+            @php
+                $sub_id = DB::table('products_sub_categories')->where('slug', 'skin-care')->value('id');
+            @endphp
           <div
-            class="w-100 h-100 bg-light-sky-blue p-3 rounded-4 rounded-sm-3 d-flex flex-column align-items-center justify-content-end">
+            class="w-100 h-100 bg-light-sky-blue p-3 rounded-4 rounded-sm-3 d-flex flex-column align-items-center justify-content-end"
+                onclick="redirect({{ $sub_id }})" style="cursor: pointer;">
             <img class="w-75" src="{{ asset('assets/new_frontend/personal-care.webp') }}" alt="" />
             <div class="bg-white text-center px-4 py-3 rounded-3">
               <h5 class="m-0 promotion-product-name">Personal Care</h5>

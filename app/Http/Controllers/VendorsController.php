@@ -23,15 +23,37 @@ class VendorsController extends Controller
 {
     public function index($shop_type)
     {
-        $vendors = DB::table('vendor_accounts')->where('vendor', $shop_type)->paginate(12);
-        $locations = DB::table('locations')->get();
+        //get sub_id from query parameters if available
+        $sub_id = request()->query('sub_id', null);
+        if($sub_id){
+            $vendors = DB::table('vendor_accounts')
+                ->join('vendor_products', 'vendor_accounts.id', '=', 'vendor_products.vendor_id')
+                ->join('tbl_products', 'vendor_products.product_id', '=', 'tbl_products.id')
+                ->where('vendor_accounts.vendor', $shop_type)
+                ->where('tbl_products.sub_category', $sub_id)
+                ->select('vendor_accounts.*')
+                ->distinct('vendor_accounts.id')
+                ->paginate(12);
+            $locations = DB::table('locations')->get();
 
-        foreach ($vendors as $key => $vendor) {
-            $vendor->image = \App\Helper::check_bucket_files_url($vendor->image);
-            $vendor->products_count = DB::table('vendor_products')
-                ->where('vendor_id', $vendor->id)
-                ->where('is_active', 1)
-                ->count();
+            foreach ($vendors as $key => $vendor) {
+                $vendor->image = \App\Helper::check_bucket_files_url($vendor->image);
+                $vendor->products_count = DB::table('vendor_products')
+                    ->where('vendor_id', $vendor->id)
+                    ->where('is_active', 1)
+                    ->count();
+            }
+        }else{
+            $vendors = DB::table('vendor_accounts')->where('vendor', $shop_type)->paginate(12);
+            $locations = DB::table('locations')->get();
+
+            foreach ($vendors as $key => $vendor) {
+                $vendor->image = \App\Helper::check_bucket_files_url($vendor->image);
+                $vendor->products_count = DB::table('vendor_products')
+                    ->where('vendor_id', $vendor->id)
+                    ->where('is_active', 1)
+                    ->count();
+            }
         }
         return view('website_pages.vendors.index', compact('vendors', 'locations', 'shop_type'));
     }

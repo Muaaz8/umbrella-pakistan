@@ -185,7 +185,8 @@
                     aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="new-logo align-self-center me-0 me-sm-auto align-self-sm-start navbar-brand">
+                <div class="new-logo align-self-center me-0 me-sm-auto align-self-sm-start navbar-brand"
+                    onclick="window.location.href='{{ url('/') }}'" style="cursor: pointer;">
                     <img src="{{ asset('assets/new_frontend/logo-new.png') }}" alt="logo" />
                 </div>
                 <div class="d-none d-sm-flex align-items-center justify-content-center col-sm">

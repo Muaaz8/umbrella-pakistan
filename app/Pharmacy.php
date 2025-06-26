@@ -349,29 +349,6 @@ class Pharmacy extends Model
                         $product->sale_price = $product->sale_price - ($product->sale_price * $product->discount_percentage / 100);
                     }
                 }
-        // } elseif ($modeType == 'imaging') {
-        //     $data = DB::table('quest_data_test_codes')
-        //         ->select(
-        //             'TEST_CD AS id',
-        //             'TEST_NAME AS name',
-        //             'SALE_PRICE AS sale_price',
-        //             'DETAILS AS short_description',
-        //             'DETAILS AS description',
-        //             'actual_price AS actual_price',
-        //             'discount_percentage AS discount_percentage',
-        //             DB::raw('SLUG as slug'),
-        //             DB::raw('"quest_data_test_codes" as tbl_name')
-        //         )
-        //         ->where([
-        //             ['PARENT_CATEGORY', '!=', ""],
-        //             ['AOES_exist', null],
-        //             ['DETAILS', '!=', ""], /* WILL REMOVE */
-        //             ['SALE_PRICE', '!=', ""], /* WILL REMOVE */
-        //         ])
-        //         ->where('mode', $modeType)
-        //         ->orderBy('name', 'ASC')
-        //         ->paginate(12);
-        //     //dd($data);
         } else {
             $data = DB::table('tbl_products')
                 ->join('products_sub_categories', 'products_sub_categories.id', '=', 'tbl_products.sub_category')
@@ -423,13 +400,16 @@ class Pharmacy extends Model
                     'vendor_products.id',
                     'products_sub_categories.id'
                 )
-                ->orderBy('tbl_products.name', 'asc')
-                ->paginate(12)->appends(
-                    [
-                        'id' => $vendor_id
-                    ]
-                );
-                
+                ->orderBy('tbl_products.name', 'asc');
+            if(request()->get('sub_id') != null && request()->get('sub_id') != 'all') {
+                $data = $data->where('products_sub_categories.id', request()->get('sub_id'));
+            }
+            $data = $data->paginate(12)->appends(
+                [
+                    'id' => $vendor_id,
+                    'sub_id' => request()->get('sub_id') ?: null,
+                ]
+            );
             foreach ($data as $product) {
                 $product->short_description = strip_tags($product->short_description);
                 $product->featured_image = \App\Helper::check_bucket_files_url($product->featured_image);

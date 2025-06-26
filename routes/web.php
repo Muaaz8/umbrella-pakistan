@@ -494,6 +494,8 @@ Route::group(['middleware' => 'redirecttovideo'], function () {
     Route::post('fetch_pharmacy_item_by_category', 'unAuthController@fetchPharmacyItemByCategory')->name('fetch_pharmacy_item_by_category');
     Route::post('search_pharmacy_item', 'unAuthController@searchPharmacyItem')->name('search_pharmacy_item');
     Route::post('search_pharmacy_item_by_category/{vendor_id}', 'unAuthController@searchPharmacyItemByCategory')->name('search_pharmacy_item_by_category');
+    Route::get('search_pharmacy_item_by_sub_id/{vendor_id}', 'unAuthController@searchPharmacyItemBySubId')->name('search_pharmacy_item_by_sub_id');
+    Route::post('search_pharmacy_item_by_sub_id/{vendor_id}', 'unAuthController@searchPharmacyItemBySubId')->name('search_pharmacy_item_by_sub_id');
     Route::post('search_imaging_item_by_category', 'unAuthController@searchImagingItemByCategory')->name('search_imaging_item_by_category');
     Route::post('search_lab_item_by_category/{vendor_id}', 'unAuthController@searchLabItemByCategory')->name('search_lab_item_by_category');
     Route::post('search_lab_item', 'unAuthController@searchLabItem')->name('search_lab_item');
