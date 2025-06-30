@@ -74,7 +74,6 @@ class VendorController extends BaseController
                     ['PARENT_CATEGORY', '!=', ""],
                     ['AOES_exist', null],
                 ])
-                ->where('mode', $modeType)
                 ->where('vendor_products.vendor_id', $vendor_id)
                 ->where('vendor_products.is_active', '1')
                 ->where('vendor_accounts.is_active', '1')
@@ -130,7 +129,6 @@ class VendorController extends BaseController
                     'products_sub_categories.title as sub_category_name',
                     'products_sub_categories.slug as sub_category_slug',
                 )
-                ->where('tbl_products.product_status', 1)
                 ->where('tbl_products.is_approved', 1)
                 ->where('vendor_products.vendor_id', $vendor_id)
                 ->where('vendor_products.is_active', 1)
