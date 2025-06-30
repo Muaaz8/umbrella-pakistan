@@ -128,7 +128,6 @@ class unAuthController extends Controller
 
     public function searchPharmacyItemByCategory(Request $request, $vendor_id)
     {
-        // dd($request->all());
         if ($request->cat_id == 'all' && strlen($request->text) < 4) {
             $products = DB::table('tbl_products')
                 ->join('products_sub_categories', 'products_sub_categories.id', '=', 'tbl_products.sub_category')
@@ -370,8 +369,6 @@ class unAuthController extends Controller
                 }
             }
         }
-
-
         return $products;
     }
 
@@ -699,7 +696,6 @@ class unAuthController extends Controller
                 ->where('AOES_exist', null)
                 ->limit(10)
                 ->get();
-            // dd($products);
             foreach ($products as $product) {
                 $product->DETAILS = strip_tags($product->DETAILS);
                 $product->SALE_PRICE = number_format($product->SALE_PRICE, 2);
@@ -779,7 +775,6 @@ class unAuthController extends Controller
             $user_id = '';
         }
         return array('products' => $products, 'user_id' => $user_id);
-        // return $products;
     }
     public function searchImagingItemByCategory(Request $request)
     {

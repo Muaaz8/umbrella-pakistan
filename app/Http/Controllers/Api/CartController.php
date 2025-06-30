@@ -300,7 +300,7 @@ class CartController extends BaseController
                 ->first();
             if($count!=null)
             {
-                return response()->json(array('check' => '1'), 200);
+                return $this->sendError('Already in cart', ['error' => 'Already in cart']);
             }
             else
             {
@@ -375,9 +375,9 @@ class CartController extends BaseController
                     ->where('product_mode',$request->pro_mode)
                     ->where('item_type','counter')
                     ->where('status','recommended')
-                    ->update(['quantity'=>$qty,'price'=>$qty*$pricing->selling_price]);
+                    ->update(['quantity'=>$qty,'price'=>$qty*$pricing->selling_price,'update_price'=>$qty*$pricing->selling_price]);
                     event(new CountCartItem($user_id));
-                    return $this->sendResponse([], 'Product quantity updated successfully.');
+                    return $this->sendResponse([], 'Product quantity updated in cart successfully.');
             }
             else
             {
@@ -425,7 +425,7 @@ class CartController extends BaseController
 
                 $cart = AppTblCart::Create($data);
                 event(new CountCartItem($user_id));
-                return  $this->sendResponse([], 'Product added to cart successfully.');
+                return $this->sendResponse([], 'Product added to cart successfully.');
             }
         }
     }

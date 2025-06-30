@@ -45,6 +45,9 @@ Route::post('otp_verification','Api\RegistrationController@otp_verification');
 Route::post('resend_otp','Api\RegistrationController@resend_otp');
 
 Route::get('get_locations', 'Api\VendorController@getLoaction');
+Route::post('location/vendors', 'Api\VendorController@findVendorbyLocation');
+Route::post('search_pharmacy_item/{vendor_id}', 'Api\VendorController@searchPharmacyItemByCategory');
+Route::post('search_labs_item/{vendor_id}', 'Api\VendorController@searchLabItemByCategory');
 Route::get('shops/{type}', 'Api\VendorController@getVendors');
 Route::get('/products/shops/{modeType}', 'Api\VendorController@getVendorProducts');
 Route::get('product/{name}/{vendor_id}', 'Api\VendorController@getSingleProduct');
