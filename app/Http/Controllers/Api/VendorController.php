@@ -367,7 +367,11 @@ class VendorController extends BaseController
                     'vendor_products.id',
                     'products_sub_categories.id'
                 )
-               ->get();
+                ->paginate(10)->appends(
+                    [
+                        'id' => $vendor_id
+                    ]
+                );
             foreach ($products as $product) {
                 $product->short_description = strip_tags($product->short_description);
                 $product->featured_image = \App\Helper::check_bucket_files_url($product->featured_image);
@@ -427,7 +431,11 @@ class VendorController extends BaseController
                     'vendor_products.id',
                     'products_sub_categories.id'
                 )
-               ->get();
+                ->paginate(10)->appends(
+                    [
+                        'id' => $vendor_id
+                    ]
+                );
             foreach ($products as $product) {
                 $product->short_description = strip_tags($product->short_description);
                 $product->featured_image = \App\Helper::check_bucket_files_url($product->featured_image);
@@ -487,7 +495,11 @@ class VendorController extends BaseController
                     'vendor_products.id',
                     'products_sub_categories.id'
                 )
-               ->get();
+                ->paginate(10)->appends(
+                    [
+                        'id' => $vendor_id
+                    ]
+                );
             foreach ($products as $product) {
                 $product->short_description = strip_tags($product->short_description);
                 $product->featured_image = \App\Helper::check_bucket_files_url($product->featured_image);
@@ -547,7 +559,11 @@ class VendorController extends BaseController
                     'vendor_products.id',
                     'products_sub_categories.id'
                 )
-               ->get();
+               ->paginate(10)->appends(
+                    [
+                        'id' => $vendor_id
+                    ]
+                );
             foreach ($products as $product) {
                 $product->short_description = strip_tags($product->short_description);
                 $product->featured_image = \App\Helper::check_bucket_files_url($product->featured_image);
@@ -593,8 +609,11 @@ class VendorController extends BaseController
                 ->where('TEST_NAME', 'LIKE', $request->text . '%')
                 ->where('SALE_PRICE', '!=', null)
                 ->where('AOES_exist', null)
-                ->limit(10)
-                ->get();
+                ->paginate(10)->appends(
+                    [
+                        'id' => $vendor_id
+                    ]
+                );
             foreach ($products as $product) {
                 if ($product->discount_percentage != null) {
                     $product->actual_price = $product->SALE_PRICE;
@@ -630,8 +649,11 @@ class VendorController extends BaseController
                 ->where('TEST_NAME', 'LIKE', $request->text . '%')
                 ->where('SALE_PRICE', '!=', null)
                 ->where('AOES_exist', null)
-                ->limit(10)
-                ->get();
+                ->paginate(10)->appends(
+                    [
+                        'id' => $vendor_id
+                    ]
+                );
             foreach ($products as $product) {
                 if ($product->discount_percentage != null) {
                     $product->actual_price = $product->SALE_PRICE;
@@ -667,7 +689,11 @@ class VendorController extends BaseController
                 ->where('SALE_PRICE', '!=', null)
                 ->where('AOES_exist', null)
                 ->limit(10)
-                ->get();
+                ->paginate(10)->appends(
+                    [
+                        'id' => $vendor_id
+                    ]
+                );
             foreach ($products as $product) {
                 if ($product->discount_percentage != null) {
                     $product->actual_price = $product->SALE_PRICE;
@@ -702,8 +728,11 @@ class VendorController extends BaseController
                 ->where('TEST_NAME', 'LIKE', $request->text . '%')
                 ->where('SALE_PRICE', '!=', null)
                 ->where('AOES_exist', null)
-                ->limit(10)
-                ->get();
+                ->paginate(10)->appends(
+                    [
+                        'id' => $vendor_id
+                    ]
+                );
             foreach ($products as $product) {
                 if ($product->discount_percentage != null) {
                     $product->actual_price = $product->SALE_PRICE;
