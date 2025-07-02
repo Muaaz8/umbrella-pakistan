@@ -511,35 +511,36 @@ button {
     width: 100%;
     min-width: 100%;
     flex-shrink: 0;
-    animation: marquee 15s linear infinite;
+    display: flex;
+    user-select: none;
 }
 
 .partner-logo-container img {
-    width: calc((100% / 6) - 2.5%);
     aspect-ratio: 3/2;
     object-fit: contain;
     mix-blend-mode: color-burn;
+    max-height: 100px;
 }
 
 .partner-scroll:hover .partner-logo-container {
     animation-play-state: paused;
 }
 
-@keyframes marquee {
+/* @keyframes marquee {
     to {
-        transform: translateX(calc(-100% - 1.5rem));
+        transform: translateX(-100%);
     }
-}
+} */
 
 @media screen and (max-width: 576px) {
-    .partner-logo-container img {
+    /* .partner-logo-container img {
         width: calc((100vw / 3) - 0.1%);
-    }
+    } */
 
-    .partner-logo-container {
+    /* .partner-logo-container {
         width: 250%;
         animation: marquee 12s linear infinite;
-    }
+    } */
 }
 
 /* Our Partners Section End */
