@@ -162,6 +162,46 @@
         $("#carousel-title").text(newTitle);
     });
 
+    // our-partners-section
+    $(document).ready(function () {
+      const $scrollContainer = $('.partner-scroll');
+      const $logoContainer = $('.partner-logo-container');
+      const $logoSet = $logoContainer.first().clone(); // clone one set
+
+      // Append clone to make it scroll infinitely
+      $scrollContainer.append($logoSet);
+
+      // Wait for images to load
+      $(window).on('load', function () {
+        let totalWidth = 0;
+
+        console.log('checking', $logoContainer.first().find('img'));
+
+        $logoContainer.first().find('img').each(function () {
+          totalWidth += $(this).outerWidth(true); // includes margin
+        });
+
+        // Set dynamic width
+        $('.partner-logo-container').css('width', totalWidth + 'px');
+
+        // Create dynamic keyframes
+        const scrollDuration = 15; // seconds (can be dynamic too)
+        const style = `
+          @keyframes scrollLogos {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-${totalWidth}px); }
+          }
+
+          .partner-logo-container {
+            animation: scrollLogos ${scrollDuration}s linear infinite;
+          }
+        `;
+
+        // Inject dynamic CSS
+        $('<style>').text(style).appendTo('head');
+      });
+    });
+
     <?php
     header('Access-Control-Allow-Origin: *');
     ?>
@@ -697,9 +737,9 @@
               </div>
             </div>
             <div class="col-md-6">
-            @php
-                $sub_id = DB::table('products_sub_categories')->where('slug', 'baby-mothercare')->value('id');
-            @endphp
+              @php
+              $sub_id = DB::table('products_sub_categories')->where('slug', 'baby-mothercare')->value('id');
+              @endphp
               <div
                 class="w-100 h-100 bg-light-red p-3 rounded-4 rounded-sm-3 d-flex flex-column align-items-center justify-content-end"
                 onclick="redirect({{ $sub_id }})" style="cursor: pointer;">
@@ -712,12 +752,12 @@
               </div>
             </div>
             <div class="col-md-6">
-            @php
-                $sub_id = DB::table('products_sub_categories')->where('slug', 'multivitamins')->value('id');
-            @endphp
+              @php
+              $sub_id = DB::table('products_sub_categories')->where('slug', 'multivitamins')->value('id');
+              @endphp
               <div
                 class="w-100 h-100 bg-light-sky-blue p-3 rounded-4 rounded-sm-3 d-flex flex-column align-items-center justify-content-end"
-                    onclick="redirect({{ $sub_id }})" style="cursor: pointer;">
+                onclick="redirect({{ $sub_id }})" style="cursor: pointer;">
                 <img class="w-100" src="{{ asset('assets/new_frontend/multi-vitamins.webp') }}" alt="" />
                 <div class="bg-white text-center px-4 py-3 rounded-3">
                   <h5 class="m-0 promotion-product-name">Multi-Vitamins</h5>
@@ -727,12 +767,12 @@
           </div>
         </div>
         <div class="col-md-5 px-sm-auto">
-            @php
-                $sub_id = DB::table('products_sub_categories')->where('slug', 'skin-care')->value('id');
-            @endphp
+          @php
+          $sub_id = DB::table('products_sub_categories')->where('slug', 'skin-care')->value('id');
+          @endphp
           <div
             class="w-100 h-100 bg-light-sky-blue p-3 rounded-4 rounded-sm-3 d-flex flex-column align-items-center justify-content-end"
-                onclick="redirect({{ $sub_id }})" style="cursor: pointer;">
+            onclick="redirect({{ $sub_id }})" style="cursor: pointer;">
             <img class="w-75" src="{{ asset('assets/new_frontend/personal-care.webp') }}" alt="" />
             <div class="bg-white text-center px-4 py-3 rounded-3">
               <h5 class="m-0 promotion-product-name">Personal Care</h5>
@@ -824,16 +864,17 @@
     <div class="row w-85 text-center position-relative z-1">
       <h5 class="fs-14">Our Partners</h5>
       <h2 class="fs-22 fw-bold">Collaborating Partners</h2>
-      <div class="partner-scroll w-100 d-flex gap-4 overflow-hidden px-0 mt-4">
-        <div class="partner-logo-container d-flex align-items-center justify-content-sm-between gap-4">
-          <img src="{{ asset('assets/new_frontend/adviyaat-logo.webp') }}" alt="" />
-          <img src="{{ asset('assets/new_frontend/AGP-Logo.webp') }}" alt="" />
-          <img src="{{ asset('assets/new_frontend/dr-essa-logo.webp') }}" alt="" />
-          <img src="{{ asset('assets/new_frontend/HHS-Logo.webp') }}" alt="" />
-          <img src="{{ asset('assets/new_frontend/khayal-rakhna-logo.webp') }}" alt="" />
-          <img src="{{ asset('assets/new_frontend/peridots-logo.webp') }}" alt="" />
+      <div class="partner-scroll w-100 d-flex overflow-hidden px-0 mt-4">
+        <div class="partner-logo-container d-flex align-items-center justify-content-sm-between">
+          <img class="me-3" src="{{ asset('assets/new_frontend/adviyaat-logo.webp') }}" alt="" />
+          <img class="mx-3" src="{{ asset('assets/new_frontend/AGP-Logo.webp') }}" alt="" />
+          <img class="mx-3" src="{{ asset('assets/new_frontend/dr-essa-logo.webp') }}" alt="" />
+          <img class="mx-3" src="{{ asset('assets/new_frontend/HHS-Logo.webp') }}" alt="" />
+          <img class="mx-3" src="{{ asset('assets/new_frontend/khayal-rakhna-logo.webp') }}" alt="" />
+          <img class="mx-3" src="{{ asset('assets/new_frontend/peridots-logo.webp') }}" alt="" />
+          <img class="mx-3" src="{{ asset('assets/new_frontend/medicure_pharma_logo.webp') }}" alt="" />
         </div>
-        <div aria-hidden="true"
+        {{--<div aria-hidden="true"
           class="partner-logo-container d-flex align-items-center justify-content-sm-between gap-4">
           <img src="{{ asset('assets/new_frontend/adviyaat-logo.webp') }}" alt="" />
           <img src="{{ asset('assets/new_frontend/AGP-Logo.webp') }}" alt="" />
@@ -841,7 +882,8 @@
           <img src="{{ asset('assets/new_frontend/HHS-Logo.webp') }}" alt="" />
           <img src="{{ asset('assets/new_frontend/khayal-rakhna-logo.webp') }}" alt="" />
           <img src="{{ asset('assets/new_frontend/peridots-logo.webp') }}" alt="" />
-        </div>
+          <img src="{{ asset('assets/new_frontend/medicure_pharma_logo.webp') }}" alt="" />
+        </div>--}}
       </div>
     </div>
   </section>
