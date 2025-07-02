@@ -60,6 +60,7 @@
                         $('.pagination').hide();
                         $('.prescription-req-view-btn').hide();
                         $('#loadSearchPharmacyItemByCategory').html('');
+                        console.log("res.products",res);
                         if (res == "" || res == null) {
                             $('#loadSearchPharmacyItemByCategory').append(
                                 '<div class="no-product-text d-flex justify-content-center align-items-center flex-column w-100 py-4">' +
@@ -71,21 +72,22 @@
 
                         } else {
                             if(res.user_id==''){
-                                $.each(res.products, function(key, value) {
+
+                                $.each(res.products.data, function(key, value) {
                                     $('#loadSearchPharmacyItemByCategory').append(
                                     `<div class="tests-card">
                                             <div class="test-card-content">
                                                 <div class="add_to_cart_container">
-                                                    <button class="add_to_cart_btn" onclick="window.location.href='/labtest/${value.SLUG}'">
+                                                    <button class="add_to_cart_btn" onclick="window.location.href='/labtest/${value.SLUG}/${value.vendor_id}'">
                                                         Learn More
                                                     </button>
                                                 </div>
-                                                ${value.discount_percentage ? '<span class="discount-no">'+value.discount_percentage+'% Off</span>' : ''}
+                                                ${(value.discount_percentage != null || $vale.discount_percentage != 0)  ? '<span class="discount-no">'+value.discount_percentage+'% Off</span>' : ''}
                                                 <h4 class="truncate" title="${value.TEST_NAME}">${value.TEST_NAME}</h4>
                                                 <p class="truncate-overflow">${value.DETAILS}</p>
                                                 <div class="test-card-price d-flex flex-column gap-2 align-items-center">
                                                     <span class="discounted-price">Rs. ${value.SALE_PRICE}</span>
-                                                    ${value.actual_price ? '<span class="actual-price">Rs. '+value.actual_price+'</span>' : ''}
+                                                    ${(value.actual_price != null || value.actual_price != 0) ? '<span class="actual-price">Rs. '+value.actual_price+'</span>' : ''}
                                                 </div>
                                                 <button class="learn_btn" data-bs-toggle="modal" data-bs-target="#loginModal" type="button">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
                                             </div>
@@ -93,23 +95,23 @@
                                     );
                                 });
                             }else{
-                                $.each(res.products, function(key, value) {
+                                $.each(res.products.data, function(key, value) {
                                     $('#loadSearchPharmacyItemByCategory').append(
-                                        `<div class="tests-card">
+                                    `<div class="tests-card">
                                             <div class="test-card-content">
                                                 <div class="add_to_cart_container">
-                                                    <button class="add_to_cart_btn" onclick="window.location.href='/labtest/${value.SLUG}'">
+                                                    <button class="add_to_cart_btn" onclick="window.location.href='/labtest/${value.SLUG}/${value.vendor_id}'">
                                                         Learn More
                                                     </button>
                                                 </div>
-                                                ${value.discount_percentage ? '<span class="discount-no">'+value.discount_percentage+'% Off</span>' : ''}
+                                                ${(value.discount_percentage != null || $vale.discount_percentage != 0)  ? '<span class="discount-no">'+value.discount_percentage+'% Off</span>' : ''}
                                                 <h4 class="truncate" title="${value.TEST_NAME}">${value.TEST_NAME}</h4>
                                                 <p class="truncate-overflow">${value.DETAILS}</p>
                                                 <div class="test-card-price d-flex flex-column gap-2 align-items-center">
                                                     <span class="discounted-price">Rs. ${value.SALE_PRICE}</span>
-                                                    ${value.actual_price ? '<span class="actual-price">Rs. '+value.actual_price+'</span>' : ''}
+                                                    ${(value.actual_price != null || value.actual_price != 0) ? '<span class="actual-price">Rs. '+value.actual_price+'</span>' : ''}
                                                 </div>
-                                                <button class="learn_btn ${value.vendor_product_id} ${mode}" onclick="addedItem(this)" type="button">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
+                                                <button class="learn_btn" data-bs-toggle="modal" data-bs-target="#loginModal" type="button">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
                                             </div>
                                         </div>`
                                     );
@@ -152,21 +154,21 @@
 
                         } else {
                             if(res.user_id==''){
-                                $.each(res.products, function(key, value) {
+                                $.each(res.products.data, function(key, value) {
                                     $('#loadSearchPharmacyItemByCategory').append(
                                     `<div class="tests-card">
                                             <div class="test-card-content">
                                                 <div class="add_to_cart_container">
-                                                    <button class="add_to_cart_btn" onclick="window.location.href='/labtest/${value.SLUG}'">
+                                                    <button class="add_to_cart_btn" onclick="window.location.href='/labtest/${value.SLUG}/${value.vendor_id}'">
                                                         Learn More
                                                     </button>
                                                 </div>
-                                                ${value.discount_percentage ? '<span class="discount-no">'+value.discount_percentage+'% Off</span>' : ''}
+                                                ${(value.discount_percentage != null || $vale.discount_percentage != 0)  ? '<span class="discount-no">'+value.discount_percentage+'% Off</span>' : ''}
                                                 <h4 class="truncate" title="${value.TEST_NAME}">${value.TEST_NAME}</h4>
                                                 <p class="truncate-overflow">${value.DETAILS}</p>
                                                 <div class="test-card-price d-flex flex-column gap-2 align-items-center">
                                                     <span class="discounted-price">Rs. ${value.SALE_PRICE}</span>
-                                                    ${value.actual_price ? '<span class="actual-price">Rs. '+value.actual_price+'</span>' : ''}
+                                                    ${(value.actual_price != null || value.actual_price != 0) ? '<span class="actual-price">Rs. '+value.actual_price+'</span>' : ''}
                                                 </div>
                                                 <button class="learn_btn" data-bs-toggle="modal" data-bs-target="#loginModal" type="button">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
                                             </div>
@@ -174,23 +176,23 @@
                                     );
                                 });
                             }else{
-                                $.each(res.products, function(key, value) {
+                                $.each(res.products.data, function(key, value) {
                                     $('#loadSearchPharmacyItemByCategory').append(
-                                        `<div class="tests-card">
+                                    `<div class="tests-card">
                                             <div class="test-card-content">
                                                 <div class="add_to_cart_container">
                                                     <button class="add_to_cart_btn" onclick="window.location.href='/labtest/${value.SLUG}/${value.vendor_id}'">
                                                         Learn More
                                                     </button>
                                                 </div>
-                                                ${value.discount_percentage ? '<span class="discount-no">'+value.discount_percentage+'% Off</span>' : ''}
+                                                ${(value.discount_percentage != null || $vale.discount_percentage != 0)  ? '<span class="discount-no">'+value.discount_percentage+'% Off</span>' : ''}
                                                 <h4 class="truncate" title="${value.TEST_NAME}">${value.TEST_NAME}</h4>
                                                 <p class="truncate-overflow">${value.DETAILS}</p>
                                                 <div class="test-card-price d-flex flex-column gap-2 align-items-center">
                                                     <span class="discounted-price">Rs. ${value.SALE_PRICE}</span>
-                                                    ${value.actual_price ? '<span class="actual-price">Rs. '+value.actual_price+'</span>' : ''}
+                                                    ${(value.actual_price != null || value.actual_price != 0) ? '<span class="actual-price">Rs. '+value.actual_price+'</span>' : ''}
                                                 </div>
-                                                <button class="learn_btn ${value.vendor_product_id} ${mode}" onclick="addedItem(this)" type="button">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
+                                                <button class="learn_btn" data-bs-toggle="modal" data-bs-target="#loginModal" type="button">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
                                             </div>
                                         </div>`
                                     );

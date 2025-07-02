@@ -644,26 +644,29 @@ class unAuthController extends Controller
                     'vendor_products.available_stock',
                     'quest_data_test_codes.TEST_CD AS id',
                     'quest_data_test_codes.TEST_NAME',
-                    'quest_data_test_codes.DETAILS AS short_description',
-                    'quest_data_test_codes.DETAILS AS description',
                     'quest_data_test_codes.DETAILS',
-                    DB::raw('SLUG as slug'),
+                    'quest_data_test_codes.DETAILS AS description',
+                    DB::raw('SLUG as SLUG'),
                     DB::raw('"quest_data_test_codes" as tbl_name')
                 )
                 ->where([
                     ['PARENT_CATEGORY', '!=', ""],
                     ['AOES_exist', null],
                 ])
+                ->where('quest_data_test_codes.TEST_NAME', 'LIKE', $request->text . '%')
                 ->where('vendor_products.vendor_id', $vendor_id)
                 ->where('vendor_products.is_active', '1')
-                ->where('TEST_NAME', 'LIKE', $request->text . '%')
-                ->where('SALE_PRICE', '!=', null)
-                ->where('AOES_exist', null)
-                ->limit(10)
-                ->get();
+                ->paginate(12)->appends(
+                    [
+                        'id' => $vendor_id
+                    ]
+                );
+
             foreach ($products as $product) {
-                $product->DETAILS = strip_tags($product->DETAILS);
-                $product->SALE_PRICE = number_format($product->SALE_PRICE, 2);
+                if ($product->discount_percentage != null) {
+                    $product->actual_price = $product->SALE_PRICE;
+                    $product->SALE_PRICE = $product->SALE_PRICE - ($product->SALE_PRICE * $product->discount_percentage / 100);
+                }
             }
         } else if ($request->cat_id != 'all' && strlen($request->text) < 4) {
 
@@ -678,10 +681,9 @@ class unAuthController extends Controller
                     'vendor_products.discount AS discount_percentage',
                     'vendor_products.available_stock',
                     'quest_data_test_codes.TEST_CD AS id',
-                    'quest_data_test_codes.TEST_NAME',
+                    'quest_data_test_codes.TEST_NAME AS name',
                     'quest_data_test_codes.DETAILS AS short_description',
                     'quest_data_test_codes.DETAILS AS description',
-                    'quest_data_test_codes.DETAILS',
                     DB::raw('SLUG as slug'),
                     DB::raw('"quest_data_test_codes" as tbl_name')
                 )
@@ -689,16 +691,19 @@ class unAuthController extends Controller
                     ['PARENT_CATEGORY', '!=', ""],
                     ['AOES_exist', null],
                 ])
+                ->where('quest_data_test_codes.TEST_NAME', 'LIKE', $request->text . '%')
                 ->where('vendor_products.vendor_id', $vendor_id)
                 ->where('vendor_products.is_active', '1')
-                ->where('TEST_NAME', 'LIKE', $request->text . '%')
-                ->where('SALE_PRICE', '!=', null)
-                ->where('AOES_exist', null)
-                ->limit(10)
-                ->get();
+                ->paginate(12)->appends(
+                    [
+                        'id' => $vendor_id
+                    ]
+                );
             foreach ($products as $product) {
-                $product->DETAILS = strip_tags($product->DETAILS);
-                $product->SALE_PRICE = number_format($product->SALE_PRICE, 2);
+                if ($product->discount_percentage != null) {
+                    $product->actual_price = $product->SALE_PRICE;
+                    $product->SALE_PRICE = $product->SALE_PRICE - ($product->SALE_PRICE * $product->discount_percentage / 100);
+                }
             }
         } else if ($request->cat_id == 'all' && strlen($request->text) >= 4) {
             $products = DB::table('quest_data_test_codes')
@@ -712,8 +717,7 @@ class unAuthController extends Controller
                     'vendor_products.discount AS discount_percentage',
                     'vendor_products.available_stock',
                     'quest_data_test_codes.TEST_CD AS id',
-                    'quest_data_test_codes.TEST_NAME',
-                    'quest_data_test_codes.DETAILS',
+                    'quest_data_test_codes.TEST_NAME AS name',
                     'quest_data_test_codes.DETAILS AS short_description',
                     'quest_data_test_codes.DETAILS AS description',
                     DB::raw('SLUG as slug'),
@@ -723,16 +727,19 @@ class unAuthController extends Controller
                     ['PARENT_CATEGORY', '!=', ""],
                     ['AOES_exist', null],
                 ])
+                ->where('quest_data_test_codes.TEST_NAME', 'LIKE', $request->text . '%')
                 ->where('vendor_products.vendor_id', $vendor_id)
                 ->where('vendor_products.is_active', '1')
-                ->where('TEST_NAME', 'LIKE', $request->text . '%')
-                ->where('SALE_PRICE', '!=', null)
-                ->where('AOES_exist', null)
-                ->limit(10)
-                ->get();
+                ->paginate(12)->appends(
+                    [
+                        'id' => $vendor_id
+                    ]
+                );
             foreach ($products as $product) {
-                $product->DETAILS = strip_tags($product->DETAILS);
-                $product->SALE_PRICE = number_format($product->SALE_PRICE, 2);
+                if ($product->discount_percentage != null) {
+                    $product->actual_price = $product->SALE_PRICE;
+                    $product->SALE_PRICE = $product->SALE_PRICE - ($product->SALE_PRICE * $product->discount_percentage / 100);
+                }
             }
         } else if ($request->cat_id != 'all' && strlen($request->text) >= 4) {
             $products = DB::table('quest_data_test_codes')
@@ -746,10 +753,9 @@ class unAuthController extends Controller
                     'vendor_products.discount AS discount_percentage',
                     'vendor_products.available_stock',
                     'quest_data_test_codes.TEST_CD AS id',
-                    'quest_data_test_codes.TEST_NAME',
+                    'quest_data_test_codes.TEST_NAME AS name',
                     'quest_data_test_codes.DETAILS AS short_description',
                     'quest_data_test_codes.DETAILS AS description',
-                    'quest_data_test_codes.DETAILS',
                     DB::raw('SLUG as slug'),
                     DB::raw('"quest_data_test_codes" as tbl_name')
                 )
@@ -757,16 +763,19 @@ class unAuthController extends Controller
                     ['PARENT_CATEGORY', '!=', ""],
                     ['AOES_exist', null],
                 ])
+                ->where('quest_data_test_codes.TEST_NAME', 'LIKE', $request->text . '%')
                 ->where('vendor_products.vendor_id', $vendor_id)
                 ->where('vendor_products.is_active', '1')
-                ->where('TEST_NAME', 'LIKE', $request->text . '%')
-                ->where('SALE_PRICE', '!=', null)
-                ->where('AOES_exist', null)
-                ->limit(10)
-                ->get();
+                ->paginate(12)->appends(
+                    [
+                        'id' => $vendor_id
+                    ]
+                );
             foreach ($products as $product) {
-                $product->DETAILS = strip_tags($product->DETAILS);
-                $product->SALE_PRICE = number_format($product->SALE_PRICE, 2);
+                if ($product->discount_percentage != null) {
+                    $product->actual_price = $product->SALE_PRICE;
+                    $product->SALE_PRICE = $product->SALE_PRICE - ($product->SALE_PRICE * $product->discount_percentage / 100);
+                }
             }
         }
         if (Auth::check()) {

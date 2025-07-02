@@ -239,16 +239,23 @@ class VendorController extends BaseController
                     'vendor_products.actual_price',
                     'vendor_products.discount AS discount',
                     'vendor_products.available_stock',
+                    'vendor_products.is_active',
 
                     'products_sub_categories.title as sub_category_name',
                     'products_sub_categories.slug as sub_category_slug',
                 )
                 ->where('tbl_products.slug', '=', $name)
                 ->where('vendor_products.vendor_id', $vendor_id)
-                ->where('product_status', 1)
-                ->where('is_approved', 1)
+                ->where('vendor_products.is_active', 1)
                 ->get();
         }
+        foreach ($data as $product) {
+        $product->featured_image = \App\Helper::check_bucket_files_url($product->featured_image);
+            if($product->featured_image == env('APP_URL')."/assets/images/user.png"){
+                $product->featured_image = asset('assets/new_frontend/panadol2.png');
+            }
+        }
+
         return $this->sendResponse([
             'product' => $data,
         ], 'Product retrieved successfully.');
@@ -589,8 +596,10 @@ class VendorController extends BaseController
                 ->limit(10)
                 ->get();
             foreach ($products as $product) {
-                $product->DETAILS = strip_tags($product->DETAILS);
-                $product->SALE_PRICE = number_format($product->SALE_PRICE, 2);
+                if ($product->discount_percentage != null) {
+                    $product->actual_price = $product->SALE_PRICE;
+                    $product->SALE_PRICE = $product->SALE_PRICE - ($product->SALE_PRICE * $product->discount_percentage / 100);
+                }
             }
         } else if ($request->cat_id != 'all' && strlen($request->text) < 4) {
 
@@ -624,8 +633,10 @@ class VendorController extends BaseController
                 ->limit(10)
                 ->get();
             foreach ($products as $product) {
-                $product->DETAILS = strip_tags($product->DETAILS);
-                $product->SALE_PRICE = number_format($product->SALE_PRICE, 2);
+                if ($product->discount_percentage != null) {
+                    $product->actual_price = $product->SALE_PRICE;
+                    $product->SALE_PRICE = $product->SALE_PRICE - ($product->SALE_PRICE * $product->discount_percentage / 100);
+                }
             }
         } else if ($request->cat_id == 'all' && strlen($request->text) >= 4) {
             $products = DB::table('quest_data_test_codes')
@@ -658,8 +669,10 @@ class VendorController extends BaseController
                 ->limit(10)
                 ->get();
             foreach ($products as $product) {
-                $product->DETAILS = strip_tags($product->DETAILS);
-                $product->SALE_PRICE = number_format($product->SALE_PRICE, 2);
+                if ($product->discount_percentage != null) {
+                    $product->actual_price = $product->SALE_PRICE;
+                    $product->SALE_PRICE = $product->SALE_PRICE - ($product->SALE_PRICE * $product->discount_percentage / 100);
+                }
             }
         } else if ($request->cat_id != 'all' && strlen($request->text) >= 4) {
             $products = DB::table('quest_data_test_codes')
@@ -692,8 +705,10 @@ class VendorController extends BaseController
                 ->limit(10)
                 ->get();
             foreach ($products as $product) {
-                $product->DETAILS = strip_tags($product->DETAILS);
-                $product->SALE_PRICE = number_format($product->SALE_PRICE, 2);
+                if ($product->discount_percentage != null) {
+                    $product->actual_price = $product->SALE_PRICE;
+                    $product->SALE_PRICE = $product->SALE_PRICE - ($product->SALE_PRICE * $product->discount_percentage / 100);
+                }
             }
         }
         if (Auth::check()) {
@@ -701,10 +716,15 @@ class VendorController extends BaseController
         } else {
             $user_id = '';
         }
-        return $this->sendResponse([
-            'products' => $products,
-            'user_id' => $user_id
-        ], 'Products retrieved successfully.');
+
+        if (empty($products)) {
+            return $this->sendError('No products found for the specified criteria.', []);
+        }else{
+            return $this->sendResponse([
+                'products' => $products,
+                'user_id' => $user_id
+            ], 'Products retrieved successfully.');
+        }
     }
 
 }
