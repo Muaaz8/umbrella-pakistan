@@ -24,7 +24,6 @@
     --new-light-gray-variant: #f9f9f9;
     --star-color: #ffa600;
     --navy-blue: #082755;
-
     --header-bg-color: #d4edffcc;
 }
 
@@ -107,6 +106,10 @@ button {
     background-color: var(--new-green);
 }
 
+.bg-new-red {
+    background-color: #FF0004;
+}
+
 .bg-red {
     background-color: var(--new-red);
 }
@@ -144,10 +147,10 @@ button {
 }
 
 .text-blue {
-    color: var(--new-blue);
+    color: var(--new-blue) ;
 }
 
-.text-blue {
+.text-navy-blue {
     color: var(--navy-blue);
 }
 
@@ -157,6 +160,18 @@ button {
 
 .text-navy-blue {
     color: var(--navy-blue);
+}
+
+.text-red {
+  color: var(--new-red);
+}
+
+.text-new-red {
+  color: #FF0004;
+}
+
+.text-green {
+  color: var(--new-green);
 }
 
 .w-max {
@@ -1076,49 +1091,85 @@ button {
 
 /* Our Doctors Styles Start */
 
-.checkbox-wrapper-new input[type="checkbox"] {
-    display: none;
-    visibility: hidden;
+.checkbox-wrapper-new input[type="radio"] {
+  display: none;
+  visibility: hidden;
 }
 
 .checkbox-wrapper-new label {
-    position: relative;
-    padding-left: 2em;
-    padding-right: 1em;
-    line-height: 2;
-    cursor: pointer;
-    display: inline-flex;
+  position: relative;
+  padding: 1rem 1rem 1rem 2rem;
+  /* padding-left: 2rem;
+  padding-right: 1rem; */
+  line-height: 2;
+  cursor: pointer;
+  display: inline-flex;
+  z-index: 0;
 }
 
 .checkbox-wrapper-new label:before {
-    box-sizing: border-box;
-    content: " ";
-    position: absolute;
-    top: 0.3em;
-    left: 0;
-    display: block;
-    width: 1.4em;
-    height: 1.4em;
-    border: 2px solid #9098a9;
-    border-radius: 6px;
-    z-index: -1;
+  box-sizing: border-box;
+  content: " ";
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 0;
+  display: block;
+  width: 1.4em;
+  height: 1.4em;
+  background-color: #e3e3e3;
+  border-radius: 6px;
+  z-index: -1;
 }
 
-.checkbox-wrapper-new input[type="checkbox"]:checked + label {
-    padding-left: 1em;
-    color: #0f5229;
+.checkbox-wrapper-new input[type="radio"]:checked + label {
+  padding: 1rem;
+  margin-right: 1rem;
 }
-.checkbox-wrapper-new input[type="checkbox"]:checked + label:before {
-    top: 0;
-    width: 100%;
-    height: 2em;
-    background: #b7e6c9;
-    border-color: #2cbc63;
+.checkbox-wrapper-new input[type="radio"]:checked + label:before {
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  height: 3rem;
+  background-color: white;
+  border: 2px solid var(--new-blue);
 }
 
 .checkbox-wrapper-new label,
 .checkbox-wrapper-new label::before {
-    transition: 0.25s all ease;
+  transition: 0.25s all ease;
+}
+
+.new-doc-card-cont .card {
+  height: 245px;
+}
+
+.doc-new-profile {
+  width: 124px;
+  height: 110px;
+}
+
+.doc-new-profile img{
+  object-position: center top;
+}
+
+.new-indicator {
+  position: absolute;
+  top: -0.5rem;
+  right: -0.5rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 50%;
+}
+
+.experience-badge {
+  margin: auto auto -1rem -1rem;
+  border-top-right-radius: 1rem;
+  border-bottom-left-radius: 1rem;
+}
+
+.our-doctors-page .client-rating .custom-star {
+  font-size: 1rem !important;
 }
 
 /* Our Doctors Styles End */
@@ -6184,12 +6235,6 @@ header > .header-search-container {
     overflow-x: auto !important;
 } */
 
-.profile_container {
-    background: var(--lightgray);
-    width: 95%;
-    border-radius: 1rem;
-}
-
 .ratings > i {
     color: rgb(206, 206, 26);
 }
@@ -6199,10 +6244,8 @@ header > .header-search-container {
 }
 
 .profile_pic_container {
-    width: 10rem;
-    height: 10rem;
-    min-width: 10rem;
-    min-height: 10rem;
+    width: 14.625rem;
+    height: 13.0625rem;
     overflow: hidden;
 }
 
@@ -6211,7 +6254,6 @@ header > .header-search-container {
 }
 
 .doctor_designation {
-    color: rgb(88, 88, 88);
     font-size: 1.2rem;
 }
 
@@ -6237,14 +6279,35 @@ header > .header-search-container {
 }
 
 .doctor_info {
-    border: 1px solid rgba(128, 128, 128, 0.411);
-    border-bottom: 0;
+    border-bottom: 0 !important;
+    border-bottom-left-radius: 1.75rem !important;
+    border-bottom-right-radius: 1.75rem !important;
     background: #ffffff3f;
     top: 20px;
 }
 
+.doctor_info .new-arrow-icon {
+    border: 2px solid white;
+}
+
 .appointment-date-container .accordion-button:not(.collapsed) {
     background-color: white;
+}
+
+.appointment_btn {
+    border-radius: 5rem;
+}
+
+.appointment_btn:hover {
+    background-color: var(--blue);
+}
+
+.appointment_btn:hover .new-arrow-icon {
+    background-color: var(--blue);
+}
+
+.doctor_info u {
+    text-decoration: none;
 }
 
 .doctor_exp_text {

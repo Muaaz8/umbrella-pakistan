@@ -20,24 +20,25 @@
 
 @section('content')
 
-<main class="profile_main d-flex align-items-center justify-content-center w-100 h-100 py-sm-4 py-2">
-    <div class="profile_container row px-sm-3 px-1 py-4">
+<main class="profile_main shops-page our-doctors-page d-flex flex-column align-items-center justify-content-center py-sm-2 py-2">
+    <section class="new-header w-100 mb-3 w-85 mx-auto rounded-3">
+        <div class="new-header-inner p-5">
+            <h1 class="fs-40 fw-semibold">Doctor Profile</h1>
+            <div>
+                <a class="fs-12" href="{{ url('/') }}">Home</a>
+                <span class="mx-1 align-middle">></span>
+                <button class="fs-12" onclick="window.location.href='/doctor-profile/{{ $doctor->name }}-{{ $doctor->last_name }}'">Doctor Profile</button>
+            </div>
+        </div>
+    </section>
+    <div class="profile_container w-85 row py-4 bg-light-sky-blue rounded-4 w-100">
         <div class="col-12 col-md-8 d-flex flex-column gap-4">
             <div class="d-flex flex-column flex-sm-row gap-3">
-                <div class="profile_pic_container rounded-circle align-self-center align-self-sm-start">
-                    <img class="rounded-circle object-fit-cover w-100 h-100" src="{{$doctor->user_image}}" alt="" />
-                </div>
-                <div class="lh-1">
-                    <h2 class="doctor_name lh-1 fw-bolder">{{ $doctor->specialization==32?$doctor->gender=="male"?"Mr.":"Ms.":"Dr." }} {{ $doctor->name }}<br class="line_break d-none"> {{
-                        $doctor->last_name }}</h2>
-                    <h5 class="doctor_designation lh-1 fw-normal">
-                        {{ $doctor->specializations->name }}
-                    </h5>
-                    <h5 class="doctor_degree doctor_designation lh-1 fw-normal fs-6">
-                        {!! nl2br(isset($doctor->details)?$doctor->details->education:"No data available")
-                        !!}
-                    </h5>
-                    <div class="ratings d-flex gap-2 align-items-center">
+                <div>
+                    <div class="profile_pic_container rounded-4 align-self-center align-self-sm-start">
+                        <img class="rounded-4 object-fit-cover w-100 h-100" src="{{$doctor->user_image}}" alt="" />
+                    </div>
+                    <div class="client-rating d-flex justify-content-center gap-2 mt-3 align-items-center">
                         @php
                             if($doctor->rating == null){
                                 $fullStars = 5.0; // Number of full stars
@@ -48,28 +49,39 @@
                             $emptyStars = 5 - ($fullStars + $halfStar); // Remaining stars will be empty
                         @endphp
                             @for ($i = 0; $i < $fullStars; $i++)
-                                <i class="fa-solid fa-star"></i>
+                                <span class="fs-18 custom-star text-gold"><i class="fa-solid fa-star"></i></span>
                             @endfor
                             @if ($halfStar)
-                                <i class="fa-solid fa-star-half-alt"></i>
+                                <span class="fs-18 custom-star text-gold"><i class="fa-solid fa-star-half-alt"></i></span>
                             @endif
                             @for ($i = 0; $i < $emptyStars; $i++)
-                                <i class="fa-regular fa-star"></i>
+                                <span class="fs-18 custom-star text-gold"><i class="fa-regular fa-star"></i></span>
                             @endfor
 
                     </div>
                 </div>
+                <div class="lh-1">
+                    <h2 class="doctor_name fs-30 lh-1 fw-semibold">{{ $doctor->specialization==32?$doctor->gender=="male"?"Mr.":"Ms.":"Dr." }} {{ $doctor->name }}<br class="line_break d-none"> {{
+                        $doctor->last_name }}</h2>
+                    <h5 class="doctor_designation mt-3 fs-20 lh-1 fw-normal">
+                        {{ $doctor->specializations->name }}
+                    </h5>
+                    <h5 class="doctor_degree mt-3 doctor_designation fs-20 text-new-red lh-1 fw-normal">
+                        {!! nl2br(isset($doctor->details)?$doctor->details->education:"No data available")
+                        !!}
+                    </h5>
+                </div>
             </div>
 
             <div class="accordion appointment-date-container" id="accordionExample">
-                <div class="accordion-item">
+                <div class="accordion-item border-blue-2">
                     <h2 class="accordion-header">
                         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                             <div class="accordion-btn-inside d-flex justify-content-between w-100">
                                 <div>
-                                    <i class="fa-solid fa-clock text-primary"></i>
-                                    <span class="appointment-avi ms-1 text-primary fw-bold">
+                                    <i class="fa-solid fa-clock text-blue"></i>
+                                    <span class="appointment-avi ms-1 text-blue fw-semibold">
                                         @php
                                         $daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
@@ -257,17 +269,15 @@
                     @if (isset($doctor->details->certificates))
                     @foreach ($doctor->details->certificates as $item)
                     <div class="col-md-6 col-12">
-                        <div class="d-flex align-items-center gap-3 rounded-5 py-2 px-3">
-                            <i class="fa-solid fa-check text-primary"></i>
-                            <p>{{$item}}</p>
+                        <div class="d-flex align-items-center gap-3 rounded-3 border-blue-2 py-2 px-3">
+                            <p class="text-blue">{{$item}}</p>
                         </div>
                     </div>
                     @endforeach
                     @else
-                    <div class="col-md-6 col-12">
-                        <div class="d-flex align-items-center gap-3 rounded-5 py-2 px-3">
-                            <i class="fa-solid fa-check text-primary"></i>
-                            <p>No Data Available</p>
+                    <div class="col-12">
+                        <div class="d-flex align-items-center gap-3 rounded-3 border-blue-2 py-2 px-3">
+                            <p class="text-blue">No Data Available</p>
                         </div>
                     </div>
                     @endif
@@ -284,17 +294,15 @@
                     @if (isset($doctor->details->conditions))
                     @foreach ($doctor->details->conditions as $item)
                     <div class="col-md-6 col-12">
-                        <div class="d-flex align-items-center gap-3 rounded-5 py-2 px-3">
-                            <i class="fa-solid fa-check text-primary"></i>
-                            <p>{{$item}}</p>
+                        <div class="d-flex align-items-center gap-3 rounded-3 border-blue-2 py-2 px-3">
+                            <p class="text-blue">{{$item}}</p>
                         </div>
                     </div>
                     @endforeach
                     @else
-                    <div class="col-md-6 col-12">
-                        <div class="d-flex align-items-center gap-3 rounded-5 py-2 px-3">
-                            <i class="fa-solid fa-check text-primary"></i>
-                            <p>No Data Available</p>
+                    <div class="col-12">
+                        <div class="d-flex align-items-center gap-3 rounded-3 border-blue-2 py-2 px-3">
+                            <p class="text-blue">No Data Available</p>
                         </div>
                     </div>
                     @endif
@@ -311,17 +319,15 @@
                     @if (isset($doctor->details->procedures))
                     @foreach ($doctor->details->procedures as $item)
                     <div class="col-md-6 col-12">
-                        <div class="d-flex align-items-center gap-3 rounded-5 py-2 px-3">
-                            <i class="fa-solid fa-check text-primary"></i>
-                            <p>{{$item}}</p>
+                        <div class="d-flex align-items-center gap-3 rounded-3 border-blue-2 py-2 px-3">
+                            <p class="text-blue">{{$item}}</p>
                         </div>
                     </div>
                     @endforeach
                     @else
-                    <div class="col-md-6 col-12">
-                        <div class="d-flex align-items-center gap-3 rounded-5 py-2 px-3">
-                            <i class="fa-solid fa-check text-primary"></i>
-                            <p>No Data Available</p>
+                    <div class="col-12">
+                        <div class="d-flex align-items-center gap-3 rounded-3 border-blue-2 py-2 px-3">
+                            <p class="text-blue">No Data Available</p>
                         </div>
                     </div>
                     @endif
@@ -329,7 +335,7 @@
             </div>
         </div>
         <div class="d-flex gap-3 mt-3 mt-md-0 gap-md-5 col-12 col-md-4 flex-md-column flex-column-reverse">
-            <div class="doctor_info rounded-4 d-flex flex-column gap-2 position-sticky">
+            <div class="doctor_info border-blue-2 rounded-4 d-flex flex-column gap-2 position-sticky overflow-hidden">
                 <h3 class="ps-4 pt-4 pr-4"><u>About the Doctor</u></h3>
                 <div class="doctor_experience d-flex flex-column gap-3">
                     <div class="d-flex gap-2 align-items-baseline ps-4 pe-4">
@@ -344,16 +350,16 @@
                             {{ isset($doctor->details->location)?$doctor->details->location:"No data available"}}
                         </div>
                     </div>
+                    @if ($doctor->rating != null)
                     <div class="d-flex gap-2 my-3 align-items-baseline ps-4 pe-4">
                         <i class="fa-regular fa-comment-dots"></i>
                         <div class="ps-1">
-                            @if ($doctor->rating != null)
                             <h6>{{$doctor->rating}}% Recommended</h6>
-                            @endif
                         </div>
                     </div>
+                    @endif
                     <div
-                        class="appointment_btn btn btn-primary d-flex align-items-center gap-2 justify-content-center rounded-top-0 w-100 rounded-bottom-4">
+                        class="appointment_btn btn bg-blue border-0 d-flex align-items-center gap-2 justify-content-center w-100">
                         @if (Auth::check())
                         @if ($doctor->zip_code != "")
                         <button class="py-2 bg-transparent border-0 text-white" data-bs-toggle="modal"
@@ -373,7 +379,7 @@
                         </button>
 
                         @endif
-                        <i class="fa-solid fa-arrow-right-long"></i>
+                        <span class="bg-blue text-white border-white border-2 new-arrow-icon rounded-circle d-flex align-items-center justify-content-center"><i class="fa-solid fa-arrow-right-long"></i></span>
                     </div>
                 </div>
             </div>

@@ -26,22 +26,22 @@
 
    if (fullStars == 0) {
     for (let i = 0; i < 5; i++) {
-        starHtml += '<i class="fa-solid fa-star"></i>';
+        starHtml += '<span class="fs-18 custom-star"><i class="fa-solid fa-star"></i></span>';
     }
    }else{
     // Append full stars
     for (let i = 0; i < fullStars; i++) {
-        starHtml += '<i class="fa-solid fa-star"></i>';
+        starHtml += '<span class="fs-18 custom-star"><i class="fa-solid fa-star"></i></span>';
     }
 
     // Append half star if needed
     if (halfStar) {
-        starHtml += '<i class="fa-solid fa-star-half-alt"></i>';
+        starHtml += '<span class="fs-18 custom-star"><i class="fa-solid fa-star-half-alt"></i></span>';
     }
 
     // Append empty stars
     for (let i = 0; i < emptyStars; i++) {
-        starHtml += '<i class="fa-regular fa-star"></i>';
+        starHtml += '<span class="fs-18 custom-star"><i class="fa-regular fa-star"></i></span>';
     }
    }
     return starHtml;
@@ -82,7 +82,7 @@
                     url: "/our-doctors/" + value,
                     beforeSend: function() {
                         $(".doctor-cont2").removeClass("d-none");
-                        $(".doctor-cont").addClass("d-none");
+                        $(".new-doc-card-cont").addClass("d-none");
                         $(".doctor-cont2").html('<div class="d-flex flex-col align-items-center justify-content-center h-100"><i class="fa fa-spin fa-spinner fs-1"></i> </div>');
                     },
                     success: function(response) {
@@ -91,86 +91,135 @@
                             console.log(element);
                             if (element.details) {
                                 $(".doctor-cont2").append(
-                                    `<div class="col-sm-6 col-md-4 col-xl-3 doctor-list-card">
-                                    <div class="doctor-list-card-container rounded-2 px-2 pt-3 pb-2 position-relative">
-                                    <div class="doctor-experience-badge">${element.details.experience} Years Experience</div>
-                                    <div class="d-flex pb-4 gap-3"><div class="doctor-new-container d-flex flex-column  align-items-center  gap-2 ">
-                                                                                <div class="doctor-pic-container rounded-circle p-1 position-relative">
-                                    <img src="${element.user_image}" alt="Doctor Page" class="rounded-circle object-fit-cover w-100 h-100">
-                                    <span class="position-absolute online-dot ${element.status == 'online' ? 'bg-success' : 'bg-danger'}"></span>
+                                    `<div class="col-md-6">
+                    <div class="card border-0 rounded-4 bg-light-sky-blue">
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <div class="d-flex gap-3">
+                                <div>
+                                    <div class="position-relative doc-new-profile rounded-4">
+                                        <img class="object-fit-cover rounded-4 w-100 h-100"
+                                            src="${element.user_image}" alt="" />
+                                        <span
+                                            class="new-indicator ${element.status == 'online' ? 'bg-green' : 'bg-new-red' }"></span>
                                     </div>
-                                    <p class="text-white px-2 py-1 ${ element.status == 'online' ? 'bg-success' : 'bg-danger' } rounded-2 fw-bold">${ element.status == 'online' ? 'Online' : 'Offline' }</p>
+                                    <div class="d-flex align-items-center gap-2 mt-3">
+                                        <span
+                                            class="${element.status == 'offline' ? 'text-new-red fw-medium' : 'text-secondary' } fw-medium fs-14">Offline</span>
+                                        <span class="vertical-stick"></span>
+                                        <span
+                                            class="${element.status == 'online' ? 'text-green fw-medium' : 'text-secondary' } fs-14">Online</span>
                                     </div>
-                                    <div class="doctor-data-container"><div class="d-flex flex-column gap-1">
-                                    <h5 class="mb-0">${element.specialization == 32? element.gender=="male"?"Mr.":"Ms.":"Dr."} ${element.name} ${element.last_name}</h5>
-                                    <h6 class="doctor-verify">${element.zip_code == null?element.specialization!=32?"PMDC Verified":"":""}</h6></div>
-                                    <div class="doctor-ratings d-flex align-items-center my-1">
-                                        ${generateStarRatings(element.rating)}
+                                </div>
+                                <div class="w-100">
+                                    <div class="card-header bg-transparent border-0 w-100">
+                                        <div class="w-100 d-flex align-items-center justify-content-between gap-2">
+                                            <h4 class="mb-0 card-title fs-20 fw-semibold">
+                                                ${element.specialization == 32? element.gender=="male"?"Mr.":"Ms.":"Dr."} ${element.name} ${element.last_name}
+                                            </h4>
+                                            <div
+                                                class="client-rating gap-small text-gold fs-6 mt-0 d-flex align-items-center">
+                                                ${generateStarRatings(element.rating)}
+                                            </div>
+                                        </div>
+                                        <h6 class="card-subtitle fs-14 fw-normal mt-2">
+                                            ${element.specializations.name}
+                                        </h6>
+                                        <h6 class="fs-14 text-new-red fw-normal mt-2">
+                                            ${element.zip_code == null?element.specialization!=32?"PMDC Verified":"":""}
+                                        </h6>
+                                        ${element.consultation_fee ? `<h6 class="fs-14 fw-normal mt-2">
+                                            Consultation Fee:
+                                            <span class="text-greenfw-semibold">Rs. ${element.consultation_fee}</span>
+                                        </h6> ${element.followup_fee && element.followup_fee != element.consultation_fee ? `<h6 class="fs-14 fw-normal mt-2">
+                                            Follow-Up Fee:
+                                            <span class="text-blue fw-semibold">Rs. ${element.followup_fee}</span>
+                                        </h6>` : '' : ''}
                                     </div>
-                                    <p class="specialization-doc">${element.specializations.name}</p>
-
-                                ${element.consultation_fee ? `
-                                <hr>
-                                <p style="font-size:9px" class="d-flex align-items-center justify-content-between flex-wrap w-100">
-                                    <b>Consultation Fee: </b>
-                                    <b class="text-white px-2 py-1 bg-primary rounded-2">Rs.${element.consultation_fee}</b>
-                                </p>
-                                ${element.followup_fee && element.followup_fee != element.consultation_fee ? `
-                                    <hr>
-                                    <p style="font-size:9px" class="d-flex align-items-center justify-content-between flex-wrap w-100">
-                                        <b>Follow-up Fee: </b>
-                                        <b class="text-white px-2 py-1 bg-success rounded-2">Rs.${element.followup_fee}</b>
-                                    </p>
-                                ` : ''}
-                                <hr>
-                                ` : ''}
-
-
-
-                                    <p class="education-doc">${element.details.education!=null?safeSubstring(element.details.education, 60):""}</p>
-                                    </div>
-                                    </div><div class="d-flex align-items-center justify-content-center w-100 position-absolute view-button"><button
-                                    class="btn btn-outline-primary" onclick="window.location.href='/doctor-profile/${element.name}-${element.last_name}'">View Profile</button></div></div></div>`
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div class="bg-blue text-white experience-badge">
+                                    ${element.details.experience && `<p class="px-4 fw-semibold py-2">${element.details.experience} Years Experience
+                                    </p>`}
+                                </div>
+                                <button
+                                    onclick="window.location.href='/doctor-profile/${element.name}-${element.last_name}'"
+                                    class="fw-semibold d-flex align-items-center gap-1 add-to-cart-btn-new">
+                                    <span class="fs-14">View Profile</span>
+                                    <span
+                                        class="d-flex align-items-center justify-content-center text-center new-arrow-icon-2 bg-blue rounded-circle text-white border-white border-2"><i
+                                            class="fs-14 fa-solid fa-arrow-right"></i></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>`
                                 );
                             } else {
                                 $(".doctor-cont2").append(
-                                    `<div class="col-sm-6 col-md-4 col-xl-3 doctor-list-card">
-                                    <div class="doctor-list-card-container rounded-2 px-2 pt-3 pb-2 position-relative">
-                                    <div class="d-flex pb-4 gap-3"><div class="doctor-new-container d-flex flex-column  align-items-center  gap-2 ">
-                                                                                <div class="doctor-pic-container rounded-circle p-1 position-relative">
-                                    <img src="${element.user_image}" alt="Doctor Page" class="rounded-circle object-fit-cover w-100 h-100">
-                                                                        <span class="position-absolute online-dot ${element.status == 'online' ? 'bg-success' : 'bg-danger'}"></span>
+                                    `<div class="col-md-6">
+                    <div class="card border-0 rounded-4 bg-light-sky-blue">
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <div class="d-flex gap-3">
+                                <div>
+                                    <div class="position-relative doc-new-profile rounded-4">
+                                        <img class="object-fit-cover rounded-4 w-100 h-100"
+                                            src="${element.user_image}" alt="" />
+                                        <span
+                                            class="new-indicator ${element.status == 'online' ? 'bg-green' : 'bg-new-red' }"></span>
                                     </div>
-                                    <p class="text-white px-2 py-1 ${ element.status == 'online' ? 'bg-success' : 'bg-danger' } rounded-2 fw-bold">${ element.status == 'online' ? 'Online' : 'Offline' }</p>
+                                    <div class="d-flex align-items-center gap-2 mt-3">
+                                        <span
+                                            class="${element.status == 'offline' ? 'text-new-red fw-medium' : 'text-secondary' } fw-medium fs-14">Offline</span>
+                                        <span class="vertical-stick"></span>
+                                        <span
+                                            class="${element.status == 'online' ? 'text-green fw-medium' : 'text-secondary' } fs-14">Online</span>
                                     </div>
-                                    <div class="doctor-data-container"><div class="d-flex flex-column gap-1">
-                                    <h5 class="mb-0">${element.specialization == 32? element.gender=="male"?"Mr.":"Ms.":"Dr."} ${element.name} ${element.last_name}</h5>
-                                    <h6 class="doctor-verify">${element.zip_code == null?element.specialization!=32?"PMDC Verified":"":""}</h6></div>
-                                    <div class="doctor-ratings d-flex align-items-center my-1">
-                                        ${generateStarRatings(element.rating)}
+                                </div>
+                                <div class="w-100">
+                                    <div class="card-header bg-transparent border-0 w-100">
+                                        <div class="w-100 d-flex align-items-center justify-content-between gap-2">
+                                            <h4 class="mb-0 card-title fs-20 fw-semibold">
+                                                ${element.specialization == 32? element.gender=="male"?"Mr.":"Ms.":"Dr."} ${element.name} ${element.last_name}
+                                            </h4>
+                                            <div
+                                                class="client-rating gap-small text-gold fs-6 mt-0 d-flex align-items-center">
+                                                ${generateStarRatings(element.rating)}
+                                            </div>
+                                        </div>
+                                        <h6 class="card-subtitle fs-14 fw-normal mt-2">
+                                            ${element.specializations.name}
+                                        </h6>
+                                        <h6 class="fs-14 text-new-red fw-normal mt-2">
+                                            ${element.zip_code == null?element.specialization!=32?"PMDC Verified":"":""}
+                                        </h6>
+                                        ${element.consultation_fee ? `<h6 class="fs-14 fw-normal mt-2">
+                                            Consultation Fee:
+                                            <span class="text-greenfw-semibold">Rs. ${element.consultation_fee}</span>
+                                        </h6> ${element.followup_fee && element.followup_fee != element.consultation_fee ? `<h6 class="fs-14 fw-normal mt-2">
+                                            Follow-Up Fee:
+                                            <span class="text-blue fw-semibold">Rs. ${element.followup_fee}</span>
+                                        </h6>` : '' : ''}
                                     </div>
-                                    <p class="specialization-doc">${element.specializations.name}</p>
-
-                                                                    ${element.consultation_fee ? `
-                                <hr>
-                                <p style="font-size:9px" class="d-flex align-items-center justify-content-between flex-wrap w-100">
-                                    <b>Consultation Fee: </b>
-                                    <b class="text-white px-2 py-1 bg-primary rounded-2">Rs.${element.consultation_fee}</b>
-                                </p>
-                                ${element.followup_fee && element.followup_fee != element.consultation_fee ? `
-                                    <hr>
-                                    <p style="font-size:9px" class="d-flex align-items-center justify-content-between flex-wrap w-100">
-                                        <b>Follow-up Fee: </b>
-                                        <b class="text-white px-2 py-1 bg-success rounded-2">Rs.${element.followup_fee}</b>
-                                    </p>
-                                ` : ''}
-                                <hr>
-                                ` : ''}
-
-                                    <p class="education-doc"></p>
-                                    </div>
-                                    </div><div class="d-flex align-items-center justify-content-center w-100 position-absolute view-button"><button
-                                    class="btn btn-outline-primary" onclick="window.location.href='/doctor-profile/${element.name}-${element.last_name}'">View Profile</button></div></div></div>`
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div class="bg-blue text-white experience-badge">
+                                    ${element.details.experience && `<p class="px-4 fw-semibold py-2">${element.details.experience} Years Experience
+                                    </p>`}
+                                </div>
+                                <button
+                                    onclick="window.location.href='/doctor-profile/${element.name}-${element.last_name}'"
+                                    class="fw-semibold d-flex align-items-center gap-1 add-to-cart-btn-new">
+                                    <span class="fs-14">View Profile</span>
+                                    <span
+                                        class="d-flex align-items-center justify-content-center text-center new-arrow-icon-2 bg-blue rounded-circle text-white border-white border-2"><i
+                                            class="fs-14 fa-solid fa-arrow-right"></i></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>`
                                 );
                             }
                         });
@@ -192,7 +241,7 @@
             var name = e.target.value;
             $('#cb-47').prop('checked', true);
             if (name.length == 0) {
-                $(".doctor-cont").removeClass("d-none");
+                $(".new-doc-card-cont").removeClass("d-none");
                 $(".doctor-cont2").addClass("d-none");
             }
             else if (name.length > 2) {
@@ -201,91 +250,142 @@
                     url: "/our-doctors/" + name,
                     success: function(response) {
                         $(".doctor-cont2").removeClass("d-none");
-                        $(".doctor-cont").addClass("d-none");
+                        $(".new-doc-card-cont").addClass("d-none");
                         $(".doctor-cont2").html("");
                         $("#select_doc").val(2);
                         $.each(JSON.parse(response), function (indexInArray, element) {
                             console.log(element)
                             if (element.details) {
                                 $(".doctor-cont2").append(
-                                    `<div class="col-sm-6 col-md-4 col-xl-3 doctor-list-card">
-                                    <div class="doctor-list-card-container rounded-2 px-2 pt-3 pb-2 position-relative">
-                                    <div class="doctor-experience-badge">${element.details.experience } Years Experience</div>
-                                    <div class="d-flex pb-4 gap-3"><div class="doctor-new-container d-flex flex-column align-items-center  gap-2 ">
-                                                                                <div class="doctor-pic-container rounded-circle p-1 position-relative">
-                                    <img src="${element.user_image}" alt="Doctor Page" class="rounded-circle object-fit-cover w-100 h-100">
-                                                                        <span class="position-absolute online-dot ${element.status == 'online' ? 'bg-success' : 'bg-danger'}"></span>
+                                    `<div class="col-md-6">
+                    <div class="card border-0 rounded-4 bg-light-sky-blue">
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <div class="d-flex gap-3">
+                                <div>
+                                    <div class="position-relative doc-new-profile rounded-4">
+                                        <img class="object-fit-cover rounded-4 w-100 h-100"
+                                            src="${element.user_image}" alt="" />
+                                        <span
+                                            class="new-indicator ${element.status == 'online' ? 'bg-green' : 'bg-new-red' }"></span>
                                     </div>
-                                    <p class="text-white px-2 py-1 ${ element.status == 'online' ? 'bg-success' : 'bg-danger' } rounded-2 fw-bold">${ element.status == 'online' ? 'Online' : 'Offline' }</p>
+                                    <div class="d-flex align-items-center gap-2 mt-3">
+                                        <span
+                                            class="${element.status == 'offline' ? 'text-new-red fw-medium' : 'text-secondary' } fw-medium fs-14">Offline</span>
+                                        <span class="vertical-stick"></span>
+                                        <span
+                                            class="${element.status == 'online' ? 'text-green fw-medium' : 'text-secondary' } fs-14">Online</span>
                                     </div>
-                                    <div class="doctor-data-container"><div class="d-flex flex-column gap-1">
-                                    <h5 class="mb-0">${element.specialization == 32? element.gender=="male"?"Mr.":"Ms.":"Dr."} ${element.name} ${element.last_name}</h5>
-                                    <h6 class="doctor-verify">${element.zip_code == null?element.specialization!=32?"PMDC Verified":"":""}</h6></div>
-                                    <div class="doctor-ratings d-flex align-items-center my-1">
-                                        ${generateStarRatings(element.rating)}
+                                </div>
+                                <div class="w-100">
+                                    <div class="card-header bg-transparent border-0 w-100">
+                                        <div class="w-100 d-flex align-items-center justify-content-between gap-2">
+                                            <h4 class="mb-0 card-title fs-20 fw-semibold">
+                                                ${element.specialization == 32? element.gender=="male"?"Mr.":"Ms.":"Dr."} ${element.name} ${element.last_name}
+                                            </h4>
+                                            <div
+                                                class="client-rating gap-small text-gold fs-6 mt-0 d-flex align-items-center">
+                                                ${generateStarRatings(element.rating)}
+                                            </div>
+                                        </div>
+                                        <h6 class="card-subtitle fs-14 fw-normal mt-2">
+                                            ${element.specializations.name}
+                                        </h6>
+                                        <h6 class="fs-14 text-new-red fw-normal mt-2">
+                                            ${element.zip_code == null?element.specialization!=32?"PMDC Verified":"":""}
+                                        </h6>
+                                        ${element.consultation_fee ? `<h6 class="fs-14 fw-normal mt-2">
+                                            Consultation Fee:
+                                            <span class="text-greenfw-semibold">Rs. ${element.consultation_fee}</span>
+                                        </h6> ${element.followup_fee && element.followup_fee != element.consultation_fee ? `<h6 class="fs-14 fw-normal mt-2">
+                                            Follow-Up Fee:
+                                            <span class="text-blue fw-semibold">Rs. ${element.followup_fee}</span>
+                                        </h6>` : '' : ''}
                                     </div>
-                                    <p class="specialization-doc">${element.specializations.name}</p>
-
-                                                                    ${element.consultation_fee ? `
-                                <hr>
-                                <p style="font-size:9px" class="d-flex align-items-center justify-content-between flex-wrap w-100">
-                                    <b>Consultation Fee: </b>
-                                    <b class="text-white px-2 py-1 bg-primary rounded-2">Rs.${element.consultation_fee}</b>
-                                </p>
-                                ${element.followup_fee && element.followup_fee != element.consultation_fee ? `
-                                    <hr>
-                                    <p style="font-size:9px" class="d-flex align-items-center justify-content-between flex-wrap w-100">
-                                        <b>Follow-up Fee: </b>
-                                        <b class="text-white px-2 py-1 bg-success rounded-2">Rs.${element.followup_fee}</b>
-                                    </p>
-                                ` : ''}
-                                <hr>
-                                ` : ''}
-
-                                    <p class="education-doc">${element.details.education!=null?safeSubstring(element.details.education, 60):""}</p>
-                                    </div>
-                                    </div><div class="d-flex align-items-center justify-content-center w-100 position-absolute view-button"><button
-                                    class="btn btn-outline-primary" onclick="window.location.href='/doctor-profile/${element.name}-${element.last_name}'">View Profile</button></div></div></div>`
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div class="bg-blue text-white experience-badge">
+                                    ${element.details.experience && `<p class="px-4 fw-semibold py-2">${element.details.experience} Years Experience
+                                    </p>`}
+                                </div>
+                                <button
+                                    onclick="window.location.href='/doctor-profile/${element.name}-${element.last_name}'"
+                                    class="fw-semibold d-flex align-items-center gap-1 add-to-cart-btn-new">
+                                    <span class="fs-14">View Profile</span>
+                                    <span
+                                        class="d-flex align-items-center justify-content-center text-center new-arrow-icon-2 bg-blue rounded-circle text-white border-white border-2"><i
+                                            class="fs-14 fa-solid fa-arrow-right"></i></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>`
                                 );
                             } else {
                                 $(".doctor-cont2").append(
-                                    `<div class="col-sm-6 col-md-4 col-xl-3 doctor-list-card">
-                                    <div class="doctor-list-card-container rounded-2 px-2 pt-3 pb-2 position-relative">
-                                    <div class="d-flex pb-4 gap-3"><div class="doctor-new-container d-flex flex-column  align-items-center  gap-2 ">
-                                                                                <div class="doctor-pic-container rounded-circle p-1 position-relative">
-                                    <img src="${element.user_image}" alt="Doctor Page" class="rounded-circle object-fit-cover w-100 h-100">
-                                                                        <span class="position-absolute online-dot ${element.status == 'online' ? 'bg-success' : 'bg-danger'}"></span>
+                                    `<div class="col-md-6">
+                    <div class="card border-0 rounded-4 bg-light-sky-blue">
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <div class="d-flex gap-3">
+                                <div>
+                                    <div class="position-relative doc-new-profile rounded-4">
+                                        <img class="object-fit-cover rounded-4 w-100 h-100"
+                                            src="${element.user_image}" alt="" />
+                                        <span
+                                            class="new-indicator ${element.status == 'online' ? 'bg-green' : 'bg-new-red' }"></span>
                                     </div>
-                                    <p class="text-white px-2 py-1 ${ element.status == 'online' ? 'bg-success' : 'bg-danger' } rounded-2 fw-bold">${ element.status == 'online' ? 'Online' : 'Offline' }</p>
+                                    <div class="d-flex align-items-center gap-2 mt-3">
+                                        <span
+                                            class="${element.status == 'offline' ? 'text-new-red fw-medium' : 'text-secondary' } fw-medium fs-14">Offline</span>
+                                        <span class="vertical-stick"></span>
+                                        <span
+                                            class="${element.status == 'online' ? 'text-green fw-medium' : 'text-secondary' } fs-14">Online</span>
                                     </div>
-                                    <div class="doctor-data-container"><div class="d-flex flex-column gap-1">
-                                    <h5 class="mb-0">${element.specialization == 32? element.gender=="male"?"Mr.":"Ms.":"Dr."} ${element.name} ${element.last_name}</h5>
-                                    <h6 class="doctor-verify">${element.zip_code == null?element.specialization!=32?"PMDC Verified":"":""}</h6></div>
-                                    <div class="doctor-ratings d-flex align-items-center my-1">
-                                        ${generateStarRatings(element.rating)}
+                                </div>
+                                <div class="w-100">
+                                    <div class="card-header bg-transparent border-0 w-100">
+                                        <div class="w-100 d-flex align-items-center justify-content-between gap-2">
+                                            <h4 class="mb-0 card-title fs-20 fw-semibold">
+                                                ${element.specialization == 32? element.gender=="male"?"Mr.":"Ms.":"Dr."} ${element.name} ${element.last_name}
+                                            </h4>
+                                            <div
+                                                class="client-rating gap-small text-gold fs-6 mt-0 d-flex align-items-center">
+                                                ${generateStarRatings(element.rating)}
+                                            </div>
+                                        </div>
+                                        <h6 class="card-subtitle fs-14 fw-normal mt-2">
+                                            ${element.specializations.name}
+                                        </h6>
+                                        <h6 class="fs-14 text-new-red fw-normal mt-2">
+                                            ${element.zip_code == null?element.specialization!=32?"PMDC Verified":"":""}
+                                        </h6>
+                                        ${element.consultation_fee ? `<h6 class="fs-14 fw-normal mt-2">
+                                            Consultation Fee:
+                                            <span class="text-greenfw-semibold">Rs. ${element.consultation_fee}</span>
+                                        </h6> ${element.followup_fee && element.followup_fee != element.consultation_fee ? `<h6 class="fs-14 fw-normal mt-2">
+                                            Follow-Up Fee:
+                                            <span class="text-blue fw-semibold">Rs. ${element.followup_fee}</span>
+                                        </h6>` : '' : ''}
                                     </div>
-                                    <p class="specialization-doc">${element.specializations.name}</p>
-
-                                                                    ${element.consultation_fee ? `
-                                <hr>
-                                <p style="font-size:9px" class="d-flex align-items-center justify-content-between flex-wrap w-100">
-                                    <b>Consultation Fee: </b>
-                                    <b class="text-white px-2 py-1 bg-primary rounded-2">Rs.${element.consultation_fee}</b>
-                                </p>
-                                ${element.followup_fee && element.followup_fee != element.consultation_fee ? `
-                                    <hr>
-                                    <p style="font-size:9px" class="d-flex align-items-center justify-content-between flex-wrap w-100">
-                                        <b>Follow-up Fee: </b>
-                                        <b class="text-white px-2 py-1 bg-success rounded-2">Rs.${element.followup_fee}</b>
-                                    </p>
-                                ` : ''}
-                                <hr>
-                                ` : ''}
-
-                                    <p class="education-doc"></p>
-                                    <div class="doctor-ratings d-flex align-items-center mt-2"></div></div>
-                                    </div><div class="d-flex align-items-center justify-content-center w-100 position-absolute view-button"><button
-                                    class="btn btn-outline-primary" onclick="window.location.href='/doctor-profile/${element.name}-${element.last_name}'">View Profile</button></div></div></div>`
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div class="bg-blue text-white experience-badge">
+                                    ${element.details.experience && `<p class="px-4 fw-semibold py-2">${element.details.experience} Years Experience
+                                    </p>`}
+                                </div>
+                                <button
+                                    onclick="window.location.href='/doctor-profile/${element.name}-${element.last_name}'"
+                                    class="fw-semibold d-flex align-items-center gap-1 add-to-cart-btn-new">
+                                    <span class="fs-14">View Profile</span>
+                                    <span
+                                        class="d-flex align-items-center justify-content-center text-center new-arrow-icon-2 bg-blue rounded-circle text-white border-white border-2"><i
+                                            class="fs-14 fa-solid fa-arrow-right"></i></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>`
                                 );
                             }
                         });
@@ -303,7 +403,7 @@
                     url: "/filter/doctors/" + id,
                     success: function(response) {
                         $(".doctor-cont2").removeClass("d-none");
-                        $(".doctor-cont").addClass("d-none");
+                        $(".new-doc-card-cont").addClass("d-none");
                         $(".doctor-cont2").html("");
                         $("#select_doc").val(2);
                         if (JSON.parse(response).length === 0) {
@@ -315,84 +415,135 @@
                         $.each(JSON.parse(response), function (indexInArray, element) {
                             if (element.details) {
                                 $(".doctor-cont2").append(
-                                    `<div class="col-sm-6 col-md-4 col-xl-3 doctor-list-card">
-                                    <div class="doctor-list-card-container rounded-2 px-2 pt-3 pb-2 position-relative">
-                                    <div class="doctor-experience-badge">${element.details.experience } Years Experience</div>
-                                    <div class="d-flex pb-4 gap-3"><div class="doctor-new-container d-flex flex-column align-items-center  gap-2 ">
-                                                                                <div class="doctor-pic-container rounded-circle p-1 position-relative">
-                                    <img src="${element.user_image}" alt="Doctor Page" class="rounded-circle object-fit-cover w-100 h-100">
-                                                                        <span class="position-absolute online-dot ${element.status == 'online' ? 'bg-success' : 'bg-danger'}"></span>
+                                    `<div class="col-md-6">
+                    <div class="card border-0 rounded-4 bg-light-sky-blue">
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <div class="d-flex gap-3">
+                                <div>
+                                    <div class="position-relative doc-new-profile rounded-4">
+                                        <img class="object-fit-cover rounded-4 w-100 h-100"
+                                            src="${element.user_image}" alt="" />
+                                        <span
+                                            class="new-indicator ${element.status == 'online' ? 'bg-green' : 'bg-new-red' }"></span>
                                     </div>
-                                    <p class="text-white px-2 py-1 ${ element.status == 'online' ? 'bg-success' : 'bg-danger' } rounded-2 fw-bold">${ element.status == 'online' ? 'Online' : 'Offline' }</p>
+                                    <div class="d-flex align-items-center gap-2 mt-3">
+                                        <span
+                                            class="${element.status == 'offline' ? 'text-new-red fw-medium' : 'text-secondary' } fw-medium fs-14">Offline</span>
+                                        <span class="vertical-stick"></span>
+                                        <span
+                                            class="${element.status == 'online' ? 'text-green fw-medium' : 'text-secondary' } fs-14">Online</span>
                                     </div>
-                                    <div class="doctor-data-container"><div class="d-flex flex-column gap-1">
-                                    <h5 class="mb-0">${element.specialization == 32? element.gender=="male"?"Mr.":"Ms.":"Dr."} ${element.name} ${element.last_name}</h5>
-                                    <h6 class="doctor-verify">${element.zip_code == null?element.specialization!=32?"PMDC Verified":"":""}</h6></div>
-                                    <div class="doctor-ratings d-flex align-items-center my-1">
-                                        ${generateStarRatings(element.rating)}
+                                </div>
+                                <div class="w-100">
+                                    <div class="card-header bg-transparent border-0 w-100">
+                                        <div class="w-100 d-flex align-items-center justify-content-between gap-2">
+                                            <h4 class="mb-0 card-title fs-20 fw-semibold">
+                                                ${element.specialization == 32? element.gender=="male"?"Mr.":"Ms.":"Dr."} ${element.name} ${element.last_name}
+                                            </h4>
+                                            <div
+                                                class="client-rating gap-small text-gold fs-6 mt-0 d-flex align-items-center">
+                                                ${generateStarRatings(element.rating)}
+                                            </div>
+                                        </div>
+                                        <h6 class="card-subtitle fs-14 fw-normal mt-2">
+                                            ${element.specializations.name}
+                                        </h6>
+                                        <h6 class="fs-14 text-new-red fw-normal mt-2">
+                                            ${element.zip_code == null?element.specialization!=32?"PMDC Verified":"":""}
+                                        </h6>
+                                        ${element.consultation_fee ? `<h6 class="fs-14 fw-normal mt-2">
+                                            Consultation Fee:
+                                            <span class="text-greenfw-semibold">Rs. ${element.consultation_fee}</span>
+                                        </h6> ${element.followup_fee && element.followup_fee != element.consultation_fee ? `<h6 class="fs-14 fw-normal mt-2">
+                                            Follow-Up Fee:
+                                            <span class="text-blue fw-semibold">Rs. ${element.followup_fee}</span>
+                                        </h6>` : '' : ''}
                                     </div>
-                                    <p class="specialization-doc">${element.specializations.name}</p>
-
-                                                                    ${element.consultation_fee ? `
-                                <hr>
-                                <p style="font-size:9px" class="d-flex align-items-center justify-content-between flex-wrap w-100">
-                                    <b>Consultation Fee: </b>
-                                    <b class="text-white px-2 py-1 bg-primary rounded-2">Rs.${element.consultation_fee}</b>
-                                </p>
-                                ${element.followup_fee && element.followup_fee != element.consultation_fee ? `
-                                    <hr>
-                                    <p style="font-size:9px" class="d-flex align-items-center justify-content-between flex-wrap w-100">
-                                        <b>Follow-up Fee: </b>
-                                        <b class="text-white px-2 py-1 bg-success rounded-2">Rs.${element.followup_fee}</b>
-                                    </p>
-                                ` : ''}
-                                <hr>
-                                ` : ''}
-
-                                    <p class="education-doc">${element.details.education!=null?safeSubstring(element.details.education, 60):""}</p>
-                                    </div>
-                                    </div><div class="d-flex align-items-center justify-content-center w-100 position-absolute view-button"><button
-                                    class="btn btn-outline-primary" onclick="window.location.href='/doctor-profile/${element.name}-${element.last_name}'">View Profile</button></div></div></div>`
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div class="bg-blue text-white experience-badge">
+                                    ${element.details.experience && `<p class="px-4 fw-semibold py-2">${element.details.experience} Years Experience
+                                    </p>`}
+                                </div>
+                                <button
+                                    onclick="window.location.href='/doctor-profile/${element.name}-${element.last_name}'"
+                                    class="fw-semibold d-flex align-items-center gap-1 add-to-cart-btn-new">
+                                    <span class="fs-14">View Profile</span>
+                                    <span
+                                        class="d-flex align-items-center justify-content-center text-center new-arrow-icon-2 bg-blue rounded-circle text-white border-white border-2"><i
+                                            class="fs-14 fa-solid fa-arrow-right"></i></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>`
                                 );
                             } else {
                                 $(".doctor-cont2").append(
-                                    `<div class="col-sm-6 col-md-4 col-xl-3 doctor-list-card">
-                                    <div class="doctor-list-card-container rounded-2 px-2 pt-3 pb-2 position-relative">
-                                    <div class="d-flex pb-4 gap-3"><div class="doctor-new-container d-flex flex-column  align-items-center  gap-2 ">
-                                                                                <div class="doctor-pic-container rounded-circle p-1 position-relative">
-                                    <img src="${element.user_image}" alt="Doctor Page" class="rounded-circle object-fit-cover w-100 h-100">
-                                                                        <span class="position-absolute online-dot ${element.status == 'online' ? 'bg-success' : 'bg-danger'}"></span>
+                                    `<div class="col-md-6">
+                    <div class="card border-0 rounded-4 bg-light-sky-blue">
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <div class="d-flex gap-3">
+                                <div>
+                                    <div class="position-relative doc-new-profile rounded-4">
+                                        <img class="object-fit-cover rounded-4 w-100 h-100"
+                                            src="${element.user_image}" alt="" />
+                                        <span
+                                            class="new-indicator ${element.status == 'online' ? 'bg-green' : 'bg-new-red' }"></span>
                                     </div>
-                                    <p class="text-white px-2 py-1 ${ element.status == 'online' ? 'bg-success' : 'bg-danger' } rounded-2 fw-bold">${ element.status == 'online' ? 'Online' : 'Offline' }</p>
+                                    <div class="d-flex align-items-center gap-2 mt-3">
+                                        <span
+                                            class="${element.status == 'offline' ? 'text-new-red fw-medium' : 'text-secondary' } fw-medium fs-14">Offline</span>
+                                        <span class="vertical-stick"></span>
+                                        <span
+                                            class="${element.status == 'online' ? 'text-green fw-medium' : 'text-secondary' } fs-14">Online</span>
                                     </div>
-                                    <div class="doctor-data-container"><div class="d-flex flex-column gap-1">
-                                    <h5 class="mb-0">${element.specialization == 32? element.gender=="male"?"Mr.":"Ms.":"Dr."} ${element.name} ${element.last_name}</h5>
-                                    <h6 class="doctor-verify">${element.zip_code == null?element.specialization!=32?"PMDC Verified":"":""}</h6></div>
-                                    <div class="doctor-ratings d-flex align-items-center my-1">
-                                        ${generateStarRatings(element.rating)}
+                                </div>
+                                <div class="w-100">
+                                    <div class="card-header bg-transparent border-0 w-100">
+                                        <div class="w-100 d-flex align-items-center justify-content-between gap-2">
+                                            <h4 class="mb-0 card-title fs-20 fw-semibold">
+                                                ${element.specialization == 32? element.gender=="male"?"Mr.":"Ms.":"Dr."} ${element.name} ${element.last_name}
+                                            </h4>
+                                            <div
+                                                class="client-rating gap-small text-gold fs-6 mt-0 d-flex align-items-center">
+                                                ${generateStarRatings(element.rating)}
+                                            </div>
+                                        </div>
+                                        <h6 class="card-subtitle fs-14 fw-normal mt-2">
+                                            ${element.specializations.name}
+                                        </h6>
+                                        <h6 class="fs-14 text-new-red fw-normal mt-2">
+                                            ${element.zip_code == null?element.specialization!=32?"PMDC Verified":"":""}
+                                        </h6>
+                                        ${element.consultation_fee ? `<h6 class="fs-14 fw-normal mt-2">
+                                            Consultation Fee:
+                                            <span class="text-greenfw-semibold">Rs. ${element.consultation_fee}</span>
+                                        </h6> ${element.followup_fee && element.followup_fee != element.consultation_fee ? `<h6 class="fs-14 fw-normal mt-2">
+                                            Follow-Up Fee:
+                                            <span class="text-blue fw-semibold">Rs. ${element.followup_fee}</span>
+                                        </h6>` : '' : ''}
                                     </div>
-                                    <p class="specialization-doc">${element.specializations.name}</p>
-
-                                ${element.consultation_fee ? `
-                                <hr>
-                                <p style="font-size:9px" class="d-flex align-items-center justify-content-between flex-wrap w-100">
-                                    <b>Consultation Fee: </b>
-                                    <b class="text-white px-2 py-1 bg-primary rounded-2">Rs.${element.consultation_fee}</b>
-                                </p>
-                                ${element.followup_fee && element.followup_fee != element.consultation_fee ? `
-                                    <hr>
-                                    <p style="font-size:9px" class="d-flex align-items-center justify-content-between flex-wrap w-100">
-                                        <b>Follow-up Fee: </b>
-                                        <b class="text-white px-2 py-1 bg-success rounded-2">Rs.${element.followup_fee}</b>
-                                    </p>
-                                ` : ''}
-                                <hr>
-                                ` : ''}
-
-                                    <p class="education-doc"></p>
-                                    <div class="doctor-ratings d-flex align-items-center mt-2"></div></div>
-                                    </div><div class="d-flex align-items-center justify-content-center w-100 position-absolute view-button"><button
-                                    class="btn btn-outline-primary" onclick="window.location.href='/doctor-profile/${element.name}-${element.last_name}'">View Profile</button></div></div></div>`
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between">
+                                <div class="bg-blue text-white experience-badge">
+                                    ${element.details.experience && `<p class="px-4 fw-semibold py-2">${element.details.experience} Years Experience
+                                    </p>`}
+                                </div>
+                                <button
+                                    onclick="window.location.href='/doctor-profile/${element.name}-${element.last_name}'"
+                                    class="fw-semibold d-flex align-items-center gap-1 add-to-cart-btn-new">
+                                    <span class="fs-14">View Profile</span>
+                                    <span
+                                        class="d-flex align-items-center justify-content-center text-center new-arrow-icon-2 bg-blue rounded-circle text-white border-white border-2"><i
+                                            class="fs-14 fa-solid fa-arrow-right"></i></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>`
                                 );
                             }
                         });
@@ -404,185 +555,204 @@
 @endsection
 
 @section('content')
-<main class="w-100 h-100">
-    <section class="doctor-list-section w-100 d-flex align-items-center justify-content-center">
-        <div class="doctor-list-container d-flex flex-column gap-2 my-3">
-            <div class="w-100 d-flex align-items-center justify-content-center">
-                <div class="w-50 d-flex flex-column align-items-center mb-3">
-                    <h2 class="text-center">
-                        Our
-                        <span class="red">Doctors</span>
-                    </h2>
-                    <div class="underline w-25"></div>
-                </div>
+<main class="our-doctors-page shops-page">
+    <section class="new-header w-85 mx-auto rounded-3">
+        <div class="new-header-inner p-5">
+            <h1 class="fs-40 fw-semibold">Our Doctors</h1>
+            <div>
+                <a class="fs-12" href="{{ url('/') }}">Home</a>
+                <span class="mx-1 align-middle">></span>
+                <a class="fs-12" href="{{ route('doc_profile_page_list') }}">Our Doctors</a>
             </div>
-            @php
-            $page = DB::table('pages')->where('url', '/our-doctor')->first();
-            $section = DB::table('section')
-            ->where('page_id', $page->id)
-            ->where('section_name', 'upper-text')
-            ->where('sequence_no', '1')
-            ->first();
-            $top_content = DB::table('content')
-            ->where('section_id', $section->id)
-            ->first();
-            @endphp
-            @if ($top_content)
-            {!! $top_content->content !!}
-            @else
-            <p class="text-center">
-                We have top doctors from Pakistan and some doctors from America. Find the best doctors and book an
-                appointment with them.
-            </p>
-            @endif
-            <hr>
-            <div class="d-flex flex-column flex-lg-row align-items-center justify-content-between gap-3">
-                <div class="form-group px-2 py-2 w-lg-50 w-100">
-                    <select name="specialization" id="specialization" class="form-select w-100">
+        </div>
+    </section>
+    <section class="page-para my-5 px-5 w-85 mx-auto text-center">
+        <h2 class="fs-30 fw-semibold text-center mb-2">
+            Our Doctors
+        </h2>
+        @php
+        $page = DB::table('pages')->where('url', '/our-doctor')->first();
+        $section = DB::table('section')
+        ->where('page_id', $page->id)
+        ->where('section_name', 'upper-text')
+        ->where('sequence_no', '1')
+        ->first();
+        $top_content = DB::table('content')
+        ->where('section_id', $section->id)
+        ->first();
+        @endphp
+        @if ($top_content)
+        {!! $top_content->content !!}
+        @else
+        <p class="fs-14 text-center px-2">
+            Best Pakistani doctors available online, with American doctors
+            accessible on demand.
+        </p>
+        @endif
+    </section>
+    <section class="medicine-card-section">
+        <div class="container-fluid px-0">
+            <div class="row gx-4 mx-auto w-85">
+                <div class="col-12 bg-white d-flex justify-content-between mb-3 align-items-center">
+                    <div class="col-md-8 d-flex align-items-center gap-2">
+                        <div onclick="select_doc(2)" class="checkbox-wrapper-new">
+                            <input checked type="radio" name="cb" id="cb-47" value="2" />
+                            <label for="cb-47">All Doctors</label>
+                        </div>
+                        <div onclick="select_doc(0)" class="checkbox-wrapper-new">
+                            <input type="radio" name="cb" id="cb-48" value="0" />
+                            <label for="cb-48">Pakistani Doctors</label>
+                        </div>
+                        <div onclick="select_doc(1)" class="checkbox-wrapper-new">
+                            <input type="radio" name="cb" id="cb-49" value="1" />
+                            <label for="cb-49">American Doctors</label>
+                        </div>
+                        <div onclick="select_doc(3)" class="checkbox-wrapper-new">
+                            <input type="radio" name="cb" id="cb-50" value="3" />
+                            <label for="cb-50">Online Doctors</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div
+                            class="search-container d-flex align-items-center justify-content-center rounded-3 position-relative">
+                            <input class="search-bar px-3 py-2" type="search" name="search"
+                                placeholder="Search for Doctor" id="search" />
+                            <button type="button" class="px-3 py-2 search-icon"><i
+                                    class="fa-solid fa-magnifying-glass"></i></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="col-md-4 ms-auto mt-0">
+                        <select class="text-secondary form-select border-blue-2 py-2 rounded-3" id="specialization"
+                            name="specialization">
                             <option value="0">All Specializations</option>
-                        @foreach ($specializations as $specialization)
+                            @foreach ($specializations as $specialization)
                             <option value="{{ $specialization->id }}">{{ $specialization->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="d-flex align-items-center justify-content-between gap-3">
-                    <div class="dropdown doctor-filter d-flex gap-1">
-                        <div onclick="select_doc(2)" class="checkbox-wrapper-47">
-                            <input checked class="inp-cbx" name="cb" id="cb-47" type="radio" value="2" />
-                            <label class="cbx" for="cb-47"><span>
-                                    <svg width="12px" height="10px" viewbox="0 0 12 10">
-                                        <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-                                    </svg></span><span>All Doctors</span>
-                            </label>
-                        </div>
-                        <div onclick="select_doc(0)" class="checkbox-wrapper-47">
-                            <input class="inp-cbx" name="cb" id="cb-48" type="radio" value="0" />
-                            <label class="cbx" for="cb-48"><span>
-                                    <svg width="12px" height="10px" viewbox="0 0 12 10">
-                                        <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-                                    </svg></span><span>Pakistani Doctors</span>
-                            </label>
-                        </div>
-                        <div onclick="select_doc(1)" class="checkbox-wrapper-47">
-                            <input class="inp-cbx" name="cb" id="cb-49" type="radio" value="1" />
-                            <label class="cbx" for="cb-49"><span>
-                                    <svg width="12px" height="10px" viewbox="0 0 12 10">
-                                        <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-                                    </svg></span><span>American Doctors</span>
-                            </label>
-                        </div>
-                        <div onclick="select_doc(3)" class="checkbox-wrapper-47">
-                            <input class="inp-cbx" name="cb" id="cb-50" type="radio" value="3" />
-                            <label class="cbx" for="cb-50"><span>
-                                    <svg width="12px" height="10px" viewbox="0 0 12 10">
-                                        <polyline points="1.5 6 4.5 9 10.5 1"></polyline>
-                                    </svg></span><span>Online Doctors</span>
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="search-bar-container w-100 w-lg-50 form-control px-2 py-2">
-                    <div class="d-flex align-items-center justify-content-between">
-                        <input type="search" name="search" placeholder="Search Doctor Name" class="search-field w-100"
-                            id="search">
-                        <button type="button" class="search-btn px-2"><i
-                                class="fa-solid fa-magnifying-glass"></i></button>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
             </div>
-            <div class="row gy-3 gx-3 doctor-cont">
+            <div class="row mt-2 g-3 mx-auto new-doc-card-cont w-85 g-3">
                 @foreach ($doctors as $doctor)
-                <div class="col-sm-6 col-md-4 col-xl-3 doctor-list-card">
-                    <div class="doctor-list-card-container rounded-2 px-2 pt-3 pb-2 position-relative">
-                        @if ($doctor->details)
-                        <div class="doctor-experience-badge">
-                            {{ $doctor->details->experience }} Years Experience
-                        </div>
-                        @else
-                        {{-- <div class="doctor-experience-badge">
-                            3 Years Experience
-                        </div> --}}
-                        @endif
-
-                        <div class="d-flex pb-4 gap-3">
-
-                            <div class="doctor-new-container d-flex flex-column  align-items-center  gap-2">
-                                <div class="doctor-pic-container rounded-circle p-1 position-relative">
-                                    <img src="{{ $doctor->user_image }}" alt="Doctor Page"
-                                        class="rounded-circle object-fit-cover w-100 h-100">
-                                    <span class="position-absolute online-dot
-                                             {{ $doctor->status == 'online' ? 'bg-success' : 'bg-danger' }}">
-                                    </span>
+                <div class="col-md-6">
+                    <div class="card border-0 rounded-4 bg-light-sky-blue">
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <div class="d-flex gap-3">
+                                <div>
+                                    <div class="position-relative doc-new-profile rounded-4">
+                                        <img class="object-fit-cover rounded-4 w-100 h-100"
+                                            src="{{ $doctor->user_image }}" alt="" />
+                                        <span
+                                            class="new-indicator {{ $doctor->status == 'online' ? 'bg-green' : 'bg-new-red' }}"></span>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-2 mt-3">
+                                        <span
+                                            class="{{ $doctor->status == 'offline' ? 'text-new-red fw-medium' : 'text-secondary' }} fw-medium fs-14">Offline</span>
+                                        <span class="vertical-stick"></span>
+                                        <span
+                                            class="{{ $doctor->status == 'online' ? 'text-green fw-medium' : 'text-secondary' }} fs-14">Online</span>
+                                    </div>
                                 </div>
-                                <p class="text-white px-2 py-1 {{ $doctor->status == 'online' ? 'bg-success' : 'bg-danger' }} rounded-2 fw-bold">{{ $doctor->status == 'online' ? 'Online' : 'Offline' }}</p>
-                            </div>
-
-                            <div class="doctor-data-container">
-                                <div class="d-flex flex-column gap-1">
-                                    @if ($doctor->specialization != '32')
-                                        <h5 class="mb-0">Dr.
-                                            {{ \Str::ucfirst($doctor->name) . ' ' . \Str::ucfirst($doctor->last_name) }}
-                                        </h5>
-                                        @if ($doctor->zip_code == null)
-                                            <h6 class="doctor-verify">PMDC Verified</h6>
-                                        @endif
-                                    @else
-                                        <h5 class="mb-0">{{$doctor->gender == "male"? "Mr.":"Ms."}}
-                                            {{ \Str::ucfirst($doctor->name) . ' ' . \Str::ucfirst($doctor->last_name) }}
-                                        </h5>
-                                    @endif
-                                </div>
-                                <div class="doctor-ratings d-flex align-items-center my-1">
-                                    @if ($doctor->rating != null)
-                                    @php
-                                    $fullStars = floor($doctor->rating / 20); // Number of full stars
-                                    $halfStar = $doctor->rating % 20 >= 10 ? 1 : 0; // Check if a half-star is needed
-                                    $emptyStars = 5 - ($fullStars + $halfStar); // Remaining stars will be empty
-                                    @endphp
-                                    @for ($i = 0; $i < $fullStars; $i++) <i class="fa-solid fa-star"></i>
-                                        @endfor
-                                        @if ($halfStar)
-                                        <i class="fa-solid fa-star-half-alt"></i>
-                                        @endif
-                                        @for ($i = 0; $i < $emptyStars; $i++) <i class="fa-regular fa-star"></i>
-                                            @endfor
+                                <div class="w-100">
+                                    <div class="card-header bg-transparent border-0 w-100">
+                                        <div class="w-100 d-flex align-items-center justify-content-between gap-2">
+                                            @if ($doctor->specialization != '32' && $doctor->zip_code == null)
+                                            <h4 class="mb-0 card-title fs-20 fw-semibold">
+                                                Dr. {{ \Str::ucfirst($doctor->name) . ' ' .
+                                                \Str::ucfirst($doctor->last_name) }}
+                                            </h4>
                                             @else
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
-                                            <i class="fa-solid fa-star"></i>
+                                            <h4 class="mb-0 card-title fs-20 fw-semibold">
+                                                {{$doctor->gender == "male"? "Mr.":"Ms."}}
+                                                {{ \Str::ucfirst($doctor->name) . ' ' .
+                                                \Str::ucfirst($doctor->last_name) }}
+                                            </h4>
                                             @endif
+                                            <div
+                                                class="client-rating gap-small text-gold fs-6 mt-0 d-flex align-items-center">
+                                                @if ($doctor->rating != null)
+                                                @php
+                                                $fullStars = floor($doctor->rating / 20);
+                                                $halfStar = $doctor->rating % 20 >= 10 ? 1 : 0;
+                                                $emptyStars = 5 - ($fullStars + $halfStar);
+                                                @endphp
+                                                @for ($i = 0; $i < $fullStars; $i++) <span class="fs-18 custom-star"><i
+                                                        class="fa-solid fa-star"></i></span>
+                                                    @endfor
+                                                    @if ($halfStar)
+                                                    <span class="fs-18 custom-star"><i
+                                                            class="fa-solid fa-star-half-alt"></i></span>
+                                                    @endif
+                                                    @for ($i = 0; $i < $emptyStars; $i++) <span
+                                                        class="fs-18 custom-star"><i
+                                                            class="fa-regular fa-star"></i></span>
+                                                    @endfor
+                                                    @else
+                                                        <span class="fs-18 custom-star"><i
+                                                                class="fa-solid fa-star"></i></span>
+                                                        <span class="fs-18 custom-star"><i
+                                                                class="fa-solid fa-star"></i></span>
+                                                        <span class="fs-18 custom-star"><i
+                                                                class="fa-solid fa-star"></i></span>
+                                                        <span class="fs-18 custom-star"><i
+                                                                class="fa-solid fa-star"></i></span>
+                                                        <span class="fs-18 custom-star"><i
+                                                                class="fa-solid fa-star"></i></span>
+                                                        <span class="fs-14 text-black ms-2">(17)</span>
+                                                    @endif
+                                            </div>
+                                        </div>
+                                        <h6 class="card-subtitle fs-14 fw-normal mt-2">
+                                            {{ $doctor->specializations->name }}
+                                        </h6>
+                                        @if ($doctor->zip_code == null)
+                                        <h6 class="fs-14 text-new-red fw-normal mt-2">
+                                            PMDC Verified
+                                        </h6>
+                                        @endif
+                                        @if(isset($doctor->consultation_fee))
+                                        <h6 class="fs-14 fw-normal mt-2">
+                                            Consultation Fee:
+                                            <span class="text-greenfw-semibold">Rs. {{$doctor->consultation_fee}}</span>
+                                        </h6>
+                                        @if (isset($doctor->followup_fee) && $doctor->consultation_fee !==
+                                        $doctor->followup_fee)
+                                        <h6 class="fs-14 fw-normal mt-2">
+                                            Follow-Up Fee:
+                                            <span class="text-blue fw-semibold">Rs. {{$doctor->followup_fee}}</span>
+                                        </h6>
+                                        @endif
+                                        @endif
+                                    </div>
                                 </div>
-                                <p class="specialization-doc">{{ $doctor->specializations->name }}</p>
-                                @if(isset($doctor->consultation_fee))
-                                    <hr>
-                                    <p style="font-size:9px" class="d-flex align-items-center justify-content-between flex-wrap w-100"><b>Consultation Fee: </b> <b class="text-white px-2 py-1 bg-primary rounded-2">Rs.{{$doctor->consultation_fee}}</b></p>
-                                    @if (isset($doctor->followup_fee) && $doctor->consultation_fee !== $doctor->followup_fee)
-                                        <hr>
-                                        <p style="font-size:9px" class="d-flex align-items-center justify-content-between flex-wrap w-100"><b>Follow-up Fee: </b> <b class="text-white px-2 py-1 bg-success rounded-2">Rs.{{$doctor->followup_fee}}</b></p>
-                                    @endif
-                                    <hr>
-                                @endif
-                                <p class="education-doc">{!! nl2br(isset($doctor->details->education) ?
-                                    \Str::limit($doctor->details->education, 50) : '') !!}</p>
                             </div>
-
-
+                            <div class="d-flex justify-content-between">
+                                <div class="bg-blue text-white experience-badge">
+                                    @if ($doctor->details)
+                                    <p class="px-4 fw-semibold py-2">{{ $doctor->details->experience }} Years Experience
+                                    </p>
+                                    @endif
+                                </div>
+                                <button
+                                    onclick="window.location.href='/doctor-profile/{{ $doctor->name }}-{{ $doctor->last_name }}'"
+                                    class="fw-semibold d-flex align-items-center gap-1 add-to-cart-btn-new">
+                                    <span class="fs-14">View Profile</span>
+                                    <span
+                                        class="d-flex align-items-center justify-content-center text-center new-arrow-icon-2 bg-blue rounded-circle text-white border-white border-2"><i
+                                            class="fs-14 fa-solid fa-arrow-right"></i></span>
+                                </button>
+                            </div>
                         </div>
-                        <div class="d-flex align-items-center justify-content-center w-100 position-absolute view-button"><button
-                                class="btn btn-outline-primary"
-                                onclick="window.location.href='/doctor-profile/{{ $doctor->name }}-{{ $doctor->last_name }}'">View
-                                Profile</button></div>
                     </div>
                 </div>
                 @endforeach
-                <div class="d-flex justify-content-center">
-                    {{ $doctors->links('pagination::bootstrap-4') }}
-                </div>
             </div>
-            <div class="row gy-3 gx-4 doctor-cont2">
-
+            <div class="row mt-2 g-3 mx-auto doctor-cont2 w-85 g-3">
+            </div>
+            <div class="d-flex align-items-center mt-3 justify-content-center">
+                {{ $doctors->links('pagination::bootstrap-4') }}
             </div>
         </div>
     </section>
