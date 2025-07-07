@@ -45,7 +45,6 @@
                     href="{{ request()->is('shops/pharmacy') ? route('vendor', ['shop_type' => 'pharmacy']) : route('vendor', ['shop_type' => 'labs']) }}">
                     Shops
                 </a>
-
             </div>
         </div>
     </section>
@@ -192,7 +191,7 @@
 
                 const data = await response.json();
                 console.log('checking_res', data)
-                updateVendorsContainer(data.vendors || data, data.pagination || null);
+                updateVendorsContainer(data.vendors || data, data.pagination);
 
 
             } catch (error) {
@@ -203,9 +202,8 @@
         function updateVendorsContainer(vendors, pagination) {
             const paginationPara = document.querySelector('#paginationParagraph');
             const container = document.getElementById('loadSearchPharmacyItemByCategory');
-            console.log('checking vendors:', vendors);
-
-            if (!vendors || vendors.length === 0) {
+            container.innerHTML = ''; 
+            if (!vendors || vendors.length == 0) {
                 document.getElementById('paginationContainer').innerHTML = '';
                 return;
             }

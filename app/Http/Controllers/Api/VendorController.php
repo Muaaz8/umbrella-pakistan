@@ -240,7 +240,6 @@ class VendorController extends BaseController
                     'vendor_products.discount AS discount',
                     'vendor_products.available_stock',
                     'vendor_products.is_active',
-
                     'products_sub_categories.title as sub_category_name',
                     'products_sub_categories.slug as sub_category_slug',
                 )
@@ -248,11 +247,12 @@ class VendorController extends BaseController
                 ->where('vendor_products.vendor_id', $vendor_id)
                 ->where('vendor_products.is_active', 1)
                 ->get();
-        }
+        
         foreach ($data as $product) {
         $product->featured_image = \App\Helper::check_bucket_files_url($product->featured_image);
             if($product->featured_image == env('APP_URL')."/assets/images/user.png"){
                 $product->featured_image = asset('assets/new_frontend/panadol2.png');
+                }
             }
         }
 
@@ -261,57 +261,79 @@ class VendorController extends BaseController
         ], 'Product retrieved successfully.');
     }
 
-    public function findVendorbyLocation(Request $request)
-    {
-        $locationId = $request->locationId;
-        $vendorType = $request->shop_type;
-        $searchText = $request->searchText;
+public function findVendorbyLocation(Request $request)
+{
+    $locationId = $request->locationId;
+    $vendorType = $request->shop_type;
+    $searchText = $request->searchText;
 
-        $query = DB::table('vendor_accounts')->where('vendor', $vendorType);
-
-        if ($locationId && $locationId !== 'all') {
-            $query->where('location_id', $locationId);
-        }
-
-        if ($searchText && trim($searchText) !== '') {
-            $searchTerm = '%' . trim($searchText) . '%';
-            $query->where(function($q) use ($searchTerm) {
-                $q->where('name', 'LIKE', $searchTerm)
-                ->orWhere('address', 'LIKE', $searchTerm);
-            });
-        }
-
-        $vendors = $query->paginate(12);
-
-        foreach ($vendors as $vendor) {
-            $vendor->image = \App\Helper::check_bucket_files_url($vendor->image);
-            $vendor->products_count = DB::table('vendor_products')
-                ->where('vendor_id', $vendor->id)
-                ->where('is_active', 1)
-                ->count();
-        }
-
-        if ($vendors->isEmpty()) {
-            return response()->json([
-                'vendors' => [],
-                'message' => 'No vendors found for the specified criteria'
-            ], 200);
-        }
-
+    $validVendorTypes = ['labs', 'pharmacy'];
+    if ($vendorType && !in_array($vendorType, $validVendorTypes)) {
         return response()->json([
-            'vendors' => $vendors->items(),
-            'pagination' => [
-                'current_page' => $vendors->currentPage(),
-                'last_page' => $vendors->lastPage(),
-                'per_page' => $vendors->perPage(),
-                'total' => $vendors->total(),
-                'from' => $vendors->firstItem(),
-                'to' => $vendors->lastItem(),
-                'has_more_pages' => $vendors->hasMorePages()
-            ],
-            'message' => 'Vendors retrieved successfully'
-        ]);
+            'error' => 'Invalid vendor type'
+        ], 400);
     }
+
+    $query = DB::table('vendor_accounts');
+
+    if ($vendorType) {
+        $query->where('vendor', $vendorType);
+    }
+
+    if ($locationId && $locationId !== 'all') {
+        $query->where('location_id', $locationId);
+    }
+
+    if ($searchText && trim($searchText) !== '') {
+        $searchTerm = '%' . trim($searchText) . '%';
+        $query->where(function($q) use ($searchTerm) {
+            $q->where('name', 'LIKE', $searchTerm)
+              ->orWhere('address', 'LIKE', $searchTerm);
+        });
+    }
+
+    $query->where('is_active', 1);
+
+    $vendors = $query->paginate(12);
+
+    foreach ($vendors as $vendor) {
+        $vendor->image = \App\Helper::check_bucket_files_url($vendor->image);
+        $vendor->products_count = DB::table('vendor_products')
+            ->where('vendor_id', $vendor->id)
+            ->where('is_active', 1)
+            ->count();
+    }
+
+    if ($vendors->count() === 0) {
+        return response()->json([
+            'vendors' => [],
+            'pagination' => [
+                'current_page' => 1,
+                'last_page' => 1,
+                'per_page' => 12,
+                'total' => 0,
+                'from' => null,
+                'to' => null,
+                'has_more_pages' => false
+            ],
+            'message' => 'No vendors found for the specified criteria'
+        ], 200);
+    }
+
+    return response()->json([
+        'vendors' => $vendors->items(),
+        'pagination' => [
+            'current_page' => $vendors->currentPage(),
+            'last_page' => $vendors->lastPage(),
+            'per_page' => $vendors->perPage(),
+            'total' => $vendors->total(),
+            'from' => $vendors->firstItem(),
+            'to' => $vendors->lastItem(),
+            'has_more_pages' => $vendors->hasMorePages()
+        ],
+        'message' => 'Vendors retrieved successfully'
+    ]);
+}
 
     public function searchPharmacyItemByCategory(Request $request, $vendor_id)
     {
