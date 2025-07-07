@@ -319,7 +319,7 @@
             <button class="text-navy-blue py-2 px-4 fw-semibold nav-link active" id="pills-register-patient-tab"
               data-bs-toggle="pill" data-bs-target="#pills-register" type="button" role="tab"
               aria-controls="pills-register-patient" aria-selected="true">
-              Registeration
+              Registration
             </button>
           </li>
           {{--<li class="nav-item" role="presentation">
@@ -550,7 +550,7 @@
                 class="bg-blue rounded-circle new-arrow-icon d-flex align-items-center justify-content-center text-white"><i
                   class="fa-solid fa-arrow-left"></i></span>
             </button>
-            <h5 id="carousel-title" class="text-white mb-0 text-center">Registeration</h5>
+            <h5 id="carousel-title" class="text-white mb-0 text-center">Registration</h5>
             <button class="carousel-control-next position-static w-auto opacity-100" type="button"
               data-bs-target="#guideCarousel" data-bs-slide="next">
               <span
@@ -559,7 +559,7 @@
             </button>
           </div>
           <div class="carousel-inner">
-            <div class="carousel-item active" data-title="Registeration">
+            <div class="carousel-item active" data-title="Registration">
               <div class="mt-3 d-flex align-items-center justify-content-between position-relative p-3">
                 <div class="w-100 d-flex flex-column align-items-center justify-content-between gap-4">
                   <div class="col-md-3">

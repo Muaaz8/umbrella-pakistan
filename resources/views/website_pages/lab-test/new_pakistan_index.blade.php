@@ -72,48 +72,75 @@
 
                         } else {
                             if(res.user_id==''){
-
                                 $.each(res.products.data, function(key, value) {
                                     $('#loadSearchPharmacyItemByCategory').append(
-                                    `<div class="tests-card">
-                                            <div class="test-card-content">
-                                                <div class="add_to_cart_container">
-                                                    <button class="add_to_cart_btn" onclick="window.location.href='/labtest/${value.SLUG}/${value.vendor_id}'">
-                                                        Learn More
-                                                    </button>
+                                    `<div class="col-md-4">
+                                        <div class="card rounded-4 border-0 bg-light-sky-blue">
+                                            <div class="card-body ps-4 pe-3">
+                                                <div class="pe-0 h-100 d-flex flex-column justify-content-between">
+                                                    <h5 class="card-title text-blue fw-semibold align-self-end">
+                                                        Rs. ${value.SALE_PRICE}
+                                                    </h5>
+                                                    <div>
+                                                        <h5 class="card-title fs-6 fw-semibold mb-2" title="${value.TEST_NAME}">
+                                                            ${value.TEST_NAME}
+                                                        </h5>
+                                                        <p class="card-text fs-13 text-overflow">
+                                                            ${value.DETAILS}
+                                                        </p>
+                                                    </div>
+                                                    <div class="d-flex align-items-center justify-content-between">
+                                                        <button onclick="window.location.href='/labtest/${value.SLUG}/${value.vendor_id}'"
+                                                            class="read-btn-new mt-2 btn bg-white fw-medium fs-12 py-1">Read More</button>
+                                                        <button data-bs-toggle="modal" data-bs-target="#loginModal"
+                                                            class="fw-semibold d-flex align-items-center gap-1 add-to-cart-btn-new">
+                                                            <span class="fs-14">Add to Cart</span>
+                                                            <span
+                                                                class="d-flex align-items-center justify-content-center text-center new-arrow-icon-2 bg-blue rounded-circle text-white border-white border-2"><i
+                                                                    class="fs-14 fa-solid fa-arrow-right"
+                                                                    style="transform: rotate(-45deg)"></i></span>
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                                ${(value.discount_percentage != null || $vale.discount_percentage != 0)  ? '<span class="discount-no">'+value.discount_percentage+'% Off</span>' : ''}
-                                                <h4 class="truncate" title="${value.TEST_NAME}">${value.TEST_NAME}</h4>
-                                                <p class="truncate-overflow">${value.DETAILS}</p>
-                                                <div class="test-card-price d-flex flex-column gap-2 align-items-center">
-                                                    <span class="discounted-price">Rs. ${value.SALE_PRICE}</span>
-                                                    ${(value.actual_price != null || value.actual_price != 0) ? '<span class="actual-price">Rs. '+value.actual_price+'</span>' : ''}
-                                                </div>
-                                                <button class="learn_btn" data-bs-toggle="modal" data-bs-target="#loginModal" type="button">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
                                             </div>
-                                        </div>`
+                                        </div>
+                                    </div>`
                                     );
                                 });
                             }else{
                                 $.each(res.products.data, function(key, value) {
                                     $('#loadSearchPharmacyItemByCategory').append(
-                                    `<div class="tests-card">
-                                            <div class="test-card-content">
-                                                <div class="add_to_cart_container">
-                                                    <button class="add_to_cart_btn" onclick="window.location.href='/labtest/${value.SLUG}/${value.vendor_id}'">
-                                                        Learn More
-                                                    </button>
+                                    `<div class="col-md-4">
+                                        <div class="card rounded-4 border-0 bg-light-sky-blue">
+                                            <div class="card-body ps-4 pe-3">
+                                                <div class="pe-0 h-100 d-flex flex-column justify-content-between">
+                                                    <h5 class="card-title text-blue fw-semibold align-self-end">
+                                                        Rs. ${value.SALE_PRICE}
+                                                    </h5>
+                                                    <div>
+                                                        <h5 class="card-title fs-6 fw-semibold mb-2" title="${value.TEST_NAME}">
+                                                            ${value.TEST_NAME}
+                                                        </h5>
+                                                        <p class="card-text fs-13 text-overflow">
+                                                            ${value.DETAILS}
+                                                        </p>
+                                                    </div>
+                                                    <div class="d-flex align-items-center justify-content-between">
+                                                        <button onclick="window.location.href='/labtest/${value.SLUG}/${value.vendor_id}'"
+                                                            class="read-btn-new mt-2 btn bg-white fw-medium fs-12 py-1">Read More</button>
+                                                        <button data-bs-toggle="modal" data-bs-target="#loginModal"
+                                                            class="fw-semibold d-flex align-items-center gap-1 add-to-cart-btn-new">
+                                                            <span class="fs-14">Add to Cart</span>
+                                                            <span
+                                                                class="d-flex align-items-center justify-content-center text-center new-arrow-icon-2 bg-blue rounded-circle text-white border-white border-2"><i
+                                                                    class="fs-14 fa-solid fa-arrow-right"
+                                                                    style="transform: rotate(-45deg)"></i></span>
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                                ${(value.discount_percentage != null || $vale.discount_percentage != 0)  ? '<span class="discount-no">'+value.discount_percentage+'% Off</span>' : ''}
-                                                <h4 class="truncate" title="${value.TEST_NAME}">${value.TEST_NAME}</h4>
-                                                <p class="truncate-overflow">${value.DETAILS}</p>
-                                                <div class="test-card-price d-flex flex-column gap-2 align-items-center">
-                                                    <span class="discounted-price">Rs. ${value.SALE_PRICE}</span>
-                                                    ${(value.actual_price != null || value.actual_price != 0) ? '<span class="actual-price">Rs. '+value.actual_price+'</span>' : ''}
-                                                </div>
-                                                <button class="learn_btn" data-bs-toggle="modal" data-bs-target="#loginModal" type="button">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
                                             </div>
-                                        </div>`
+                                        </div>
+                                    </div>`
                                     );
                                 });
                             }
@@ -156,45 +183,73 @@
                             if(res.user_id==''){
                                 $.each(res.products.data, function(key, value) {
                                     $('#loadSearchPharmacyItemByCategory').append(
-                                    `<div class="tests-card">
-                                            <div class="test-card-content">
-                                                <div class="add_to_cart_container">
-                                                    <button class="add_to_cart_btn" onclick="window.location.href='/labtest/${value.SLUG}/${value.vendor_id}'">
-                                                        Learn More
-                                                    </button>
+                                    `<div class="col-md-4">
+                                        <div class="card rounded-4 border-0 bg-light-sky-blue">
+                                            <div class="card-body ps-4 pe-3">
+                                                <div class="pe-0 h-100 d-flex flex-column justify-content-between">
+                                                    <h5 class="card-title text-blue fw-semibold align-self-end">
+                                                        Rs. ${value.SALE_PRICE}
+                                                    </h5>
+                                                    <div>
+                                                        <h5 class="card-title fs-6 fw-semibold mb-2" title="${value.TEST_NAME}">
+                                                            ${value.TEST_NAME}
+                                                        </h5>
+                                                        <p class="card-text fs-13 text-overflow">
+                                                            ${value.DETAILS}
+                                                        </p>
+                                                    </div>
+                                                    <div class="d-flex align-items-center justify-content-between">
+                                                        <button onclick="window.location.href='/labtest/${value.SLUG}/${value.vendor_id}'"
+                                                            class="read-btn-new mt-2 btn bg-white fw-medium fs-12 py-1">Read More</button>
+                                                        <button data-bs-toggle="modal" data-bs-target="#loginModal"
+                                                            class="fw-semibold d-flex align-items-center gap-1 add-to-cart-btn-new">
+                                                            <span class="fs-14">Add to Cart</span>
+                                                            <span
+                                                                class="d-flex align-items-center justify-content-center text-center new-arrow-icon-2 bg-blue rounded-circle text-white border-white border-2"><i
+                                                                    class="fs-14 fa-solid fa-arrow-right"
+                                                                    style="transform: rotate(-45deg)"></i></span>
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                                ${(value.discount_percentage != null || $vale.discount_percentage != 0)  ? '<span class="discount-no">'+value.discount_percentage+'% Off</span>' : ''}
-                                                <h4 class="truncate" title="${value.TEST_NAME}">${value.TEST_NAME}</h4>
-                                                <p class="truncate-overflow">${value.DETAILS}</p>
-                                                <div class="test-card-price d-flex flex-column gap-2 align-items-center">
-                                                    <span class="discounted-price">Rs. ${value.SALE_PRICE}</span>
-                                                    ${(value.actual_price != null || value.actual_price != 0) ? '<span class="actual-price">Rs. '+value.actual_price+'</span>' : ''}
-                                                </div>
-                                                <button class="learn_btn" data-bs-toggle="modal" data-bs-target="#loginModal" type="button">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
                                             </div>
-                                        </div>`
+                                        </div>
+                                    </div>`
                                     );
                                 });
                             }else{
                                 $.each(res.products.data, function(key, value) {
                                     $('#loadSearchPharmacyItemByCategory').append(
-                                    `<div class="tests-card">
-                                            <div class="test-card-content">
-                                                <div class="add_to_cart_container">
-                                                    <button class="add_to_cart_btn" onclick="window.location.href='/labtest/${value.SLUG}/${value.vendor_id}'">
-                                                        Learn More
-                                                    </button>
+                                    `<div class="col-md-4">
+                                        <div class="card rounded-4 border-0 bg-light-sky-blue">
+                                            <div class="card-body ps-4 pe-3">
+                                                <div class="pe-0 h-100 d-flex flex-column justify-content-between">
+                                                    <h5 class="card-title text-blue fw-semibold align-self-end">
+                                                        Rs. ${value.SALE_PRICE}
+                                                    </h5>
+                                                    <div>
+                                                        <h5 class="card-title fs-6 fw-semibold mb-2" title="${value.TEST_NAME}">
+                                                            ${value.TEST_NAME}
+                                                        </h5>
+                                                        <p class="card-text fs-13 text-overflow">
+                                                            ${value.DETAILS}
+                                                        </p>
+                                                    </div>
+                                                    <div class="d-flex align-items-center justify-content-between">
+                                                        <button onclick="window.location.href='/labtest/${value.SLUG}/${value.vendor_id}'"
+                                                            class="read-btn-new mt-2 btn bg-white fw-medium fs-12 py-1">Read More</button>
+                                                        <button data-bs-toggle="modal" data-bs-target="#loginModal"
+                                                            class="fw-semibold d-flex align-items-center gap-1 add-to-cart-btn-new">
+                                                            <span class="fs-14">Add to Cart</span>
+                                                            <span
+                                                                class="d-flex align-items-center justify-content-center text-center new-arrow-icon-2 bg-blue rounded-circle text-white border-white border-2"><i
+                                                                    class="fs-14 fa-solid fa-arrow-right"
+                                                                    style="transform: rotate(-45deg)"></i></span>
+                                                        </button>
+                                                    </div>
                                                 </div>
-                                                ${(value.discount_percentage != null || $vale.discount_percentage != 0)  ? '<span class="discount-no">'+value.discount_percentage+'% Off</span>' : ''}
-                                                <h4 class="truncate" title="${value.TEST_NAME}">${value.TEST_NAME}</h4>
-                                                <p class="truncate-overflow">${value.DETAILS}</p>
-                                                <div class="test-card-price d-flex flex-column gap-2 align-items-center">
-                                                    <span class="discounted-price">Rs. ${value.SALE_PRICE}</span>
-                                                    ${(value.actual_price != null || value.actual_price != 0) ? '<span class="actual-price">Rs. '+value.actual_price+'</span>' : ''}
-                                                </div>
-                                                <button class="learn_btn" data-bs-toggle="modal" data-bs-target="#loginModal" type="button">Add To Cart <i class="fa-solid fa-cart-shopping mx-2"></i></button>
                                             </div>
-                                        </div>`
+                                        </div>
+                                    </div>`
                                     );
                                 });
                             }
@@ -238,99 +293,98 @@
 
 @section('content')
 <main>
-    <div class="contact-section">
-        <div class="contact-content">
-            <h1>{{ $vendor->name }}</h1>
-            <div class="underline3"></div>
-        </div>
-        <div class="custom-shape-divider-bottom-17311915372">
-            <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120"
-                preserveAspectRatio="none">
-                <path
-                    d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z"
-                    opacity=".25" class="shape-fill"></path>
-                <path
-                    d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z"
-                    opacity=".5" class="shape-fill"></path>
-                <path
-                    d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z"
-                    class="shape-fill"></path>
-            </svg>
-        </div>
-    </div>
-    {{--@php
-    $alpha = [
-    'A',
-    'B',
-    'C',
-    'D',
-    'E',
-    'F',
-    'G',
-    'H',
-    'I',
-    'J',
-    'K',
-    'L',
-    'M',
-    'N',
-    'O',
-    'P',
-    'Q',
-    'R',
-    'S',
-    'T',
-    'U',
-    'V',
-    'X',
-    'Y',
-    'Z',
-    ];
-    $len = count($alpha);
-    @endphp
-    <div class="container">
-        <h3>Categories By Alphabets</h3>
-        <div class="container-fluid">
-            <div class="alphabetical-categories">
-                <div class="alphabets">
-                    @for ($i = 0; $i < $len; $i++) @php $alphabit=$alpha[$i]; @endphp <div class="alphabet-group">
-                        <span class="alphabet">{{ $alphabit }}</span>
-                        <ul class="categories-list">
-                            @foreach ($data['sidebar'] as $val)
-                            @php
-                            $first_char = substr($val->product_parent_category, 0, 1);
-                            @endphp
-                            @if ($first_char == $alphabit)
-                            <li onclick="window.location.href='{{ route('slug.labtest', ['slug' => $val->slug]) }}'">
-                                {{ $val->product_parent_category }}</li>
-                            @endif
-                            @endforeach
-                        </ul>
-                </div>
-                @endfor
+    <section class="new-header w-85 mx-auto rounded-3">
+        <div class="new-header-inner p-5">
+            <h1 class="fs-40 fw-semibold">{{ $vendor->name }}</h1>
+            <div>
+                <a class="fs-12" href="{{ url('/') }}">Home</a>
+                <span class="mx-1 align-middle">></span>
+                <a class="fs-12" href="{{ route('labs_products', ['id' =>
+                                            $vendor->id]) }}">Labs</a>
             </div>
-            <hr>
         </div>
-    </div>
-    </div>--}}
-
-    <div class="container-fluid px-5">
-        <h3>Community Healthcare Clinics - Labtests</h3>
-        <p>
-            Community Healthcare Clinics offers a wide range of lab tests and diagnostic services.
+    </section>
+    <section class="page-para my-5 px-5 w-85 mx-auto">
+        <h2 class="fs-30 fw-semibold text-center mb-4">
+            Community Healthcare Clinics - Labtests
+        </h2>
+        <p class="fs-14 text-center px-2">
+            Community Healthcare Clinics offers a wide range of lab tests and
+            diagnostic services.
         </p>
-    </div>
+    </section>
+    <section class="lab-card-section">
+        <div class="container-fluid px-0">
+            <div class="row gx-4 gy-3 mx-auto w-85">
+                <div class="col-12 bg-white d-flex justify-content-between mb-3 align-items-center">
+                    <div class="col-md-5">
+                        <div
+                            class="search-container d-flex align-items-center justify-content-center rounded-3 position-relative">
+                            <input class="search-bar px-3 py-2" type="search" name="search"
+                                placeholder="Search for labs" id="pharmacySearchText" />
+                            <button class="px-3 py-2 search-icon searchPharmacyProduct"><i
+                                    class="fa-solid fa-magnifying-glass"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row gx-4 gy-3 mx-auto w-85" id="loadSearchPharmacyItemByCategory">
+                @foreach ($data['products'] as $item)
+                <div class="col-md-4">
+                    <div class="card rounded-4 border-0 bg-light-sky-blue">
+                        <div class="card-body ps-4 pe-3">
+                            <div class="pe-0 h-100 d-flex flex-column justify-content-between">
+                                <h5 class="card-title text-blue fw-semibold align-self-end">
+                                    Rs. {{ number_format($item->sale_price,2) }}
+                                </h5>
+                                <div>
+                                    <h5 class="card-title fs-6 fw-semibold mb-2">
+                                        {{$item->name}}
+                                    </h5>
+                                    <p class="card-text fs-13 text-overflow">
+                                        {!! strip_tags($item->short_description) !!}
+                                    </p>
+                                </div>
+                                <div class="d-flex align-items-center justify-content-between">
+                                    <button
+                                        onclick="window.location.href='{{ route('single_product_view_labtest', ['slug' => $item->slug, 'vendor_id' => $item->vendor_id]) }}'"
+                                        class="read-btn-new mt-2 btn bg-white fw-medium fs-12 py-1">Read More</button>
+                                    @if (Auth::check())
+                                    <button
+                                        class="fw-semibold {{ $item->vendor_product_id }} d-flex align-items-center gap-1 add-to-cart-btn-new"
+                                        onclick="addedItem(this)">
+                                        <span class="fs-14">Add to Cart</span>
+                                        <span
+                                            class="d-flex align-items-center justify-content-center text-center new-arrow-icon-2 bg-blue rounded-circle text-white border-white border-2"><i
+                                                class="fs-14 fa-solid fa-arrow-right"
+                                                style="transform: rotate(-45deg)"></i></span>
+                                    </button>
+                                    @else
+                                    <button data-bs-toggle="modal" data-bs-target="#loginModal"
+                                        class="fw-semibold d-flex align-items-center gap-1 add-to-cart-btn-new">
+                                        <span class="fs-14">Add to Cart</span>
+                                        <span
+                                            class="d-flex align-items-center justify-content-center text-center new-arrow-icon-2 bg-blue rounded-circle text-white border-white border-2"><i
+                                                class="fs-14 fa-solid fa-arrow-right"
+                                                style="transform: rotate(-45deg)"></i></span>
+                                    </button>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+                <div class="pagination mt-3 d-flex align-items-center justify-content-center">{{
+                    $data['products']->links('pagination::bootstrap-4') }}</div>
+            </div>
+        </div>
+    </section>
 
-    <div class="container-fluid px-5 mt-3 pharmacy-page-container">
+    {{--<div class="container-fluid px-5 mt-3 pharmacy-page-container">
         <div class="p-4 background-secondary d-flex align-items-center justify-content-between flex-column rounded-4">
             <div class="d-flex align-items-center justify-content-between custom-search-container">
                 <div class="category-dropdown">
-                    {{--<select class="form-select custom-select" name="category" id="category">
-                        <option value="all">All</option>
-                        @foreach ($data['sidebar'] as $key => $item)
-                        <option value="{{ $item->id }}">{{ $item->product_parent_category }}</option>
-                        @endforeach
-                    </select>--}}
                 </div>
                 <div class="searchbar d-flex">
                     <input type="text" class="form-control custom-input" placeholder="Search for products"
@@ -350,18 +404,19 @@
                             </button>
                         </div>
                         @if($item->discount_percentage != null && $item->discount_percentage != 0)
-                            <span class="discount-no">{{ $item->discount_percentage }}% Off</span>
+                        <span class="discount-no">{{ $item->discount_percentage }}% Off</span>
                         @endif
                         <h4 class="truncate">{{ $item->name }}</h4>
                         <p class="truncate-overflow">{!! strip_tags($item->short_description) !!}</p>
                         <div class="test-card-price d-flex flex-column gap-2 align-items-center">
                             <span class="discounted-price">Rs. {{ number_format($item->sale_price,2) }}</span>
                             @if($item->discount_percentage != null && $item->discount_percentage != 0)
-                                <span class="actual-price">Rs. {{ number_format($item->actual_price,2) }}</span>
+                            <span class="actual-price">Rs. {{ number_format($item->actual_price,2) }}</span>
                             @endif
                         </div>
                         @if (Auth::check())
-                        <button class="learn_btn {{ $item->vendor_product_id }} lab-test" onclick="addedItem(this)">Add To Cart
+                        <button class="learn_btn {{ $item->vendor_product_id }} lab-test" onclick="addedItem(this)">Add
+                            To Cart
                             <i class="fa-solid fa-cart-shopping mx-2"></i>
                         </button>
                         @else
@@ -376,7 +431,7 @@
             <div class="pagination">{{ $data['products']->links('pagination::bootstrap-4') }}</div>
         </div>
 
-    </div>
+    </div>--}}
 </main>
 <!-- Modal -->
 <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
