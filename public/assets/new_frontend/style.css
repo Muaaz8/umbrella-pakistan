@@ -24,6 +24,8 @@
     --new-light-gray-variant: #f9f9f9;
     --star-color: #ffa600;
     --navy-blue: #082755;
+
+    --header-bg-color: #d4edffcc;
 }
 
 * {
@@ -57,6 +59,10 @@ button {
     font-size: 1.125rem !important;
 }
 
+.fs-13 {
+    font-size: 0.8125rem !important;
+}
+
 .fs-14 {
     font-size: 0.875rem !important;
 }
@@ -75,6 +81,14 @@ button {
 
 .fs-28 {
     font-size: 1.75rem !important;
+}
+
+.fs-40 {
+    font-size: 2.5rem !important;
+}
+
+.fs-30 {
+    font-size: 1.95rem !important;
 }
 
 .bg-blue {
@@ -923,6 +937,191 @@ button {
 }
 
 /* New Home Design Styles end */
+
+/* New Header Styles */
+
+.new-header {
+    background-image: url("about-bg.png");
+    background-position: center 5%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+.new-header::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--header-bg-color);
+    border-radius: 0.5rem;
+}
+
+.new-header-inner {
+    position: relative;
+    z-index: 1;
+}
+
+/* New Header Styles End */
+
+/* About Us Styles */
+
+/* Join Section */
+
+.join-us-cards .card {
+    min-height: min(70vh, 400px);
+}
+
+.icon-join {
+    width: 4rem;
+    height: 4rem;
+}
+
+.icon-join img {
+    aspect-ratio: 1/1;
+    filter: invert(1);
+}
+
+@media screen and (min-width: 1440px) {
+    .join-us-cards .card {
+        min-height: min(70vh, 370px);
+    }
+}
+
+/* About Us Styles end */
+
+/* E-Visit Styles Start */
+
+/* Buttons Section */
+.main-buttons .btn:hover {
+    background-color: var(--navy-blue);
+    color: var(--white);
+}
+
+.e-visit-new-image {
+    object-position: center 18%;
+}
+
+/* E-Visit Styles End */
+
+/* Shops Page Styles Start */
+
+.shops-page .new-header {
+    background-image: url("assets/about/shops_image.webp");
+    background-position: center;
+}
+
+.shop-logo {
+    width: 140px;
+    height: 80px;
+}
+
+.vertical-stick {
+    width: 1px;
+    height: 20px;
+    background-color: #747474;
+}
+
+.shops-page .search-container {
+    width: 100%;
+    max-width: none;
+}
+
+.shop-filters {
+    position: sticky;
+    top: 25px;
+}
+
+/* Shops Page Styles End */
+
+/* Pharmacy Page Styles Start */
+
+.medicine-card-section .card {
+    height: 245px;
+}
+
+.new-arrow-icon-2 {
+    width: 25px;
+    height: 25px;
+    border: 2px solid var(--white);
+}
+
+.read-btn-new {
+    bottom: -4%;
+    color: #fe1014;
+    border-color: #fe1014;
+}
+
+.read-btn-new:hover {
+    background-color: #fe1014 !important;
+    color: var(--white) !important;
+    border-color: #fe1014;
+}
+
+/* Pharmacy Page Styles End */
+
+/* Lab Page Styles Start */
+
+.lab-card-section .card {
+    height: 245px;
+}
+
+.lab-card-section .text-overflow {
+    line-clamp: 5;
+    -webkit-line-clamp: 5;
+}
+/* Lab Page Styles End */
+
+/* Our Doctors Styles Start */
+
+.checkbox-wrapper-new input[type="checkbox"] {
+    display: none;
+    visibility: hidden;
+}
+
+.checkbox-wrapper-new label {
+    position: relative;
+    padding-left: 2em;
+    padding-right: 1em;
+    line-height: 2;
+    cursor: pointer;
+    display: inline-flex;
+}
+
+.checkbox-wrapper-new label:before {
+    box-sizing: border-box;
+    content: " ";
+    position: absolute;
+    top: 0.3em;
+    left: 0;
+    display: block;
+    width: 1.4em;
+    height: 1.4em;
+    border: 2px solid #9098a9;
+    border-radius: 6px;
+    z-index: -1;
+}
+
+.checkbox-wrapper-new input[type="checkbox"]:checked + label {
+    padding-left: 1em;
+    color: #0f5229;
+}
+.checkbox-wrapper-new input[type="checkbox"]:checked + label:before {
+    top: 0;
+    width: 100%;
+    height: 2em;
+    background: #b7e6c9;
+    border-color: #2cbc63;
+}
+
+.checkbox-wrapper-new label,
+.checkbox-wrapper-new label::before {
+    transition: 0.25s all ease;
+}
+
+/* Our Doctors Styles End */
 
 .offer-banner > span {
     font-size: 16px;
