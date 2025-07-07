@@ -1009,7 +1009,7 @@ button {
 /* Shops Page Styles Start */
 
 .shops-page .new-header {
-    background-image: url("assets/about/shops_image.webp");
+    background-image: url("shops_image.webp");
     background-position: center;
 }
 

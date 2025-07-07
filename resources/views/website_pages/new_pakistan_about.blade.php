@@ -81,27 +81,28 @@ $page = DB::table('pages')->where('url', '/about-us')->first();
     <section class="pt-5">
         <div class="container-fluid px-0 w-85">
             <div class="row gx-4 gy-3 mx-auto">
-                <div class="ps-0 col-12 col-md-7">
+                <div class="col-12 col-md-7">
                     <div class="row g-3">
                         <div class="col-6">
-                            <img class="rounded-3 w-100 object-fit-cover"
+                            <img class="rounded-3 w-100 object-fit-cover" height="382px"
                                 src="{{ asset('assets/new_frontend/about-1.png') }}" alt="" />
-                            <img class="rounded-3 object-fit-cover h-25 w-100 mt-3"
+                            <img class="rounded-3 object-fit-cover h-25 w-100 mt-3" height="162px"
                                 src="{{ asset('assets/new_frontend/about-2.png') }}" alt="" />
                         </div>
                         <div class="col-6">
                             <div
-                                class="bg-blue text-white p-4 rounded-3 d-flex flex-column justify-content-center text-center h-25 w-100">
+                                class="bg-blue text-white p-4 rounded-3 d-flex flex-column justify-content-center text-center h-25 w-100" height="162px">
                                 <h3 class="text-capitalize fw-semibold">
                                     Over 25+ years experience
                                 </h3>
                             </div>
                             <img class="rounded-3 object-fit-cover w-100 mt-3"
+                            height="382px"
                                 src="{{ asset('assets/new_frontend/about-3.png') }}" alt="" />
                         </div>
                     </div>
                 </div>
-                <div class="pe-0 col-12 col-md-5">
+                <div class="col-12 col-md-5">
                     <div>
                         @php
                         $section = DB::table('section')
