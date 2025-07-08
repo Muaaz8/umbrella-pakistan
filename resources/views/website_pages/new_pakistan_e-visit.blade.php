@@ -114,7 +114,7 @@ $page = DB::table('pages')->where('url', '/e-visit')->first();
             <div class="col-md-4 ps-2">
                 @if (Auth::check())
                 <button onclick="window.location.href='/specializations'"
-                    class="btn w-100 py-3 rounded-3 fs-18 fw-semibold" href="{{ route('e_visit') }}">
+                    class="btn w-100 py-3 rounded-3 fs-18 fw-semibold">
                     Book an Appointment
                 </button>
                 @else
@@ -142,7 +142,7 @@ $page = DB::table('pages')->where('url', '/e-visit')->first();
                 @endif
             </div>
             <div class="col-md-4 pe-2">
-                <button class="btn w-100 py-3 rounded-3 fs-18 fw-semibold" onclick="window.location.href='/labtests'">
+                <button class="btn w-100 py-3 rounded-3 fs-18 fw-semibold" onclick="window.location.href='/shops/labs'">
                     Online Labtest
                 </button>
             </div>
