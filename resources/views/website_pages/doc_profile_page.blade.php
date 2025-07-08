@@ -51,14 +51,15 @@
                     <h5 class="doctor_designation mt-1 fs-20 lh-1 fw-normal">
                         {{ $doctor->specializations->name }}
                     </h5>
-                    <h5 class="doctor_degree mt-1 doctor_designation fs-20 text-new-red lh-1 fw-normal">
-                        {!! nl2br(isset($doctor->details)?$doctor->details->education:"No data available")
-                        !!}
+                    <h5
+                        class="doctor_degree mt-1 doctor_designation text-capitalize fs-6 lh-1 fw-normal {{ !isset($doctor->details) || empty($doctor->details->education) ? 'text-new-red' : 'text-blue' }}">
+                        {!! nl2br(isset($doctor->details) ? $doctor->details->education : "No data available") !!}
                     </h5>
                 </div>
             </div>
             <div class="d-flex align-items-center justify-content-between">
-                <div class="client-rating profile_pic_container h-auto d-flex justify-content-center gap-2 align-items-center">
+                <div
+                    class="client-rating profile_pic_container h-auto d-flex justify-content-center gap-2 align-items-center">
                     @php
                     if($doctor->rating == null){
                     $fullStars = 5.0;

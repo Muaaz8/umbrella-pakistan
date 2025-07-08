@@ -6258,7 +6258,7 @@ header > .header-search-container {
 }
 
 .profile_pic_container > img {
-    object-position: top center;
+    object-position: center 25%;
 }
 
 .doctor_designation {
