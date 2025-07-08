@@ -317,8 +317,8 @@
 @section('content')
 <main class="shops-page">
     <section class="new-header w-85 mx-auto rounded-3">
-        <div class="new-header-inner p-5">
-            <h1 class="fs-40 fw-semibold">{{ $slug!=""?$slug:"Pharmacy" }}</h1>
+        <div class="new-header-inner py-4 px-4">
+            <h1 class="fs-30 mb-0 fw-semibold">{{ $slug!=""?$slug:"Pharmacy" }}</h1>
             <div>
                 <a class="fs-12" href="{{ url('/') }}">Home</a>
                 <span class="mx-1 align-middle">></span>
@@ -328,8 +328,8 @@
             </div>
         </div>
     </section>
-    <section class="page-para my-5 px-5 w-85 mx-auto">
-        <h2 class="fs-30 fw-semibold text-center mb-4">
+    <section class="page-para my-3 px-5 w-85 mx-auto">
+        <h2 class="fs-30 fw-semibold text-center mb-2">
             Community Healthcare Clinics - Medicines
         </h2>
         <p class="fs-14 text-center px-2">
@@ -379,14 +379,14 @@
                                     More</a>
                             </div>
                             <div class="col-md-7 pe-0 d-flex flex-column justify-content-between">
-                                <h5 class="card-title text-blue fw-semibold align-self-end">
+                                <h5 class="card-title fs-6 text-blue fw-semibold align-self-end">
                                     Rs: {{ $item->sale_prices - (($item->sale_prices*$item->discount)/100)}}
                                 </h5>
                                 <div>
-                                    <h5 class="card-title fw-medium text-truncate" title="{{ $item->name }}">{{
+                                    <h5 class="card-title fs-6 fw-medium text-truncate" title="{{ $item->name }}">{{
                                         $item->name }}</h5>
                                     <h6 class="card-subtitle fs-12 fw-medium">15ml</h6>
-                                    <h5 class="card-title mt-2 fw-medium">{{ $item->sub_category_name }}</h5>
+                                    <h6 class="card-title mt-2 fw-medium">{{ $item->sub_category_name }}</h6>
                                 </div>
                                 <a href="{{ route('single_product_view_medicines', ['slug' => $item->slug , 'vendor_id' => $item->vendor_id]) }}"
                                     class="align-self-end fw-semibold d-flex align-items-center gap-1 add-to-cart-btn-new">

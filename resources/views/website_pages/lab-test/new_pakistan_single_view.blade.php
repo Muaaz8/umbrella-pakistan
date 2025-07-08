@@ -59,8 +59,8 @@
 @section('content')
 <main class="shops-page">
     <section class="new-header w-85 mx-auto rounded-3">
-        <div class="new-header-inner p-5">
-            <h1 class="fs-40 fw-semibold">{{ $products[0]->name }}</h1>
+        <div class="new-header-inner p-4">
+            <h1 class="fs-30 mb-0 fw-semibold">{{ $products[0]->name }}</h1>
             <div>
                 <a class="fs-12" href="{{ url('/') }}">Home</a>
                 <span class="mx-1 align-middle">></span>
@@ -69,12 +69,12 @@
             </div>
         </div>
     </section>
-    <div class="row container-fluid w-85 mt-2 mx-auto">
+    <div class="row container-fluid w-85 mt-1 mx-auto">
         <div class="col-md-8 h-100">
             <div
                 class="position-relative  w-100 h-100 p-4 my-3 bg-white pharmacy-page-container border border-1 rounded-3">
                 <div class="d-flex align-items-center justify-content-between pt-5 pt-sm-4">
-                    <h3 class="pt-2 px-2">Detail Description</h3>
+                    <h3 class="pt-2 pe-2">Detail Description</h3>
                     <div class="price-tag">
                         <span class="badge bg-danger px-3 py-2">Rs. {{
                             number_format($products[0]->sale_price,2)}}</span>
@@ -96,7 +96,7 @@
                     </button>
                     @endif
                 </div>
-                <hr class="hr">
+                <hr class="hr my-2">
                 {!! $products[0]->description !!}
 
             </div>

@@ -74,8 +74,8 @@
 @section('content')
 <main class="shops-page">
     <section class="new-header w-85 mx-auto rounded-3">
-        <div class="new-header-inner p-5">
-            <h1 class="fs-40 fw-semibold">{{ $products[0]->name }}</h1>
+        <div class="new-header-inner p-4">
+            <h1 class="fs-30 fw-semibold mb-0">{{ $products[0]->name }}</h1>
             <div>
                 <a class="fs-12" href="{{ url('/') }}">Home</a>
                 <span class="mx-1 align-middle">></span>
@@ -84,11 +84,11 @@
             </div>
         </div>
     </section>
-    <div class="container w-85 my-3 z-3 pharmacy-page-container border border-1 rounded-3">
+    <div class="container w-85 mt-3 mb-1 z-3 pharmacy-page-container border border-1 rounded-3">
 
         @if($products[0]->is_otc == 1)
 
-        <div class="container border border-1 rounded-2 p-3 my-3 medicine_detail_container">
+        <div class="container border border-1 rounded-2 p-3 mb-1 mt-3 medicine_detail_container">
             <div class="row align-items-center">
 
                 <div class="col-md-3 d-flex align-items-center justify-content-start flex-wrap">
@@ -167,7 +167,7 @@
 
 
         <h3 class="text-center p-2"><u>Detail Description</u></h3>
-        <div class="med-description p-4">
+        <div class="med-description pt-0 p-2">
             {!! $products[0]->description !!}
         </div>
     </div>

@@ -77,8 +77,8 @@ $page = DB::table('pages')->where('url', '/e-visit')->first();
 @endphp
 <main class="e-visit-page">
     <section class="new-header w-85 mx-auto rounded-3">
-        <div class="new-header-inner p-5">
-            <h1 class="fs-40 fw-semibold">E-Visit</h1>
+        <div class="new-header-inner p-4">
+            <h1 class="fs-30 mb-0 fw-semibold">E-Visit</h1>
             <div>
                 <a class="fs-12" href="{{ url('/') }}">Home</a>
                 <span class="mx-1 align-middle">></span>
@@ -86,7 +86,7 @@ $page = DB::table('pages')->where('url', '/e-visit')->first();
             </div>
         </div>
     </section>
-    <section class="page-para fs-14 my-5 px-5 mx-2 w-85 mx-auto text-center">
+    <section class="page-para fs-14 my-3 px-5 mx-2 w-85 mx-auto text-center">
         @php
         $section = DB::table('section')
         ->where('page_id', $page->id)
@@ -110,45 +110,45 @@ $page = DB::table('pages')->where('url', '/e-visit')->first();
         @endif
     </section>
     <section class="main-buttons">
-        <div class="row gx-5 justify-content-between py-2 bg-light-blue rounded-3 w-85 mx-auto">
-            <div class="col-md-4 ps-2">
+        <div class="row text-navy-blue gx-5 justify-content-between py-1 bg-light-blue rounded-3 w-85 mx-auto">
+            <div class="col-md-4 ps-1">
                 @if (Auth::check())
                 <button onclick="window.location.href='/specializations'"
-                    class="btn w-100 py-3 rounded-3 fs-18 fw-semibold" href="{{ route('e_visit') }}">
+                    class="btn w-100 py-2 rounded-3 fs-18 fw-semibold" href="{{ route('e_visit') }}">
                     Book an Appointment
                 </button>
                 @else
-                <button class="btn w-100 py-3 rounded-3 fs-18 fw-semibold" data-bs-toggle="modal"
+                <button class="btn w-100 py-2 rounded-3 fs-18 fw-semibold" data-bs-toggle="modal"
                     data-bs-target="#loginModal">
                     Book an Appointment</button>
                 @endif
             </div>
             <div class="col-md-4">
                 @if(!Auth::check())
-                <button class="btn w-100 py-3 rounded-3 fs-18 fw-semibold" data-bs-toggle="modal"
+                <button class="btn w-100 py-2 rounded-3 fs-18 fw-semibold" data-bs-toggle="modal"
                     data-bs-target="#loginModal">
                     Talk to Doctor
                 </button>
                 @elseif(Auth::user()->user_type == 'patient')
-                <button class="btn w-100 py-3 rounded-3 fs-18 fw-semibold"
+                <button class="btn w-100 py-2 rounded-3 fs-18 fw-semibold"
                     onclick="window.location.href='/patient/evisit/specialization'">
                     Talk to Doctor
                 </button>
                 @elseif(Auth::user()->user_type == 'doctor')
-                <button class="btn w-100 py-3 rounded-3 fs-18 fw-semibold"
+                <button class="btn w-100 py-2 rounded-3 fs-18 fw-semibold"
                     onclick="window.location.href='/doctor/patient/queue'">
                     Talk to Doctor
                 </button>
                 @endif
             </div>
-            <div class="col-md-4 pe-2">
-                <button class="btn w-100 py-3 rounded-3 fs-18 fw-semibold" onclick="window.location.href='/labtests'">
+            <div class="col-md-4 pe-1">
+                <button class="btn w-100 py-2 rounded-3 fs-18 fw-semibold" onclick="window.location.href='/labtests'">
                     Online Labtest
                 </button>
             </div>
         </div>
     </section>
-    <section class="py-5">
+    <section class="py-2">
         <div class="row w-85 mx-auto align-items-center gx-4 gy-3">
             <div class="col-sm-6 ps-0">
                 <img height="260px" class="e-visit-new-image rounded-4 w-100 object-fit-cover" src="{{ asset('assets/new_frontend/pharmacy-image.webp') }}"

@@ -118,7 +118,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        min-height: 100%;
+        height: 100%;
     }
 
     .team-image {
@@ -208,8 +208,8 @@
 @endsection @section('content')
 <div class="contact-section2">
     <section class="new-header w-85 mx-auto rounded-3">
-        <div class="new-header-inner p-5">
-            <h1 class="fs-40 fw-semibold">Contact Us</h1>
+        <div class="new-header-inner p-4">
+            <h1 class="fs-30 mb-0 fw-semibold">Contact Us</h1>
             <div>
                 <a class="fs-12" href="{{ url('/') }}">Home</a>
                 <span class="mx-1 align-middle">></span>
@@ -221,7 +221,7 @@
             </div>
         </div>
     </section>
-    <div class="container mt-3 p-4">
+    <div class="container-fluid w-85 mt-1 py-3 px-0">
         <div class="row">
             <div class="col-lg-4 col-md-6 mb-4">
                 <div class="contact-card">
@@ -269,7 +269,7 @@
         <div class="contact-form-section">
             <div class="row no-gutters">
                 <div class="col-lg-4">
-                    <div class="image-container">
+                    <div class="image-container rounded-4">
                         <img
                             src="{{
                                 asset(
@@ -277,7 +277,7 @@
                                 )
                             }}"
                             alt="Medical Team"
-                            class="team-image"
+                            class="team-image rounded-4"
                         />
                     </div>
                 </div>

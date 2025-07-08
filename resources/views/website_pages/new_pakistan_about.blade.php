@@ -69,8 +69,8 @@ $page = DB::table('pages')->where('url', '/about-us')->first();
         </div>
     </div>--}}
     <section class="new-header w-85 mx-auto rounded-3">
-        <div class="new-header-inner p-5">
-            <h1 class="fs-40 fw-semibold">About Us</h1>
+        <div class="new-header-inner p-4">
+            <h1 class="fs-30 mb-0 fw-semibold">About Us</h1>
             <div>
                 <a class="fs-12" href="{{ url('/') }}">Home</a>
                 <span class="mx-1 align-middle">></span>
@@ -78,10 +78,10 @@ $page = DB::table('pages')->where('url', '/about-us')->first();
             </div>
         </div>
     </section>
-    <section class="pt-5">
+    <section class="pt-3">
         <div class="container-fluid px-0 w-85">
             <div class="row gx-4 gy-3 mx-auto">
-                <div class="col-12 col-md-7">
+                <div class="ps-0 col-12 col-md-7">
                     <div class="row g-3">
                         <div class="col-6">
                             <img class="rounded-3 w-100 object-fit-cover" height="382px"
@@ -102,7 +102,7 @@ $page = DB::table('pages')->where('url', '/about-us')->first();
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-md-5">
+                <div class="pe-0 col-12 col-md-5">
                     <div>
                         @php
                         $section = DB::table('section')
@@ -174,9 +174,9 @@ $page = DB::table('pages')->where('url', '/about-us')->first();
         </div>
         <div class="desc-bg"></div>
     </section>--}}
-    <section class="py-5 bg-light-gray-var">
+    <section class="py-4 bg-light-gray-var">
         <div class="row w-85 mx-auto join-us-cards gx-4 gy-4">
-            <div class="col-12 mb-3">
+            <div class="col-12">
                 <h2 class="text-center fw-semibold fs-30 mb-0">
                     Why Should You Join
                 </h2>

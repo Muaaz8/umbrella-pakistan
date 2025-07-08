@@ -36,8 +36,8 @@
 @section('content')
 <main class="shops-page">
     <section class="new-header w-85 mx-auto rounded-3">
-        <div class="new-header-inner p-5">
-            <h1 class="fs-40 fw-semibold">Shops</h1>
+        <div class="new-header-inner p-4">
+            <h1 class="fs-30 mb-0 fw-semibold">Shops</h1>
             <div>
                 <a class="fs-12" href="{{ url('/') }}">Home</a>
                 <span class="mx-1 align-middle">></span>
@@ -48,8 +48,8 @@
             </div>
         </div>
     </section>
-    <section class="page-para my-5 px-5 w-85 mx-auto">
-        <h2 class="fs-30 fw-semibold text-center mb-4">
+    <section class="page-para my-3 px-5 w-85 mx-auto">
+        <h2 class="fs-30 fw-semibold text-center mb-2">
             Community Healthcare Clinics - Shops
         </h2>
         <p class="fs-14 text-center px-2">
@@ -67,11 +67,11 @@
                 <div class="col-12" id="paginationParagraph">
                     {{-- <p class="fw-semibold mb-3">Showing 1-6 of 20 Results</p> --}}
                 </div>
-                <div class="col-md-7 col-xl-8 ps-0" id="loadSearchPharmacyItemByCategory">
+                <div class="col-md-7" id="loadSearchPharmacyItemByCategory">
                     @foreach ($vendors as $key => $vendor)
                     <div class="bg-light-sky-blue rounded-4 mb-3">
                         <div class="card bg-transparent border-0">
-                            <div class="card-body row gx-3 align-items-center">
+                            <div class="card-body p-2 row gx-3 align-items-center">
                                 <div class="col-md-8">
                                     <div class="card-header px-2 bg-transparent border-0 d-flex align-items-center">
                                         <div
@@ -84,8 +84,8 @@
                                         </h5>
                                     </div>
                                     <div class="px-2">
-                                        <h5 class="fs-18 fw-semibold">Address:</h5>
-                                        <p class="card-text fs-14 text-capitalize mb-2">
+                                        <h5 class="fs-18 fw-semibold mb-1">Address:</h5>
+                                        <p class="card-text fs-14 text-capitalize">
                                             {{ $vendor->address }}
                                         </p>
                                         <div class="d-flex align-items-center gap-3">
@@ -125,7 +125,7 @@
                     </div>
                     @endforeach
                 </div>
-                <div class="col-md-5 col-xl-4 pe-0">
+                <div class="col-md-5">
                     <div class="shop-filters">
                         <div
                             class="search-container d-flex align-items-center justify-content-center rounded-3 position-relative">

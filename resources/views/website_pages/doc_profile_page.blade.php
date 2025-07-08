@@ -8,7 +8,8 @@
 @endsection
 
 @section('page_title')
-<title>{{ $doctor->specialization==32?$doctor->gender=="male"?"Mr.":"Ms.":"Dr." }} {{ $doctor->name . ' ' . $doctor->last_name }}</title>
+<title>{{ $doctor->specialization==32?$doctor->gender=="male"?"Mr.":"Ms.":"Dr." }} {{ $doctor->name . ' ' .
+    $doctor->last_name }}</title>
 @endsection
 
 @section('top_import_file')
@@ -20,56 +21,72 @@
 
 @section('content')
 
-<main class="profile_main shops-page our-doctors-page d-flex flex-column align-items-center justify-content-center py-sm-2 py-2">
+<main
+    class="profile_main shops-page our-doctors-page d-flex flex-column align-items-center justify-content-center py-sm-2 py-2">
     <section class="new-header w-100 mb-3 w-85 mx-auto rounded-3">
-        <div class="new-header-inner p-5">
-            <h1 class="fs-40 fw-semibold">Doctor Profile</h1>
+        <div class="new-header-inner p-4">
+            <h1 class="fs-30 mb-0 fw-semibold">Doctor Profile</h1>
             <div>
                 <a class="fs-12" href="{{ url('/') }}">Home</a>
                 <span class="mx-1 align-middle">></span>
-                <button class="fs-12" onclick="window.location.href='/doctor-profile/{{ $doctor->name }}-{{ $doctor->last_name }}'">Doctor Profile</button>
+                <button class="fs-12"
+                    onclick="window.location.href='/doctor-profile/{{ $doctor->name }}-{{ $doctor->last_name }}'">Doctor
+                    Profile</button>
             </div>
         </div>
     </section>
-    <div class="profile_container w-85 row py-4 bg-light-sky-blue rounded-4 w-100">
-        <div class="col-12 col-md-8 d-flex flex-column gap-4">
-            <div class="d-flex flex-column flex-sm-row gap-3">
+    <div class="profile_container w-85 row py-3 bg-light-sky-blue rounded-4 w-100">
+        <div class="col-12 col-md-8 d-flex flex-column gap-3">
+            <div class="d-flex flex-column flex-sm-row align-items-sm-center gap-3">
                 <div>
-                    <div class="profile_pic_container rounded-4 align-self-center align-self-sm-start">
+                    <div class="profile_pic_container bg-white rounded-4 align-self-center align-self-sm-start">
                         <img class="rounded-4 object-fit-cover w-100 h-100" src="{{$doctor->user_image}}" alt="" />
-                    </div>
-                    <div class="client-rating d-flex justify-content-center gap-2 mt-3 align-items-center">
-                        @php
-                            if($doctor->rating == null){
-                                $fullStars = 5.0; // Number of full stars
-                            }else {
-                                $fullStars = floor($doctor->rating / 20); // Number of full stars
-                            }
-                            $halfStar = ($doctor->rating % 20 >= 10) ? 1 : 0; // Check if a half-star is needed
-                            $emptyStars = 5 - ($fullStars + $halfStar); // Remaining stars will be empty
-                        @endphp
-                            @for ($i = 0; $i < $fullStars; $i++)
-                                <span class="fs-18 custom-star text-gold"><i class="fa-solid fa-star"></i></span>
-                            @endfor
-                            @if ($halfStar)
-                                <span class="fs-18 custom-star text-gold"><i class="fa-solid fa-star-half-alt"></i></span>
-                            @endif
-                            @for ($i = 0; $i < $emptyStars; $i++)
-                                <span class="fs-18 custom-star text-gold"><i class="fa-regular fa-star"></i></span>
-                            @endfor
-
                     </div>
                 </div>
                 <div class="lh-1">
-                    <h2 class="doctor_name fs-30 lh-1 fw-semibold">{{ $doctor->specialization==32?$doctor->gender=="male"?"Mr.":"Ms.":"Dr." }} {{ $doctor->name }}<br class="line_break d-none"> {{
+                    <h2 class="doctor_name fs-20 lh-1 fw-semibold">{{
+                        $doctor->specialization==32?$doctor->gender=="male"?"Mr.":"Ms.":"Dr." }} {{ $doctor->name }}<br
+                            class="line_break d-none"> {{
                         $doctor->last_name }}</h2>
-                    <h5 class="doctor_designation mt-3 fs-20 lh-1 fw-normal">
+                    <h5 class="doctor_designation mt-1 fs-20 lh-1 fw-normal">
                         {{ $doctor->specializations->name }}
                     </h5>
-                    <h5 class="doctor_degree mt-3 doctor_designation fs-20 text-new-red lh-1 fw-normal">
+                    <h5 class="doctor_degree mt-1 doctor_designation fs-20 text-new-red lh-1 fw-normal">
                         {!! nl2br(isset($doctor->details)?$doctor->details->education:"No data available")
                         !!}
                     </h5>
+                </div>
+            </div>
+            <div class="d-flex align-items-center justify-content-between">
+                <div class="client-rating profile_pic_container h-auto d-flex justify-content-center gap-2 align-items-center">
+                    @php
+                    if($doctor->rating == null){
+                    $fullStars = 5.0;
+                    }else {
+                    $fullStars = floor($doctor->rating / 20);
+                    }
+                    $halfStar = ($doctor->rating % 20 >= 10) ? 1 : 0;
+                    $emptyStars = 5 - ($fullStars + $halfStar);
+                    @endphp
+                    @for ($i = 0; $i < $fullStars; $i++) <span class="fs-18 custom-star text-gold"><i
+                            class="fa-solid fa-star"></i></span>
+                        @endfor
+                        @if ($halfStar)
+                        <span class="fs-18 custom-star text-gold"><i class="fa-solid fa-star-half-alt"></i></span>
+                        @endif
+                        @for ($i = 0; $i < $emptyStars; $i++) <span class="fs-18 custom-star text-gold"><i
+                                class="fa-regular fa-star"></i></span>
+                            @endfor
+
+                </div>
+                <div class="d-flex align-items-center gap-2">
+                    <span
+                        class="{{ $doctor->status == 'offline' ? 'text-new-red fw-medium' : 'text-secondary' }} fw-medium fs-14">Offline
+                    </span>
+                    <span class="vertical-stick"></span>
+                    <span
+                        class="{{ $doctor->status == 'online' ? 'text-green fw-medium' : 'text-secondary' }} fs-14">Online
+                    </span>
                 </div>
             </div>
 
@@ -83,104 +100,92 @@
                                     <i class="fa-solid fa-clock text-blue"></i>
                                     <span class="appointment-avi ms-1 text-blue fw-semibold">
                                         @php
-                                        $daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-
+                                        $daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday',
+                                        'Saturday'];
 
                                         $todaySchedule = null;
                                         $nextSchedule = null;
 
                                         foreach ($doctor->schedules as $schedule) {
-                                            $currentDay = now()->dayOfWeek;
-                                            $currentTime = now()->setTimezone('Asia/Karachi')->format('h:i A');
-                                            foreach ($daysOfWeek as $index => $day) {
-                                                // Check if today's schedule is available
-                                                if ($index == $currentDay) {
-                                                    // $fromTime = \Carbon\Carbon::parse($schedule->from_time);
-                                                    // $toTime = \Carbon\Carbon::parse($schedule->to_time);
-                                                    $fromTime = $schedule->from_time;
-                                                    $toTime = $schedule->to_time;
+                                        $currentDay = now()->dayOfWeek;
+                                        $currentTime = now()->setTimezone('Asia/Karachi')->format('h:i A');
+                                        foreach ($daysOfWeek as $index => $day) {
+                                        if ($index == $currentDay) {
+                                        $fromTime = $schedule->from_time;
+                                        $toTime = $schedule->to_time;
 
-                                                    $currentTime = DateTime::createFromFormat('h:i A', $currentTime);
-                                                    $fromTime = DateTime::createFromFormat('h:i A', $fromTime);
-                                                    $toTime = DateTime::createFromFormat('h:i A', $toTime);
+                                        $currentTime = DateTime::createFromFormat('h:i A', $currentTime);
+                                        $fromTime = DateTime::createFromFormat('h:i A', $fromTime);
+                                        $toTime = DateTime::createFromFormat('h:i A', $toTime);
 
-                                                    if (
-                                                        ($schedule->mon && $index == 1) ||
-                                                        ($schedule->tues && $index == 2) ||
-                                                        ($schedule->weds && $index == 3) ||
-                                                        ($schedule->thurs && $index == 4) ||
-                                                        ($schedule->fri && $index == 5) ||
-                                                        ($schedule->sat && $index == 6) ||
-                                                        ($schedule->sun && $index == 0)
-                                                    ) {
-                                                        // Check if current time is within today's schedule
-                                                        if ($currentTime < $toTime) {
-                                                            $todaySchedule = [
-                                                                'day' => $day,
-                                                                'from_time' => $fromTime->format('h:i A'),
-                                                                'to_time' => $toTime->format('h:i A'),
-                                                            ];
-                                                            break 2;
-                                                        }
-                                                        // If time is past the 'to_time', look for the next available schedule
-                                                        elseif ($currentTime > $toTime) {
-                                                            continue;
-                                                        }
-                                                        // If the current time is before the 'from_time', use today's schedule
-                                                        elseif ($currentTime < $fromTime) {
-                                                            $todaySchedule = [
-                                                                'day' => $day,
-                                                                'from_time' => $fromTime->format('h:i A'),
-                                                                'to_time' => $toTime->format('h:i A'),
-                                                            ];
-                                                            break 2;
-                                                        }
-                                                    }
+                                        if (
+                                        ($schedule->mon && $index == 1) ||
+                                        ($schedule->tues && $index == 2) ||
+                                        ($schedule->weds && $index == 3) ||
+                                        ($schedule->thurs && $index == 4) ||
+                                        ($schedule->fri && $index == 5) ||
+                                        ($schedule->sat && $index == 6) ||
+                                        ($schedule->sun && $index == 0)
+                                        ) {
+                                        if ($currentTime < $toTime) { $todaySchedule=[ 'day'=> $day,
+                                            'from_time' => $fromTime->format('h:i A'),
+                                            'to_time' => $toTime->format('h:i A'),
+                                            ];
+                                            break 2;
+                                            } elseif ($currentTime > $toTime) {
+                                            continue;
+                                            } elseif ($currentTime < $fromTime) { $todaySchedule=[ 'day'=> $day,
+                                                'from_time' => $fromTime->format('h:i A'),
+                                                'to_time' => $toTime->format('h:i A'),
+                                                ];
+                                                break 2;
+                                                }
+                                                }
                                                 }
 
-                                                // If no schedule found for today, check for the next available schedule
                                                 if (
-                                                    ($schedule->mon && $index == 1) ||
-                                                    ($schedule->tues && $index == 2) ||
-                                                    ($schedule->weds && $index == 3) ||
-                                                    ($schedule->thurs && $index == 4) ||
-                                                    ($schedule->fri && $index == 5) ||
-                                                    ($schedule->sat && $index == 6) ||
-                                                    ($schedule->sun && $index == 0)
+                                                ($schedule->mon && $index == 1) ||
+                                                ($schedule->tues && $index == 2) ||
+                                                ($schedule->weds && $index == 3) ||
+                                                ($schedule->thurs && $index == 4) ||
+                                                ($schedule->fri && $index == 5) ||
+                                                ($schedule->sat && $index == 6) ||
+                                                ($schedule->sun && $index == 0)
                                                 ) {
-                                                    $fromTime = $schedule->from_time;
-                                                    $toTime = $schedule->to_time;
-                                                    $fromTime = DateTime::createFromFormat('h:i A', $fromTime);
-                                                    $toTime = DateTime::createFromFormat('h:i A', $toTime);
+                                                $fromTime = $schedule->from_time;
+                                                $toTime = $schedule->to_time;
+                                                $fromTime = DateTime::createFromFormat('h:i A', $fromTime);
+                                                $toTime = DateTime::createFromFormat('h:i A', $toTime);
 
-                                                    // if ($index > $currentDay || ($index == $currentDay && $currentTime->lt($toTime))) {
-                                                        $nextSchedule = [
-                                                            'day' => $day,
-                                                            'from_time' => $fromTime->format('h:i A'),
-                                                            'to_time' => $toTime->format('h:i A'),
-                                                        ];
-                                                        break 2;
-                                                    // }
+                                                if ($currentTime->lt($toTime)) {
+                                                $nextSchedule = [
+                                                'day' => $day,
+                                                'from_time' => $fromTime->format('h:i A'),
+                                                'to_time' => $toTime->format('h:i A'),
+                                                ];
+                                                break 2; // Fixed invalid break statement
                                                 }
-                                            }
-                                        }
-                                        @endphp
+                                                }
+                                                }
+                                                }
+                                                @endphp
 
-                                        @if ($todaySchedule)
-                                            {{ "Available Today: " }}
-                                        @elseif ($nextSchedule)
-                                            {{ "Available: " . $nextSchedule['day'] }}
-                                        @else
-                                            {{ "No Schedule Available" }}
-                                        @endif
+                                                @if ($todaySchedule)
+                                                {{ "Available Today: " }}
+                                                @elseif ($nextSchedule)
+                                                {{ "Available: " . $nextSchedule['day'] . " from " .
+                                                $nextSchedule['from_time'] . " to " . $nextSchedule['to_time'] }}
+                                                @else
+                                                {{ "No Schedule Available" }}
+                                                @endif
                                     </span>
                                 </div>
 
                                 @if ($todaySchedule || $nextSchedule)
-                                    <span class="appointment-time me-2 fw-bold">
-                                        {{ $todaySchedule ? $todaySchedule['from_time'] . " - " . $todaySchedule['to_time']
-                                        : $nextSchedule['from_time'] . " - " . $nextSchedule['to_time'] }}
-                                    </span>
+                                <span class="appointment-time me-2 fw-bold">
+                                    {{ $todaySchedule ? $todaySchedule['from_time'] . " - " . $todaySchedule['to_time']
+                                    : $nextSchedule['from_time'] . " - " . $nextSchedule['to_time'] }}
+                                </span>
                                 @endif
                             </div>
 
@@ -253,9 +258,6 @@
                 <h3>Short Bio</h3>
                 <ul class="bio_points flex flex-column gap-2 align-items-start">
                     {{ $doctor->bio }}
-                    {{-- <button class="btn fw-bold text-primary p-0 py-2 border-0">
-                        Read More
-                    </button> --}}
                 </ul>
             </div>
             <div class="profile_services">
@@ -265,7 +267,7 @@
                     </div>
                     <h3>Certifications and Licensing</h3>
                 </div>
-                <div class="row gy-3 gx-4 m-3 profile_service">
+                <div class="row gy-3 gx-4 my-1 profile_service">
                     @if (isset($doctor->details->certificates))
                     @foreach ($doctor->details->certificates as $item)
                     <div class="col-md-6 col-12">
@@ -290,7 +292,7 @@
                     </div>
                     <h3>Conditions Treated</h3>
                 </div>
-                <div class="row gy-3 gx-4 m-3 profile_service">
+                <div class="row gy-3 gx-4 my-1 profile_service">
                     @if (isset($doctor->details->conditions))
                     @foreach ($doctor->details->conditions as $item)
                     <div class="col-md-6 col-12">
@@ -315,7 +317,7 @@
                     </div>
                     <h3>Services</h3>
                 </div>
-                <div class="row gy-3 gx-4 m-3 profile_service">
+                <div class="row gy-3 gx-4 my-1 profile_service">
                     @if (isset($doctor->details->procedures))
                     @foreach ($doctor->details->procedures as $item)
                     <div class="col-md-6 col-12">
@@ -379,7 +381,9 @@
                         </button>
 
                         @endif
-                        <span class="bg-blue text-white border-white border-2 new-arrow-icon rounded-circle d-flex align-items-center justify-content-center"><i class="fa-solid fa-arrow-right-long"></i></span>
+                        <span
+                            class="bg-blue text-white border-white border-2 new-arrow-icon rounded-circle d-flex align-items-center justify-content-center"><i
+                                class="fa-solid fa-arrow-right-long"></i></span>
                     </div>
                 </div>
             </div>
@@ -454,7 +458,6 @@
 
 
 <script>
-
     const setCookieFunction = (id, doctor_id , end_time, day) => {
 
     const now = new Date();

@@ -294,8 +294,8 @@
 @section('content')
 <main>
     <section class="new-header w-85 mx-auto rounded-3">
-        <div class="new-header-inner p-5">
-            <h1 class="fs-40 fw-semibold">{{ $vendor->name }}</h1>
+        <div class="new-header-inner p-4">
+            <h1 class="fs-30 mb-0 fw-semibold">{{ $vendor->name }}</h1>
             <div>
                 <a class="fs-12" href="{{ url('/') }}">Home</a>
                 <span class="mx-1 align-middle">></span>
@@ -304,8 +304,8 @@
             </div>
         </div>
     </section>
-    <section class="page-para my-5 px-5 w-85 mx-auto">
-        <h2 class="fs-30 fw-semibold text-center mb-4">
+    <section class="page-para my-3 px-5 w-85 mx-auto">
+        <h2 class="fs-30 fw-semibold text-center mb-2">
             Community Healthcare Clinics - Labtests
         </h2>
         <p class="fs-14 text-center px-2">
@@ -332,11 +332,11 @@
                 @foreach ($data['products'] as $item)
                 <div class="col-md-4">
                     <div class="card rounded-4 border-0 bg-light-sky-blue">
-                        <div class="card-body ps-4 pe-3">
+                        <div class="card-body py-2 ps-3 pe-2">
                             <div class="pe-0 h-100 d-flex flex-column justify-content-between">
-                                <h5 class="card-title text-blue fw-semibold align-self-end">
+                                <h6 class="card-title text-blue fw-semibold align-self-end">
                                     Rs. {{ number_format($item->sale_price,2) }}
-                                </h5>
+                                </h6>
                                 <div>
                                     <h5 class="card-title fs-6 fw-semibold mb-2">
                                         {{$item->name}}
