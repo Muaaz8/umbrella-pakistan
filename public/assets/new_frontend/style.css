@@ -74,6 +74,10 @@ button {
     font-size: 0.75rem !important;
 }
 
+.fs-20 {
+    font-size: 1.25rem !important;
+}
+
 .fs-22 {
     font-size: 1.375rem !important;
 }
@@ -1150,7 +1154,7 @@ button {
 }
 
 .doc-new-profile img{
-  object-position: center top;
+  object-position: center 25%;
 }
 
 .new-indicator {
@@ -6252,8 +6256,8 @@ header > .header-search-container {
 }
 
 .profile_pic_container {
-    width: 14.625rem;
-    height: 13.0625rem;
+    width: 13.625rem;
+    height: 12.0625rem;
     overflow: hidden;
 }
 
@@ -6293,11 +6297,22 @@ header > .header-search-container {
     border-bottom-left-radius: 1.75rem !important;
     border-bottom-right-radius: 1.75rem !important;
     background: #ffffff3f;
-    top: 20px;
+    top: 5px;
+    bottom: 5px;
+}
+
+.doctor_info h3 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
 }
 
 .doctor_info .new-arrow-icon {
     border: 2px solid white;
+}
+
+.doctor_experience div:first-child div {
+    font-size: 14px;
 }
 
 .appointment-date-container .accordion-button:not(.collapsed) {

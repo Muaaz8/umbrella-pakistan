@@ -43,16 +43,16 @@
                         <img class="rounded-4 object-fit-cover w-100 h-100" src="{{$doctor->user_image}}" alt="" />
                     </div>
                 </div>
-                <div class="lh-1">
-                    <h2 class="doctor_name fs-20 lh-1 fw-semibold">{{
+                <div class="lh-1 d-flex flex-column align-items-start gap-1">
+                    <h2 class="doctor_name fs-20 my-0 fw-semibold">{{
                         $doctor->specialization==32?$doctor->gender=="male"?"Mr.":"Ms.":"Dr." }} {{ $doctor->name }}<br
                             class="line_break d-none"> {{
                         $doctor->last_name }}</h2>
-                    <h5 class="doctor_designation mt-1 fs-20 lh-1 fw-normal">
+                    <h5 class="doctor_designation my-0 fs-6 lh-1 fw-normal">
                         {{ $doctor->specializations->name }}
                     </h5>
                     <h5
-                        class="doctor_degree mt-1 doctor_designation text-capitalize fs-6 lh-1 fw-normal {{ !isset($doctor->details) || empty($doctor->details->education) ? 'text-new-red' : 'text-blue' }}">
+                        class="doctor_degree mt-1 mb-0 doctor_designation text-capitalize fs-14 lh-1 fw-normal {{ !isset($doctor->details) || empty($doctor->details->education) ? 'text-new-red' : 'text-blue' }}">
                         {!! nl2br(isset($doctor->details) ? $doctor->details->education : "No data available") !!}
                     </h5>
                 </div>
@@ -94,12 +94,12 @@
             <div class="accordion appointment-date-container" id="accordionExample">
                 <div class="accordion-item border-blue-2">
                     <h2 class="accordion-header">
-                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        <button class="accordion-button p-3 collapsed" type="button" data-bs-toggle="collapse"
                             data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
                             <div class="accordion-btn-inside d-flex justify-content-between w-100">
                                 <div>
                                     <i class="fa-solid fa-clock text-blue"></i>
-                                    <span class="appointment-avi ms-1 text-blue fw-semibold">
+                                    <span class="appointment-avi ms-1 text-blue fw-medium fs-14">
                                         @php
                                         $daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday',
                                         'Saturday'];
@@ -183,7 +183,7 @@
                                 </div>
 
                                 @if ($todaySchedule || $nextSchedule)
-                                <span class="appointment-time me-2 fw-bold">
+                                <span class="appointment-time me-2 fs-14 fw-semibold">
                                     {{ $todaySchedule ? $todaySchedule['from_time'] . " - " . $todaySchedule['to_time']
                                     : $nextSchedule['from_time'] . " - " . $nextSchedule['to_time'] }}
                                 </span>
@@ -193,7 +193,7 @@
                         </button>
                     </h2>
                     <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                        <div class="accordion-body d-flex flex-column gap-2">
+                        <div class="accordion-body p-3 d-flex flex-column gap-2">
                             @forelse ($doctor->schedules as $schedule)
                             @if ($schedule->mon == 1)
                             <div onclick="setCookieFunction({{ $schedule->id }},{{ $schedule->user_id }},'{{ $schedule->to_time }}', 'Monday')"
@@ -246,7 +246,7 @@
                             @endif
                             @empty
                             <div class="d-flex justify-content-between w-100">
-                                <span>No Schedule Available</span>
+                                <span class="fs-14 fw-medium">No Schedule Available</span>
                             </div>
                             @endforelse
                         </div>
@@ -256,31 +256,31 @@
 
 
             <div>
-                <h3>Short Bio</h3>
+                <h3 class="fs-22 mb-0 fw-semibold">Short Bio</h3>
                 <ul class="bio_points flex flex-column gap-2 align-items-start">
                     {{ $doctor->bio }}
                 </ul>
             </div>
             <div class="profile_services">
                 <div class="profile_icon d-flex align-items-center gap-2">
-                    <div class="icon_container rounded-circle d-flex p-2 x bg-primary">
-                        <i class="fa-solid fa-hospital-user fs-4 p-1"></i>
+                    <div class="icon_container rounded-circle d-flex p-1 x bg-primary">
+                        <i class="fa-solid fa-hospital-user fs-6 p-1"></i>
                     </div>
-                    <h3>Certifications and Licensing</h3>
+                    <h3 class="fs-20 fw-normal">Certifications and Licensing</h3>
                 </div>
-                <div class="row gy-3 gx-4 my-1 profile_service">
+                <div class="row gy-2 gx-3 mt-1 profile_service">
                     @if (isset($doctor->details->certificates))
                     @foreach ($doctor->details->certificates as $item)
                     <div class="col-md-6 col-12">
                         <div class="d-flex align-items-center gap-3 rounded-3 border-blue-2 py-2 px-3">
-                            <p class="text-blue">{{$item}}</p>
+                            <p class="text-blue fs-14 fw-medium">{{$item}}</p>
                         </div>
                     </div>
                     @endforeach
                     @else
                     <div class="col-12">
                         <div class="d-flex align-items-center gap-3 rounded-3 border-blue-2 py-2 px-3">
-                            <p class="text-blue">No Data Available</p>
+                            <p class="text-blue fs-14 fw-medium">No Data Available</p>
                         </div>
                     </div>
                     @endif
@@ -288,24 +288,24 @@
             </div>
             <div class="licensing">
                 <div class="profile_icon d-flex align-items-center gap-2">
-                    <div class="icon_container rounded-circle d-flex p-2 x bg-primary">
-                        <i class="fa-solid fa-stamp fs-4 p-1"></i>
+                    <div class="icon_container rounded-circle d-flex p-1 x bg-primary">
+                        <i class="fa-solid fa-stamp fs-6 p-1"></i>
                     </div>
-                    <h3>Conditions Treated</h3>
+                    <h3 class="fs-20 fw-normal">Conditions Treated</h3>
                 </div>
-                <div class="row gy-3 gx-4 my-1 profile_service">
+                <div class="row gy-2 gx-3 mt-1 profile_service">
                     @if (isset($doctor->details->conditions))
                     @foreach ($doctor->details->conditions as $item)
                     <div class="col-md-6 col-12">
                         <div class="d-flex align-items-center gap-3 rounded-3 border-blue-2 py-2 px-3">
-                            <p class="text-blue">{{$item}}</p>
+                            <p class="text-blue fs-14 fw-medium">{{$item}}</p>
                         </div>
                     </div>
                     @endforeach
                     @else
                     <div class="col-12">
                         <div class="d-flex align-items-center gap-3 rounded-3 border-blue-2 py-2 px-3">
-                            <p class="text-blue">No Data Available</p>
+                            <p class="text-blue fs-14 fw-medium">No Data Available</p>
                         </div>
                     </div>
                     @endif
@@ -313,24 +313,24 @@
             </div>
             <div class="doctor_services">
                 <div class="profile_icon d-flex align-items-center gap-2">
-                    <div class="icon_container rounded-circle d-flex p-2 x bg-primary">
-                        <i class="fa-solid fa-hospital-user fs-4 p-1"></i>
+                    <div class="icon_container rounded-circle d-flex p-1 x bg-primary">
+                        <i class="fa-solid fa-hospital-user fs-6 p-1"></i>
                     </div>
-                    <h3>Services</h3>
+                    <h3 class="fs-20 fw-normal">Services</h3>
                 </div>
-                <div class="row gy-3 gx-4 my-1 profile_service">
+                <div class="row gy-2 gx-3 mt-1 profile_service">
                     @if (isset($doctor->details->procedures))
                     @foreach ($doctor->details->procedures as $item)
                     <div class="col-md-6 col-12">
                         <div class="d-flex align-items-center gap-3 rounded-3 border-blue-2 py-2 px-3">
-                            <p class="text-blue">{{$item}}</p>
+                            <p class="text-blue fs-14 fw-medium">{{$item}}</p>
                         </div>
                     </div>
                     @endforeach
                     @else
                     <div class="col-12">
                         <div class="d-flex align-items-center gap-3 rounded-3 border-blue-2 py-2 px-3">
-                            <p class="text-blue">No Data Available</p>
+                            <p class="text-blue fs-14 fw-medium">No Data Available</p>
                         </div>
                     </div>
                     @endif
@@ -340,24 +340,24 @@
         <div class="d-flex gap-3 mt-3 mt-md-0 gap-md-5 col-12 col-md-4 flex-md-column flex-column-reverse">
             <div class="doctor_info border-blue-2 rounded-4 d-flex flex-column gap-2 position-sticky overflow-hidden">
                 <h3 class="ps-4 pt-4 pr-4"><u>About the Doctor</u></h3>
-                <div class="doctor_experience d-flex flex-column gap-3">
+                <div class="doctor_experience d-flex flex-column gap-2">
                     <div class="d-flex gap-2 align-items-baseline ps-4 pe-4">
                         <i class="fa-solid fa-user-plus"></i>
-                        <div class="">
+                        <div class="fs-14">
                             {{ isset($doctor->details->about)?$doctor->details->about:"No data available" }}
                         </div>
                     </div>
                     <div class="d-flex gap-2 align-items-baseline ps-4 pe-4">
                         <i class="fa-solid fa-location-dot"></i>
-                        <div class="ps-2">
+                        <div class="ps-2 fs-14">
                             {{ isset($doctor->details->location)?$doctor->details->location:"No data available"}}
                         </div>
                     </div>
                     @if ($doctor->rating != null)
-                    <div class="d-flex gap-2 my-3 align-items-baseline ps-4 pe-4">
+                    <div class="d-flex gap-2 align-items-baseline ps-4 pe-4">
                         <i class="fa-regular fa-comment-dots"></i>
                         <div class="ps-1">
-                            <h6>{{$doctor->rating}}% Recommended</h6>
+                            <h6 class="fs-14">{{$doctor->rating}}% Recommended</h6>
                         </div>
                     </div>
                     @endif
@@ -365,18 +365,18 @@
                         class="appointment_btn btn bg-blue border-0 d-flex align-items-center gap-2 justify-content-center w-100">
                         @if (Auth::check())
                         @if ($doctor->zip_code != "")
-                        <button class="py-2 bg-transparent border-0 text-white" data-bs-toggle="modal"
+                        <button class="py-2 bg-transparent border-0 fs-14 text-white" data-bs-toggle="modal"
                             data-bs-target="#appointmentModal">
                             Book Appointment with American Doctor
                         </button>
                         @else
-                        <button class="py-2 bg-transparent border-0 text-white"
+                        <button class="py-2 bg-transparent border-0 fs-14 text-white"
                             onclick="window.location.href='/view/doctor/{{ \Crypt::encrypt($doctor->id) }}'">
                             Book Appointment Now
                         </button>
                         @endif
                         @else
-                        <button class="py-2 bg-transparent border-0 text-white" data-bs-toggle="modal"
+                        <button class="py-2 bg-transparent fs-14 border-0 text-white" data-bs-toggle="modal"
                             data-bs-target="#loginModal">
                             Book Appointment Now
                         </button>
