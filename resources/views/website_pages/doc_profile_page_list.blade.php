@@ -110,8 +110,8 @@
                                                 </div>
                                                 <div class="w-100">
                                                     <div class="card-header px-0 bg-transparent border-0 w-100">
-                                                        <div class="w-100 d-flex align-items-center justify-content-between gap-2">
-                                                            <h4 class="mb-0 card-title fs-18 text-truncate w-65 fw-semibold">
+                                                        <div class="w-100 d-flex align-items-center justify-content-between flex-wrap gap-2">
+                                                            <h4 class="mb-0 card-title fs-18 text-truncate  fw-semibold">
                                                                 ${element.specialization == 32 ? (element.gender == "male" ? "Mr." : "Ms.") : "Dr."} ${element.name} ${element.last_name}
                                                             </h4>
                                                             <div class="client-rating gap-small text-gold fs-6 mt-0 d-flex align-items-center">
@@ -178,8 +178,8 @@
                                                 </div>
                                                 <div class="w-100">
                                                     <div class="card-header px-0 bg-transparent border-0 w-100">
-                                                        <div class="w-100 d-flex align-items-center justify-content-between gap-2">
-                                                            <h4 class="mb-0 card-title fs-18 text-truncate w-65 fw-semibold">
+                                                        <div class="w-100 d-flex align-items-center justify-content-between flex-wrap gap-2">
+                                                            <h4 class="mb-0 card-title fs-18 text-truncate  fw-semibold">
                                                                 ${element.specialization == 32 ? (element.gender == "male" ? "Mr." : "Ms.") : "Dr."} ${element.name} ${element.last_name}
                                                             </h4>
                                                             <div class="client-rating gap-small text-gold fs-6 mt-0 d-flex align-items-center">
@@ -279,8 +279,8 @@
                                                 </div>
                                                 <div class="w-100">
                                                     <div class="card-header px-0 bg-transparent border-0 w-100">
-                                                        <div class="w-100 d-flex align-items-center justify-content-between gap-2">
-                                                            <h4 class="mb-0 card-title fs-18 text-truncate w-65 fw-semibold">
+                                                        <div class="w-100 d-flex align-items-center justify-content-between flex-wrap gap-2">
+                                                            <h4 class="mb-0 card-title fs-18 text-truncate  fw-semibold">
                                                                 ${element.specialization == 32 ? (element.gender == "male" ? "Mr." : "Ms.") : "Dr."} ${element.name} ${element.last_name}
                                                             </h4>
                                                             <div class="client-rating gap-small text-gold fs-6 mt-0 d-flex align-items-center">
@@ -346,8 +346,8 @@
                                                 </div>
                                                 <div class="w-100">
                                                     <div class="card-header px-0 bg-transparent border-0 w-100">
-                                                        <div class="w-100 d-flex align-items-center justify-content-between gap-2">
-                                                            <h4 class="mb-0 card-title fs-18 text-truncate w-65 fw-semibold">
+                                                        <div class="w-100 d-flex align-items-center justify-content-between flex-wrap gap-2">
+                                                            <h4 class="mb-0 card-title fs-18 text-truncate  fw-semibold">
                                                                 ${element.specialization == 32 ? (element.gender == "male" ? "Mr." : "Ms.") : "Dr."} ${element.name} ${element.last_name}
                                                             </h4>
                                                             <div class="client-rating gap-small text-gold fs-6 mt-0 d-flex align-items-center">
@@ -440,8 +440,8 @@
                                                 </div>
                                                 <div class="w-100">
                                                     <div class="card-header px-0 bg-transparent border-0 w-100">
-                                                        <div class="w-100 d-flex align-items-center justify-content-between gap-2">
-                                                            <h4 class="mb-0 card-title fs-18 text-truncate w-65 fw-semibold">
+                                                        <div class="w-100 d-flex align-items-center justify-content-between flex-wrap gap-2">
+                                                            <h4 class="mb-0 card-title fs-18 text-truncate  fw-semibold">
                                                                 ${element.specialization == 32 ? (element.gender == "male" ? "Mr." : "Ms.") : "Dr."} ${element.name} ${element.last_name}
                                                             </h4>
                                                             <div class="client-rating gap-small text-gold fs-6 mt-0 d-flex align-items-center">
@@ -508,8 +508,8 @@
                                                 </div>
                                                 <div class="w-100">
                                                     <div class="card-header px-0 bg-transparent border-0 w-100">
-                                                        <div class="w-100 d-flex align-items-center justify-content-between gap-2">
-                                                            <h4 class="mb-0 card-title fs-18 text-truncate w-65 fw-semibold">
+                                                        <div class="w-100 d-flex align-items-center justify-content-between flex-wrap gap-2">
+                                                            <h4 class="mb-0 card-title fs-18 text-truncate  fw-semibold">
                                                                 ${element.specialization == 32 ? (element.gender == "male" ? "Mr." : "Ms.") : "Dr."} ${element.name} ${element.last_name}
                                                             </h4>
                                                             <div class="client-rating gap-small text-gold fs-6 mt-0 d-flex align-items-center">
@@ -604,7 +604,8 @@
             <div class="row gy-2 gx-0 mx-auto w-85">
                 <div class="col-12 px-0 bg-white d-flex justify-content-between mb-1 align-items-center">
                     <div class="row w-100 gx-0 gy-3">
-                        <div class="col-lg-8 d-flex flex-wrap flex-sm-no-wrap flex-sm-row justify-content-between justify-content-lg-start align-items-center gap-2">
+                        <div
+                            class="col-lg-8 d-flex flex-wrap flex-sm-no-wrap flex-sm-row justify-content-between justify-content-lg-start align-items-center gap-2">
                             <div onclick="select_doc(2)" class="checkbox-wrapper-new">
                                 <input checked type="radio" name="cb" id="cb-47" value="2" />
                                 <label for="cb-47">All Doctors</label>
@@ -634,7 +635,7 @@
                     </div>
                 </div>
                 <div class="col-12 px-0">
-                    <div class="col-lg-4 d-flex justify-content-md-end mt-0">
+                    <div class="col-lg-4 ms-lg-auto mt-0">
                         <select class="text-secondary form-select border-blue-2 py-2 rounded-3" id="specialization"
                             name="specialization">
                             <option value="0">All Specializations</option>
@@ -668,15 +669,16 @@
                                 </div>
                                 <div class="w-100">
                                     <div class="card-header px-0 bg-transparent border-0 w-100">
-                                        <div class="w-100 d-flex align-items-center justify-content-between flex-wrap gap-2">
+                                        <div
+                                            class="w-100 d-flex align-items-center justify-content-between flex-wrap gap-2">
                                             @if ($doctor->specialization != '32' && $doctor->zip_code == null)
-                                            <h4 class="mb-0 card-title fs-18 text-truncate w-65 fw-semibold">
+                                            <h4 class="mb-0 card-title fs-18 text-truncate  fw-semibold">
                                                 Dr.
                                                 {{ \Str::ucfirst($doctor->name) . ' ' .
                                                 \Str::ucfirst($doctor->last_name) }}
                                             </h4>
                                             @else
-                                            <h4 class="mb-0 card-title fs-18 text-truncate w-65 fw-semibold">
+                                            <h4 class="mb-0 card-title fs-18 text-truncate  fw-semibold">
                                                 {{ $doctor->gender == 'male' ? 'Mr.' : 'Ms.' }}
                                                 {{ \Str::ucfirst($doctor->name) . ' ' .
                                                 \Str::ucfirst($doctor->last_name) }}

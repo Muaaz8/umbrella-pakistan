@@ -62,71 +62,10 @@
         </p>
     </section>
     <section class="shop-container">
-        <div class="container-fluid">
-            <div class="row gx-3 w-85 mx-auto main-card-container">
-                <div class="col-12" id="paginationParagraph">
-                    {{-- <p class="fw-semibold mb-3">Showing 1-6 of 20 Results</p> --}}
-                </div>
-                <div class="col-md-7" id="loadSearchPharmacyItemByCategory">
-                    @foreach ($vendors as $key => $vendor)
-                    <div class="bg-light-sky-blue rounded-4 mb-3">
-                        <div class="card bg-transparent border-0">
-                            <div class="card-body p-2 row gx-3 align-items-center">
-                                <div class="col-md-8">
-                                    <div class="card-header px-2 bg-transparent border-0 d-flex align-items-center">
-                                        <div
-                                            class="shop-logo bg-white rounded-4 d-flex align-items-center justify-content-center p-2 overflow-hidden">
-                                            <img class="object-fit-contain w-100 h-100" src="{{$vendor->image}}"
-                                                alt="" />
-                                        </div>
-                                        <h5 class="card-title fs-20 fw-semibold ms-2">
-                                            {{ $vendor->name }}
-                                        </h5>
-                                    </div>
-                                    <div class="px-2">
-                                        <h5 class="fs-18 fw-semibold mb-1">Address:</h5>
-                                        <p class="card-text fs-14 text-capitalize">
-                                            {{ $vendor->address }}
-                                        </p>
-                                        <div class="d-flex align-items-center gap-3">
-                                            <div
-                                                class="client-rating gap-small text-gold fs-6 mt-0 d-flex align-items-center">
-                                                <span class="fs-18">★</span>
-                                                <span class="fs-18">★</span>
-                                                <span class="fs-18">★</span>
-                                                <span class="fs-18">★</span>
-                                                <span class="fs-18">★</span>
-                                                <span class="fs-14 text-black ms-2">(17)</span>
-                                            </div>
-                                            <span class="vertical-stick"></span>
-                                            <p class="fs-14">24/7 Available</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="d-flex flex-column align-items-center justify-content-end">
-                                        <a class="cursor-pointer d-none d-sm-flex mt-4 py-2 bg-zinc d-flex align-items-center justify-content-between gap-2 rounded-5 text-white consult-btn mb-2"
-                                            @if ($vendor->vendor == 'pharmacy') href="{{ route('pharmacy_products',
-                                            ['id' => $vendor->id,'sub_id'=>request()->query('sub_id', null)]) }}"
-                                            @elseif ($vendor->vendor == 'labs') href="{{ route('labs_products', ['id' =>
-                                            $vendor->id]) }}" @endif>
-                                            <span class="fs-14 fw-semibold ps-xl-4 ps-3">View Products</span>
-                                            <span
-                                                class="bg-blue me-2 rounded-circle new-arrow-icon d-flex align-items-center justify-content-center"><i
-                                                    class="fa-solid fa-arrow-right"></i></span>
-                                        </a>
-                                        <p class="fs-12 text-center">
-                                            Available Products: {{$vendor->products_count}}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    @endforeach
-                </div>
-                <div class="col-md-5">
-                    <div class="shop-filters">
+        <div class="container-fluid px-0">
+            <div class="row gx-0 w-85 mx-auto main-card-container">
+                <div class="row w-100 justify-content-between align-items-center gy-2 gx-0">
+                    <div class="col-md-5">
                         <div
                             class="search-container d-flex align-items-center justify-content-center rounded-3 position-relative">
                             <input class="search-bar px-3 py-2" type="search" name="search"
@@ -134,20 +73,85 @@
                             <button class="px-3 py-2 search-icon searchPharmacyProduct"><i
                                     class="fa-solid fa-magnifying-glass"></i></button>
                         </div>
-                        <div class="mt-3">
-                            <select placeholder="select by location" id="category" onchange="changed(this)"
-                                class="text-secondary form-select border-blue-2 py-2 rounded-3" name="category">
-                                <option value="all">Select by location</option>
-                                @foreach ($locations as $location)
-                                <option value="{{ $location->id }}" {{ request()->get('location') == $location->id ?
-                                    'selected'
-                                    : '' }}>
-                                    {{ $location->name }}
-                                </option>
-                                @endforeach
-                            </select>
+                    </div>
+                    <div class="col-md-5">
+                        <select placeholder="select by location" id="category" onchange="changed(this)"
+                            class="text-secondary form-select border-blue-2 py-2 rounded-3" name="category">
+                            <option value="all">Select by location</option>
+                            @foreach ($locations as $location)
+                            <option value="{{ $location->id }}" {{ request()->get('location') == $location->id ?
+                                'selected'
+                                : '' }}>
+                                {{ $location->name }}
+                            </option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="col-12" id="paginationParagraph">
+                    {{-- <p class="fw-semibold mb-3">Showing 1-6 of 20 Results</p> --}}
+                </div>
+                <div class="row w-100 gx-3 mx-auto mt-3 px-0" id="loadSearchPharmacyItemByCategory">
+                    @foreach ($vendors as $key => $vendor)
+                    <div class="col-lg-6">
+                        <div class="bg-light-sky-blue rounded-4 mb-3">
+                            <div class="card bg-transparent border-0">
+                                <div class="card-body p-2 d-flex flex-column justify-content-between">
+                                    <div
+                                        class="card-header px-2 bg-transparent border-0 d-flex align-items-sm-center flex-sm-row flex-column">
+                                        <div
+                                            class="shop-logo bg-white rounded-4 d-flex align-items-center justify-content-center p-2 overflow-hidden">
+                                            <img class="object-fit-contain w-100 h-100" src="{{$vendor->image}}"
+                                                alt="" />
+                                        </div>
+                                        <h5 class="card-title mt-2 fs-20 fw-semibold ms-sm-2 ms-0">
+                                            {{ $vendor->name }}
+                                        </h5>
+                                    </div>
+                                    <div
+                                        class="d-flex align-items-sm-end align-items-stretch justify-content-between  flex-sm-row flex-column align-items-center">
+                                        <div class="px-2">
+                                            <h5 class="fs-18 fw-semibold mb-1">Address:</h5>
+                                            <p class="card-text fs-14 text-capitalize">
+                                                {{ $vendor->address }}
+                                            </p>
+                                            <div class="d-flex align-items-center justify-content-sm-start gap-2">
+                                                <div
+                                                    class="client-rating gap-small text-gold fs-6 mt-0 d-flex align-items-center">
+                                                    <span class="fs-18">★</span>
+                                                    <span class="fs-18">★</span>
+                                                    <span class="fs-18">★</span>
+                                                    <span class="fs-18">★</span>
+                                                    <span class="fs-18">★</span>
+                                                    <span class="fs-14 text-black ms-1">(17)</span>
+                                                </div>
+                                                <span class="vertical-stick"></span>
+                                                <p class="fs-14">24/7 Available</p>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="d-flex flex-column align-items-center align-items-sm-center justify-content-end w-max ms-auto">
+                                            <a class="cursor-pointer d-flex mt-2 mt-sm-0 py-2 bg-zinc d-flex align-items-center justify-content-between gap-2 rounded-5 text-white consult-btn mb-2"
+                                                @if ($vendor->vendor == 'pharmacy') href="{{ route('pharmacy_products',
+                                                ['id' => $vendor->id,'sub_id'=>request()->query('sub_id', null)]) }}"
+                                                @elseif ($vendor->vendor == 'labs') href="{{ route('labs_products',
+                                                ['id' =>
+                                                $vendor->id]) }}" @endif>
+                                                <span class="fs-14 fw-semibold ps-xl-4 ps-3">View Products</span>
+                                                <span
+                                                    class="bg-blue me-2 rounded-circle new-arrow-icon d-flex align-items-center justify-content-center"><i
+                                                        class="fa-solid fa-arrow-right"></i></span>
+                                            </a>
+                                            <p class="fs-12 text-center">
+                                                Available Products: {{$vendor->products_count}}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -202,7 +206,7 @@
         function updateVendorsContainer(vendors, pagination) {
             const paginationPara = document.querySelector('#paginationParagraph');
             const container = document.getElementById('loadSearchPharmacyItemByCategory');
-            container.innerHTML = ''; 
+            container.innerHTML = '';
             if (!vendors || vendors.length == 0) {
                 document.getElementById('paginationContainer').innerHTML = '';
                 return;
@@ -210,9 +214,8 @@
 
             if (vendors && pagination && vendors.length > 0) {
                 paginationPara.innerHTML = `
-                        <p class="fw-semibold mb-3">Showing ${vendors.length === 0 ? 0 : 1}-${vendors.length} of ${pagination.per_page} Results</p>`
+                        <p class="fw-semibold mt-2">Showing ${vendors.length === 0 ? 0 : 1}-${vendors.length} of ${pagination.per_page} Results</p>`
             }
-
             let html = '';
             vendors.forEach(vendor => {
                 const viewProductsRoute = vendor.vendor === 'pharmacy'
@@ -220,25 +223,28 @@
                     : `{{ route('labs_products', ['id' => '__ID__']) }}`.replace('__ID__', vendor.id);
 
                 html += `
+                <div class="col-lg-6">
                     <div class="bg-light-sky-blue rounded-4 mb-3">
                         <div class="card bg-transparent border-0">
-                            <div class="card-body row gx-3 align-items-center">
-                                <div class="col-md-8">
-                                    <div class="card-header px-2 bg-transparent border-0 d-flex align-items-center">
+                            <div class="card-body p-2 d-flex flex-column justify-content-between">
+                                    <div class="card-header px-2 bg-transparent border-0 d-flex align-items-sm-center flex-sm-row flex-column">
                                         <div
                                             class="shop-logo bg-white rounded-4 d-flex align-items-center justify-content-center p-2 overflow-hidden">
                                             <img class="object-fit-contain w-100 h-100" src="${vendor.image}" alt="" />
                                         </div>
-                                        <h5 class="card-title fs-20 fw-semibold ms-2">
+                                        <h5 class="card-title mt-2 fs-20 fw-semibold ms-sm-2 ms-0">
                                             ${vendor.name}
                                         </h5>
                                     </div>
+                                <div class="d-flex align-items-sm-end align-items-stretch justify-content-between  flex-sm-row flex-column align-items-center">
                                     <div class="px-2">
-                                        <h5 class="fs-18 fw-semibold">Address:</h5>
-                                        <p class="card-text fs-14 text-capitalize mb-2">
+                                        <h5 
+                                            class="fs-18 fw-semibold mb-1">Address:
+                                        </h5>
+                                        <p class="card-text fs-14 text-capitalize">
                                             ${vendor.address}
                                         </p>
-                                        <div class="d-flex align-items-center gap-3">
+                                        <div class="d-flex align-items-center justify-content-sm-start gap-2">
                                             <div
                                                 class="client-rating gap-small text-gold fs-6 mt-0 d-flex align-items-center">
                                                 <span class="fs-18">★</span>
@@ -248,20 +254,25 @@
                                                 <span class="fs-18">★</span>
                                                 <span class="fs-14 text-black ms-2">(17)</span>
                                             </div>
-                                            <span class="vertical-stick"></span>
-                                            <p class="fs-14">24/7 Available</p>
+                                            <span 
+                                                class="vertical-stick">
+                                            </span>
+                                            <p 
+                                                class="fs-14">24/7 Available
+                                            </p>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="d-flex flex-column align-items-center justify-content-end">
+                                    <div class="d-flex flex-column align-items-center align-items-sm-center justify-content-end w-max ms-auto">
                                         <a
-                                            class="cursor-pointer d-none d-sm-flex mt-4 py-2 bg-zinc d-flex align-items-center justify-content-between gap-2 rounded-5 text-white consult-btn mb-2"
+                                            class="cursor-pointer d-flex mt-2 mt-sm-0 py-2 bg-zinc d-flex align-items-center justify-content-between gap-2 rounded-5 text-white consult-btn mb-2"
                                             href="${viewProductsRoute}">
-                                            <span class="fs-14 fw-semibold ps-xl-4 ps-3">View Products</span>
+                                            <span 
+                                                class="fs-14 fw-semibold ps-xl-4 ps-3">View Products
+                                            </span>
                                             <span
                                                 class="bg-blue me-2 rounded-circle new-arrow-icon d-flex align-items-center justify-content-center"><i
-                                                    class="fa-solid fa-arrow-right"></i></span>
+                                                    class="fa-solid fa-arrow-right"></i>
+                                            </span>
                                         </a>
                                         <p class="fs-12 text-center">
                                             Available Products: ${vendor.products_count || 0}
@@ -271,6 +282,7 @@
                             </div>
                         </div>
                     </div>
+                </div>
                 `;
             });
 

@@ -1038,6 +1038,10 @@ button {
     background-position: center;
 }
 
+.shops-page .card {
+    min-height: 215px;
+}
+
 .shop-logo {
     width: 140px;
     height: 80px;
@@ -1054,9 +1058,10 @@ button {
     max-width: none;
 }
 
-.shop-filters {
-    position: sticky;
-    top: 25px;
+@media screen and (max-width: 576px) {
+    .shop-logo {
+        width: 100%;
+    }
 }
 
 /* Shops Page Styles End */
@@ -1185,7 +1190,7 @@ button {
 }
 
 .our-doctors-page .client-rating .custom-star {
-  font-size: 1rem !important;
+  font-size: 0.85rem !important;
 }
 
 /* Our Doctors Styles End */
