@@ -158,7 +158,7 @@
                                                 $fromTime = DateTime::createFromFormat('h:i A', $fromTime);
                                                 $toTime = DateTime::createFromFormat('h:i A', $toTime);
 
-                                                if ($currentTime->lt($toTime)) {
+                                                if ($currentTime > $toTime) {
                                                 $nextSchedule = [
                                                 'day' => $day,
                                                 'from_time' => $fromTime->format('h:i A'),
