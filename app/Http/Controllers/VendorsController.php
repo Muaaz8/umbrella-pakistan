@@ -497,17 +497,17 @@ class VendorsController extends Controller
                 ->orderBy('order_status')
                 ->get();
         }elseif($vendor->vendor == "labs"){
-            $data['orders'] = DB::table('lab_test_order')
-                ->join('vendor_products', 'vendor_products.id', '=', 'lab_test_order.order_product_id')
+            $data['orders'] = DB::table('lab_orders')
+                ->join('vendor_products', 'vendor_products.id', '=', 'lab_orders.product_id')
                 ->where('vendor_products.vendor_id', $vendor->id)
                 ->get();
             $data['pending_orders'] = DB::table('lab_orders')
-                ->join('vendor_products', 'vendor_products.id', '=', 'lab_orders.order_product_id')
+                ->join('vendor_products', 'vendor_products.id', '=', 'lab_orders.product_id')
                 ->join('users', 'users.id', '=', 'lab_orders.user_id')
-                ->join('tbl_orders', 'tbl_orders.order_id', '=', 'lab_orders.order_main_id')
+                ->join('tbl_orders', 'tbl_orders.order_id', '=', 'lab_orders.order_id')
                 ->where('vendor_products.vendor_id', $vendor->id)
                 ->where('tbl_orders.order_status', "pending")
-                ->groupBy('lab_orders.order_main_id')
+                ->groupBy('lab_orders.order_id')
                 ->orderBy('lab_orders.created_at', 'desc')
                 ->get();
         }
