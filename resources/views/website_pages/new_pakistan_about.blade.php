@@ -78,10 +78,10 @@ $page = DB::table('pages')->where('url', '/about-us')->first();
             </div>
         </div>
     </section>
-    <section class="pt-3">
+    <section class="py-3 pt-sm-3">
         <div class="container-fluid px-0 w-85">
-            <div class="row gx-4 gy-3 mx-auto">
-                <div class="ps-0 col-12 col-md-7">
+            <div class="row gx-4 gy-1 mx-auto">
+                <div class="px-0 ps-sm-0 px-md-2 ps-xl-0 col-12 col-lg-7">
                     <div class="row g-3">
                         <div class="col-6">
                             <img class="rounded-3 w-100 object-fit-cover" height="382px"
@@ -102,7 +102,7 @@ $page = DB::table('pages')->where('url', '/about-us')->first();
                         </div>
                     </div>
                 </div>
-                <div class="pe-0 col-12 col-md-5">
+                <div class="px-0 pe-sm-0 px-md-2 pe-xl-0 col-12 col-lg-5">
                     <div>
                         @php
                         $section = DB::table('section')
@@ -184,7 +184,7 @@ $page = DB::table('pages')->where('url', '/about-us')->first();
                     Community Healthcare Clinics Today?
                 </h2>
             </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 ps-0">
+            <div class="col-lg-3 col-12 col-sm-6 ps-lg-0">
                 <div class="card border-blue-2 rounded-5">
                     <div class="card-body p-4 p-md-3 p-xl-4">
                         <div
@@ -202,7 +202,7 @@ $page = DB::table('pages')->where('url', '/about-us')->first();
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="col-lg-3 col-12 col-sm-6">
                 <div class="card border-blue-2 rounded-5">
                     <div class="card-body p-4 p-md-3 p-xl-4">
                         <div
@@ -220,7 +220,7 @@ $page = DB::table('pages')->where('url', '/about-us')->first();
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="col-lg-3 col-12 col-sm-6">
                 <div class="card border-blue-2 rounded-5">
                     <div class="card-body p-4 p-md-3 p-xl-4">
                         <div
@@ -238,7 +238,7 @@ $page = DB::table('pages')->where('url', '/about-us')->first();
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pe-0">
+            <div class="col-lg-3 col-12 col-sm-6 pe-lg-0">
                 <div class="card border-blue-2 rounded-5">
                     <div class="card-body p-4 p-md-3 p-xl-4">
                         <div

@@ -206,7 +206,7 @@
 </script>
 
 @endsection @section('content')
-<div class="contact-section2">
+<div class="contact-section2 py-0 py-sm-4">
     <section class="new-header w-85 mx-auto rounded-3">
         <div class="new-header-inner p-4">
             <h1 class="fs-30 mb-0 fw-semibold">Contact Us</h1>
@@ -360,7 +360,7 @@
                             </div>
 
                             <button
-                                class="cursor-pointer d-none d-sm-flex mt-4 px-4 py-2 bg-zinc d-flex align-items-center gap-2 rounded-5 text-white consult-btn"
+                                class="cursor-pointer d-flex mt-4 px-4 py-2 bg-zinc d-flex align-items-center gap-2 rounded-5 text-white consult-btn"
                                 type="submit">
                                 <span>Submit Now</span>
                                 <span

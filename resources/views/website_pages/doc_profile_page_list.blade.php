@@ -591,7 +591,7 @@
         $top_content = DB::table('content')->where('section_id', $section->id)->first();
         @endphp
         @if ($top_content)
-        {!! $top_content->content !!}
+        <div class="fs-14 text-center px-2">{!! $top_content->content !!}</div>
         @else
         <p class="fs-14 text-center px-2">
             Best Pakistani doctors available online, with American doctors
@@ -603,7 +603,7 @@
         <div class="container-fluid px-0">
             <div class="row gx-4 mx-auto w-85">
                 <div class="col-12 bg-white d-flex justify-content-between mb-1 align-items-center">
-                    <div class="col-md-8 d-flex align-items-center gap-2">
+                    <div class="col-lg-8 d-flex align-items-center gap-2">
                         <div onclick="select_doc(2)" class="checkbox-wrapper-new">
                             <input checked type="radio" name="cb" id="cb-47" value="2" />
                             <label for="cb-47">All Doctors</label>
@@ -621,7 +621,7 @@
                             <label for="cb-50">Online Doctors</label>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-lg-4">
                         <div
                             class="search-container d-flex align-items-center justify-content-center rounded-3 position-relative">
                             <input class="search-bar px-3 py-2" type="search" name="search"
@@ -632,7 +632,7 @@
                     </div>
                 </div>
                 <div class="col-12">
-                    <div class="col-md-4 ms-auto mt-0">
+                    <div class="col-lg-4 d-flex justify-content-md-end mt-0">
                         <select class="text-secondary form-select border-blue-2 py-2 rounded-3" id="specialization"
                             name="specialization">
                             <option value="0">All Specializations</option>

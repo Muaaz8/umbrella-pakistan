@@ -86,7 +86,7 @@ $page = DB::table('pages')->where('url', '/e-visit')->first();
             </div>
         </div>
     </section>
-    <section class="page-para fs-14 my-3 px-5 mx-2 w-85 mx-auto text-center">
+    <section class="page-para fs-14 my-3 px-2 px-sm-5 mx-2 w-85 mx-auto text-center">
         @php
         $section = DB::table('section')
         ->where('page_id', $page->id)
@@ -110,8 +110,8 @@ $page = DB::table('pages')->where('url', '/e-visit')->first();
         @endif
     </section>
     <section class="main-buttons">
-        <div class="row text-navy-blue gx-5 justify-content-between py-1 bg-light-blue rounded-3 w-85 mx-auto">
-            <div class="col-md-4 ps-1">
+        <div class="row text-navy-blue gx-5 align-items-center justify-content-between py-1 bg-light-blue rounded-3 w-85 mx-auto">
+            <div class="col-md-4 ps-auto ps-sm-1">
                 @if (Auth::check())
                 <button onclick="window.location.href='/specializations'"
                     class="btn w-100 py-2 rounded-3 fs-18 fw-semibold">
@@ -141,7 +141,7 @@ $page = DB::table('pages')->where('url', '/e-visit')->first();
                 </button>
                 @endif
             </div>
-            <div class="col-md-4 pe-1">
+            <div class="col-md-4 pe-auto pe-sm-1">
                 <button class="btn w-100 py-2 rounded-3 fs-18 fw-semibold" onclick="window.location.href='/shops/labs'">
                     Online Labtest
                 </button>

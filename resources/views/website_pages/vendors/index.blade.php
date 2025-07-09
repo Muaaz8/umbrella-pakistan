@@ -63,7 +63,7 @@
     </section>
     <section class="shop-container">
         <div class="container-fluid">
-            <div class="row w-85 mx-auto main-card-container">
+            <div class="row gx-3 w-85 mx-auto main-card-container">
                 <div class="col-12" id="paginationParagraph">
                     {{-- <p class="fw-semibold mb-3">Showing 1-6 of 20 Results</p> --}}
                 </div>

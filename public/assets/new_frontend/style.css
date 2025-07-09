@@ -1009,6 +1009,12 @@ button {
     }
 }
 
+@media screen and (max-width: 991px) {
+    .join-us-cards .card {
+        min-height: min(45vh, 300px);
+    }
+}
+
 /* About Us Styles end */
 
 /* E-Visit Styles Start */
@@ -1102,13 +1108,14 @@ button {
 
 .checkbox-wrapper-new label {
   position: relative;
-  padding: 1rem 1rem 1rem 2rem;
+  padding: 0.5rem 1rem 0.5rem 2rem;
   /* padding-left: 2rem;
   padding-right: 1rem; */
   line-height: 2;
   cursor: pointer;
   display: inline-flex;
   z-index: 0;
+  line-height: 1.2;
 }
 
 .checkbox-wrapper-new label:before {
@@ -1127,7 +1134,7 @@ button {
 }
 
 .checkbox-wrapper-new input[type="radio"]:checked + label {
-  padding: 1rem;
+  padding: 0.5rem 1rem;
   margin-right: 1rem;
 }
 .checkbox-wrapper-new input[type="radio"]:checked + label:before {
