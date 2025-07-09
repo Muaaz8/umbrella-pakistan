@@ -604,7 +604,7 @@
             <div class="row gy-2 gx-0 mx-auto w-85">
                 <div class="col-12 px-0 bg-white d-flex justify-content-between mb-1 align-items-center">
                     <div class="row w-100 gx-0 gy-3">
-                        <div class="col-lg-8 d-flex flex-column flex-sm-row justify-content-between justify-content-lg-start align-items-center gap-2">
+                        <div class="col-lg-8 d-flex flex-wrap flex-sm-no-wrap flex-sm-row justify-content-between justify-content-lg-start align-items-center gap-2">
                             <div onclick="select_doc(2)" class="checkbox-wrapper-new">
                                 <input checked type="radio" name="cb" id="cb-47" value="2" />
                                 <label for="cb-47">All Doctors</label>
@@ -668,7 +668,7 @@
                                 </div>
                                 <div class="w-100">
                                     <div class="card-header px-0 bg-transparent border-0 w-100">
-                                        <div class="w-100 d-flex align-items-center justify-content-between gap-2">
+                                        <div class="w-100 d-flex align-items-center justify-content-between flex-wrap gap-2">
                                             @if ($doctor->specialization != '32' && $doctor->zip_code == null)
                                             <h4 class="mb-0 card-title fs-18 text-truncate w-65 fw-semibold">
                                                 Dr.
@@ -745,7 +745,7 @@
                             <div class="d-flex justify-content-between">
                                 <div class="bg-blue text-white experience-badge">
                                     @if ($doctor->details)
-                                    <p class="px-4 fw-semibold py-2">{{ $doctor->details->experience }} Years
+                                    <p class="fs-14 px-4 fw-semibold py-2">{{ $doctor->details->experience }} Years
                                         Experience
                                     </p>
                                     @endif
