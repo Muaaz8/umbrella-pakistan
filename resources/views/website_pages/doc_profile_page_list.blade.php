@@ -601,37 +601,39 @@
     </section>
     <section class="new-doctor-card-section">
         <div class="container-fluid px-0">
-            <div class="row gx-4 mx-auto w-85">
-                <div class="col-12 bg-white d-flex justify-content-between mb-1 align-items-center">
-                    <div class="col-lg-8 d-flex align-items-center gap-2">
-                        <div onclick="select_doc(2)" class="checkbox-wrapper-new">
-                            <input checked type="radio" name="cb" id="cb-47" value="2" />
-                            <label for="cb-47">All Doctors</label>
+            <div class="row gy-2 gx-0 mx-auto w-85">
+                <div class="col-12 px-0 bg-white d-flex justify-content-between mb-1 align-items-center">
+                    <div class="row w-100 gx-0 gy-3">
+                        <div class="col-lg-8 d-flex flex-column flex-sm-row justify-content-between justify-content-lg-start align-items-center gap-2">
+                            <div onclick="select_doc(2)" class="checkbox-wrapper-new">
+                                <input checked type="radio" name="cb" id="cb-47" value="2" />
+                                <label for="cb-47">All Doctors</label>
+                            </div>
+                            <div onclick="select_doc(0)" class="checkbox-wrapper-new">
+                                <input type="radio" name="cb" id="cb-48" value="0" />
+                                <label for="cb-48">Pakistani Doctors</label>
+                            </div>
+                            <div onclick="select_doc(1)" class="checkbox-wrapper-new">
+                                <input type="radio" name="cb" id="cb-49" value="1" />
+                                <label for="cb-49">American Doctors</label>
+                            </div>
+                            <div onclick="select_doc(3)" class="checkbox-wrapper-new">
+                                <input type="radio" name="cb" id="cb-50" value="3" />
+                                <label for="cb-50">Online Doctors</label>
+                            </div>
                         </div>
-                        <div onclick="select_doc(0)" class="checkbox-wrapper-new">
-                            <input type="radio" name="cb" id="cb-48" value="0" />
-                            <label for="cb-48">Pakistani Doctors</label>
-                        </div>
-                        <div onclick="select_doc(1)" class="checkbox-wrapper-new">
-                            <input type="radio" name="cb" id="cb-49" value="1" />
-                            <label for="cb-49">American Doctors</label>
-                        </div>
-                        <div onclick="select_doc(3)" class="checkbox-wrapper-new">
-                            <input type="radio" name="cb" id="cb-50" value="3" />
-                            <label for="cb-50">Online Doctors</label>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div
-                            class="search-container d-flex align-items-center justify-content-center rounded-3 position-relative">
-                            <input class="search-bar px-3 py-2" type="search" name="search"
-                                placeholder="Search for Doctor" id="search" />
-                            <button type="button" class="px-3 py-2 search-icon"><i
-                                    class="fa-solid fa-magnifying-glass"></i></span>
+                        <div class="col-lg-4">
+                            <div
+                                class="search-container d-flex align-items-center justify-content-center rounded-3 position-relative">
+                                <input class="search-bar px-3 py-2" type="search" name="search"
+                                    placeholder="Search for Doctor" id="search" />
+                                <button type="button" class="px-3 py-2 search-icon"><i
+                                        class="fa-solid fa-magnifying-glass"></i></span>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-12">
+                <div class="col-12 px-0">
                     <div class="col-lg-4 d-flex justify-content-md-end mt-0">
                         <select class="text-secondary form-select border-blue-2 py-2 rounded-3" id="specialization"
                             name="specialization">
