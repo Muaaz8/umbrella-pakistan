@@ -111,7 +111,7 @@
                                                 <div class="w-100">
                                                     <div class="card-header px-0 bg-transparent border-0 w-100">
                                                         <div class="w-100 d-flex align-items-center justify-content-between flex-wrap gap-2">
-                                                            <h4 class="mb-0 card-title fs-18 text-truncate  fw-semibold">
+                                                            <h4 class="mb-0 card-title fs-18  fw-semibold">
                                                                 ${element.specialization == 32 ? (element.gender == "male" ? "Mr." : "Ms.") : "Dr."} ${element.name} ${element.last_name}
                                                             </h4>
                                                             <div class="client-rating gap-small text-gold fs-6 mt-0 d-flex align-items-center">
@@ -139,7 +139,7 @@
                                                 <div class="bg-blue text-white experience-badge">
                                                     ${
     element.details && element.details.experience != null && element.details.experience !== ''
-    ? `<div class="bg-blue text-white experience-badge"><p class="px-4 fw-semibold py-2">${element.details.experience} Years Experience</p></div>`
+    ? `<div class="bg-blue text-white experience-badge"><p class="fs-14 px-4 fw-semibold py-2">${element.details.experience} Years Experience</p></div>`
     : ''
 }
 
@@ -179,7 +179,7 @@
                                                 <div class="w-100">
                                                     <div class="card-header px-0 bg-transparent border-0 w-100">
                                                         <div class="w-100 d-flex align-items-center justify-content-between flex-wrap gap-2">
-                                                            <h4 class="mb-0 card-title fs-18 text-truncate  fw-semibold">
+                                                            <h4 class="mb-0 card-title fs-18  fw-semibold">
                                                                 ${element.specialization == 32 ? (element.gender == "male" ? "Mr." : "Ms.") : "Dr."} ${element.name} ${element.last_name}
                                                             </h4>
                                                             <div class="client-rating gap-small text-gold fs-6 mt-0 d-flex align-items-center">
@@ -207,7 +207,7 @@
                                                 <div class="bg-blue text-white experience-badge">
                                                     ${
   element.details && element.details.experience != null && element.details.experience !== ''
-    ? `<div class="bg-blue text-white experience-badge"><p class="px-4 fw-semibold py-2">${element.details.experience} Years Experience</p></div>`
+    ? `<div class="bg-blue text-white experience-badge"><p class="fs-14 px-4 fw-semibold py-2">${element.details.experience} Years Experience</p></div>`
     : ''
 }
 
@@ -280,7 +280,7 @@
                                                 <div class="w-100">
                                                     <div class="card-header px-0 bg-transparent border-0 w-100">
                                                         <div class="w-100 d-flex align-items-center justify-content-between flex-wrap gap-2">
-                                                            <h4 class="mb-0 card-title fs-18 text-truncate  fw-semibold">
+                                                            <h4 class="mb-0 card-title fs-18  fw-semibold">
                                                                 ${element.specialization == 32 ? (element.gender == "male" ? "Mr." : "Ms.") : "Dr."} ${element.name} ${element.last_name}
                                                             </h4>
                                                             <div class="client-rating gap-small text-gold fs-6 mt-0 d-flex align-items-center">
@@ -308,7 +308,7 @@
                                                 <div class="bg-blue text-white experience-badge">
                                                     ${
   element.details && element.details.experience != null && element.details.experience !== ''
-    ? `<div class="bg-blue text-white experience-badge"><p class="px-4 fw-semibold py-2">${element.details.experience} Years Experience</p></div>`
+    ? `<div class="bg-blue text-white experience-badge"><p class="fs-14 px-4 fw-semibold py-2">${element.details.experience} Years Experience</p></div>`
     : ''
 }
 
@@ -347,7 +347,7 @@
                                                 <div class="w-100">
                                                     <div class="card-header px-0 bg-transparent border-0 w-100">
                                                         <div class="w-100 d-flex align-items-center justify-content-between flex-wrap gap-2">
-                                                            <h4 class="mb-0 card-title fs-18 text-truncate  fw-semibold">
+                                                            <h4 class="mb-0 card-title fs-18  fw-semibold">
                                                                 ${element.specialization == 32 ? (element.gender == "male" ? "Mr." : "Ms.") : "Dr."} ${element.name} ${element.last_name}
                                                             </h4>
                                                             <div class="client-rating gap-small text-gold fs-6 mt-0 d-flex align-items-center">
@@ -375,7 +375,7 @@
                                                 <div class="bg-blue text-white experience-badge">
                                                     ${
   element.details && element.details.experience != null && element.details.experience !== ''
-    ? `<div class="bg-blue text-white experience-badge"><p class="px-4 fw-semibold py-2">${element.details.experience} Years Experience</p></div>`
+    ? `<div class="bg-blue text-white experience-badge"><p class="fs-14 px-4 fw-semibold py-2">${element.details.experience} Years Experience</p></div>`
     : ''
 }
 
@@ -441,7 +441,7 @@
                                                 <div class="w-100">
                                                     <div class="card-header px-0 bg-transparent border-0 w-100">
                                                         <div class="w-100 d-flex align-items-center justify-content-between flex-wrap gap-2">
-                                                            <h4 class="mb-0 card-title fs-18 text-truncate  fw-semibold">
+                                                            <h4 class="mb-0 card-title fs-18  fw-semibold">
                                                                 ${element.specialization == 32 ? (element.gender == "male" ? "Mr." : "Ms.") : "Dr."} ${element.name} ${element.last_name}
                                                             </h4>
                                                             <div class="client-rating gap-small text-gold fs-6 mt-0 d-flex align-items-center">
@@ -469,7 +469,7 @@
                                                 <div class="bg-blue text-white experience-badge">
                                                     ${
   element.details && element.details.experience != null && element.details.experience !== ''
-    ? `<div class="bg-blue text-white experience-badge"><p class="px-4 fw-semibold py-2">${element.details.experience} Years Experience</p></div>`
+    ? `<div class="bg-blue text-white experience-badge"><p class="fs-14 px-4 fw-semibold py-2">${element.details.experience} Years Experience</p></div>`
     : ''
 }
 
@@ -509,7 +509,7 @@
                                                 <div class="w-100">
                                                     <div class="card-header px-0 bg-transparent border-0 w-100">
                                                         <div class="w-100 d-flex align-items-center justify-content-between flex-wrap gap-2">
-                                                            <h4 class="mb-0 card-title fs-18 text-truncate  fw-semibold">
+                                                            <h4 class="mb-0 card-title fs-18  fw-semibold">
                                                                 ${element.specialization == 32 ? (element.gender == "male" ? "Mr." : "Ms.") : "Dr."} ${element.name} ${element.last_name}
                                                             </h4>
                                                             <div class="client-rating gap-small text-gold fs-6 mt-0 d-flex align-items-center">
@@ -537,7 +537,7 @@
                                                 <div class="bg-blue text-white experience-badge">
                                                     ${
   element.details && element.details.experience != null && element.details.experience !== ''
-    ? `<div class="bg-blue text-white experience-badge"><p class="px-4 fw-semibold py-2">${element.details.experience} Years Experience</p></div>`
+    ? `<div class="bg-blue text-white experience-badge"><p class="fs-14 px-4 fw-semibold py-2">${element.details.experience} Years Experience</p></div>`
     : ''
 }
 
@@ -646,7 +646,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row mt-2 g-3 mx-auto new-doc-card-cont w-85 g-3">
+            <div class="row mt-2 g-3 mx-auto new-doc-card-cont w-85">
                 @foreach ($doctors as $doctor)
                 <div class="col-md-6">
                     <div class="card border-0 rounded-4 bg-light-sky-blue">
@@ -672,13 +672,13 @@
                                         <div
                                             class="w-100 d-flex align-items-center justify-content-between flex-wrap gap-2">
                                             @if ($doctor->specialization != '32' && $doctor->zip_code == null)
-                                            <h4 class="mb-0 card-title fs-18 text-truncate  fw-semibold">
+                                            <h4 class="mb-0 card-title fs-18  fw-semibold">
                                                 Dr.
                                                 {{ \Str::ucfirst($doctor->name) . ' ' .
                                                 \Str::ucfirst($doctor->last_name) }}
                                             </h4>
                                             @else
-                                            <h4 class="mb-0 card-title fs-18 text-truncate  fw-semibold">
+                                            <h4 class="mb-0 card-title fs-18  fw-semibold">
                                                 {{ $doctor->gender == 'male' ? 'Mr.' : 'Ms.' }}
                                                 {{ \Str::ucfirst($doctor->name) . ' ' .
                                                 \Str::ucfirst($doctor->last_name) }}
@@ -766,7 +766,7 @@
                 </div>
                 @endforeach
             </div>
-            <div class="row mt-2 g-3 mx-auto doctor-cont2 w-85 g-3">
+            <div class="row mt-2 g-3 mx-auto doctor-cont2 w-85">
             </div>
             <div class="d-flex align-items-center mt-3 justify-content-center">
                 {{ $doctors->links('pagination::bootstrap-4') }}

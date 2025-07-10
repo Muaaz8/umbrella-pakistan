@@ -111,7 +111,7 @@ button {
 }
 
 .bg-new-red {
-    background-color: #FF0004;
+    background-color: #ff0004;
 }
 
 .bg-red {
@@ -151,7 +151,7 @@ button {
 }
 
 .text-blue {
-    color: var(--new-blue) ;
+    color: var(--new-blue);
 }
 
 .text-navy-blue {
@@ -167,15 +167,15 @@ button {
 }
 
 .text-red {
-  color: var(--new-red);
+    color: var(--new-red);
 }
 
 .text-new-red {
-  color: #FF0004;
+    color: #ff0004;
 }
 
 .text-green {
-  color: var(--new-green);
+    color: var(--new-green);
 }
 
 .w-max {
@@ -369,6 +369,13 @@ button {
 }
 
 /* Hero Section Styles */
+
+.new-hero-section .carousel-indicators [data-bs-target] {
+    width: 10px;
+    height: 10px;
+    background-color: var(--new-blue);
+    border-radius: 50%;
+}
 
 .highlight-blue {
     color: var(--new-blue);
@@ -1107,76 +1114,77 @@ button {
 /* Our Doctors Styles Start */
 
 .checkbox-wrapper-new input[type="radio"] {
-  display: none;
-  visibility: hidden;
+    display: none;
+    visibility: hidden;
 }
 
 .checkbox-wrapper-new label {
-  position: relative;
-  padding: 0.5rem 1rem 0.5rem 2rem;
-  /* padding-left: 2rem;
+    position: relative;
+    padding: 0.5rem 1rem 0.5rem 2rem;
+    /* padding-left: 2rem;
   padding-right: 1rem; */
-  line-height: 2;
-  cursor: pointer;
-  display: inline-flex;
-  z-index: 0;
-  line-height: 1.2;
-  font-size: 14px;
+    line-height: 2;
+    cursor: pointer;
+    display: inline-flex;
+    z-index: 0;
+    line-height: 1.2;
+    font-size: 14px;
 }
 
 .checkbox-wrapper-new label:before {
-  box-sizing: border-box;
-  content: " ";
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: 0;
-  display: block;
-  width: 1.4em;
-  height: 1.4em;
-  background-color: #e3e3e3;
-  border-radius: 6px;
-  z-index: -1;
+    box-sizing: border-box;
+    content: " ";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    display: block;
+    width: 1.4em;
+    height: 1.4em;
+    background-color: #e3e3e3;
+    border-radius: 6px;
+    z-index: -1;
 }
 
 .checkbox-wrapper-new input[type="radio"]:checked + label {
-  padding: 0.5rem 1rem;
-  margin-right: 1rem;
+    padding: 0.5rem 1rem;
+    margin-right: 1rem;
 }
 .checkbox-wrapper-new input[type="radio"]:checked + label:before {
-  top: 50%;
-  transform: translateY(-50%);
-  width: 100%;
-  height: 3rem;
-  background-color: white;
-  border: 2px solid var(--new-blue);
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    height: 2.25rem;
+    background-color: white;
+    border: 2px solid var(--new-blue);
 }
 
 .checkbox-wrapper-new label,
 .checkbox-wrapper-new label::before {
-  transition: 0.25s all ease;
+    transition: 0.25s all ease;
 }
 
-.new-doc-card-cont .card, .doctor-cont2 .card {
-  min-height: 225px;
+.new-doc-card-cont .card,
+.doctor-cont2 .card {
+    min-height: 225px;
 }
 
 .doc-new-profile {
-  width: 124px;
-  height: 110px;
+    width: 124px;
+    height: 110px;
 }
 
-.doc-new-profile img{
-  object-position: center 25%;
+.doc-new-profile img {
+    object-position: center 25%;
 }
 
 .new-indicator {
-  position: absolute;
-  top: -0.5rem;
-  right: -0.5rem;
-  width: 1.25rem;
-  height: 1.25rem;
-  border-radius: 50%;
+    position: absolute;
+    top: -0.5rem;
+    right: -0.5rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
 }
 
 .doctor-cont2 .experience-badge {
@@ -1184,13 +1192,13 @@ button {
 }
 
 .experience-badge {
-  margin: auto auto -1rem -1rem;
-  border-top-right-radius: 1rem;
-  border-bottom-left-radius: 1rem;
+    margin: auto auto -1rem -1rem;
+    border-top-right-radius: 1rem;
+    border-bottom-left-radius: 1rem;
 }
 
 .our-doctors-page .client-rating .custom-star {
-  font-size: 0.85rem !important;
+    font-size: 0.85rem !important;
 }
 
 /* Our Doctors Styles End */
