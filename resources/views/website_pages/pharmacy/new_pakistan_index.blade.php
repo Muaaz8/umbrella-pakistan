@@ -81,7 +81,7 @@
                                 <div class="card rounded-4 border-0 bg-light-sky-blue">
                                     <div class="row overflow-hidden card-body px-4">
                                         <div
-                                            class="col-md-5 px-0 h-100 bg-white rounded-4 d-flex align-items-center justify-content-center position-relative z-0">
+                                            class="col-5 px-0 h-100 bg-white rounded-4 d-flex align-items-center justify-content-center position-relative z-0">
                                             <img class="object-fit-contain w-100 h-100"
                                                 src="${value.featured_image?value.featured_image:'assets/new_frontend/panadol2.png'}"
                                                 alt="" />
@@ -89,7 +89,7 @@
                                                 class="position-absolute read-btn-new btn bg-white fw-medium fs-12 py-1">Read
                                                 More</a>
                                         </div>
-                                        <div class="col-md-7 pe-0 d-flex flex-column justify-content-between">
+                                        <div class="col-7 pe-0 d-flex flex-column justify-content-between">
                                             <h5 class="card-title text-blue fw-semibold align-self-end">
                                                 Rs: ${value.sale_prices}
                                             </h5>
@@ -159,7 +159,7 @@
                                 <div class="card rounded-4 border-0 bg-light-sky-blue">
                                     <div class="row overflow-hidden card-body px-4">
                                         <div
-                                            class="col-md-5 px-0 h-100 bg-white rounded-4 d-flex align-items-center justify-content-center position-relative z-0">
+                                            class="col-5 px-0 h-100 bg-white rounded-4 d-flex align-items-center justify-content-center position-relative z-0">
                                             <img class="object-fit-contain w-100 h-100"
                                                 src="${value.featured_image?value.featured_image:'assets/new_frontend/panadol2.png'}"
                                                 alt="" />
@@ -167,7 +167,7 @@
                                                 class="position-absolute read-btn-new btn bg-white fw-medium fs-12 py-1">Read
                                                 More</a>
                                         </div>
-                                        <div class="col-md-7 pe-0 d-flex flex-column justify-content-between">
+                                        <div class="col-7 pe-0 d-flex flex-column justify-content-between">
                                             <h5 class="card-title text-blue fw-semibold align-self-end">
                                                 Rs: ${value.sale_prices}
                                             </h5>
@@ -238,7 +238,7 @@
                                 <div class="card rounded-4 border-0 bg-light-sky-blue">
                                     <div class="row overflow-hidden card-body px-4">
                                         <div
-                                            class="col-md-5 px-0 h-100 bg-white rounded-4 d-flex align-items-center justify-content-center position-relative z-0">
+                                            class="col-5 px-0 h-100 bg-white rounded-4 d-flex align-items-center justify-content-center position-relative z-0">
                                             <img class="object-fit-contain w-100 h-100"
                                                 src="${value.featured_image?value.featured_image:'assets/new_frontend/panadol2.png'}"
                                                 alt="" />
@@ -246,7 +246,7 @@
                                                 class="position-absolute read-btn-new btn bg-white fw-medium fs-12 py-1">Read
                                                 More</a>
                                         </div>
-                                        <div class="col-md-7 pe-0 d-flex flex-column justify-content-between">
+                                        <div class="col-7 pe-0 d-flex flex-column justify-content-between">
                                             <h5 class="card-title text-blue fw-semibold align-self-end">
                                                 Rs: ${value.sale_prices}
                                             </h5>
@@ -328,40 +328,38 @@
             </div>
         </div>
     </section>
-    <section class="page-para my-3 px-5 w-85 mx-auto">
+    <section class="page-para my-3 px-3 px-sm-5 w-85 mx-auto">
         <h2 class="fs-30 fw-semibold text-center mb-2">
             Community Healthcare Clinics - Medicines
         </h2>
-        <p class="fs-14 text-center px-2">
+        <p class="fs-14 text-center px-sm-2">
             Our pharmacy offers prescription drugs at discounted prices.
         </p>
     </section>
     <section class="medicine-card-section">
         <div class="container-fluid px-0">
-            <div class="row gx-4 mx-auto w-85">
-                <div class="col-12 bg-white mb-2 d-flex justify-content-between mb-3 align-items-center">
-                    <div class="col-md-5">
-                        <div
-                            class="search-container d-flex align-items-center justify-content-center rounded-3 position-relative">
-                            <input class="search-bar px-3 py-2" type="search" name="search"
-                                placeholder="Search for medicines" id="pharmacySearchText" />
-                            <button class="px-3 py-2 search-icon searchPharmacyProduct"><i
-                                    class="fa-solid fa-magnifying-glass"></i></button>
-                        </div>
+            <div class="row gx-4 gy-2 mx-auto w-85 justify-content-between mb-3 align-items-center">
+                <div class="col-md-5">
+                    <div
+                        class="search-container d-flex align-items-center justify-content-center rounded-3 position-relative">
+                        <input class="search-bar px-3 py-2" type="search" name="search"
+                            placeholder="Search for medicines" id="pharmacySearchText" />
+                        <button class="px-3 py-2 search-icon searchPharmacyProduct"><i
+                                class="fa-solid fa-magnifying-glass"></i></button>
                     </div>
-                    <div class="col-md-5">
-                        @php
-                        $sub_id = request()->get('sub_id');
-                        @endphp
-                        <select class="text-secondary form-select border-blue-2 py-2 rounded-3" id="category"
-                            onchange="changed()" name="category">
-                            <option value="all">All</option>
-                            @foreach ($data['sidebar'] as $val)
-                            <option value="{{ $val->id }}" @if ($sub_id==$val->id) selected @endif>{{ $val->title }}
-                            </option>
-                            @endforeach
-                        </select>
-                    </div>
+                </div>
+                <div class="col-md-5">
+                    @php
+                    $sub_id = request()->get('sub_id');
+                    @endphp
+                    <select class="text-secondary form-select border-blue-2 py-2 rounded-3" id="category"
+                        onchange="changed()" name="category">
+                        <option value="all">All</option>
+                        @foreach ($data['sidebar'] as $val)
+                        <option value="{{ $val->id }}" @if ($sub_id==$val->id) selected @endif>{{ $val->title }}
+                        </option>
+                        @endforeach
+                    </select>
                 </div>
             </div>
             <div class="row mx-auto px-0 w-85 gx-4 gy-3" id="loadSearchPharmacyItemByCategory">
@@ -370,7 +368,7 @@
                     <div class="card rounded-4 border-0 bg-light-sky-blue">
                         <div class="row overflow-hidden card-body px-4">
                             <div
-                                class="col-md-5 px-0 h-100 bg-white rounded-4 d-flex align-items-center justify-content-center position-relative z-0">
+                                class="col-5 px-0 h-100 bg-white rounded-4 d-flex align-items-center justify-content-center position-relative z-0">
                                 <img class="object-fit-contain w-100 h-100"
                                     src="{{ $item->featured_image?$item->featured_image:asset('assets/new_frontend/panadol2.png') }}"
                                     alt="" />
@@ -378,7 +376,7 @@
                                     class="position-absolute read-btn-new btn bg-white fw-medium fs-12 py-1">Read
                                     More</a>
                             </div>
-                            <div class="col-md-7 pe-0 d-flex flex-column justify-content-between">
+                            <div class="col-7 pe-0 d-flex flex-column justify-content-between">
                                 <h5 class="card-title fs-6 text-blue fw-semibold align-self-end">
                                     Rs: {{ $item->sale_prices - (($item->sale_prices*$item->discount)/100)}}
                                 </h5>

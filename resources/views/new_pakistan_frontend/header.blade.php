@@ -172,7 +172,7 @@
             @endphp
             @foreach ($top_banners as $key => $banner)
             <div class="carousel-item {{$key == 0 ? 'active' : ''}} text-center">
-                <p>{{ $banner->status }}</p>
+                <p class="fs-12">{{ $banner->status }}</p>
             </div>
             @endforeach
         </div>
@@ -207,12 +207,12 @@
                         @if (Auth::check())
                         <div class="new-dropdown">
                             <button type="button" data-bs-toggle="dropdown" aria-expanded="false"
-                                class="dropdown-toggle">
+                                class="dropdown-toggle fs-14">
                                 Hi, {{ Auth::user()->name}}
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{{ route('home') }}">Go to Dashboard</a></li>
-                                <li><a class="dropdown-item" href="{{ route('logout') }}"
+                                <li><a class="dropdown-item fs-14" href="{{ route('home') }}">Go to Dashboard</a></li>
+                                <li><a class="dropdown-item fs-14" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
                                 </li>
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST"
@@ -224,15 +224,15 @@
                         @else
                         <div class="new-dropdown">
                             <button type="button" data-bs-toggle="dropdown" aria-expanded="false"
-                                class="dropdown-toggle">
+                                class="dropdown-toggle fs-14">
                                 Join Us
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="{{ route('login') }}">Login</a></li>
-                                <li><a class="dropdown-item" href="{{ route('pat_register') }}">Register as Patient</a>
+                                <li><a class="dropdown-item fs-14" href="{{ route('login') }}">Login</a></li>
+                                <li><a class="dropdown-item fs-14" href="{{ route('pat_register') }}">Register as Patient</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="{{ route('doc_register') }}">Register as Doctor</a>
+                                    <a class="dropdown-item fs-14" href="{{ route('doc_register') }}">Register as Doctor</a>
                                 </li>
                             </ul>
                         </div>
@@ -261,20 +261,20 @@
         </div>
         <div class="w-100 w-85 mx-auto px-0 d-none d-lg-flex">
             <ul class="d-flex list-unstyled justify-content-between align-items-center gap-3 w-100 py-3 mb-0">
-                <li class="nav-item"><a class="nav-link" href="{{ url('/') }}">Home</a></li>
-                <li class="nav-item"><a class="nav-link"
+                <li class="nav-item"><a class="nav-link fw-medium" href="{{ url('/') }}">Home</a></li>
+                <li class="nav-item"><a class="nav-link fw-medium"
                         href="{{ route('vendor', ['shop_type' => 'pharmacy']) }}">Pharmacy</a></li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('vendor', ['shop_type' => 'labs']) }}">Labtest / Imaging</a>
+                    <a class="nav-link fw-medium" href="{{ route('vendor', ['shop_type' => 'labs']) }}">Labtest / Imaging</a>
                 </li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('e-visit') }}">E-Visit</a></li>
+                <li class="nav-item"><a class="nav-link fw-medium" href="{{ route('e-visit') }}">E-Visit</a></li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('doc_profile_page_list') }}">Our Doctors</a>
+                    <a class="nav-link fw-medium" href="{{ route('doc_profile_page_list') }}">Our Doctors</a>
                 </li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('about_us') }}">About Us</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('contact_us') }}">Contact Us</a></li>
+                <li class="nav-item"><a class="nav-link fw-medium" href="{{ route('about_us') }}">About Us</a></li>
+                <li class="nav-item"><a class="nav-link fw-medium" href="{{ route('contact_us') }}">Contact Us</a></li>
                 <li class="nav-item">
-                    <a class="nav-link position-relative" href="{{ url('/my/cart') }}">
+                    <a class="nav-link fw-medium position-relative" href="{{ url('/my/cart') }}">
                         <img src="{{ asset('assets/new_frontend/cart_new.svg') }}" alt="cart" />
                         @if (Auth::check())
                         <span
@@ -285,7 +285,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="{{ route('doc_profile_page_list', ['online' => true]) }}"
-                        class="online-btn nav-link px-3 py-2 rounded-5 d-flex align-items-center justify-content-center gap-2"><span
+                        class="online-btn nav-link fw-medium px-3 py-2 rounded-5 d-flex align-items-center justify-content-center gap-2"><span
                             class="online-dot-new rounded-circle"></span><span>Online Doctors</span></a>
                 </li>
             </ul>
@@ -293,7 +293,7 @@
         <div class="new-search-container d-none d-sm-none align-items-center justify-content-center col-12 px-0 mt-3">
             <div
                 class="search-container mx-3 d-flex align-items-center justify-content-center rounded-3 position-relative">
-                <input class="search-bar px-2 py-1" type="search" name="search" placeholder="Search" id="new-search2">
+                <input class="search-bar px-2 py-1 fs-14" type="search" name="search" placeholder="Search" id="new-search2">
                 <span class="px-2 py-1 search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
                 <ul class="header-search-result categories-list rounded-3"></ul>
             </div>

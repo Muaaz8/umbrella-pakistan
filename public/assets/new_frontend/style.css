@@ -245,7 +245,7 @@ button {
 }
 
 .search-container {
-    max-width: 450px;
+    max-width: 460px;
     width: 100%;
     border: 2px solid var(--new-blue);
     background-color: white;
@@ -988,6 +988,12 @@ button {
 .new-header-inner {
     position: relative;
     z-index: 1;
+}
+
+@media screen and (max-width: 576px) {
+    .new-header .fs-30 {
+        font-size: 1.5rem !important;
+    }
 }
 
 /* New Header Styles End */
