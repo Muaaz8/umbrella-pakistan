@@ -873,6 +873,7 @@
           <img class="mx-3" src="{{ asset('assets/new_frontend/khayal-rakhna-logo.webp') }}" alt="" />
           <img class="mx-3" src="{{ asset('assets/new_frontend/peridots-logo.webp') }}" alt="" />
           <img class="mx-3" src="{{ asset('assets/new_frontend/medicure_pharma_logo.webp') }}" alt="" />
+          <img class="mx-3" src="{{ asset('assets/new_frontend/one-health-logo.webp') }}" alt="" />
         </div>
         {{--<div aria-hidden="true"
           class="partner-logo-container d-flex align-items-center justify-content-sm-between gap-4">
