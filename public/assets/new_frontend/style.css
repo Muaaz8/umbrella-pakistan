@@ -266,6 +266,10 @@ button {
     border-bottom-right-radius: 0.4rem;
 }
 
+.search-icon i {
+    margin-right: 0px;
+}
+
 .navbar-container .nav-link {
     font-weight: 600;
 }
