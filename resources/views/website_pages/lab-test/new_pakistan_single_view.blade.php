@@ -80,11 +80,11 @@
                     <div class="price-tag">
                         <span class="badge bg-danger px-3 py-2">Rs. {{
                             number_format($products[0]->sale_price,2)}}</span>
-                        @if ($products[0]->discount_percentage != null || $products[0]->discount_percentage != 0)
+                        @if ($products[0]->discount_percentage != null && $products[0]->discount_percentage > 0)
                         <span class="actual-price">Rs. {{ number_format($products[0]->actual_price,2) }}</span>
                         @endif
                     </div>
-                    @if ($products[0]->discount_percentage != null)
+                    @if ($products[0]->discount_percentage != null && $products[0]->discount_percentage > 0)
                     <span class="discount-no">{{ $products[0]->discount_percentage}}% Off</span>
                     @endif
                     @if(Auth::check())
