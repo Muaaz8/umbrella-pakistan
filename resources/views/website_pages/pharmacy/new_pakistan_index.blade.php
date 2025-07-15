@@ -73,7 +73,7 @@
 
                 }
                 else
-                {   
+                {
                     $.each(res, function(key, value) {
                         console.log(value);
                         $('#loadSearchPharmacyItemByCategory').append(
@@ -324,7 +324,7 @@
                 <span class="mx-1 align-middle">></span>
                 <a class="fs-12"
                     href="{{ route('pharmacy_products',
-                                            ['id' => $vendor->id,'sub_id'=>request()->query('sub_id', null)]) }}">Pharmacy</a>
+                    ['id' => $vendor->id,'sub_id'=>request()->query('sub_id', null)]) }}">{{$vendor->name}}</a>
             </div>
         </div>
     </section>

@@ -300,7 +300,7 @@
                 <a class="fs-12" href="{{ url('/') }}">Home</a>
                 <span class="mx-1 align-middle">></span>
                 <a class="fs-12" href="{{ route('labs_products', ['id' =>
-                                            $vendor->id]) }}">Labs</a>
+                                            $vendor->id]) }}">{{$vendor->name}}</a>
             </div>
         </div>
     </section>

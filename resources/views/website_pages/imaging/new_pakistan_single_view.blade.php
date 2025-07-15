@@ -87,7 +87,11 @@
                 </button>
             </div>
             <div class="med-description p-4">
-                {!! $products[0]->description !!}
+                @if ($products[0]->description != null)
+                    {!! $products[0]->description !!}
+                @else
+                    <p class="text-center">No description available for this product.</p>
+                @endif
             </div>
         </div>
     </main>

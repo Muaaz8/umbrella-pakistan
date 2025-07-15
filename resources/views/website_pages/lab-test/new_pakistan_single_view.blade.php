@@ -64,8 +64,10 @@
             <div>
                 <a class="fs-12" href="{{ url('/') }}">Home</a>
                 <span class="mx-1 align-middle">></span>
+                <a class="fs-12" href="{{ route('labs_products', ['id' => $products[0]->vendor_id]) }}">{{$products[0]->vendor_name}}</a>
+                <span class="mx-1 align-middle">></span>
                 <a class="fs-12" href="{{ route('labs_products', ['id' =>
-                                            $products[0]->vendor_id]) }}">Labs</a>
+                $products[0]->vendor_id]) }}">{{$products[0]->slug}}</a>
             </div>
         </div>
     </section>
@@ -97,7 +99,11 @@
                     @endif
                 </div>
                 <hr class="hr my-2">
-                {!! $products[0]->description !!}
+                @if ($products[0]->description != null)
+                    {!! $products[0]->description !!}
+                @else
+                    <p class="text-center">No description available for this product.</p>
+                @endif
 
             </div>
         </div>
