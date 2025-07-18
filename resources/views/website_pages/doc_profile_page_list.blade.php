@@ -714,7 +714,7 @@
                                                                 class="fa-solid fa-star"></i></span>
                                                         <span class="fs-18 custom-star"><i
                                                                 class="fa-solid fa-star"></i></span>
-                                                        <span class="fs-14 text-black ms-2">(17)</span>
+                                                        {{--<span class="fs-14 text-black ms-2">(17)</span>--}}
                                                         @endif
                                             </div>
                                         </div>

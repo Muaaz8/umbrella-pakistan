@@ -612,6 +612,14 @@ button {
     -webkit-box-orient: vertical;
 }
 
+.text-overflow-2 {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
 @media screen and (min-width: 576px) {
     #clientTestimonial .carousel-inner {
         display: flex;
@@ -1056,7 +1064,7 @@ button {
 }
 
 .shops-page .card {
-    min-height: 215px;
+    min-height: 200px;
 }
 
 .shop-logo {

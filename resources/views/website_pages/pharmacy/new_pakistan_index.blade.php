@@ -381,10 +381,10 @@
                                     Rs: {{ $item->sale_prices - (($item->sale_prices*$item->discount)/100)}}
                                 </h5>
                                 <div>
-                                    <h5 class="card-title fs-6 fw-medium text-truncate" title="{{ $item->name }}">{{
+                                    <h5 class="card-title fs-6 fw-medium text-overflow-2" title="{{ $item->name }}">{{
                                         $item->name }}</h5>
-                                    <h6 class="card-subtitle fs-12 fw-medium">15ml</h6>
-                                    <h6 class="card-title mt-2 fw-medium">{{ $item->sub_category_name }}</h6>
+                                    {{--<h6 class="card-subtitle fs-12 fw-medium">15ml</h6>--}}
+                                    <h6 class="card-subtitle fs-14 mt-2 fw-medium">{{ $item->sub_category_name }}</h6>
                                 </div>
                                 <a href="{{ route('single_product_view_medicines', ['slug' => $item->slug , 'vendor_id' => $item->vendor_id]) }}"
                                     class="align-self-end fw-semibold d-flex align-items-center gap-1 add-to-cart-btn-new">
