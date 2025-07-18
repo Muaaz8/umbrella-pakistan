@@ -942,6 +942,7 @@ class AllProductsController extends AppBaseController
 
 
             } else if ($pro_list->type == "medicine") {
+                dd($pro_list);
                 if ($pro_list->usage != null) {
                     $getRes = $this->allProductsRepository->find($pro_list->medicine_id);
                     $getRes->usage = $pro_list->usage;

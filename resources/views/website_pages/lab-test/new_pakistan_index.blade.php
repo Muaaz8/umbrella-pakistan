@@ -351,7 +351,7 @@
                                         class="read-btn-new mt-2 btn bg-white fw-medium fs-12 py-1">Read More</button>
                                     @if (Auth::check())
                                     <button
-                                        class="fw-semibold {{ $item->vendor_product_id }} d-flex align-items-center gap-1 add-to-cart-btn-new"
+                                        class="fw-semibold {{ $item->vendor_product_id }} lab-test d-flex align-items-center gap-1 add-to-cart-btn-new"
                                         onclick="addedItem(this)">
                                         <span class="fs-14">Add to Cart</span>
                                         <span
