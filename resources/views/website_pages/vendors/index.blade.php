@@ -115,7 +115,7 @@
                                             <p class="card-text fs-14 text-capitalize">
                                                 {{ $vendor->address }}
                                             </p>
-                                            <div class="d-flex align-items-center justify-content-sm-start gap-2">
+                                            {{-- <div class="d-flex align-items-center justify-content-sm-start gap-2">
                                                 <div
                                                     class="client-rating gap-small text-gold fs-6 mt-0 d-flex align-items-center">
                                                     <span class="fs-18">★</span>
@@ -127,7 +127,7 @@
                                                 </div>
                                                 <span class="vertical-stick"></span>
                                                 <p class="fs-14">24/7 Available</p>
-                                            </div>
+                                            </div> --}}
                                         </div>
                                         <div
                                             class="d-flex flex-column align-items-center align-items-sm-center justify-content-end w-max ms-auto">

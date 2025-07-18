@@ -64,8 +64,10 @@
             <div>
                 <a class="fs-12" href="{{ url('/') }}">Home</a>
                 <span class="mx-1 align-middle">></span>
+                <a class="fs-12" href="{{ route('labs_products', ['id' => $products[0]->vendor_id]) }}">{{$products[0]->vendor_name}}</a>
+                <span class="mx-1 align-middle">></span>
                 <a class="fs-12" href="{{ route('labs_products', ['id' =>
-                                            $products[0]->vendor_id]) }}">Labs</a>
+                $products[0]->vendor_id]) }}">{{$products[0]->slug}}</a>
             </div>
         </div>
     </section>
@@ -78,11 +80,11 @@
                     <div class="price-tag">
                         <span class="badge bg-danger px-3 py-2">Rs. {{
                             number_format($products[0]->sale_price,2)}}</span>
-                        @if ($products[0]->discount_percentage != null || $products[0]->discount_percentage != 0)
+                        @if ($products[0]->discount_percentage != null && $products[0]->discount_percentage > 0)
                         <span class="actual-price">Rs. {{ number_format($products[0]->actual_price,2) }}</span>
                         @endif
                     </div>
-                    @if ($products[0]->discount_percentage != null)
+                    @if ($products[0]->discount_percentage != null && $products[0]->discount_percentage > 0)
                     <span class="discount-no">{{ $products[0]->discount_percentage}}% Off</span>
                     @endif
                     @if(Auth::check())
@@ -97,7 +99,11 @@
                     @endif
                 </div>
                 <hr class="hr my-2">
-                {!! $products[0]->description !!}
+                @if ($products[0]->description != null)
+                    {!! $products[0]->description !!}
+                @else
+                    <p class="text-center">No description available for this product.</p>
+                @endif
 
             </div>
         </div>

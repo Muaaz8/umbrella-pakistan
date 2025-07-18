@@ -438,6 +438,7 @@ class Pharmacy extends Model
                     'vendor_products.actual_price  AS actual_price',
                     'vendor_products.discount AS discount_percentage',
                     'vendor_products.available_stock',
+                    'vendor_accounts.name AS vendor_name',
                     'quest_data_test_codes.TEST_CD AS id',
                     'quest_data_test_codes.TEST_NAME AS name',
                     'quest_data_test_codes.DETAILS AS short_description',
@@ -498,6 +499,7 @@ class Pharmacy extends Model
                     'vendor_products.actual_price',
                     'vendor_products.discount AS discount',
                     'vendor_products.available_stock',
+                    'vendor_accounts.name AS vendor_name',
 
                     'products_sub_categories.title as sub_category_name',
                     'products_sub_categories.slug as sub_category_slug',
