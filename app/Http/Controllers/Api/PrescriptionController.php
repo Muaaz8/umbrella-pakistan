@@ -89,28 +89,13 @@ class PrescriptionController extends Controller
 
     public function addMedicineDose(Request $request)
     {
-        $product = DB::table('tbl_products')->where('id', $request['pro_id'])->first();
-        $med_unit = DB::table('medicine_units')->where('unit', $request['units'])->first();
-        $quantity = 0;
-        $price = DB::table('medicine_pricings')
-            ->where('product_id', $request['pro_id'])
-            ->where('unit_id', $med_unit->id)
-            ->first();
-        if ($product->is_single == 1) {
-            $totalprice = $price->sale_price * ($request['days'] * $request['med_time']);
-            $quantity = $request['days'] * $request['med_time'];
-        } else {
-            $totalprice = $price->sale_price;
-            $quantity = 1;
-        }
-        $res = Prescription::where('session_id', $request['session_id'])->where('medicine_id', $request['pro_id'], $request['instructions'])->update([
+        $res = Prescription::where('session_id', $request['session_id'])->where('medicine_id', $request['pro_id'])->update([
             'med_days' => $request['days'],
-            'med_unit' => $request['units'],
+            // 'med_unit' => $request['units'],
             'med_time' => $request['med_time'],
-            'quantity' => $quantity,
-            'price' => $totalprice,
+            // 'price' => $request['price'],
             'comment' => $request['instructions'],
-            'usage' => $request['med_time'] . ' Times a day for ' . $request['days'] . ' days',
+            'usage' => 'Dosage: ' . $request['med_time'] . ' Times a day for ' . $request['days'] . ' days',
         ]);
         if ($res) {
             return response()->json(['status' => 'success']);
