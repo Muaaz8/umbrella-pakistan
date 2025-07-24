@@ -58,6 +58,7 @@
             },
             success: function(res)
             {
+                AOS.refresh();
                 $('.pagination').hide();
                 $('.prescription-req-view-btn').hide();
                 $('#loadSearchPharmacyItemByCategory').html('');
@@ -77,7 +78,7 @@
                     $.each(res, function(key, value) {
                         console.log(value);
                         $('#loadSearchPharmacyItemByCategory').append(
-                            `<div class="col-md-4">
+                            `<div class="col-md-4" data-aos="zoom-in" data-aos-delay="${key * 100}">
                                 <div class="card rounded-4 border-0 bg-light-sky-blue">
                                     <div class="row overflow-hidden card-body px-4">
                                         <div
@@ -155,7 +156,7 @@
                     $.each(res, function(key, value) {
                         console.log(value);
                         $('#loadSearchPharmacyItemByCategory').append(
-                            `<div class="col-md-4">
+                            `<div class="col-md-4" data-aos="zoom-in" data-aos-delay="${key * 100}">
                                 <div class="card rounded-4 border-0 bg-light-sky-blue">
                                     <div class="row overflow-hidden card-body px-4">
                                         <div
@@ -234,7 +235,7 @@
                 else{
                     $.each(res.data, function(key, value) {
                         $('#loadSearchPharmacyItemByCategory').append(
-                            `<div class="col-md-4">
+                            `<div class="col-md-4" data-aos="zoom-in" data-aos-delay="${key * 100}">
                                 <div class="card rounded-4 border-0 bg-light-sky-blue">
                                     <div class="row overflow-hidden card-body px-4">
                                         <div
@@ -316,7 +317,7 @@
 
 @section('content')
 <main class="shops-page">
-    <section class="new-header w-85 mx-auto rounded-3">
+    <section class="new-header w-85 mx-auto rounded-3" data-aos="fade-down" data-aos-delay="100">
         <div class="new-header-inner py-4 px-4">
             <h1 class="fs-30 mb-0 fw-semibold">{{ $slug!=""?$slug:"Pharmacy" }}</h1>
             <div>
@@ -329,10 +330,10 @@
         </div>
     </section>
     <section class="page-para my-3 px-3 px-sm-5 w-85 mx-auto">
-        <h2 class="fs-30 fw-semibold text-center mb-2">
+        <h2 class="fs-30 fw-semibold text-center mb-2" data-aos="fade-up" data-aos-delay="300">
             Community Healthcare Clinics - Medicines
         </h2>
-        <p class="fs-14 text-center px-sm-2">
+        <p class="fs-14 text-center px-sm-2" data-aos="fade-up" data-aos-delay="500">
             Our pharmacy offers prescription drugs at discounted prices.
         </p>
     </section>
@@ -341,7 +342,7 @@
             <div class="row gx-4 gy-2 mx-auto w-85 justify-content-between mb-3 align-items-center">
                 <div class="col-md-5">
                     <div
-                        class="search-container d-flex align-items-center justify-content-center rounded-3 position-relative">
+                        class="search-container d-flex align-items-center justify-content-center rounded-3 position-relative" data-aos="fade-right" data-aos-delay="700">
                         <input class="search-bar px-3 py-2" type="search" name="search"
                             placeholder="Search for medicines" id="pharmacySearchText" />
                         <button class="px-3 py-2 search-icon searchPharmacyProduct"><i
@@ -352,7 +353,7 @@
                     @php
                     $sub_id = request()->get('sub_id');
                     @endphp
-                    <select class="text-secondary form-select border-blue-2 py-2 rounded-3" id="category"
+                    <select class="text-secondary form-select border-blue-2 py-2 rounded-3" id="category" data-aos="slide-left"
                         onchange="changed()" name="category">
                         <option value="all">All</option>
                         @foreach ($data['sidebar'] as $val)
@@ -362,9 +363,9 @@
                     </select>
                 </div>
             </div>
-            <div class="row mx-auto px-0 w-85 gx-4 gy-3" id="loadSearchPharmacyItemByCategory">
+            <div class="row mx-auto px-0 w-85 gx-4 gy-3" data-aos="fade-up" data-aos-delay="200" id="loadSearchPharmacyItemByCategory">
                 @foreach ($data['products'] as $item)
-                <div class="col-md-4">
+                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="{{ $loop->index * 100 }}">
                     <div class="card rounded-4 border-0 bg-light-sky-blue">
                         <div class="row overflow-hidden card-body px-4">
                             <div

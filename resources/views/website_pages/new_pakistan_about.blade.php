@@ -62,13 +62,7 @@
 $page = DB::table('pages')->where('url', '/about-us')->first();
 @endphp
 <main>
-    {{--<div class="about_heading_img">
-        <div class="about_heading_inner_div">
-            <h1>ABOUT US</h1>
-            <div class="underline3"></div>
-        </div>
-    </div>--}}
-    <section class="new-header w-85 mx-auto rounded-3">
+    <section class="new-header w-85 mx-auto rounded-3" data-aos="fade-down" data-aos-duration="800">
         <div class="new-header-inner p-4">
             <h1 class="fs-30 mb-0 fw-semibold">About Us</h1>
             <div>
@@ -78,26 +72,26 @@ $page = DB::table('pages')->where('url', '/about-us')->first();
             </div>
         </div>
     </section>
-    <section class="py-3 pt-sm-3">
+    <section class="py-3 pt-sm-3" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
         <div class="container-fluid px-0 w-85">
             <div class="row gx-4 gy-1 mx-auto">
-                <div class="px-0 ps-sm-0 px-md-2 ps-xl-0 col-12 col-lg-7">
+                <div class="px-0 ps-sm-0 px-md-2 ps-xl-0 col-12 col-lg-7" data-aos="fade-right" data-aos-duration="800" data-aos-delay="200">
                     <div class="row g-3">
                         <div class="col-6">
-                            <img class="rounded-3 w-100 object-fit-cover" height="382px"
+                            <img class="rounded-3 w-100 object-fit-cover" data-aos="zoom-in" data-aos-duration="700" data-aos-delay="300" height="382px"
                                 src="{{ asset('assets/new_frontend/about-1.png') }}" alt="" />
-                            <img class="rounded-3 object-fit-cover h-25 w-100 mt-3" height="162px"
+                            <img class="rounded-3 object-fit-cover h-25 w-100 mt-3" data-aos="slide-up" data-aos-duration="600" data-aos-delay="400" height="162px"
                                 src="{{ asset('assets/new_frontend/about-2.png') }}" alt="" />
                         </div>
                         <div class="col-6">
                             <div
-                                class="bg-blue text-white p-4 rounded-3 d-flex flex-column justify-content-center text-center h-25 w-100" height="162px">
+                                class="bg-blue text-white p-4 rounded-3 d-flex flex-column justify-content-center text-center h-25 w-100" height="162px" data-aos="flip-up" data-aos-duration="800" data-aos-delay="350">
                                 <h3 class="text-capitalize fw-semibold">
                                     Over 25+ years experience
                                 </h3>
                             </div>
                             <img class="rounded-3 object-fit-cover w-100 mt-3"
-                            height="382px"
+                            height="382px" data-aos="zoom-in" data-aos-duration="700" data-aos-delay="500"
                                 src="{{ asset('assets/new_frontend/about-3.png') }}" alt="" />
                         </div>
                     </div>
@@ -117,13 +111,13 @@ $page = DB::table('pages')->where('url', '/about-us')->first();
                         ->where('section_id', $section->id)
                         ->first();
                         @endphp
-                        <h2 class="text-capitalize fw-semibold fs-30 mb-3">
+                        <h2 class="text-capitalize fw-semibold fs-30 mb-3" data-aos="fade-up" data-aos-duration="600" data-aos-delay="400">
                             We Are Community Healthcare Clinics
                         </h2>
                         @if ($top_content)
-                        {!! $top_content->content !!}
+                        <div data-aos="fade-up" data-aos-duration="600" data-aos-delay="550">{!! $top_content->content !!}</div>
                         @else
-                        <p class="mt-4">
+                        <p class="mt-4" data-aos="fade-up" data-aos-duration="600" data-aos-delay="550">
                             At Community Healthcare Clinics, we believe that healthcare
                             should be accessible, affordable, and convenient for
                             everyone—no matter where you are. Our digital healthcare
@@ -134,7 +128,7 @@ $page = DB::table('pages')->where('url', '/about-us')->first();
                             bring international healthcare expertise directly to your
                             doorstep.&nbsp;
                         </p>
-                        <p class="mt-4">
+                        <p class="mt-4" data-aos="fade-up" data-aos-duration="600" data-aos-delay="750">
                             Doctors are ready to help you get the care you need, anywhere
                             in Karachi. Access to doctors, psychiatrists, psychologists,
                             therapists, and other medical experts care is available.
@@ -147,44 +141,17 @@ $page = DB::table('pages')->where('url', '/about-us')->first();
             </div>
         </div>
     </section>
-    {{--<section class="desc-about-section">
-        <div class="desc-container">
-            @php
-            $section = DB::table('section')
-            ->where('page_id', $page->id)
-            ->where('section_name', 'bottom section')
-            ->where('sequence_no', '2')
-            ->first();
-            $top_content = DB::table('content')
-            ->where('section_id', $section->id)
-            ->first();
-            $image_content = DB::table('images_content')
-            ->where('section_id', $section->id)
-            ->first();
-            @endphp
-            @if ($top_content)
-            {!! $top_content->content !!}
-            @else
-            <h2 class="desc-main-heading">“ Community Health Clinics provides a complete solution for health-related
-                needs. ”</h2>
-            <p class="desc-para">Community Health Clinics E-Pharmacy offers a wide variety of prescription and
-                over-the-counter medications, ensuring convenient access to essential health products for patients
-                directly from their homes.</p>
-            @endif
-        </div>
-        <div class="desc-bg"></div>
-    </section>--}}
-    <section class="py-4 bg-light-gray-var">
+    <section class="py-4 bg-light-gray-var" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
         <div class="row w-85 mx-auto join-us-cards gx-4 gy-4">
             <div class="col-12">
-                <h2 class="text-center fw-semibold fs-30 mb-0">
+                <h2 class="text-center fw-semibold fs-30 mb-0" data-aos="fade-down" data-aos-duration="700" data-aos-delay="200">
                     Why Should You Join
                 </h2>
-                <h2 class="text-center fw-semibold fs-30">
+                <h2 class="text-center fw-semibold fs-30" data-aos="fade-down" data-aos-duration="700" data-aos-delay="400">
                     Community Healthcare Clinics Today?
                 </h2>
             </div>
-            <div class="col-lg-3 col-12 col-sm-6 ps-lg-0">
+            <div class="col-lg-3 col-12 col-sm-6 ps-lg-0" data-aos="flip-left" data-aos-duration="800" data-aos-delay="300">
                 <div class="card border-blue-2 rounded-5">
                     <div class="card-body p-4 p-md-3 p-xl-4">
                         <div
@@ -202,7 +169,7 @@ $page = DB::table('pages')->where('url', '/about-us')->first();
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-12 col-sm-6">
+            <div class="col-lg-3 col-12 col-sm-6" data-aos="flip-left" data-aos-duration="800" data-aos-delay="400">
                 <div class="card border-blue-2 rounded-5">
                     <div class="card-body p-4 p-md-3 p-xl-4">
                         <div
@@ -220,7 +187,7 @@ $page = DB::table('pages')->where('url', '/about-us')->first();
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-12 col-sm-6">
+            <div class="col-lg-3 col-12 col-sm-6" data-aos="flip-left" data-aos-duration="800" data-aos-delay="500">
                 <div class="card border-blue-2 rounded-5">
                     <div class="card-body p-4 p-md-3 p-xl-4">
                         <div
@@ -238,7 +205,7 @@ $page = DB::table('pages')->where('url', '/about-us')->first();
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-12 col-sm-6 pe-lg-0">
+            <div class="col-lg-3 col-12 col-sm-6 pe-lg-0" data-aos="flip-left" data-aos-duration="800" data-aos-delay="600">
                 <div class="card border-blue-2 rounded-5">
                     <div class="card-body p-4 p-md-3 p-xl-4">
                         <div

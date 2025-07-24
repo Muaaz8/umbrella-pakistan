@@ -217,19 +217,19 @@
 </script>
 @endsection
 @section('content')
-<main class="new-home-design">
+<main class="new-home-design overflow-hidden">
   <!-- Section 1: Hero Section -->
   <section class="mt-3 mt-sm-0 new-hero-section container-fluid px-0 px-md-auto d-flex justify-content-center pb-4">
     <div class="row gy-3 gx-0 g-md-3 w-85">
       <div class="ps-md-0 col-md-8">
         <div id="mainBanner" class="carousel slide" data-bs-ride="carousel">
-          <div class="carousel-indicators">
+          <div class="carousel-indicators" data-aos="fade-in" data-aos-duration="800" data-aos-delay="400">
             <button type="button" data-bs-target="#mainBanner" data-bs-slide-to="0" class="active" aria-current="true"
               aria-label="Slide 1"></button>
             <button type="button" data-bs-target="#mainBanner" data-bs-slide-to="1" aria-label="Slide 2"></button>
             <button type="button" data-bs-target="#mainBanner" data-bs-slide-to="2" aria-label="Slide 3"></button>
           </div>
-          <div class="carousel-inner rounded-3">
+          <div class="carousel-inner rounded-3" data-aos="fade-right" data-aos-duration="800">
             <div class="carousel-item active">
               <img src="{{ asset('assets/new_frontend/new-banner-size.jpg') }}" class="d-block w-100" alt="..." />
             </div>
@@ -244,7 +244,7 @@
       </div>
       <div class="pe-md-0 col-md-4">
         <div
-          class="p-3 p-sm-5 py-md-3 px-md-4 w-100 promo-card d-flex flex-column align-items-center justify-content-center gap-2 rounded-3 h-100">
+          class="p-3 p-sm-5 py-md-3 px-md-4 w-100 promo-card d-flex flex-column align-items-center justify-content-center gap-2 rounded-3 h-100" data-aos="fade-left" data-aos-duration="800" data-aos-delay="200">
           <h4 class="mb-1 mb-sm-2 text-center fw-semibold">
             Get upto 30% Discount on Lab Tests at
             <span class="highlight-blue">Essa Lab!</span>
@@ -254,7 +254,7 @@
       </div>
       <div class="ps-md-0 col-md-4">
         <div
-          class="w-100 d-flex align-items-xxl-center align-items-stretch justify-content-between service-card p-3 p-sm-4 p-md-2 p-lg-4 rounded-3 h-100">
+          class="w-100 d-flex align-items-xxl-center align-items-stretch justify-content-between service-card p-3 p-sm-4 p-md-2 p-lg-4 rounded-3 h-100" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
           <div class="w-60 card-text-cont">
             <h5 class="fs-6 fw-semibold">Consult Doctor Online</h5>
             <p class="service-card-para fs-14">
@@ -272,7 +272,7 @@
       </div>
       <div class="px-md-auto col-md-4">
         <div
-          class="w-100 d-flex align-items-xxl-center align-items-stretch justify-content-between service-card p-3 p-sm-4 p-md-2 p-lg-4 rounded-3 h-100">
+          class="w-100 d-flex align-items-xxl-center align-items-stretch justify-content-between service-card p-3 p-sm-4 p-md-2 p-lg-4 rounded-3 h-100" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
           <div class="w-60 card-text-cont">
             <h5 class="fs-6 fw-semibold">Order Medicines Online</h5>
             <p class="service-card-para fs-14">
@@ -288,7 +288,7 @@
         </div>
       </div>
       <div class="pe-md-0 col-md-4">
-        <div class="w-100 d-flex align-items-stretch justify-content-between service-card rounded-3 h-100">
+        <div class="w-100 d-flex align-items-stretch justify-content-between service-card rounded-3 h-100" data-aos="fade-up" data-aos-duration="800" data-aos-delay="500">
           <div class="w-60 p-3 p-sm-4 p-md-2 p-lg-4 pe-0 card-text-cont align-self-xxl-center">
             <h5 class="fs-6 fw-semibold">Online Lab Test</h5>
             <p class="service-card-para fs-14">
@@ -310,11 +310,11 @@
   <section
     class="our-guide-section container-fluid px-0 d-flex flex-column align-items-center justify-content-center py-2">
     <div class="bg-light-blue rounded-3 pt-3 pb-2 px-2 w-85">
-      <h2 class="text-center">
+      <h2 class="text-center" data-aos="fade-down" data-aos-duration="800" data-aos-delay="200">
         Our Guide for <span class="fw-bold">New Users</span>
       </h2>
       <div class="d-none d-sm-block">
-        <ul class="nav justify-content-center nav-pills my-3 bg-white p-2 rounded-2" id="pills-tab" role="tablist">
+        <ul class="nav justify-content-center nav-pills my-3 bg-white p-2 rounded-2" id="pills-tab" role="tablist" data-aos="zoom-in" data-aos-duration="800" data-aos-delay="300">
           <li class="nav-item px-4 px-sm-2 px-lg-4" role="presentation">
             <button class="text-navy-blue py-2 px-4 fw-semibold nav-link active" id="pills-register-patient-tab"
               data-bs-toggle="pill" data-bs-target="#pills-register" type="button" role="tab"
@@ -705,7 +705,7 @@
           <div class="row gy-3 gx-0 g-md-3">
             <div class="col-md-12">
               <div
-                class="w-100 h-100 p-3 p-sm-4 bg-blue text-white rounded-4 rounded-sm-3 d-flex flex-column flex-sm-row align-items-center justify-content-sm-between position-relative gap-3 gap-sm-0">
+                class="w-100 h-100 p-3 p-sm-4 bg-blue text-white rounded-4 rounded-sm-3 d-flex flex-column flex-sm-row align-items-center justify-content-sm-between position-relative gap-3 gap-sm-0" data-aos="fade-right" data-aos-duration="800">
                 <div
                   class="w-65 d-flex flex-column text-sm-start text-center align-items-center align-items-sm-start justify-content-center">
                   <h2 class="fs-28">
@@ -741,7 +741,7 @@
               $sub_id = DB::table('products_sub_categories')->where('slug', 'baby-mothercare')->value('id');
               @endphp
               <div
-                class="w-100 h-100 bg-light-red p-3 rounded-4 rounded-sm-3 d-flex flex-column align-items-center justify-content-end"
+                class="w-100 h-100 bg-light-red p-3 rounded-4 rounded-sm-3 d-flex flex-column align-items-center justify-content-end" data-aos="flip-left" data-aos-duration="800" data-aos-delay="100"
                 onclick="redirect({{ $sub_id }})" style="cursor: pointer;">
                 <img class="w-100" src="{{ asset('assets/new_frontend/baby-care.webp') }}" alt="" />
                 <div class="bg-white text-center px-4 py-3 rounded-3">
@@ -756,7 +756,7 @@
               $sub_id = DB::table('products_sub_categories')->where('slug', 'multivitamins')->value('id');
               @endphp
               <div
-                class="w-100 h-100 bg-light-sky-blue p-3 rounded-4 rounded-sm-3 d-flex flex-column align-items-center justify-content-end"
+                class="w-100 h-100 bg-light-sky-blue p-3 rounded-4 rounded-sm-3 d-flex flex-column align-items-center justify-content-end" data-aos="flip-left" data-aos-duration="800" data-aos-delay="200"
                 onclick="redirect({{ $sub_id }})" style="cursor: pointer;">
                 <img class="w-100" src="{{ asset('assets/new_frontend/multi-vitamins.webp') }}" alt="" />
                 <div class="bg-white text-center px-4 py-3 rounded-3">
@@ -771,7 +771,7 @@
           $sub_id = DB::table('products_sub_categories')->where('slug', 'skin-care')->value('id');
           @endphp
           <div
-            class="w-100 h-100 bg-light-sky-blue p-3 rounded-4 rounded-sm-3 d-flex flex-column align-items-center justify-content-end"
+            class="w-100 h-100 bg-light-sky-blue p-3 rounded-4 rounded-sm-3 d-flex flex-column align-items-center justify-content-end" data-aos="fade-left" data-aos-duration="800" data-aos-delay="300"
             onclick="redirect({{ $sub_id }})" style="cursor: pointer;">
             <img class="w-75" src="{{ asset('assets/new_frontend/personal-care.webp') }}" alt="" />
             <div class="bg-white text-center px-4 py-3 rounded-3">
@@ -787,7 +787,7 @@
   <section class="mission-section container-fluid px-0 d-flex justify-content-center py-sm-5 bg-light-gray-var">
     <div class="w-85">
       <h6 class="d-none d-sm-block fs-14 fw-semibold mb-1 small-head">Mission Statement</h6>
-      <h2 class="d-none d-sm-block fw-bold fs-3">
+      <h2 class="d-none d-sm-block fw-bold fs-3" data-aos="fade-right" data-aos-duration="800" data-aos-delay="200">
         Consult the best Pakistani and American Doctors Online!
       </h2>
       <div class="row gx-3 mt-3 position-relative">
@@ -801,13 +801,13 @@
         <h2 class="d-block d-sm-none fw-bold fs-22">
           Consult the best Pakistani and American Doctors Online!
         </h2>
-        <div class="d-none d-sm-block col-md-3">
+        <div class="d-none d-sm-block col-md-3" data-aos="zoom-in" data-aos-duration="800" data-aos-delay="300">
           <div class="w-100 h-100">
             <img class="w-100 h-100 rounded-3 object-fit-cover" src="{{ asset('assets/new_frontend/mission-1.webp') }}"
               alt="" />
           </div>
         </div>
-        <div class="col-md-5">
+        <div class="col-md-5" data-aos="fade-up" data-aos-duration="800" data-aos-delay="400">
           <div class="w-100 h-100">
             <p class="fs-14">
               At Community Healthcare Clinics, we are redefining how
@@ -834,7 +834,7 @@
             </a>
           </div>
         </div>
-        <div class="col-md-4 d-none d-sm-block">
+        <div class="col-md-4 d-none d-sm-block" data-aos="fade-left" data-aos-duration="800" data-aos-delay="500">
           <div class="w-100 h-100 d-flex flex-column justify-content-between gap-2">
             <img class="w-100 h-50 rounded-3 object-fit-cover" src="{{ asset('assets/new_frontend/mission-2.webp') }}"
               alt="" />
@@ -863,8 +863,8 @@
   <section class="our-partners-section container-fluid px-0 d-flex justify-content-center py-5">
     <div class="row w-85 text-center position-relative z-1">
       <h5 class="fs-14">Our Partners</h5>
-      <h2 class="fs-22 fw-bold">Collaborating Partners</h2>
-      <div class="partner-scroll w-100 d-flex overflow-hidden px-0 mt-4">
+      <h2 class="fs-22 fw-bold" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">Collaborating Partners</h2>
+      <div class="partner-scroll w-100 d-flex overflow-hidden px-0 mt-4" data-aos="fade-in" data-aos-delay="400" data-aos-duration="800">
         <div class="partner-logo-container d-flex align-items-center justify-content-sm-between">
           <img class="me-3" src="{{ asset('assets/new_frontend/adviyaat-logo.webp') }}" alt="" />
           <img class="mx-3" src="{{ asset('assets/new_frontend/AGP-Logo.webp') }}" alt="" />
@@ -894,12 +894,12 @@
       <div class="ps-0 col-md-4">
         <div class="w-100 d-flex flex-column gap-3">
           <div class="text-center text-md-start">
-            <h2 class="m-0 fs-28 me-md-1 d-inline d-lg-block d-xl-inline">
+            <h2 class="m-0 fs-28 me-md-1 d-inline d-lg-block d-xl-inline" data-aos="fade-right" data-aos-duration="800" data-aos-delay="100">
               What Our
             </h2>
-            <span class="fw-bold fs-28">Client Says</span>
+            <span class="fw-bold fs-28" data-aos-duration="800" data-aos="fade-left" data-aos-delay="200">Client Says</span>
           </div>
-          <p class="new-para text-center text-md-start">
+          <p class="new-para text-center text-md-start" data-aos="fade-up" data-aos-duration="800" data-aos-delay="300">
             Trusted by our clients for care, convenience, and professionalism. Hear it from them.
           </p>
           <div class="d-none d-md-flex align-items-center gap-2">
@@ -920,7 +920,7 @@
       </div>
       <div class="px-0 pe-sm-0 col-md-8">
         <div class="w-100 d-flex gap-3 justify-content-between align-items-center">
-          <div id="clientTestimonial" class="carousel w-100" data-bs-ride="carousel">
+          <div id="clientTestimonial" class="carousel w-100" data-bs-ride="carousel" data-aos="fade-left" data-aos-duration="800" data-aos-delay="400">
             <div class="carousel-inner w-100">
               <div class="carousel-item px-2">
                 <div class="card w-100">
@@ -1032,18 +1032,18 @@
     <div class="row py-3">
       <div class="col-md-8">
         <div class="w-100">
-          <h2 class="fs-22 fw-bold text-center text-md-start">Frequently Asked Questions</h2>
-          <div class="accordion accordion-flush mt-4" id="faqsSection">
+          <h2 class="fs-22 fw-bold text-center text-md-start" data-aos="fade-right" data-aos-duration="800" data-aos-delay="100">Frequently Asked Questions</h2>
+          <div class="accordion accordion-flush mt-4" id="faqsSection" data-aos="fade-up" data-aos-delay="300" data-aos-duration="800">
             @foreach ($faqs as $faq)
-            <div class="accordion-item border-blue-2 rounded-2 my-1">
-              <h2 class="accordion-header border-none my-1">
+            <div class="accordion-item border-blue-2 rounded-3 my-1 overflow-hidden">
+              <h2 class="accordion-header border-none">
                 <button class="accordion-button collapsed border-none" type="button" data-bs-toggle="collapse"
                   data-bs-target="#faq-{{ $faq->id }}" aria-expanded="false" aria-controls="flush-collapseOne">
                   {{ $faq->question }}
                 </button>
               </h2>
               <div id="faq-{{ $faq->id }}" class="accordion-collapse collapse" data-bs-parent="#faqsSection">
-                <div class="accordion-body border-none pt-0">
+                <div class="accordion-body border-none">
                   {!! $faq->answer !!}
                 </div>
               </div>

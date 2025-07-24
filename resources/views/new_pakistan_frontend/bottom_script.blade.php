@@ -3,7 +3,9 @@
 <script src="{{ asset('/js/app.js') }}"></script>
 <script src="{{ asset('assets/js/home.js') }}"></script>
 <script src="{{ asset('assets/new_frontend/app.js') }}"></script>
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script type="text/javascript">
+    AOS.init({once: true});
     <?php header('Access-Control-Allow-Origin: *'); ?>
     $.ajaxSetup({
         headers: {

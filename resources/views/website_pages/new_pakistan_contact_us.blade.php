@@ -207,7 +207,7 @@
 
 @endsection @section('content')
 <div class="contact-section2 py-0 py-sm-4">
-    <section class="new-header w-85 mx-auto rounded-3">
+    <section class="new-header w-85 mx-auto rounded-3" data-aos="fade-down" data-aos-duration="800">
         <div class="new-header-inner p-4">
             <h1 class="fs-30 mb-0 fw-semibold">Contact Us</h1>
             <div>
@@ -221,11 +221,11 @@
             </div>
         </div>
     </section>
-    <div class="container-fluid w-85 mt-1 py-3 px-0">
+    <section class="container-fluid w-85 mt-1 py-3 px-0" data-aos="fade-up" data-aos-duration="800" data-aos-delay="100">
         <div class="row">
-            <div class="col-lg-4 col-md-6 mb-4">
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="flip-up" data-aos-duration="700" data-aos-delay="200">
                 <div class="contact-card">
-                    <div class="contact-icon">
+                    <div class="contact-icon" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="500">
                         <i class="fas fa-map-marker-alt"></i>
                     </div>
                     <h5>Address:</h5>
@@ -236,9 +236,9 @@
                 </div>
             </div>
 
-            <div class="col-lg-4 col-md-6 mb-4">
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="flip-up" data-aos-duration="700" data-aos-delay="300">
                 <div class="contact-card">
-                    <div class="contact-icon">
+                    <div class="contact-icon" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="500">
                         <i class="fas fa-phone"></i>
                     </div>
                     <h5>Phone:</h5>
@@ -246,9 +246,9 @@
                 </div>
             </div>
 
-            <div class="col-lg-4 col-md-6 mb-4">
+            <div class="col-lg-4 col-md-6 mb-4" data-aos="flip-up" data-aos-duration="700" data-aos-delay="400">
                 <div class="contact-card">
-                    <div class="contact-icon">
+                    <div class="contact-icon" data-aos="zoom-in" data-aos-duration="500" data-aos-delay="500">
                         <i class="fas fa-envelope"></i>
                     </div>
                     <h5>Email:</h5>
@@ -257,7 +257,7 @@
             </div>
         </div>
 
-        <div class="section-title">
+        <div class="section-title" data-aos="fade-down" data-aos-duration="800" data-aos-delay="600">
             <h2>Have A Question? Contact Us.</h2>
             <p>
                 Give Us A Call Or Send An Email. Our Team Is Always Ready To
@@ -266,10 +266,10 @@
         </div>
 
         <!-- Contact Form Section -->
-        <div class="contact-form-section">
+        <div class="contact-form-section" data-aos="fade-up" data-aos-duration="800" data-aos-delay="700">
             <div class="row no-gutters">
-                <div class="col-lg-4">
-                    <div class="image-container rounded-4">
+                <div class="col-lg-4" data-aos="slide-right" data-aos-duration="800" data-aos-delay="800">
+                    <div class="image-container rounded-4" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="900">
                         <img
                             src="{{
                                 asset(
@@ -281,10 +281,10 @@
                         />
                     </div>
                 </div>
-                <div class="col-lg-8">
+                <div class="col-lg-8" data-aos="slide-left" data-aos-duration="800" data-aos-delay="800">
                     <div class="form-container">
                         <form id="contact-form" action="/contact" method="POST">
-                            <div class="row">
+                            <div class="row" data-aos="fade-up" data-aos-duration="500" data-aos-delay="1000">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <input
@@ -309,7 +309,7 @@
                                 </div>
                             </div>
 
-                            <div class="row">
+                            <div class="row" data-aos="fade-up" data-aos-duration="500" data-aos-delay="1200">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <input
@@ -334,7 +334,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group" data-aos="fade-up" data-aos-duration="500" data-aos-delay="1200">
                                 <input
                                     type="text"
                                     class="form-control"
@@ -344,7 +344,7 @@
                                 />
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group" data-aos="fade-up" data-aos-duration="500" data-aos-delay="1300">
                                 <textarea
                                     class="form-control"
                                     id="message"
@@ -360,7 +360,7 @@
                             </div>
 
                             <button
-                                class="cursor-pointer d-flex mt-4 px-4 py-2 bg-zinc d-flex align-items-center gap-2 rounded-5 text-white consult-btn"
+                                class="cursor-pointer d-flex mt-4 px-4 py-2 bg-zinc d-flex align-items-center gap-2 rounded-5 text-white consult-btn" data-aos="zoom-in" data-aos-duration="600" data-aos-delay="1400"
                                 type="submit">
                                 <span>Submit Now</span>
                                 <span
@@ -373,7 +373,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 </div>
 
 @endsection

@@ -25,10 +25,10 @@ $page = DB::table('pages')->where('url', '/')->first();
       <div class="col-6 col-sm-6 col-md-4 col-lg-1 social-links-section mt-2 mt-sm-0 px-md-0">
         <h5 class="new-footer-heading fw-semibold mt-2">LINKS</h5>
         <ul class="list-unstyled mt-3 links d-flex flex-column gap-2">
-          <li><a class="fs-14" href="{{ url('/') }}">Home</a></li>
-          <li><a class="fs-14" href="{{ route('about_us') }}">About Us</a></li>
-          <li><a class="fs-14" href="{{ route('contact_us') }}">Contact Us</a></li>
-          <li><a class="fs-14" href="{{ route('faq') }}">FAQs</a></li>
+          <li><a class="fs-14 hover-anim" href="{{ url('/') }}">Home</a></li>
+          <li><a class="fs-14 hover-anim" href="{{ route('about_us') }}">About Us</a></li>
+          <li><a class="fs-14 hover-anim" href="{{ route('contact_us') }}">Contact Us</a></li>
+          <li><a class="fs-14 hover-anim" href="{{ route('faq') }}">FAQs</a></li>
         </ul>
       </div>
       <div class="col-6 col-sm-6 col-md-4 col-lg-2 mt-2 mt-sm-4 mt-md-0 working-hours-section px-md-0">
@@ -63,8 +63,8 @@ $page = DB::table('pages')->where('url', '/')->first();
       <div class="col-sm-12 px-0">
         <div class="w-100 d-flex flex-column-reverse flex-md-row gap-2 gap-lg-0 flex-wrap align-items-center justify-content-between">
           <div class="d-flex align-items-center justify-content-between gap-4 fs-14">
-            <a href="{{ route('terms_of_use') }}">Terms of Use</a>
-            <a href="{{ route('privacy_policy') }}">Privacy Policy</a>
+            <a class="hover-anim" href="{{ route('terms_of_use') }}">Terms of Use</a>
+            <a class="hover-anim" href="{{ route('privacy_policy') }}">Privacy Policy</a>
           </div>
           <p class="fs-14 text-center text-sm-start">
             Copyright © 2025 Community Healthcare Clinics. All Rights

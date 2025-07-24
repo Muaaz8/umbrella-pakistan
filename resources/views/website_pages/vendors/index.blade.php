@@ -35,7 +35,7 @@
 
 @section('content')
 <main class="shops-page">
-    <section class="new-header w-85 mx-auto rounded-3">
+    <section class="new-header w-85 mx-auto rounded-3" data-aos="fade-down" data-aos-delay="100">
         <div class="new-header-inner p-4">
             <h1 class="fs-30 mb-0 fw-semibold">Shops</h1>
             <div>
@@ -49,10 +49,10 @@
         </div>
     </section>
     <section class="page-para my-3 px-5 w-85 mx-auto">
-        <h2 class="fs-30 fw-semibold text-center mb-2">
+        <h2 class="fs-30 fw-semibold text-center mb-2" data-aos="fade-up" data-aos-delay="300">
             Community Healthcare Clinics - Shops
         </h2>
-        <p class="fs-14 text-center px-2">
+        <p class="fs-14 text-center px-2" data-aos="fade-up" data-aos-delay="500">
             Our vendors are carefully selected to ensure you receive high-quality
             products at competitive prices. Your health is our priority, and we
             are committed to excellent service. Our experienced vendors are
@@ -64,10 +64,10 @@
     <section class="shop-container">
         <div class="container-fluid px-0">
             <div class="row gx-0 w-85 mx-auto main-card-container">
-                <div class="row w-100 justify-content-between align-items-center gy-2 gx-0">
+                <div class="row w-100 justify-content-between align-items-center gy-2 gx-0" data-aos="slide-up" data-aos-delay="700">
                     <div class="col-md-5">
                         <div
-                            class="search-container d-flex align-items-center justify-content-center rounded-3 position-relative">
+                            class="search-container d-flex align-items-center justify-content-center rounded-3 position-relative" data-aos="fade-right" data-aos-delay="800">
                             <input class="search-bar px-3 py-2" type="search" name="search"
                                 placeholder="Search for shop" id="pharmacySearchText" />
                             <button class="px-3 py-2 search-icon searchPharmacyProduct"><i
@@ -75,7 +75,7 @@
                         </div>
                     </div>
                     <div class="col-md-5">
-                        <select placeholder="select by location" id="category" onchange="changed(this)"
+                        <select data-aos="fade-left" data-aos-delay="900" placeholder="select by location" id="category" onchange="changed(this)"
                             class="text-secondary form-select border-blue-2 py-2 rounded-3" name="category">
                             <option value="all">Select by location</option>
                             @foreach ($locations as $location)
@@ -91,9 +91,9 @@
                 <div class="col-12" id="paginationParagraph">
                     {{-- <p class="fw-semibold mb-3">Showing 1-6 of 20 Results</p> --}}
                 </div>
-                <div class="row w-100 gx-3 mx-auto mt-3 px-0" id="loadSearchPharmacyItemByCategory">
+                <div class="row w-100 gx-3 mx-auto mt-3 px-0" id="loadSearchPharmacyItemByCategory" data-aos="fade-up" data-aos-delay="500">
                     @foreach ($vendors as $key => $vendor)
-                    <div class="col-lg-6">
+                    <div class="col-lg-6" data-aos="zoom-in" data-aos-delay="{{ $key * 100 }}">
                         <div class="bg-light-sky-blue rounded-4 mb-3">
                             <div class="card bg-transparent border-0">
                                 <div class="card-body p-2 d-flex flex-column justify-content-between">
@@ -217,13 +217,13 @@
                         <p class="fw-semibold mt-2">Showing ${vendors.length === 0 ? 0 : 1}-${vendors.length} of ${pagination.per_page} Results</p>`
             }
             let html = '';
-            vendors.forEach(vendor => {
+            vendors.forEach((vendor, index) => {
                 const viewProductsRoute = vendor.vendor === 'pharmacy'
                     ? `{{ route('pharmacy_products', ['id' => '__ID__']) }}`.replace('__ID__', vendor.id)
                     : `{{ route('labs_products', ['id' => '__ID__']) }}`.replace('__ID__', vendor.id);
 
                 html += `
-                <div class="col-lg-6">
+                <div class="col-lg-6" data-aos="zoom-in" data-aos-delay="${index * 100}">
                     <div class="bg-light-sky-blue rounded-4 mb-3">
                         <div class="card bg-transparent border-0">
                             <div class="card-body p-2 d-flex flex-column justify-content-between">

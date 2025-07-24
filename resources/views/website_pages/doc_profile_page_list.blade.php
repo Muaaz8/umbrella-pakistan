@@ -92,7 +92,7 @@
                     $.each(JSON.parse(response), function(indexInArray, element) {
                         if (element.details) {
                             $(".doctor-cont2").append(
-                                `<div class="col-md-6">
+                                `<div class="col-md-6" data-aos="fade-up" data-aos-duration="800" data-aos-delay="${indexInArray * 100}">
                                     <div class="card border-0 rounded-4 bg-light-sky-blue">
                                         <div class="card-body d-flex flex-column justify-content-between">
                                             <div class="d-flex gap-3">
@@ -160,7 +160,7 @@
                             );
                         } else {
                             $(".doctor-cont2").append(
-                                `<div class="col-md-6">
+                                `<div class="col-md-6" data-aos="fade-up" data-aos-duration="800" data-aos-delay="${indexInArray * 100}">
                                     <div class="card border-0 rounded-4 bg-light-sky-blue">
                                         <div class="card-body d-flex flex-column justify-content-between">
                                             <div class="d-flex gap-3">
@@ -261,7 +261,7 @@
                             console.log(element)
                             if (element.details) {
                                 $(".doctor-cont2").append(
-                                    `<div class="col-md-6">
+                                    `<div class="col-md-6" data-aos="fade-up" data-aos-duration="800" data-aos-delay="${indexInArray * 100}">
                                     <div class="card border-0 rounded-4 bg-light-sky-blue">
                                         <div class="card-body d-flex flex-column justify-content-between">
                                             <div class="d-flex gap-3">
@@ -328,7 +328,7 @@
                                 );
                             } else {
                                 $(".doctor-cont2").append(
-                                    `<div class="col-md-6">
+                                    `<div class="col-md-6" data-aos="fade-up" data-aos-duration="800" data-aos-delay="${indexInArray * 100}">
                                     <div class="card border-0 rounded-4 bg-light-sky-blue">
                                         <div class="card-body d-flex flex-column justify-content-between">
                                             <div class="d-flex gap-3">
@@ -422,7 +422,7 @@
                         $.each(JSON.parse(response), function(indexInArray, element) {
                             if (element.details) {
                                 $(".doctor-cont2").append(
-                                    `<div class="col-md-6">
+                                    `<div class="col-md-6" data-aos="fade-up" data-aos-duration="800" data-aos-delay="${indexInArray * 100}">
                                     <div class="card border-0 rounded-4 bg-light-sky-blue">
                                         <div class="card-body d-flex flex-column justify-content-between">
                                             <div class="d-flex gap-3">
@@ -490,7 +490,7 @@
                                 );
                             } else {
                                 $(".doctor-cont2").append(
-                                    `<div class="col-md-6">
+                                    `<div class="col-md-6" data-aos="fade-up" data-aos-duration="800" data-aos-delay="${indexInArray * 100}">
                                     <div class="card border-0 rounded-4 bg-light-sky-blue">
                                         <div class="card-body d-flex flex-column justify-content-between">
                                             <div class="d-flex gap-3">
@@ -567,7 +567,7 @@
 
 @section('content')
 <main class="our-doctors-page shops-page">
-    <section class="new-header w-85 mx-auto rounded-3">
+    <section class="new-header w-85 mx-auto rounded-3" data-aos="fade-down" data-aos-duration="800">
         <div class="new-header-inner p-4">
             <h1 class="fs-30 mb-0 fw-semibold">Our Doctors</h1>
             <div>
@@ -578,7 +578,7 @@
         </div>
     </section>
     <section class="page-para my-3 px-5 w-85 mx-auto text-center">
-        <h2 class="fs-30 fw-semibold text-center mb-2">
+        <h2 class="fs-30 fw-semibold text-center mb-2" data-aos="fade-up" data-aos-delay="300" data-aos-duration="800">
             Find Our Best Doctors
         </h2>
         @php
@@ -591,9 +591,9 @@
         $top_content = DB::table('content')->where('section_id', $section->id)->first();
         @endphp
         @if ($top_content)
-        <div class="fs-14 text-center px-2">{!! $top_content->content !!}</div>
+        <div class="fs-14 text-center px-2" data-aos="fade-up" data-aos-delay="400" data-aos-duration="800">{!! $top_content->content !!}</div>
         @else
-        <p class="fs-14 text-center px-2">
+        <p class="fs-14 text-center px-2" data-aos="fade-up" data-aos-delay="400" data-aos-duration="800">
             Best Pakistani doctors available online, with American doctors
             accessible on demand.
         </p>
@@ -602,7 +602,7 @@
     <section class="new-doctor-card-section">
         <div class="container-fluid px-0">
             <div class="row gy-2 gx-0 mx-auto w-85">
-                <div class="col-12 px-0 bg-white d-flex justify-content-between mb-1 align-items-center">
+                <div class="col-12 px-0 bg-white d-flex justify-content-between mb-1 align-items-center" data-aos="fade-down" data-aos-duration="800" data-aos-delay="100">
                     <div class="row w-100 gx-0 gy-3">
                         <div
                             class="col-lg-8 d-flex flex-wrap flex-sm-no-wrap flex-sm-row justify-content-between justify-content-lg-start align-items-center gap-2">
@@ -634,7 +634,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 px-0">
+                <div class="col-12 px-0" data-aos="fade-up" data-aos-duration="600" data-aos-delay="200">
                     <div class="col-lg-4 ms-lg-auto mt-0">
                         <select class="text-secondary form-select border-blue-2 py-2 rounded-3" id="specialization"
                             name="specialization">
@@ -648,7 +648,7 @@
             </div>
             <div class="row mt-2 g-3 mx-auto new-doc-card-cont w-85">
                 @foreach ($doctors as $doctor)
-                <div class="col-md-6">
+                <div class="col-md-6" data-aos="fade-up" data-aos-duration="800" data-aos-delay="{{ $loop->index * 100 }}">
                     <div class="card border-0 rounded-4 bg-light-sky-blue">
                         <div class="card-body d-flex flex-column justify-content-between">
                             <div class="d-flex gap-3">

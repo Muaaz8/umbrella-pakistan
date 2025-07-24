@@ -261,18 +261,18 @@
         </div>
         <div class="w-100 w-85 mx-auto px-0 d-none d-lg-flex">
             <ul class="d-flex list-unstyled justify-content-between align-items-center gap-3 w-100 py-3 mb-0">
-                <li class="nav-item"><a class="nav-link fw-medium" href="{{ url('/') }}">Home</a></li>
-                <li class="nav-item"><a class="nav-link fw-medium"
+                <li class="nav-item"><a class="nav-link fw-medium hover-anim" href="{{ url('/') }}">Home</a></li>
+                <li class="nav-item"><a class="nav-link fw-medium hover-anim"
                         href="{{ route('vendor', ['shop_type' => 'pharmacy']) }}">Pharmacy</a></li>
                 <li class="nav-item">
-                    <a class="nav-link fw-medium" href="{{ route('vendor', ['shop_type' => 'labs']) }}">Labtest / Imaging</a>
+                    <a class="nav-link fw-medium hover-anim" href="{{ route('vendor', ['shop_type' => 'labs']) }}">Labtest / Imaging</a>
                 </li>
-                <li class="nav-item"><a class="nav-link fw-medium" href="{{ route('e-visit') }}">E-Visit</a></li>
+                <li class="nav-item"><a class="nav-link fw-medium hover-anim" href="{{ route('e-visit') }}">E-Visit</a></li>
                 <li class="nav-item">
-                    <a class="nav-link fw-medium" href="{{ route('doc_profile_page_list') }}">Our Doctors</a>
+                    <a class="nav-link fw-medium hover-anim" href="{{ route('doc_profile_page_list') }}">Our Doctors</a>
                 </li>
-                <li class="nav-item"><a class="nav-link fw-medium" href="{{ route('about_us') }}">About Us</a></li>
-                <li class="nav-item"><a class="nav-link fw-medium" href="{{ route('contact_us') }}">Contact Us</a></li>
+                <li class="nav-item"><a class="nav-link fw-medium hover-anim" href="{{ route('about_us') }}">About Us</a></li>
+                <li class="nav-item"><a class="nav-link fw-medium hover-anim" href="{{ route('contact_us') }}">Contact Us</a></li>
                 <li class="nav-item">
                     <a class="nav-link fw-medium position-relative" href="{{ url('/my/cart') }}">
                         <img src="{{ asset('assets/new_frontend/cart_new.svg') }}" alt="cart" />

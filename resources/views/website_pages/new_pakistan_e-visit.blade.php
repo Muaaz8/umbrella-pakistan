@@ -76,7 +76,7 @@
 $page = DB::table('pages')->where('url', '/e-visit')->first();
 @endphp
 <main class="e-visit-page">
-    <section class="new-header w-85 mx-auto rounded-3">
+    <section class="new-header w-85 mx-auto rounded-3" data-aos="fade-down" data-aos-delay="100">
         <div class="new-header-inner p-4">
             <h1 class="fs-30 mb-0 fw-semibold">E-Visit</h1>
             <div>
@@ -86,7 +86,7 @@ $page = DB::table('pages')->where('url', '/e-visit')->first();
             </div>
         </div>
     </section>
-    <section class="page-para fs-14 my-3 px-2 px-sm-5 mx-2 w-85 mx-auto text-center">
+    <section class="page-para fs-14 my-3 px-2 px-sm-5 mx-2 w-85 mx-auto text-center" data-aos="fade-up" data-aos-delay="500">
         @php
         $section = DB::table('section')
         ->where('page_id', $page->id)
@@ -101,16 +101,16 @@ $page = DB::table('pages')->where('url', '/e-visit')->first();
         ->first();
         @endphp
         @if ($top_content)
-        {!! $top_content->content !!}
+        <div class="fs-14 text-center px-2">{!! $top_content->content !!}</div>
         @else
-        <p>Community Healthcare Clinics provide you with facility to visit doctors,
+        <p class="fs-14 text-center px-2">Community Healthcare Clinics provide you with facility to visit doctors,
             therapist, or medical expert online. Find best Doctors to get instant medical advice for your health
             problems. Ask the doctors online and consult them on face-to-face video chat and get solution to your
             medical problems from home.</p>
         @endif
     </section>
     <section class="main-buttons">
-        <div class="row text-navy-blue gx-5 align-items-center justify-content-between py-1 bg-light-blue rounded-3 w-85 mx-auto">
+        <div class="row text-navy-blue gx-5 align-items-center justify-content-between py-1 bg-light-blue rounded-3 w-85 mx-auto" data-aos="zoom-in" data-aos-duration="800" data-aos-delay="400">
             <div class="col-md-4 ps-auto ps-sm-1">
                 @if (Auth::check())
                 <button onclick="window.location.href='/specializations'"
@@ -150,11 +150,11 @@ $page = DB::table('pages')->where('url', '/e-visit')->first();
     </section>
     <section class="py-2">
         <div class="row w-85 mx-auto align-items-center gx-4 gy-3">
-            <div class="col-sm-6 ps-0">
+            <div class="col-sm-6 ps-0" data-aos="fade-right" data-aos-duration="800" data-aos-delay="100">
                 <img height="260px" class="e-visit-new-image rounded-4 w-100 object-fit-cover" src="{{ asset('assets/new_frontend/pharmacy-image.webp') }}"
                     alt="">
             </div>
-            <div class="col-sm-6 pe-0">
+            <div class="col-sm-6 pe-0" data-aos="fade-left" data-aos-duration="800" data-aos-delay="300">
                 <div>
                     @php
                     $section = DB::table('section')
@@ -177,10 +177,10 @@ $page = DB::table('pages')->where('url', '/e-visit')->first();
                     @endif
                 </div>
             </div>
-            <div class="col-sm-6 ps-0">
+            <div class="col-sm-6 ps-0" data-aos="fade-right" data-aos-duration="800" data-aos-delay="100">
                 <img height="260px" class="e-visit-new-image rounded-4 w-100 object-fit-cover" src="{{ asset('assets/new_frontend/lab-image.webp') }}" alt="">
             </div>
-            <div class="col-sm-6 pe-0">
+            <div class="col-sm-6 pe-0" data-aos="fade-left" data-aos-duration="800" data-aos-delay="300">
                 <div>
                     @php
                     $section = DB::table('section')
@@ -204,10 +204,10 @@ $page = DB::table('pages')->where('url', '/e-visit')->first();
                     @endif
                 </div>
             </div>
-            <div class="col-sm-6 ps-0">
+            <div class="col-sm-6 ps-0" data-aos="fade-right" data-aos-duration="800" data-aos-delay="100">
                 <img height="260px" class="e-visit-new-image rounded-4 w-100 object-fit-cover" src="{{ asset('assets/new_frontend/pain-image.webp') }}" alt="">
             </div>
-            <div class="col-sm-6 pe-0">
+            <div class="col-sm-6 pe-0" data-aos="fade-left" data-aos-duration="800" data-aos-delay="300">
                 <div>
                     @php
                     $section = DB::table('section')
@@ -233,10 +233,10 @@ $page = DB::table('pages')->where('url', '/e-visit')->first();
                     @endif
                 </div>
             </div>
-            <div class="col-sm-6 ps-0">
+            <div class="col-sm-6 ps-0" data-aos="fade-right" data-aos-duration="800" data-aos-delay="100">
                 <img height="260px" class="e-visit-new-image rounded-4 w-100 object-fit-cover" src="{{ asset('assets/new_frontend/abuse-image.webp') }}" alt="">
             </div>
-            <div class="col-sm-6 pe-0">
+            <div class="col-sm-6 pe-0" data-aos="fade-left" data-aos-duration="800" data-aos-delay="300">
                 <div>
                     @php
                     $section = DB::table('section')

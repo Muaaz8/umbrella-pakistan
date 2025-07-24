@@ -74,7 +74,7 @@
                             if(res.user_id==''){
                                 $.each(res.products.data, function(key, value) {
                                     $('#loadSearchPharmacyItemByCategory').append(
-                                    `<div class="col-md-4">
+                                    `<div class="col-md-4" data-aos="fade-up" data-aos-delay="${key * 100}">
                                         <div class="card rounded-4 border-0 bg-light-sky-blue">
                                             <div class="card-body ps-4 pe-3">
                                                 <div class="pe-0 h-100 d-flex flex-column justify-content-between">
@@ -110,7 +110,7 @@
                             }else{
                                 $.each(res.products.data, function(key, value) {
                                     $('#loadSearchPharmacyItemByCategory').append(
-                                    `<div class="col-md-4">
+                                    `<div class="col-md-4" data-aos="fade-up" data-aos-delay="${key * 100}">
                                         <div class="card rounded-4 border-0 bg-light-sky-blue">
                                             <div class="card-body ps-4 pe-3">
                                                 <div class="pe-0 h-100 d-flex flex-column justify-content-between">
@@ -183,7 +183,7 @@
                             if(res.user_id==''){
                                 $.each(res.products.data, function(key, value) {
                                     $('#loadSearchPharmacyItemByCategory').append(
-                                    `<div class="col-md-4">
+                                    `<div class="col-md-4" data-aos="fade-up" data-aos-delay="${key * 100}">
                                         <div class="card rounded-4 border-0 bg-light-sky-blue">
                                             <div class="card-body ps-4 pe-3">
                                                 <div class="pe-0 h-100 d-flex flex-column justify-content-between">
@@ -219,7 +219,7 @@
                             }else{
                                 $.each(res.products.data, function(key, value) {
                                     $('#loadSearchPharmacyItemByCategory').append(
-                                    `<div class="col-md-4">
+                                    `<div class="col-md-4" data-aos="fade-up" data-aos-delay="${key * 100}">
                                         <div class="card rounded-4 border-0 bg-light-sky-blue">
                                             <div class="card-body ps-4 pe-3">
                                                 <div class="pe-0 h-100 d-flex flex-column justify-content-between">
@@ -293,7 +293,7 @@
 
 @section('content')
 <main>
-    <section class="new-header w-85 mx-auto rounded-3">
+    <section class="new-header w-85 mx-auto rounded-3" data-aos="fade-down" data-aos-delay="100">
         <div class="new-header-inner p-4">
             <h1 class="fs-30 mb-0 fw-semibold">{{ $vendor->name }}</h1>
             <div>
@@ -305,10 +305,10 @@
         </div>
     </section>
     <section class="page-para my-3 px-5 w-85 mx-auto">
-        <h2 class="fs-30 fw-semibold text-center mb-2">
+        <h2 class="fs-30 fw-semibold text-center mb-2" data-aos="fade-up" data-aos-delay="300">
             Community Healthcare Clinics - Labtests
         </h2>
-        <p class="fs-14 text-center px-2">
+        <p class="fs-14 text-center px-2" data-aos="fade-up" data-aos-delay="500">
             Community Healthcare Clinics offers a wide range of lab tests and
             diagnostic services.
         </p>
@@ -319,7 +319,7 @@
                 <div class="col-12 bg-white d-flex justify-content-between mb-3 align-items-center">
                     <div class="col-md-5">
                         <div
-                            class="search-container d-flex align-items-center justify-content-center rounded-3 position-relative">
+                            class="search-container d-flex align-items-center justify-content-center rounded-3 position-relative" data-aos="fade-right" data-aos-delay="700">
                             <input class="search-bar px-3 py-2" type="search" name="search"
                                 placeholder="Search for labs" id="pharmacySearchText" />
                             <button class="px-3 py-2 search-icon searchPharmacyProduct"><i
@@ -328,9 +328,9 @@
                     </div>
                 </div>
             </div>
-            <div class="row gx-4 gy-3 mx-auto w-85" id="loadSearchPharmacyItemByCategory">
+            <div class="row gx-4 gy-3 mx-auto w-85" id="loadSearchPharmacyItemByCategory" data-aos="fade-up" data-aos-delay="500">
                 @foreach ($data['products'] as $item)
-                <div class="col-md-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
                     <div class="card rounded-4 border-0 bg-light-sky-blue">
                         <div class="card-body py-2 ps-3 pe-2">
                             <div class="pe-0 h-100 d-flex flex-column justify-content-between">
