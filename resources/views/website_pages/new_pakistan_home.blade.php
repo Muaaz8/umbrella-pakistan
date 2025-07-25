@@ -7,63 +7,6 @@
 <meta name="{{ $tag->name }}" content="{{ $tag->content }}">
 @endforeach
 <link rel="icon" href="{{ asset('asset_frontend/new_frontend/fav_ico.png') }}" type="image/x-icon">
-{{-- <style>
-  .custom-card-body h1,
-  .custom-card-body h2,
-  .custom-card-body h3,
-  .custom-card-body h4,
-  .custom-card-body h5 {
-    font-size: 1rem;
-    color: #333;
-    margin: 0;
-    font-weight: 700;
-    margin-bottom: 0px;
-    text-decoration: underline;
-  }
-
-  .custom-card-body p {
-    font-size: 0.8rem;
-    color: #666;
-    margin: 0 0 5px 0;
-  }
-
-  .tabs-section-container>h1,
-  .tabs-section-container>h2,
-  .tabs-section-container>h3,
-  .tabs-section-container>h4 {
-    text-align: left;
-    font-size: 1.7rem;
-    color: #082755;
-    width: max-content;
-  }
-
-  .tabs-section-container>.e-visit-content h1,
-  .tabs-section-container>.e-visit-content h2,
-  .tabs-section-container>.e-visit-content h3,
-  .tabs-section-container>.e-visit-content h4 {
-    text-align: left;
-    font-size: 1.7rem;
-    color: #082755;
-  }
-
-  #solution-para figure {
-    display: flex;
-  }
-
-  #solution-para figure img {
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-  }
-
-  .doc-btn {
-    color: #333
-  }
-
-  .doc-btn:hover {
-    color: #ffffff
-  }
-</style> --}}
 <style>
   .card {
     display: block !important;
@@ -203,7 +146,7 @@
     });
 
     <?php
-    header('Access-Control-Allow-Origin: *');
+      header('Access-Control-Allow-Origin: *');
     ?>
     $.ajaxSetup({
         headers: {
@@ -875,16 +818,6 @@
           <img class="mx-3" src="{{ asset('assets/new_frontend/medicure_pharma_logo.webp') }}" alt="" />
           <img class="mx-3" src="{{ asset('assets/new_frontend/one-health-logo.webp') }}" alt="" />
         </div>
-        {{--<div aria-hidden="true"
-          class="partner-logo-container d-flex align-items-center justify-content-sm-between gap-4">
-          <img src="{{ asset('assets/new_frontend/adviyaat-logo.webp') }}" alt="" />
-          <img src="{{ asset('assets/new_frontend/AGP-Logo.webp') }}" alt="" />
-          <img src="{{ asset('assets/new_frontend/dr-essa-logo.webp') }}" alt="" />
-          <img src="{{ asset('assets/new_frontend/HHS-Logo.webp') }}" alt="" />
-          <img src="{{ asset('assets/new_frontend/khayal-rakhna-logo.webp') }}" alt="" />
-          <img src="{{ asset('assets/new_frontend/peridots-logo.webp') }}" alt="" />
-          <img src="{{ asset('assets/new_frontend/medicure_pharma_logo.webp') }}" alt="" />
-        </div>--}}
       </div>
     </div>
   </section>

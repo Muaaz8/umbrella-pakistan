@@ -37,7 +37,6 @@
 
 html, body {
     scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
 }
 
 body {
@@ -380,7 +379,6 @@ button {
 
 .new-footer-logo img {
     width: 100%;
-    /* max-width: 80%; */
 }
 
 .social-links-section {
@@ -525,12 +523,6 @@ button {
     .promotion-section .w-35 {
         width: 100% !important;
     }
-
-    /* .promotion-section .consult-btn {
-        position: absolute;
-        bottom: 15%;
-        border: 2px solid var(--new-blue);
-    } */
 }
 
 /* Promotion Section End */
@@ -551,14 +543,6 @@ button {
         background-color: var(--white) !important;
     }
 
-    /* .mission-section .consult-btn {
-        position: absolute;
-        bottom: 7%;
-        left: 50%;
-        transform: translate(-50%, -7%);
-        margin-block: auto;
-        border: 2px solid var(--new-blue);
-    } */
     .mission-section-last-img .consult-btn {
         position: absolute;
         top: 50%;
@@ -648,23 +632,6 @@ button {
 
 .partner-scroll:hover .partner-logo-container {
     animation-play-state: paused;
-}
-
-/* @keyframes marquee {
-    to {
-        transform: translateX(-100%);
-    }
-} */
-
-@media screen and (max-width: 576px) {
-    /* .partner-logo-container img {
-        width: calc((100vw / 3) - 0.1%);
-    } */
-
-    /* .partner-logo-container {
-        width: 250%;
-        animation: marquee 12s linear infinite;
-    } */
 }
 
 /* Our Partners Section End */

@@ -206,7 +206,7 @@
 </script>
 
 @endsection @section('content')
-<div class="contact-section2 py-0 py-sm-4">
+<main class="contact-section2 py-0 py-sm-4">
     <section class="new-header w-85 mx-auto rounded-3" data-aos="fade-down" data-aos-duration="800">
         <div class="new-header-inner p-4">
             <h1 class="fs-30 mb-0 fw-semibold">Contact Us</h1>
@@ -374,6 +374,6 @@
             </div>
         </div>
     </section>
-</div>
+</main>
 
 @endsection
