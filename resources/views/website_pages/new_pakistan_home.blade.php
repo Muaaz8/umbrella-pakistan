@@ -1037,13 +1037,13 @@
             @foreach ($faqs as $faq)
             <div class="accordion-item border-blue-2 rounded-3 my-1 overflow-hidden">
               <h2 class="accordion-header border-none">
-                <button class="accordion-button collapsed border-none" type="button" data-bs-toggle="collapse"
+                <button class="accordion-button fw-medium fs-14 collapsed border-none" type="button" data-bs-toggle="collapse"
                   data-bs-target="#faq-{{ $faq->id }}" aria-expanded="false" aria-controls="flush-collapseOne">
                   {{ $faq->question }}
                 </button>
               </h2>
               <div id="faq-{{ $faq->id }}" class="accordion-collapse collapse" data-bs-parent="#faqsSection">
-                <div class="accordion-body border-none">
+                <div class="accordion-body border-none fs-14">
                   {!! $faq->answer !!}
                 </div>
               </div>

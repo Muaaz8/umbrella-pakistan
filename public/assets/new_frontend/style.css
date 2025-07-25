@@ -35,7 +35,7 @@
     transition: all 0.3s ease-out;
 }
 
-html {
+html, body {
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
 }
@@ -219,6 +219,10 @@ button {
     min-width: 80%;
 }
 
+.border-active-bottom {
+    border-bottom: 2px solid var(--new-blue);
+}
+
 .hover-anim {
     position: relative;
 }
@@ -246,6 +250,10 @@ button {
 
 .join-btn {
     background-color: var(--zinc);
+}
+
+.join-btn:hover {
+    background-color: black;
 }
 
 .join-btn button {
@@ -528,7 +536,6 @@ button {
 /* Promotion Section End */
 
 /* Mission Statement Section */
-
 .consult-btn {
     width: max-content;
 }

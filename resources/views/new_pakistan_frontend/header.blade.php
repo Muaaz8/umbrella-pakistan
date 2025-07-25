@@ -4,7 +4,31 @@
     }
 </style>
 <script>
-        $(document).ready(function () {
+    $(document).ready(function () {
+    $('.navbar-container .nav-link').each(function () {
+    var currentUrl = (window.location.pathname || '/').replace(/\/$/, ''); // Remove trailing slash
+    var linkUrl = $(this).attr('href') || ''; // Ensure linkUrl is not undefined
+    console.log('Current URL:', currentUrl, 'Link URL:', linkUrl);
+
+    if (!linkUrl || linkUrl === '#' || linkUrl === '') {
+        linkUrl = '/'; // Treat empty, '#', or undefined href as homepage
+    } else if (linkUrl === '/index.html' || linkUrl === 'index.html') {
+        linkUrl = '/'; // Handle index.html as homepage
+    } else {
+        try {
+            linkUrl = new URL(linkUrl, window.location.origin).pathname;
+        } catch (e) {
+            console.warn('Invalid URL:', linkUrl);
+            return; // Skip invalid URLs
+        }
+    }
+
+    linkUrl = linkUrl.replace(/\/$/, ''); // Remove trailing slash
+
+    if (linkUrl === currentUrl) {
+        $(this).addClass('border-active-bottom');
+    }
+});
             $("#new-search-btn-mob").on("click", function () {
                 if ($(".new-search-container").hasClass("d-flex")) {
                     $("#new-search-btn-mob i").removeClass('fa-xmark').addClass('fa-magnifying-glass');
@@ -229,10 +253,12 @@
                             </button>
                             <ul class="dropdown-menu">
                                 <li><a class="dropdown-item fs-14" href="{{ route('login') }}">Login</a></li>
-                                <li><a class="dropdown-item fs-14" href="{{ route('pat_register') }}">Register as Patient</a>
+                                <li><a class="dropdown-item fs-14" href="{{ route('pat_register') }}">Register as
+                                        Patient</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item fs-14" href="{{ route('doc_register') }}">Register as Doctor</a>
+                                    <a class="dropdown-item fs-14" href="{{ route('doc_register') }}">Register as
+                                        Doctor</a>
                                 </li>
                             </ul>
                         </div>
@@ -240,7 +266,8 @@
                     </div>
                 </div>
                 <div class="d-flex align-items-center gap-2 gap-sm-3">
-                    <a class="nav-link d-flex align-items-center justify-content-center d-sm-none" id="new-search-btn-mob">
+                    <a class="nav-link d-flex align-items-center justify-content-center d-sm-none"
+                        id="new-search-btn-mob">
                         <i class="fa-solid fa-magnifying-glass fs-4"></i>
                     </a>
                     <a class="nav-link d-block d-lg-none position-relative" href="{{ url('/my/cart') }}">
@@ -265,14 +292,18 @@
                 <li class="nav-item"><a class="nav-link fw-medium hover-anim"
                         href="{{ route('vendor', ['shop_type' => 'pharmacy']) }}">Pharmacy</a></li>
                 <li class="nav-item">
-                    <a class="nav-link fw-medium hover-anim" href="{{ route('vendor', ['shop_type' => 'labs']) }}">Labtest / Imaging</a>
+                    <a class="nav-link fw-medium hover-anim"
+                        href="{{ route('vendor', ['shop_type' => 'labs']) }}">Labtest / Imaging</a>
                 </li>
-                <li class="nav-item"><a class="nav-link fw-medium hover-anim" href="{{ route('e-visit') }}">E-Visit</a></li>
+                <li class="nav-item"><a class="nav-link fw-medium hover-anim" href="{{ route('e-visit') }}">E-Visit</a>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link fw-medium hover-anim" href="{{ route('doc_profile_page_list') }}">Our Doctors</a>
                 </li>
-                <li class="nav-item"><a class="nav-link fw-medium hover-anim" href="{{ route('about_us') }}">About Us</a></li>
-                <li class="nav-item"><a class="nav-link fw-medium hover-anim" href="{{ route('contact_us') }}">Contact Us</a></li>
+                <li class="nav-item"><a class="nav-link fw-medium hover-anim" href="{{ route('about_us') }}">About
+                        Us</a></li>
+                <li class="nav-item"><a class="nav-link fw-medium hover-anim" href="{{ route('contact_us') }}">Contact
+                        Us</a></li>
                 <li class="nav-item">
                     <a class="nav-link fw-medium position-relative" href="{{ url('/my/cart') }}">
                         <img src="{{ asset('assets/new_frontend/cart_new.svg') }}" alt="cart" />
@@ -293,7 +324,8 @@
         <div class="new-search-container d-none d-sm-none align-items-center justify-content-center col-12 px-0 mt-3">
             <div
                 class="search-container mx-3 d-flex align-items-center justify-content-center rounded-3 position-relative">
-                <input class="search-bar px-2 py-1 fs-14" type="search" name="search" placeholder="Search" id="new-search2">
+                <input class="search-bar px-2 py-1 fs-14" type="search" name="search" placeholder="Search"
+                    id="new-search2">
                 <span class="px-2 py-1 search-icon"><i class="fa-solid fa-magnifying-glass"></i></span>
                 <ul class="header-search-result categories-list rounded-3"></ul>
             </div>

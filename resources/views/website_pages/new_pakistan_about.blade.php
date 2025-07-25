@@ -80,7 +80,7 @@ $page = DB::table('pages')->where('url', '/about-us')->first();
                         <div class="col-6">
                             <img class="rounded-3 w-100 object-fit-cover" data-aos="zoom-in" data-aos-duration="700" data-aos-delay="300" height="382px"
                                 src="{{ asset('assets/new_frontend/about-1.png') }}" alt="" />
-                            <img class="rounded-3 object-fit-cover h-25 w-100 mt-3" data-aos="slide-up" data-aos-duration="600" data-aos-delay="400" height="162px"
+                            <img class="rounded-3 object-fit-cover h-25 w-100 mt-3" data-aos="fade-up" data-aos-duration="600" data-aos-delay="400" height="162px"
                                 src="{{ asset('assets/new_frontend/about-2.png') }}" alt="" />
                         </div>
                         <div class="col-6">
