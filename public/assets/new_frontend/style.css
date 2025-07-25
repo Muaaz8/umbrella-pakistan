@@ -604,6 +604,31 @@ button {
 
 .partner-scroll {
     user-select: none;
+    position: relative;
+}
+
+.partner-scroll::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    min-width: 30px;
+    width: 10%;
+    height: 100%;
+    z-index: 1;
+    background: linear-gradient(to right, white 0.5%, rgba(255, 255, 255, 0.8) 20%, rgba(255, 255, 255, 0) 100%);
+}
+
+.partner-scroll::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 30px;
+    width: 10%;
+    height: 100%;
+    z-index: 1;
+    background: linear-gradient(to left, white 0.5%, rgba(255, 255, 255, 0.8) 20%, rgba(255, 255, 255, 0) 100%);
 }
 
 .partner-logo-container {
