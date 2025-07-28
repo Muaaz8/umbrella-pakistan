@@ -452,20 +452,19 @@ class DoctorsController extends BaseController
 
     public function get_doctor_schedule()
     {
-        $user=Auth::user();
-        if($user->user_type=='doctor'){
+        $user = Auth::user();
+        if ($user->user_type == 'doctor') {
             $date = date('Y-m-d H:i:s');
-            $date = User::convert_utc_to_user_timezone($user->id,$date)['datetime'];
-            $time = date('H:i:s',strtotime($date));
-            $date = date('Y-m-d',strtotime($date));
-            $schedule = DoctorSchedule::where('doctorID', $user->id)->where('title','Availability')->orderBy('id','desc')->get();
-            foreach($schedule as $sc){
-                $sc->from_time = User::convert_utc_to_user_timezone($user->id,$sc->from_time)['time'];
-                $sc->to_time = User::convert_utc_to_user_timezone($user->id,$sc->to_time)['time'];
+            $date = User::convert_utc_to_user_timezone($user->id, $date)['datetime'];
+            $time = date('H:i:s', strtotime($date));
+            $date = date('Y-m-d', strtotime($date));
+            $schedule = DoctorSchedule::where('doctorID', $user->id)->where('title', 'Availability')->orderBy('id', 'desc')->get();
+            foreach ($schedule as $sc) {
+                $sc->from_time = User::convert_utc_to_user_timezone($user->id, $sc->from_time)['time'];
+                $sc->to_time = User::convert_utc_to_user_timezone($user->id, $sc->to_time)['time'];
             }
-            return $this->sendResponse(['schedule'=>$schedule], 'Doctor Schedule');
-        }
-        else{
+            return $this->sendResponse(['schedule' => $schedule], 'Doctor Schedule');
+        } else {
             return $this->sendError('Unauthorized', 'You are not authorized to access this resource.');
         }
     }
@@ -475,54 +474,55 @@ class DoctorsController extends BaseController
         $doctorID = isset($request->doc_id) ? $request->doc_id : Auth::user()->id;
 
         $AvailabilityStartUser = $request->from_time;
-        $AvailabilityStart = User::convert_user_timezone_to_utc($doctorID,$AvailabilityStartUser)['time'];
+        $AvailabilityStart = User::convert_user_timezone_to_utc($doctorID, $AvailabilityStartUser)['time'];
         $AvailabilityEndUser = $request->to_time;
-        $AvailabilityEnd = User::convert_user_timezone_to_utc($doctorID,$AvailabilityEndUser)['time'];
-        if($request->AvailabilityTitle == "Availability"){
-            $query=DB::table('doctor_schedules')->insert([
-                'user_id'=>$doctorID,
-                'mon'=> in_array("Mon",$request->week),
-                'tues'=> in_array("Tues",$request->week),
-                'weds'=> in_array("Wed",$request->week),
-                'thurs'=> in_array("Thurs",$request->week),
-                'fri'=> in_array("Fri",$request->week),
-                'sat'=> in_array("Sat",$request->week),
-                'sun'=> in_array("Sun",$request->week),
-                'from_time'=> $AvailabilityStart,
-                'to_time'=> $AvailabilityEnd,
-                'created_at'=> now(),
-                'updated_at'=> now(),
+        $AvailabilityEnd = User::convert_user_timezone_to_utc($doctorID, $AvailabilityEndUser)['time'];
+        if ($request->AvailabilityTitle == "Availability") {
+            $query = DB::table('doctor_schedules')->insert([
+                'user_id' => $doctorID,
+                'mon' => in_array("Mon", $request->week),
+                'tues' => in_array("Tues", $request->week),
+                'weds' => in_array("Wed", $request->week),
+                'thurs' => in_array("Thurs", $request->week),
+                'fri' => in_array("Fri", $request->week),
+                'sat' => in_array("Sat", $request->week),
+                'sun' => in_array("Sun", $request->week),
+                'from_time' => $AvailabilityStart,
+                'to_time' => $AvailabilityEnd,
+                'created_at' => now(),
+                'updated_at' => now(),
                 'title' => $request->AvailabilityTitle,
-                'doctorID'=>$doctorID,
+                'doctorID' => $doctorID,
             ]);
-        }else{
-            $query=DB::table('doctor_schedules')->insert([
-                'user_id'=>$doctorID,
-                'mon'=> 0,
-                'tues'=> 0,
-                'weds'=> 0,
-                'thurs'=> 0,
-                'fri'=> 0,
-                'sat'=> 0,
-                'sun'=> 0,
-                'from_time'=> $request->from_time,
-                'to_time'=> $request->to_time,
-                'created_at'=> now(),
-                'updated_at'=> now(),
+        } else {
+            $query = DB::table('doctor_schedules')->insert([
+                'user_id' => $doctorID,
+                'mon' => 0,
+                'tues' => 0,
+                'weds' => 0,
+                'thurs' => 0,
+                'fri' => 0,
+                'sat' => 0,
+                'sun' => 0,
+                'from_time' => $request->from_time,
+                'to_time' => $request->to_time,
+                'created_at' => now(),
+                'updated_at' => now(),
                 'title' => $request->AvailabilityTitle,
-                'doctorID'=>$doctorID,
+                'doctorID' => $doctorID,
             ]);
         }
         return $this->sendResponse([], 'schedule added successfully');
     }
 
-    public function add_doctor_details(Request $request){
-        $doctor = DB::table('doctor_details')->where('doctor_id',auth()->user()->id)->first();
-        if($doctor){
+    public function add_doctor_details(Request $request)
+    {
+        $doctor = DB::table('doctor_details')->where('doctor_id', auth()->user()->id)->first();
+        if ($doctor) {
             $certi = json_encode($request->certificates);
             $condi = json_encode($request->conditions);
             $proce = json_encode($request->procedures);
-            DB::table('doctor_details')->where('doctor_id',auth()->user()->id)->update([
+            DB::table('doctor_details')->where('doctor_id', auth()->user()->id)->update([
                 'doctor_id' => auth()->user()->id,
                 'certificates' => $certi,
                 'conditions' => $condi,
@@ -538,7 +538,7 @@ class DoctorsController extends BaseController
                 'specialties' => $request->specialties,
                 'updated_at' => now(),
             ]);
-        }else{
+        } else {
             $certi = json_encode($request->certificates);
             $condi = json_encode($request->conditions);
             $proce = json_encode($request->procedures);
@@ -563,10 +563,11 @@ class DoctorsController extends BaseController
         return $this->sendResponse($doctor, 'update doctor details successfully');
     }
 
-    public function get_doctor_details_by_id(){
+    public function get_doctor_details_by_id()
+    {
         $id = auth()->user()->id;
-        $doctor = DB::table('doctor_details')->where('doctor_id',$id)->first();
-        if($doctor){
+        $doctor = DB::table('doctor_details')->where('doctor_id', $id)->first();
+        if ($doctor) {
             $doctor->certificates = json_decode($doctor->certificates);
             $doctor->conditions = json_decode($doctor->conditions);
             $doctor->procedures = json_decode($doctor->procedures);
@@ -592,7 +593,7 @@ class DoctorsController extends BaseController
             ->where('in_clinics.status', 'ended')
             ->orderBy('in_clinics.created_at', 'DESC')
             ->groupBy('in_clinics.user_id')
-            ->select('in_clinics.*','in_clinics.user_id as patient_id', 'users.user_image', DB::raw('MAX(in_clinics.id) as last_id'))
+            ->select('in_clinics.*', 'in_clinics.user_id as patient_id', 'users.user_image', DB::raw('MAX(in_clinics.id) as last_id'))
             ->get();
 
         $patients = collect($session_patients->toArray())->merge($inclinic_patients->toArray());
@@ -604,22 +605,22 @@ class DoctorsController extends BaseController
             $patient->pat_name = $user_details['name'] . " " . $user_details['last_name'];
 
             $session = Session::find($patient->last_id);
-            $inclinic = \App\Models\InClinics::where('user_id',$patient->patient_id)->orderBy('id','desc')->first();
-            if($session != null && $inclinic != null){
-                if($session->date > $inclinic->created_at){
+            $inclinic = \App\Models\InClinics::where('user_id', $patient->patient_id)->orderBy('id', 'desc')->first();
+            if ($session != null && $inclinic != null) {
+                if ($session->date > $inclinic->created_at) {
                     $patient->last_visit = Helper::get_date_with_format($session->date);
-                }else{
+                } else {
                     $patient->last_visit = Helper::get_date_with_format($inclinic->created_at);
                 }
-            }else if($session != null){
+            } else if ($session != null) {
                 $patient->last_visit = Helper::get_date_with_format($session->date);
-            }else if($inclinic != null){
+            } else if ($inclinic != null) {
                 $patient->last_visit = Helper::get_date_with_format($inclinic->created_at);
             }
-            if(isset($patient->reason)){
+            if (isset($patient->reason)) {
                 $patient->inclinic = true;
                 $patient->last_diagnosis = $inclinic->reason;
-            }else{
+            } else {
                 $patient->inclinic = false;
                 $patient->last_diagnosis = $session->diagnosis;
             }
@@ -630,154 +631,154 @@ class DoctorsController extends BaseController
     }
 
     public function doctor_dashboard()
-{
-    $user = Auth::user();
-    $userId = $user->id;
-    $currentRole = strtolower($user->user_type);
+    {
+        $user = Auth::user();
+        $userId = $user->id;
+        $currentRole = strtolower($user->user_type);
 
-    $email_status = DB::table('users_email_verification')
-        ->where('user_id', $userId)
-        ->value('status');
+        $email_status = DB::table('users_email_verification')
+            ->where('user_id', $userId)
+            ->value('status');
 
-    $term_condition_status = DB::table('user_term_and_condition_status')
-        ->where([
-            ['status', '=', '0'],
-            ['flag', '=', 'update'],
-            ['user_id', '=', $userId],
-        ])->exists();
+        $term_condition_status = DB::table('user_term_and_condition_status')
+            ->where([
+                ['status', '=', '0'],
+                ['flag', '=', 'update'],
+                ['user_id', '=', $userId],
+            ])->exists();
 
-    if ($currentRole !== 'admin') {
+        if ($currentRole !== 'admin') {
 
-        if ($email_status === 1) {
-            if (!$term_condition_status) {
-                if (empty($user->provider)) {
-                    auth()->user()->assignRole($currentRole);
-                } else {
-                    auth()->user()->assignRole('temp_patient');
-                    return $this->sendError('Unauthorized', 'You are not authorized to access this resource.');
-                }
+            if ($email_status === 1) {
+                if (!$term_condition_status) {
+                    if (empty($user->provider)) {
+                        auth()->user()->assignRole($currentRole);
+                    } else {
+                        auth()->user()->assignRole('temp_patient');
+                        return $this->sendError('Unauthorized', 'You are not authorized to access this resource.');
+                    }
 
-                $profileImage = DB::table('users')->find($userId);
-                $notifications = Notification::where('user_id', $userId)
-                    ->orderByDesc('id')->get();
+                    $profileImage = DB::table('users')->find($userId);
+                    $notifications = Notification::where('user_id', $userId)
+                        ->orderByDesc('id')->get();
 
-                $countNotification = $notifications->where('status', 'new')->count();
+                    $countNotification = $notifications->where('status', 'new')->count();
 
-                if ($currentRole === 'doctor') {
+                    if ($currentRole === 'doctor') {
 
                         $totalPatient = Session::where('doctor_id', $user->id)
-                            ->where('status','!=','pending')
+                            ->where('status', '!=', 'pending')
                             ->groupBy('patient_id')->get()
                             ->count();
 
-                    $totalPendingAppoint = DB::table('appointments')
-                        ->join('sessions', 'sessions.appointment_id', '=', 'appointments.id')
-                        ->where([
-                            ['appointments.status', '=', 'pending'],
-                            ['sessions.status', '=', 'paid'],
-                            ['appointments.doctor_id', '=', $userId]
-                        ])->count();
+                        $totalPendingAppoint = DB::table('appointments')
+                            ->join('sessions', 'sessions.appointment_id', '=', 'appointments.id')
+                            ->where([
+                                ['appointments.status', '=', 'pending'],
+                                ['sessions.status', '=', 'paid'],
+                                ['appointments.doctor_id', '=', $userId]
+                            ])->count();
 
-                    $currentMonth = now()->month;
-                    $monthTotalAppoint = Appointment::where('doctor_id', $userId)
-                        ->whereMonth('created_at', $currentMonth)
-                        ->count();
+                        $currentMonth = now()->month;
+                        $monthTotalAppoint = Appointment::where('doctor_id', $userId)
+                            ->whereMonth('created_at', $currentMonth)
+                            ->count();
 
-                    $sessionTotalPrice = DB::table("sessions")
-                        ->where([
-                            ['doctor_id', '=', $userId],
-                            ['status', '=', 'ended'],
-                        ])->sum('price');
+                        $sessionTotalPrice = DB::table("sessions")
+                            ->where([
+                                ['doctor_id', '=', $userId],
+                                ['status', '=', 'ended'],
+                            ])->sum('price');
 
-                    $percentage = DB::table('doctor_percentage')
-                        ->where('doc_id', $userId)
-                        ->value('percentage') ?? 50;
+                        $percentage = DB::table('doctor_percentage')
+                            ->where('doc_id', $userId)
+                            ->value('percentage') ?? 50;
 
-                    $totalEarning = ($percentage / 100) * $sessionTotalPrice;
+                        $totalEarning = ($percentage / 100) * $sessionTotalPrice;
 
-                    $labApprovalCount = DB::table('lab_orders')
-                        ->where([
-                            ['status', '=', 'essa-forwarded'],
-                            ['type', '=', 'Counter'],
-                            ['doc_id', '=', $userId]
-                        ])
-                        ->select('order_id')
-                        ->distinct()
-                        ->count();
+                        $labApprovalCount = DB::table('lab_orders')
+                            ->where([
+                                ['status', '=', 'essa-forwarded'],
+                                ['type', '=', 'Counter'],
+                                ['doc_id', '=', $userId]
+                            ])
+                            ->select('order_id')
+                            ->distinct()
+                            ->count();
 
-                    $totalEarning += ($labApprovalCount * 3);
+                        $totalEarning += ($labApprovalCount * 3);
 
-                    // Reschedule past appointments
-                    $today = now()->format('Y-m-d');
-                    $nowTime = now()->format('H:i:s');
-                    DB::table('appointments')
-                        ->whereDate('date', '<=', $today)
-                        ->where('time', '<', $nowTime)
-                        ->where('status', 'pending')
-                        ->update(['status' => 'make-reschedule']);
+                        // Reschedule past appointments
+                        $today = now()->format('Y-m-d');
+                        $nowTime = now()->format('H:i:s');
+                        DB::table('appointments')
+                            ->whereDate('date', '<=', $today)
+                            ->where('time', '<', $nowTime)
+                            ->where('status', 'pending')
+                            ->update(['status' => 'make-reschedule']);
 
-                    $totalSessions = DB::table('sessions')
-                        ->where([
-                            ['doctor_id', '=', $userId],
-                            ['status', '=', 'ended'],
-                        ])->count();
+                        $totalSessions = DB::table('sessions')
+                            ->where([
+                                ['doctor_id', '=', $userId],
+                                ['status', '=', 'ended'],
+                            ])->count();
 
-                    $appoints = DB::table('appointments')
-                        ->join('sessions', 'appointments.id', '=', 'sessions.appointment_id')
-                        ->where([
-                            ['appointments.doctor_id', '=', $userId],
-                            ['appointments.status', '=', 'pending'],
-                            ['appointments.date', '>=', $today],
-                        ])
-                        ->where('sessions.status', '!=', 'pending')
-                        ->orderByDesc('appointments.created_at')
-                        ->select('appointments.*', 'sessions.id as sesssion_id', 'sessions.que_message as msg', 'sessions.join_enable')
-                        ->get();
+                        $appoints = DB::table('appointments')
+                            ->join('sessions', 'appointments.id', '=', 'sessions.appointment_id')
+                            ->where([
+                                ['appointments.doctor_id', '=', $userId],
+                                ['appointments.status', '=', 'pending'],
+                                ['appointments.date', '>=', $today],
+                            ])
+                            ->where('sessions.status', '!=', 'pending')
+                            ->orderByDesc('appointments.created_at')
+                            ->select('appointments.*', 'sessions.id as sesssion_id', 'sessions.que_message as msg', 'sessions.join_enable')
+                            ->get();
 
-                    foreach ($appoints as $appoint) {
-                        $datetime = $appoint->date . ' ' . $appoint->time;
-                        $datetime = User::convert_utc_to_user_timezone($userId, $datetime);
-                        $appoint->date = $datetime['date'];
-                        $appoint->time = $datetime['time'];
+                        foreach ($appoints as $appoint) {
+                            $datetime = $appoint->date . ' ' . $appoint->time;
+                            $datetime = User::convert_utc_to_user_timezone($userId, $datetime);
+                            $appoint->date = $datetime['date'];
+                            $appoint->time = $datetime['time'];
+                        }
+                        return $this->sendResponse([
+                            'notifications' => $notifications,
+                            'countNotification' => $countNotification,
+                            'currentRole' => $currentRole,
+                            'appoints' => $appoints,
+                            'profile' => $profileImage,
+                            'totalPatient' => $totalPatient,
+                            'totalPendingAppoint' => $totalPendingAppoint,
+                            'monthTotalAppoint' => $monthTotalAppoint,
+                            'totalEarning' => $totalEarning,
+                            'totalSessions' => $totalSessions
+                        ], 'Doctor Dashboard');
                     }
-                    return $this->sendResponse([
-                        'notifications' => $notifications,
-                        'countNotification' => $countNotification,
-                        'currentRole' => $currentRole,
-                        'appoints' => $appoints,
-                        'profile' => $profileImage,
-                        'totalPatient' => $totalPatient,
-                        'totalPendingAppoint' => $totalPendingAppoint,
-                        'monthTotalAppoint' => $monthTotalAppoint,
-                        'totalEarning' => $totalEarning,
-                        'totalSessions' => $totalSessions
-                    ], 'Doctor Dashboard');
                 }
-            } 
-        } else {
-            $userData = DB::table('users')
-                ->leftJoin('users_email_verification', 'users.id', '=', 'users_email_verification.user_id')
-                ->leftJoin('contracts', 'users.id', '=', 'contracts.provider_id')
-                ->where('users.id', $userId)
-                ->select(
-                    'users.*',
-                    'users_email_verification.status as email_status',
-                    'contracts.status as contract_status',
-                    'contracts.date as contract_date'
-                )
-                ->orderByDesc('contracts.id')
-                ->first();
+            } else {
+                $userData = DB::table('users')
+                    ->leftJoin('users_email_verification', 'users.id', '=', 'users_email_verification.user_id')
+                    ->leftJoin('contracts', 'users.id', '=', 'contracts.provider_id')
+                    ->where('users.id', $userId)
+                    ->select(
+                        'users.*',
+                        'users_email_verification.status as email_status',
+                        'contracts.status as contract_status',
+                        'contracts.date as contract_date'
+                    )
+                    ->orderByDesc('contracts.id')
+                    ->first();
 
-            $userData->card_status = ($userData->id_card_front && $userData->id_card_back) ? 1 : 0;
+                $userData->card_status = ($userData->id_card_front && $userData->id_card_back) ? 1 : 0;
 
-            if ($userData->contract_date) {
-                $userData->contract_date = date('m-d-Y', strtotime($userData->contract_date));
+                if ($userData->contract_date) {
+                    $userData->contract_date = date('m-d-Y', strtotime($userData->contract_date));
+                }
+
+                return $this->sendResponse($userData, 'User Data');
             }
-
-            return $this->sendResponse($userData, 'User Data');
         }
     }
-}
 
     public function check_status(Request $request)
     {
@@ -785,5 +786,27 @@ class DoctorsController extends BaseController
         return $this->sendResponse($doc, 'Doctor status');
     }
 
+    public function doctorSearch($name)
+    {
+        $doctors = DB::table('users')
+            ->where('user_type', 'doctor')
+            ->where('active', '1')
+            ->where('status', '!=', 'ban')
+            ->where('name', 'LIKE', '%' . $name . '%')
+            ->orWhere('last_name', 'LIKE', '%' . $name . '%')
+            ->orderBy('id', 'desc')
+            ->get();
+        foreach ($doctors as $doctor) {
+            $doctor->details = DB::table('doctor_details')->where('doctor_id', $doctor->id)->first();
+            $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
+            $doctor->specializations = DB::table('specializations')->where('id', $doctor->specialization)->first();
+        }
+        if ($doctors->count() > 0) {
+            return $this->sendResponse($doctor, 'fetch doctor successfully');
+        }else{
+            return $this->sendResponse([], 'No doctor found');
+        }
+
+    }
 
 }
