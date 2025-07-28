@@ -63,6 +63,7 @@ Route::get('category/{name}/{id}','Api\ProductsController@getProductsByCategory'
 Route::get('doctors','Api\DoctorsController@index');
 Route::get('doctors/filter/{type}','Api\DoctorsController@doctors_filter');
 Route::get('doctor/{id}','Api\DoctorsController@singleDoctor');
+Route::get('doctor/search/{name}', 'Api\DoctorsController@doctorSearch');
 Route::get('online/doctors','Api\DoctorsController@getOnlineDoctors');
 Route::get('specializations','Api\DoctorsController@getSpeciallization');
 Route::get('specialization/doctors/{id}','Api\DoctorsController@getDoctorsBySpeciallization');
