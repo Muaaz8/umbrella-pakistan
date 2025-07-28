@@ -27,6 +27,7 @@
 
     if (linkUrl === currentUrl) {
         $(this).addClass('border-active-bottom');
+        $(this).addClass('fw-semibold');
     }
 });
             $("#new-search-btn-mob").on("click", function () {
