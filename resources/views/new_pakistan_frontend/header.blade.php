@@ -354,7 +354,7 @@
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('doc_profile_page_list', ['online' => true]) }}"
-                            class="online-btn nav-link w-max px-3 py-2 rounded-5 d-flex align-items-center justify-content-center gap-2"><span
+                            class="online-btn nav-link px-3 py-2 rounded-5 d-flex align-items-center justify-content-center gap-2"><span
                                 class="online-dot-new rounded-circle"></span><span>Online Doctors</span></a>
                     </li>
                     <hr />
