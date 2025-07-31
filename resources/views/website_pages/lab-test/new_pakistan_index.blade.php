@@ -76,7 +76,7 @@
                                     $('#loadSearchPharmacyItemByCategory').append(
                                     `<div class="col-md-4" data-aos="fade-up" data-aos-delay="${key * 100}">
                                         <div class="card rounded-4 border-0 bg-light-sky-blue">
-                                            <div class="card-body ps-4 pe-3">
+                                            <div class="card-body pt-3 px-3 pb-2">
                                                 <div class="pe-0 h-100 d-flex flex-column justify-content-between">
                                                     <h5 class="card-title text-blue fw-semibold align-self-end">
                                                         Rs. ${value.SALE_PRICE}
@@ -89,7 +89,7 @@
                                                             ${value.DETAILS}
                                                         </p>
                                                     </div>
-                                                    <div class="d-flex align-items-center justify-content-between">
+                                                    <div class="mt-2 d-flex align-items-center justify-content-between">
                                                         <button onclick="window.location.href='/labtest/${value.SLUG}/${value.vendor_id}'"
                                                             class="read-btn-new mt-2 btn bg-white fw-medium fs-12 py-1">Read More</button>
                                                         <button data-bs-toggle="modal" data-bs-target="#loginModal"
@@ -112,7 +112,7 @@
                                     $('#loadSearchPharmacyItemByCategory').append(
                                     `<div class="col-md-4" data-aos="fade-up" data-aos-delay="${key * 100}">
                                         <div class="card rounded-4 border-0 bg-light-sky-blue">
-                                            <div class="card-body ps-4 pe-3">
+                                            <div class="card-body pt-3 px-3 pb-2">
                                                 <div class="pe-0 h-100 d-flex flex-column justify-content-between">
                                                     <h5 class="card-title text-blue fw-semibold align-self-end">
                                                         Rs. ${value.SALE_PRICE}
@@ -125,7 +125,7 @@
                                                             ${value.DETAILS}
                                                         </p>
                                                     </div>
-                                                    <div class="d-flex align-items-center justify-content-between">
+                                                    <div class="mt-2 d-flex align-items-center justify-content-between">
                                                         <button onclick="window.location.href='/labtest/${value.SLUG}/${value.vendor_id}'"
                                                             class="read-btn-new mt-2 btn bg-white fw-medium fs-12 py-1">Read More</button>
                                                         <button data-bs-toggle="modal" data-bs-target="#loginModal"
@@ -185,7 +185,7 @@
                                     $('#loadSearchPharmacyItemByCategory').append(
                                     `<div class="col-md-4" data-aos="fade-up" data-aos-delay="${key * 100}">
                                         <div class="card rounded-4 border-0 bg-light-sky-blue">
-                                            <div class="card-body ps-4 pe-3">
+                                            <div class="card-body pt-3 px-3 pb-2">
                                                 <div class="pe-0 h-100 d-flex flex-column justify-content-between">
                                                     <h5 class="card-title text-blue fw-semibold align-self-end">
                                                         Rs. ${value.SALE_PRICE}
@@ -198,7 +198,7 @@
                                                             ${value.DETAILS}
                                                         </p>
                                                     </div>
-                                                    <div class="d-flex align-items-center justify-content-between">
+                                                    <div class="mt-2 d-flex align-items-center justify-content-between">
                                                         <button onclick="window.location.href='/labtest/${value.SLUG}/${value.vendor_id}'"
                                                             class="read-btn-new mt-2 btn bg-white fw-medium fs-12 py-1">Read More</button>
                                                         <button data-bs-toggle="modal" data-bs-target="#loginModal"
@@ -221,7 +221,7 @@
                                     $('#loadSearchPharmacyItemByCategory').append(
                                     `<div class="col-md-4" data-aos="fade-up" data-aos-delay="${key * 100}">
                                         <div class="card rounded-4 border-0 bg-light-sky-blue">
-                                            <div class="card-body ps-4 pe-3">
+                                            <div class="card-body pt-3 px-3 pb-2">
                                                 <div class="pe-0 h-100 d-flex flex-column justify-content-between">
                                                     <h5 class="card-title text-blue fw-semibold align-self-end">
                                                         Rs. ${value.SALE_PRICE}
@@ -234,7 +234,7 @@
                                                             ${value.DETAILS}
                                                         </p>
                                                     </div>
-                                                    <div class="d-flex align-items-center justify-content-between">
+                                                    <div class="mt-2 d-flex align-items-center justify-content-between">
                                                         <button onclick="window.location.href='/labtest/${value.SLUG}/${value.vendor_id}'"
                                                             class="read-btn-new mt-2 btn bg-white fw-medium fs-12 py-1">Read More</button>
                                                         <button data-bs-toggle="modal" data-bs-target="#loginModal"
@@ -317,7 +317,7 @@
         <div class="container-fluid px-0">
             <div class="row gx-4 gy-3 mx-auto w-85">
                 <div class="col-12 bg-white d-flex justify-content-between mb-3 align-items-center">
-                    <div class="col-md-5">
+                    <div class="col-12 col-sm-5">
                         <div
                             class="search-container d-flex align-items-center justify-content-center rounded-3 position-relative" data-aos="fade-right" data-aos-delay="700">
                             <input class="search-bar px-3 py-2" type="search" name="search"
@@ -332,7 +332,7 @@
                 @foreach ($data['products'] as $item)
                 <div class="col-md-4" data-aos="fade-up" data-aos-delay="{{ $loop->index * 100 }}">
                     <div class="card rounded-4 border-0 bg-light-sky-blue">
-                        <div class="card-body py-2 ps-3 pe-2">
+                        <div class="card-body pt-3 px-3 pb-2">
                             <div class="pe-0 h-100 d-flex flex-column justify-content-between">
                                 <h6 class="card-title text-blue fw-semibold align-self-end">
                                     Rs. {{ number_format($item->sale_price,2) }}
@@ -345,7 +345,7 @@
                                         {!! strip_tags($item->short_description) !!}
                                     </p>
                                 </div>
-                                <div class="d-flex align-items-center justify-content-between">
+                                <div class="mt-2 d-flex align-items-center justify-content-between">
                                     <button
                                         onclick="window.location.href='{{ route('single_product_view_labtest', ['slug' => $item->slug, 'vendor_id' => $item->vendor_id]) }}'"
                                         class="read-btn-new mt-2 btn bg-white fw-medium fs-12 py-1">Read More</button>

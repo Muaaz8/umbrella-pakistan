@@ -1172,7 +1172,7 @@ button {
 /* Lab Page Styles Start */
 
 .lab-card-section .card {
-    height: 215px;
+    min-height: 225px;
 }
 
 .lab-card-section .text-overflow {
