@@ -267,7 +267,7 @@
                     </div>
                 </div>
                 <div class="d-flex align-items-center gap-2 gap-sm-3">
-                    <a class="nav-link d-flex align-items-center justify-content-center d-sm-none"
+                    <a class="nav-link border-0 d-flex align-items-center justify-content-center d-sm-none"
                         id="new-search-btn-mob">
                         <i class="fa-solid fa-magnifying-glass fs-4"></i>
                     </a>
@@ -338,32 +338,32 @@
             </div>
             <div class="offcanvas-body">
                 <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                    <li class="nav-item"><a class="nav-link" href="{{ url('/') }}">Home</a></li>
-                    <li class="nav-item"><a class="nav-link"
+                    <li class="nav-item"><a class="nav-link w-max" href="{{ url('/') }}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link w-max"
                             href="{{ route('vendor', ['shop_type' => 'pharmacy']) }}">Pharmacy</a></li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('vendor', ['shop_type' => 'labs']) }}">Labtest / Imaging</a>
+                        <a class="nav-link w-max" href="{{ route('vendor', ['shop_type' => 'labs']) }}">Labtest / Imaging</a>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('e-visit') }}">E-Visit</a></li>
+                    <li class="nav-item"><a class="nav-link w-max" href="{{ route('e-visit') }}">E-Visit</a></li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('doc_profile_page_list') }}">Our Doctors</a>
+                        <a class="nav-link w-max" href="{{ route('doc_profile_page_list') }}">Our Doctors</a>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('about_us') }}">About Us</a></li>
+                    <li class="nav-item"><a class="nav-link w-max" href="{{ route('about_us') }}">About Us</a></li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('contact_us') }}">Contact Us</a>
+                        <a class="nav-link w-max" href="{{ route('contact_us') }}">Contact Us</a>
                     </li>
                     <li class="nav-item">
                         <a href="{{ route('doc_profile_page_list', ['online' => true]) }}"
-                            class="online-btn nav-link px-3 py-2 rounded-5 d-flex align-items-center justify-content-center gap-2"><span
+                            class="online-btn nav-link w-max px-3 py-2 rounded-5 d-flex align-items-center justify-content-center gap-2"><span
                                 class="online-dot-new rounded-circle"></span><span>Online Doctors</span></a>
                     </li>
                     <hr />
                     @if (Auth::check())
                     <li class="nav-item">
-                        <a href="{{ route('home') }}" class="nav-link">Go to Dashboard</a>
+                        <a href="{{ route('home') }}" class="nav-link w-max">Go to Dashboard</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('logout') }}"
+                        <a class="nav-link w-max" href="{{ route('logout') }}"
                             onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
                     </li>
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -371,13 +371,13 @@
                     </form>
                     @else
                     <li class="nav-item">
-                        <a href="{{ route('login') }}" class="nav-link">Login</a>
+                        <a href="{{ route('login') }}" class="nav-link w-max">Login</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('pat_register') }}" class="nav-link">Register as Patient</a>
+                        <a href="{{ route('pat_register') }}" class="nav-link w-max">Register as Patient</a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ route('doc_register') }}" class="nav-link">Register as Doctor</a>
+                        <a href="{{ route('doc_register') }}" class="nav-link w-max">Register as Doctor</a>
                     </li>
                     @endif
                 </ul>
