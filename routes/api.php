@@ -72,6 +72,8 @@ Route::post('medicine/detail','Api\MedicineController@get_medicine_detail');
 
 Route::get('test' , function(){event(new AppEvent());});
 
+Route::get('banners', 'Api\HomeController@getBanners');
+
 //================================================//
 //PATIENT PROFILE
 //================================================//

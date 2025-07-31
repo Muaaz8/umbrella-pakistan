@@ -45,7 +45,7 @@ class WelcomeController extends Controller
 
     public function index($slug = '',Request $request)
     {
- 
+
         if ($request->query('qrScan') === 'true') {
             $ip = $request->ip();
             $userAgent = $request->header('User-Agent');
@@ -103,7 +103,7 @@ class WelcomeController extends Controller
         $tags = DB::table('meta_tags')->where('url',$url)->get();
         $title = DB::table('meta_tags')->where('url',$url)->where('name','title')->first();
         $faqs = DB::table('tbl_faq')->orderby('id','desc')->limit(3)->get();
-        $banners = DB::table('banner')->where('status',1)->orderBy('sequence','asc')->get();
+        $banners = DB::table('banner')->where('status',1)->where('platform', 'web')->orderBy('sequence','asc')->get();
         $sectionsWithContents = DB::table('section')
             ->leftJoin('content', 'section.id', '=', 'content.section_id')
             ->where('section.page_id', 1)

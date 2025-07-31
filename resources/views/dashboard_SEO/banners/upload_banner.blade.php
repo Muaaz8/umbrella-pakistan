@@ -54,6 +54,17 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-md-12 mt-3">
+                                            <label class="fw-bolder mb-2" for="selectmedicine">Platform</label>
+                                            <select name="platform" class="form-control" aria-label="Default select example"
+                                                required>
+                                                <option value="" disabled>Select Platform</option>
+                                                <option value="web">Web</option>
+                                                <option value="mobile">Mobile</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="row mt-3">
                                         <div class="text-end">
                                             <button type="submit" class="btn process-pay">Upload</button>

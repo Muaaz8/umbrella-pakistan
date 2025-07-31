@@ -3286,7 +3286,7 @@ class AdminController extends Controller
 
             event(new RealTimeMessage($vendor->id));
 
-            return redirect()->back()->with('success', 
+            return redirect()->back()->with('success',
                 'Product request status updated to ' . ucfirst($request->status) . ' successfully.'
             );
 
@@ -3872,7 +3872,7 @@ class AdminController extends Controller
         if (Auth::user()->user_type == "admin") {
             return view('dashboard_admin.banners.upload_banner');
         } elseif (Auth::user()->user_type == "admin_seo"){
-            return view('dashboard_SEO.banners.upload_banner');
+        return view('dashboard_SEO.banners.upload_banner');
         }
 
     }
@@ -3889,6 +3889,7 @@ class AdminController extends Controller
             'img'=>$filename,
             'status'=>$request->status,
             'sequence'=>$request->sequence,
+            'platform'=>$request->platform,
             'created_at'=>date('Y-m-d H:i:s'),
             'updated_at'=>date('Y-m-d H:i:s'),
         ]);

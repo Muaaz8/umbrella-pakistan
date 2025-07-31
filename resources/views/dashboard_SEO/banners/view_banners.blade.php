@@ -57,6 +57,13 @@
                             <label for="email">Sequence</label>
                             <input type="text" class="form-control" value="{{$banner->sequence}}" placeholder="">
                         </div>
+                        <div class="col-md-4">
+                            <label for="email">Platform</label>
+                            <select class="form-select" aria-label="Default select example">
+                                <option @if($banner->platform == "web") selected @endif value="web">Web</option>
+                                <option @if($banner->platform == "mobile") selected @endif value="mobile">Mobile</option>
+                              </select>
+                        </div>
                     </div>
                     @if($banner->img!=null)
                     <label for="email">Banner Image</label>
