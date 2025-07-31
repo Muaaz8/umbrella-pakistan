@@ -10,7 +10,13 @@ use App\State;
 use App\User;
 use App\Rules\Phone;
 use App\Notification;
+use Exception;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Validation\Rules\Password;
 use App\Events\RealTimeMessage;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\PasswordReset;
+use Illuminate\Support\Facades\Hash;
 use Auth;
 use DateTime;
 use DateTimeZone;
@@ -294,6 +300,36 @@ class ProfileController extends BaseController
         event(new RealTimeMessage($admin->id));
 
         return $this->sendResponse(['fee_approval' => $doctor], 'Fees updated successfully.');
+    }
+
+    public function change_password(Request $request)
+    {
+        $request->validate([
+            'old_password' => 'required',
+            'confirm_password' => 'required|same:new_password|min:8',
+            'new_password' => [
+                'required',
+                Password::min(8)->letters()->mixedCase()->numbers()->symbols()
+            ],
+        ]);
+        $user = auth()->user();
+        if ($request['old_password'] != $request['new_password']) {
+            if (Hash::check($request['old_password'], $user->password)) {
+                $user->password = Hash::make($request['new_password']);
+                $user->save();
+                try {
+                    Mail::to($user->email)->send(new PasswordReset($user->name));
+                } catch (Exception $e) {
+                    Log::info($e);
+                }
+
+                return $this->sendResponse(['user' => $user], 'Password Updated Successfully.');
+            } else {
+                return $this->sendError([], 'The old password did not match.');
+            }
+        } else {
+            return $this->sendError([], 'The new password cannot be same as current Password.');
+        }
     }
 
 }

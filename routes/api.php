@@ -124,6 +124,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('profile/update/phoneNumber', 'Api\ProfileController@editprofilenumber');
     Route::post('profile/update/image', 'Api\ProfileController@editprofilepicture');
     Route::post('profile/update', 'Api\ProfileController@updatePatient');
+    Route::post('password/change', 'Api\ProfileController@change_password');
 });
 //================================================//
 //PATIENT PROFILE END HERE

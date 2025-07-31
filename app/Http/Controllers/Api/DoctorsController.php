@@ -801,8 +801,8 @@ class DoctorsController extends BaseController
             $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
             $doctor->specializations = DB::table('specializations')->where('id', $doctor->specialization)->first();
         }
-        if ($doctors->count() > 0) {
-            return $this->sendResponse($doctor, 'fetch doctor successfully');
+        if (isset($doctors)) {
+            return $this->sendResponse($doctors, 'Doctors fetched successfully');
         }else{
             return $this->sendResponse([], 'No doctor found');
         }
