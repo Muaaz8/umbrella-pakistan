@@ -44,7 +44,6 @@ class SessionsController extends BaseController
 
         $patient_id = Auth::user()->id;
         $doc_id = $symp['doc_id'];
-
         $symp_id = 0;
 
         $check_session_already_have = DB::table('sessions')
@@ -53,6 +52,20 @@ class SessionsController extends BaseController
             ->where('specialization_id', $request->doc_sp_id)
             ->count();
 
+        $pending_sessions = DB::table('sessions')
+            ->where('doctor_id', $symp['doc_id'])
+            ->where('patient_id', $patient_id)
+            ->where('specialization_id', $request->doc_sp_id)
+            ->where('status', 'pending')
+            ->orWhere('status', 'invitation sent')
+            ->orWhere('status', 'doctor joined')
+            ->orWhere('status', 'started')
+            ->orderBy('id', 'desc')
+            ->first();
+
+        if ($pending_sessions > 0) {
+            return $this->sendResponse($pending_sessions, 'You already have a pending session with this doctor');
+        }
         $session_price = "";
         if ($check_session_already_have > 0) {
             $session_price_get = User::find($request->doc_id);
@@ -663,43 +676,44 @@ class SessionsController extends BaseController
     {
         try {
             $user = auth()->user();
-    
+
             if (!$user) {
                 return $this->sendError([], 'User not authenticated', 401);
             }
-    
+
             $user_type = $user->user_type;
-    
+
             if ($user_type == 'doctor') {
                 $session = Session::where('doctor_id', $user->id)
                     ->where('status', 'started')
                     ->orWhere('status', 'doctor joined')
                     ->first();
-    
+
                 if ($session) {
                     return $this->sendResponse($session, 'You have a session to join.');
                 } else {
-                    return $this->sendError([], 'No active session found for doctor', 404);
+                    return $this->sendResponse([], 'No active session found for doctor');
                 }
             } elseif ($user_type == 'patient') {
                 $session = Session::where('patient_id', $user->id)
                     ->where('status', 'started')
                     ->orWhere('status', 'invitation sent')
+                    ->orWhere('status', 'doctor joined')
                     ->first();
-    
+
                 if ($session) {
                     return $this->sendResponse($session, 'You have a session to join.');
                 } else {
-                    return $this->sendError([], 'No active session found for patient', 404);
+                    return $this->sendResponse([], 'No active session found for patient');
                 }
             } else {
                 return $this->sendError([], 'Invalid user type', 400);
             }
-    
+
         } catch (\Exception $e) {
             return $this->sendError([], 'Something went wrong: ' . $e->getMessage(), 500);
         }
     }
-    
+
 
 }
