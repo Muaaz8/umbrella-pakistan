@@ -113,7 +113,7 @@ class PatientsController extends BaseController
             ->where('appointments.status', 'pending')
             ->where('sessions.status', '!=', 'pending')
             ->count();
-        
+
             $upComingAppointment = DB::table('appointments')
             ->where('patient_id', $user->id)
             ->whereNotIn('status', [
@@ -174,7 +174,7 @@ public function patient_medical_prfile_save(Request $request)
     try {
 
         $user = auth()->user()->id;
-        
+
         $symptomsArray = [];
         if ($request->has('symp')) {
             $symptomsArray = json_decode($request->symp, true);
@@ -187,7 +187,7 @@ public function patient_medical_prfile_save(Request $request)
         if ($request->has('immun_name') && $request->has('immun_when')) {
             $immun_names = json_decode($request->immun_name, true);
             $immun_whens = json_decode($request->immun_when, true);
-            
+
             if (is_array($immun_names) && is_array($immun_whens)) {
                 for ($i = 0; $i < count($immun_names); $i++) {
                     if (isset($immun_names[$i]) && isset($immun_whens[$i])) {
@@ -206,7 +206,7 @@ public function patient_medical_prfile_save(Request $request)
             $families = json_decode($request->family, true);
             $diseases = json_decode($request->disease, true);
             $ages = json_decode($request->age, true);
-            
+
             if (is_array($families) && is_array($diseases) && is_array($ages)) {
                 for ($i = 0; $i < count($families); $i++) {
                     if (isset($families[$i]) && isset($diseases[$i]) && isset($ages[$i])) {
@@ -224,7 +224,7 @@ public function patient_medical_prfile_save(Request $request)
         if ($request->has('med_name') && $request->has('med_dosage')) {
             $med_names = json_decode($request->med_name, true);
             $med_dosages = json_decode($request->med_dosage, true);
-            
+
             if (is_array($med_names) && is_array($med_dosages)) {
                 for ($i = 0; $i < count($med_names); $i++) {
                     if (isset($med_names[$i]) && isset($med_dosages[$i])) {
@@ -238,12 +238,12 @@ public function patient_medical_prfile_save(Request $request)
         $medication_history = json_encode($medication_history);
 
         $med = MedicalProfile::where('user_id', $user)->count();
-        
+
         if ($med > 0) {
             $profile = MedicalProfile::where('user_id', $user)
                 ->orderByDesc('id')
                 ->first();
-                
+
             $profile->update([
                 'allergies' => $request->input('allergies', ''),
                 'previous_symp' => $symptoms,
@@ -253,7 +253,7 @@ public function patient_medical_prfile_save(Request $request)
                 'comment' => $request->input('comm', ''),
                 'medication' => $medication_history,
             ]);
-            
+
             $update = true;
         } else {
             $profile = MedicalProfile::create([
@@ -266,7 +266,7 @@ public function patient_medical_prfile_save(Request $request)
                 'comment' => $request->input('comm', ''),
                 'medication' => $medication_history,
             ]);
-            
+
             $update = false;
         }
 
@@ -283,12 +283,12 @@ public function patient_medical_prfile_save(Request $request)
             }
         }
 
-        $responseMessage = $update ? 
-            'Successfully Updated Medical History Record' : 
+        $responseMessage = $update ?
+            'Successfully Updated Medical History Record' :
             'Successfully Created Medical History Record';
-            
+
         return $this->sendResponse($profile, $responseMessage);
-        
+
     } catch (\Exception $e) {
         \Log::error('Medical profile update error: ' . $e->getMessage());
         return $this->sendError('Error updating medical profile', $e->getMessage(), 500);
@@ -411,6 +411,26 @@ public function patient_medical_prfile_save(Request $request)
                 'box' => $box
             ], 'Patient Record');
         }
+    }
+
+    public function my_doctors(){
+        $user = Auth()->user();
+        $doctors = DB::table('sessions')
+        ->join('users', 'users.id', 'doctor_id')
+        ->join('specializations', 'sessions.specialization_id', 'specializations.id')
+        ->where('patient_id',$user->id)
+        ->where('sessions.status', '!=', 'pending')
+        ->groupBy('doctor_id')
+        ->select('users.*','specializations.name as sp_name')
+        ->paginate(10);
+
+        foreach($doctors as $doctor){
+            $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
+        }
+        if($doctors->isEmpty()){
+            return $this->sendError('No Doctors Found', [], 404);
+        }
+        return $this->sendResponse($doctors, 'My Doctors List');
     }
 
 }
