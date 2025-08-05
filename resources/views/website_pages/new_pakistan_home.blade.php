@@ -162,7 +162,7 @@
 @section('content')
 <main class="new-home-design overflow-hidden">
   <!-- Section 1: Hero Section -->
-  <section class="mt-3 mt-sm-0 new-hero-section container-fluid px-0 px-md-auto d-flex justify-content-center pb-4">
+  <section class="mt-1 mt-sm-0 new-hero-section container-fluid px-0 px-md-auto d-flex justify-content-center pb-4">
     <div class="row gy-3 gx-0 g-md-3 w-85">
       <div class="ps-md-0 col-md-8">
         <div id="mainBanner" class="carousel slide" data-bs-ride="carousel">

@@ -203,7 +203,7 @@
         </div>
     </div>
     <nav class="navbar navbar-container container-fluid pt-0 pb-0">
-        <div class="border-sm-bottom mx-auto w-100 py-3 row">
+        <div class="border-sm-bottom mx-auto w-100 py-2 py-sm-3 row">
             <div class="w-85 mx-auto px-0 d-flex align-items-center justify-content-between w-100">
                 <button class="navbar-toggler d-block d-sm-none border-0 p-0 sm-toggler" type="button"
                     data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar"
@@ -322,7 +322,7 @@
                 </li>
             </ul>
         </div>
-        <div class="new-search-container d-none d-sm-none align-items-center justify-content-center col-12 px-0 mt-3">
+        <div class="new-search-container d-none d-sm-none align-items-center justify-content-center col-12 px-0 mt-2 mb-3">
             <div
                 class="search-container mx-3 d-flex align-items-center justify-content-center rounded-3 position-relative">
                 <input class="search-bar px-2 py-1 fs-14" type="search" name="search" placeholder="Search"
