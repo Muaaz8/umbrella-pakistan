@@ -238,7 +238,7 @@ button {
     content: "";
     position: absolute;
     width: 0;
-    height: 2px;
+    height: 2.5px;
     background-color: var(--new-blue);
     bottom: -2px;
     left: 0;
