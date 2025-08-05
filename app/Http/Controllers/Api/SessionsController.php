@@ -56,15 +56,15 @@ class SessionsController extends BaseController
             ->where('doctor_id', $symp['doc_id'])
             ->where('patient_id', $patient_id)
             ->where('specialization_id', $request->doc_sp_id)
-            ->where('status', 'pending')
+            ->where('status', 'paid')
             ->orWhere('status', 'invitation sent')
             ->orWhere('status', 'doctor joined')
             ->orWhere('status', 'started')
             ->orderBy('id', 'desc')
             ->first();
 
-        if ($pending_sessions > 0) {
-            return $this->sendResponse($pending_sessions, 'You already have a pending session with this doctor');
+        if (isset($pending_sessions)) {
+            return $this->sendResponse($pending_sessions, 'You already have a remaining session with this doctor');
         }
         $session_price = "";
         if ($check_session_already_have > 0) {
