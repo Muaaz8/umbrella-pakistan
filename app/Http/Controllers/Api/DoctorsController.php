@@ -38,7 +38,7 @@ class DoctorsController extends BaseController
             ->where('active', '1')
             ->where('status', '!=', 'ban')
             ->orderBy('id', 'desc')
-            ->paginate(8);
+            ->paginate(10);
 
         $doctors->getCollection()->transform(function ($doctor) {
 
@@ -385,7 +385,7 @@ class DoctorsController extends BaseController
                 ->where('status', '!=', 'ban')
                 ->whereNull('zip_code')
                 ->orderBy('id', 'desc')
-                ->get();
+                ->pagiante(10);
             foreach ($doctors as $doctor) {
                 $doctor->details = DB::table('doctor_details')->where('doctor_id', $doctor->id)->first();
                 $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
@@ -399,7 +399,7 @@ class DoctorsController extends BaseController
                 ->where('status', '!=', 'ban')
                 ->whereNotNull('zip_code')
                 ->orderBy('id', 'desc')
-                ->get();
+                ->paginate(10);
             foreach ($doctors as $doctor) {
                 $doctor->details = DB::table('doctor_details')->where('doctor_id', $doctor->id)->first();
                 $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
@@ -412,7 +412,7 @@ class DoctorsController extends BaseController
                 ->where('active', '1')
                 ->where('status', '!=', 'ban')
                 ->orderBy('id', 'desc')
-                ->get();
+                ->paginate(10);
             foreach ($doctors as $doctor) {
                 $doctor->details = DB::table('doctor_details')->where('doctor_id', $doctor->id)->first();
                 $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
@@ -425,7 +425,7 @@ class DoctorsController extends BaseController
                 ->where('status', 'online')
                 ->where('active', '1')
                 ->orderBy('id', 'desc')
-                ->get();
+                ->paginate(10);
             foreach ($doctors as $doctor) {
                 $doctor->details = DB::table('doctor_details')->where('doctor_id', $doctor->id)->first();
                 $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
@@ -440,7 +440,7 @@ class DoctorsController extends BaseController
                 ->where('name', 'LIKE', '%' . $type . '%')
                 ->orWhere('last_name', 'LIKE', '%' . $type . '%')
                 ->orderBy('id', 'desc')
-                ->get();
+                ->paginate(10);
             foreach ($doctors as $doctor) {
                 $doctor->details = DB::table('doctor_details')->where('doctor_id', $doctor->id)->first();
                 $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
@@ -795,7 +795,7 @@ class DoctorsController extends BaseController
             ->where('name', 'LIKE', '%' . $name . '%')
             ->orWhere('last_name', 'LIKE', '%' . $name . '%')
             ->orderBy('id', 'desc')
-            ->get();
+            ->paginate(10);
         foreach ($doctors as $doctor) {
             $doctor->details = DB::table('doctor_details')->where('doctor_id', $doctor->id)->first();
             $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
