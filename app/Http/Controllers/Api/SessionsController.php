@@ -610,7 +610,7 @@ class SessionsController extends BaseController
     {
         $user = auth()->user();
         $user_type = $user->user_type;
-        $user_time_zone = $user->timeZone;
+        $user_time_zone = 'Asia/Karachi';
         if ($user_type == 'doctor') {
                 $user_id = $user->id;
                 $sessions = Session::where('doctor_id', $user_id)
