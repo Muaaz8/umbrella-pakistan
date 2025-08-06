@@ -788,27 +788,35 @@ class DoctorsController extends BaseController
 
     public function doctorSearch($name)
     {
-        $doctors = DB::table('users')
-            ->where('user_type', 'doctor')
-            ->where('active', '1')
-            ->where('status', '!=', 'ban')
-            ->where(function ($query) use ($name) {
-                $query->where('name', 'LIKE', '%' . $name . '%')
-                    ->orWhere('last_name', 'LIKE', '%' . $name . '%');
-            })
-            ->orderBy('id', 'desc')
-            ->paginate(10);
+        if ($name == "all") {
+            $doctors = DB::table('users')
+                ->where('user_type', 'doctor')
+                ->where('active', '1')
+                ->where('status', '!=', 'ban')
+                ->select('id', 'name', 'last_name', 'user_image', 'specialization', 'zip_code', 'status', 'created_at', 'updated_at', 'user_type', 'email')
+                ->paginate(10);
+        } else {
+            $doctors = DB::table('users')
+                ->where('user_type', 'doctor')
+                ->where('active', '1')
+                ->where('status', '!=', 'ban')
+                ->select('id', 'name', 'last_name', 'user_image', 'specialization', 'zip_code', 'status', 'created_at', 'updated_at', 'user_type', 'email')
+                ->where(function ($query) use ($name) {
+                    $query->where('name', 'LIKE', '%' . $name . '%')
+                        ->orWhere('last_name', 'LIKE', '%' . $name . '%');
+                })
+                ->orderBy('id', 'desc')
+                ->paginate(10);
+        }
 
         foreach ($doctors as $doctor) {
             $doctor->details = DB::table('doctor_details')->where('doctor_id', $doctor->id)->first();
             $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
             $doctor->specializations = DB::table('specializations')->where('id', $doctor->specialization)->first();
         }
-        if (isset($doctors)) {
-            return $this->sendResponse($doctors, 'Doctors fetched successfully');
-        }else{
-            return $this->sendResponse([], 'No doctor found');
-        }
+
+        return $this->sendResponse($doctors, 'Doctors fetched successfully');
+
 
     }
 
