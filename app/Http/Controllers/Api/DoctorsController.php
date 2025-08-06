@@ -792,10 +792,13 @@ class DoctorsController extends BaseController
             ->where('user_type', 'doctor')
             ->where('active', '1')
             ->where('status', '!=', 'ban')
-            ->where('name', 'LIKE', '%' . $name . '%')
-            ->orWhere('last_name', 'LIKE', '%' . $name . '%')
+            ->where(function ($query) use ($name) {
+                $query->where('name', 'LIKE', '%' . $name . '%')
+                    ->orWhere('last_name', 'LIKE', '%' . $name . '%');
+            })
             ->orderBy('id', 'desc')
             ->paginate(10);
+
         foreach ($doctors as $doctor) {
             $doctor->details = DB::table('doctor_details')->where('doctor_id', $doctor->id)->first();
             $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
