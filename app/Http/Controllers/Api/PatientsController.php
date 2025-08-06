@@ -428,7 +428,7 @@ public function patient_medical_prfile_save(Request $request)
             $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
         }
         if($doctors->isEmpty()){
-            return $this->sendError('No Doctors Found', [], 404);
+            return $this->sendError([], 'No Doctors Found');
         }
         return $this->sendResponse($doctors, 'My Doctors List');
     }

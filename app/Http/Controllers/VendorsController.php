@@ -859,43 +859,74 @@ class VendorsController extends Controller
         }
     }
 
-    public function getVendorProducts()
-    {
-        $vendor = VendorAccount::where('user_id', auth()->user()->id)->first();
-        $products = [];
+public function getVendorProducts()
+{
+    $vendor = VendorAccount::where('user_id', auth()->user()->id)->first();
+    $products = [];
 
-        if ($vendor->vendor == 'pharmacy') {
-            $products = DB::table('tbl_products')
-                ->select('id', 'name', 'sale_price')
-                ->where('mode', 'medicine')
-                ->get();
-        } else {
-            $products = DB::table('quest_data_test_codes')
-                ->select(
-                    'TEST_CD AS id',
-                    'TEST_NAME AS name',
-                    'PRICE AS price',
-                    'SALE_PRICE AS selling_price',
-                    'discount_percentage AS discount'
-                )
-                ->where(function ($query) {
-                    $query->where('mode', 'lab-test')
-                        ->orWhere('mode', 'imaging');
-                })
-                ->get();
+    if ($vendor->vendor == 'pharmacy') {
+        $existingProduct = DB::table('vendor_products')
+            ->join('tbl_products', 'vendor_products.product_id', '=', 'tbl_products.id')
+            ->where('vendor_products.vendor_id', $vendor->id)
+            ->select('tbl_products.id as id',
+            'vendor_products.product_id as product_id',
+            'vendor_products.available_stock as stock',
+            'vendor_products.actual_price as price',
+            'vendor_products.selling_price as selling_price',
+            'vendor_products.discount as discount',
+            'vendor_products.SKU as sku',
+            'vendor_products.is_active as is_active',
+            'tbl_products.name AS name')
+            ->get();
+        if ($existingProduct->isNotEmpty()) {
+            return $existingProduct;
         }
-
-        return $products;
+        $products = DB::table('tbl_products')
+            ->select('id', 'name', 'sale_price')
+            ->where('mode', 'medicine')
+            ->get();
+    } else {
+        $existingProduct = DB::table('vendor_products')
+            ->join('quest_data_test_codes', 'vendor_products.product_id', '=', 'quest_data_test_codes.TEST_CD')
+            ->where('vendor_products.vendor_id', $vendor->id)
+            ->select('quest_data_test_codes.TEST_CD AS id',
+            'vendor_products.product_id as product_id',
+            'vendor_products.available_stock as stock',
+            'vendor_products.actual_price as price',
+            'vendor_products.selling_price as selling_price',
+            'vendor_products.discount as discount',
+            'vendor_products.SKU as sku',
+            'vendor_products.is_active as is_active',
+            'quest_data_test_codes.TEST_NAME AS name')
+            ->get();
+        if ($existingProduct->isNotEmpty()) {
+            return $existingProduct;
+        }
+        $products = DB::table('quest_data_test_codes')
+            ->select(
+                'TEST_CD AS id',
+                'TEST_NAME AS name',
+                'PRICE AS price',
+                'SALE_PRICE AS selling_price',
+                'discount_percentage AS discount'
+            )
+            ->where(function ($query) {
+                $query->where('mode', 'lab-test')
+                    ->orWhere('mode', 'imaging');
+            })
+            ->get();
     }
+
+    return $products;
+}
+
 
     public function downloadTemplate()
     {
         $products = $this->getVendorProducts();
-
         $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
 
-        // Set headers
         $sheet->setCellValue('A1', 'Product ID');
         $sheet->setCellValue('B1', 'Product Name');
         $sheet->setCellValue('C1', 'Available Stock');
@@ -904,11 +935,8 @@ class VendorsController extends Controller
         $sheet->setCellValue('F1', 'SKU');
         $sheet->setCellValue('G1', 'Discount (%)');
         $sheet->setCellValue('H1', 'Is Active (1/0)');
-
-        // Make headers bold
         $sheet->getStyle('A1:H1')->getFont()->setBold(true);
 
-        // Fill product data
         $row = 2;
         foreach ($products as $product) {
             $sheet->setCellValue('A' . $row, $product->id);
