@@ -385,7 +385,7 @@ class DoctorsController extends BaseController
                 ->where('status', '!=', 'ban')
                 ->whereNull('zip_code')
                 ->orderBy('id', 'desc')
-                ->pagiante(10);
+                ->paginate(10);
             foreach ($doctors as $doctor) {
                 $doctor->details = DB::table('doctor_details')->where('doctor_id', $doctor->id)->first();
                 $doctor->user_image = \App\Helper::check_bucket_files_url($doctor->user_image);
