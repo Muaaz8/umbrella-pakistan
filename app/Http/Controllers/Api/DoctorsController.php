@@ -793,14 +793,14 @@ class DoctorsController extends BaseController
                 ->where('user_type', 'doctor')
                 ->where('active', '1')
                 ->where('status', '!=', 'ban')
-                ->select('id', 'name', 'last_name', 'user_image', 'specialization', 'zip_code', 'status', 'created_at', 'updated_at', 'user_type', 'email')
+                ->select('id', 'name', 'last_name', 'user_image', 'specialization', 'zip_code', 'status', 'created_at', 'updated_at', 'user_type', 'email', 'consultation_fee', 'followup_fee')
                 ->paginate(10);
         } else {
             $doctors = DB::table('users')
                 ->where('user_type', 'doctor')
                 ->where('active', '1')
                 ->where('status', '!=', 'ban')
-                ->select('id', 'name', 'last_name', 'user_image', 'specialization', 'zip_code', 'status', 'created_at', 'updated_at', 'user_type', 'email')
+                ->select('id', 'name', 'last_name', 'user_image', 'specialization', 'zip_code', 'status', 'created_at', 'updated_at', 'user_type', 'email', 'consultation_fee', 'followup_fee')
                 ->where(function ($query) use ($name) {
                     $query->where('name', 'LIKE', '%' . $name . '%')
                         ->orWhere('last_name', 'LIKE', '%' . $name . '%');
