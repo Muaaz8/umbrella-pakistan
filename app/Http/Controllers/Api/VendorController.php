@@ -247,7 +247,7 @@ class VendorController extends BaseController
                 ->where('vendor_products.vendor_id', $vendor_id)
                 ->where('vendor_products.is_active', 1)
                 ->get();
-        
+
         foreach ($data as $product) {
         $product->featured_image = \App\Helper::check_bucket_files_url($product->featured_image);
             if($product->featured_image == env('APP_URL')."/assets/images/user.png"){
@@ -448,6 +448,7 @@ public function findVendorbyLocation(Request $request)
                 ->where('vendor_products.vendor_id', $vendor_id)
                 ->where('vendor_products.is_active', 1)
                 ->where('tbl_products.name', 'LIKE', $request->text . '%')
+                ->where('tbl_products.sub_category', $request->cat_id)
                 ->groupBy(
                     'tbl_products.id',
                     'vendor_products.id',
@@ -576,6 +577,7 @@ public function findVendorbyLocation(Request $request)
                 ->where('vendor_products.vendor_id', $vendor_id)
                 ->where('vendor_products.is_active', 1)
                 ->where('tbl_products.name', 'LIKE', $request->text . '%')
+                ->where('tbl_products.sub_category', $request->cat_id)
                 ->groupBy(
                     'tbl_products.id',
                     'vendor_products.id',
