@@ -515,9 +515,10 @@ class DoctorsController extends BaseController
         return $this->sendResponse([], 'schedule added successfully');
     }
 
-public function edit_doc_schedule(Request $request, $schedule_id)
+public function edit_doc_schedule(Request $request)
 {
     $doctorID = isset($request->doc_id) ? $request->doc_id : Auth::user()->id;
+    $schedule_id = $request->schedule_id;
     $schedule = DB::table('doctor_schedules')->where('id', $schedule_id)->where('doctorID', $doctorID)->first();
 
     if (!$schedule) {
