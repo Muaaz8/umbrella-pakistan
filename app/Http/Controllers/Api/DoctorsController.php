@@ -515,23 +515,58 @@ class DoctorsController extends BaseController
         return $this->sendResponse([], 'schedule added successfully');
     }
 
-    public function edit_doc_schedule(Request $request)
-    {
-        $doctorID=Auth::user()->id;
-        if($request->schedule_id != null  && $request->from_time != null && $request->to_time != null){
-            $UpdateSchedule = DoctorSchedule::where('id',$request->schedule_id)->first();
-            $AvailabilityStart = $request->from_time;
-            $AvailabilityStart = User::convert_user_timezone_to_utc($doctorID,$AvailabilityStart)['time'];
-            $AvailabilityEnd = $request->to_time;
-            $AvailabilityEnd = User::convert_user_timezone_to_utc($doctorID,$AvailabilityEnd)['time'];
+public function edit_doc_schedule(Request $request, $schedule_id)
+{
+    $doctorID = isset($request->doc_id) ? $request->doc_id : Auth::user()->id;
+    $schedule = DB::table('doctor_schedules')->where('id', $schedule_id)->where('doctorID', $doctorID)->first();
 
-            $UpdateSchedule->from_time = $AvailabilityStart;
-            $UpdateSchedule->to_time = $AvailabilityEnd;
-            $UpdateSchedule->save();
-
-        }
-        return $this->sendResponse([], 'schedule updated successfully');
+    if (!$schedule) {
+        return $this->sendError('Schedule not found or unauthorized access');
     }
+
+    $AvailabilityStartUser = $request->from_time;
+    $AvailabilityStart = User::convert_user_timezone_to_utc($doctorID, $AvailabilityStartUser)['time'];
+
+    $AvailabilityEndUser = $request->to_time;
+    $AvailabilityEnd = User::convert_user_timezone_to_utc($doctorID, $AvailabilityEndUser)['time'];
+
+    if ($request->AvailabilityTitle == "Availability") {
+        $updatedData = [
+            'mon' => in_array("Mon", $request->week),
+            'tues' => in_array("Tues", $request->week),
+            'weds' => in_array("Wed", $request->week),
+            'thurs' => in_array("Thurs", $request->week),
+            'fri' => in_array("Fri", $request->week),
+            'sat' => in_array("Sat", $request->week),
+            'sun' => in_array("Sun", $request->week),
+            'from_time' => $AvailabilityStart,
+            'to_time' => $AvailabilityEnd,
+            'updated_at' => now(),
+            'title' => $request->AvailabilityTitle,
+            'doctorID' => $doctorID,
+        ];
+    } else {
+        $updatedData = [
+            'mon' => 0,
+            'tues' => 0,
+            'weds' => 0,
+            'thurs' => 0,
+            'fri' => 0,
+            'sat' => 0,
+            'sun' => 0,
+            'from_time' => $request->from_time,
+            'to_time' => $request->to_time,
+            'updated_at' => now(),
+            'title' => $request->AvailabilityTitle,
+            'doctorID' => $doctorID,
+        ];
+    }
+
+    DB::table('doctor_schedules')->where('id', $schedule_id)->where('doctorID', $doctorID)->update($updatedData);
+
+    return $this->sendResponse([], 'Schedule updated successfully');
+}
+
 
     public function add_doctor_details(Request $request)
     {
