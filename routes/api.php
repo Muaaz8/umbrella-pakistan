@@ -146,6 +146,7 @@ Route::middleware(['auth:sanctum','pat_restrict'])->group(function(){
     Route::get('get/doctor/appointments','Api\AppointmentsController@doctor_appointments');
     Route::get('get/doctor/schedules','Api\DoctorsController@get_doctor_schedule');
     Route::post('add/doctor/schedules','Api\DoctorsController@add_doc_schedule');
+    Route::post('edit/doctor/schedules','Api\DoctorsController@edit_doc_schedule');
     Route::get('get/doctor/details','Api\DoctorsController@get_doctor_details_by_id');
     Route::post('add/doctor/details','Api\DoctorsController@add_doctor_details');
     Route::get('get/doctor/sessions', 'Api\SessionsController@doc_sessions_record');

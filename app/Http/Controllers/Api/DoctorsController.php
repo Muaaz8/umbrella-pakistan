@@ -515,6 +515,24 @@ class DoctorsController extends BaseController
         return $this->sendResponse([], 'schedule added successfully');
     }
 
+    public function edit_doc_schedule(Request $request)
+    {
+        $doctorID=Auth::user()->id;
+        if($request->schedule_id != null  && $request->from_time != null && $request->to_time != null){
+            $UpdateSchedule = DoctorSchedule::where('id',$request->schedule_id)->first();
+            $AvailabilityStart = $request->from_time;
+            $AvailabilityStart = User::convert_user_timezone_to_utc($doctorID,$AvailabilityStart)['time'];
+            $AvailabilityEnd = $request->to_time;
+            $AvailabilityEnd = User::convert_user_timezone_to_utc($doctorID,$AvailabilityEnd)['time'];
+
+            $UpdateSchedule->from_time = $AvailabilityStart;
+            $UpdateSchedule->to_time = $AvailabilityEnd;
+            $UpdateSchedule->save();
+
+        }
+        return $this->sendResponse([], 'schedule updated successfully');
+    }
+
     public function add_doctor_details(Request $request)
     {
         $doctor = DB::table('doctor_details')->where('doctor_id', auth()->user()->id)->first();
